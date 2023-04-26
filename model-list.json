@@ -1,0 +1,414 @@
+{
+  "models": [
+    {
+      "name": "v1-5-pruned-emaonly.ckpt",
+      "type": "checkpoints",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Stable Diffusion 1.5 base model",
+      "reference": "https://huggingface.co/runwayml/stable-diffusion-v1-5",
+      "filename": "v1-5-pruned-emaonly.ckpt",
+      "url": "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt"
+    },
+    {
+      "name": "v2-1_512-ema-pruned.safetensors",
+      "type": "checkpoints",
+      "base": "SD2",
+      "save_path": "default",
+      "description": "Stable Diffusion 2 base model (512)",
+      "reference": "https://huggingface.co/stabilityai/stable-diffusion-2-1-base",
+      "filename": "v2-1_512-ema-pruned.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-2-1-base/resolve/main/v2-1_512-ema-pruned.safetensors"
+    },
+    {
+      "name": "v2-1_768-ema-pruned.safetensors",
+      "type": "checkpoints",
+      "base": "SD2",
+      "save_path": "default",
+      "description": "Stable Diffusion 2 base model (768)",
+      "reference": "https://huggingface.co/stabilityai/stable-diffusion-2-1",
+      "filename": "v2-1_768-ema-pruned.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors"
+    },
+    {
+      "name": "AbyssOrangeMix2 (hard)",
+      "type": "checkpoints",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "AbyssOrangeMix2 - hard version (anime style)",
+      "reference": "https://huggingface.co/WarriorMama777/OrangeMixs",
+      "filename": "AbyssOrangeMix2_hard.safetensors",
+      "url": "https://huggingface.co/WarriorMama777/OrangeMixs/resolve/main/Models/AbyssOrangeMix2/AbyssOrangeMix2_hard.safetensors"
+    },
+    {
+      "name": "AbyssOrangeMix3 A1",
+      "type": "checkpoints",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "AbyssOrangeMix3 - A1 (anime style)",
+      "reference": "https://huggingface.co/WarriorMama777/OrangeMixs",
+      "filename": "AOM3A1_orangemixs.safetensors",
+      "url": "https://huggingface.co/WarriorMama777/OrangeMixs/resolve/main/Models/AbyssOrangeMix3/AOM3A1_orangemixs.safetensors"
+    },
+    {
+      "name": "AbyssOrangeMix3 A3",
+      "type": "checkpoints",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "AbyssOrangeMix - A3 (anime style)",
+      "reference": "https://huggingface.co/WarriorMama777/OrangeMixs",
+      "filename": "AOM3A3_orangemixs.safetensors",
+      "url": "https://huggingface.co/WarriorMama777/OrangeMixs/resolve/main/Models/AbyssOrangeMix3/AOM3A3_orangemixs.safetensors"
+    },
+    {
+      "name": "Anything v3 (fp16; pruned)",
+      "type": "checkpoints",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Anything v3 (anime style)",
+      "reference": "https://huggingface.co/Linaqruf/anything-v3.0",
+      "filename": "anything-v3-fp16-pruned.safetensors",
+      "url": "https://huggingface.co/Linaqruf/anything-v3.0/resolve/main/anything-v3-fp16-pruned.safetensors"
+    },
+    {
+      "name": "Waifu Diffusion 1.5 (fp16)",
+      "type": "checkpoints",
+      "base": "SD2.1",
+      "save_path": "default",
+      "description": "Waifu Diffusion 1.5",
+      "reference": "ttps://huggingface.co/waifu-diffusion/wd-1-5-beta2",
+      "filename": "wd-1-5-beta2-fp16.safetensors",
+      "url": "https://huggingface.co/waifu-diffusion/wd-1-5-beta2/resolve/main/checkpoints/wd-1-5-beta2-fp16.safetensors"
+    },
+    {
+      "name": "illuminatiDiffusionV1_v11 unCLIP model",
+      "type": "unclip",
+      "base": "SD2.1",
+      "save_path": "default",
+      "description": "Mix model (SD2.1 unCLIP + illuminatiDiffusionV1_v11)",
+      "reference": "https://huggingface.co/comfyanonymous/illuminatiDiffusionV1_v11_unCLIP",
+      "filename": "illuminatiDiffusionV1_v11-unclip-h-fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/illuminatiDiffusionV1_v11_unCLIP/resolve/main/illuminatiDiffusionV1_v11-unclip-h-fp16.safetensors"
+    },
+    {
+      "name": "Waifu Diffusion 1.5 unCLIP model",
+      "type": "unclip",
+      "base": "SD2.1",
+      "save_path": "default",
+      "description": "Mix model (SD2.1 unCLIP + Waifu Diffusion 1.5)",
+      "reference": "https://huggingface.co/comfyanonymous/wd-1.5-beta2_unCLIP",
+      "filename": "wd-1-5-beta2-aesthetic-unclip-h-fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/wd-1.5-beta2_unCLIP/resolve/main/wd-1-5-beta2-aesthetic-unclip-h-fp16.safetensors"
+    },
+    {
+      "name": "vae-ft-mse-840000-ema-pruned",
+      "type": "VAE",
+      "base": "VAE",
+      "save_path": "default",
+      "description": "vae-ft-mse-840000-ema-pruned",
+      "reference": "https://huggingface.co/stabilityai/sd-vae-ft-mse-original",
+      "filename": "vae-ft-mse-840000-ema-pruned.safetensors",
+      "url": "https://huggingface.co/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors"
+    },
+    {
+      "name": "orangemix.vae",
+      "type": "VAE",
+      "base": "VAE",
+      "save_path": "default",
+      "description": "orangemix vae model",
+      "reference": "https://huggingface.co/WarriorMama777/OrangeMixs",
+      "filename": "orangemix.vae.pt",
+      "url": "https://huggingface.co/WarriorMama777/OrangeMixs/resolve/main/VAEs/orangemix.vae.pt"
+    },
+    {
+      "name": "kl-f8-anime2",
+      "type": "VAE",
+      "base": "VAE",
+      "save_path": "default",
+      "description": "kl-f8-anime2 vae model",
+      "reference": "https://huggingface.co/hakurei/waifu-diffusion-v1-4",
+      "filename": "kl-f8-anime2.ckpt",
+      "url": "https://huggingface.co/hakurei/waifu-diffusion-v1-4/resolve/main/vae/kl-f8-anime2.ckpt"
+    },
+    {
+      "name": "Theovercomer8's Contrast Fix (SD2.1)",
+      "type": "lora",
+      "base": "SD2.1",
+      "save_path": "default",
+      "description": "LORA: Theovercomer8's Contrast Fix (SD2.1)",
+      "reference": "https://civitai.com/models/8765/theovercomer8s-contrast-fix-sd15sd21-768",
+      "filename": "theovercomer8sContrastFix_sd21768.safetensors",
+      "url": "https://civitai.com/api/download/models/10350"
+    },
+    {
+      "name": "Theovercomer8's Contrast Fix (SD1.5)",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "LORA: Theovercomer8's Contrast Fix (SD1.5)",
+      "reference": "https://civitai.com/models/8765/theovercomer8s-contrast-fix-sd15sd21-768",
+      "filename": "theovercomer8sContrastFix_sd15.safetensors",
+      "url": "https://civitai.com/api/download/models/10638"
+    },
+    {
+      "name": "T2I-Adapter (depth)",
+      "type": "T2I-Adapter",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "ControlNet T2I-Adapter for depth",
+      "reference": "https://huggingface.co/TencentARC/T2I-Adapter",
+      "filename": "t2iadapter_depth_sd14v1.pth",
+      "url": "https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_depth_sd14v1.pth"
+    },
+    {
+      "name": "T2I-Adapter (seg)",
+      "type": "T2I-Adapter",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "ControlNet T2I-Adapter for seg",
+      "reference": "https://huggingface.co/TencentARC/T2I-Adapter",
+      "filename": "t2iadapter_seg_sd14v1.pth",
+      "url": "https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_seg_sd14v1.pth"
+    },
+    {
+      "name": "T2I-Adapter (sketch)",
+      "type": "T2I-Adapter",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "ControlNet T2I-Adapter for sketch",
+      "reference": "https://huggingface.co/TencentARC/T2I-Adapter",
+      "filename": "t2iadapter_sketch_sd14v1.pth",
+      "url": "https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_sketch_sd14v1.pth"
+    },
+    {
+      "name": "T2I-Adapter (keypose)",
+      "type": "T2I-Adapter",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "ControlNet T2I-Adapter for keypose",
+      "reference": "https://huggingface.co/TencentARC/T2I-Adapter",
+      "filename": "t2iadapter_keypose_sd14v1.pth",
+      "url": "https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_keypose_sd14v1.pth"
+    },
+    {
+      "name": "T2I-Adapter (openpose)",
+      "type": "T2I-Adapter",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "ControlNet T2I-Adapter for openpose",
+      "reference": "https://huggingface.co/TencentARC/T2I-Adapter",
+      "filename": "t2iadapter_openpose_sd14v1.pth",
+      "url": "https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_openpose_sd14v1.pth"
+    },
+    {
+      "name": "T2I-Adapter (color)",
+      "type": "T2I-Adapter",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "ControlNet T2I-Adapter for color",
+      "reference": "https://huggingface.co/TencentARC/T2I-Adapter",
+      "filename": "t2iadapter_color_sd14v1.pth",
+      "url": "https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_color_sd14v1.pth"
+    },
+    {
+      "name": "T2I-Adapter (canny)",
+      "type": "T2I-Adapter",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "ControlNet T2I-Adapter for canny",
+      "reference": "https://huggingface.co/TencentARC/T2I-Adapter",
+      "filename": "t2iadapter_canny_sd14v1.pth",
+      "url": "https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_canny_sd14v1.pth"
+    },
+    {
+      "name": "T2I-Style model",
+      "type": "T2I-Style",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "ControlNet T2I-Adapter style model. Need to download CLIPVision model.",
+      "reference": "https://huggingface.co/TencentARC/T2I-Adapter",
+      "filename": "t2iadapter_style_sd14v1.pth",
+      "url": "https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_style_sd14v1.pth"
+    },
+    {
+      "name": "CLIPVision model",
+      "type": "clip_vision",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "CLIPVision model (needed for styles model)",
+      "reference": "https://huggingface.co/openai/clip-vit-large-patch14",
+      "filename": "pytorch_model.bin",
+      "url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/main/pytorch_model.bin"
+    },
+    {
+      "name": "ControlNet-v1-1 (ip2p; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (ip2p)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11e_sd15_ip2p_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors"
+    },
+    {
+      "name": "ControlNet-v1-1 (shuffle; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (shuffle)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11e_sd15_shuffle_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors"
+    },    
+    {
+      "name": "ControlNet-v1-1 (canny; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (canny)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11e_sd15_shuffle_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors"
+    },
+    {
+      "name": "ControlNet-v1-1 (depth; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (depth)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11f1p_sd15_depth_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/maincontrol_v11f1p_sd15_depth_fp16.safetensors"
+    },
+    {
+      "name": "ControlNet-v1-1 (inpaint; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (inpaint)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11p_sd15_inpaint_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11p_sd15_inpaint_fp16.safetensors"
+    },
+    {
+      "name": "ControlNet-v1-1 (lineart; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (lineart)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11p_sd15_lineart_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11p_sd15_lineart_fp16.safetensors"
+    },
+    {
+      "name": "ControlNet-v1-1 (mlsd; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (mlsd)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11p_sd15_mlsd_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11p_sd15_mlsd_fp16.safetensors"
+    },
+    {
+      "name": "ControlNet-v1-1 (normalbae; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (normalbae)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11p_sd15_normalbae_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11p_sd15_normalbae_fp16.safetensors"
+    },
+    {
+      "name": "ControlNet-v1-1 (openpose; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (openpose)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11p_sd15_openpose_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11p_sd15_openpose_fp16.safetensors"
+    },
+    {
+      "name": "ControlNet-v1-1 (scribble; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (scribble)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11p_sd15_scribble_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11p_sd15_scribble_fp16.safetensors"
+    },
+    {
+      "name": "ControlNet-v1-1 (seg; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (seg)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11p_sd15_seg_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11p_sd15_seg_fp16.safetensors"
+    },
+    {
+      "name": "ControlNet-v1-1 (softedge; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (softedge)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11p_sd15_softedge_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11p_sd15_softedge_fp16.safetensors"
+    },
+    {
+      "name": "ControlNet-v1-1 (anime; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (anime)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11p_sd15s2_lineart_anime_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11p_sd15s2_lineart_anime_fp16.safetensors"
+    },
+    {
+      "name": "ControlNet-v1-1 (shuffle; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (tile)",
+      "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
+      "filename": "control_v11u_sd15_tile_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11u_sd15_tile_fp16.safetensors"
+    },
+    {
+      "name": "GLIGEN textbox (fp16; pruned)",
+      "type": "gligen",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "GLIGEN textbox model",
+      "reference": "https://huggingface.co/comfyanonymous/GLIGEN_pruned_safetensors",
+      "filename": "control_v11u_sd15_tile_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/GLIGEN_pruned_safetensors/resolve/main/gligen_sd14_textbox_pruned_fp16.safetensors"
+    },
+    {
+      "name": "RealESRGAN x2",
+      "type": "upscale",
+      "base": "upscale",
+      "save_path": "default",
+      "description": "RealESRGAN x2 upscaler model",
+      "reference": "https://huggingface.co/sberbank-ai/Real-ESRGAN",
+      "filename": "RealESRGAN_x2.pth",
+      "url": "https://huggingface.co/sberbank-ai/Real-ESRGAN/resolve/main/RealESRGAN_x2.pth"
+    },
+    {
+      "name": "RealESRGAN x4",
+      "type": "upscale",
+      "base": "upscale",
+      "save_path": "default",
+      "description": "RealESRGAN x4 upscaler model",
+      "reference": "https://huggingface.co/sberbank-ai/Real-ESRGAN",
+      "filename": "RealESRGAN_x4.pth",
+      "url": "https://huggingface.co/sberbank-ai/Real-ESRGAN/resolve/main/RealESRGAN_x4.pth"
+    }    
+  ]  
+}

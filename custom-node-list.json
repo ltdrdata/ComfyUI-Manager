@@ -1,0 +1,398 @@
+{
+    "custom_nodes": [
+        {
+            "author": "Dr.Lt.Data",
+            "title": "ComfyUI Impact Pack",
+            "reference": "https://github.com/ltdrdata/ComfyUI-Impact-Pack/",
+            "files": [
+                "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
+            ],
+            "install_type": "git-clone",
+            "description": "This extension offers various detector nodes and detailer nodes that allow you to configure a workflow that automatically enhances facial details."
+        },
+        {
+            "author": "comfyanonymous",
+            "title": "ComfyUI_experiments/sampler_tonemap",
+            "reference": "https://github.com/comfyanonymous/ComfyUI_experiments",
+            "files": [
+                "https://github.com/comfyanonymous/ComfyUI_experiments/raw/master/sampler_tonemap.py"
+            ],
+            "install_type": "copy",
+            "description": "ModelSamplerTonemapNoiseTest a node that makes the sampler use a simple tonemapping algorithm to tonemap the noise. It will let you use higher CFG without breaking the image. To using higher CFG lower the multiplier value. Similar to Dynamic Thresholding extension of A1111."
+        },
+        {
+            "author": "Fannovel16",
+            "title": "ControlNet Preprocessors",
+            "reference": "https://github.com/Fannovel16/comfy_controlnet_preprocessors",
+            "files": [
+                "https://github.com/Fannovel16/comfy_controlnet_preprocessors"
+            ],
+            "install_type": "git-clone",
+            "description": "ControlNet Preprocessors"
+        },
+        {
+            "author": "Fannovel16",
+            "title": "comfy_video",
+            "reference": "https://github.com/Fannovel16/comfy_video",
+            "files": [
+                "https://github.com/Fannovel16/comfy_video"
+            ],
+            "install_type": "git-clone",
+            "description": "Video_Frame_Extractor, Save_Frame_To_Folder, Simple_Frame_Folder_To_Video."
+        },
+        {
+            "author": "biegert",
+            "title": "CLIPSeg",
+            "reference": "https://github.com/biegert/ComfyUI-CLIPSeg",
+            "files": [
+                "https://github.com/biegert/ComfyUI-CLIPSeg/raw/main/custom_nodes/clipseg.py"
+            ],
+            "install_type": "copy",
+            "description": "The CLIPSeg node generates a binary mask for a given input image and text prompt."
+        },
+        {
+            "author": "BlenderNeko",
+            "title": "ComfyUI Cutoff",
+            "reference": "https://github.com/BlenderNeko/ComfyUI_Cutoff",
+            "files": [
+                "https://github.com/BlenderNeko/ComfyUI_Cutoff"
+            ],
+            "install_type": "git-clone",
+            "description": "These custom nodes provides features that allow for better control over the effects of the text prompt."
+        },
+        {
+            "author": "BlenderNeko",
+            "title": "Advanced CLIP Text Encode",
+            "reference": "https://github.com/BlenderNeko/ComfyUI_ADV_CLIP_emb",
+            "files": [
+                "https://github.com/BlenderNeko/ComfyUI_ADV_CLIP_emb"
+            ],
+            "install_type": "git-clone",
+            "description": "Advanced CLIP Text Encode (if you need A1111 like prompt. you need this. But Cutoff node includes this feature, already.)"
+        },
+        {
+            "author": "BlenderNeko",
+            "title": "ComfyUI Noise",
+            "reference": "https://github.com/BlenderNeko/ComfyUI_Noise",
+            "files": [
+                "https://github.com/BlenderNeko/ComfyUI_Noise"
+            ],
+            "install_type": "git-clone",
+            "description": "This extension contains 6 nodes for ComfyUI that allows for more control and flexibility over the noise."
+        },
+        {
+            "author": "BlenderNeko",
+            "title": "(WIP) Tiled sampling for ComfyUI",
+            "reference": "https://github.com/BlenderNeko/ComfyUI_TiledKSampler",
+            "files": [
+                "https://github.com/BlenderNeko/ComfyUI_TiledKSampler"
+            ],
+            "install_type": "git-clone",
+            "description": "This extension contains a tiled sampler for ComfyUI. It allows for denoising larger images by splitting it up into smaller tiles and denoising these. It tries to minimize any seams for showing up in the end result by gradually denoising all tiles one step at the time and randomizing tile positions for every step."
+        },
+        {
+            "author": "LucianoCirino",
+            "title": "Efficiency Nodes for ComfyUI",
+            "reference": "https://github.com/LucianoCirino/efficiency-nodes-comfyui",
+            "files": [
+                "https://github.com/LucianoCirino/efficiency-nodes-comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "A collection of ComfyUI custom nodes to help streamline workflows and reduce total node count."
+        },
+        {
+            "author": "Derfuu",
+            "title": "Derfuu_ComfyUI_ModdedNodes",
+            "reference": "hhttps://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes",
+            "files": [
+                "https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Automate calculation depending on image sizes or something you want."
+        },
+        {
+            "author": "paulo-coronado",
+            "title": "comfy_clip_blip_node",
+            "reference": "https://github.com/paulo-coronado/comfy_clip_blip_node",
+            "files": [
+                "https://github.com/paulo-coronado/comfy_clip_blip_node"
+            ],
+            "install_type": "git-clone",
+            "description": "CLIPTextEncodeBLIP: This custom node provides a CLIP Encoder that is capable of receiving images as input."
+        },
+        {
+            "author": "Davemane42",
+            "title": "Visual Area Conditioning / Latent composition",
+            "reference": "https://github.com/Davemane42/ComfyUI_Dave_CustomNode",
+            "files": [
+                "https://github.com/Davemane42/ComfyUI_Dave_CustomNode"
+            ],
+            "install_type": "git-clone",
+            "description": "This tool provides custom nodes that allow visualization and configuration of area conditioning and latent composite."
+        },
+        {
+            "author": "WASasquatch",
+            "title": "WAS Node Suite",
+            "reference": "https://github.com/WASasquatch/was-node-suite-comfyui",
+            "files": [
+                "https://github.com/WASasquatch/was-node-suite-comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "A node suite for ComfyUI with many new nodes, such as image processing, text processing, and more."
+        },
+        {
+            "author": "omar92",
+            "title": "Quality of life Suit:V2",
+            "reference": "https://github.com/omar92/ComfyUI-QualityOfLifeSuit_Omar92",
+            "files": [
+                "https://github.com/omar92/ComfyUI-QualityOfLifeSuit_Omar92"
+            ],
+            "install_type": "git-clone",
+            "description": "openAI suite, String suite, Latent Tools, Image Tools: These custom nodes provide expanded functionality for image and string processing, latent processing, as well as the ability to interface with models such as ChatGPT/DallE-2."
+        },
+        {
+            "author": "lilly1987",
+            "title": "simple wildcard for ComfyUI",
+            "reference": "https://github.com/lilly1987/ComfyUI_node_Lilly",
+            "files": [
+                "https://github.com/lilly1987/ComfyUI_node_Lilly"
+            ],
+            "install_type": "git-clone",
+            "description": "These custom nodes provides a feature to insert arbitrary inputs through wildcards in the prompt. Additionally, this tool provides features that help simplify workflows, such as VAELoaderDecoder and SimplerSample."
+        },
+        {
+            "author": "sylym",
+            "title": "Vid2vid",
+            "reference": "https://github.com/sylym/comfy_vid2vid",
+            "files": [
+                "https://github.com/sylym/comfy_vid2vid"
+            ],
+            "install_type": "git-clone",
+            "description": "A node suite for ComfyUI that allows you to load image sequence and generate new image sequence with different styles or content."
+        },
+        {
+            "author": "EllangoK",
+            "title": "ComfyUI-post-processing-nodes",
+            "reference": "https://github.com/EllangoK/ComfyUI-post-processing-nodes",
+            "files": [
+                "https://github.com/EllangoK/ComfyUI-post-processing-nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "A collection of post processing nodes for ComfyUI, simply download this repo and drag."
+        },
+        {
+            "author": "LEv145",
+            "title": "ImagesGrid",
+            "reference": "https://github.com/LEv145/images-grid-comfy-plugin",
+            "files": [
+                "https://github.com/LEv145/images-grid-comfy-plugin"
+            ],
+            "install_type": "git-clone",
+            "description": "This tool provides a viewer node that allows for checking multiple outputs in a grid, similar to the X/Y Plot extension."
+        },
+        {
+            "author": "xXAdonesXx",
+            "title": "NodeGPT",
+            "reference": "https://github.com/xXAdonesXx/NodeGPT",
+            "files": [
+                "https://github.com/xXAdonesXx/NodeGPT/raw/main/Textnode.py"
+            ],
+            "install_type": "copy",
+            "description": "ComfyUI Extension Nodes for Automated Text Generation."
+        },
+        {
+            "author": "diontimmer",
+            "title": "ComfyUI-Vextra-Nodes",
+            "reference": "https://github.com/diontimmer/ComfyUI-Vextra-Nodes",
+            "files": [
+                "https://github.com/diontimmer/ComfyUI-Vextra-Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: Pixel Sort, Swap Color Mode, Solid Color, Glitch This, Add Text To Image, Play Sound, Prettify Prompt, Generate Noise, Flatten Colors"
+        },
+        {
+            "author": "hnmr293",
+            "title": "ComfyUI-nodes-hnmr",
+            "reference": "https://github.com/hnmr293/ComfyUI-nodes-hnmr",
+            "files": [
+                "https://github.com/hnmr293/ComfyUI-nodes-hnmr"
+            ],
+            "install_type": "git-clone",
+            "description": "Provide various custom nodes for Latent, Sampling, Model, Loader, Image, Text"
+        },
+        {
+            "author": "BadCafeCode",
+            "title": "Masquerade Nodes",
+            "reference": "https://github.com/BadCafeCode/masquerade-nodes-comfyui",
+            "files": [
+                "https://github.com/BadCafeCode/masquerade-nodes-comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "This is a node pack for ComfyUI, primarily dealing with masks."
+        },
+        {
+            "author": "guoyk93",
+            "title": "y.k.'s ComfyUI node suite",
+            "reference": "https://github.com/guoyk93/yk-node-suite-comfyui",
+            "files": [
+                "https://github.com/guoyk93/yk-node-suite-comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: YKImagePadForOutpaint, YKMaskToImage"
+        },
+        {
+            "author": "Jcd1230",
+            "title": "Rembg Background Removal Node for ComfyUI",
+            "reference": "https://github.com/Jcd1230/rembg-comfyui-node",
+            "files": [
+                "https://github.com/Jcd1230/rembg-comfyui-node"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: Image Remove Background (rembg)"
+        },
+        {
+            "author": "gamert",
+            "title": "ComfyUI_tagger",
+            "reference": "https://github.com/gamert/ComfyUI_tagger",
+            "files": [
+                "https://github.com/gamert/ComfyUI_tagger"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: CLIPTextEncodeTaggerDD, ImageTaggerDD"
+        },
+        {
+            "author": "YinBailiang",
+            "title": "MergeBlockWeighted_fo_ComfyUI",
+            "reference": "https://github.com/YinBailiang/MergeBlockWeighted_fo_ComfyUI",
+            "files": [
+                "https://github.com/YinBailiang/MergeBlockWeighted_fo_ComfyUI"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: MergeBlockWeighted"
+        },
+        {
+            "author": "trojblue",
+            "title": "trNodes",
+            "reference": "https://github.com/trojblue/trNodes",
+            "files": [
+                "https://github.com/trojblue/trNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: image_layering, color_correction, model_router"
+        },
+        {
+            "author": "szhublox",
+            "title": "Auto-MBW",
+            "reference": "https://github.com/szhublox/ambw_comfyui",
+            "files": [
+                "https://github.com/szhublox/ambw_comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "Auto-MBW for ComfyUI loosely based on sdweb-auto-MBW. Nodes: auto merge block weighted"
+        },
+        {
+            "author": "asd417",
+            "title": "CheckpointTomeLoader",
+            "reference": "https://github.com/asd417/tomeSD_for_Comfy",
+            "files": [
+                "https://github.com/asd417/tomeSD_for_Comfy/raw/main/tomeloader.py"
+            ],
+            "install_type": "copy",
+            "description": "tomeSD(https://github.com/dbolya/tomesd) applied to ComfyUI stable diffusion UI using custom node"
+        },
+        {
+            "author": "city96",
+            "title": "ComfyUI_NetDist",
+            "reference": "https://github.com/city96/ComfyUI_NetDist",
+            "files": [
+                "https://github.com/city96/ComfyUI_NetDist"
+            ],
+            "install_type": "git-clone",
+            "description": "Run ComfyUI workflows on multiple local GPUs/networked machines. Nodes: Remote images, Local Remote control"
+        },
+        {
+            "author": "Kaharos94",
+            "title": "ComfyUI-Saveaswebp",
+            "reference": "https://github.com/Kaharos94/ComfyUI-Saveaswebp",
+            "files": [
+                "https://github.com/Kaharos94/ComfyUI-Saveaswebp/raw/main/Save_as_webp.py"
+            ],
+            "install_type": "copy",
+            "description": "Save a picture as Webp file in Comfy + Workflow loading"
+        },
+        {
+            "author": "chenbaiyujason",
+            "title": "sc-node-comfyui",
+            "reference": "https://github.com/chenbaiyujason/sc-node-comfyui",
+            "files": [
+                "https://github.com/chenbaiyujason/sc-node-comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes for GPT interaction and text manipulation"
+        },
+        {
+            "author": "SLAPaper",
+            "title": "ComfyUI-Image-Selector",
+            "reference": "https://github.com/SLAPaper/ComfyUI-Image-Selector",
+            "files": [
+                "https://github.com/SLAPaper/ComfyUI-Image-Selector"
+            ],
+            "install_type": "git-clone",
+            "description": "A custom node for ComfyUI, which can select one or some of images from a batch."
+        },
+        {
+            "author": "flyingshutter",
+            "title": "As_ComfyUI_CustomNodes",
+            "reference": "https://github.com/flyingshutter/As_ComfyUI_CustomNodes",
+            "files": [
+                "https://github.com/flyingshutter/As_ComfyUI_CustomNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Manipulation nodes for Image, Latent"
+        },
+        {
+            "author": "AlekPet",
+            "title": "TranslateCLIPTextEncode",
+            "reference": "https://github.com/AlekPet/comfyui_translate_clip_text_encode_node",
+            "files": [
+                "https://github.com/AlekPet/comfyui_translate_clip_text_encode_node/raw/main/translate_clip_text_encode_node.py"
+            ],
+            "install_type": "copy",
+            "description": "Custom node for ComfyUI, translate promt from other languages into english"
+        },
+        {
+            "author": "theally",
+            "title": "TheAlly's Custom Nodes",
+            "reference": "https://civitai.com/models/19625?modelVersionId=23296",
+            "files": [
+                "https://civitai.com/api/download/models/25114",
+                "https://civitai.com/api/download/models/24679",
+                "https://civitai.com/api/download/models/24154",
+                "https://civitai.com/api/download/models/23884",
+                "https://civitai.com/api/download/models/23649",
+                "https://civitai.com/api/download/models/23467",
+                "https://civitai.com/api/download/models/23296"
+            ],
+            "install_type": "unzip",
+            "description": "Custom nodes for ComfyUI by TheAlly."
+        },
+        {
+            "author": "xss",
+            "title": "Custom Nodes by xss",
+            "reference": "https://civitai.com/models/24869/comfyui-custom-nodes-by-xss",
+            "files": [
+                "https://civitai.com/api/download/models/32717",
+                "https://civitai.com/api/download/models/47776",
+                "https://civitai.com/api/download/models/29772",
+                "https://civitai.com/api/download/models/31618",
+                "https://civitai.com/api/download/models/31591",
+                "https://civitai.com/api/download/models/29773",
+                "https://civitai.com/api/download/models/29774",
+                "https://civitai.com/api/download/models/29755",
+                "https://civitai.com/api/download/models/29750"
+            ],
+            "install_type": "unzip",
+            "description": "Various image processing nodes."
+        }
+    ]
+}
