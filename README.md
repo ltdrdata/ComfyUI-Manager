@@ -49,6 +49,9 @@
 
 # Roadmap
 
+* Basic embedding downloading support. 
+  * negative_hand, ...
+* category/keyword filter
 * Specification of custom nodes
 * Specification scanner
 * Search extension by node name
