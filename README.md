@@ -49,6 +49,8 @@
 
 # Roadmap
 
+* installation from git url
+* 3rd party repository
 * Basic embedding downloading support. 
   * negative_hand, ...
 * category/keyword filter
@@ -57,6 +59,7 @@
 * Search extension by node name
 * Automatic recognition of missing custom nodes
 * Automatic installation suggestion of missing custom nodes
+* workflow downloader
 
 # Disclaimer
 
