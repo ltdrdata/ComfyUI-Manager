@@ -38,13 +38,8 @@
 
 # TODO: Unconventional form of custom node list
 
-* https://github.com/ailex000/ComfyUI-Extensions
-* https://github.com/rock-land/graphNavigator/tree/main/graphNavigator
-* https://github.com/diffus3/ComfyUI-extensions
 * https://github.com/bmad4ever/ComfyUI-Bmad-Custom-Nodes
-* https://github.com/pythongosssss/ComfyUI-Custom-Scripts
 * https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
-* https://github.com/m957ymj75urz/ComfyUI-Custom-Nodes
 
 
 # Roadmap
