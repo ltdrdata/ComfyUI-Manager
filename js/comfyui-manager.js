@@ -2,6 +2,8 @@ import { app } from "/scripts/app.js";
 import { ComfyDialog, $el } from "/scripts/ui.js";
 import {ComfyWidgets} from "../../scripts/widgets.js";
 
+const comfyui_manager_version = "V0.1";
+
 async function getCustomNodes() {
 	var mode = "url";
 	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
@@ -652,7 +654,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		const res =
 			[
-				$el("tr.td", {width:"100%"}, [$el("font", {size:6, color:"white"}, ["Manager Menu"])]),
+				$el("tr.td", {width:"100%"}, [$el("font", {size:6, color:"white"}, [`Manager Menu (${comfyui_manager_version})`])]),
 				$el("br", {}, []),
 				$el("div", {}, [this.local_mode_checkbox, checkbox_text]),
 				$el("br", {}, []),
@@ -695,7 +697,8 @@ class ManagerMenuDialog extends ComfyDialog {
 					type: "button",
 					textContent: "Close",
 					onclick: () => this.close(),
-				})
+				}),
+				$el("br", {}, []),
 			];
 
 		res[0].style.backgroundColor = "black";
