@@ -57,7 +57,8 @@ async function install_custom_node(target, caller) {
 			return false;
 		}
 		finally {
-			caller.invalidateControl();
+			await caller.invalidateControl();
+			caller.updateMessage('<BR>To apply the installed custom node, please restart ComfyUI.');
 		}
 	}
 }
@@ -84,7 +85,8 @@ async function install_model(target) {
 			return false;
 		}
 		finally {
-			ModelInstaller.instance.invalidateControl();
+			await ModelInstaller.instance.invalidateControl();
+			ModelInstaller.instance.updateMessage("<BR>To apply the installed model, please click the 'Refresh' button on the main menu.");
 		}
 	}
 }
@@ -110,7 +112,7 @@ class CustomNodesInstaller extends ComfyDialog {
 	}
 
 	startInstall(target) {
-		this.message_box.innerHTML = `<BR><font color="green">Installing '${target.title}'</font>`;
+		this.updateMessage(`<BR><font color="green">Installing '${target.title}'</font>`);
 
 		for(let i in this.install_buttons) {
 			this.install_buttons[i].disabled = true;
@@ -128,6 +130,10 @@ class CustomNodesInstaller extends ComfyDialog {
 
 		await this.createGrid();
 		this.createControls();
+	}
+
+	updateMessage(msg) {
+		this.message_box.innerHTML = msg;
 	}
 
 	async createGrid() {
@@ -275,7 +281,7 @@ class AlternativesInstaller extends ComfyDialog {
 	}
 
 	startInstall(target) {
-		this.message_box.innerHTML = `<BR><font color="green">Installing '${target.title}'</font>`;
+		this.updateMessage(`<BR><font color="green">Installing '${target.title}'</font>`);
 
 		for(let i in this.install_buttons) {
 			this.install_buttons[i].disabled = true;
@@ -293,6 +299,10 @@ class AlternativesInstaller extends ComfyDialog {
 
 		await this.createGrid();
 		this.createControls();
+	}
+
+	updateMessage(msg) {
+		this.message_box.innerHTML = msg;
 	}
 
 	async createGrid() {
@@ -466,7 +476,7 @@ class ModelInstaller extends ComfyDialog {
 	}
 
 	startInstall(target) {
-		this.message_box.innerHTML = `<BR><font color="green">Installing '${target.name}'</font>`;
+		this.updateMessage(`<BR><font color="green">Installing '${target.name}'</font>`);
 
 		for(let i in this.install_buttons) {
 			this.install_buttons[i].disabled = true;
@@ -484,6 +494,10 @@ class ModelInstaller extends ComfyDialog {
 
 		await this.createGrid();
 		this.createControls();
+	}
+
+	updateMessage(msg) {
+		this.message_box.innerHTML = msg;
 	}
 
 	async createGrid(models_json) {

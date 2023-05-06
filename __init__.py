@@ -13,6 +13,7 @@ print("### Loading: ComfyUI-Manager")
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
+js_path = os.path.join(comfy_path, "web", "extensions")
 
 comfyui_manager_path = os.path.dirname(__file__)
 local_db_model = os.path.join(comfyui_manager_path, "model-list.json")
@@ -41,7 +42,7 @@ def setup_js():
         os.remove(old_js_path)
 
     # setup js
-    js_dest_path = os.path.join(comfy_path, "web", "extensions", "comfyui-manager")
+    js_dest_path = os.path.join(js_path, "comfyui-manager")
     if not os.path.exists(js_dest_path):
         os.makedirs(js_dest_path)
     js_src_path = os.path.join(comfyui_manager_path, "js", "comfyui-manager.js")
@@ -104,11 +105,13 @@ def check_a_custom_node_installed(item):
 
     elif item['install_type'] == 'copy' and len(item['files']) == 1:
         dir_name = os.path.basename(item['files'][0])
-        dir_path = os.path.join(custom_nodes_path, dir_name)
-        if os.path.exists(dir_path):
+        base_path = custom_nodes_path if item['files'][0].endswith('.py') else js_path
+        file_path = os.path.join(base_path, dir_name)
+        if os.path.exists(file_path):
             item['installed'] = 'True'
         else:
             item['installed'] = 'False'
+
 
 def check_custom_nodes_installed(json_obj):
     for item in json_obj['custom_nodes']:
@@ -122,14 +125,10 @@ async def fetch_customnode_list(request):
     else:
         uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json'
 
-    async with aiohttp.ClientSession() as session:
-        async with session.get(uri) as resp:
-            json_text = await resp.text()
-            json_obj = json.loads(json_text)
+    json_obj = await get_data(uri)
+    check_custom_nodes_installed(json_obj)
 
-            check_custom_nodes_installed(json_obj)
-
-            return web.json_response(json_obj, content_type='application/json')
+    return web.json_response(json_obj, content_type='application/json')
 
 
 @server.PromptServer.instance.routes.get("/alternatives/getlist")
@@ -179,14 +178,11 @@ async def fetch_externalmodel_list(request):
     else:
         uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json'
 
-    async with aiohttp.ClientSession() as session:
-        async with session.get(uri) as resp:
-            json_text = await resp.text()
-            json_obj = json.loads(json_text)
 
-            check_model_installed(json_obj)
+    json_obj = await get_data(uri)
+    check_model_installed(json_obj)
 
-            return web.json_response(json_obj, content_type='application/json')
+    return web.json_response(json_obj, content_type='application/json')
 
 
 def unzip_install(files):
@@ -234,10 +230,17 @@ def download_url_with_agent(url, save_path):
     return True
 
 
-def copy_install(files):
+def copy_install(files, js_path_name=None):
     for url in files:
         try:
-            download_url(url, custom_nodes_path)
+            if url.endswith(".py"):
+                download_url(url, custom_nodes_path)
+            else:
+                path = os.path.join(js_path, js_path_name) if js_path_name is not None else js_path
+                if not os.path.exists(path):
+                    os.makedirs(path)
+                download_url(url, path)
+
         except Exception as e:
             print(f"Install(copy) error: {url} / {e}")
             return False
@@ -304,7 +307,8 @@ async def install_custom_node(request):
         res = unzip_install(json_data['files'])
 
     if install_type == "copy":
-        res = copy_install(json_data['files'])
+        js_path_name = json_data['js_path'] if 'js_path' in json_data else None
+        res = copy_install(json_data['files'], js_path_name)
         
     elif install_type == "git-clone":
         res = gitclone_install(json_data['files'])
