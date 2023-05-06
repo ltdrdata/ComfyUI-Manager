@@ -641,6 +641,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				$el("tr.td", {width:"100%"}, [$el("font", {size:6, color:"white"}, ["Manager Menu"])]),
 				$el("br", {}, []),
 				$el("div", {}, [this.local_mode_checkbox, checkbox_text]),
+				$el("br", {}, []),
 				$el("button", {
 					type: "button",
 					textContent: "Install Custom Nodes",
