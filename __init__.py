@@ -14,12 +14,39 @@ print("### Loading: ComfyUI-Manager")
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
 
+comfyui_manager_path = os.path.dirname(__file__)
+local_db_model = os.path.join(comfyui_manager_path, "model-list.json")
+local_db_alter = os.path.join(comfyui_manager_path, "alter-list.json")
+local_db_custom_node_list = os.path.join(comfyui_manager_path, "custom-node-list.json")
+
+
+async def get_data(uri):
+    print(f"FECTH DATA from: {uri}")
+    if uri.startswith("http"):
+        async with aiohttp.ClientSession() as session:
+            async with session.get(uri) as resp:
+                json_text = await resp.text()
+    else:
+        with open(uri, "r") as f:
+            json_text = f.read()
+
+    json_obj = json.loads(json_text)
+    return json_obj
+
+
 def setup_js():
-    impact_path = os.path.dirname(__file__)
-    js_dest_path = os.path.join(comfy_path, "web", "extensions", "core")
-    js_src_path = os.path.join(impact_path, "js", "comfyui-manager.js")
+    # remove garbage
+    old_js_path = os.path.join(comfy_path, "web", "extensions", "core", "comfyui-manager.js")
+    if os.path.exists(old_js_path):
+        os.remove(old_js_path)
+
+    # setup js
+    js_dest_path = os.path.join(comfy_path, "web", "extensions", "comfyui-manager")
+    if not os.path.exists(js_dest_path):
+        os.makedirs(js_dest_path)
+    js_src_path = os.path.join(comfyui_manager_path, "js", "comfyui-manager.js")
     shutil.copy(js_src_path, js_dest_path)
-    
+
 setup_js()
 
 
@@ -64,38 +91,72 @@ def get_model_path(data):
     return os.path.join(base_model, data['filename'])
 
 
-def check_custom_node_installed(json_obj):
+def check_a_custom_node_installed(item):
+    item['installed'] = 'None'
+
+    if item['install_type'] == 'git-clone' and len(item['files']) == 1:
+        dir_name = os.path.splitext(os.path.basename(item['files'][0]))[0].replace(".git", "")
+        dir_path = os.path.join(custom_nodes_path, dir_name)
+        if os.path.exists(dir_path):
+            item['installed'] = 'True'
+        else:
+            item['installed'] = 'False'
+
+    elif item['install_type'] == 'copy' and len(item['files']) == 1:
+        dir_name = os.path.basename(item['files'][0])
+        dir_path = os.path.join(custom_nodes_path, dir_name)
+        if os.path.exists(dir_path):
+            item['installed'] = 'True'
+        else:
+            item['installed'] = 'False'
+
+def check_custom_nodes_installed(json_obj):
     for item in json_obj['custom_nodes']:
-        item['installed'] = 'None'
-
-        if item['install_type'] == 'git-clone' and len(item['files']) == 1:
-            dir_name = os.path.splitext(os.path.basename(item['files'][0]))[0].replace(".git", "")
-            dir_path = os.path.join(custom_nodes_path, dir_name)
-            if os.path.exists(dir_path):
-                item['installed'] = 'True'
-            else:
-                item['installed'] = 'False'
-
-        elif item['install_type'] == 'copy' and len(item['files']) == 1:
-            dir_name = os.path.basename(item['files'][0])
-            dir_path = os.path.join(custom_nodes_path, dir_name)
-            if os.path.exists(dir_path):
-                item['installed'] = 'True'
-            else:
-                item['installed'] = 'False'
+        check_a_custom_node_installed(item)
 
 
-@server.PromptServer.instance.routes.post("/customnode/getlist")
+@server.PromptServer.instance.routes.get("/customnode/getlist")
 async def fetch_customnode_list(request):
-    url = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json'
+    if request.rel_url.query["mode"] == "local":
+        uri = local_db_custom_node_list
+    else:
+        uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json'
+
     async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
+        async with session.get(uri) as resp:
             json_text = await resp.text()
             json_obj = json.loads(json_text)
 
-            check_custom_node_installed(json_obj)
+            check_custom_nodes_installed(json_obj)
 
             return web.json_response(json_obj, content_type='application/json')
+
+
+@server.PromptServer.instance.routes.get("/alternatives/getlist")
+async def fetch_alternatives_list(request):
+    if request.rel_url.query["mode"] == "local":
+        uri1 = local_db_alter
+        uri2 = local_db_custom_node_list
+    else:
+        uri1 = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json'
+        uri2 = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json'
+
+    alter_json = await get_data(uri1)
+    custom_node_json = await get_data(uri2)
+
+    fileurl_to_custom_node = {}
+    for item in custom_node_json['custom_nodes']:
+        for fileurl in item['files']:
+            fileurl_to_custom_node[fileurl] = item
+
+    for item in alter_json['items']:
+        fileurl = item['id']
+        if fileurl in fileurl_to_custom_node:
+            custom_node = fileurl_to_custom_node[fileurl]
+            check_a_custom_node_installed(custom_node)
+            item['custom_node'] = custom_node
+
+    return web.json_response(alter_json, content_type='application/json')
 
 
 def check_model_installed(json_obj):
@@ -111,11 +172,15 @@ def check_model_installed(json_obj):
                 item['installed'] = 'False'
 
 
-@server.PromptServer.instance.routes.post("/externalmodel/getlist")
+@server.PromptServer.instance.routes.get("/externalmodel/getlist")
 async def fetch_externalmodel_list(request):
-    url = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json'
+    if request.rel_url.query["mode"] == "local":
+        uri = local_db_model
+    else:
+        uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json'
+
     async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
+        async with session.get(uri) as resp:
             json_text = await resp.text()
             json_obj = json.loads(json_text)
 

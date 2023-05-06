@@ -3,30 +3,41 @@ import { ComfyDialog, $el } from "/scripts/ui.js";
 import {ComfyWidgets} from "../../scripts/widgets.js";
 
 async function getCustomNodes() {
-	const response = await fetch('/customnode/getlist', {
-											method: 'POST',
-											headers: { 'Content-Type': 'application/json' },
-											body: JSON.stringify({})
-										});
+	var mode = "url";
+	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+		mode = "local";
+
+	const response = await fetch(`/customnode/getlist?mode=${mode}`);
+
+	const data = await response.json();
+	return data;
+}
+
+async function getAlterList() {
+	var mode = "url";
+	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+		mode = "local";
+
+	const response = await fetch(`/alternatives/getlist?mode=${mode}`);
 
 	const data = await response.json();
 	return data;
 }
 
 async function getModelList() {
-	const response = await fetch('/externalmodel/getlist', {
-											method: 'POST',
-											headers: { 'Content-Type': 'application/json' },
-											body: JSON.stringify({})
-										});
+	var mode = "url";
+	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+		mode = "local";
+
+	const response = await fetch(`/externalmodel/getlist?mode=${mode}`);
 
 	const data = await response.json();
 	return data;
 }
 
-async function install_custom_node(target) {
-	if(CustomNodesInstaller.instance) {
-		CustomNodesInstaller.instance.startInstall(target);
+async function install_custom_node(target, caller) {
+	if(caller) {
+		caller.startInstall(target);
 
 		try {
 			const response = await fetch('/customnode/install', {
@@ -46,7 +57,7 @@ async function install_custom_node(target) {
 			return false;
 		}
 		finally {
-			CustomNodesInstaller.instance.stopInstall();
+			caller.invalidateControl();
 		}
 	}
 }
@@ -73,12 +84,13 @@ async function install_model(target) {
 			return false;
 		}
 		finally {
-			ModelInstaller.instance.stopInstall();
+			ModelInstaller.instance.invalidateControl();
 		}
 	}
 }
 
 
+// -----
 class CustomNodesInstaller extends ComfyDialog {
 	static instance = null;
 
@@ -98,7 +110,6 @@ class CustomNodesInstaller extends ComfyDialog {
 	}
 
 	startInstall(target) {
-		console.log(target);
 		this.message_box.innerHTML = `<BR><font color="green">Installing '${target.title}'</font>`;
 
 		for(let i in this.install_buttons) {
@@ -107,29 +118,16 @@ class CustomNodesInstaller extends ComfyDialog {
 		}
 	}
 
-	stopInstall() {
-		this.message_box.innerHTML = '<BR>To apply the installed custom node, please restart ComfyUI.';
+	async invalidateControl() {
+		this.clear();
+		this.data = (await getCustomNodes()).custom_nodes;
 
-		for(let i in this.install_buttons) {
-			switch(this.data[i].installed)
-			{
-			case 'True':
-				this.install_buttons[i].innerHTML = 'Installed';
-				this.install_buttons[i].style.backgroundColor = 'green';
-				this.install_buttons[i].disabled = true;
-				break;
-			case 'False':
-				this.install_buttons[i].innerHTML = 'Install';
-				this.install_buttons[i].style.backgroundColor = 'black';
-				this.install_buttons[i].disabled = false;
-				break;
-			default:
-				this.install_buttons[i].innerHTML = 'Try Install';
-				this.install_buttons[i].style.backgroundColor = 'brown';
-				this.install_buttons[i].disabled = false;
-				break;
-			}
+		while (this.element.children.length) {
+			this.element.removeChild(this.element.children[0]);
 		}
+
+		await this.createGrid();
+		this.createControls();
 	}
 
 	async createGrid() {
@@ -205,7 +203,7 @@ class CustomNodesInstaller extends ComfyDialog {
 				}
 
 				installBtn.addEventListener('click', function() {
-					install_custom_node(data);
+					install_custom_node(data, CustomNodesInstaller.instance);
 				});
 
 				data5.appendChild(installBtn);
@@ -247,15 +245,8 @@ class CustomNodesInstaller extends ComfyDialog {
 
 	async show() {
 		try {
-			this.clear();
-			this.data = (await getCustomNodes()).custom_nodes;
+			this.invalidateControl();
 
-			while (this.element.children.length) {
-				this.element.removeChild(this.element.children[0]);
-			}
-
-			await this.createGrid();
-			this.createControls();
 			this.element.style.display = "block";
 		}
 		catch(exception) {
@@ -263,6 +254,187 @@ class CustomNodesInstaller extends ComfyDialog {
 		}
 	}
 }
+
+// -----
+class AlternativesInstaller extends ComfyDialog {
+	static instance = null;
+
+	install_buttons = [];
+	message_box = null;
+	data = null;
+
+	clear() {
+		this.install_buttons = [];
+		this.message_box = null;
+		this.data = null;
+	}
+
+	constructor() {
+		super();
+		this.element = $el("div.comfy-modal", { parent: document.body }, []);
+	}
+
+	startInstall(target) {
+		this.message_box.innerHTML = `<BR><font color="green">Installing '${target.title}'</font>`;
+
+		for(let i in this.install_buttons) {
+			this.install_buttons[i].disabled = true;
+			this.install_buttons[i].style.backgroundColor = 'gray';
+		}
+	}
+
+	async invalidateControl() {
+		this.clear();
+		this.data = (await getAlterList()).items;
+
+		while (this.element.children.length) {
+			this.element.removeChild(this.element.children[0]);
+		}
+
+		await this.createGrid();
+		this.createControls();
+	}
+
+	async createGrid() {
+		var grid = document.createElement('table');
+		grid.setAttribute('id', 'alternatives-grid');
+
+		grid.style.position = "relative";
+		grid.style.display = "inline-block";
+		grid.style.width = "100%"
+
+		var headerRow = document.createElement('tr');
+		var header1 = document.createElement('th');
+		header1.innerHTML = '&nbsp;&nbsp;ID&nbsp;&nbsp;';
+		header1.style.width = "20px";
+		var header2 = document.createElement('th');
+		header2.innerHTML = 'Tags';
+		header2.style.width = "200px";
+		var header3 = document.createElement('th');
+		header3.innerHTML = 'Author';
+		header3.style.width = "150px";
+		var header4 = document.createElement('th');
+		header4.innerHTML = 'Title';
+		header4.style.width = "200px";
+		var header5 = document.createElement('th');
+		header5.innerHTML = 'Description';
+		header5.style.width = "500px";
+		var header6 = document.createElement('th');
+		header6.innerHTML = 'Install';
+		header6.style.width = "130px";
+		headerRow.appendChild(header1);
+		headerRow.appendChild(header2);
+		headerRow.appendChild(header3);
+		headerRow.appendChild(header4);
+		headerRow.appendChild(header5);
+		headerRow.appendChild(header6);
+
+		headerRow.style.backgroundColor = "Black";
+		headerRow.style.color = "White";
+		headerRow.style.textAlign = "center";
+		headerRow.style.width = "100%";
+		headerRow.style.padding = "0";
+		grid.appendChild(headerRow);
+
+		if(this.data)
+			for (var i = 0; i < this.data.length; i++) {
+				const data = this.data[i];
+				var dataRow = document.createElement('tr');
+				var data1 = document.createElement('td');
+				data1.style.textAlign = "center";
+				data1.innerHTML = i+1;
+				var data2 = document.createElement('td');
+				data2.innerHTML = `&nbsp;${data.tags}`;
+				var data3 = document.createElement('td');
+				var data4 = document.createElement('td');
+				if(data.custom_node) {
+					data3.innerHTML = `&nbsp;${data.custom_node.author}`;
+					data4.innerHTML = `&nbsp;<a href=${data.custom_node.reference} target="_blank"><font color="skyblue"><b>${data.custom_node.title}</b></font></a>`;
+				}
+				else {
+					data3.innerHTML = `&nbsp;Unknown`;
+					data4.innerHTML = `&nbsp;Unknown`;
+				}
+				var data5 = document.createElement('td');
+				data5.innerHTML = data.description;
+				var data6 = document.createElement('td');
+				data6.style.textAlign = "center";
+
+				if(data.custom_node) {
+					var installBtn = document.createElement('button');
+
+					this.install_buttons.push(installBtn);
+
+					switch(data.custom_node.installed) {
+					case 'True':
+						installBtn.innerHTML = 'Installed';
+						installBtn.style.backgroundColor = 'green';
+						installBtn.disabled = true;
+						break;
+					case 'False':
+						installBtn.innerHTML = 'Install';
+						installBtn.style.backgroundColor = 'black';
+						break;
+					default:
+						installBtn.innerHTML = 'Try Install';
+						installBtn.style.backgroundColor = 'brown';
+					}
+
+					installBtn.addEventListener('click', function() {
+						install_custom_node(data.custom_node, AlternativesInstaller.instance);
+					});
+
+					data6.appendChild(installBtn);
+				}
+
+				dataRow.style.backgroundColor = "#444444";
+				dataRow.style.color = "White";
+				dataRow.style.textAlign = "left";
+
+				dataRow.appendChild(data1);
+				dataRow.appendChild(data2);
+				dataRow.appendChild(data3);
+				dataRow.appendChild(data4);
+				dataRow.appendChild(data5);
+				dataRow.appendChild(data6);
+				grid.appendChild(dataRow);
+			}
+
+		const panel = document.createElement('div');
+		panel.style.height = "400px";
+		panel.style.width = "1000px";
+		panel.style.overflowY = "scroll";
+
+		panel.appendChild(grid);
+		this.element.appendChild(panel);
+	}
+
+	async createControls() {
+		var close_button = document.createElement("button");
+		close_button.innerHTML = "Close";
+		close_button.onclick = () => { this.close(); }
+		close_button.style.display = "inline-block";
+
+		this.message_box = $el('div', {id:'alternatives-installer-message'}, [$el('br'), '']);
+		this.message_box.style.height = '60px';
+		this.message_box.style.verticalAlign = 'middle';
+
+		this.element.appendChild(this.message_box);
+		this.element.appendChild(close_button);
+	}
+
+	async show() {
+		try {
+			this.invalidateControl();
+			this.element.style.display = "block";
+		}
+		catch(exception) {
+			app.ui.dialog.show(`Failed to get alternatives list. / ${exception}`);
+			console.error(exception);
+		}
+	}
+}
+
 
 // -----------
 class ModelInstaller extends ComfyDialog {
@@ -302,24 +474,16 @@ class ModelInstaller extends ComfyDialog {
 		}
 	}
 
-	stopInstall() {
-		this.message_box.innerHTML = "<BR>To apply the installed model, please click the 'Refresh' button on the main menu.";
+	async invalidateControl() {
+		this.clear();
+		this.data = (await getModelList()).models;
 
-		for(let i in this.install_buttons) {
-			switch(this.data[i].installed)
-			{
-			case 'True':
-				this.install_buttons[i].innerHTML = 'Installed';
-				this.install_buttons[i].style.backgroundColor = 'green';
-				this.install_buttons[i].disabled = true;
-				break;
-			default:
-				this.install_buttons[i].innerHTML = 'Install';
-				this.install_buttons[i].style.backgroundColor = 'black';
-				this.install_buttons[i].disabled = false;
-				break;
-			}
+		while (this.element.children.length) {
+			this.element.removeChild(this.element.children[0]);
 		}
+
+		await this.createGrid();
+		this.createControls();
 	}
 
 	async createGrid(models_json) {
@@ -452,15 +616,7 @@ class ModelInstaller extends ComfyDialog {
 
 	async show() {
 		try {
-			this.clear();
-			this.data = (await getModelList()).models;
-
-			while (this.element.children.length) {
-				this.element.removeChild(this.element.children[0]);
-			}
-
-			await this.createGrid();
-			this.createControls();
+			this.invalidateControl();
 			this.element.style.display = "block";
 		}
 		catch(exception) {
@@ -469,15 +625,22 @@ class ModelInstaller extends ComfyDialog {
 	}
 }
 
+
 // -----------
 class ManagerMenuDialog extends ComfyDialog {
 	static instance = null;
+	local_mode_checkbox = null;
 
 	createButtons() {
+		this.local_mode_checkbox = $el("input",{type:'checkbox', id:"use_local_db"},[])
+		const checkbox_text = $el("label",{},["Use local DB"])
+		checkbox_text.style.color = "var(--fg-color)"
+
 		const res =
 			[
 				$el("tr.td", {width:"100%"}, [$el("font", {size:6, color:"white"}, ["Manager Menu"])]),
 				$el("br", {}, []),
+				$el("div", {}, [this.local_mode_checkbox, checkbox_text]),
 				$el("button", {
 					type: "button",
 					textContent: "Install Custom Nodes",
@@ -500,6 +663,19 @@ class ManagerMenuDialog extends ComfyDialog {
 						}
 				}),
 
+				$el("br", {}, []),
+				$el("button", {
+					type: "button",
+					textContent: "Alternatives of A1111",
+					onclick:
+						() => {
+							if(!AlternativesInstaller.instance)
+								AlternativesInstaller.instance = new AlternativesInstaller(app);
+							AlternativesInstaller.instance.show();
+						}
+				}),
+
+				$el("br", {}, []),
 				$el("button", {
 					type: "button",
 					textContent: "Close",
@@ -507,7 +683,6 @@ class ManagerMenuDialog extends ComfyDialog {
 				})
 			];
 
-		console.log(res);
 		res[0].style.backgroundColor = "black";
 		res[0].style.textAlign = "center";
 		res[0].style.height = "45px";
