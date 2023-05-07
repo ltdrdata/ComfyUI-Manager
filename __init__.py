@@ -269,7 +269,7 @@ def gitclone_install(files):
 
             if os.path.exists(requirements_path):
                 print(f"Install: pip packages")
-                install_cmd = ["python", "-m", "pip", "install", "-r", "requirements.txt"]
+                install_cmd = [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]
                 code = subprocess.run(install_cmd, cwd=repo_path)
                 
                 if code.returncode != 0:
@@ -278,7 +278,7 @@ def gitclone_install(files):
                 
             if os.path.exists(install_script_path):
                 print(f"Install: install script")
-                install_cmd = ["python", "install.py"]
+                install_cmd = [sys.executable, "install.py"]
                 code = subprocess.run(install_cmd, cwd=repo_path)
                 
                 if code.returncode != 0:
