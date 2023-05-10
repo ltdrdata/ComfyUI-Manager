@@ -1,6 +1,66 @@
 {
   "models": [
     {
+      "name": "RealESRGAN x2",
+      "type": "upscale",
+      "base": "upscale",
+      "save_path": "default",
+      "description": "RealESRGAN x2 upscaler model",
+      "reference": "https://huggingface.co/sberbank-ai/Real-ESRGAN",
+      "filename": "RealESRGAN_x2.pth",
+      "url": "https://huggingface.co/sberbank-ai/Real-ESRGAN/resolve/main/RealESRGAN_x2.pth"
+    },
+    {
+      "name": "RealESRGAN x4",
+      "type": "upscale",
+      "base": "upscale",
+      "save_path": "default",
+      "description": "RealESRGAN x4 upscaler model",
+      "reference": "https://huggingface.co/sberbank-ai/Real-ESRGAN",
+      "filename": "RealESRGAN_x4.pth",
+      "url": "https://huggingface.co/sberbank-ai/Real-ESRGAN/resolve/main/RealESRGAN_x4.pth"
+    },
+    {
+      "name": "negative_hand Negative Embedding",
+      "type": "embeddings",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "If you use this embedding with negatives, you can solve the issue of damaging your hands.",
+      "reference": "https://civitai.com/models/56519/negativehand-negative-embedding",
+      "filename": "negative_hand-neg.pt",
+      "url": "https://civitai.com/api/download/models/60938"
+    },
+    {
+      "name": "bad_prompt Negative Embedding",
+      "type": "embeddings",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "The idea behind this embedding was to somehow train the negative prompt as an embedding, thus unifying the basis of the negative prompt into one word or embedding.",
+      "reference": "https://civitai.com/models/55700/badprompt-negative-embedding",
+      "filename": "bad_prompt_version2-neg.pt",
+      "url": "https://civitai.com/api/download/models/60095"
+    },
+    {
+      "name": "Deep Negative V1.75",
+      "type": "embeddings",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "These embedding learn what disgusting compositions and color patterns are, including faulty human anatomy, offensive color schemes, upside-down spatial structures, and more. Placing it in the negative can go a long way to avoiding these things.",
+      "reference": "https://civitai.com/models/4629/deep-negative-v1x",
+      "filename": "ng_deepnegative_v1_75t.pt",
+      "url": "https://civitai.com/api/download/models/5637"
+    },
+    {
+      "name": "EasyNegative",
+      "type": "embeddings",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "This embedding should be used in your NEGATIVE prompt. Adjust the strength as desired (seems to scale well without any distortions), the strength required may vary based on positive and negative prompts.",
+      "reference": "https://civitai.com/models/7808/easynegative",
+      "filename": "easynegative.safetensors",
+      "url": "https://civitai.com/api/download/models/9208"
+    },
+    {
       "name": "v1-5-pruned-emaonly.ckpt",
       "type": "checkpoints",
       "base": "SD1.5",
@@ -391,24 +451,34 @@
       "url": "https://huggingface.co/comfyanonymous/GLIGEN_pruned_safetensors/resolve/main/gligen_sd14_textbox_pruned_fp16.safetensors"
     },
     {
-      "name": "RealESRGAN x2",
-      "type": "upscale",
-      "base": "upscale",
-      "save_path": "default",
-      "description": "RealESRGAN x2 upscaler model",
-      "reference": "https://huggingface.co/sberbank-ai/Real-ESRGAN",
-      "filename": "RealESRGAN_x2.pth",
-      "url": "https://huggingface.co/sberbank-ai/Real-ESRGAN/resolve/main/RealESRGAN_x2.pth"
+      "name": "ViT-H SAM model",
+      "type": "sam",
+      "base": "SAM",
+      "save_path": "sams",
+      "description": "Segmenty Anything SAM model (ViT-H)",
+      "reference": "https://github.com/facebookresearch/segment-anything#model-checkpoints",
+      "filename": "sam_vit_h_4b8939.pth",
+      "url": "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth"
     },
     {
-      "name": "RealESRGAN x4",
-      "type": "upscale",
-      "base": "upscale",
-      "save_path": "default",
-      "description": "RealESRGAN x4 upscaler model",
-      "reference": "https://huggingface.co/sberbank-ai/Real-ESRGAN",
-      "filename": "RealESRGAN_x4.pth",
-      "url": "https://huggingface.co/sberbank-ai/Real-ESRGAN/resolve/main/RealESRGAN_x4.pth"
-    }    
+      "name": "ViT-L SAM model",
+      "type": "sam",
+      "base": "SAM",
+      "save_path": "sams",
+      "description": "Segmenty Anything SAM model (ViT-H)",
+      "reference": "https://github.com/facebookresearch/segment-anything#model-checkpoints",
+      "filename": "sam_vit_l_0b3195.pth",
+      "url": "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth"
+    },
+    {
+      "name": "ViT-B SAM model",
+      "type": "sam",
+      "base": "SAM",
+      "save_path": "sams",
+      "description": "Segmenty Anything SAM model (ViT-H)",
+      "reference": "https://github.com/facebookresearch/segment-anything#model-checkpoints",
+      "filename": "sam_vit_b_01ec64.pth",
+      "url": "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth"
+    }
   ]  
 }

@@ -86,6 +86,8 @@ def get_model_path(data):
             base_model = folder_paths.folder_names_and_paths["gligen"][0][0]
         elif model_type == "upscale":
             base_model = folder_paths.folder_names_and_paths["upscale_models"][0][0]
+        elif model_type == "embeddings":
+            base_model = folder_paths.folder_names_and_paths["embeddings"][0][0]
         else:
             base_model = None
 
