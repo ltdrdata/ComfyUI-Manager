@@ -35,16 +35,22 @@ async function getModelList() {
 	return data;
 }
 
-async function install_custom_node(target, caller) {
+async function install_custom_node(target, caller, mode) {
 	if(caller) {
 		caller.startInstall(target);
 
 		try {
-			const response = await fetch('/customnode/install', {
+			const response = await fetch(`/customnode/${mode}`, {
 													method: 'POST',
 													headers: { 'Content-Type': 'application/json' },
 													body: JSON.stringify(target)
 												});
+
+			if(response.status == 400) {
+				app.ui.dialog.show(`${mode} failed: ${target.title}`);
+				app.ui.dialog.element.style.zIndex = 9999;
+				return false;
+			}									
 
 			const status = await response.json();
 			app.ui.dialog.close();
@@ -52,7 +58,7 @@ async function install_custom_node(target, caller) {
 			return true;
 		}
 		catch(exception) {
-			app.ui.dialog.show(`Install failed: ${target.title} / ${exception}`);
+			app.ui.dialog.show(`${mode} failed: ${target.title} / ${exception}`);
 			app.ui.dialog.element.style.zIndex = 9999;
 			return false;
 		}
@@ -112,17 +118,36 @@ class CustomNodesInstaller extends ComfyDialog {
 	}
 
 	startInstall(target) {
-		this.updateMessage(`<BR><font color="green">Installing '${target.title}'</font>`);
+		const self = CustomNodesInstaller.instance;
+		
+		self.updateMessage(`<BR><font color="green">Installing '${target.title}'</font>`);
 
-		for(let i in this.install_buttons) {
-			this.install_buttons[i].disabled = true;
-			this.install_buttons[i].style.backgroundColor = 'gray';
+		for(let i in self.install_buttons) {
+			self.install_buttons[i].disabled = true;
+			self.install_buttons[i].style.backgroundColor = 'gray';
 		}
 	}
 
 	async invalidateControl() {
 		this.clear();
+
+		// splash
+		while (this.element.children.length) {
+			this.element.removeChild(this.element.children[0]);
+		}
+
+		const msg = $el('div', {id:'custom-message'}, 
+			[$el('br'), 
+			'The custom node DB is currently being updated, and updates to custom nodes are being checked for.', 
+			$el('br')]);
+		msg.style.height = '100px';
+		msg.style.verticalAlign = 'middle';
+		this.element.appendChild(msg);
+
+		// invalidate
 		this.data = (await getCustomNodes()).custom_nodes;
+
+		this.element.removeChild(msg);
 
 		while (this.element.children.length) {
 			this.element.removeChild(this.element.children[0]);
@@ -190,14 +215,23 @@ class CustomNodesInstaller extends ComfyDialog {
 				data5.style.textAlign = "center";
 
 				var installBtn = document.createElement('button');
+				var installBtn2 = null;
 
 				this.install_buttons.push(installBtn);
 
 				switch(data.installed) {
+				case 'Update':
+					installBtn2 = document.createElement('button');
+					installBtn2.innerHTML = 'Update';
+					installBtn2.style.backgroundColor = 'blue';
+					this.install_buttons.push(installBtn2);
+
+					installBtn.innerHTML = 'Uninstall';
+					installBtn.style.backgroundColor = 'red';
+					break;
 				case 'True':
-					installBtn.innerHTML = 'Installed';
-					installBtn.style.backgroundColor = 'green';
-					installBtn.disabled = true;
+					installBtn.innerHTML = 'Uninstall';
+					installBtn.style.backgroundColor = 'red';
 					break;
 				case 'False':
 					installBtn.innerHTML = 'Install';
@@ -205,11 +239,26 @@ class CustomNodesInstaller extends ComfyDialog {
 					break;
 				default:
 					installBtn.innerHTML = 'Try Install';
-					installBtn.style.backgroundColor = 'brown';
+					installBtn.style.backgroundColor = 'silver';
+				}
+
+				if(installBtn2 != null) {
+					installBtn2.addEventListener('click', function() {
+						install_custom_node(data, CustomNodesInstaller.instance, 'update');
+					});
+
+					data5.appendChild(installBtn2);
 				}
 
 				installBtn.addEventListener('click', function() {
-					install_custom_node(data, CustomNodesInstaller.instance);
+					if(this.innerHTML == 'Uninstall') {
+						if (confirm(`Are you sure uninstall ${data.title}?`)) {
+							install_custom_node(data, CustomNodesInstaller.instance, 'uninstall');
+						}
+					}
+					else {
+						install_custom_node(data, CustomNodesInstaller.instance, 'install');
+					}
 				});
 
 				data5.appendChild(installBtn);
@@ -281,17 +330,36 @@ class AlternativesInstaller extends ComfyDialog {
 	}
 
 	startInstall(target) {
-		this.updateMessage(`<BR><font color="green">Installing '${target.title}'</font>`);
+		const self = AlternativesInstaller.instance;
 
-		for(let i in this.install_buttons) {
-			this.install_buttons[i].disabled = true;
-			this.install_buttons[i].style.backgroundColor = 'gray';
+		self.updateMessage(`<BR><font color="green">Installing '${target.title}'</font>`);
+
+		for(let i in self.install_buttons) {
+			self.install_buttons[i].disabled = true;
+			self.install_buttons[i].style.backgroundColor = 'gray';
 		}
 	}
 
 	async invalidateControl() {
 		this.clear();
+
+		// splash
+		while (this.element.children.length) {
+			this.element.removeChild(this.element.children[0]);
+		}
+
+		const msg = $el('div', {id:'custom-message'}, 
+			[$el('br'), 
+			'The custom node DB is currently being updated, and updates to custom nodes are being checked for.', 
+			$el('br')]);
+		msg.style.height = '100px';
+		msg.style.verticalAlign = 'middle';
+		this.element.appendChild(msg);
+
+		// invalidate
 		this.data = (await getAlterList()).items;
+
+		this.element.removeChild(msg);
 
 		while (this.element.children.length) {
 			this.element.removeChild(this.element.children[0]);
@@ -372,14 +440,23 @@ class AlternativesInstaller extends ComfyDialog {
 
 				if(data.custom_node) {
 					var installBtn = document.createElement('button');
+					var installBtn2 = null;
 
 					this.install_buttons.push(installBtn);
 
 					switch(data.custom_node.installed) {
+					case 'Update':
+						installBtn2 = document.createElement('button');
+						installBtn2.innerHTML = 'Update';
+						installBtn2.style.backgroundColor = 'blue';
+						this.install_buttons.push(installBtn2);
+	
+						installBtn.innerHTML = 'Uninstall';
+						installBtn.style.backgroundColor = 'red';
+						break;
 					case 'True':
-						installBtn.innerHTML = 'Installed';
-						installBtn.style.backgroundColor = 'green';
-						installBtn.disabled = true;
+						installBtn.innerHTML = 'Uninstall';
+						installBtn.style.backgroundColor = 'red';
 						break;
 					case 'False':
 						installBtn.innerHTML = 'Install';
@@ -387,11 +464,26 @@ class AlternativesInstaller extends ComfyDialog {
 						break;
 					default:
 						installBtn.innerHTML = 'Try Install';
-						installBtn.style.backgroundColor = 'brown';
+						installBtn.style.backgroundColor = 'silver';
+					}
+
+					if(installBtn2 != null) {
+						installBtn2.addEventListener('click', function() {
+							install_custom_node(data.custom_node, AlternativesInstaller.instance, 'update');
+						});
+	
+						data6.appendChild(installBtn2);
 					}
 
 					installBtn.addEventListener('click', function() {
-						install_custom_node(data.custom_node, AlternativesInstaller.instance);
+						if(this.innerHTML == 'Uninstall') {
+							if (confirm(`Are you sure uninstall ${data.title}?`)) {
+								install_custom_node(data.custom_node, AlternativesInstaller.instance, 'uninstall');
+							}
+						}
+						else {
+							install_custom_node(data.custom_node, AlternativesInstaller.instance, 'install');
+						}
 					});
 
 					data6.appendChild(installBtn);
@@ -476,11 +568,13 @@ class ModelInstaller extends ComfyDialog {
 	}
 
 	startInstall(target) {
-		this.updateMessage(`<BR><font color="green">Installing '${target.name}'</font>`);
+		const self = ModelInstaller.instance;
 
-		for(let i in this.install_buttons) {
-			this.install_buttons[i].disabled = true;
-			this.install_buttons[i].style.backgroundColor = 'gray';
+		self.updateMessage(`<BR><font color="green">Installing '${target.name}'</font>`);
+
+		for(let i in self.install_buttons) {
+			self.install_buttons[i].disabled = true;
+			self.install_buttons[i].style.backgroundColor = 'gray';
 		}
 	}
 

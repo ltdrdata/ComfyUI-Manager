@@ -9,7 +9,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.1)")
+print("### Loading: ComfyUI-Manager (V0.2)")
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -19,6 +19,33 @@ comfyui_manager_path = os.path.dirname(__file__)
 local_db_model = os.path.join(comfyui_manager_path, "model-list.json")
 local_db_alter = os.path.join(comfyui_manager_path, "alter-list.json")
 local_db_custom_node_list = os.path.join(comfyui_manager_path, "custom-node-list.json")
+
+
+def git_repo_has_updates(path):
+    # Check if the path is a git repository
+    if not os.path.exists(os.path.join(path, '.git')):
+        raise ValueError('Not a git repository')
+
+    # Fetch the latest commits from the remote repository
+    subprocess.run(['git', 'fetch'], check=True, cwd=path)
+
+    # Get the current commit hash and the commit hash of the remote branch
+    commit_hash = subprocess.check_output(['git', 'rev-parse', 'HEAD'], encoding='utf-8', cwd=path).strip()
+    remote_commit_hash = subprocess.check_output(['git', 'rev-parse', '@{u}'], encoding='utf-8', cwd=path).strip()
+
+    # Compare the commit hashes to determine if the local repository is behind the remote repository
+    if commit_hash != remote_commit_hash:
+        return True
+
+    return False
+
+
+def git_pull(path):
+    print(f"path: {path}")
+    if not os.path.exists(os.path.join(path, '.git')):
+        raise ValueError('Not a git repository')
+
+    subprocess.run(['git', 'pull'], check=True, cwd=path)
 
 
 async def get_data(uri):
@@ -101,7 +128,14 @@ def check_a_custom_node_installed(item):
         dir_name = os.path.splitext(os.path.basename(item['files'][0]))[0].replace(".git", "")
         dir_path = os.path.join(custom_nodes_path, dir_name)
         if os.path.exists(dir_path):
-            item['installed'] = 'True'
+            try:
+                if git_repo_has_updates(dir_path):
+                    item['installed'] = 'Update'
+                else:
+                    item['installed'] = 'True'
+            except:
+                item['installed'] = 'True'
+            
         else:
             item['installed'] = 'False'
 
@@ -208,7 +242,7 @@ def unzip_install(files):
             print(f"Install(unzip) error: {url} / {e}")
             return False
     
-    print("Installation successful.")
+    print("Installation was successful.")
     return True
 
 
@@ -228,7 +262,7 @@ def download_url_with_agent(url, save_path):
         print(f"Download error: {url} / {e}")
         return False
 
-    print("Installation successful.")
+    print("Installation was successful.")
     return True
 
 
@@ -247,7 +281,23 @@ def copy_install(files, js_path_name=None):
             print(f"Install(copy) error: {url} / {e}")
             return False
     
-    print("Installation successful.")
+    print("Installation was successful.")
+    return True
+
+
+def copy_uninstall(files, js_path_name=None):
+    for url in files:
+        dir_name = os.path.basename(url)
+        base_path = custom_nodes_path if url.endswith('.py') else js_path
+        file_path = os.path.join(base_path, dir_name)
+
+        try:
+            os.remove(file_path)
+        except Exception as e:
+            print(f"UnInstall(copy) error: {url} / {e}")
+            return False
+        
+    print("Uninstallation was successful.")
     return True
 
 
@@ -291,7 +341,50 @@ def gitclone_install(files):
             print(f"Install(git-clone) error: {url} / {e}")
             return False
         
-    print("Installation successful.")
+    print("Installation was successful.")
+    return True
+
+
+def gitclone_uninstall(files):
+    import shutil
+    import os
+
+    print(f"uninstall: {files}")
+    for url in files:
+        try:
+            dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
+            dir_path = os.path.join(custom_nodes_path, dir_name)
+
+            # safey check
+            if dir_path == '/' or dir_path[1:] == ":/" or dir_path == '':
+                print(f"Uninstall(git-clone) error: invalid path '{dir_path}' for '{url}'")
+                return False
+            
+            shutil.rmtree(dir_path)
+        except Exception as e:
+            print(f"Uninstall(git-clone) error: {url} / {e}")
+            return False
+        
+    print("Uninstallation was successful.")
+    return True
+
+
+def gitclone_update(files):
+    import shutil
+    import os
+
+    print(f"uninstall: {files}")
+    for url in files:
+        try:
+            dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
+            dir_path = os.path.join(custom_nodes_path, dir_name)
+            git_pull(dir_path)
+            
+        except Exception as e:
+            print(f"Update(git-clone) error: {url} / {e}")
+            return False
+        
+    print("Uninstallation was successful.")
     return True
 
 
@@ -321,6 +414,48 @@ async def install_custom_node(request):
     return web.Response(status=400)
 
 
+@server.PromptServer.instance.routes.post("/customnode/uninstall")
+async def install_custom_node(request):
+    json_data = await request.json()
+    
+    install_type = json_data['install_type']
+    
+    print(f"Uninstall custom node '{json_data['title']}'")
+
+    res = False
+
+    if install_type == "copy":
+        js_path_name = json_data['js_path'] if 'js_path' in json_data else None
+        res = copy_uninstall(json_data['files'], js_path_name)
+        
+    elif install_type == "git-clone":
+        res = gitclone_uninstall(json_data['files'])
+    
+    if res:
+        return web.json_response({}, content_type='application/json')
+    
+    return web.Response(status=400)
+
+
+@server.PromptServer.instance.routes.post("/customnode/update")
+async def install_custom_node(request):
+    json_data = await request.json()
+    
+    install_type = json_data['install_type']
+    
+    print(f"Update custom node '{json_data['title']}'")
+
+    res = False
+
+    if install_type == "git-clone":
+        res = gitclone_update(json_data['files'])
+    
+    if res:
+        return web.json_response({}, content_type='application/json')
+    
+    return web.Response(status=400)
+
+
 @server.PromptServer.instance.routes.post("/model/install")
 async def install_model(request):
     json_data = await request.json()
@@ -339,3 +474,7 @@ async def install_model(request):
         return web.json_response({}, content_type='application/json')
 
     return web.Response(status=400)
+
+
+NODE_CLASS_MAPPINGS = {}
+__all__ = ['NODE_CLASS_MAPPINGS']
