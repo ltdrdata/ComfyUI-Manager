@@ -9,7 +9,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.2)")
+print("### Loading: ComfyUI-Manager (V0.3)")
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -135,7 +135,10 @@ def check_a_custom_node_installed(item):
                     item['installed'] = 'True'
             except:
                 item['installed'] = 'True'
-            
+
+        elif os.path.exists(dir_path+".disabled"):
+            item['installed'] = 'Disabled'
+
         else:
             item['installed'] = 'False'
 
@@ -145,6 +148,8 @@ def check_a_custom_node_installed(item):
         file_path = os.path.join(base_path, dir_name)
         if os.path.exists(file_path):
             item['installed'] = 'True'
+        elif os.path.exists(file_path + ".disabled"):
+            item['installed'] = 'Disabled'
         else:
             item['installed'] = 'False'
 
@@ -288,16 +293,49 @@ def copy_install(files, js_path_name=None):
 def copy_uninstall(files, js_path_name=None):
     for url in files:
         dir_name = os.path.basename(url)
-        base_path = custom_nodes_path if url.endswith('.py') else js_path
+        base_path = custom_nodes_path if url.endswith('.py') else os.path.join(js_path, js_path_name)
         file_path = os.path.join(base_path, dir_name)
 
         try:
-            os.remove(file_path)
+            if os.path.exists(file_path):
+                os.remove(file_path)
+            elif os.path.exists(file_path+".disabled"):
+                os.remove(file_path+".disabled")
         except Exception as e:
-            print(f"UnInstall(copy) error: {url} / {e}")
+            print(f"Uninstall(copy) error: {url} / {e}")
             return False
         
     print("Uninstallation was successful.")
+    return True
+
+
+def copy_set_active(files, is_disable, js_path_name=None):
+    if is_disable:
+        action_name = "Disable"
+    else:
+        action_name = "Enable"
+
+    for url in files:
+        dir_name = os.path.basename(url)
+        base_path = custom_nodes_path if url.endswith('.py') else os.path.join(js_path, js_path_name)
+        file_path = os.path.join(base_path, dir_name)
+
+        try:
+            if is_disable:
+                current_name = file_path
+                new_name = file_path + ".disabled"
+            else:
+                current_name = file_path + ".disabled"
+                new_name = file_path
+
+            os.rename(current_name, new_name)
+
+        except Exception as e:
+            print(f"{action_name}(copy) error: {url} / {e}")
+
+            return False
+
+    print(f"{action_name} was successful.")
     return True
 
 
@@ -359,8 +397,11 @@ def gitclone_uninstall(files):
             if dir_path == '/' or dir_path[1:] == ":/" or dir_path == '':
                 print(f"Uninstall(git-clone) error: invalid path '{dir_path}' for '{url}'")
                 return False
-            
-            shutil.rmtree(dir_path)
+
+            if os.path.exists(dir_path):
+                shutil.rmtree(dir_path)
+            elif os.path.exists(dir_path+".disabled"):
+                shutil.rmtree(dir_path+".disabled")
         except Exception as e:
             print(f"Uninstall(git-clone) error: {url} / {e}")
             return False
@@ -369,8 +410,43 @@ def gitclone_uninstall(files):
     return True
 
 
+def gitclone_set_active(files, is_disable):
+    import os
+
+    if is_disable:
+        action_name = "Disable"
+    else:
+        action_name = "Enable"
+
+    print(f"{action_name}: {files}")
+    for url in files:
+        try:
+            dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
+            dir_path = os.path.join(custom_nodes_path, dir_name)
+
+            # safey check
+            if dir_path == '/' or dir_path[1:] == ":/" or dir_path == '':
+                print(f"{action_name}(git-clone) error: invalid path '{dir_path}' for '{url}'")
+                return False
+
+            if is_disable:
+                current_path = dir_path
+                new_path = dir_path + ".disabled"
+            else:
+                current_path = dir_path + ".disabled"
+                new_path = dir_path
+
+            os.rename(current_path, new_path)
+
+        except Exception as e:
+            print(f"{action_name}(git-clone) error: {url} / {e}")
+            return False
+
+    print(f"{action_name} was successful.")
+    return True
+
+
 def gitclone_update(files):
-    import shutil
     import os
 
     print(f"uninstall: {files}")
@@ -453,6 +529,28 @@ async def install_custom_node(request):
     if res:
         return web.json_response({}, content_type='application/json')
     
+    return web.Response(status=400)
+
+
+@server.PromptServer.instance.routes.post("/customnode/toggle_active")
+async def install_custom_node(request):
+    json_data = await request.json()
+
+    install_type = json_data['install_type']
+    is_disabled = json_data['installed'] == "Disabled"
+
+    print(f"Update custom node '{json_data['title']}'")
+
+    res = False
+
+    if install_type == "git-clone":
+        res = gitclone_set_active(json_data['files'], not is_disabled)
+    elif install_type == "copy":
+        res = copy_set_active(json_data['files'], not is_disabled)
+
+    if res:
+        return web.json_response({}, content_type='application/json')
+
     return web.Response(status=400)
 
 

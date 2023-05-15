@@ -216,20 +216,40 @@ class CustomNodesInstaller extends ComfyDialog {
 
 				var installBtn = document.createElement('button');
 				var installBtn2 = null;
+				var installBtn3 = null;
 
 				this.install_buttons.push(installBtn);
 
 				switch(data.installed) {
+				case 'Disabled':
+					installBtn3 = document.createElement('button');
+					installBtn3.innerHTML = 'Enable';
+					installBtn3.style.backgroundColor = 'blue';
+					this.install_buttons.push(installBtn3);
+
+					installBtn.innerHTML = 'Uninstall';
+					installBtn.style.backgroundColor = 'red';
+					break;
 				case 'Update':
 					installBtn2 = document.createElement('button');
 					installBtn2.innerHTML = 'Update';
 					installBtn2.style.backgroundColor = 'blue';
 					this.install_buttons.push(installBtn2);
 
+					installBtn3 = document.createElement('button');
+					installBtn3.innerHTML = 'Disable';
+					installBtn3.style.backgroundColor = 'MediumSlateBlue';
+					this.install_buttons.push(installBtn3);
+
 					installBtn.innerHTML = 'Uninstall';
 					installBtn.style.backgroundColor = 'red';
 					break;
 				case 'True':
+					installBtn3 = document.createElement('button');
+					installBtn3.innerHTML = 'Disable';
+					installBtn3.style.backgroundColor = 'MediumSlateBlue';
+					this.install_buttons.push(installBtn3);
+
 					installBtn.innerHTML = 'Uninstall';
 					installBtn.style.backgroundColor = 'red';
 					break;
@@ -239,10 +259,11 @@ class CustomNodesInstaller extends ComfyDialog {
 					break;
 				default:
 					installBtn.innerHTML = 'Try Install';
-					installBtn.style.backgroundColor = 'silver';
+					installBtn.style.backgroundColor = 'Gray';
 				}
 
 				if(installBtn2 != null) {
+					installBtn2.style.width = "120px";
 					installBtn2.addEventListener('click', function() {
 						install_custom_node(data, CustomNodesInstaller.instance, 'update');
 					});
@@ -250,6 +271,16 @@ class CustomNodesInstaller extends ComfyDialog {
 					data5.appendChild(installBtn2);
 				}
 
+				if(installBtn3 != null) {
+					installBtn3.style.width = "120px";
+					installBtn3.addEventListener('click', function() {
+						install_custom_node(data, CustomNodesInstaller.instance, 'toggle_active');
+					});
+
+					data5.appendChild(installBtn3);
+				}
+
+				installBtn.style.width = "120px";
 				installBtn.addEventListener('click', function() {
 					if(this.innerHTML == 'Uninstall') {
 						if (confirm(`Are you sure uninstall ${data.title}?`)) {
@@ -441,20 +472,40 @@ class AlternativesInstaller extends ComfyDialog {
 				if(data.custom_node) {
 					var installBtn = document.createElement('button');
 					var installBtn2 = null;
+					var installBtn3 = null;
 
 					this.install_buttons.push(installBtn);
 
 					switch(data.custom_node.installed) {
+					case 'Disabled':
+						installBtn3 = document.createElement('button');
+						installBtn3.innerHTML = 'Enable';
+						installBtn3.style.backgroundColor = 'blue';
+						this.install_buttons.push(installBtn3);
+
+						installBtn.innerHTML = 'Uninstall';
+						installBtn.style.backgroundColor = 'red';
+						break;
 					case 'Update':
 						installBtn2 = document.createElement('button');
 						installBtn2.innerHTML = 'Update';
 						installBtn2.style.backgroundColor = 'blue';
 						this.install_buttons.push(installBtn2);
-	
+
+						installBtn3 = document.createElement('button');
+						installBtn3.innerHTML = 'Disable';
+						installBtn3.style.backgroundColor = 'MediumSlateBlue';
+						this.install_buttons.push(installBtn3);
+
 						installBtn.innerHTML = 'Uninstall';
 						installBtn.style.backgroundColor = 'red';
 						break;
 					case 'True':
+						installBtn3 = document.createElement('button');
+						installBtn3.innerHTML = 'Disable';
+						installBtn3.style.backgroundColor = 'MediumSlateBlue';
+						this.install_buttons.push(installBtn3);
+
 						installBtn.innerHTML = 'Uninstall';
 						installBtn.style.backgroundColor = 'red';
 						break;
@@ -464,10 +515,11 @@ class AlternativesInstaller extends ComfyDialog {
 						break;
 					default:
 						installBtn.innerHTML = 'Try Install';
-						installBtn.style.backgroundColor = 'silver';
+						installBtn.style.backgroundColor = 'Gray';
 					}
 
 					if(installBtn2 != null) {
+						installBtn2.style.width = "120px";
 						installBtn2.addEventListener('click', function() {
 							install_custom_node(data.custom_node, AlternativesInstaller.instance, 'update');
 						});
@@ -475,6 +527,17 @@ class AlternativesInstaller extends ComfyDialog {
 						data6.appendChild(installBtn2);
 					}
 
+					if(installBtn3 != null) {
+						installBtn3.style.width = "120px";
+						installBtn3.addEventListener('click', function() {
+							install_custom_node(data, CustomNodesInstaller.instance, 'toggle_active');
+						});
+
+						data6.appendChild(installBtn3);
+					}
+
+
+					installBtn.style.width = "120px";
 					installBtn.addEventListener('click', function() {
 						if(this.innerHTML == 'Uninstall') {
 							if (confirm(`Are you sure uninstall ${data.title}?`)) {
