@@ -64,7 +64,7 @@ async function install_custom_node(target, caller, mode) {
 		}
 		finally {
 			await caller.invalidateControl();
-			caller.updateMessage('<BR>To apply the installed custom node, please restart ComfyUI.');
+			caller.updateMessage('<BR>To apply the installed/disabled/enabled custom node, please restart ComfyUI.');
 		}
 	}
 }
