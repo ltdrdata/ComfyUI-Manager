@@ -741,6 +741,8 @@ class ModelInstaller extends ComfyDialog {
 					installBtn.style.backgroundColor = 'black';
 					break;
 				}
+				
+				installBtn.style.width = "100px";
 
 				installBtn.addEventListener('click', function() {
 					install_model(data);
