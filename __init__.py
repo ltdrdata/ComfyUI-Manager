@@ -339,6 +339,30 @@ def copy_set_active(files, is_disable, js_path_name=None):
     return True
 
 
+def execute_install_script(url, repo_path):
+    install_script_path = os.path.join(repo_path, "install.py")
+    requirements_path = os.path.join(repo_path, "requirements.txt")
+
+    if os.path.exists(requirements_path):
+        print(f"Install: pip packages")
+        install_cmd = [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]
+        code = subprocess.run(install_cmd, cwd=repo_path)
+
+        if code.returncode != 0:
+            print(f"install script failed: {url}")
+            return False
+
+    if os.path.exists(install_script_path):
+        print(f"Install: install script")
+        install_cmd = [sys.executable, "install.py"]
+        code = subprocess.run(install_cmd, cwd=repo_path)
+
+        if code.returncode != 0:
+            print(f"install script failed: {url}")
+            return False
+
+    return True
+
 def gitclone_install(files):
     print(f"install: {files}")
     for url in files:
@@ -354,26 +378,8 @@ def gitclone_install(files):
             repo_name = os.path.splitext(os.path.basename(url))[0]
             repo_path = os.path.join(custom_nodes_path, repo_name)
 
-            install_script_path = os.path.join(repo_path, "install.py")
-            requirements_path = os.path.join(repo_path, "requirements.txt")
-
-            if os.path.exists(requirements_path):
-                print(f"Install: pip packages")
-                install_cmd = [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]
-                code = subprocess.run(install_cmd, cwd=repo_path)
-                
-                if code.returncode != 0:
-                    print(f"install script failed: {url}")
-                    return False
-                
-            if os.path.exists(install_script_path):
-                print(f"Install: install script")
-                install_cmd = [sys.executable, "install.py"]
-                code = subprocess.run(install_cmd, cwd=repo_path)
-                
-                if code.returncode != 0:
-                    print(f"install script failed: {url}")
-                    return False
+            if not execute_install_script(url, repo_path):
+                return False
             
         except Exception as e:
             print(f"Install(git-clone) error: {url} / {e}")
@@ -449,18 +455,21 @@ def gitclone_set_active(files, is_disable):
 def gitclone_update(files):
     import os
 
-    print(f"uninstall: {files}")
+    print(f"update: {files}")
     for url in files:
         try:
-            dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
-            dir_path = os.path.join(custom_nodes_path, dir_name)
-            git_pull(dir_path)
+            repo_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
+            repo_path = os.path.join(custom_nodes_path, repo_name)
+            git_pull(repo_path)
+
+            if not execute_install_script(url, repo_path):
+                return False
             
         except Exception as e:
             print(f"Update(git-clone) error: {url} / {e}")
             return False
         
-    print("Uninstallation was successful.")
+    print("Update was successful.")
     return True
 
 
