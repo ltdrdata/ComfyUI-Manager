@@ -21,6 +21,7 @@
 2. If you click on 'Install Custom Nodes' or 'Install Models', an installer dialog will open.
 ![menu](misc/menu.png)
 
+* When the 'Use local DB' feature is enabled, the application will utilize the data stored locally on your device, rather than retrieving node/model information over the internet
 
 3. Click 'Install' or 'Try Install' button.
 
