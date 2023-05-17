@@ -3,13 +3,20 @@ import folder_paths
 import os, sys
 import subprocess
 
+try:
+    import git
+except:
+    my_path = os.path.dirname(__file__)
+    requirements_path = os.path.join(my_path, "requirements.txt")
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-r', requirements_path])
+    import git
 
 sys.path.append('../..')
 
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.3)")
+print("### Loading: ComfyUI-Manager (V0.4)")
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -27,11 +34,14 @@ def git_repo_has_updates(path):
         raise ValueError('Not a git repository')
 
     # Fetch the latest commits from the remote repository
-    subprocess.run(['git', 'fetch'], check=True, cwd=path)
+    repo = git.Repo(path)
+    remote_name = 'origin'
+    remote = repo.remote(name=remote_name)
+    remote.fetch()
 
     # Get the current commit hash and the commit hash of the remote branch
-    commit_hash = subprocess.check_output(['git', 'rev-parse', 'HEAD'], encoding='utf-8', cwd=path).strip()
-    remote_commit_hash = subprocess.check_output(['git', 'rev-parse', '@{u}'], encoding='utf-8', cwd=path).strip()
+    commit_hash = repo.head.commit.hexsha
+    remote_commit_hash = repo.refs[f'{remote_name}/HEAD'].object.hexsha
 
     # Compare the commit hashes to determine if the local repository is behind the remote repository
     if commit_hash != remote_commit_hash:
@@ -41,11 +51,16 @@ def git_repo_has_updates(path):
 
 
 def git_pull(path):
-    print(f"path: {path}")
+    # Check if the path is a git repository
     if not os.path.exists(os.path.join(path, '.git')):
         raise ValueError('Not a git repository')
 
-    subprocess.run(['git', 'pull'], check=True, cwd=path)
+    # Pull the latest changes from the remote repository
+    repo = git.Repo(path)
+    origin = repo.remote(name='origin')
+    origin.pull()
+
+    return True
 
 
 async def get_data(uri):
@@ -363,20 +378,17 @@ def execute_install_script(url, repo_path):
 
     return True
 
+
 def gitclone_install(files):
     print(f"install: {files}")
     for url in files:
         try:
             print(f"Download: git clone '{url}'")
-            clone_cmd = ["git", "clone", url]
-            code = subprocess.run(clone_cmd, cwd=custom_nodes_path)
-            
-            if code.returncode != 0:
-                print(f"git-clone failed: {url}")
-                return False
-                
             repo_name = os.path.splitext(os.path.basename(url))[0]
             repo_path = os.path.join(custom_nodes_path, repo_name)
+
+            # Clone the repository from the remote URL
+            git.Repo.clone_from(url, repo_path)
 
             if not execute_install_script(url, repo_path):
                 return False
@@ -494,6 +506,7 @@ async def install_custom_node(request):
         res = gitclone_install(json_data['files'])
     
     if res:
+        print(f"After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
     
     return web.Response(status=400)
@@ -517,6 +530,7 @@ async def install_custom_node(request):
         res = gitclone_uninstall(json_data['files'])
     
     if res:
+        print(f"After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
     
     return web.Response(status=400)
@@ -536,6 +550,7 @@ async def install_custom_node(request):
         res = gitclone_update(json_data['files'])
     
     if res:
+        print(f"After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
     
     return web.Response(status=400)

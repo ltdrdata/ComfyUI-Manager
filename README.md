@@ -6,6 +6,10 @@
 2. git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 3. Restart ComfyUI
 
+# Changes
+
+* **V0.5** Removed external git program dependencies.
+
 
 # How To Use
 
