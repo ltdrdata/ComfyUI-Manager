@@ -2,6 +2,8 @@ import { app } from "/scripts/app.js";
 import { ComfyDialog, $el } from "/scripts/ui.js";
 import {ComfyWidgets} from "../../scripts/widgets.js";
 
+var update_comfyui_button = null;
+
 async function getCustomNodes() {
 	var mode = "url";
 	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
@@ -66,6 +68,41 @@ async function install_custom_node(target, caller, mode) {
 			await caller.invalidateControl();
 			caller.updateMessage('<BR>To apply the installed/disabled/enabled custom node, please restart ComfyUI.');
 		}
+	}
+}
+
+async function updateComfyUI() {
+	update_comfyui_button.innerText = "Updating ComfyUI...";
+	update_comfyui_button.disabled = true;
+
+	try {
+		const response = await fetch('/comfyui_manager/update_comfyui');
+
+		if(response.status == 400) {
+			app.ui.dialog.show('Failed to update ComfyUI');
+			app.ui.dialog.element.style.zIndex = 9999;
+			return false;
+		}
+
+		if(response.status == 201) {
+			app.ui.dialog.show('ComfyUI has been successfully updated.');
+			app.ui.dialog.element.style.zIndex = 9999;
+		}
+		else {
+			app.ui.dialog.show('ComfyUI is already up to date with the latest version.');
+			app.ui.dialog.element.style.zIndex = 9999;
+		}
+
+		return true;
+	}
+	catch(exception) {
+		app.ui.dialog.show(`Failed to update ComfyUI / ${exception}`);
+		app.ui.dialog.element.style.zIndex = 9999;
+		return false;
+	}
+	finally {
+		update_comfyui_button.disabled = false;
+		update_comfyui_button.innerText = "Update ComfyUI";
 	}
 }
 
@@ -809,6 +846,14 @@ class ManagerMenuDialog extends ComfyDialog {
 		const checkbox_text = $el("label",{},["Use local DB"])
 		checkbox_text.style.color = "var(--fg-color)"
 
+		update_comfyui_button =
+				$el("button", {
+					type: "button",
+					textContent: "Update ComfyUI",
+					onclick:
+						() => updateComfyUI()
+				});
+
 		const res =
 			[
 				$el("tr.td", {width:"100%"}, [$el("font", {size:6, color:"white"}, [`Manager Menu`])]),
@@ -836,6 +881,8 @@ class ManagerMenuDialog extends ComfyDialog {
 							ModelInstaller.instance.show();
 						}
 				}),
+
+				update_comfyui_button,
 
 				$el("br", {}, []),
 				$el("button", {

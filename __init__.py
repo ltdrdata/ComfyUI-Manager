@@ -16,7 +16,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.4.1)")
+print("### Loading: ComfyUI-Manager (V0.5)")
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -42,7 +42,7 @@ def __win_check_git_update(path):
     else:
         process.wait()
         return False
-    
+
 
 def __win_check_git_pull(path):
     command = [sys.executable, git_script_path, "--pull", path]
@@ -71,7 +71,7 @@ def git_repo_has_updates(path):
         # Compare the commit hashes to determine if the local repository is behind the remote repository
         if commit_hash != remote_commit_hash:
             return True
-        
+
     return False
 
 
@@ -120,8 +120,8 @@ def setup_js():
     js_src_path = os.path.join(comfyui_manager_path, "js", "comfyui-manager.js")
     shutil.copy(js_src_path, js_dest_path)
 
-setup_js()
 
+setup_js()
 
 # Expand Server api
 
@@ -181,7 +181,7 @@ def check_a_custom_node_installed(item):
             except:
                 item['installed'] = 'True'
 
-        elif os.path.exists(dir_path+".disabled"):
+        elif os.path.exists(dir_path + ".disabled"):
             item['installed'] = 'Disabled'
 
         else:
@@ -264,7 +264,6 @@ async def fetch_externalmodel_list(request):
     else:
         uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json'
 
-
     json_obj = await get_data(uri)
     check_model_installed(json_obj)
 
@@ -275,8 +274,9 @@ def unzip_install(files):
     temp_filename = 'manager-temp.zip'
     for url in files:
         try:
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
-            
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+
             req = urllib.request.Request(url, headers=headers)
             response = urllib.request.urlopen(req)
             data = response.read()
@@ -291,7 +291,7 @@ def unzip_install(files):
         except Exception as e:
             print(f"Install(unzip) error: {url} / {e}")
             return False
-    
+
     print("Installation was successful.")
     return True
 
@@ -330,7 +330,7 @@ def copy_install(files, js_path_name=None):
         except Exception as e:
             print(f"Install(copy) error: {url} / {e}")
             return False
-    
+
     print("Installation was successful.")
     return True
 
@@ -344,12 +344,12 @@ def copy_uninstall(files, js_path_name=None):
         try:
             if os.path.exists(file_path):
                 os.remove(file_path)
-            elif os.path.exists(file_path+".disabled"):
-                os.remove(file_path+".disabled")
+            elif os.path.exists(file_path + ".disabled"):
+                os.remove(file_path + ".disabled")
         except Exception as e:
             print(f"Uninstall(copy) error: {url} / {e}")
             return False
-        
+
     print("Uninstallation was successful.")
     return True
 
@@ -425,14 +425,14 @@ def gitclone_install(files):
                 repo = git.Repo.clone_from(url, repo_path)
                 repo.git.clear_cache()
                 repo.close()
-            
+
             if not execute_install_script(url, repo_path):
                 return False
-            
+
         except Exception as e:
             print(f"Install(git-clone) error: {url} / {e}")
             return False
-        
+
     print("Installation was successful.")
     return True
 
@@ -440,13 +440,15 @@ def gitclone_install(files):
 import platform
 import subprocess
 import time
+
+
 def rmtree(path):
     retry_count = 3
 
     while True:
         try:
             retry_count -= 1
-            
+
             if platform.system() == "Windows":
                 subprocess.check_call(['attrib', '-R', path + '\\*', '/S'])
             shutil.rmtree(path)
@@ -459,8 +461,9 @@ def rmtree(path):
 
             if retry_count < 0:
                 raise ex
-            
+
             print(f"Uninstall retry({retry_count})")
+
 
 def gitclone_uninstall(files):
     import shutil
@@ -479,12 +482,12 @@ def gitclone_uninstall(files):
 
             if os.path.exists(dir_path):
                 rmtree(dir_path)
-            elif os.path.exists(dir_path+".disabled"):
-                rmtree(dir_path+".disabled")
+            elif os.path.exists(dir_path + ".disabled"):
+                rmtree(dir_path + ".disabled")
         except Exception as e:
             print(f"Uninstall(git-clone) error: {url} / {e}")
             return False
-        
+
     print("Uninstallation was successful.")
     return True
 
@@ -528,7 +531,7 @@ def gitclone_set_active(files, is_disable):
 def gitclone_update(files):
     import os
 
-    print(f"update: {files}")
+    print(f"Update: {files}")
     for url in files:
         try:
             repo_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
@@ -537,11 +540,11 @@ def gitclone_update(files):
 
             if not execute_install_script(url, repo_path):
                 return False
-            
+
         except Exception as e:
             print(f"Update(git-clone) error: {url} / {e}")
             return False
-        
+
     print("Update was successful.")
     return True
 
@@ -549,9 +552,9 @@ def gitclone_update(files):
 @server.PromptServer.instance.routes.post("/customnode/install")
 async def install_custom_node(request):
     json_data = await request.json()
-    
+
     install_type = json_data['install_type']
-    
+
     print(f"Install custom node '{json_data['title']}'")
 
     res = False
@@ -562,23 +565,23 @@ async def install_custom_node(request):
     if install_type == "copy":
         js_path_name = json_data['js_path'] if 'js_path' in json_data else None
         res = copy_install(json_data['files'], js_path_name)
-        
+
     elif install_type == "git-clone":
         res = gitclone_install(json_data['files'])
-    
+
     if res:
         print(f"After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
-    
+
     return web.Response(status=400)
 
 
 @server.PromptServer.instance.routes.post("/customnode/uninstall")
 async def install_custom_node(request):
     json_data = await request.json()
-    
+
     install_type = json_data['install_type']
-    
+
     print(f"Uninstall custom node '{json_data['title']}'")
 
     res = False
@@ -586,34 +589,68 @@ async def install_custom_node(request):
     if install_type == "copy":
         js_path_name = json_data['js_path'] if 'js_path' in json_data else None
         res = copy_uninstall(json_data['files'], js_path_name)
-        
+
     elif install_type == "git-clone":
         res = gitclone_uninstall(json_data['files'])
-    
+
     if res:
         print(f"After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
-    
+
     return web.Response(status=400)
 
 
 @server.PromptServer.instance.routes.post("/customnode/update")
 async def install_custom_node(request):
     json_data = await request.json()
-    
+
     install_type = json_data['install_type']
-    
+
     print(f"Update custom node '{json_data['title']}'")
 
     res = False
 
     if install_type == "git-clone":
         res = gitclone_update(json_data['files'])
-    
+
     if res:
         print(f"After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
-    
+
+    return web.Response(status=400)
+
+
+@server.PromptServer.instance.routes.get("/comfyui_manager/update_comfyui")
+async def install_custom_node(request):
+    print(f"Update ComfyUI")
+
+    try:
+        repo_path = os.path.dirname(folder_paths.__file__)
+
+        if not os.path.exists(os.path.join(repo_path, '.git')):
+            print(f"ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
+            return web.Response(status=400)
+
+        # version check
+        repo = git.Repo(repo_path)
+        remote_name = 'origin'
+        remote = repo.remote(name=remote_name)
+        remote.fetch()
+
+        commit_hash = repo.head.commit.hexsha
+        remote_commit_hash = repo.refs[f'{remote_name}/HEAD'].object.hexsha
+
+        print(f"{commit_hash} != {remote_commit_hash}")
+        if commit_hash != remote_commit_hash:
+            git_pull(repo_path)
+            execute_install_script("ComfyUI", repo_path)
+            return web.Response(status=201)
+        else:
+            return web.Response(status=200)
+    except Exception as e:
+        print(f"ComfyUI update fail: {e}")
+        pass
+
     return web.Response(status=400)
 
 
