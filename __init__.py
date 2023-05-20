@@ -26,6 +26,28 @@ comfyui_manager_path = os.path.dirname(__file__)
 local_db_model = os.path.join(comfyui_manager_path, "model-list.json")
 local_db_alter = os.path.join(comfyui_manager_path, "alter-list.json")
 local_db_custom_node_list = os.path.join(comfyui_manager_path, "custom-node-list.json")
+git_script_path = os.path.join(os.path.dirname(__file__), "git_helper.py")
+
+
+# use subprocess to avoid file system lock by git (Windows)
+def __win_check_git_update(path):
+    command = [sys.executable, git_script_path, "--check", path]
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output, _ = process.communicate()
+    output = output.decode('utf-8').strip()
+
+    if "CUSTOM NODE CHECK: True" in output:
+        process.wait()
+        return True
+    else:
+        process.wait()
+        return False
+    
+
+def __win_check_git_pull(path):
+    command = [sys.executable, git_script_path, "--pull", path]
+    process = subprocess.Popen(command)
+    process.wait()
 
 
 def git_repo_has_updates(path):
@@ -33,20 +55,23 @@ def git_repo_has_updates(path):
     if not os.path.exists(os.path.join(path, '.git')):
         raise ValueError('Not a git repository')
 
-    # Fetch the latest commits from the remote repository
-    repo = git.Repo(path)
-    remote_name = 'origin'
-    remote = repo.remote(name=remote_name)
-    remote.fetch()
+    if platform.system() == "Windows":
+        return __win_check_git_update(path)
+    else:
+        # Fetch the latest commits from the remote repository
+        repo = git.Repo(path)
+        remote_name = 'origin'
+        remote = repo.remote(name=remote_name)
+        remote.fetch()
 
-    # Get the current commit hash and the commit hash of the remote branch
-    commit_hash = repo.head.commit.hexsha
-    remote_commit_hash = repo.refs[f'{remote_name}/HEAD'].object.hexsha
+        # Get the current commit hash and the commit hash of the remote branch
+        commit_hash = repo.head.commit.hexsha
+        remote_commit_hash = repo.refs[f'{remote_name}/HEAD'].object.hexsha
 
-    # Compare the commit hashes to determine if the local repository is behind the remote repository
-    if commit_hash != remote_commit_hash:
-        return True
-
+        # Compare the commit hashes to determine if the local repository is behind the remote repository
+        if commit_hash != remote_commit_hash:
+            return True
+        
     return False
 
 
@@ -56,9 +81,14 @@ def git_pull(path):
         raise ValueError('Not a git repository')
 
     # Pull the latest changes from the remote repository
-    repo = git.Repo(path)
-    origin = repo.remote(name='origin')
-    origin.pull()
+    if platform.system() == "Windows":
+        return __win_check_git_pull(path)
+    else:
+        repo = git.Repo(path)
+        origin = repo.remote(name='origin')
+        origin.pull()
+
+        repo.close()
 
     return True
 
@@ -388,8 +418,14 @@ def gitclone_install(files):
             repo_path = os.path.join(custom_nodes_path, repo_name)
 
             # Clone the repository from the remote URL
-            git.Repo.clone_from(url, repo_path)
-
+            if platform.system() == 'Windows':
+                process = subprocess.Popen([sys.executable, git_script_path, "--clone", custom_nodes_path, url])
+                process.wait()
+            else:
+                repo = git.Repo.clone_from(url, repo_path)
+                repo.git.clear_cache()
+                repo.close()
+            
             if not execute_install_script(url, repo_path):
                 return False
             
@@ -400,6 +436,31 @@ def gitclone_install(files):
     print("Installation was successful.")
     return True
 
+
+import platform
+import subprocess
+import time
+def rmtree(path):
+    retry_count = 3
+
+    while True:
+        try:
+            retry_count -= 1
+            
+            if platform.system() == "Windows":
+                subprocess.check_call(['attrib', '-R', path + '\\*', '/S'])
+            shutil.rmtree(path)
+
+            return True
+
+        except Exception as ex:
+            print(f"ex: {ex}")
+            time.sleep(3)
+
+            if retry_count < 0:
+                raise ex
+            
+            print(f"Uninstall retry({retry_count})")
 
 def gitclone_uninstall(files):
     import shutil
@@ -417,9 +478,9 @@ def gitclone_uninstall(files):
                 return False
 
             if os.path.exists(dir_path):
-                shutil.rmtree(dir_path)
+                rmtree(dir_path)
             elif os.path.exists(dir_path+".disabled"):
-                shutil.rmtree(dir_path+".disabled")
+                rmtree(dir_path+".disabled")
         except Exception as e:
             print(f"Uninstall(git-clone) error: {url} / {e}")
             return False
