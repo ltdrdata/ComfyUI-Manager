@@ -16,7 +16,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.5.1)")
+print("### Loading: ComfyUI-Manager (V0.6)")
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -26,6 +26,7 @@ comfyui_manager_path = os.path.dirname(__file__)
 local_db_model = os.path.join(comfyui_manager_path, "model-list.json")
 local_db_alter = os.path.join(comfyui_manager_path, "alter-list.json")
 local_db_custom_node_list = os.path.join(comfyui_manager_path, "custom-node-list.json")
+local_db_extension_node_mappings = os.path.join(comfyui_manager_path, "extension-node-map.json")
 git_script_path = os.path.join(os.path.dirname(__file__), "git_helper.py")
 
 
@@ -202,6 +203,18 @@ def check_a_custom_node_installed(item):
 def check_custom_nodes_installed(json_obj):
     for item in json_obj['custom_nodes']:
         check_a_custom_node_installed(item)
+
+
+@server.PromptServer.instance.routes.get("/customnode/getmappings")
+async def fetch_customnode_mappings(request):
+    if request.rel_url.query["mode"] == "local":
+        uri = local_db_extension_node_mappings
+    else:
+        uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json'
+
+    json_obj = await get_data(uri)
+
+    return web.json_response(json_obj, content_type='application/json')
 
 
 @server.PromptServer.instance.routes.get("/customnode/getlist")

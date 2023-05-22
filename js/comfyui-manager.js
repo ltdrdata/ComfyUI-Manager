@@ -4,6 +4,17 @@ import {ComfyWidgets} from "../../scripts/widgets.js";
 
 var update_comfyui_button = null;
 
+async function getCustomnodeMappings() {
+	var mode = "url";
+	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+		mode = "local";
+
+	const response = await fetch(`/customnode/getmappings?mode=${mode}`);
+
+	const data = await response.json();
+	return data;
+}
+
 async function getCustomNodes() {
 	var mode = "url";
 	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
@@ -165,7 +176,37 @@ class CustomNodesInstaller extends ComfyDialog {
 		}
 	}
 
-	async invalidateControl() {
+	async filter_missing_node(data) {
+		const mappings = await getCustomnodeMappings();
+
+		const name_to_url = {};
+		for (const url in mappings) {
+			const names = mappings[url];
+			for(const name in names) {
+				name_to_url[names[name]] = url;
+			}
+		}
+
+		const registered_nodes = new Set();
+		for (let i in LiteGraph.registered_node_types) {
+			registered_nodes.add(LiteGraph.registered_node_types[i].type);
+		}
+
+		const missing_nodes = new Set();
+		const nodes = app.graph.serialize().nodes;
+		for (let i in nodes) {
+			const node_type = nodes[i].type;
+			if (!registered_nodes.has(node_type)) {
+				const url = name_to_url[node_type];
+				if(url)
+					missing_nodes.add(url);
+			}
+		}
+
+		return data.filter(node => node.files.some(file => missing_nodes.has(file)));
+	}
+
+	async invalidateControl(is_missing_node_mode) {
 		this.clear();
 
 		// splash
@@ -183,6 +224,9 @@ class CustomNodesInstaller extends ComfyDialog {
 
 		// invalidate
 		this.data = (await getCustomNodes()).custom_nodes;
+
+		if(is_missing_node_mode)
+			this.data = await this.filter_missing_node(this.data);
 
 		this.element.removeChild(msg);
 
@@ -366,9 +410,9 @@ class CustomNodesInstaller extends ComfyDialog {
 		this.element.appendChild(close_button);
 	}
 
-	async show() {
+	async show(is_missing_node_mode) {
 		try {
-			this.invalidateControl();
+			this.invalidateControl(is_missing_node_mode);
 
 			this.element.style.display = "block";
 		}
@@ -867,7 +911,18 @@ class ManagerMenuDialog extends ComfyDialog {
 						() => {
 							if(!CustomNodesInstaller.instance)
 								CustomNodesInstaller.instance = new CustomNodesInstaller(app);
-							CustomNodesInstaller.instance.show();
+							CustomNodesInstaller.instance.show(false);
+						}
+				}),
+
+				$el("button", {
+					type: "button",
+					textContent: "Install Custom Nodes (missing)",
+					onclick:
+						() => {
+							if(!CustomNodesInstaller.instance)
+								CustomNodesInstaller.instance = new CustomNodesInstaller(app);
+							CustomNodesInstaller.instance.show(true);
 						}
 				}),
 
