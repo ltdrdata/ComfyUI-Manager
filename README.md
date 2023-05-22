@@ -8,6 +8,7 @@
 
 # Changes
 
+* **V0.6** Support extension installation for missing nodes.
 * **V0.5** Removed external git program dependencies.
 
 
@@ -40,6 +41,17 @@
 
 * Please submit a pull request to update either the custom-node-list.json or model-list.json file.
 
+# Support of missing nodes installation
+
+![missing-menu](misc/missing-menu.png)
+
+* When you click on the ```Install Custom Nodes (missing)``` button in the menu, it displays a list of extension nodes that contain nodes not currently present in the workflow.
+
+![missing-list](misc/missing-list.png)
+
+* Currently, support is only provided for extension nodes that can be installed in the form of "git-clone".
+
+
 
 # TODO: Unconventional form of custom node list
 
@@ -51,8 +63,6 @@
 
 * installation from git url
 * 3rd party repository
-* Basic embedding downloading support. 
-  * negative_hand, ...
 * category/keyword filter
 * Specification of custom nodes
 * Specification scanner
