@@ -206,7 +206,7 @@ class CustomNodesInstaller extends ComfyDialog {
 		return data.filter(node => node.files.some(file => missing_nodes.has(file)));
 	}
 
-	async invalidateControl(is_missing_node_mode) {
+	async invalidateControl() {
 		this.clear();
 
 		// splash
@@ -225,7 +225,7 @@ class CustomNodesInstaller extends ComfyDialog {
 		// invalidate
 		this.data = (await getCustomNodes()).custom_nodes;
 
-		if(is_missing_node_mode)
+		if(this.is_missing_node_mode)
 			this.data = await this.filter_missing_node(this.data);
 
 		this.element.removeChild(msg);
@@ -411,8 +411,9 @@ class CustomNodesInstaller extends ComfyDialog {
 	}
 
 	async show(is_missing_node_mode) {
+		this.is_missing_node_mode = is_missing_node_mode;
 		try {
-			this.invalidateControl(is_missing_node_mode);
+			this.invalidateControl();
 
 			this.element.style.display = "block";
 		}
