@@ -16,7 +16,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.6)")
+print("### Loading: ComfyUI-Manager (V0.6.1)")
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -28,6 +28,25 @@ local_db_alter = os.path.join(comfyui_manager_path, "alter-list.json")
 local_db_custom_node_list = os.path.join(comfyui_manager_path, "custom-node-list.json")
 local_db_extension_node_mappings = os.path.join(comfyui_manager_path, "extension-node-map.json")
 git_script_path = os.path.join(os.path.dirname(__file__), "git_helper.py")
+
+
+def print_comfyui_version():
+    try:
+        repo = git.Repo(os.path.dirname(folder_paths.__file__))
+
+        revision_count = len(list(repo.iter_commits('HEAD')))
+        current_branch = repo.active_branch.name
+        git_hash = repo.head.commit.hexsha
+
+        if current_branch == "master":
+            print(f"### ComfyUI Revision: {revision_count} [{git_hash[:8]}]")
+        else:
+            print(f"### ComfyUI Revision: {revision_count} on '{current_branch}' [{git_hash[:8]}]")
+    except:
+        print("### ComfyUI Revision: UNKNOWN (The currently installed ComfyUI is not a Git repository)")
+
+
+print_comfyui_version()
 
 
 # use subprocess to avoid file system lock by git (Windows)
