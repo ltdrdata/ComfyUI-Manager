@@ -49,7 +49,7 @@
 
 ![missing-list](misc/missing-list.png)
 
-* Currently, support is only provided for extension nodes that can be installed in the form of "git-clone".
+* Currently, support is not available for custom nodes that can only be downloaded through civitai.
 
 
 

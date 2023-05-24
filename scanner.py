@@ -1,8 +1,8 @@
 import re
 import os
 import json
-import sys
 from git import Repo
+from torchvision.datasets.utils import download_url
 
 
 def scan_in_file(filename):
@@ -83,6 +83,21 @@ def get_git_urls_from_json(json_file):
     return git_clone_files
 
 
+def get_py_urls_from_json(json_file):
+    with open(json_file) as file:
+        data = json.load(file)
+
+        custom_nodes = data.get('custom_nodes', [])
+        py_files = []
+        for node in custom_nodes:
+            if node.get('install_type') == 'copy':
+                files = node.get('files', [])
+                if files:
+                    py_files.append(files[0])
+
+    return py_files
+
+
 def clone_or_pull_git_repository(git_url):
     repo_name = git_url.split("/")[-1].split(".")[0]
     repo_dir = os.path.join(os.getcwd(), ".tmp", repo_name)
@@ -116,9 +131,19 @@ def update_custom_nodes():
         name = os.path.basename(url)
         if name.endswith(".git"):
             name = name[:-4]
+            
         node_info[name] = url
         clone_or_pull_git_repository(url)
-        
+
+    py_urls = get_py_urls_from_json('custom-node-list.json')
+
+    for url in py_urls:
+        name = os.path.basename(url)
+        if name.endswith(".py"):
+            node_info[name] = url
+
+        download_url(url, ".tmp")
+            
     return node_info
 
 
@@ -136,13 +161,30 @@ def gen_json(node_info):
         dirname = os.path.basename(dirname)
 
         if nodes != []:
+            nodes.sort()
+            
             git_url = node_info[dirname]
             data[git_url] = nodes
 
+    for file in node_files:
+        nodes = scan_in_file(file)
+
+        if nodes != []:
+            nodes.sort()
+
+            file = os.path.basename(file)
+            url = node_info[file]
+            data[url] = nodes
+
     json_path = f"extension-node-map.json"
     with open(json_path, "w") as file:
-        json.dump(data, file, indent=4)
+        json.dump(data, file, indent=4, sort_keys=True)
 
 
+print("### ComfyUI Manager Node Scanner ###")
+
+print("\n# Updating extensions\n")
 node_info = update_custom_nodes()
+
+print("\n# 'extension-node-map.json' file is generated.\n")
 gen_json(node_info)
