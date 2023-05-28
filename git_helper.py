@@ -7,7 +7,7 @@ def gitclone(custom_nodes_path, url):
     repo_path = os.path.join(custom_nodes_path, repo_name)
 
     # Clone the repository from the remote URL
-    repo = git.Repo.clone_from(url, repo_path)
+    repo = git.Repo.clone_from(url, repo_path, recursive=True)
     repo.git.clear_cache()
     repo.close()
 
@@ -24,7 +24,13 @@ def gitcheck(path):
 
     # Compare the commit hashes to determine if the local repository is behind the remote repository
     if commit_hash != remote_commit_hash:
-        print("CUSTOM NODE CHECK: True")
+        # Get the commit dates
+        commit_date = repo.head.commit.committed_datetime
+        remote_commit_date = repo.refs[f'{remote_name}/HEAD'].object.committed_datetime
+
+        # Compare the commit dates to determine if the local repository is behind the remote repository
+        if commit_date < remote_commit_date:
+            print("CUSTOM NODE CHECK: True")
     else:
         print("CUSTOM NODE CHECK: False")
 
@@ -36,7 +42,7 @@ def gitpull(path):
     # Pull the latest changes from the remote repository
     repo = git.Repo(path)
     origin = repo.remote(name='origin')
-    origin.pull()
+    origin.pull(submodule_update='recursive')
 
     repo.close()
 

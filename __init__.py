@@ -16,7 +16,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.6.3)")
+print("### Loading: ComfyUI-Manager (V0.6.4)")
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -90,7 +90,13 @@ def git_repo_has_updates(path):
 
         # Compare the commit hashes to determine if the local repository is behind the remote repository
         if commit_hash != remote_commit_hash:
-            return True
+            # Get the commit dates
+            commit_date = repo.head.commit.committed_datetime
+            remote_commit_date = repo.refs[f'{remote_name}/HEAD'].object.committed_datetime
+
+            # Compare the commit dates to determine if the local repository is behind the remote repository
+            if commit_date < remote_commit_date:
+                return True
 
     return False
 
@@ -107,7 +113,8 @@ def git_pull(path):
         repo = git.Repo(path)
         origin = repo.remote(name='origin')
         origin.pull()
-
+        repo.git.submodule('update', '--init', '--recursive')
+        
         repo.close()
 
     return True
@@ -454,7 +461,7 @@ def gitclone_install(files):
                 process = subprocess.Popen([sys.executable, git_script_path, "--clone", custom_nodes_path, url])
                 process.wait()
             else:
-                repo = git.Repo.clone_from(url, repo_path)
+                repo = git.Repo.clone_from(url, repo_path, recursive=True)
                 repo.git.clear_cache()
                 repo.close()
 
