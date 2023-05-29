@@ -16,7 +16,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.6.4)")
+print("### Loading: ComfyUI-Manager (V0.6.5)")
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -343,6 +343,9 @@ def download_url_with_agent(url, save_path):
         req = urllib.request.Request(url, headers=headers)
         response = urllib.request.urlopen(req)
         data = response.read()
+
+        if not os.path.exists(os.path.dirname(save_path)):
+            os.makedirs(os.path.dirname(save_path))
 
         with open(save_path, 'wb') as f:
             f.write(data)
