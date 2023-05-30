@@ -16,7 +16,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.6.5)")
+print("### Loading: ComfyUI-Manager (V0.7)")
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -50,8 +50,12 @@ print_comfyui_version()
 
 
 # use subprocess to avoid file system lock by git (Windows)
-def __win_check_git_update(path):
-    command = [sys.executable, git_script_path, "--check", path]
+def __win_check_git_update(path, do_fetch=False):
+    if do_fetch:
+        command = [sys.executable, git_script_path, "--fetch", path]
+    else:
+        command = [sys.executable, git_script_path, "--check", path]
+
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, _ = process.communicate()
     output = output.decode('utf-8').strip()
@@ -70,19 +74,21 @@ def __win_check_git_pull(path):
     process.wait()
 
 
-def git_repo_has_updates(path):
+def git_repo_has_updates(path, do_fetch=False):
     # Check if the path is a git repository
     if not os.path.exists(os.path.join(path, '.git')):
         raise ValueError('Not a git repository')
 
     if platform.system() == "Windows":
-        return __win_check_git_update(path)
+        return __win_check_git_update(path, do_fetch)
     else:
         # Fetch the latest commits from the remote repository
         repo = git.Repo(path)
         remote_name = 'origin'
         remote = repo.remote(name=remote_name)
-        remote.fetch()
+
+        if do_fetch:
+            remote.fetch()
 
         # Get the current commit hash and the commit hash of the remote branch
         commit_hash = repo.head.commit.hexsha
@@ -193,7 +199,7 @@ def get_model_path(data):
     return os.path.join(base_model, data['filename'])
 
 
-def check_a_custom_node_installed(item):
+def check_a_custom_node_installed(item, do_fetch=False):
     item['installed'] = 'None'
 
     if item['install_type'] == 'git-clone' and len(item['files']) == 1:
@@ -201,7 +207,7 @@ def check_a_custom_node_installed(item):
         dir_path = os.path.join(custom_nodes_path, dir_name)
         if os.path.exists(dir_path):
             try:
-                if git_repo_has_updates(dir_path):
+                if git_repo_has_updates(dir_path, do_fetch):
                     item['installed'] = 'Update'
                 else:
                     item['installed'] = 'True'
@@ -226,9 +232,9 @@ def check_a_custom_node_installed(item):
             item['installed'] = 'False'
 
 
-def check_custom_nodes_installed(json_obj):
+def check_custom_nodes_installed(json_obj, do_fetch=False):
     for item in json_obj['custom_nodes']:
-        check_a_custom_node_installed(item)
+        check_a_custom_node_installed(item, do_fetch)
 
 
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
@@ -243,6 +249,28 @@ async def fetch_customnode_mappings(request):
     return web.json_response(json_obj, content_type='application/json')
 
 
+@server.PromptServer.instance.routes.get("/customnode/fetch_updates")
+async def fetch_updates(request):
+    try:
+        if request.rel_url.query["mode"] == "local":
+            uri = local_db_custom_node_list
+        else:
+            uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json'
+
+        json_obj = await get_data(uri)
+        check_custom_nodes_installed(json_obj, True)
+
+        update_exists = any('custom_nodes' in json_obj and 'installed' in node and node['installed'] == 'Update' for node in
+                            json_obj['custom_nodes'])
+
+        if update_exists:
+            return web.Response(status=201)
+
+        return web.Response(status=200)
+    except:
+        return web.Response(status=400)
+
+
 @server.PromptServer.instance.routes.get("/customnode/getlist")
 async def fetch_customnode_list(request):
     if request.rel_url.query["mode"] == "local":
@@ -251,7 +279,7 @@ async def fetch_customnode_list(request):
         uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json'
 
     json_obj = await get_data(uri)
-    check_custom_nodes_installed(json_obj)
+    check_custom_nodes_installed(json_obj, False)
 
     return web.json_response(json_obj, content_type='application/json')
 

@@ -11,12 +11,14 @@ def gitclone(custom_nodes_path, url):
     repo.git.clear_cache()
     repo.close()
 
-def gitcheck(path):
+def gitcheck(path, do_fetch=False):
     # Fetch the latest commits from the remote repository
     repo = git.Repo(path)
     remote_name = 'origin'
     remote = repo.remote(name=remote_name)
-    remote.fetch()
+
+    if do_fetch:
+        remote.fetch()
 
     # Get the current commit hash and the commit hash of the remote branch
     commit_hash = repo.head.commit.hexsha
@@ -50,7 +52,9 @@ try:
     if sys.argv[1] == "--clone":
         gitclone(sys.argv[2], sys.argv[3])
     elif sys.argv[1] == "--check":
-        gitcheck(sys.argv[2])
+        gitcheck(sys.argv[2], False)
+    elif sys.argv[1] == "--fetch":
+        gitcheck(sys.argv[2], True)
     elif sys.argv[1] == "--pull":
         gitpull(sys.argv[2])
     exit(0)

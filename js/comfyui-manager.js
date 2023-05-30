@@ -3,6 +3,7 @@ import { ComfyDialog, $el } from "/scripts/ui.js";
 import {ComfyWidgets} from "../../scripts/widgets.js";
 
 var update_comfyui_button = null;
+var fetch_updates_button = null;
 
 async function getCustomnodeMappings() {
 	var mode = "url";
@@ -114,6 +115,45 @@ async function updateComfyUI() {
 	finally {
 		update_comfyui_button.disabled = false;
 		update_comfyui_button.innerText = "Update ComfyUI";
+	}
+}
+
+async function fetchUpdates() {
+	fetch_updates_button.innerText = "Fetching updates...";
+	fetch_updates_button.disabled = true;
+
+	try {
+		var mode = "url";
+        if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+            mode = "local";
+
+		const response = await fetch(`/customnode/fetch_updates?mode=${mode}`);
+
+		if(response.status == 400) {
+			app.ui.dialog.show('Failed to fetch updates.');
+			app.ui.dialog.element.style.zIndex = 9999;
+			return false;
+		}
+
+		if(response.status == 201) {
+			app.ui.dialog.show('There is an updated extension available.');
+			app.ui.dialog.element.style.zIndex = 9999;
+		}
+		else {
+			app.ui.dialog.show('All extensions are already up-to-date with the latest versions.');
+			app.ui.dialog.element.style.zIndex = 9999;
+		}
+
+		return true;
+	}
+	catch(exception) {
+		app.ui.dialog.show(`Failed to update ComfyUI / ${exception}`);
+		app.ui.dialog.element.style.zIndex = 9999;
+		return false;
+	}
+	finally {
+		fetch_updates_button.disabled = false;
+		fetch_updates_button.innerText = "Fetch Updates";
 	}
 }
 
@@ -888,7 +928,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 	createButtons() {
 		this.local_mode_checkbox = $el("input",{type:'checkbox', id:"use_local_db"},[])
-		const checkbox_text = $el("label",{},["Use local DB"])
+		const checkbox_text = $el("label",{},[" Use local DB"])
 		checkbox_text.style.color = "var(--fg-color)"
 
 		update_comfyui_button =
@@ -897,6 +937,14 @@ class ManagerMenuDialog extends ComfyDialog {
 					textContent: "Update ComfyUI",
 					onclick:
 						() => updateComfyUI()
+				});
+
+		fetch_updates_button =
+				$el("button", {
+					type: "button",
+					textContent: "Fetch Updates",
+					onclick:
+						() => fetchUpdates()
 				});
 
 		const res =
@@ -938,7 +986,9 @@ class ManagerMenuDialog extends ComfyDialog {
 						}
 				}),
 
+                $el("br", {}, []),
 				update_comfyui_button,
+				fetch_updates_button,
 
 				$el("br", {}, []),
 				$el("button", {
