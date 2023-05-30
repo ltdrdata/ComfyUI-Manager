@@ -8,6 +8,7 @@
 
 # Changes
 
+* **V0.7** To address the issue of a slow list refresh, separate the fetch update and update check processes.
 * **V0.6** Support extension installation for missing nodes.
 * **V0.5** Removed external git program dependencies.
 
@@ -23,6 +24,8 @@
 ![menu](misc/menu.png)
 
 * When the 'Use local DB' feature is enabled, the application will utilize the data stored locally on your device, rather than retrieving node/model information over the internet
+
+* The ```Fetch Updates``` menu retrieves update data for custom nodes locally. Actual updates are applied by clicking the ```Update``` button in the ```Install Custom Nodes``` menu.
 
 3. Click 'Install' or 'Try Install' button.
 
