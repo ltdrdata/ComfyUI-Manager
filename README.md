@@ -8,6 +8,8 @@
 
 # Changes
 
+* **V0.7.1** Bug fix for the issue where updates were not being applied on Windows.
+  * **For those who have been using versions 0.5 through 0.6, please perform a manual git pull in the custom_nodes/ComfyUI-Manager directory.**
 * **V0.7** To address the issue of a slow list refresh, separate the fetch update and update check processes.
 * **V0.6** Support extension installation for missing nodes.
 * **V0.5** Removed external git program dependencies.

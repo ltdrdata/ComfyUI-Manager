@@ -44,7 +44,8 @@ def gitpull(path):
     # Pull the latest changes from the remote repository
     repo = git.Repo(path)
     origin = repo.remote(name='origin')
-    origin.pull(submodule_update='recursive')
+    origin.pull()
+    repo.git.submodule('update', '--init', '--recursive')
 
     repo.close()
 
