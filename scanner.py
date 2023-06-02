@@ -18,14 +18,14 @@ def scan_in_file(filename):
     else:
         return []
 
-    nodes = []
+    nodes = set()
     class_dict = {}
     key_value_pairs = re.findall(r"\"([^\"]*)\"\s*:\s*([^,\n]*)", dict_text)
     for key, value in key_value_pairs:
         class_dict[key] = value.strip()
 
     for key, value in class_dict.items():
-        nodes.append(key)
+        nodes.add(key)
 
     return nodes
 
@@ -107,12 +107,13 @@ def clone_or_pull_git_repository(git_url):
             repo = Repo(repo_dir)
             origin = repo.remote(name="origin")
             origin.pull()
+            repo.git.submodule('update', '--init', '--recursive')
             print(f"Pulling {repo_name}...")
         except Exception as e:
             print(f"Pulling {repo_name} failed: {e}")
     else:
         try:
-            repo = Repo.clone_from(git_url, repo_dir)
+            repo = Repo.clone_from(git_url, repo_dir, recursive=True)
             print(f"Cloning {repo_name}...")
         except Exception as e:
             print(f"Cloning {repo_name} failed: {e}")
@@ -154,13 +155,14 @@ def gen_json(node_info):
     for dirname in node_dirs:
         py_files = get_py_file_paths(dirname)
         
-        nodes = []
+        nodes = set()
         for py in py_files:
-            nodes.extend(scan_in_file(py))
+            nodes.update(scan_in_file(py))
         
         dirname = os.path.basename(dirname)
 
-        if nodes != []:
+        if len(nodes) > 0:
+            nodes = list(nodes)
             nodes.sort()
             
             git_url = node_info[dirname]
@@ -169,12 +171,17 @@ def gen_json(node_info):
     for file in node_files:
         nodes = scan_in_file(file)
 
-        if nodes != []:
+        if len(nodes) > 0:
+            nodes = list(nodes)
             nodes.sort()
 
             file = os.path.basename(file)
-            url = node_info[file]
-            data[url] = nodes
+
+            if file in node_info:
+                url = node_info[file]
+                data[url] = nodes
+            else:
+                print(f"Missing info: {url}")
 
     json_path = f"extension-node-map.json"
     with open(json_path, "w") as file:
