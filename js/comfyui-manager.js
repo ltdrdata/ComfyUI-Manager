@@ -16,6 +16,22 @@ async function getCustomnodeMappings() {
 	return data;
 }
 
+async function getUnresolvedNodesInComponent() {
+	try {
+		var mode = "url";
+		if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+			mode = "local";
+
+		const response = await fetch(`/component/get_unresolved`);
+
+		const data = await response.json();
+		return data.nodes;
+	}
+	catch {
+		return [];
+	}
+}
+
 async function getCustomNodes() {
 	var mode = "url";
 	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
@@ -241,6 +257,14 @@ class CustomNodesInstaller extends ComfyDialog {
 				if(url)
 					missing_nodes.add(url);
 			}
+		}
+
+		let unresolved_nodes = await getUnresolvedNodesInComponent();
+		for (let i in unresolved_nodes) {
+			let node_type = unresolved_nodes[i];
+			const url = name_to_url[node_type];
+			if(url)
+				missing_nodes.add(url);
 		}
 
 		return data.filter(node => node.files.some(file => missing_nodes.has(file)));
