@@ -1,6 +1,26 @@
 {
   "models": [
     {
+      "name": "TASED Decoder",
+      "type": "VAE",
+      "base": "TASED",
+      "save_path": "vae_approx",
+      "description": "To view the preview in high quality while running samples in ComfyUI, you will need this model.",
+      "reference": "https://github.com/madebyollin/taesd",
+      "filename": "taesd_decoder.pth",
+      "url": "https://github.com/madebyollin/taesd/raw/main/taesd_decoder.pth"
+    },
+    {
+      "name": "TASED Encoder",
+      "type": "VAE",
+      "base": "TASED",
+      "save_path": "vae_approx",
+      "description": "To view the preview in high quality while running samples in ComfyUI, you will need this model.",
+      "reference": "https://github.com/madebyollin/taesd",
+      "filename": "taesd_encoder.pth",
+      "url": "https://github.com/madebyollin/taesd/raw/main/taesd_encoder.pth"
+    },
+    {
       "name": "RealESRGAN x2",
       "type": "upscale",
       "base": "upscale",
