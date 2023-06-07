@@ -218,6 +218,7 @@ class CustomNodesInstaller extends ComfyDialog {
 
 	constructor() {
 		super();
+		this.search_keyword = '';
 		this.element = $el("div.comfy-modal", { parent: document.body }, []);
 	}
 
@@ -229,6 +230,22 @@ class CustomNodesInstaller extends ComfyDialog {
 		for(let i in self.install_buttons) {
 			self.install_buttons[i].disabled = true;
 			self.install_buttons[i].style.backgroundColor = 'gray';
+		}
+	}
+
+	apply_searchbox(data) {
+		let keyword = this.search_box.value.toLowerCase();
+		for(let i in this.grid_rows) {
+			let data = this.grid_rows[i].data;
+			let content = data.author.toLowerCase() + data.description.toLowerCase() + data.title.toLowerCase();
+			if(keyword == "")
+				this.grid_rows[i].control.style.display = null;
+			else if(content.includes(keyword)) {
+				this.grid_rows[i].control.style.display = null;
+			}
+			else {
+				this.grid_rows[i].control.style.display = 'none';
+			}
 		}
 	}
 
@@ -280,7 +297,9 @@ class CustomNodesInstaller extends ComfyDialog {
 
 		const msg = $el('div', {id:'custom-message'}, 
 			[$el('br'), 
-			'The custom node DB is currently being updated, and updates to custom nodes are being checked for.', 
+			'The custom node DB is currently being updated, and updates to custom nodes are being checked for.',
+			$el('br'),
+			'NOTE: Update only checks for extensions that have been fetched.',
 			$el('br')]);
 		msg.style.height = '100px';
 		msg.style.verticalAlign = 'middle';
@@ -298,8 +317,10 @@ class CustomNodesInstaller extends ComfyDialog {
 			this.element.removeChild(this.element.children[0]);
 		}
 
+		this.createHeaderControls();
 		await this.createGrid();
-		this.createControls();
+		this.apply_searchbox(this.data);
+		this.createBottomControls();
 	}
 
 	updateMessage(msg) {
@@ -342,6 +363,8 @@ class CustomNodesInstaller extends ComfyDialog {
 		headerRow.style.width = "100%";
 		headerRow.style.padding = "0";
 		grid.appendChild(headerRow);
+
+		this.grid_rows = {};
 
 		if(this.data)
 			for (var i = 0; i < this.data.length; i++) {
@@ -455,6 +478,8 @@ class CustomNodesInstaller extends ComfyDialog {
 				dataRow.appendChild(data4);
 				dataRow.appendChild(data5);
 				grid.appendChild(dataRow);
+
+				this.grid_rows[i] = {data:data, control:dataRow};
 			}
 
 		const panel = document.createElement('div');
@@ -466,10 +491,43 @@ class CustomNodesInstaller extends ComfyDialog {
 		this.element.appendChild(panel);
 	}
 
-	async createControls() {
-		var close_button = document.createElement("button");
+	createHeaderControls() {
+		this.search_box = $el('input', {type:'text', id:'manager-customnode-search-box', placeholder:'input search keyword', value:this.search_keyword}, []);
+		this.search_box.style.height = "25px";
+		this.search_box.onkeydown = (event) => {
+				if (event.key === 'Enter') {
+					this.search_keyword = this.search_box.value;
+					this.apply_searchbox();
+				}
+				if (event.key === 'Escape') {
+					this.search_keyword = this.search_box.value;
+					this.search_box.value = '';
+					this.apply_searchbox();
+				}
+			};
+
+		let search_button = document.createElement("button");
+		search_button.innerHTML = "Search";
+		search_button.onclick = () => {
+			this.apply_searchbox();
+		};
+		search_button.style.display = "inline-block";
+
+		let cell = $el('td', {width:'100%'}, [this.search_box, '  ', search_button]);
+		let search_control = $el('table', {width:'100%'},
+				[
+					$el('tr', {}, [cell])
+				]
+			);
+
+		cell.style.textAlign = "right";
+		this.element.appendChild(search_control);
+	}
+
+	async createBottomControls() {
+		let close_button = document.createElement("button");
 		close_button.innerHTML = "Close";
-		close_button.onclick = () => { this.close(); }
+		close_button.onclick = () => { this.search_keyword = ''; this.close(); }
 		close_button.style.display = "inline-block";
 
 		this.message_box = $el('div', {id:'custom-installer-message'}, [$el('br'), '']);
@@ -509,6 +567,7 @@ class AlternativesInstaller extends ComfyDialog {
 
 	constructor() {
 		super();
+		this.search_keyword = '';
 		this.element = $el("div.comfy-modal", { parent: document.body }, []);
 	}
 
@@ -523,6 +582,23 @@ class AlternativesInstaller extends ComfyDialog {
 		}
 	}
 
+	apply_searchbox(data) {
+		let keyword = this.search_box.value.toLowerCase();
+		for(let i in this.grid_rows) {
+			let data1 = this.grid_rows[i].data;
+			let data2 = data1.custom_node;
+			let content = data1.tags.toLowerCase() + data1.description.toLowerCase() + data2.author.toLowerCase() + data2.description.toLowerCase() + data2.title.toLowerCase();
+			if(keyword == "")
+				this.grid_rows[i].control.style.display = null;
+			else if(content.includes(keyword)) {
+				this.grid_rows[i].control.style.display = null;
+			}
+			else {
+				this.grid_rows[i].control.style.display = 'none';
+			}
+		}
+	}
+
 	async invalidateControl() {
 		this.clear();
 
@@ -534,6 +610,8 @@ class AlternativesInstaller extends ComfyDialog {
 		const msg = $el('div', {id:'custom-message'},
 			[$el('br'),
 			'The custom node DB is currently being updated, and updates to custom nodes are being checked for.',
+			$el('br'),
+			'NOTE: Update only checks for extensions that have been fetched.',
 			$el('br')]);
 		msg.style.height = '100px';
 		msg.style.verticalAlign = 'middle';
@@ -548,8 +626,10 @@ class AlternativesInstaller extends ComfyDialog {
 			this.element.removeChild(this.element.children[0]);
 		}
 
+		this.createHeaderControls();
 		await this.createGrid();
-		this.createControls();
+		this.apply_searchbox(this.data);
+		this.createBottomControls();
 	}
 
 	updateMessage(msg) {
@@ -596,6 +676,8 @@ class AlternativesInstaller extends ComfyDialog {
 		headerRow.style.width = "100%";
 		headerRow.style.padding = "0";
 		grid.appendChild(headerRow);
+
+		this.grid_rows = {};
 
 		if(this.data)
 			for (var i = 0; i < this.data.length; i++) {
@@ -724,6 +806,8 @@ class AlternativesInstaller extends ComfyDialog {
 				dataRow.appendChild(data5);
 				dataRow.appendChild(data6);
 				grid.appendChild(dataRow);
+
+				this.grid_rows[i] = {data:data, control:dataRow};
 			}
 
 		const panel = document.createElement('div');
@@ -735,7 +819,40 @@ class AlternativesInstaller extends ComfyDialog {
 		this.element.appendChild(panel);
 	}
 
-	async createControls() {
+	createHeaderControls() {
+		this.search_box = $el('input', {type:'text', id:'manager-alternode-search-box', placeholder:'input search keyword', value:this.search_keyword}, []);
+		this.search_box.style.height = "25px";
+		this.search_box.onkeydown = (event) => {
+				if (event.key === 'Enter') {
+					this.search_keyword = this.search_box.value;
+					this.apply_searchbox();
+				}
+				if (event.key === 'Escape') {
+					this.search_keyword = this.search_box.value;
+					this.search_box.value = '';
+					this.apply_searchbox();
+				}
+			};
+
+		let search_button = document.createElement("button");
+		search_button.innerHTML = "Search";
+		search_button.onclick = () => {
+			this.apply_searchbox();
+		};
+		search_button.style.display = "inline-block";
+
+		let cell = $el('td', {width:'100%'}, [this.search_box, '  ', search_button]);
+		let search_control = $el('table', {width:'100%'},
+				[
+					$el('tr', {}, [cell])
+				]
+			);
+
+		cell.style.textAlign = "right";
+		this.element.appendChild(search_control);
+	}
+
+	async createBottomControls() {
 		var close_button = document.createElement("button");
 		close_button.innerHTML = "Close";
 		close_button.onclick = () => { this.close(); }
@@ -778,6 +895,7 @@ class ModelInstaller extends ComfyDialog {
 
 	constructor() {
 		super();
+		this.search_keyword = '';
 		this.element = $el("div.comfy-modal", { parent: document.body }, []);
 	}
 
@@ -802,6 +920,22 @@ class ModelInstaller extends ComfyDialog {
 		}
 	}
 
+	apply_searchbox(data) {
+		let keyword = this.search_box.value.toLowerCase();
+		for(let i in this.grid_rows) {
+			let data = this.grid_rows[i].data;
+			let content = data.name.toLowerCase() + data.type.toLowerCase() + data.base.toLowerCase() + data.description.toLowerCase();
+			if(keyword == "")
+				this.grid_rows[i].control.style.display = null;
+			else if(content.includes(keyword)) {
+				this.grid_rows[i].control.style.display = null;
+			}
+			else {
+				this.grid_rows[i].control.style.display = 'none';
+			}
+		}
+	}
+
 	async invalidateControl() {
 		this.clear();
 		this.data = (await getModelList()).models;
@@ -810,8 +944,9 @@ class ModelInstaller extends ComfyDialog {
 			this.element.removeChild(this.element.children[0]);
 		}
 
+		await this.createHeaderControls();
 		await this.createGrid();
-		this.createControls();
+		await this.createBottomControls();
 	}
 
 	updateMessage(msg) {
@@ -864,6 +999,8 @@ class ModelInstaller extends ComfyDialog {
 		headerRow.style.width = "100%";
 		headerRow.style.padding = "0";
 		grid.appendChild(headerRow);
+
+		this.grid_rows = {};
 
 		if(this.data)
 			for (var i = 0; i < this.data.length; i++) {
@@ -925,6 +1062,8 @@ class ModelInstaller extends ComfyDialog {
 				dataRow.appendChild(data6);
 				dataRow.appendChild(data_install);
 				grid.appendChild(dataRow);
+
+				this.grid_rows[i] = {data:data, control:dataRow};
 			}
 
 		const panel = document.createElement('div');
@@ -936,7 +1075,40 @@ class ModelInstaller extends ComfyDialog {
 		this.element.appendChild(panel);
 	}
 
-	async createControls() {
+	createHeaderControls() {
+		this.search_box = $el('input', {type:'text', id:'manager-model-search-box', placeholder:'input search keyword', value:this.search_keyword}, []);
+		this.search_box.style.height = "25px";
+		this.search_box.onkeydown = (event) => {
+				if (event.key === 'Enter') {
+					this.search_keyword = this.search_box.value;
+					this.apply_searchbox();
+				}
+				if (event.key === 'Escape') {
+					this.search_keyword = this.search_box.value;
+					this.search_box.value = '';
+					this.apply_searchbox();
+				}
+			};
+
+		let search_button = document.createElement("button");
+		search_button.innerHTML = "Search";
+		search_button.onclick = () => {
+			this.apply_searchbox();
+		};
+		search_button.style.display = "inline-block";
+
+		let cell = $el('td', {width:'100%'}, [this.search_box, '  ', search_button]);
+		let search_control = $el('table', {width:'100%'},
+				[
+					$el('tr', {}, [cell])
+				]
+			);
+
+		cell.style.textAlign = "right";
+		this.element.appendChild(search_control);
+	}
+
+	async createBottomControls() {
 		var close_button = document.createElement("button");
 		close_button.innerHTML = "Close";
 		close_button.onclick = () => { this.close(); }
