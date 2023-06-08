@@ -164,9 +164,12 @@ def gen_json(node_info):
         if len(nodes) > 0:
             nodes = list(nodes)
             nodes.sort()
-            
-            git_url = node_info[dirname]
-            data[git_url] = nodes
+
+            if dirname in node_info:
+                git_url = node_info[dirname]
+                data[git_url] = nodes
+            else:
+                print(f"WARN: {dirname} is removed from custom-node-list.json")
 
     for file in node_files:
         nodes = scan_in_file(file)
