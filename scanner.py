@@ -41,11 +41,6 @@ def get_py_file_paths(dirname):
             if file.endswith(".py"):
                 file_path = os.path.join(root, file)
                 file_paths.append(file_path)
-
-        for subdir in dirs:
-            subdir = os.path.join(dirname, subdir)
-            sub_files = get_py_file_paths(subdir)
-            file_paths.extend(sub_files)
     
     return file_paths
 
