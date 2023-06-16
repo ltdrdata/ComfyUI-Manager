@@ -63,6 +63,7 @@
 
 * https://github.com/bmad4ever/ComfyUI-Bmad-Custom-Nodes
 * https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
+* https://github.com/shadownetdev1/comfyui-addons
 
 
 # Roadmap
