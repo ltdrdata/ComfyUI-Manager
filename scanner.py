@@ -26,9 +26,17 @@ def scan_in_file(filename):
 
     for key, value in class_dict.items():
         nodes.add(key)
+        
+    update_pattern = r"NODE_CLASS_MAPPINGS.update\s*\({([^}]*)}\)"
+    update_match = re.search(update_pattern, code)
+    if update_match:
+        update_dict_text = update_match.group(1)
+        update_key_value_pairs = re.findall(r"\"([^\"]*)\"\s*:\s*([^,\n]*)", update_dict_text)
+        for key, value in update_key_value_pairs:
+            class_dict[key] = value.strip()
+            nodes.add(key)
 
     return nodes
-
 
 def get_py_file_paths(dirname):
     file_paths = []
