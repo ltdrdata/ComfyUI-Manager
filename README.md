@@ -47,6 +47,24 @@
 
 * Please submit a pull request to update either the custom-node-list.json or model-list.json file.
 
+* The scanner currently provides a detection function for missing nodes, which is capable of detecting nodes described by the following two patterns.
+
+```
+NODE_CLASS_MAPPINGS = {
+    "ExecutionSwitch": ExecutionSwitch,
+    "ExecutionBlocker": ExecutionBlocker,
+    ...
+}
+
+NODE_CLASS_MAPPINGS.update({
+    "UniFormer-SemSegPreprocessor": Uniformer_SemSegPreprocessor,
+    "SemSegPreprocessor": Uniformer_SemSegPreprocessor,
+})
+```
+
+
+
+
 # Support of missing nodes installation
 
 ![missing-menu](misc/missing-menu.png)
@@ -56,6 +74,8 @@
 ![missing-list](misc/missing-list.png)
 
 * Currently, support is not available for custom nodes that can only be downloaded through civitai.
+
+
 
 
 
