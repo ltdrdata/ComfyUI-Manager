@@ -138,7 +138,10 @@ def update_custom_nodes():
         if name.endswith(".py"):
             node_info[name] = url
 
-        download_url(url, ".tmp")
+        try:
+            download_url(url, ".tmp")
+        except:
+            print(f"[ERROR] Cannot downalod '{url}'")
             
     return node_info
 
