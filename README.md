@@ -81,6 +81,7 @@ NODE_CLASS_MAPPINGS.update({
 
 # TODO: Unconventional form of custom node list
 
+* https://github.com/hlky/AIT
 * https://github.com/bmad4ever/ComfyUI-Bmad-Custom-Nodes
 * https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
 * https://github.com/shadownetdev1/comfyui-addons
