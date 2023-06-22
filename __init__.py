@@ -16,7 +16,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.9)")
+print("### Loading: ComfyUI-Manager (V0.10)")
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -550,6 +550,14 @@ def gitclone_uninstall(files):
                 print(f"Uninstall(git-clone) error: invalid path '{dir_path}' for '{url}'")
                 return False
 
+            install_script_path = os.path.join(dir_path, "uninstall.py")
+            if os.path.exists(install_script_path):
+                uninstall_cmd = [sys.executable, "uninstall.py"]
+                code = subprocess.run(uninstall_cmd, cwd=dir_path)
+
+                if code.returncode != 0:
+                    print(f"An error occurred during the execution of the uninstall.py script. Only the '{dir_path}' will be deleted.")
+                
             if os.path.exists(dir_path):
                 rmtree(dir_path)
             elif os.path.exists(dir_path + ".disabled"):
