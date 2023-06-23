@@ -12,36 +12,33 @@ def scan_in_file(filename):
     pattern = r"NODE_CLASS_MAPPINGS\s*=\s*{([^}]*)}"
     regex = re.compile(pattern, re.MULTILINE | re.DOTALL)
 
-    matches = regex.findall(code)
-    if not matches:
-        return []
-
     nodes = set()
     class_dict = {}
 
-    for match in matches:
-        dict_text = match
-        
     pattern2 = r'NODE_CLASS_MAPPINGS\["(.*?)"\]'
     keys = re.findall(pattern2, code)
     for key in keys:
         nodes.add(key)
-        
-    key_value_pairs = re.findall(r"\"([^\"]*)\"\s*:\s*([^,\n]*)", dict_text)
-    for key, value in key_value_pairs:
-        class_dict[key] = value.strip()
 
-    for key, value in class_dict.items():
-        nodes.add(key)
-        
-    update_pattern = r"NODE_CLASS_MAPPINGS.update\s*\({([^}]*)}\)"
-    update_match = re.search(update_pattern, code)
-    if update_match:
-        update_dict_text = update_match.group(1)
-        update_key_value_pairs = re.findall(r"\"([^\"]*)\"\s*:\s*([^,\n]*)", update_dict_text)
-        for key, value in update_key_value_pairs:
+    matches = regex.findall(code)
+    for match in matches:
+        dict_text = match
+
+        key_value_pairs = re.findall(r"\"([^\"]*)\"\s*:\s*([^,\n]*)", dict_text)
+        for key, value in key_value_pairs:
             class_dict[key] = value.strip()
+
+        for key, value in class_dict.items():
             nodes.add(key)
+
+        update_pattern = r"NODE_CLASS_MAPPINGS.update\s*\({([^}]*)}\)"
+        update_match = re.search(update_pattern, code)
+        if update_match:
+            update_dict_text = update_match.group(1)
+            update_key_value_pairs = re.findall(r"\"([^\"]*)\"\s*:\s*([^,\n]*)", update_dict_text)
+            for key, value in update_key_value_pairs:
+                class_dict[key] = value.strip()
+                nodes.add(key)
 
     return nodes
 
@@ -144,7 +141,7 @@ def update_custom_nodes():
             name = name[:-4]
             
         node_info[name] = url
-        # clone_or_pull_git_repository(url)
+        clone_or_pull_git_repository(url)
 
     py_urls = get_py_urls_from_json('custom-node-list.json')
 
@@ -156,7 +153,7 @@ def update_custom_nodes():
         try:
             download_url(url, ".tmp")
         except:
-            print(f"[ERROR] Cannot downalod '{url}'")
+            print(f"[ERROR] Cannot download '{url}'")
             
     return node_info
 
@@ -207,7 +204,7 @@ def gen_json(node_info):
 print("### ComfyUI Manager Node Scanner ###")
 
 print("\n# Updating extensions\n")
-node_info = update_custom_nodes()
+updated_node_info = update_custom_nodes()
 
 print("\n# 'extension-node-map.json' file is generated.\n")
-gen_json(node_info)
+gen_json(updated_node_info)
