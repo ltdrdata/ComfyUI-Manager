@@ -12,14 +12,21 @@ def scan_in_file(filename):
     pattern = r"NODE_CLASS_MAPPINGS\s*=\s*{([^}]*)}"
     regex = re.compile(pattern, re.MULTILINE | re.DOTALL)
 
-    match = regex.search(code)
-    if match:
-        dict_text = match.group(1)
-    else:
+    matches = regex.findall(code)
+    if not matches:
         return []
 
     nodes = set()
     class_dict = {}
+
+    for match in matches:
+        dict_text = match
+        
+    pattern2 = r'NODE_CLASS_MAPPINGS\["(.*?)"\]'
+    keys = re.findall(pattern2, code)
+    for key in keys:
+        nodes.add(key)
+        
     key_value_pairs = re.findall(r"\"([^\"]*)\"\s*:\s*([^,\n]*)", dict_text)
     for key, value in key_value_pairs:
         class_dict[key] = value.strip()
@@ -137,7 +144,7 @@ def update_custom_nodes():
             name = name[:-4]
             
         node_info[name] = url
-        clone_or_pull_git_repository(url)
+        # clone_or_pull_git_repository(url)
 
     py_urls = get_py_urls_from_json('custom-node-list.json')
 
