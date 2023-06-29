@@ -16,7 +16,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.10)")
+print("### Loading: ComfyUI-Manager (V0.11)")
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
