@@ -6,8 +6,12 @@ from torchvision.datasets.utils import download_url
 
 
 def scan_in_file(filename):
-    with open(filename, "r") as file:
-        code = file.read()
+    try:
+        with open(filename, encoding='utf-8') as file:
+            code = file.read()
+    except UnicodeDecodeError:
+        with open(filename, encoding='cp949') as file:
+            code = file.read()
 
     pattern = r"NODE_CLASS_MAPPINGS\s*=\s*{([^}]*)}"
     regex = re.compile(pattern, re.MULTILINE | re.DOTALL)

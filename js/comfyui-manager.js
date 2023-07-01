@@ -400,9 +400,15 @@ class CustomNodesInstaller extends ComfyDialog {
 				data1.style.textAlign = "center";
 				data1.innerHTML = i+1;
 				var data2 = document.createElement('td');
-				data2.innerHTML = `&nbsp;${data.author}`;
-				var data3 = document.createElement('td');
-				data3.innerHTML = `&nbsp;<a href=${data.reference} target="_blank"><font color="skyblue"><b>${data.title}</b></font></a>`;
+		        data2.style.maxWidth = "100px";
+				data2.textContent = ` ${data.author}`;
+				data2.style.whiteSpace = "nowrap";
+                data2.style.overflow = "hidden";
+				data2.style.textOverflow = "ellipsis";
+                var data3 = document.createElement('td');
+                data3.style.maxWidth = "200px";
+                data3.style.wordWrap = "break-word";
+                data3.innerHTML = `&nbsp;<a href=${data.reference} target="_blank"><font color="skyblue"><b>${data.title}</b></font></a>`;
 				var data4 = document.createElement('td');
 				data4.innerHTML = data.description;
 				var data5 = document.createElement('td');
