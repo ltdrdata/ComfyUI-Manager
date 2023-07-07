@@ -1,6 +1,26 @@
 {
   "models": [
     {
+      "name": "TAESDXL Decoder",
+      "type": "VAE",
+      "base": "TAESD",
+      "save_path": "vae_approx",
+      "description": "(SDXL Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
+      "reference": "https://github.com/madebyollin/taesd",
+      "filename": "taesdxl_decoder.pth",
+      "url": "https://github.com/madebyollin/taesd/raw/main/taesdxl_decoder.pth"
+    },
+    {
+      "name": "TAESDXL Encoder",
+      "type": "VAE",
+      "base": "TAESD",
+      "save_path": "vae_approx",
+      "description": "(SDXL Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
+      "reference": "https://github.com/madebyollin/taesd",
+      "filename": "taesdxl_encoder.pth",
+      "url": "https://github.com/madebyollin/taesd/raw/main/taesdxl_encoder.pth"
+    },
+    {
       "name": "TAESD Decoder",
       "type": "VAE",
       "base": "TAESD",
