@@ -16,7 +16,9 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.11.1)")
+print("### Loading: ComfyUI-Manager (V0.12)")
+
+comfy_ui_revision = "Unknown"
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -29,19 +31,56 @@ local_db_custom_node_list = os.path.join(comfyui_manager_path, "custom-node-list
 local_db_extension_node_mappings = os.path.join(comfyui_manager_path, "extension-node-map.json")
 git_script_path = os.path.join(os.path.dirname(__file__), "git_helper.py")
 
+startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
+
+
+def try_install_script(url, repo_path, install_cmd):
+    if platform.system() == "Windows" and comfy_ui_revision >= 1152:
+        if not os.path.exists(startup_script_path):
+            os.makedirs(startup_script_path)
+
+        script_path = os.path.join(startup_script_path, "install-scripts.txt")
+        with open(script_path, "a") as file:
+            obj = [repo_path] + install_cmd
+            file.write(f"{obj}\n")
+
+        return True
+    else:
+        code = subprocess.run(install_cmd, cwd=repo_path)
+
+        if platform.system() == "Windows":
+            try:
+                if int(comfy_ui_revision) < 1152:
+                    print("\n\n###################################################################")
+                    print(f"[WARN] ComfyUI-Manager: Your ComfyUI version ({comfy_ui_revision}) is too old. Please update to the latest version.")
+                    print(f"[WARN] The extension installation feature may not work properly in the current installed ComfyUI version on Windows environment.")
+                    print("###################################################################\n\n")
+            except:
+                pass
+
+        if code.returncode != 0:
+            print(f"install script failed: {url}")
+            return False
 
 def print_comfyui_version():
+    global comfy_ui_revision
     try:
         repo = git.Repo(os.path.dirname(folder_paths.__file__))
 
-        revision_count = len(list(repo.iter_commits('HEAD')))
+        comfy_ui_revision = len(list(repo.iter_commits('HEAD')))
         current_branch = repo.active_branch.name
         git_hash = repo.head.commit.hexsha
 
+        try:
+            if int(comfy_ui_revision) < 1148:
+                print(f"\n\n## [WARN] ComfyUI-Manager: Your ComfyUI version ({comfy_ui_revision}) is too old. Please update to the latest version. ##\n\n")
+        except:
+            pass
+
         if current_branch == "master":
-            print(f"### ComfyUI Revision: {revision_count} [{git_hash[:8]}]")
+            print(f"### ComfyUI Revision: {comfy_ui_revision} [{git_hash[:8]}]")
         else:
-            print(f"### ComfyUI Revision: {revision_count} on '{current_branch}' [{git_hash[:8]}]")
+            print(f"### ComfyUI Revision: {comfy_ui_revision} on '{current_branch}' [{git_hash[:8]}]")
     except:
         print("### ComfyUI Revision: UNKNOWN (The currently installed ComfyUI is not a Git repository)")
 
@@ -84,6 +123,10 @@ def git_repo_has_updates(path, do_fetch=False):
     else:
         # Fetch the latest commits from the remote repository
         repo = git.Repo(path)
+
+        current_branch = repo.active_branch
+        branch_name = current_branch.name
+
         remote_name = 'origin'
         remote = repo.remote(name=remote_name)
 
@@ -92,13 +135,13 @@ def git_repo_has_updates(path, do_fetch=False):
 
         # Get the current commit hash and the commit hash of the remote branch
         commit_hash = repo.head.commit.hexsha
-        remote_commit_hash = repo.refs[f'{remote_name}/HEAD'].object.hexsha
+        remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
 
         # Compare the commit hashes to determine if the local repository is behind the remote repository
         if commit_hash != remote_commit_hash:
             # Get the commit dates
             commit_date = repo.head.commit.committed_datetime
-            remote_commit_date = repo.refs[f'{remote_name}/HEAD'].object.committed_datetime
+            remote_commit_date = repo.refs[f'{remote_name}/{branch_name}'].object.committed_datetime
 
             # Compare the commit dates to determine if the local repository is behind the remote repository
             if commit_date < remote_commit_date:
@@ -153,8 +196,8 @@ def setup_js():
     js_src_path = os.path.join(comfyui_manager_path, "js", "comfyui-manager.js")
     shutil.copy(js_src_path, js_dest_path)
 
-
 setup_js()
+
 
 # Expand Server api
 
@@ -461,20 +504,12 @@ def execute_install_script(url, repo_path):
     if os.path.exists(requirements_path):
         print(f"Install: pip packages")
         install_cmd = [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]
-        code = subprocess.run(install_cmd, cwd=repo_path)
-
-        if code.returncode != 0:
-            print(f"install script failed: {url}")
-            return False
+        try_install_script(url, repo_path, install_cmd)
 
     if os.path.exists(install_script_path):
         print(f"Install: install script")
         install_cmd = [sys.executable, "install.py"]
-        code = subprocess.run(install_cmd, cwd=repo_path)
-
-        if code.returncode != 0:
-            print(f"install script failed: {url}")
-            return False
+        try_install_script(url, repo_path, install_cmd)
 
     return True
 
@@ -711,14 +746,17 @@ async def install_custom_node(request):
 
         # version check
         repo = git.Repo(repo_path)
+
+        current_branch = repo.active_branch
+        branch_name = current_branch.name
+
         remote_name = 'origin'
         remote = repo.remote(name=remote_name)
         remote.fetch()
 
         commit_hash = repo.head.commit.hexsha
-        remote_commit_hash = repo.refs[f'{remote_name}/HEAD'].object.hexsha
+        remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
 
-        print(f"{commit_hash} != {remote_commit_hash}")
         if commit_hash != remote_commit_hash:
             git_pull(repo_path)
             execute_install_script("ComfyUI", repo_path)

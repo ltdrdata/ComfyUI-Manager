@@ -14,6 +14,10 @@ def gitclone(custom_nodes_path, url):
 def gitcheck(path, do_fetch=False):
     # Fetch the latest commits from the remote repository
     repo = git.Repo(path)
+
+    current_branch = repo.active_branch
+    branch_name = current_branch.name
+
     remote_name = 'origin'
     remote = repo.remote(name=remote_name)
 
@@ -22,13 +26,13 @@ def gitcheck(path, do_fetch=False):
 
     # Get the current commit hash and the commit hash of the remote branch
     commit_hash = repo.head.commit.hexsha
-    remote_commit_hash = repo.refs[f'{remote_name}/HEAD'].object.hexsha
+    remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
 
     # Compare the commit hashes to determine if the local repository is behind the remote repository
     if commit_hash != remote_commit_hash:
         # Get the commit dates
         commit_date = repo.head.commit.committed_datetime
-        remote_commit_date = repo.refs[f'{remote_name}/HEAD'].object.committed_datetime
+        remote_commit_date = repo.refs[f'{remote_name}/{branch_name}'].object.committed_datetime
 
         # Compare the commit dates to determine if the local repository is behind the remote repository
         if commit_date < remote_commit_date:
