@@ -8,15 +8,31 @@ try:
 except:
     my_path = os.path.dirname(__file__)
     requirements_path = os.path.join(my_path, "requirements.txt")
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-r', requirements_path])
-    import git
+
+    print(f"## ComfyUI-Manager: installing dependencies")
+
+    subprocess.check_call([sys.executable, '-s', '-m', 'pip', 'install', '-r', requirements_path])
+
+    try:
+        import git
+    except:
+        print(f"## [ERROR] ComfyUI-Manager: Attempting to reinstall dependencies using an alternative method.")
+        subprocess.check_call([sys.executable, '-s', '-m', 'pip', 'install', '--user', '-r', requirements_path])
+
+        try:
+            import git
+        except:
+            print(f"## [ERROR] ComfyUI-Manager: Failed to install the GitPython package in the correct Python environment. Please install it manually in the appropriate environment. (You can seek help at https://app.element.io/#/room/%23comfyui_space%3Amatrix.org)")
+
+    print(f"## ComfyUI-Manager: installing dependencies done.")
+
 
 sys.path.append('../..')
 
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.12)")
+print("### Loading: ComfyUI-Manager (V0.12.1)")
 
 comfy_ui_revision = "Unknown"
 
