@@ -51,7 +51,7 @@ startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
 
 
 def try_install_script(url, repo_path, install_cmd):
-    if platform.system() == "Windows" and comfy_ui_revision >= 1152:
+    if platform.system() == "Windows" and (not comfy_ui_revision.isdigit() or int(comfy_ui_revision) >= 1152):
         if not os.path.exists(startup_script_path):
             os.makedirs(startup_script_path)
 
