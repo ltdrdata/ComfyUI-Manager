@@ -75,8 +75,12 @@ NODE_CLASS_MAPPINGS.update({
 
 * Currently, support is not available for custom nodes that can only be downloaded through civitai.
 
+* [ComfyUI_Custom_Nodes_AlekPet](https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet)
 
 
+# Troubleshooting
+* If Controlnet is set to skip_v1 true, nodes like `CannyEdgePreprocessor` will appear as extensions of missing nodes, but simply installing them is not enough, and direct modification of the user's config.yaml is required.
+* For cases where nodes like `PreviewTextNode` from `ComfyUI_Custom_Nodes_AlekPet` are only supported as front-end nodes, we currently do not provide missing nodes for them.
 
 
 # TODO: Unconventional form of custom node list
