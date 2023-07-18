@@ -163,6 +163,7 @@ def update_custom_nodes():
 
 
 def gen_json(node_info):
+    # scan from .py file
     node_files, node_dirs = get_nodes(".tmp")
 
     data = {}
@@ -199,6 +200,29 @@ def gen_json(node_info):
                 data[url] = nodes
             else:
                 print(f"Missing info: {url}")
+
+    # scan from node_list.json file
+    extensions = [name for name in os.listdir('.tmp') if os.path.isdir(os.path.join('.tmp', name))]
+
+    for extension in extensions:
+        node_list_json_path = os.path.join('.tmp', extension, 'node_list.json')
+        if os.path.exists(node_list_json_path):
+            git_url = node_info[extension]
+
+            with open(node_list_json_path, 'r') as f:
+                node_list_json = json.load(f)
+
+            if git_url not in data:
+                nodes = set()
+            else:
+                nodes = set(data[git_url])
+
+            for x, desc in node_list_json.items():
+                nodes.add(x)
+
+            nodes = list(nodes)
+            nodes.sort()
+            data[git_url] = nodes
 
     json_path = f"extension-node-map.json"
     with open(json_path, "w") as file:
