@@ -1,10 +1,27 @@
 # ComfyUI Manager
 
-# Installation
+# Installation[method1] (ComfyUI-Manager only)
+
+To install ComfyUI-Manager in addition to an existing installation of ComfyUI, you can follow the following steps:
 
 1. cd custom_nodes
 2. git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 3. Restart ComfyUI
+
+
+# Installation[method2] (ComfyUI + ComfyUI-Manager on linux+venv)
+
+To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you can follow these steps:
+
+1. Download [scripts/install-comfyui-venv-linux.sh](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-comfyui-venv-linux.sh) into empty install directory
+- ComfyUI will be installed in the subdirectory of the specified directory, and the directory will contain the generated executable script.
+2. `chmod +x install-comfyui-venv-linux.sh`
+3. `./install-comfyui-venv-linux.sh`
+
+
+You can execute ComfyUI by running either `./run_gpu.sh` or `./run_cpu.sh` depending on your system configuration.
+
+
 
 # Changes
 * **0.12** Better installation support for Windows.
@@ -61,9 +78,6 @@ NODE_CLASS_MAPPINGS.update({
     "SemSegPreprocessor": Uniformer_SemSegPreprocessor,
 })
 ```
-
-
-
 
 # Support of missing nodes installation
 
