@@ -1,6 +1,6 @@
 # ComfyUI Manager
 
-# Installation[method1] (ComfyUI-Manager only)
+## Installation[method1] (General installation method: ComfyUI-Manager only)
 
 To install ComfyUI-Manager in addition to an existing installation of ComfyUI, you can follow the following steps:
 
@@ -9,7 +9,15 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 3. Restart ComfyUI
 
 
-# Installation[method2] (ComfyUI + ComfyUI-Manager on linux+venv)
+## Installation[method2] (Installation for portable ComfyUI version: ComfyUI-Manager only)
+
+1. Download [scripts/install-manager-for-portable-version.bat](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-manager-for-portable-version.bat) into installed `"ComfyUI_windows_portable"` directory
+2. double click `install-manager-for-portable-version.bat` batch file
+
+![portable-install](misc/portable-install.png)
+
+
+## Installation[method3] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
 
 To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you can follow these steps:
 
