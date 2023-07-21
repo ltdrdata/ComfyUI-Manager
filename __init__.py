@@ -32,7 +32,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.12.1)")
+print("### Loading: ComfyUI-Manager (V0.12.2)")
 
 comfy_ui_revision = "Unknown"
 
@@ -51,7 +51,14 @@ startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
 
 
 def try_install_script(url, repo_path, install_cmd):
-    if platform.system() == "Windows" and (not comfy_ui_revision.isdigit() or int(comfy_ui_revision) >= 1152):
+    int_comfyui_revision = 0
+
+    if type(comfy_ui_revision) == int:
+        int_comfyui_revision = comfy_ui_revision
+    elif comfy_ui_revision.isdigit():
+        int_comfyui_revision = int(comfy_ui_revision)
+
+    if platform.system() == "Windows" and int_comfyui_revision >= 1152:
         if not os.path.exists(startup_script_path):
             os.makedirs(startup_script_path)
 
