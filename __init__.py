@@ -32,7 +32,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.12.2)")
+print("### Loading: ComfyUI-Manager (V0.13)")
 
 comfy_ui_revision = "Unknown"
 
@@ -695,6 +695,9 @@ async def install_custom_node(request):
 
     res = False
 
+    if len(json_data['files']) == 0:
+        return web.Response(status=400)
+
     if install_type == "unzip":
         res = unzip_install(json_data['files'])
 
@@ -704,6 +707,11 @@ async def install_custom_node(request):
 
     elif install_type == "git-clone":
         res = gitclone_install(json_data['files'])
+
+    if 'pip' in json_data:
+        for pname in json_data['pip']:
+            install_cmd = [sys.executable, "-m", "pip", "install", pname]
+            try_install_script(json_data['files'][0], ".", install_cmd)
 
     if res:
         print(f"After restarting ComfyUI, please refresh the browser.")

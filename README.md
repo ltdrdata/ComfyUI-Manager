@@ -32,6 +32,7 @@ You can execute ComfyUI by running either `./run_gpu.sh` or `./run_cpu.sh` depen
 
 
 # Changes
+* **0.13** Support additional 'pip' section for install spec
 * **0.12** Better installation support for Windows.
 * **0.9** Support keyword search in installer menu.
 * **V0.7.1** Bug fix for the issue where updates were not being applied on Windows.
@@ -107,10 +108,8 @@ NODE_CLASS_MAPPINGS.update({
 
 # TODO: Unconventional form of custom node list
 
-* https://github.com/hlky/AIT
 * https://github.com/bmad4ever/ComfyUI-Bmad-Custom-Nodes
 * https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
-* https://github.com/shadownetdev1/comfyui-addons
 * https://github.com/laksjdjf/pfg-ComfyUI
 
 
