@@ -71,6 +71,56 @@
       "url": "https://huggingface.co/datasets/Kizi-Art/Upscale/resolve/fa98e357882a23b8e7928957a39462fbfaee1af5/4x-UltraSharp.pth"
     },
     {
+      "name": "Inswapper (face swap)",
+      "type": "insightface",
+      "base" : "inswapper",
+      "save_path": "insightface",
+      "description": "Checkpoint of the insightface swapper model (used by Comfy-Roop and comfy_mtb)",
+      "reference": "https://huggingface.co/deepinsight/inswapper/",
+      "filename": "inswapper_128.onnx",
+      "url": "https://huggingface.co/deepinsight/inswapper/resolve/main/inswapper_128.onnx"
+    },
+    {
+      "name": "Deepbump",
+      "type": "deepbump",
+      "base": "deepbump",
+      "save_path": "deepbump",
+      "description": "Checkpoint of the deepbump model to generate height and normal maps textures from an image (requires comfy_mtb)",
+      "reference": "https://github.com/HugoTini/DeepBump",
+      "filename": "deepbump256.onnx",
+      "url": "https://github.com/HugoTini/DeepBump/raw/master/deepbump256.onnx"
+    },  
+    {
+      "name": "GFPGAN 1.3",
+      "type": "face_restore",
+      "base": "face_restore",
+      "save_path": "face_restore",
+      "description": "Face restoration",
+      "reference": "https://github.com/TencentARC/GFPGAN",
+      "filename": "GFPGANv1.3.pth",
+      "url": "https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.3.pth"
+    },
+    {
+      "name": "GFPGAN 1.4",
+      "type": "face_restore",
+      "base": "face_restore",
+      "save_path": "face_restore",
+      "description": "Face restoration",
+      "reference": "https://github.com/TencentARC/GFPGAN",
+      "filename": "GFPGANv1.4.pth",
+      "url": "https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.4.pth"
+    },      
+    {
+      "name": "RestoreFormer",
+      "type": "face_restore",
+      "base": "face_restore",
+      "save_path": "face_restore",
+      "description": "Face restoration",
+      "reference": "https://github.com/TencentARC/GFPGAN",
+      "filename": "RestoreFormer.pth",
+      "url": "https://github.com/TencentARC/GFPGAN/releases/download/v1.3.4/RestoreFormer.pth"
+    },
+    {
       "name": "negative_hand Negative Embedding",
       "type": "embeddings",
       "base": "SD1.5",
