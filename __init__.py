@@ -32,7 +32,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.13)")
+print("### Loading: ComfyUI-Manager (V0.14)")
 
 comfy_ui_revision = "Unknown"
 
@@ -655,6 +655,15 @@ def gitclone_set_active(files, is_disable):
                 new_path = dir_path
 
             os.rename(current_path, new_path)
+
+            if is_disable:
+                if os.path.exists(os.path.join(new_path, "disable.py")):
+                    disable_script = [sys.executable, "disable.py"]
+                    try_install_script(url, new_path, disable_script)
+            else:
+                if os.path.exists(os.path.join(new_path, "enable.py")):
+                    enable_script = [sys.executable, "enable.py"]
+                    try_install_script(url, new_path, enable_script)
 
         except Exception as e:
             print(f"{action_name}(git-clone) error: {url} / {e}")

@@ -74,6 +74,7 @@ You can execute ComfyUI by running either `./run_gpu.sh` or `./run_cpu.sh` depen
 * Please submit a pull request to update either the custom-node-list.json or model-list.json file.
 
 * The scanner currently provides a detection function for missing nodes, which is capable of detecting nodes described by the following two patterns.
+  * Or you can provide manually `node_list.js` file. 
 
 ```
 NODE_CLASS_MAPPINGS = {
@@ -87,6 +88,16 @@ NODE_CLASS_MAPPINGS.update({
     "SemSegPreprocessor": Uniformer_SemSegPreprocessor,
 })
 ```
+
+* **Special purpose files** (optional)
+  * `node_list.js` - When your custom nodes pattern of NODE_CLASS_MAPPINGS is not conventional, it is used to manually provide a list of nodes for reference. ([example](https://github.com/melMass/comfy_mtb/raw/main/node_list.json))
+  * `requirements.txt` - When installing, this pip requirements will be installed automatically 
+  * `install.py` - When installing, it is automatically called
+  * `uninstall.py` - When uninstalling, it is automatically called
+  * `disable.py` - When disabled, it is automatically called
+    * When installing a custom node setup `.js` file, it is recommended to write this script for disabling.
+  * `enable.py` - When enabled, it is automatically called
+
 
 # Support of missing nodes installation
 
@@ -115,15 +126,16 @@ NODE_CLASS_MAPPINGS.update({
 
 # Roadmap
 
-* installation from git url
-* 3rd party repository
-* category/keyword filter
-* Specification of custom nodes
-* Specification scanner
-* Search extension by node name
-* Automatic recognition of missing custom nodes
-* Automatic installation suggestion of missing custom nodes
-* workflow downloader
+- [x] category/keyword filter
+- [x] Automatic recognition of missing custom nodes
+- [x] Automatic installation suggestion of missing custom nodes
+- [ ] installation from git url 
+- [ ] 3rd party repository
+- [ ] Specification of custom nodes
+- [ ] Specification scanner
+- [ ] Search extension by node name
+- [ ] workflow downloader
+
 
 # Disclaimer
 
