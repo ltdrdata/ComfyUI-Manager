@@ -114,7 +114,7 @@ NODE_CLASS_MAPPINGS.update({
 
 
 # Troubleshooting
-* If updating ComfyUI-Manager itself fails, please go to the **ComfyUI-Manager** directory and execute the command `git pull --rebase`.
+* If updating ComfyUI-Manager itself fails, please go to the **ComfyUI-Manager** directory and execute the command `git update-ref refs/remotes/origin/main a361cc1 && git fetch --all && git pull`.
  * Alternatively, download the update-fix.py script from [update-fix.py](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/update-fix.py) and place it in the ComfyUI-Manager directory. Then, run it using your Python command.
    For the portable version, use `..\..\..\python_embedded\python.exe update-fix.py`.
 * If Controlnet is set to skip_v1 true, nodes like `CannyEdgePreprocessor` will appear as extensions of missing nodes, but simply installing them is not enough, and direct modification of the user's config.yaml is required.
