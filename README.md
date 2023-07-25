@@ -32,6 +32,7 @@ You can execute ComfyUI by running either `./run_gpu.sh` or `./run_cpu.sh` depen
 
 
 # Changes
+* **0.14** Support robust update
 * **0.13** Support additional 'pip' section for install spec
 * **0.12** Better installation support for Windows.
 * **0.9** Support keyword search in installer menu.
@@ -113,8 +114,12 @@ NODE_CLASS_MAPPINGS.update({
 
 
 # Troubleshooting
+* If updating ComfyUI-Manager itself fails, please go to the **ComfyUI-Manager** directory and execute the command `git pull --rebase`.
+ * Alternatively, download the update-fix.py script from https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/update-fix.py and place it in the ComfyUI-Manager directory. Then, run it using your Python command.
+   For the portable version, use `..\..\..\python_embedded\python.exe update-fix.py`.
 * If Controlnet is set to skip_v1 true, nodes like `CannyEdgePreprocessor` will appear as extensions of missing nodes, but simply installing them is not enough, and direct modification of the user's config.yaml is required.
 * For cases where nodes like `PreviewTextNode` from `ComfyUI_Custom_Nodes_AlekPet` are only supported as front-end nodes, we currently do not provide missing nodes for them.
+* Currently, `vid2vid` is not being updated, causing compatibility issues.
 
 
 # TODO: Unconventional form of custom node list
