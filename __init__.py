@@ -32,7 +32,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.14)")
+print("### Loading: ComfyUI-Manager (V0.15)")
 
 comfy_ui_revision = "Unknown"
 
@@ -183,8 +183,11 @@ def git_pull(path):
         return __win_check_git_pull(path)
     else:
         repo = git.Repo(path)
+        if repo.is_dirty():
+            repo.git.stash()
+
         origin = repo.remote(name='origin')
-        origin.pull()
+        origin.pull(rebase=True)
         repo.git.submodule('update', '--init', '--recursive')
         
         repo.close()

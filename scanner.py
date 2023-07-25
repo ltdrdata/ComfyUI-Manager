@@ -117,7 +117,7 @@ def clone_or_pull_git_repository(git_url):
         try:
             repo = Repo(repo_dir)
             origin = repo.remote(name="origin")
-            origin.pull()
+            origin.pull(rebase=True)
             repo.git.submodule('update', '--init', '--recursive')
             print(f"Pulling {repo_name}...")
         except Exception as e:
