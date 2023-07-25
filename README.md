@@ -103,7 +103,7 @@ NODE_CLASS_MAPPINGS.update({
 
 ![missing-menu](misc/missing-menu.png)
 
-* When you click on the ```Install Custom Nodes (missing)``` button in the menu, it displays a list of extension nodes that contain nodes not currently present in the workflow.
+* When you click on the ```Install Missing Custom Nodes``` button in the menu, it displays a list of extension nodes that contain nodes not currently present in the workflow.
 
 ![missing-list](misc/missing-list.png)
 
