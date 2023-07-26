@@ -65,8 +65,8 @@ try:
         gitcheck(sys.argv[2], True)
     elif sys.argv[1] == "--pull":
         gitpull(sys.argv[2])
-    exit(0)
+    sys.exit(0)
 except:
-    exit(-1)
+    sys.exit(-1)
     
     
