@@ -1396,12 +1396,20 @@ class ManagerMenuDialog extends ComfyDialog {
 				$el("br", {}, []),
 				$el("button", {
 					type: "button",
+					textContent: "ComfyUI Community Manual",
+					onclick: () => { window.open("https://blenderneko.github.io/ComfyUI-docs/", "comfyui-community-manual"); }
+				}),
+
+				$el("br", {}, []),
+				$el("button", {
+					type: "button",
 					textContent: "Close",
-					onclick: () => this.close(),
+					onclick: () => this.close()
 				}),
 				$el("br", {}, []),
 			];
 
+		res[0].style.padding = "10px 10px 0 10px";
 		res[0].style.backgroundColor = "black";
 		res[0].style.textAlign = "center";
 		res[0].style.height = "45px";
