@@ -161,6 +161,26 @@
       "url": "https://civitai.com/api/download/models/9208"
     },
     {
+      "name": "sd_xl_base_1.0.safetensors",
+      "type": "checkpoints",
+      "base": "SDXL",
+      "save_path": "default",
+      "description": "Stable Diffusion XL base model",
+      "reference": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0",
+      "filename": "sd_xl_base_1.0.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors"
+    },
+    {
+      "name": "stable-diffusion-xl-refiner-1.0",
+      "type": "checkpoints",
+      "base": "SDXL",
+      "save_path": "default",
+      "description": "Stable Diffusion XL refiner model",
+      "reference": "https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0",
+      "filename": "sd_xl_refiner_1.0.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors"
+    },
+    {
       "name": "v1-5-pruned-emaonly.ckpt",
       "type": "checkpoints",
       "base": "SD1.5",
@@ -231,14 +251,14 @@
       "url": "https://huggingface.co/Linaqruf/anything-v3.0/resolve/main/anything-v3-fp16-pruned.safetensors"
     },
     {
-      "name": "Waifu Diffusion 1.5 (fp16)",
+      "name": "Waifu Diffusion 1.5 Beta3 (fp16)",
       "type": "checkpoints",
       "base": "SD2.1",
       "save_path": "default",
-      "description": "Waifu Diffusion 1.5",
-      "reference": "ttps://huggingface.co/waifu-diffusion/wd-1-5-beta2",
-      "filename": "wd-1-5-beta2-fp16.safetensors",
-      "url": "https://huggingface.co/waifu-diffusion/wd-1-5-beta2/resolve/main/checkpoints/wd-1-5-beta2-fp16.safetensors"
+      "description": "Waifu Diffusion 1.5 Beta3",
+      "reference": "https://huggingface.co/waifu-diffusion/wd-1-5-beta3",
+      "filename": "wd-illusion-fp16.safetensors",
+      "url": "https://huggingface.co/waifu-diffusion/wd-1-5-beta3/resolve/main/wd-illusion-fp16.safetensors"
     },
     {
       "name": "illuminatiDiffusionV1_v11 unCLIP model",
@@ -261,9 +281,19 @@
       "url": "https://huggingface.co/comfyanonymous/wd-1.5-beta2_unCLIP/resolve/main/wd-1-5-beta2-aesthetic-unclip-h-fp16.safetensors"
     },
     {
+      "name": "sdxl_vae.safetensors",
+      "type": "VAE",
+      "base": "SDXL VAE",
+      "save_path": "default",
+      "description": "SDXL-VAE",
+      "reference": "https://huggingface.co/stabilityai/sdxl-vae",
+      "filename": "sdxl_vae.safetensors",
+      "url": "https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
+    },
+    {
       "name": "vae-ft-mse-840000-ema-pruned",
       "type": "VAE",
-      "base": "VAE",
+      "base": "SD1.5 VAE",
       "save_path": "default",
       "description": "vae-ft-mse-840000-ema-pruned",
       "reference": "https://huggingface.co/stabilityai/sd-vae-ft-mse-original",
@@ -273,7 +303,7 @@
     {
       "name": "orangemix.vae",
       "type": "VAE",
-      "base": "VAE",
+      "base": "SD1.5 VAE",
       "save_path": "default",
       "description": "orangemix vae model",
       "reference": "https://huggingface.co/WarriorMama777/OrangeMixs",
@@ -283,7 +313,7 @@
     {
       "name": "kl-f8-anime2",
       "type": "VAE",
-      "base": "VAE",
+      "base": "SD2.1 VAE",
       "save_path": "default",
       "description": "kl-f8-anime2 vae model",
       "reference": "https://huggingface.co/hakurei/waifu-diffusion-v1-4",
