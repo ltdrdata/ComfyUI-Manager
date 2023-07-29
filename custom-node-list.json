@@ -544,7 +544,7 @@
                 "https://github.com/Nourepide/ComfyUI-Allor"
             ],
             "install_type": "git-clone",
-            "description": "Allor is a plugin for ComfyUI with an emphasis on transparency and performance.<BR><p style='background-color: black; color: red;'>WARN:If you currently(Jul 29) use this node, some built-in nodes like ImageScaleBy may become missing nodes.</p>"
+            "description": "Allor is a plugin for ComfyUI with an emphasis on transparency and performance.<BR><p style='background-color: black; color: red;'>NOTE: If you do not disable the default node override feature in the settings, the built-in nodes, namely ImageScale and ImageScaleBy nodes, will be disabled. (ref: <a href='https://github.com/Nourepide/ComfyUI-Allor#configuration'>Configutation</a>)</p>"
         },
         {
             "author": "pythongosssss",
@@ -799,6 +799,16 @@
             "description": "Nodes for convenient prompt editing. The aim is to make basic generations in ComfyUI completely prompt-controllable."
         },
         {
+            "author": "jamesWalker55",
+            "title": "ComfyUI - P2LDGAN Node",
+            "reference": "https://github.com/jamesWalker55/comfyui-p2ldgan",
+            "files": [
+                "https://github.com/jamesWalker55/comfyui-p2ldgan"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: P2LDGAN. This integrates P2LDGAN into ComfyUI. P2LDGAN extracts lineart from input images."
+        },
+        {
             "author": "taabata",
             "title": "Syrian Falcon Nodes",
             "reference": "https://github.com/taabata/Comfy_Syrian_Falcon_Nodes",
@@ -946,6 +956,26 @@
             "description": "A quick and easy ComfyUI custom node for setting SDXL-friendly aspect ratios."
         },
         {
+            "author": "s1dlx",
+            "title": "comfy_meh",
+            "reference": "https://github.com/s1dlx/comfy_meh",
+            "files": [
+                "https://github.com/s1dlx/comfy_meh/raw/main/meh.py"
+            ],
+            "install_type": "copy",
+            "description": "Advanced merging methods."
+        },
+        {
+            "author": "tudal",
+            "title": "Hakkun-ComfyUI-nodes",
+            "reference": "https://github.com/tudal/Hakkun-ComfyUI-nodes",
+            "files": [
+                "https://github.com/tudal/Hakkun-ComfyUI-nodes/raw/main/hakkun_nodes.py"
+            ],
+            "install_type": "copy",
+            "description": "Nodes: Prompt parser. ComfyUI extra nodes. Mostly prompt parsing."
+        },
+        {
             "author": "theally",
             "title": "TheAlly's Custom Nodes",
             "reference": "https://civitai.com/models/19625?modelVersionId=23296",
@@ -978,16 +1008,6 @@
             ],
             "install_type": "unzip",
             "description": "Various image processing nodes."
-        },
-        {
-            "author": "s1dlx",
-            "title": "comfy_meh",
-            "reference": "https://github.com/s1dlx/comfy_meh",
-            "files": [
-                "https://github.com/s1dlx/comfy_meh/raw/main/meh.py"
-            ],
-            "install_type": "copy",
-            "description": "Advanced merging methods."
         }
     ]
 }
