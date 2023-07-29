@@ -32,6 +32,7 @@ You can execute ComfyUI by running either `./run_gpu.sh` or `./run_cpu.sh` depen
 
 
 # Changes
+* **0.17** Support preview method setting feature
 * **0.14** Support robust update
 * **0.13** Support additional 'pip' section for install spec
 * **0.12** Better installation support for Windows.
@@ -51,7 +52,7 @@ You can execute ComfyUI by running either `./run_gpu.sh` or `./run_cpu.sh` depen
 
 
 2. If you click on 'Install Custom Nodes' or 'Install Models', an installer dialog will open.
-![menu](misc/menu.png)
+![menu](misc/menu.jpg)
 
 * When the 'Use local DB' feature is enabled, the application will utilize the data stored locally on your device, rather than retrieving node/model information over the internet
 

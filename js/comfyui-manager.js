@@ -1338,6 +1338,20 @@ class ManagerMenuDialog extends ComfyDialog {
 						() => fetchUpdates()
 				});
 
+		let preview_combo = document.createElement("select");
+        preview_combo.appendChild($el('option', {value:'auto', text:'Preview method: Auto'}, []));
+        preview_combo.appendChild($el('option', {value:'taesd', text:'Preview method: TAESD'}, []));
+        preview_combo.appendChild($el('option', {value:'latent2rgb', text:'Preview method: Latent2RGB'}, []));
+        preview_combo.appendChild($el('option', {value:'none', text:'Preview method: None'}, []));
+
+        fetch('/manager/preview_method')
+        .then(response => response.text())
+        .then(data => { preview_combo.value = data; })
+
+		preview_combo.addEventListener('change', function(event) {
+            fetch(`/manager/preview_method?value=${event.target.value}`);
+		});
+
 		const res =
 			[
 				$el("tr.td", {width:"100%"}, [$el("font", {size:6, color:"white"}, [`ComfyUI Manager Menu`])]),
@@ -1400,7 +1414,12 @@ class ManagerMenuDialog extends ComfyDialog {
 					onclick: () => { window.open("https://blenderneko.github.io/ComfyUI-docs/", "comfyui-community-manual"); }
 				}),
 
-				$el("br", {}, []),
+                $el("br", {}, []),
+				$el("hr", {width: "100%"}, []),
+				preview_combo,
+				$el("hr", {width: "100%"}, []),
+                $el("br", {}, []),
+
 				$el("button", {
 					type: "button",
 					textContent: "Close",

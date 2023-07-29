@@ -1,3 +1,4 @@
+import configparser
 import shutil
 import folder_paths
 import os, sys
@@ -32,7 +33,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.16)")
+print("### Loading: ComfyUI-Manager (V0.17)")
 
 comfy_ui_revision = "Unknown"
 
@@ -48,6 +49,71 @@ local_db_extension_node_mappings = os.path.join(comfyui_manager_path, "extension
 git_script_path = os.path.join(os.path.dirname(__file__), "git_helper.py")
 
 startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
+config_path = os.path.join(os.path.dirname(__file__), "config.ini")
+cached_config = None
+
+
+from comfy.cli_args import args
+import latent_preview
+
+
+def write_config():
+    config = configparser.ConfigParser()
+    config['default'] = {
+        'preview_method': get_current_preview_method(),
+    }
+    with open(config_path, 'w') as configfile:
+        config.write(configfile)
+
+
+def read_config():
+    try:
+        config = configparser.ConfigParser()
+        config.read(config_path)
+        default_conf = config['default']
+
+        return {
+                    'preview_method': default_conf['preview_method']
+               }
+
+    except Exception:
+        return {'preview_method': get_current_preview_method()}
+
+
+def get_config():
+    global cached_config
+
+    if cached_config is None:
+        cached_config = read_config()
+
+    return cached_config
+
+
+def get_current_preview_method():
+    if args.preview_method == latent_preview.LatentPreviewMethod.Auto:
+        return "auto"
+    elif args.preview_method == latent_preview.LatentPreviewMethod.Latent2RGB:
+        return "latent2rgb"
+    elif args.preview_method == latent_preview.LatentPreviewMethod.TAESD:
+        return "taesd"
+    else:
+        return "none"
+
+
+def set_preview_method(method):
+    if method == 'auto':
+        args.preview_method = latent_preview.LatentPreviewMethod.Auto
+    elif method == 'latent2rgb':
+        args.preview_method = latent_preview.LatentPreviewMethod.Latent2RGB
+    elif method == 'taesd':
+        args.preview_method = latent_preview.LatentPreviewMethod.TAESD
+    else:
+        args.preview_method = latent_preview.LatentPreviewMethod.NoPreviews
+
+    get_config()['preview_method'] = args.preview_method
+
+
+set_preview_method(get_config()['preview_method'])
 
 
 def try_install_script(url, repo_path, install_cmd):
@@ -853,6 +919,17 @@ async def install_model(request):
         return web.json_response({}, content_type='application/json')
 
     return web.Response(status=400)
+
+
+@server.PromptServer.instance.routes.get("/manager/preview_method")
+async def preview_method(request):
+    if "value" in request.rel_url.query:
+        set_preview_method(request.rel_url.query['value'])
+        write_config()
+    else:
+        return web.Response(text=get_current_preview_method(), status=200)
+
+    return web.Response(status=200)
 
 
 NODE_CLASS_MAPPINGS = {}
