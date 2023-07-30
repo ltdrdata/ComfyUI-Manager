@@ -32,9 +32,10 @@ You can execute ComfyUI by running either `./run_gpu.sh` or `./run_cpu.sh` depen
 
 
 # Changes
-* **0.17** Support preview method setting feature
-* **0.14** Support robust update
-* **0.13** Support additional 'pip' section for install spec
+* **0.17.1** Bug fix for the issue where enable/disable of the web extension was not working.
+* **0.17** Support preview method setting feature.
+* **0.14** Support robust update.
+* **0.13** Support additional 'pip' section for install spec.
 * **0.12** Better installation support for Windows.
 * **0.9** Support keyword search in installer menu.
 * **V0.7.1** Bug fix for the issue where updates were not being applied on Windows.

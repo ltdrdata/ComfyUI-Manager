@@ -33,7 +33,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.17)")
+print("### Loading: ComfyUI-Manager (V0.17.1)")
 
 comfy_ui_revision = "Unknown"
 
@@ -357,7 +357,14 @@ def check_a_custom_node_installed(item, do_fetch=False):
 
     elif item['install_type'] == 'copy' and len(item['files']) == 1:
         dir_name = os.path.basename(item['files'][0])
-        base_path = custom_nodes_path if item['files'][0].endswith('.py') else js_path
+
+        if item['files'][0].endswith('.py'):
+            base_path = custom_nodes_path
+        elif 'js_path' in item:
+            base_path = os.path.join(js_path, item['js_path'])
+        else:
+            base_path = js_path
+
         file_path = os.path.join(base_path, dir_name)
         if os.path.exists(file_path):
             item['installed'] = 'True'
@@ -893,7 +900,7 @@ async def install_custom_node(request):
     if install_type == "git-clone":
         res = gitclone_set_active(json_data['files'], not is_disabled)
     elif install_type == "copy":
-        res = copy_set_active(json_data['files'], not is_disabled)
+        res = copy_set_active(json_data['files'], not is_disabled, json_data.get('js_path', None))
 
     if res:
         return web.json_response({}, content_type='application/json')
