@@ -1,5 +1,5 @@
-import { app } from "/scripts/app.js";
-import { ComfyDialog, $el } from "/scripts/ui.js";
+import { app } from "../../scripts/app.js";
+import { ComfyDialog, $el } from "../../scripts/ui.js";
 import {ComfyWidgets} from "../../scripts/widgets.js";
 
 var update_comfyui_button = null;
