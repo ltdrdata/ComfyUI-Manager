@@ -24,11 +24,20 @@ def scan_in_file(filename):
     for key in keys:
         nodes.add(key)
 
+    pattern3 = r'NODE_CLASS_MAPPINGS\[\'(.*?)\'\]'
+    keys = re.findall(pattern3, code)
+    for key in keys:
+        nodes.add(key)
+
     matches = regex.findall(code)
     for match in matches:
         dict_text = match
 
         key_value_pairs = re.findall(r"\"([^\"]*)\"\s*:\s*([^,\n]*)", dict_text)
+        for key, value in key_value_pairs:
+            class_dict[key] = value.strip()
+
+        key_value_pairs = re.findall(r"'([^']*)'\s*:\s*([^,\n]*)", dict_text)
         for key, value in key_value_pairs:
             class_dict[key] = value.strip()
 
