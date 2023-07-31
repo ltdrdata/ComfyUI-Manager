@@ -1,4 +1,5 @@
 import { app } from "../../scripts/app.js";
+import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
 import {ComfyWidgets} from "../../scripts/widgets.js";
 
@@ -10,7 +11,7 @@ async function getCustomnodeMappings() {
 	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
 		mode = "local";
 
-	const response = await fetch(`/customnode/getmappings?mode=${mode}`);
+	const response = await api.fetchApi(`/customnode/getmappings?mode=${mode}`);
 
 	const data = await response.json();
 	return data;
@@ -22,7 +23,7 @@ async function getUnresolvedNodesInComponent() {
 		if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
 			mode = "local";
 
-		const response = await fetch(`/component/get_unresolved`);
+		const response = await api.fetchApi(`/component/get_unresolved`);
 
 		const data = await response.json();
 		return data.nodes;
@@ -37,7 +38,7 @@ async function getCustomNodes() {
 	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
 		mode = "local";
 
-	const response = await fetch(`/customnode/getlist?mode=${mode}`);
+	const response = await api.fetchApi(`/customnode/getlist?mode=${mode}`);
 
 	const data = await response.json();
 	return data;
@@ -48,7 +49,7 @@ async function getAlterList() {
 	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
 		mode = "local";
 
-	const response = await fetch(`/alternatives/getlist?mode=${mode}`);
+	const response = await api.fetchApi(`/alternatives/getlist?mode=${mode}`);
 
 	const data = await response.json();
 	return data;
@@ -59,7 +60,7 @@ async function getModelList() {
 	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
 		mode = "local";
 
-	const response = await fetch(`/externalmodel/getlist?mode=${mode}`);
+	const response = await api.fetchApi(`/externalmodel/getlist?mode=${mode}`);
 
 	const data = await response.json();
 	return data;
@@ -70,7 +71,7 @@ async function install_custom_node(target, caller, mode) {
 		caller.startInstall(target);
 
 		try {
-			const response = await fetch(`/customnode/${mode}`, {
+			const response = await api.fetchApi(`/customnode/${mode}`, {
 													method: 'POST',
 													headers: { 'Content-Type': 'application/json' },
 													body: JSON.stringify(target)
@@ -104,7 +105,7 @@ async function updateComfyUI() {
 	update_comfyui_button.disabled = true;
 
 	try {
-		const response = await fetch('/comfyui_manager/update_comfyui');
+		const response = await api.fetchApi('/comfyui_manager/update_comfyui');
 
 		if(response.status == 400) {
 			app.ui.dialog.show('Failed to update ComfyUI');
@@ -143,7 +144,7 @@ async function fetchUpdates() {
         if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
             mode = "local";
 
-		const response = await fetch(`/customnode/fetch_updates?mode=${mode}`);
+		const response = await api.fetchApi(`/customnode/fetch_updates?mode=${mode}`);
 
 		if(response.status == 400) {
 			app.ui.dialog.show('Failed to fetch updates.');
@@ -178,7 +179,7 @@ async function install_model(target) {
 		ModelInstaller.instance.startInstall(target);
 
 		try {
-			const response = await fetch('/model/install', {
+			const response = await api.fetchApi('/model/install', {
 													method: 'POST',
 													headers: { 'Content-Type': 'application/json' },
 													body: JSON.stringify(target)
@@ -1344,12 +1345,12 @@ class ManagerMenuDialog extends ComfyDialog {
         preview_combo.appendChild($el('option', {value:'latent2rgb', text:'Preview method: Latent2RGB'}, []));
         preview_combo.appendChild($el('option', {value:'none', text:'Preview method: None'}, []));
 
-        fetch('/manager/preview_method')
+        api.fetchApi('/manager/preview_method')
         .then(response => response.text())
         .then(data => { preview_combo.value = data; })
 
 		preview_combo.addEventListener('change', function(event) {
-            fetch(`/manager/preview_method?value=${event.target.value}`);
+            api.fetchApi(`/manager/preview_method?value=${event.target.value}`);
 		});
 
 		const res =
