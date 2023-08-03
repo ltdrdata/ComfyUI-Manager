@@ -33,8 +33,9 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.17.2)")
+print("### Loading: ComfyUI-Manager (V0.17.3)")
 
+comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
 
 comfy_path = os.path.dirname(folder_paths.__file__)
@@ -124,7 +125,7 @@ def try_install_script(url, repo_path, install_cmd):
     elif comfy_ui_revision.isdigit():
         int_comfyui_revision = int(comfy_ui_revision)
 
-    if platform.system() == "Windows" and int_comfyui_revision >= 1152:
+    if platform.system() == "Windows" and int_comfyui_revision >= comfy_ui_required_revision:
         if not os.path.exists(startup_script_path):
             os.makedirs(startup_script_path)
 
@@ -139,7 +140,7 @@ def try_install_script(url, repo_path, install_cmd):
 
         if platform.system() == "Windows":
             try:
-                if int(comfy_ui_revision) < 1152:
+                if int(comfy_ui_revision) < comfy_ui_required_revision:
                     print("\n\n###################################################################")
                     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version ({comfy_ui_revision}) is too old. Please update to the latest version.")
                     print(f"[WARN] The extension installation feature may not work properly in the current installed ComfyUI version on Windows environment.")
@@ -161,7 +162,7 @@ def print_comfyui_version():
         git_hash = repo.head.commit.hexsha
 
         try:
-            if int(comfy_ui_revision) < 1148:
+            if int(comfy_ui_revision) < comfy_ui_required_revision:
                 print(f"\n\n## [WARN] ComfyUI-Manager: Your ComfyUI version ({comfy_ui_revision}) is too old. Please update to the latest version. ##\n\n")
         except:
             pass
