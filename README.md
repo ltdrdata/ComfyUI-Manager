@@ -100,7 +100,7 @@ NODE_CLASS_MAPPINGS.update({
   * `disable.py` - When disabled, it is automatically called
     * When installing a custom node setup `.js` file, it is recommended to write this script for disabling.
   * `enable.py` - When enabled, it is automatically called
-
+  * **All scripts are executed from the root path of the corresponding custom node.**
 
 # Support of missing nodes installation
 
