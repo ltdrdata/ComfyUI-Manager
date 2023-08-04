@@ -38,7 +38,11 @@ async function getCustomNodes() {
 	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
 		mode = "local";
 
-	const response = await api.fetchApi(`/customnode/getlist?mode=${mode}`);
+	var skip_update = "";
+	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+		skip_update = "&skip_update=true";
+
+	const response = await api.fetchApi(`/customnode/getlist?mode=${mode}${skip_update}`);
 
 	const data = await response.json();
 	return data;
@@ -49,7 +53,11 @@ async function getAlterList() {
 	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
 		mode = "local";
 
-	const response = await api.fetchApi(`/alternatives/getlist?mode=${mode}`);
+	var skip_update = "";
+	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+		skip_update = "&skip_update=true";
+
+	const response = await api.fetchApi(`/alternatives/getlist?mode=${mode}${skip_update}`);
 
 	const data = await response.json();
 	return data;
@@ -1321,7 +1329,12 @@ class ManagerMenuDialog extends ComfyDialog {
 	createButtons() {
 		this.local_mode_checkbox = $el("input",{type:'checkbox', id:"use_local_db"},[])
 		const checkbox_text = $el("label",{},[" Use local DB"])
-		checkbox_text.style.color = "var(--fg-color)"
+		checkbox_text.style.color = "var(--fg-color)";
+		checkbox_text.style.marginRight = "10px";
+
+		this.update_check_checkbox = $el("input",{type:'checkbox', id:"skip_update_check"},[])
+		const uc_checkbox_text = $el("label",{},[" Skip update check"])
+		uc_checkbox_text.style.color = "var(--fg-color)";
 
 		update_comfyui_button =
 				$el("button", {
@@ -1357,7 +1370,7 @@ class ManagerMenuDialog extends ComfyDialog {
 			[
 				$el("tr.td", {width:"100%"}, [$el("font", {size:6, color:"white"}, [`ComfyUI Manager Menu`])]),
 				$el("br", {}, []),
-				$el("div", {}, [this.local_mode_checkbox, checkbox_text]),
+				$el("div", {}, [this.local_mode_checkbox, checkbox_text, this.update_check_checkbox, uc_checkbox_text]),
 				$el("br", {}, []),
 				$el("button", {
 					type: "button",

@@ -33,7 +33,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.17.3)")
+print("### Loading: ComfyUI-Manager (V0.18)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -335,7 +335,7 @@ def get_model_path(data):
     return os.path.join(base_model, data['filename'])
 
 
-def check_a_custom_node_installed(item, do_fetch=False):
+def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True):
     item['installed'] = 'None'
 
     if item['install_type'] == 'git-clone' and len(item['files']) == 1:
@@ -343,7 +343,7 @@ def check_a_custom_node_installed(item, do_fetch=False):
         dir_path = os.path.join(custom_nodes_path, dir_name)
         if os.path.exists(dir_path):
             try:
-                if git_repo_has_updates(dir_path, do_fetch):
+                if do_update_check and git_repo_has_updates(dir_path, do_fetch):
                     item['installed'] = 'Update'
                 else:
                     item['installed'] = 'True'
@@ -375,9 +375,9 @@ def check_a_custom_node_installed(item, do_fetch=False):
             item['installed'] = 'False'
 
 
-def check_custom_nodes_installed(json_obj, do_fetch=False):
+def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True):
     for item in json_obj['custom_nodes']:
-        check_a_custom_node_installed(item, do_fetch)
+        check_a_custom_node_installed(item, do_fetch, do_update_check)
 
 
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
@@ -416,19 +416,29 @@ async def fetch_updates(request):
 
 @server.PromptServer.instance.routes.get("/customnode/getlist")
 async def fetch_customnode_list(request):
+    if "skip_update" in request.rel_url.query and request.rel_url.query["skip_update"] == "true":
+        skip_update = True
+    else:
+        skip_update = False
+
     if request.rel_url.query["mode"] == "local":
         uri = local_db_custom_node_list
     else:
         uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json'
 
     json_obj = await get_data(uri)
-    check_custom_nodes_installed(json_obj, False)
+    check_custom_nodes_installed(json_obj, False, not skip_update)
 
     return web.json_response(json_obj, content_type='application/json')
 
 
 @server.PromptServer.instance.routes.get("/alternatives/getlist")
 async def fetch_alternatives_list(request):
+    if "skip_update" in request.rel_url.query and request.rel_url.query["skip_update"] == "true":
+        skip_update = True
+    else:
+        skip_update = False
+
     if request.rel_url.query["mode"] == "local":
         uri1 = local_db_alter
         uri2 = local_db_custom_node_list
@@ -448,7 +458,7 @@ async def fetch_alternatives_list(request):
         fileurl = item['id']
         if fileurl in fileurl_to_custom_node:
             custom_node = fileurl_to_custom_node[fileurl]
-            check_a_custom_node_installed(custom_node)
+            check_a_custom_node_installed(custom_node, not skip_update)
             item['custom_node'] = custom_node
 
     return web.json_response(alter_json, content_type='application/json')

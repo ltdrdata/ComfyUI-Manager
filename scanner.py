@@ -22,12 +22,12 @@ def scan_in_file(filename):
     pattern2 = r'NODE_CLASS_MAPPINGS\["(.*?)"\]'
     keys = re.findall(pattern2, code)
     for key in keys:
-        nodes.add(key)
+        nodes.add(key.strip())
 
     pattern3 = r'NODE_CLASS_MAPPINGS\[\'(.*?)\'\]'
     keys = re.findall(pattern3, code)
     for key in keys:
-        nodes.add(key)
+        nodes.add(key.strip())
 
     matches = regex.findall(code)
     for match in matches:
@@ -35,14 +35,14 @@ def scan_in_file(filename):
 
         key_value_pairs = re.findall(r"\"([^\"]*)\"\s*:\s*([^,\n]*)", dict_text)
         for key, value in key_value_pairs:
-            class_dict[key] = value.strip()
+            class_dict[key.strip()] = value.strip()
 
         key_value_pairs = re.findall(r"'([^']*)'\s*:\s*([^,\n]*)", dict_text)
         for key, value in key_value_pairs:
-            class_dict[key] = value.strip()
+            class_dict[key.strip()] = value.strip()
 
         for key, value in class_dict.items():
-            nodes.add(key)
+            nodes.add(key.strip())
 
         update_pattern = r"NODE_CLASS_MAPPINGS.update\s*\({([^}]*)}\)"
         update_match = re.search(update_pattern, code)
@@ -50,8 +50,8 @@ def scan_in_file(filename):
             update_dict_text = update_match.group(1)
             update_key_value_pairs = re.findall(r"\"([^\"]*)\"\s*:\s*([^,\n]*)", update_dict_text)
             for key, value in update_key_value_pairs:
-                class_dict[key] = value.strip()
-                nodes.add(key)
+                class_dict[key.strip()] = value.strip()
+                nodes.add(key.strip())
 
     return nodes
 
@@ -227,7 +227,7 @@ def gen_json(node_info):
                 nodes = set(data[git_url])
 
             for x, desc in node_list_json.items():
-                nodes.add(x)
+                nodes.add(x.strip())
 
             nodes = list(nodes)
             nodes.sort()
