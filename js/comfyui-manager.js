@@ -39,7 +39,7 @@ async function getCustomNodes() {
 		mode = "local";
 
 	var skip_update = "";
-	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+	if(ManagerMenuDialog.instance.update_check_checkbox.checked)
 		skip_update = "&skip_update=true";
 
 	const response = await api.fetchApi(`/customnode/getlist?mode=${mode}${skip_update}`);
@@ -54,7 +54,7 @@ async function getAlterList() {
 		mode = "local";
 
 	var skip_update = "";
-	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+	if(ManagerMenuDialog.instance.update_check_checkbox.checked)
 		skip_update = "&skip_update=true";
 
 	const response = await api.fetchApi(`/alternatives/getlist?mode=${mode}${skip_update}`);
