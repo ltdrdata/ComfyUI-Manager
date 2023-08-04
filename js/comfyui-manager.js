@@ -566,6 +566,10 @@ class CustomNodesInstaller extends ComfyDialog {
 			self.apply_searchbox();
 		});
 
+        if(self.filter) {
+		    combo.value = self.filter;
+		}
+
 		return combo;
 	}
 
@@ -944,6 +948,10 @@ class AlternativesInstaller extends ComfyDialog {
 			self.filter = event.target.value;
 			self.apply_searchbox();
 		});
+
+        if(self.filter) {
+		    combo.value = self.filter;
+		}
 
 		return combo;
 	}
