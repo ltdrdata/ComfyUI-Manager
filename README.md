@@ -1,6 +1,8 @@
 # ComfyUI Manager
 
-## Installation[method1] (General installation method: ComfyUI-Manager only)
+## Installation
+
+### Installation[method1] (General installation method: ComfyUI-Manager only)
 
 To install ComfyUI-Manager in addition to an existing installation of ComfyUI, you can follow the following steps:
 
@@ -9,7 +11,7 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 3. Restart ComfyUI
 
 
-## Installation[method2] (Installation for portable ComfyUI version: ComfyUI-Manager only)
+### Installation[method2] (Installation for portable ComfyUI version: ComfyUI-Manager only)
 
 1. Download [scripts/install-manager-for-portable-version.bat](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-manager-for-portable-version.bat) into installed `"ComfyUI_windows_portable"` directory
 2. double click `install-manager-for-portable-version.bat` batch file
@@ -17,7 +19,7 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 ![portable-install](misc/portable-install.png)
 
 
-## Installation[method3] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
+### Installation[method3] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
 
 To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you can follow these steps:
 
@@ -29,9 +31,15 @@ To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you c
 
 You can execute ComfyUI by running either `./run_gpu.sh` or `./run_cpu.sh` depending on your system configuration.
 
+## Colab Notebook
+This repository provides Colab notebooks that allow you to install and use ComfyUI, including ComfyUI-Manager. To use ComfyUI, [click on this link](https://colab.research.google.com/github/ltdrdata/ComfyUI-Manager/blob/main/notebooks/comfyui_colab_with_manager.ipynb).
+* Support for installing ComfyUI
+* Support for basic installation of ComfyUI-Manager
+* Support for automatically installing dependencies of custom nodes upon restarting Colab notebooks.
 
-
-# Changes
+## Changes
+* **0.18.1** `skip update check` feature added.
+  * A feature that allows quickly opening windows in environments where update checks take a long time.
 * **0.17.1** Bug fix for the issue where enable/disable of the web extension was not working. Compatibility patch for StableSwarmUI.
   * Requires latest version of ComfyUI (Revision: 1240)
 * **0.17** Support preview method setting feature.
@@ -46,7 +54,7 @@ You can execute ComfyUI by running either `./run_gpu.sh` or `./run_cpu.sh` depen
 * **V0.5** Removed external git program dependencies.
 
 
-# How To Use
+## How To Use
 
 1. Click "Manager" button on main menu
 
@@ -71,7 +79,7 @@ You can execute ComfyUI by running either `./run_gpu.sh` or `./run_cpu.sh` depen
 * Try Install: This is a custom node of which installation information cannot be confirmed. Click the button to try installing it.
 
 
-# Custom node support guide
+## Custom node support guide
 
 * Currently, the system operates by cloning the git repository and sequentially installing the dependencies listed in requirements.txt using pip, followed by invoking the install.py script. In the future, we plan to discuss and determine the specifications for supporting custom nodes.
 
@@ -103,7 +111,7 @@ NODE_CLASS_MAPPINGS.update({
   * `enable.py` - When enabled, it is automatically called
   * **All scripts are executed from the root path of the corresponding custom node.**
 
-# Support of missing nodes installation
+## Support of missing nodes installation
 
 ![missing-menu](misc/missing-menu.png)
 
@@ -116,7 +124,7 @@ NODE_CLASS_MAPPINGS.update({
 * [ComfyUI_Custom_Nodes_AlekPet](https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet)
 
 
-# Troubleshooting
+## Troubleshooting
 * If updating ComfyUI-Manager itself fails, please go to the **ComfyUI-Manager** directory and execute the command `git update-ref refs/remotes/origin/main a361cc1 && git fetch --all && git pull`.
  * Alternatively, download the update-fix.py script from [update-fix.py](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/update-fix.py) and place it in the ComfyUI-Manager directory. Then, run it using your Python command.
    For the portable version, use `..\..\..\python_embedded\python.exe update-fix.py`.
@@ -125,7 +133,7 @@ NODE_CLASS_MAPPINGS.update({
 * Currently, `vid2vid` is not being updated, causing compatibility issues.
 
 
-# TODO: Unconventional form of custom node list
+## TODO: Unconventional form of custom node list
 
 * https://github.com/bmad4ever/ComfyUI-Bmad-Custom-Nodes
 * https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
@@ -133,7 +141,8 @@ NODE_CLASS_MAPPINGS.update({
 * https://github.com/senshilabs/NINJA-plugin
 * https://github.com/failfa-st/comfyui-extensions
 
-# Roadmap
+
+## Roadmap
 
 - [x] category/keyword filter
 - [x] Automatic recognition of missing custom nodes
