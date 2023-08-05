@@ -33,7 +33,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.18.2)")
+print("### Loading: ComfyUI-Manager (V0.19)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -302,7 +302,7 @@ import zipfile
 import urllib.request
 
 
-def get_model_path(data):
+def get_model_dir(data):
     if data['save_path'] != 'default':
         base_model = os.path.join(folder_paths.models_dir, data['save_path'])
     else:
@@ -330,8 +330,13 @@ def get_model_path(data):
         elif model_type == "embeddings":
             base_model = folder_paths.folder_names_and_paths["embeddings"][0][0]
         else:
-            base_model = None
+            base_model = "etc"
 
+    return base_model
+
+
+def get_model_path(data):
+    base_model = get_model_dir(data)
     return os.path.join(base_model, data['filename'])
 
 
@@ -933,14 +938,24 @@ async def install_model(request):
 
     res = False
 
-    if model_path is not None:
-        print(f"Install model '{json_data['name']}' into '{model_path}'")
-        res = download_url_with_agent(json_data['url'], model_path)
-    else:
-        print(f"Model installation error: invalid model type - {json_data['type']}")
+    try:
+        if model_path is not None:
+            print(f"Install model '{json_data['name']}' into '{model_path}'")
 
-    if res:
-        return web.json_response({}, content_type='application/json')
+            if json_data['url'].startswith('https://github.com') or json_data['url'].startswith('https://huggingface.co'):
+                model_dir = get_model_dir(json_data)
+                download_url(json_data['url'], model_dir)
+                return web.json_response({}, content_type='application/json')
+            else:
+                res = download_url_with_agent(json_data['url'], model_path)
+        else:
+            print(f"Model installation error: invalid model type - {json_data['type']}")
+
+        if res:
+            return web.json_response({}, content_type='application/json')
+    except Exception as e:
+        print(f"[ERROR] {e}")
+        pass
 
     return web.Response(status=400)
 
