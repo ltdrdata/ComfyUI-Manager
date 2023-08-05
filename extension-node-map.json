@@ -71,6 +71,9 @@
         "BNK_TiledKSampler",
         "BNK_TiledKSamplerAdvanced"
     ],
+    "https://github.com/Chaoses-Ib/ComfyUI_Ib_CustomNodes": [
+        "LoadImageFromPath"
+    ],
     "https://github.com/Davemane42/ComfyUI_Dave_CustomNode": [
         "ABGRemover",
         "ConditioningStretch",
@@ -455,6 +458,7 @@
         "RerouteTextForCLIPTextEncodeA1111"
     ],
     "https://github.com/SeargeDP/SeargeSDXL": [
+        "SeargeCheckpointLoader",
         "SeargeConditioningMuxer5",
         "SeargeFloatConstant",
         "SeargeFloatMath",
@@ -473,6 +477,7 @@
         "SeargeIntegerPair",
         "SeargeIntegerScaler",
         "SeargeLatentMuxer3",
+        "SeargeLoraLoader",
         "SeargeOutput1",
         "SeargeOutput2",
         "SeargeOutput3",
@@ -487,7 +492,10 @@
         "SeargeSDXLImage2ImageSampler",
         "SeargeSDXLPromptEncoder",
         "SeargeSDXLRefinerPromptEncoder",
-        "SeargeSDXLSampler"
+        "SeargeSDXLSampler",
+        "SeargeStylePreprocessor",
+        "SeargeUpscaleModelLoader",
+        "SeargeVAELoader"
     ],
     "https://github.com/Ser-Hilary/SDXL_sizing/raw/main/conditioning_sizing_for_SDXL.py": [
         "get_aspect_from_image",
@@ -735,6 +743,7 @@
         "CLIPAttentionMaskEncode"
     ],
     "https://github.com/asagi4/comfyui-prompt-control": [
+        "CondLinearInterpolate",
         "ConditioningCutoff",
         "EditableCLIPEncode",
         "FilterSchedule",
@@ -747,6 +756,7 @@
         "StringConcat"
     ],
     "https://github.com/bash-j/mikey_nodes": [
+        "AddMetaData",
         "Batch Resize Image for SDXL",
         "Empty Latent Ratio Custom SDXL",
         "Empty Latent Ratio Select SDXL",
@@ -757,6 +767,7 @@
         "Prompt With Style V3",
         "Resize Image for SDXL",
         "Save Image With Prompt Data",
+        "SaveMetaData",
         "Style Conditioner",
         "Upscale Tile Calculator",
         "VAE Decode 6GB SDXL (deprecated)"
@@ -953,6 +964,9 @@
         "VAEEncodeBatched",
         "VAEIter"
     ],
+    "https://github.com/imb101/ComfyUI-FaceSwap": [
+        "FaceSwapNode"
+    ],
     "https://github.com/kwaroran/abg-comfyui": [
         "Remove Image Background (abg)"
     ],
@@ -998,11 +1012,21 @@
         "ImageMaskSwitch",
         "ImageReceiver",
         "ImageSender",
+        "ImpactCompare",
+        "ImpactConditionalBranch",
+        "ImpactConditionalStopIteration",
+        "ImpactFloat",
+        "ImpactImageInfo",
+        "ImpactInt",
         "ImpactKSamplerAdvancedBasicPipe",
         "ImpactKSamplerBasicPipe",
         "ImpactLogger",
+        "ImpactMinMax",
+        "ImpactNeg",
         "ImpactSEGSConcat",
         "ImpactSEGSLabelFilter",
+        "ImpactValueReceiver",
+        "ImpactValueSender",
         "ImpactWildcardProcessor",
         "IterativeImageUpscale",
         "IterativeLatentUpscale",
@@ -1292,6 +1316,7 @@
         "KSamplerAdvanced (WLSH)",
         "Multiply Integer (WLSH)",
         "Outpaint to Image (WLSH)",
+        "Resolutions by Ratio (WLSH)",
         "SDXL Quick Empty Latent (WLSH)",
         "SDXL Quick Image Scale (WLSH)",
         "SDXL Resolutions (WLSH)",
