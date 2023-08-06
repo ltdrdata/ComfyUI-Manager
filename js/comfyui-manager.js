@@ -303,7 +303,7 @@ class CustomNodesInstaller extends ComfyDialog {
 		for (let i in nodes) {
 			const node_type = nodes[i].type;
 			if (!registered_nodes.has(node_type)) {
-				const url = name_to_url[node_type];
+				const url = name_to_url[node_type.trim()];
 				if(url)
 					missing_nodes.add(url);
 				else {
