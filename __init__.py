@@ -33,7 +33,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.19.1)")
+print("### Loading: ComfyUI-Manager (V0.20)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -617,9 +617,14 @@ def execute_install_script(url, repo_path):
     requirements_path = os.path.join(repo_path, "requirements.txt")
 
     if os.path.exists(requirements_path):
-        print(f"Install: pip packages")
-        install_cmd = [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]
-        try_install_script(url, repo_path, install_cmd)
+        print("Install: pip packages")
+        with open(requirements_path, "r") as requirements_file:
+            for line in requirements_file:
+                package_name = line.strip()
+                if package_name:
+                    install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                    if package_name.strip() != "":
+                        try_install_script(url, repo_path, install_cmd)
 
     if os.path.exists(install_script_path):
         print(f"Install: install script")
