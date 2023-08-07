@@ -1,6 +1,46 @@
+import datetime
 import os
 import subprocess
 
+import sys
+import os
+import atexit
+
+# Logger setup
+if os.path.exists("comfyui.log"):
+    os.rename("comfyui.log", "comfyui.prev.log")
+
+original_stdout = sys.stdout
+original_stderr = sys.stderr
+
+
+class Logger:
+    def __init__(self, filename):
+        self.file = open(filename, "a")
+
+    def write(self, message):
+        self.file.write(message)
+        self.file.flush()
+        original_stdout.write(message)
+        original_stdout.flush()
+
+    def flush(self):
+        self.file.flush()
+        original_stdout.flush()
+
+    def close_file(self):
+        self.file.close()
+
+
+sys.stdout = Logger("comfyui.log")
+sys.stderr = sys.stdout
+
+atexit.register(sys.stdout.close_file)
+
+print("** ComfyUI start up time:", datetime.datetime.now())
+
+
+# Perform install
 script_list_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "startup-scripts", "install-scripts.txt")
 
 # Check if script_list_path exists

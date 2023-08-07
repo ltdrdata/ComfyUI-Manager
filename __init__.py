@@ -33,7 +33,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.20.1)")
+print("### Loading: ComfyUI-Manager (V0.21)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
