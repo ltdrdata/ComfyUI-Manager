@@ -8,6 +8,8 @@ import atexit
 
 # Logger setup
 if os.path.exists("comfyui.log"):
+    if os.path.exists("comfyui.prev.log"):
+       os.remove("comfyui.prev.log")
     os.rename("comfyui.log", "comfyui.prev.log")
 
 original_stdout = sys.stdout
