@@ -12,9 +12,12 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 
 
 ### Installation[method2] (Installation for portable ComfyUI version: ComfyUI-Manager only)
-
-1. Download [scripts/install-manager-for-portable-version.bat](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-manager-for-portable-version.bat) into installed `"ComfyUI_windows_portable"` directory
-2. double click `install-manager-for-portable-version.bat` batch file
+1. install git 
+- https://git-scm.com/download/win
+- standalone versionuse 
+- select option: use windows default console window
+2. Download [scripts/install-manager-for-portable-version.bat](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-manager-for-portable-version.bat) into installed `"ComfyUI_windows_portable"` directory
+3. double click `install-manager-for-portable-version.bat` batch file
 
 ![portable-install](misc/portable-install.png)
 
