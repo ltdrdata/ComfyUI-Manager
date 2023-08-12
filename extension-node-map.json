@@ -226,8 +226,6 @@
     ],
     "https://github.com/FizzleDorf/AIT": [
         "AITemplateControlNetLoader",
-        "AITemplateEmptyLatentImage",
-        "AITemplateLatentUpscale",
         "AITemplateLoader",
         "AITemplateVAEDecode",
         "AITemplateVAEEncode",
@@ -336,6 +334,15 @@
         "Operation",
         "String"
     ],
+    "https://github.com/ManglerFTW/ComfyI2I": [
+        "Color Transfer",
+        "Combine and Paste",
+        "Inpaint Segments",
+        "Mask Ops"
+    ],
+    "https://github.com/NicholasMcCarthy/ComfyUI_TravelSuite": [
+        "LatentTravel"
+    ],
     "https://github.com/Nourepide/ComfyUI-Allor": [
         "AlphaChanelAdd",
         "AlphaChanelAddByMask",
@@ -442,12 +449,16 @@
     ],
     "https://github.com/RockOfFire/ComfyUI_Comfyroll_CustomNodes": [
         "CR Apply ControlNet",
+        "CR Apply LoRA Stack",
         "CR Aspect Ratio",
         "CR Aspect Ratio SDXL",
         "CR Clip Input Switch",
         "CR Color Tint",
         "CR Conditioning Input Switch",
         "CR ControlNet Input Switch",
+        "CR Halftone Grid",
+        "CR Halftone Image",
+        "CR Halftones",
         "CR Hires Fix Process Switch",
         "CR Image Input Switch",
         "CR Image Input Switch (4 way)",
@@ -458,7 +469,12 @@
         "CR Image Size",
         "CR Img2Img Process Switch",
         "CR Integer Multiple",
+        "CR KSampler (Iterative)",
+        "CR Latent Batch Size",
         "CR Latent Input Switch",
+        "CR Latent Upscale (Iterative)",
+        "CR LoRA Stack",
+        "CR Load Image Sequence",
         "CR Load LoRA",
         "CR Model Input Switch",
         "CR Module Input",
@@ -568,6 +584,9 @@
         "ttN textDebug",
         "ttN xyPlot"
     ],
+    "https://github.com/WASasquatch/ComfyUI_Preset_Merger": [
+        "Preset_Model_Merge"
+    ],
     "https://github.com/WASasquatch/was-node-suite-comfyui": [
         "BLIP Analyze Image",
         "BLIP Model Loader",
@@ -627,6 +646,7 @@
         "Image Input Switch",
         "Image Levels Adjustment",
         "Image Load",
+        "Image Lucy Sharpen",
         "Image Median Filter",
         "Image Mix RGB Channels",
         "Image Monitor Effects Filter",
@@ -892,8 +912,10 @@
         "DZ_Face_Detailer"
     ],
     "https://github.com/dimtoneff/ComfyUI-PixelArt-Detector": [
+        "PixelArtDetectorConverter",
         "PixelArtDetectorSave",
-        "PixelArtDetectorToImage"
+        "PixelArtDetectorToImage",
+        "PixelArtLoadPalettes"
     ],
     "https://github.com/diontimmer/ComfyUI-Vextra-Nodes": [
         "Add Text To Image",
@@ -1295,6 +1317,10 @@
         "OpenposePreprocessorInterpolate"
     ],
     "https://github.com/sipherxyz/comfyui-art-venture": [
+        "AV_CheckpointModelsToParametersPipe",
+        "AV_ParametersPipeToCheckpointModels",
+        "AV_ParametersPipeToPrompts",
+        "AV_PromptsToParametersPipe",
         "AV_UploadImage",
         "LoadImageFromUrl"
     ],
@@ -1375,6 +1401,8 @@
         "SDXLPromptStyler"
     ],
     "https://github.com/uarefans/ComfyUI-Fans": [
+        "Fans Prompt Styler Negative",
+        "Fans Prompt Styler Positive",
         "Fans Styler",
         "Fans Text Concatenate"
     ],
@@ -1399,10 +1427,14 @@
         "SDXL Steps (WLSH)",
         "Save Positive Prompt File (WLSH)",
         "Save Prompt Info (WLSH)",
+        "Seed and Int (WLSH)",
         "Seed to Number (WLSH)",
         "Time String (WLSH)",
         "Upscale by Factor with Model (WLSH)",
         "VAE Encode for Inpaint Padding (WLSH)"
+    ],
+    "https://github.com/wsippel/comfyui_ws/raw/main/sdxl_utility.py": [
+        "SDXLResolutionPresets"
     ],
     "https://github.com/xXAdonesXx/NodeGPT/raw/main/Textnode.py": [
         "CombineInput",
