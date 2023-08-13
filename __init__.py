@@ -33,7 +33,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.21)")
+print("### Loading: ComfyUI-Manager (V0.21.1)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -287,6 +287,8 @@ def setup_js():
     if not os.path.exists(js_dest_path):
         os.makedirs(js_dest_path)
     js_src_path = os.path.join(comfyui_manager_path, "js", "comfyui-manager.js")
+
+    print(f"### ComfyUI-Manager: Copy .js from '{js_src_path}' to '{js_dest_path}'")
     shutil.copy(js_src_path, js_dest_path)
 
 setup_js()
