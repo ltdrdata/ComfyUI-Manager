@@ -33,7 +33,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.21.1)")
+print("### Loading: ComfyUI-Manager (V0.21.2)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -136,6 +136,7 @@ def try_install_script(url, repo_path, install_cmd):
 
         return True
     else:
+        print(f"\n## ComfyUI-Manager: EXECUTE => {install_cmd}")
         code = subprocess.run(install_cmd, cwd=repo_path)
 
         if platform.system() == "Windows":

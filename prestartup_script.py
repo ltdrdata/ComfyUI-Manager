@@ -61,6 +61,8 @@ if os.path.exists(script_list_path):
 
             try:
                 script = eval(line)
+                print(f"\n## ComfyUI-Manager: EXECUTE => {script}")
+
                 print(f"\n## Execute install/(de)activation script for '{script[0]}'")
                 code = subprocess.run(script[1:], cwd=script[0])
 
