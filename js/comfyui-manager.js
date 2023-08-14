@@ -5,6 +5,15 @@ import {ComfyWidgets} from "../../scripts/widgets.js";
 
 var update_comfyui_button = null;
 var fetch_updates_button = null;
+var badge_mode = "none";
+
+async function init_badge_mode() {
+    api.fetchApi('/manager/badge_mode')
+    .then(response => response.text())
+    .then(data => { badge_mode = data; })
+}
+
+await init_badge_mode();
 
 async function getCustomnodeMappings() {
 	var mode = "url";
@@ -48,6 +57,32 @@ async function getCustomNodes() {
 	return data;
 }
 
+async function fetchNicknames() {
+    const response1 = await api.fetchApi(`/customnode/getmappings?mode=local`);
+    const mappings = await response1.json();
+
+    let result = {};
+
+    for(let i in mappings) {
+        let item = mappings[i];
+        var nickname;
+        if(item[1].title) {
+            nickname = item[1].title;
+        }
+        else {
+            nickname = item[1].title_aux;
+        }
+
+        for(let j in item[0]) {
+            result[item[0][j]] = nickname;
+        }
+    }
+
+	return result;
+}
+
+let nicknames = await fetchNicknames();
+
 async function getAlterList() {
 	var mode = "url";
 	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
@@ -89,7 +124,7 @@ async function install_custom_node(target, caller, mode) {
 				app.ui.dialog.show(`${mode} failed: ${target.title}`);
 				app.ui.dialog.element.style.zIndex = 9999;
 				return false;
-			}									
+			}
 
 			const status = await response.json();
 			app.ui.dialog.close();
@@ -238,7 +273,7 @@ class CustomNodesInstaller extends ComfyDialog {
 
 	startInstall(target) {
 		const self = CustomNodesInstaller.instance;
-		
+
 		self.updateMessage(`<BR><font color="green">Installing '${target.title}'</font>`);
 
 		for(let i in self.install_buttons) {
@@ -335,8 +370,8 @@ class CustomNodesInstaller extends ComfyDialog {
 			this.element.removeChild(this.element.children[0]);
 		}
 
-		const msg = $el('div', {id:'custom-message'}, 
-			[$el('br'), 
+		const msg = $el('div', {id:'custom-message'},
+			[$el('br'),
 			'The custom node DB is currently being updated, and updates to custom nodes are being checked for.',
 			$el('br'),
 			'NOTE: Update only checks for extensions that have been fetched.',
@@ -1368,11 +1403,12 @@ class ManagerMenuDialog extends ComfyDialog {
 						() => fetchUpdates(this.update_check_checkbox)
 				});
 
+        // preview method
 		let preview_combo = document.createElement("select");
         preview_combo.appendChild($el('option', {value:'auto', text:'Preview method: Auto'}, []));
-        preview_combo.appendChild($el('option', {value:'taesd', text:'Preview method: TAESD'}, []));
-        preview_combo.appendChild($el('option', {value:'latent2rgb', text:'Preview method: Latent2RGB'}, []));
-        preview_combo.appendChild($el('option', {value:'none', text:'Preview method: None'}, []));
+        preview_combo.appendChild($el('option', {value:'taesd', text:'Preview method: TAESD (slow)'}, []));
+        preview_combo.appendChild($el('option', {value:'latent2rgb', text:'Preview method: Latent2RGB (fast)'}, []));
+        preview_combo.appendChild($el('option', {value:'none', text:'Preview method: None (very fast)'}, []));
 
         api.fetchApi('/manager/preview_method')
         .then(response => response.text())
@@ -1380,6 +1416,22 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		preview_combo.addEventListener('change', function(event) {
             api.fetchApi(`/manager/preview_method?value=${event.target.value}`);
+		});
+
+        // nickname
+		let badge_combo = document.createElement("select");
+        badge_combo.appendChild($el('option', {value:'none', text:'Badge: None'}, []));
+        badge_combo.appendChild($el('option', {value:'nick', text:'Badge: Nickname'}, []));
+        badge_combo.appendChild($el('option', {value:'id_nick', text:'Badge: #ID Nickname'}, []));
+
+        api.fetchApi('/manager/badge_mode')
+        .then(response => response.text())
+        .then(data => { badge_combo.value = data; badge_mode = data; })
+
+		badge_combo.addEventListener('change', function(event) {
+            api.fetchApi(`/manager/badge_mode?value=${event.target.value}`);
+            badge_mode = event.target.value;
+            app.graph.setDirtyCanvas(true);
 		});
 
 		const res =
@@ -1447,6 +1499,7 @@ class ManagerMenuDialog extends ComfyDialog {
                 $el("br", {}, []),
 				$el("hr", {width: "100%"}, []),
 				preview_combo,
+				badge_combo,
 				$el("hr", {width: "100%"}, []),
                 $el("br", {}, []),
 
@@ -1497,5 +1550,82 @@ app.registerExtension({
 				ManagerMenuDialog.instance.show();
 			}
 		menu.append(managerButton);
+	},
+
+	async beforeRegisterNodeDef(nodeType, nodeData, app) {
+        if(nicknames[nodeData.name.trim()]) {
+            const onDrawForeground = nodeType.prototype.onDrawForeground;
+            nodeType.prototype.onDrawForeground = function (ctx) {
+                const r = onDrawForeground?.apply?.(this, arguments);
+
+                if(badge_mode != 'none') {
+                    let text = nicknames[nodeData.name.trim()];
+                    if(text.length > 18) {
+                        text = text.substring(0,17)+"..";
+                    }
+
+                    if(badge_mode == 'id_nick')
+                        text = `#${this.id} ${text}`;
+
+                    let fgColor = "white";
+                    let bgColor = "#0F1F0F";
+                    let visible = true;
+
+                    ctx.save();
+                    ctx.font = "12px sans-serif";
+                    const sz = ctx.measureText(text);
+                    ctx.fillStyle = bgColor;
+                    ctx.beginPath();
+                    ctx.roundRect(this.size[0]-sz.width-12, -LiteGraph.NODE_TITLE_HEIGHT - 20, sz.width + 12, 20, 5);
+                    ctx.fill();
+
+                    ctx.fillStyle = fgColor;
+                    ctx.fillText(text, this.size[0]-sz.width-6, -LiteGraph.NODE_TITLE_HEIGHT - 6);
+                    ctx.restore();
+                }
+
+                return r;
+            };
+        }
+	},
+
+	async loadedGraphNode(node, app) {
+	    if(node.has_errors) {
+	        if(nicknames[node.type.trim()]) {
+                const onDrawForeground = node.onDrawForeground;
+                node.onDrawForeground = function (ctx) {
+                    const r = onDrawForeground?.apply?.(this, arguments);
+
+                    if(badge_mode != 'none') {
+                        let text = nicknames[node.type.trim()];
+
+                        if(text.length > 18) {
+                            text = text.substring(0,17)+"..";
+                        }
+
+                        if(badge_mode == 'id_nick')
+                            text = `#${this.id} ${text}`;
+
+                        let fgColor = "white";
+                        let bgColor = "#0F1F0F";
+                        let visible = true;
+
+                        ctx.save();
+                        ctx.font = "12px sans-serif";
+                        const sz = ctx.measureText(text);
+                        ctx.fillStyle = bgColor;
+                        ctx.beginPath();
+                        ctx.roundRect(this.size[0]-sz.width-12, -LiteGraph.NODE_TITLE_HEIGHT - 20, sz.width + 12, 20, 5);
+                        ctx.fill();
+
+                        ctx.fillStyle = fgColor;
+                        ctx.fillText(text, this.size[0]-sz.width-6, -LiteGraph.NODE_TITLE_HEIGHT - 6);
+                        ctx.restore();
+                    }
+
+                    return r;
+                };
+	        }
+	    }
 	}
 });

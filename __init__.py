@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.21.4)")
+print("### Loading: ComfyUI-Manager (V0.22)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -84,6 +84,7 @@ def write_config():
     config = configparser.ConfigParser()
     config['default'] = {
         'preview_method': get_current_preview_method(),
+        'badge_mode': get_config()['badge_mode']
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -96,11 +97,12 @@ def read_config():
         default_conf = config['default']
 
         return {
-                    'preview_method': default_conf['preview_method']
+                    'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else get_current_preview_method(),
+                    'badge_mode': default_conf['badge_mode'] if 'badge_mode' in default_conf else 'none'
                }
 
     except Exception:
-        return {'preview_method': get_current_preview_method()}
+        return {'preview_method': get_current_preview_method(), 'badge_mode': 'none'}
 
 
 def get_config():
@@ -134,6 +136,10 @@ def set_preview_method(method):
         args.preview_method = latent_preview.LatentPreviewMethod.NoPreviews
 
     get_config()['preview_method'] = args.preview_method
+
+
+def set_badge_mode(mode):
+    get_config()['badge_mode'] = mode
 
 
 set_preview_method(get_config()['preview_method'])
@@ -588,7 +594,7 @@ def copy_install(files, js_path_name=None):
     return True
 
 
-def copy_uninstall(files, js_path_name=None):
+def copy_uninstall(files, js_path_name='.'):
     for url in files:
         dir_name = os.path.basename(url)
         base_path = custom_nodes_path if url.endswith('.py') else os.path.join(js_path, js_path_name)
@@ -607,7 +613,7 @@ def copy_uninstall(files, js_path_name=None):
     return True
 
 
-def copy_set_active(files, is_disable, js_path_name=None):
+def copy_set_active(files, is_disable, js_path_name='.'):
     if is_disable:
         action_name = "Disable"
     else:
@@ -838,7 +844,7 @@ async def install_custom_node(request):
         res = unzip_install(json_data['files'])
 
     if install_type == "copy":
-        js_path_name = json_data['js_path'] if 'js_path' in json_data else None
+        js_path_name = json_data['js_path'] if 'js_path' in json_data else '.'
         res = copy_install(json_data['files'], js_path_name)
 
     elif install_type == "git-clone":
@@ -867,7 +873,7 @@ async def install_custom_node(request):
     res = False
 
     if install_type == "copy":
-        js_path_name = json_data['js_path'] if 'js_path' in json_data else None
+        js_path_name = json_data['js_path'] if 'js_path' in json_data else '.'
         res = copy_uninstall(json_data['files'], js_path_name)
 
     elif install_type == "git-clone":
@@ -996,6 +1002,17 @@ async def preview_method(request):
         write_config()
     else:
         return web.Response(text=get_current_preview_method(), status=200)
+
+    return web.Response(status=200)
+
+
+@server.PromptServer.instance.routes.get("/manager/badge_mode")
+async def badge_mode(request):
+    if "value" in request.rel_url.query:
+        set_badge_mode(request.rel_url.query['value'])
+        write_config()
+    else:
+        return web.Response(text=get_config()['badge_mode'], status=200)
 
     return web.Response(status=200)
 

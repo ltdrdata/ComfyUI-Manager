@@ -53,7 +53,15 @@ def scan_in_file(filename):
                 class_dict[key.strip()] = value.strip()
                 nodes.add(key.strip())
 
-    return nodes
+    metadata = {}
+    lines = code.strip().split('\n')
+    for line in lines:
+        if line.startswith('@'):
+            if line.startswith("@author:") or line.startswith("@title:") or line.startswith("@nickname:") or line.startswith("@description:"):
+                key, value = line[1:].strip().split(':')
+                metadata[key.strip()] = value.strip()
+
+    return nodes, metadata
 
 def get_py_file_paths(dirname):
     file_paths = []
@@ -98,7 +106,7 @@ def get_git_urls_from_json(json_file):
             if node.get('install_type') == 'git-clone':
                 files = node.get('files', [])
                 if files:
-                    git_clone_files.append(files[0])
+                    git_clone_files.append((files[0],node.get('title')))
 
     return git_clone_files
 
@@ -113,7 +121,7 @@ def get_py_urls_from_json(json_file):
             if node.get('install_type') == 'copy':
                 files = node.get('files', [])
                 if files:
-                    py_files.append(files[0])
+                    py_files.append((files[0],node.get('title')))
 
     return py_files
 
@@ -146,22 +154,22 @@ def update_custom_nodes():
 
     node_info = {}
 
-    git_urls = get_git_urls_from_json('custom-node-list.json')
+    git_url_titles = get_git_urls_from_json('custom-node-list.json')
 
-    for url in git_urls:
+    for url, title in git_url_titles:
         name = os.path.basename(url)
         if name.endswith(".git"):
             name = name[:-4]
             
-        node_info[name] = url
+        node_info[name] = (url, title)
         clone_or_pull_git_repository(url)
 
-    py_urls = get_py_urls_from_json('custom-node-list.json')
+    py_url_titles = get_py_urls_from_json('custom-node-list.json')
 
-    for url in py_urls:
+    for url, title in py_url_titles:
         name = os.path.basename(url)
         if name.endswith(".py"):
-            node_info[name] = url
+            node_info[name] = (url, title)
 
         try:
             download_url(url, ".tmp")
@@ -178,10 +186,13 @@ def gen_json(node_info):
     data = {}
     for dirname in node_dirs:
         py_files = get_py_file_paths(dirname)
+        metadata = {}
         
         nodes = set()
         for py in py_files:
-            nodes.update(scan_in_file(py))
+            nodes_in_file, metadata_in_file = scan_in_file(py)
+            nodes.update(nodes_in_file)
+            metadata.update(metadata_in_file)
         
         dirname = os.path.basename(dirname)
 
@@ -190,13 +201,14 @@ def gen_json(node_info):
             nodes.sort()
 
             if dirname in node_info:
-                git_url = node_info[dirname]
-                data[git_url] = nodes
+                git_url, title = node_info[dirname]
+                metadata['title_aux'] = title
+                data[git_url] = (nodes, metadata)
             else:
                 print(f"WARN: {dirname} is removed from custom-node-list.json")
 
     for file in node_files:
-        nodes = scan_in_file(file)
+        nodes, metadata = scan_in_file(file)
 
         if len(nodes) > 0:
             nodes = list(nodes)
@@ -205,8 +217,9 @@ def gen_json(node_info):
             file = os.path.basename(file)
 
             if file in node_info:
-                url = node_info[file]
-                data[url] = nodes
+                url, title = node_info[file]
+                metadata['title_aux'] = title
+                data[url] = (nodes, metadata)
             else:
                 print(f"Missing info: {url}")
 
@@ -216,22 +229,25 @@ def gen_json(node_info):
     for extension in extensions:
         node_list_json_path = os.path.join('.tmp', extension, 'node_list.json')
         if os.path.exists(node_list_json_path):
-            git_url = node_info[extension]
+            git_url, title = node_info[extension]
 
             with open(node_list_json_path, 'r') as f:
                 node_list_json = json.load(f)
 
+            metadata_in_url = {}
             if git_url not in data:
                 nodes = set()
             else:
-                nodes = set(data[git_url])
+                nodes_in_url, metadata_in_url = data[git_url]
+                nodes = set(nodes_in_url)
 
             for x, desc in node_list_json.items():
                 nodes.add(x.strip())
 
+            metadata_in_url['title_aux'] = title
             nodes = list(nodes)
             nodes.sort()
-            data[git_url] = nodes
+            data[git_url] = (nodes, metadata_in_url)
 
     json_path = f"extension-node-map.json"
     with open(json_path, "w") as file:
