@@ -1558,7 +1558,7 @@ app.registerExtension({
             nodeType.prototype.onDrawForeground = function (ctx) {
                 const r = onDrawForeground?.apply?.(this, arguments);
 
-                if(badge_mode != 'none') {
+                if(!this.flags.collapsed && badge_mode != 'none') {
                     let text = nicknames[nodeData.name.trim()];
                     if(text.length > 20) {
                         text = text.substring(0,17)+"..";
@@ -1596,7 +1596,7 @@ app.registerExtension({
                 node.onDrawForeground = function (ctx) {
                     const r = onDrawForeground?.apply?.(this, arguments);
 
-                    if(badge_mode != 'none') {
+                    if(!this.flags.collapsed && badge_mode != 'none') {
                         let text = nicknames[node.type.trim()];
 
                         if(text.length > 20) {
