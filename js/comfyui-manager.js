@@ -1560,7 +1560,7 @@ app.registerExtension({
 
                 if(badge_mode != 'none') {
                     let text = nicknames[nodeData.name.trim()];
-                    if(text.length > 18) {
+                    if(text.length > 20) {
                         text = text.substring(0,17)+"..";
                     }
 
@@ -1599,7 +1599,7 @@ app.registerExtension({
                     if(badge_mode != 'none') {
                         let text = nicknames[node.type.trim()];
 
-                        if(text.length > 18) {
+                        if(text.length > 20) {
                             text = text.substring(0,17)+"..";
                         }
 
