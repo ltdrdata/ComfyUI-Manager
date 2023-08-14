@@ -3,6 +3,28 @@ import shutil
 import folder_paths
 import os, sys
 import subprocess
+import threading
+
+
+def handle_stream(stream, prefix):
+    for line in stream:
+        print(prefix, line, end="")
+
+
+def run_script(cmd, cwd='.'):
+    process = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
+
+    stdout_thread = threading.Thread(target=handle_stream, args=(process.stdout, ""))
+    stderr_thread = threading.Thread(target=handle_stream, args=(process.stderr, "[!]"))
+
+    stdout_thread.start()
+    stderr_thread.start()
+
+    stdout_thread.join()
+    stderr_thread.join()
+
+    return process.wait()
+
 
 try:
     import git
@@ -12,13 +34,13 @@ except:
 
     print(f"## ComfyUI-Manager: installing dependencies")
 
-    subprocess.check_call([sys.executable, '-s', '-m', 'pip', 'install', '-r', requirements_path])
+    run_script([sys.executable, '-s', '-m', 'pip', 'install', '-r', requirements_path])
 
     try:
         import git
     except:
         print(f"## [ERROR] ComfyUI-Manager: Attempting to reinstall dependencies using an alternative method.")
-        subprocess.check_call([sys.executable, '-s', '-m', 'pip', 'install', '--user', '-r', requirements_path])
+        run_script([sys.executable, '-s', '-m', 'pip', 'install', '--user', '-r', requirements_path])
 
         try:
             import git
@@ -33,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.21.3)")
+print("### Loading: ComfyUI-Manager (V0.21.4)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -137,7 +159,7 @@ def try_install_script(url, repo_path, install_cmd):
         return True
     else:
         print(f"\n## ComfyUI-Manager: EXECUTE => {install_cmd}")
-        code = subprocess.run(install_cmd, cwd=repo_path)
+        code = run_script(install_cmd, cwd=repo_path)
 
         if platform.system() == "Windows":
             try:
@@ -149,7 +171,7 @@ def try_install_script(url, repo_path, install_cmd):
             except:
                 pass
 
-        if code.returncode != 0:
+        if code != 0:
             print(f"install script failed: {url}")
             return False
 
@@ -647,8 +669,7 @@ def gitclone_install(files):
 
             # Clone the repository from the remote URL
             if platform.system() == 'Windows':
-                process = subprocess.Popen([sys.executable, git_script_path, "--clone", custom_nodes_path, url])
-                process.wait()
+                run_script([sys.executable, git_script_path, "--clone", custom_nodes_path, url])
             else:
                 repo = git.Repo.clone_from(url, repo_path, recursive=True)
                 repo.git.clear_cache()
@@ -678,7 +699,7 @@ def rmtree(path):
             retry_count -= 1
 
             if platform.system() == "Windows":
-                subprocess.check_call(['attrib', '-R', path + '\\*', '/S'])
+                run_script(['attrib', '-R', path + '\\*', '/S'])
             shutil.rmtree(path)
 
             return True
@@ -712,14 +733,14 @@ def gitclone_uninstall(files):
             disable_script_path = os.path.join(dir_path, "disable.py")
             if os.path.exists(install_script_path):
                 uninstall_cmd = [sys.executable, "uninstall.py"]
-                code = subprocess.run(uninstall_cmd, cwd=dir_path)
+                code = run_script(uninstall_cmd, cwd=dir_path)
 
-                if code.returncode != 0:
+                if code != 0:
                     print(f"An error occurred during the execution of the uninstall.py script. Only the '{dir_path}' will be deleted.")
             elif os.path.exists(disable_script_path):
                 disable_script = [sys.executable, "disable.py"]
-                code = subprocess.run(disable_script, cwd=dir_path)
-                if code.returncode != 0:
+                code = run_script(disable_script, cwd=dir_path)
+                if code != 0:
                     print(f"An error occurred during the execution of the disable.py script. Only the '{dir_path}' will be deleted.")
 
             if os.path.exists(dir_path):
