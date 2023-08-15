@@ -14,9 +14,10 @@ if os.path.exists("comfyui.log"):
 original_stdout = sys.stdout
 original_stderr = sys.stderr
 
+
 class Logger:
     def __init__(self, filename):
-        self.file = open(filename, "a")
+        self.file = open(filename, "w", encoding="utf-8")
 
     def write(self, message):
         self.file.write(message)
