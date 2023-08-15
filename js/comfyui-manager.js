@@ -323,8 +323,8 @@ class CustomNodesInstaller extends ComfyDialog {
 		const name_to_url = {};
 		for (const url in mappings) {
 			const names = mappings[url];
-			for(const name in names) {
-				name_to_url[names[name]] = url;
+			for(const name in names[0]) {
+				name_to_url[names[0][name]] = url;
 			}
 		}
 
