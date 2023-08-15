@@ -2,8 +2,8 @@
   "models": [
     {
       "name": "TAESDXL Decoder",
-      "type": "VAE",
-      "base": "TAESD",
+      "type": "TAESD",
+      "base": "SDXL",
       "save_path": "vae_approx",
       "description": "(SDXL Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
       "reference": "https://github.com/madebyollin/taesd",
@@ -12,8 +12,8 @@
     },
     {
       "name": "TAESDXL Encoder",
-      "type": "VAE",
-      "base": "TAESD",
+      "type": "TAESD",
+      "base": "SDXL",
       "save_path": "vae_approx",
       "description": "(SDXL Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
       "reference": "https://github.com/madebyollin/taesd",
@@ -22,8 +22,8 @@
     },
     {
       "name": "TAESD Decoder",
-      "type": "VAE",
-      "base": "TAESD",
+      "type": "TAESD",
+      "base": "SD1.x",
       "save_path": "vae_approx",
       "description": "To view the preview in high quality while running samples in ComfyUI, you will need this model.",
       "reference": "https://github.com/madebyollin/taesd",
@@ -32,8 +32,8 @@
     },
     {
       "name": "TAESD Encoder",
-      "type": "VAE",
-      "base": "TAESD",
+      "type": "TAESD",
+      "base": "SD1.x",
       "save_path": "vae_approx",
       "description": "To view the preview in high quality while running samples in ComfyUI, you will need this model.",
       "reference": "https://github.com/madebyollin/taesd",
@@ -459,6 +459,16 @@
       "reference": "https://huggingface.co/openai/clip-vit-large-patch14",
       "filename": "pytorch_model.bin",
       "url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/main/pytorch_model.bin"
+    },
+    {
+      "name": "SDXL-controlnet: OpenPose (v2)",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "default",
+      "description": "ControlNet openpose model for SDXL",
+      "reference": "https://huggingface.co/thibaud/controlnet-openpose-sdxl-1.0",
+      "filename": "OpenPoseXL2.safetensors",
+      "url": "https://huggingface.co/thibaud/controlnet-openpose-sdxl-1.0/resolve/main/OpenPoseXL2.safetensors"
     },
     {
       "name": "ControlNet-v1-1 (ip2p; fp16)",
