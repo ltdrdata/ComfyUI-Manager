@@ -1,5 +1,9 @@
 # ComfyUI Manager
 
+
+## NOTICE
+* Versions prior to V0.22.2 will no longer detect missing nodes unless using a local database. Please update ComfyUI-Manager to the latest version.
+
 ## Installation
 
 ### Installation[method1] (General installation method: ComfyUI-Manager only)
