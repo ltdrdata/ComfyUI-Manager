@@ -144,6 +144,7 @@ async function install_custom_node(target, caller, mode) {
 }
 
 async function updateComfyUI() {
+    let prev_text = update_comfyui_button.innerText;
 	update_comfyui_button.innerText = "Updating ComfyUI...";
 	update_comfyui_button.disabled = true;
 	update_comfyui_button.style.backgroundColor = "gray";
@@ -152,7 +153,7 @@ async function updateComfyUI() {
 		const response = await api.fetchApi('/comfyui_manager/update_comfyui');
 
 		if(response.status == 400) {
-			app.ui.dialog.show('Failed to update ComfyUI');
+			app.ui.dialog.show('Failed to update ComfyUI.');
 			app.ui.dialog.element.style.zIndex = 9999;
 			return false;
 		}
@@ -175,12 +176,13 @@ async function updateComfyUI() {
 	}
 	finally {
 		update_comfyui_button.disabled = false;
-		update_comfyui_button.innerText = "Update ComfyUI";
+		update_comfyui_button.innerText = prev_text;
 	    update_comfyui_button.style.backgroundColor = "";
 	}
 }
 
 async function fetchUpdates(update_check_checkbox) {
+    let prev_text = fetch_updates_button.innerText;
 	fetch_updates_button.innerText = "Fetching updates...";
 	fetch_updates_button.disabled = true;
 	fetch_updates_button.style.backgroundColor = "gray";
@@ -217,7 +219,7 @@ async function fetchUpdates(update_check_checkbox) {
 	}
 	finally {
 		fetch_updates_button.disabled = false;
-		fetch_updates_button.innerText = "Fetch Updates";
+		fetch_updates_button.innerText = prev_text;
 		fetch_updates_button.style.backgroundColor = "";
 	}
 }
@@ -1553,20 +1555,27 @@ app.registerExtension({
 	},
 
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        if(nicknames[nodeData.name.trim()]) {
-            const onDrawForeground = nodeType.prototype.onDrawForeground;
-            nodeType.prototype.onDrawForeground = function (ctx) {
-                const r = onDrawForeground?.apply?.(this, arguments);
+        const onDrawForeground = nodeType.prototype.onDrawForeground;
+        nodeType.prototype.onDrawForeground = function (ctx) {
+            const r = onDrawForeground?.apply?.(this, arguments);
 
-                if(!this.flags.collapsed && badge_mode != 'none') {
-                    let text = nicknames[nodeData.name.trim()];
-                    if(text.length > 20) {
-                        text = text.substring(0,17)+"..";
+            if(!this.flags.collapsed || badge_mode == 'none') {
+                let text = "";
+                if(badge_mode == 'id_nick')
+                    text = `#${this.id} `;
+
+                if(nicknames[nodeData.name.trim()]) {
+                    let nick = nicknames[nodeData.name.trim()];
+
+                    if(nick.length > 25) {
+                        text += nick.substring(0,23)+"..";
                     }
+                    else {
+                        text += nick;
+                    }
+                }
 
-                    if(badge_mode == 'id_nick')
-                        text = `#${this.id} ${text}`;
-
+                if(text != "") {
                     let fgColor = "white";
                     let bgColor = "#0F1F0F";
                     let visible = true;
@@ -1583,29 +1592,35 @@ app.registerExtension({
                     ctx.fillText(text, this.size[0]-sz.width-6, -LiteGraph.NODE_TITLE_HEIGHT - 6);
                     ctx.restore();
                 }
+            }
 
-                return r;
-            };
-        }
+            return r;
+        };
 	},
 
 	async loadedGraphNode(node, app) {
 	    if(node.has_errors) {
-	        if(nicknames[node.type.trim()]) {
-                const onDrawForeground = node.onDrawForeground;
-                node.onDrawForeground = function (ctx) {
-                    const r = onDrawForeground?.apply?.(this, arguments);
+            const onDrawForeground = node.onDrawForeground;
+            node.onDrawForeground = function (ctx) {
+                const r = onDrawForeground?.apply?.(this, arguments);
 
-                    if(!this.flags.collapsed && badge_mode != 'none') {
-                        let text = nicknames[node.type.trim()];
+                if(!this.flags.collapsed || badge_mode == 'none') {
+                    let text = "";
+                    if(badge_mode == 'id_nick')
+                        text = `#${this.id} `;
 
-                        if(text.length > 20) {
-                            text = text.substring(0,17)+"..";
+                    if(nicknames[node.type.trim()]) {
+                        let nick = nicknames[node.type.trim()];
+
+                        if(nick.length > 25) {
+                            text += nick.substring(0,23)+"..";
                         }
+                        else {
+                            text += nick;
+                        }
+                    }
 
-                        if(badge_mode == 'id_nick')
-                            text = `#${this.id} ${text}`;
-
+                    if(text != "") {
                         let fgColor = "white";
                         let bgColor = "#0F1F0F";
                         let visible = true;
@@ -1622,10 +1637,10 @@ app.registerExtension({
                         ctx.fillText(text, this.size[0]-sz.width-6, -LiteGraph.NODE_TITLE_HEIGHT - 6);
                         ctx.restore();
                     }
+                }
 
-                    return r;
-                };
-	        }
+                return r;
+            };
 	    }
 	}
 });
