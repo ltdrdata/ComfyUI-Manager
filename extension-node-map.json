@@ -642,8 +642,10 @@
         [
             "CR Apply ControlNet",
             "CR Apply LoRA Stack",
+            "CR Apply Multi-ControlNet",
             "CR Aspect Ratio",
             "CR Aspect Ratio SDXL",
+            "CR Batch Process Switch",
             "CR Clip Input Switch",
             "CR Color Tint",
             "CR Conditioning Input Switch",
@@ -672,11 +674,13 @@
             "CR Module Input",
             "CR Module Output",
             "CR Module Pipe Loader",
+            "CR Multi-ControlNet Stack",
             "CR Pipe Switch",
             "CR Process Switch",
             "CR SD1.5 Aspect Ratio",
             "CR SDXL Aspect Ratio",
             "CR SDXL Base Prompt Encoder",
+            "CR SDXL Prompt Mix Presets",
             "CR SDXL Prompt Mixer",
             "CR SDXL Style Text",
             "CR Seed to Int",
@@ -1093,7 +1097,9 @@
             "Batch Resize Image for SDXL",
             "Empty Latent Ratio Custom SDXL",
             "Empty Latent Ratio Select SDXL",
+            "Float to String",
             "HaldCLUT",
+            "Int to String",
             "Mikey Sampler",
             "Mikey Sampler Tiled",
             "Prompt With SDXL",
@@ -1540,6 +1546,14 @@
             "title_aux": "abg-comfyui"
         }
     ],
+    "https://github.com/laksjdjf/IPAdapter-ComfyUI": [
+        [
+            "IPAdapter"
+        ],
+        {
+            "title_aux": "IPAdapter-ComfyUI"
+        }
+    ],
     "https://github.com/lilly1987/ComfyUI_node_Lilly": [
         [
             "CheckpointLoaderSimpleText",
@@ -1639,6 +1653,7 @@
             "MaskPainter",
             "MaskToSEGS",
             "MasksToMaskList",
+            "NoiseInjectionHookProvider",
             "ONNXDetectorProvider",
             "ONNXDetectorSEGS",
             "PixelKSampleHookCombine",
