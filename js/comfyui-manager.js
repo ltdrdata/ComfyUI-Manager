@@ -1559,7 +1559,7 @@ app.registerExtension({
         nodeType.prototype.onDrawForeground = function (ctx) {
             const r = onDrawForeground?.apply?.(this, arguments);
 
-            if(!this.flags.collapsed || badge_mode == 'none') {
+            if(!this.flags.collapsed && badge_mode != 'none') {
                 let text = "";
                 if(badge_mode == 'id_nick')
                     text = `#${this.id} `;
@@ -1604,7 +1604,7 @@ app.registerExtension({
             node.onDrawForeground = function (ctx) {
                 const r = onDrawForeground?.apply?.(this, arguments);
 
-                if(!this.flags.collapsed || badge_mode == 'none') {
+                if(!this.flags.collapsed && badge_mode != 'none') {
                     let text = "";
                     if(badge_mode == 'id_nick')
                         text = `#${this.id} `;
@@ -1635,6 +1635,13 @@ app.registerExtension({
 
                         ctx.fillStyle = fgColor;
                         ctx.fillText(text, this.size[0]-sz.width-6, -LiteGraph.NODE_TITLE_HEIGHT - 6);
+                        ctx.restore();
+
+                        ctx.save();
+                        ctx.font = "bold 14px sans-serif";
+                        const sz2 = ctx.measureText(node.type);
+                        ctx.fillStyle = 'white';
+                        ctx.fillText(node.type, this.size[0]/2-sz2.width/2, this.size[1]/2);
                         ctx.restore();
                     }
                 }
