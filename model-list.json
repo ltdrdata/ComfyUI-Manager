@@ -451,14 +451,24 @@
       "url": "https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_style_sd14v1.pth"
     },
     {
-      "name": "CLIPVision model",
+      "name": "CLIPVision model (openai/clip-vit-large)",
       "type": "clip_vision",
       "base": "SD1.5",
       "save_path": "default",
-      "description": "CLIPVision model (needed for styles model)",
+      "description": "[1.7GB] CLIPVision model (needed for styles model)",
       "reference": "https://huggingface.co/openai/clip-vit-large-patch14",
       "filename": "pytorch_model.bin",
       "url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/main/pytorch_model.bin"
+    },
+    {
+      "name": "CLIPVision model (IP-Adapter)",
+      "type": "clip_vision",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "[2.5GB] CLIPVision model (needed for IP-Adapter)",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "pytorch_model.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/image_encoder/pytorch_model.bin"
     },
     {
       "name": "SDXL-controlnet: OpenPose (v2)",
