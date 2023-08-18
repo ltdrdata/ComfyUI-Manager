@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.22.5)")
+print("### Loading: ComfyUI-Manager (V0.22.6)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -294,7 +294,7 @@ def git_pull(path):
 async def get_data(uri):
     print(f"FETCH DATA from: {uri}")
     if uri.startswith("http"):
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(trust_env=True) as session:
             async with session.get(uri) as resp:
                 json_text = await resp.text()
     else:
