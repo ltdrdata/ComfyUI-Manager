@@ -503,16 +503,13 @@ class CustomNodesInstaller extends ComfyDialog {
 		var grid = document.createElement('table');
 		grid.setAttribute('id', 'custom-nodes-grid');
 
-		grid.style.position = "relative";
-		grid.style.display = "inline-block";
-		grid.style.width = "100%"
-
 		this.grid_rows = {};
 
         let self = this;
 
 		var headerRow = document.createElement('tr');
 		var header0 = document.createElement('th');
+		header0.style.width = "20px";
         this.checkbox_all = $el("input",{type:'checkbox', id:'check_all'},[]);
         header0.appendChild(this.checkbox_all);
         this.checkbox_all.checked = false;
@@ -527,10 +524,11 @@ class CustomNodesInstaller extends ComfyDialog {
 		header2.style.width = "150px";
 		var header3 = document.createElement('th');
 		header3.innerHTML = 'Name';
-		header3.style.width = "200px";
+		header3.style.width = "20%";
 		var header4 = document.createElement('th');
 		header4.innerHTML = 'Description';
-		header4.style.width = "500px";
+		header4.style.width = "60%";
+//        header4.classList.add('expandable-column');
 		var header5 = document.createElement('th');
 		header5.innerHTML = 'Install';
 		header5.style.width = "130px";
@@ -552,6 +550,7 @@ class CustomNodesInstaller extends ComfyDialog {
 			for (var i = 0; i < this.data.length; i++) {
 				const data = this.data[i];
 				let dataRow = document.createElement('tr');
+
 				let data0 = document.createElement('td');
 		        let checkbox = $el("input",{type:'checkbox', id:`check_${i}`},[]);
 		        data0.appendChild(checkbox);
@@ -690,12 +689,27 @@ class CustomNodesInstaller extends ComfyDialog {
 			}
 
 		const panel = document.createElement('div');
-		panel.style.height = "400px";
-		panel.style.width = "1000px";
+        panel.style.width = "100%";
 		panel.style.overflowY = "scroll";
-
 		panel.appendChild(grid);
+
+        function handleResize() {
+          const parentHeight = self.element.clientHeight;
+          const gridHeight = parentHeight - 400;
+
+          grid.style.height = gridHeight + "px";
+        }
+		window.addEventListener("resize", handleResize);
+
+		grid.style.position = "relative";
+		grid.style.display = "inline-block";
+		grid.style.width = "100%";
+        grid.style.marginBottom = "200px";
+		this.element.style.height = "85%";
+		this.element.style.width = "80%";
 		this.element.appendChild(panel);
+
+        handleResize();
 	}
 
 	createFilterCombo() {
@@ -902,26 +916,22 @@ class AlternativesInstaller extends ComfyDialog {
 		var grid = document.createElement('table');
 		grid.setAttribute('id', 'alternatives-grid');
 
-		grid.style.position = "relative";
-		grid.style.display = "inline-block";
-		grid.style.width = "100%"
-
 		var headerRow = document.createElement('tr');
 		var header1 = document.createElement('th');
 		header1.innerHTML = '&nbsp;&nbsp;ID&nbsp;&nbsp;';
 		header1.style.width = "20px";
 		var header2 = document.createElement('th');
 		header2.innerHTML = 'Tags';
-		header2.style.width = "200px";
+		header2.style.width = "10%";
 		var header3 = document.createElement('th');
 		header3.innerHTML = 'Author';
 		header3.style.width = "150px";
 		var header4 = document.createElement('th');
 		header4.innerHTML = 'Title';
-		header4.style.width = "200px";
+		header4.style.width = "20%";
 		var header5 = document.createElement('th');
 		header5.innerHTML = 'Description';
-		header5.style.width = "500px";
+		header5.style.width = "50%";
 		var header6 = document.createElement('th');
 		header6.innerHTML = 'Install';
 		header6.style.width = "130px";
@@ -1073,12 +1083,28 @@ class AlternativesInstaller extends ComfyDialog {
 			}
 
 		const panel = document.createElement('div');
-		panel.style.height = "400px";
-		panel.style.width = "1000px";
+        panel.style.width = "100%";
 		panel.style.overflowY = "scroll";
-
 		panel.appendChild(grid);
+
+        let self = this;
+        function handleResize() {
+          const parentHeight = self.element.clientHeight;
+          const gridHeight = parentHeight - 400;
+
+          grid.style.height = gridHeight + "px";
+        }
+		window.addEventListener("resize", handleResize);
+
+		grid.style.position = "relative";
+		grid.style.display = "inline-block";
+		grid.style.width = "100%";
+        grid.style.marginBottom = "200px";
+		this.element.style.height = "85%";
+		this.element.style.width = "80%";
 		this.element.appendChild(panel);
+
+        handleResize();
 	}
 
 	createFilterCombo() {
@@ -1279,10 +1305,6 @@ class ModelInstaller extends ComfyDialog {
 		var grid = document.createElement('table');
 		grid.setAttribute('id', 'external-models-grid');
 
-		grid.style.position = "relative";
-		grid.style.display = "inline-block";
-		grid.style.width = "100%"
-
 		var headerRow = document.createElement('tr');
 		var header1 = document.createElement('th');
 		header1.innerHTML = '&nbsp;&nbsp;ID&nbsp;&nbsp;';
@@ -1302,7 +1324,6 @@ class ModelInstaller extends ComfyDialog {
 		header5.style.tableLayout = "fixed";
 		var header6 = document.createElement('th');
 		header6.innerHTML = 'description';
-		header6.style.width = "380px";
 		var header_down = document.createElement('th');
 		header_down.innerHTML = 'Download';
 		header_down.style.width = "50px";
@@ -1388,13 +1409,29 @@ class ModelInstaller extends ComfyDialog {
 				this.grid_rows[i] = {data:data, control:dataRow};
 			}
 
+        let self = this;
 		const panel = document.createElement('div');
-		panel.style.height = "400px";
-		panel.style.width = "1050px";
+        panel.style.width = "100%";
 		panel.style.overflowY = "scroll";
-
 		panel.appendChild(grid);
+
+        function handleResize() {
+          const parentHeight = self.element.clientHeight;
+          const gridHeight = parentHeight - 400;
+
+          grid.style.height = gridHeight + "px";
+        }
+		window.addEventListener("resize", handleResize);
+
+		grid.style.position = "relative";
+		grid.style.display = "inline-block";
+		grid.style.width = "100%";
+        grid.style.marginBottom = "200px";
+		this.element.style.height = "85%";
+		this.element.style.width = "80%";
 		this.element.appendChild(panel);
+
+        handleResize();
 	}
 
 	createFilterCombo() {
