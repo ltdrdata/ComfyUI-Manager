@@ -629,10 +629,11 @@ class CustomNodesInstaller extends ComfyDialog {
 					installBtn.style.color = 'white';
 				}
 
+                let j = i;
 				if(installBtn2 != null) {
 					installBtn2.style.width = "120px";
 					installBtn2.addEventListener('click', function() {
-						install_checked_custom_node(self.grid_rows, i, CustomNodesInstaller.instance, 'update');
+						install_checked_custom_node(self.grid_rows, j, CustomNodesInstaller.instance, 'update');
 					});
 
 					data5.appendChild(installBtn2);
@@ -641,13 +642,12 @@ class CustomNodesInstaller extends ComfyDialog {
 				if(installBtn3 != null) {
 					installBtn3.style.width = "120px";
 					installBtn3.addEventListener('click', function() {
-						install_checked_custom_node(self.grid_rows, i, CustomNodesInstaller.instance, 'toggle_active');
+						install_checked_custom_node(self.grid_rows, j, CustomNodesInstaller.instance, 'toggle_active');
 					});
 
 					data5.appendChild(installBtn3);
 				}
 
-                let j = i;
 				installBtn.style.width = "120px";
 				installBtn.addEventListener('click', function() {
 					if(this.innerHTML == 'Uninstall') {
