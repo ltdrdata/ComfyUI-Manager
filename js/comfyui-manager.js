@@ -119,7 +119,15 @@ async function install_checked_custom_node(grid_rows, target_i, caller, mode) {
             if(!grid_rows[i].checkbox.checked && i != target_i)
                 continue;
 
-            let target = grid_rows[i].data;
+            var target;
+
+            if(grid_rows[i].data.custom_node) {
+                target = grid_rows[i].data.custom_node;
+            }
+            else {
+                target = grid_rows[i].data;
+            }
+
             caller.startInstall(target);
 
             try {
@@ -491,8 +499,13 @@ class CustomNodesInstaller extends ComfyDialog {
             // uncheck all
             for(let i in this.grid_rows) {
                 let checkbox = this.grid_rows[i].checkbox;
+                let buttons = this.grid_rows[i].buttons;
                 checkbox.checked = false;
                 checkbox.disabled = false;
+
+                for(let j in buttons) {
+                    buttons[j].style.display = null;
+                }
             }
 
             this.checkbox_all.disabled = true;
@@ -507,7 +520,15 @@ class CustomNodesInstaller extends ComfyDialog {
 
         let self = this;
 
+        var thead = document.createElement('thead');
+        var tbody = document.createElement('tbody');
+
 		var headerRow = document.createElement('tr');
+		thead.style.position = "sticky";
+		thead.style.top = "0px";
+        thead.style.borderCollapse = "collapse";
+        thead.style.tableLayout = "fixed";
+
 		var header0 = document.createElement('th');
 		header0.style.width = "20px";
         this.checkbox_all = $el("input",{type:'checkbox', id:'check_all'},[]);
@@ -532,6 +553,21 @@ class CustomNodesInstaller extends ComfyDialog {
 		var header5 = document.createElement('th');
 		header5.innerHTML = 'Install';
 		header5.style.width = "130px";
+
+		header0.style.position = "sticky";
+		header0.style.top = "0px";
+		header1.style.position = "sticky";
+		header1.style.top = "0px";
+		header2.style.position = "sticky";
+		header2.style.top = "0px";
+		header3.style.position = "sticky";
+		header3.style.top = "0px";
+		header4.style.position = "sticky";
+		header4.style.top = "0px";
+		header5.style.position = "sticky";
+		header5.style.top = "0px";
+
+        thead.appendChild(headerRow);
 		headerRow.appendChild(header0);
 		headerRow.appendChild(header1);
 		headerRow.appendChild(header2);
@@ -544,7 +580,9 @@ class CustomNodesInstaller extends ComfyDialog {
 		headerRow.style.textAlign = "center";
 		headerRow.style.width = "100%";
 		headerRow.style.padding = "0";
-		grid.appendChild(headerRow);
+
+		grid.appendChild(thead);
+		grid.appendChild(tbody);
 
 		if(this.data)
 			for (var i = 0; i < this.data.length; i++) {
@@ -672,7 +710,7 @@ class CustomNodesInstaller extends ComfyDialog {
 				dataRow.appendChild(data3);
 				dataRow.appendChild(data4);
 				dataRow.appendChild(data5);
-				grid.appendChild(dataRow);
+				tbody.appendChild(dataRow);
 
 				let buttons = [];
 				if(installBtn) {
@@ -690,12 +728,11 @@ class CustomNodesInstaller extends ComfyDialog {
 
 		const panel = document.createElement('div');
         panel.style.width = "100%";
-		panel.style.overflowY = "scroll";
 		panel.appendChild(grid);
 
         function handleResize() {
           const parentHeight = self.element.clientHeight;
-          const gridHeight = parentHeight - 400;
+          const gridHeight = parentHeight - 200;
 
           grid.style.height = gridHeight + "px";
         }
@@ -704,7 +741,8 @@ class CustomNodesInstaller extends ComfyDialog {
 		grid.style.position = "relative";
 		grid.style.display = "inline-block";
 		grid.style.width = "100%";
-        grid.style.marginBottom = "200px";
+		grid.style.height = "100%";
+		grid.style.overflowY = "scroll";
 		this.element.style.height = "85%";
 		this.element.style.width = "80%";
 		this.element.appendChild(panel);
@@ -843,7 +881,9 @@ class AlternativesInstaller extends ComfyDialog {
 		const self = AlternativesInstaller.instance;
 
 		self.updateMessage(`<BR><font color="green">Installing '${target.title}'</font>`);
+	}
 
+	disableButtons() {
 		for(let i in self.install_buttons) {
 			self.install_buttons[i].disabled = true;
 			self.install_buttons[i].style.backgroundColor = 'gray';
@@ -912,11 +952,115 @@ class AlternativesInstaller extends ComfyDialog {
 		this.message_box.innerHTML = msg;
 	}
 
+    invalidate_checks(is_checked, install_state) {
+        if(is_checked) {
+            for(let i in this.grid_rows) {
+                let data = this.grid_rows[i].data;
+                let checkbox = this.grid_rows[i].checkbox;
+                let buttons = this.grid_rows[i].buttons;
+
+                checkbox.disabled = data.custom_node.installed != install_state;
+
+                if(checkbox.disabled) {
+                    for(let j in buttons) {
+                        buttons[j].style.display = 'none';
+                    }
+                }
+                else {
+                    for(let j in buttons) {
+                        buttons[j].style.display = null;
+                    }
+                }
+            }
+
+            this.checkbox_all.disabled = false;
+        }
+        else {
+            for(let i in this.grid_rows) {
+                let checkbox = this.grid_rows[i].checkbox;
+                if(checkbox.check)
+                    return; // do nothing
+            }
+
+            // every checkbox is unchecked -> enable all checkbox
+            for(let i in this.grid_rows) {
+                let checkbox = this.grid_rows[i].checkbox;
+                let buttons = this.grid_rows[i].buttons;
+                checkbox.disabled = false;
+
+                for(let j in buttons) {
+                    buttons[j].style.display = null;
+                }
+            }
+
+            this.checkbox_all.checked = false;
+            this.checkbox_all.disabled = true;
+        }
+    }
+
+    check_all(is_checked) {
+        if(is_checked) {
+            // lookup first checked item's state
+            let check_state = null;
+            for(let i in this.grid_rows) {
+                let checkbox = this.grid_rows[i].checkbox;
+                if(checkbox.checked) {
+                    check_state = this.grid_rows[i].data.custom_node.installed;
+                }
+            }
+
+            if(check_state == null)
+                return;
+
+            // check only same state items
+            for(let i in this.grid_rows) {
+                let checkbox = this.grid_rows[i].checkbox;
+                if(this.grid_rows[i].data.custom_node.installed == check_state)
+                    checkbox.checked = true;
+            }
+        }
+        else {
+            // uncheck all
+            for(let i in this.grid_rows) {
+                let checkbox = this.grid_rows[i].checkbox;
+                let buttons = this.grid_rows[i].buttons;
+                checkbox.checked = false;
+                checkbox.disabled = false;
+
+                for(let j in buttons) {
+                    buttons[j].style.display = null;
+                }
+            }
+
+            this.checkbox_all.disabled = true;
+        }
+    }
+
 	async createGrid() {
 		var grid = document.createElement('table');
 		grid.setAttribute('id', 'alternatives-grid');
 
+		this.grid_rows = {};
+
+        let self = this;
+
+        var thead = document.createElement('thead');
+        var tbody = document.createElement('tbody');
+
 		var headerRow = document.createElement('tr');
+		thead.style.position = "sticky";
+		thead.style.top = "0px";
+        thead.style.borderCollapse = "collapse";
+        thead.style.tableLayout = "fixed";
+
+		var header0 = document.createElement('th');
+		header0.style.width = "20px";
+        this.checkbox_all = $el("input",{type:'checkbox', id:'check_all'},[]);
+        header0.appendChild(this.checkbox_all);
+        this.checkbox_all.checked = false;
+        this.checkbox_all.disabled = true;
+        this.checkbox_all.addEventListener('change', function() { self.check_all.call(self, self.checkbox_all.checked); });
+
 		var header1 = document.createElement('th');
 		header1.innerHTML = '&nbsp;&nbsp;ID&nbsp;&nbsp;';
 		header1.style.width = "20px";
@@ -935,6 +1079,20 @@ class AlternativesInstaller extends ComfyDialog {
 		var header6 = document.createElement('th');
 		header6.innerHTML = 'Install';
 		header6.style.width = "130px";
+
+		header1.style.position = "sticky";
+		header1.style.top = "0px";
+		header2.style.position = "sticky";
+		header2.style.top = "0px";
+		header3.style.position = "sticky";
+		header3.style.top = "0px";
+		header4.style.position = "sticky";
+		header4.style.top = "0px";
+		header5.style.position = "sticky";
+		header5.style.top = "0px";
+
+        thead.appendChild(headerRow);
+		headerRow.appendChild(header0);
 		headerRow.appendChild(header1);
 		headerRow.appendChild(header2);
 		headerRow.appendChild(header3);
@@ -947,14 +1105,21 @@ class AlternativesInstaller extends ComfyDialog {
 		headerRow.style.textAlign = "center";
 		headerRow.style.width = "100%";
 		headerRow.style.padding = "0";
-		grid.appendChild(headerRow);
 
-		this.grid_rows = {};
+		grid.appendChild(thead);
+		grid.appendChild(tbody);
 
 		if(this.data)
 			for (var i = 0; i < this.data.length; i++) {
 				const data = this.data[i];
 				var dataRow = document.createElement('tr');
+
+                let data0 = document.createElement('td');
+		        let checkbox = $el("input",{type:'checkbox', id:`check_${i}`},[]);
+		        data0.appendChild(checkbox);
+		        checkbox.checked = false;
+		        checkbox.addEventListener('change', function() { self.invalidate_checks.call(self, checkbox.checked, data.custom_node?.installed); });
+
 				var data1 = document.createElement('td');
 				data1.style.textAlign = "center";
 				data1.innerHTML = i+1;
@@ -975,11 +1140,11 @@ class AlternativesInstaller extends ComfyDialog {
 				var data6 = document.createElement('td');
 				data6.style.textAlign = "center";
 
-				if(data.custom_node) {
-					var installBtn = document.createElement('button');
-					var installBtn2 = null;
-					var installBtn3 = null;
+                var installBtn = document.createElement('button');
+                var installBtn2 = null;
+                var installBtn3 = null;
 
+				if(data.custom_node) {
 					this.install_buttons.push(installBtn);
 
 					switch(data.custom_node.installed) {
@@ -1033,10 +1198,11 @@ class AlternativesInstaller extends ComfyDialog {
 						installBtn.style.color = 'white';
 					}
 
+                    let j = i;
 					if(installBtn2 != null) {
 						installBtn2.style.width = "120px";
 						installBtn2.addEventListener('click', function() {
-							install_custom_node(data.custom_node, AlternativesInstaller.instance, 'update');
+							install_checked_custom_node(self.grid_rows, j, AlternativesInstaller.instance, 'update');
 						});
 
 						data6.appendChild(installBtn2);
@@ -1045,7 +1211,7 @@ class AlternativesInstaller extends ComfyDialog {
 					if(installBtn3 != null) {
 						installBtn3.style.width = "120px";
 						installBtn3.addEventListener('click', function() {
-							install_custom_node(data, CustomNodesInstaller.instance, 'toggle_active');
+							install_checked_custom_node(self.grid_rows, j, AlternativesInstaller.instance, 'toggle_active');
 						});
 
 						data6.appendChild(installBtn3);
@@ -1056,11 +1222,11 @@ class AlternativesInstaller extends ComfyDialog {
 					installBtn.addEventListener('click', function() {
 						if(this.innerHTML == 'Uninstall') {
 							if (confirm(`Are you sure uninstall ${data.title}?`)) {
-								install_custom_node(data.custom_node, AlternativesInstaller.instance, 'uninstall');
+								install_checked_custom_node(self.grid_rows, j, AlternativesInstaller.instance, 'uninstall');
 							}
 						}
 						else {
-							install_custom_node(data.custom_node, AlternativesInstaller.instance, 'install');
+							install_checked_custom_node(self.grid_rows, j, AlternativesInstaller.instance, 'install');
 						}
 					});
 
@@ -1071,26 +1237,36 @@ class AlternativesInstaller extends ComfyDialog {
 				dataRow.style.color = "var(--fg-color)";
 				dataRow.style.textAlign = "left";
 
+				dataRow.appendChild(data0);
 				dataRow.appendChild(data1);
 				dataRow.appendChild(data2);
 				dataRow.appendChild(data3);
 				dataRow.appendChild(data4);
 				dataRow.appendChild(data5);
 				dataRow.appendChild(data6);
-				grid.appendChild(dataRow);
+				tbody.appendChild(dataRow);
 
-				this.grid_rows[i] = {data:data, control:dataRow};
+				let buttons = [];
+				if(installBtn) {
+				    buttons.push(installBtn);
+                }
+				if(installBtn2) {
+				    buttons.push(installBtn2);
+                }
+				if(installBtn3) {
+				    buttons.push(installBtn3);
+                }
+
+				this.grid_rows[i] = {data:data, buttons:buttons, checkbox:checkbox, control:dataRow};
 			}
 
 		const panel = document.createElement('div');
         panel.style.width = "100%";
-		panel.style.overflowY = "scroll";
 		panel.appendChild(grid);
 
-        let self = this;
         function handleResize() {
           const parentHeight = self.element.clientHeight;
-          const gridHeight = parentHeight - 400;
+          const gridHeight = parentHeight - 200;
 
           grid.style.height = gridHeight + "px";
         }
@@ -1099,7 +1275,8 @@ class AlternativesInstaller extends ComfyDialog {
 		grid.style.position = "relative";
 		grid.style.display = "inline-block";
 		grid.style.width = "100%";
-        grid.style.marginBottom = "200px";
+		grid.style.height = "100%";
+		grid.style.overflowY = "scroll";
 		this.element.style.height = "85%";
 		this.element.style.width = "80%";
 		this.element.appendChild(panel);
@@ -1305,7 +1482,15 @@ class ModelInstaller extends ComfyDialog {
 		var grid = document.createElement('table');
 		grid.setAttribute('id', 'external-models-grid');
 
+        var thead = document.createElement('thead');
+        var tbody = document.createElement('tbody');
+
 		var headerRow = document.createElement('tr');
+		thead.style.position = "sticky";
+		thead.style.top = "0px";
+        thead.style.borderCollapse = "collapse";
+        thead.style.tableLayout = "fixed";
+
 		var header1 = document.createElement('th');
 		header1.innerHTML = '&nbsp;&nbsp;ID&nbsp;&nbsp;';
 		header1.style.width = "20px";
@@ -1328,6 +1513,7 @@ class ModelInstaller extends ComfyDialog {
 		header_down.innerHTML = 'Download';
 		header_down.style.width = "50px";
 
+        thead.appendChild(headerRow);
 		headerRow.appendChild(header1);
 		headerRow.appendChild(header2);
 		headerRow.appendChild(header3);
@@ -1341,7 +1527,9 @@ class ModelInstaller extends ComfyDialog {
 		headerRow.style.textAlign = "center";
 		headerRow.style.width = "100%";
 		headerRow.style.padding = "0";
-		grid.appendChild(headerRow);
+
+		grid.appendChild(thead);
+		grid.appendChild(tbody);
 
 		this.grid_rows = {};
 
@@ -1404,7 +1592,7 @@ class ModelInstaller extends ComfyDialog {
 				dataRow.appendChild(data5);
 				dataRow.appendChild(data6);
 				dataRow.appendChild(data_install);
-				grid.appendChild(dataRow);
+				tbody.appendChild(dataRow);
 
 				this.grid_rows[i] = {data:data, control:dataRow};
 			}
@@ -1412,12 +1600,11 @@ class ModelInstaller extends ComfyDialog {
         let self = this;
 		const panel = document.createElement('div');
         panel.style.width = "100%";
-		panel.style.overflowY = "scroll";
 		panel.appendChild(grid);
 
         function handleResize() {
           const parentHeight = self.element.clientHeight;
-          const gridHeight = parentHeight - 400;
+          const gridHeight = parentHeight - 200;
 
           grid.style.height = gridHeight + "px";
         }
@@ -1426,7 +1613,8 @@ class ModelInstaller extends ComfyDialog {
 		grid.style.position = "relative";
 		grid.style.display = "inline-block";
 		grid.style.width = "100%";
-        grid.style.marginBottom = "200px";
+		grid.style.height = "100%";
+		grid.style.overflowY = "scroll";
 		this.element.style.height = "85%";
 		this.element.style.width = "80%";
 		this.element.appendChild(panel);
