@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.23.3)")
+print("### Loading: ComfyUI-Manager (V0.24)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -335,7 +335,14 @@ import urllib.request
 
 def get_model_dir(data):
     if data['save_path'] != 'default':
-        base_model = os.path.join(folder_paths.models_dir, data['save_path'])
+        if '..' in data['save_path'] or data['save_path'].startswith('/'):
+            print(f"[WARN] '{data['save_path']}' is not allowed path. So it will be saved into 'models/etc'.")
+            base_model = "etc"
+        else:
+            if data['save_path'].startswith("custom_nodes"):
+                base_model = os.path.join(comfy_path, data['save_path'])
+            else:
+                base_model = os.path.join(folder_paths.models_dir, data['save_path'])
     else:
         model_type = data['type']
         if model_type == "checkpoints":

@@ -502,7 +502,17 @@
       "reference": "https://huggingface.co/stabilityai/control-lora",
       "filename": "control-lora-depth-rank128.safetensors",
       "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-depth-rank128.safetensors"
-    },    
+    },
+    {
+      "name": "stabilityai/control-lora-recolor-rank128.safetensors",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "default",
+      "description": "Control-LoRA: recolor rank128",
+      "reference": "https://huggingface.co/stabilityai/control-lora",
+      "filename": "control-lora-recolor-rank128.safetensors",
+      "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-recolor-rank128.safetensors"
+    },
     {
       "name": "stabilityai/control-lora-sketch-rank128-metadata.safetensors",
       "type": "controlnet",
@@ -557,6 +567,17 @@
     },
 
     {
+      "name": "kohya-ss/ControlNet-LLLite: SDXL Canny Anime",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "custom_nodes/ControlNet-LLLite-ComfyUI/models",
+      "description": "[46.2MB] An extremely compactly designed controlnet model (a.k.a. ControlNet-LLLite). Note: The model structure is highly experimental and may be subject to change in the future.",
+      "reference": "https://huggingface.co/kohya-ss/controlnet-lllite",
+      "filename": "controllllite_v01032064e_sdxl_canny_anime.safetensors",
+      "url": "https://huggingface.co/kohya-ss/controlnet-lllite/resolve/main/controllllite_v01032064e_sdxl_canny_anime.safetensors"
+    },
+
+    {
       "name": "SDXL-controlnet: OpenPose (v2)",
       "type": "controlnet",
       "base": "SDXL",
@@ -586,6 +607,7 @@
       "filename": "depth-zoe-xl-v1.0-controlnet.safetensors",
       "url": "https://huggingface.co/SargeZT/controlnet-sd-xl-1.0-depth-16bit-zoe/resolve/main/depth-zoe-xl-v1.0-controlnet.safetensors"
     },
+
     {
       "name": "ControlNet-v1-1 (ip2p; fp16)",
       "type": "controlnet",
@@ -905,6 +927,27 @@
       "reference": "https://huggingface.co/Bingsu/adetailer/tree/main",
       "filename": "deepfashion2_yolov8s-seg.pt",
       "url": "https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt"
+    },
+
+    {
+      "name": "animatediff/mmd_sd_v14.ckpt",
+      "type": "animatediff",
+      "base": "SD1.x",
+      "save_path": "custom_nodes/comfyui-animatediff/models",
+      "description": "Pressing 'install' directly downloads the model from the ArtVentureX/AnimateDiff extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "reference": "https://huggingface.co/guoyww/animatediff",
+      "filename": "mm_sd_v14.ckpt",
+      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v14.ckpt"
+    },
+    {
+      "name": "animatediff/mm_sd_v15.ckpt",
+      "type": "animatediff",
+      "base": "SD1.x",
+      "save_path": "custom_nodes/comfyui-animatediff/models",
+      "description": "Pressing 'install' directly downloads the model from the ArtVentureX/AnimateDiff extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "reference": "https://huggingface.co/guoyww/animatediff",
+      "filename": "mm_sd_v15.ckpt",
+      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v15.ckpt"
     }
   ]  
 }
