@@ -450,12 +450,23 @@
       "filename": "t2iadapter_style_sd14v1.pth",
       "url": "https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_style_sd14v1.pth"
     },
+    {
+      "name": "CiaraRowles/TemporalNet2",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "TemporalNet was a ControlNet model designed to enhance the temporal consistency of generated outputs",
+      "reference": "https://huggingface.co/CiaraRowles/TemporalNet2",
+      "filename": "temporalnetversion2.ckpt",
+      "url": "https://huggingface.co/CiaraRowles/TemporalNet2/resolve/main/temporalnetversion2.ckpt"
+    },
+
 
     {
       "name": "CLIPVision model (stabilityai/clip_vision_g)",
       "type": "clip_vision",
       "base": "SDXL",
-      "save_path": "default",
+      "save_path": "clip_vision/SDXL",
       "description": "[3.69GB] clip_g vision model",
       "reference": "https://huggingface.co/stabilityai/control-lora",
       "filename": "clip_vision_g.safetensors",
@@ -466,7 +477,7 @@
       "name": "CLIPVision model (openai/clip-vit-large)",
       "type": "clip_vision",
       "base": "SD1.5",
-      "save_path": "default",
+      "save_path": "clip_vision/SD1.5",
       "description": "[1.7GB] CLIPVision model (needed for styles model)",
       "reference": "https://huggingface.co/openai/clip-vit-large-patch14",
       "filename": "pytorch_model.bin",
@@ -476,11 +487,21 @@
       "name": "CLIPVision model (IP-Adapter)",
       "type": "clip_vision",
       "base": "SD1.5",
-      "save_path": "default",
+      "save_path": "clip_vision/SD1.5",
       "description": "[2.5GB] CLIPVision model (needed for IP-Adapter)",
       "reference": "https://huggingface.co/h94/IP-Adapter",
       "filename": "pytorch_model.bin",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/image_encoder/pytorch_model.bin"
+    },
+    {
+      "name": "CLIPVision model (IP-Adapter)",
+      "type": "clip_vision",
+      "base": "SDXL",
+      "save_path": "clip_vision/SDXL",
+      "description": "[3.69GB] CLIPVision model (needed for IP-Adapter)",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "pytorch_model.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/image_encoder/pytorch_model.bin"
     },
 
     {
@@ -948,6 +969,27 @@
       "reference": "https://huggingface.co/guoyww/animatediff",
       "filename": "mm_sd_v15.ckpt",
       "url": "https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v15.ckpt"
+    },
+
+    {
+      "name": "ip-adapter_sdxl.bin",
+      "type": "IP-Adapter",
+      "base": "SDXL",
+      "save_path": "custom_nodes/IPAdapter-ComfyUI/models",
+      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "ip-adapter_sdxl.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter_sdxl.bin"
+    },
+    {
+      "name": "ip-adapter_sd15.bin",
+      "type": "IP-Adapter",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/IPAdapter-ComfyUI/models",
+      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "ip-adapter_sd15.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15.bin"
     }
   ]  
 }
