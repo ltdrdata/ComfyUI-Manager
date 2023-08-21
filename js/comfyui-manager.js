@@ -1784,6 +1784,29 @@ class ManagerMenuDialog extends ComfyDialog {
             app.graph.setDirtyCanvas(true);
 		});
 
+        // subscription
+		let subscription_combo = document.createElement("select");
+        api.fetchApi('/manager/subscription_url_list')
+        .then(response => response.text())
+        .then(data => {
+            try {
+				let urls = data.split(',');
+				for(let i in urls) {
+					if(urls[i] != '') {
+						let name_url = urls[i].split('::');
+	                    subscription_combo.appendChild($el('option', {value:name_url[1] , text:`subscribe: ${name_url[0]}`}, []));
+	                }
+	            }
+
+				subscription_combo.addEventListener('change', function(event) {
+		            api.fetchApi(`/manager/subscription_url_list?value=${event.target.value}`);
+				});
+			}
+			catch(exception) {
+
+			}
+        });
+
 		const res =
 			[
 				$el("tr.td", {width:"100%"}, [$el("font", {size:6, color:"white"}, [`ComfyUI Manager Menu`])]),
@@ -1850,6 +1873,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				$el("hr", {width: "100%"}, []),
 				preview_combo,
 				badge_combo,
+				subscription_combo,
 				$el("hr", {width: "100%"}, []),
                 $el("br", {}, []),
 

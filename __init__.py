@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.24.1)")
+print("### Loading: ComfyUI-Manager (V0.25)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -84,7 +84,9 @@ def write_config():
     config = configparser.ConfigParser()
     config['default'] = {
         'preview_method': get_current_preview_method(),
-        'badge_mode': get_config()['badge_mode']
+        'badge_mode': get_config()['badge_mode'],
+        'subscription_url': get_config()['subscription_url'],
+        'subscription_url_list': get_config()['subscription_url_list']
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -98,11 +100,18 @@ def read_config():
 
         return {
                     'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else get_current_preview_method(),
-                    'badge_mode': default_conf['badge_mode'] if 'badge_mode' in default_conf else 'none'
+                    'badge_mode': default_conf['badge_mode'] if 'badge_mode' in default_conf else 'none',
+                    'subscription_url': default_conf['subscription_url'] if 'subscription_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
+                    'subscription_url_list': default_conf['subscription_url_list'] if 'subscription_url_list' in default_conf else 'default::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main,new::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/node_db/new,'
                }
 
     except Exception:
-        return {'preview_method': get_current_preview_method(), 'badge_mode': 'none'}
+        return {
+            'preview_method': get_current_preview_method(),
+            'badge_mode': 'none',
+            'subscription_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
+            'subscription_url_list': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main,'
+        }
 
 
 def get_config():
@@ -428,7 +437,7 @@ async def fetch_customnode_mappings(request):
     if request.rel_url.query["mode"] == "local":
         uri = local_db_extension_node_mappings
     else:
-        uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json'
+        uri = get_config()['subscription_url'] + '/extension-node-map.json'
 
     json_obj = await get_data(uri)
 
@@ -441,7 +450,7 @@ async def fetch_updates(request):
         if request.rel_url.query["mode"] == "local":
             uri = local_db_custom_node_list
         else:
-            uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json'
+            uri = get_config()['subscription_url'] + '/custom-node-list.json'
 
         json_obj = await get_data(uri)
         check_custom_nodes_installed(json_obj, True)
@@ -467,7 +476,7 @@ async def fetch_customnode_list(request):
     if request.rel_url.query["mode"] == "local":
         uri = local_db_custom_node_list
     else:
-        uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json'
+        uri = get_config()['subscription_url'] + '/custom-node-list.json'
 
     json_obj = await get_data(uri)
     check_custom_nodes_installed(json_obj, False, not skip_update)
@@ -486,8 +495,8 @@ async def fetch_alternatives_list(request):
         uri1 = local_db_alter
         uri2 = local_db_custom_node_list
     else:
-        uri1 = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json'
-        uri2 = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json'
+        uri1 = get_config()['subscription_url'] + '/alter-list.json'
+        uri2 = get_config()['subscription_url'] + '/custom-node-list.json'
 
     alter_json = await get_data(uri1)
     custom_node_json = await get_data(uri2)
@@ -525,7 +534,7 @@ async def fetch_externalmodel_list(request):
     if request.rel_url.query["mode"] == "local":
         uri = local_db_model
     else:
-        uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json'
+        uri = get_config()['subscription_url'] + '/model-list.json'
 
     json_obj = await get_data(uri)
     check_model_installed(json_obj)
@@ -1020,6 +1029,17 @@ async def badge_mode(request):
         write_config()
     else:
         return web.Response(text=get_config()['badge_mode'], status=200)
+
+    return web.Response(status=200)
+
+
+@server.PromptServer.instance.routes.get("/manager/subscription_url_list")
+async def subscription_url_list(request):
+    if "value" in request.rel_url.query:
+        get_config()['subscription_url_list'] = request.rel_url.query['value']
+        write_config()
+    else:
+        return web.Response(text=get_config()['subscription_url_list'], status=200)
 
     return web.Response(status=200)
 
