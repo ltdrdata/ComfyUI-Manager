@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.25.2)")
+print("### Loading: ComfyUI-Manager (V0.25.3)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -98,11 +98,24 @@ def read_config():
         config.read(config_path)
         default_conf = config['default']
 
+        subscription_url_list_is_valid = True
+        if 'subscription_url_list' in default_conf:
+            for item in default_conf['subscription_url_list'].split(","):
+                if len(item.split("::")) != 2:
+                    subscription_url_list_is_valid = False
+                    break
+
+        if subscription_url_list_is_valid:
+            sub_url_list = default_conf['subscription_url_list']
+        else:
+            print(f"[WARN] ComfyUI-Manager: subscription_url_list is invalid format")
+            sub_url_list = 'default::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main,new::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/node_db/new,'
+
         return {
                     'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else get_current_preview_method(),
                     'badge_mode': default_conf['badge_mode'] if 'badge_mode' in default_conf else 'none',
                     'subscription_url': default_conf['subscription_url'] if 'subscription_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
-                    'subscription_url_list': default_conf['subscription_url_list'] if 'subscription_url_list' in default_conf else 'default::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main,new::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/node_db/new,'
+                    'subscription_url_list': sub_url_list
                }
 
     except Exception:
