@@ -1505,10 +1505,10 @@ class ModelInstaller extends ComfyDialog {
 		header4.style.width = "20%";
 		var header5 = document.createElement('th');
 		header5.innerHTML = 'Filename';
-		header5.style.width = "250px";
+		header5.style.width = "10%";
 		header5.style.tableLayout = "fixed";
 		var header6 = document.createElement('th');
-		header6.innerHTML = 'description';
+		header6.innerHTML = 'Description';
 		header6.style.width = "70%";
 		var header_down = document.createElement('th');
 		header_down.innerHTML = 'Download';
