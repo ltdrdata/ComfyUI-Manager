@@ -1794,7 +1794,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				for(let i in urls) {
 					if(urls[i] != '') {
 						let name_url = urls[i].split('::');
-	                    subscription_combo.appendChild($el('option', {value:name_url[1] , text:`subscribe: ${name_url[0]}`}, []));
+	                    subscription_combo.appendChild($el('option', {value:name_url[0], text:`subscribe: ${name_url[0]}`}, []));
 	                }
 	            }
 

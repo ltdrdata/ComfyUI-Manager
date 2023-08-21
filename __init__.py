@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.25.1)")
+print("### Loading: ComfyUI-Manager (V0.25.2)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -1036,8 +1036,12 @@ async def badge_mode(request):
 @server.PromptServer.instance.routes.get("/manager/subscription_url_list")
 async def subscription_url_list(request):
     if "value" in request.rel_url.query:
-        get_config()['subscription_url_list'] = request.rel_url.query['value']
-        write_config()
+        for item in get_config()['subscription_url_list'].split(','):
+            name_url = item.split("::")
+            if len(name_url) == 2 and name_url[0] == request.rel_url.query['value']:
+                get_config()['subscription_url'] = name_url[1]
+                write_config()
+                break
     else:
         return web.Response(text=get_config()['subscription_url_list'], status=200)
 
