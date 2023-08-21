@@ -45,6 +45,9 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Support for automatically installing dependencies of custom nodes upon restarting Colab notebooks.
 
 ## Changes
+* **0.25** support db subscription
+  * You can edit subscription db in config.ini 
+* **0.23** support multiple selection
 * **0.18.1** `skip update check` feature added.
   * A feature that allows quickly opening windows in environments where update checks take a long time.
 * **0.17.1** Bug fix for the issue where enable/disable of the web extension was not working. Compatibility patch for StableSwarmUI.
