@@ -300,9 +300,9 @@ class CustomNodesInstaller extends ComfyDialog {
 	}
 
 	disableButtons() {
-		for(let i in self.install_buttons) {
-			self.install_buttons[i].disabled = true;
-			self.install_buttons[i].style.backgroundColor = 'gray';
+		for(let i in this.install_buttons) {
+			this.install_buttons[i].disabled = true;
+			this.install_buttons[i].style.backgroundColor = 'gray';
 		}
 	}
 
@@ -884,9 +884,9 @@ class AlternativesInstaller extends ComfyDialog {
 	}
 
 	disableButtons() {
-		for(let i in self.install_buttons) {
-			self.install_buttons[i].disabled = true;
-			self.install_buttons[i].style.backgroundColor = 'gray';
+		for(let i in this.install_buttons) {
+			this.install_buttons[i].disabled = true;
+			this.install_buttons[i].style.backgroundColor = 'gray';
 		}
 	}
 
@@ -1502,13 +1502,14 @@ class ModelInstaller extends ComfyDialog {
 		header3.style.width = "100px";
 		var header4 = document.createElement('th');
 		header4.innerHTML = 'Name';
-		header4.style.width = "200px";
+		header4.style.width = "20%";
 		var header5 = document.createElement('th');
 		header5.innerHTML = 'Filename';
 		header5.style.width = "250px";
 		header5.style.tableLayout = "fixed";
 		var header6 = document.createElement('th');
 		header6.innerHTML = 'description';
+		header6.style.width = "70%";
 		var header_down = document.createElement('th');
 		header_down.innerHTML = 'Download';
 		header_down.style.width = "50px";
