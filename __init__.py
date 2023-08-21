@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.25)")
+print("### Loading: ComfyUI-Manager (V0.25.1)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -110,7 +110,7 @@ def read_config():
             'preview_method': get_current_preview_method(),
             'badge_mode': 'none',
             'subscription_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
-            'subscription_url_list': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main,'
+            'subscription_url_list': 'default::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main,new::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/node_db/new,'
         }
 
 
