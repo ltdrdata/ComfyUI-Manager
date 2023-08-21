@@ -45,8 +45,9 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Support for automatically installing dependencies of custom nodes upon restarting Colab notebooks.
 
 ## Changes
-* **0.25** support db subscription
-  * You can edit subscription db in config.ini 
+* **0.25** support db channel
+  * You can directly modify the db channel settings in the `config.ini` file.
+  * If you want to maintain a new DB channel, please modify the `channels.list` and submit a PR.
 * **0.23** support multiple selection
 * **0.18.1** `skip update check` feature added.
   * A feature that allows quickly opening windows in environments where update checks take a long time.

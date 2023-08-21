@@ -1784,9 +1784,9 @@ class ManagerMenuDialog extends ComfyDialog {
             app.graph.setDirtyCanvas(true);
 		});
 
-        // subscription
-		let subscription_combo = document.createElement("select");
-        api.fetchApi('/manager/subscription_url_list')
+        // channel
+		let channel_combo = document.createElement("select");
+        api.fetchApi('/manager/channel_url_list')
         .then(response => response.text())
         .then(data => {
             try {
@@ -1794,12 +1794,12 @@ class ManagerMenuDialog extends ComfyDialog {
 				for(let i in urls) {
 					if(urls[i] != '') {
 						let name_url = urls[i].split('::');
-	                    subscription_combo.appendChild($el('option', {value:name_url[0], text:`subscribe: ${name_url[0]}`}, []));
+	                    channel_combo.appendChild($el('option', {value:name_url[0], text:`Channel: ${name_url[0]}`}, []));
 	                }
 	            }
 
-				subscription_combo.addEventListener('change', function(event) {
-		            api.fetchApi(`/manager/subscription_url_list?value=${event.target.value}`);
+				channel_combo.addEventListener('change', function(event) {
+		            api.fetchApi(`/manager/channel_url_list?value=${event.target.value}`);
 				});
 			}
 			catch(exception) {
@@ -1873,7 +1873,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				$el("hr", {width: "100%"}, []),
 				preview_combo,
 				badge_combo,
-				subscription_combo,
+				channel_combo,
 				$el("hr", {width: "100%"}, []),
                 $el("br", {}, []),
 
