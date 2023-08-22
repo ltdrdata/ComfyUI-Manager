@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.25.6)")
+print("### Loading: ComfyUI-Manager (V0.26)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -334,19 +334,21 @@ async def get_data(uri):
 
 
 def setup_js():
-    # remove garbage
-    old_js_path = os.path.join(comfy_path, "web", "extensions", "core", "comfyui-manager.js")
-    if os.path.exists(old_js_path):
-        os.remove(old_js_path)
-
-    # setup js
+    import nodes
     js_dest_path = os.path.join(js_path, "comfyui-manager")
-    if not os.path.exists(js_dest_path):
-        os.makedirs(js_dest_path)
-    js_src_path = os.path.join(comfyui_manager_path, "js", "comfyui-manager.js")
 
-    print(f"### ComfyUI-Manager: Copy .js from '{js_src_path}' to '{js_dest_path}'")
-    shutil.copy(js_src_path, js_dest_path)
+    if hasattr(nodes, "EXTENSION_WEB_DIRS"):
+        if os.path.exists(js_dest_path):
+            shutil.rmtree(js_dest_path)
+    else:
+        print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
+        # setup js
+        if not os.path.exists(js_dest_path):
+            os.makedirs(js_dest_path)
+        js_src_path = os.path.join(comfyui_manager_path, "js", "comfyui-manager.js")
+
+        print(f"### ComfyUI-Manager: Copy .js from '{js_src_path}' to '{js_dest_path}'")
+        shutil.copy(js_src_path, js_dest_path)
 
 setup_js()
 
@@ -1068,6 +1070,6 @@ async def channel_url_list(request):
 
     return web.Response(status=200)
 
-
+WEB_DIRECTORY = "js"
 NODE_CLASS_MAPPINGS = {}
 __all__ = ['NODE_CLASS_MAPPINGS']
