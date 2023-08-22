@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.26)")
+print("### Loading: ComfyUI-Manager (V0.26.1)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -1057,16 +1057,26 @@ async def badge_mode(request):
 @server.PromptServer.instance.routes.get("/manager/channel_url_list")
 async def channel_url_list(request):
     channels = default_channels+","+get_config()['channel_url_list']
+    channels = channels.split(',')
 
     if "value" in request.rel_url.query:
-        for item in channels.split(','):
+        for item in channels:
             name_url = item.split("::")
             if len(name_url) == 2 and name_url[0] == request.rel_url.query['value']:
                 get_config()['channel_url'] = name_url[1]
                 write_config()
                 break
     else:
-        return web.Response(text=channels, status=200)
+        selected = 'custom'
+        selected_url = get_config()['channel_url']
+        for item in channels:
+            item_info = item.split('::')
+            if len(item_info) == 2 and item_info[1] == selected_url:
+                selected = item_info[0]
+
+        res = {'selected': selected,
+               'list': channels}
+        return web.json_response(res, status=200)
 
     return web.Response(status=200)
 

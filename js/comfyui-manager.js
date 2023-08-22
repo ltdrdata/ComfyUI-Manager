@@ -1776,7 +1776,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
         api.fetchApi('/manager/badge_mode')
         .then(response => response.text())
-        .then(data => { badge_combo.value = data; badge_mode = data; })
+        .then(data => { badge_combo.value = data; badge_mode = data; });
 
 		badge_combo.addEventListener('change', function(event) {
             api.fetchApi(`/manager/badge_mode?value=${event.target.value}`);
@@ -1787,10 +1787,10 @@ class ManagerMenuDialog extends ComfyDialog {
         // channel
 		let channel_combo = document.createElement("select");
         api.fetchApi('/manager/channel_url_list')
-        .then(response => response.text())
-        .then(data => {
+        .then(response => response.json())
+        .then(async data => {
             try {
-				let urls = data.split(',');
+				let urls = data.list;
 				for(let i in urls) {
 					if(urls[i] != '') {
 						let name_url = urls[i].split('::');
@@ -1801,6 +1801,8 @@ class ManagerMenuDialog extends ComfyDialog {
 				channel_combo.addEventListener('change', function(event) {
 		            api.fetchApi(`/manager/channel_url_list?value=${event.target.value}`);
 				});
+
+                channel_combo.value = data.selected;
 			}
 			catch(exception) {
 
