@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.25.5)")
+print("### Loading: ComfyUI-Manager (V0.25.6)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -105,7 +105,7 @@ def read_config():
         default_conf = config['default']
 
         channel_url_list_is_valid = True
-        if 'channel_url_list' in default_conf:
+        if 'channel_url_list' in default_conf and default_conf['channel_url_list'] != '':
             for item in default_conf['channel_url_list'].split(","):
                 if len(item.split("::")) != 2:
                     channel_url_list_is_valid = False
