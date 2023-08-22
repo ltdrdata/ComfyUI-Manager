@@ -76,7 +76,7 @@ config_path = os.path.join(os.path.dirname(__file__), "config.ini")
 cached_config = None
 
 
-default_channels = 'default::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main,new::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/node_db/new,'
+default_channels = 'default::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main,recent::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/node_db/new,'
 with open(os.path.join(comfyui_manager_path, 'channels.list'), 'r') as file:
     channels = file.read()
     default_channels = channels.replace('\n', ',')

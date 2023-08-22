@@ -167,8 +167,8 @@ NODE_CLASS_MAPPINGS.update({
 
 * https://github.com/bmad4ever/ComfyUI-Bmad-Custom-Nodes
 * https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
-* https://github.com/laksjdjf/pfg-ComfyUI
 * https://github.com/senshilabs/NINJA-plugin
+* https://github.com/Beinsezii/bsz-cui-extras
 
 
 ## Roadmap
