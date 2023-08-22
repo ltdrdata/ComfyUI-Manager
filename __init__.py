@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.26.1)")
+print("### Loading: ComfyUI-Manager (V0.26.2)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -326,7 +326,7 @@ async def get_data(uri):
             async with session.get(uri) as resp:
                 json_text = await resp.text()
     else:
-        with open(uri, "r") as f:
+        with open(uri, "r", encoding="utf-8") as f:
             json_text = f.read()
 
     json_obj = json.loads(json_text)
