@@ -488,6 +488,7 @@
             "CustomT2IAdapterWeights",
             "DiffControlNetLoaderAdvanced",
             "LatentKeyframe",
+            "LoadImagesFromDirectory",
             "ScaledSoftControlNetWeights",
             "SoftControlNetWeights",
             "SoftT2IAdapterWeights",
@@ -723,8 +724,10 @@
     "https://github.com/RockOfFire/ComfyUI_Comfyroll_CustomNodes": [
         [
             "CR Advanced Prompt Scheduler",
-            "CR Animation List",
+            "CR Animate Transition",
+            "CR Animation PopImage",
             "CR Animation Stack",
+            "CR Animation Stack Keyframes",
             "CR Animation Stack Scheduler",
             "CR Apply ControlNet",
             "CR Apply LoRA Stack",
@@ -733,12 +736,14 @@
             "CR Aspect Ratio",
             "CR Aspect Ratio SDXL",
             "CR Batch Process Switch",
+            "CR Camera Rotation",
+            "CR Camera Zoom",
             "CR Clip Input Switch",
             "CR Color Tint",
             "CR Conditioning Input Switch",
             "CR ControlNet Input Switch",
+            "CR Debatch Frames",
             "CR Halftone Grid",
-            "CR Halftone Image",
             "CR Halftones",
             "CR Hires Fix Process Switch",
             "CR Image Input Switch",
@@ -748,37 +753,45 @@
             "CR Image Pipe In",
             "CR Image Pipe Out",
             "CR Image Size",
+            "CR Image Stack",
             "CR Img2Img Process Switch",
+            "CR Index Increment",
+            "CR Index Multiply",
+            "CR Index Reset",
             "CR Integer Multiple",
-            "CR KSampler (Iterative)",
+            "CR Keyframe List",
             "CR Latent Batch Size",
             "CR Latent Input Switch",
-            "CR Latent Upscale (Iterative)",
-            "CR LoRA Scheduler",
             "CR LoRA Stack",
             "CR Load Animation Frames",
-            "CR Load Image Sequence",
             "CR Load LoRA",
             "CR Model Input Switch",
             "CR Model Stack",
-            "CR ModelMergeSimple",
             "CR Module Input",
             "CR Module Output",
             "CR Module Pipe Loader",
+            "CR Morph Layers",
             "CR Multi-ControlNet Stack",
             "CR Pipe Switch",
             "CR Process Switch",
             "CR Prompt List",
+            "CR Prompt List Keyframes",
             "CR Prompt List Scheduler",
+            "CR Prompt Text",
             "CR SD1.5 Aspect Ratio",
             "CR SDXL Aspect Ratio",
             "CR SDXL Base Prompt Encoder",
             "CR SDXL Prompt Mix Presets",
             "CR SDXL Prompt Mixer",
             "CR SDXL Style Text",
+            "CR Schedule ControlNets",
+            "CR Schedule LoRAs",
+            "CR Schedule Models",
             "CR Seed",
             "CR Seed to Int",
-            "CR Switch"
+            "CR Text Input Switch",
+            "CR Text Input Switch (4 way)",
+            "CR Text List To String"
         ],
         {
             "title_aux": "ComfyUI_Comfyroll_CustomNodes"
@@ -958,6 +971,14 @@
         ],
         {
             "title_aux": "ComfyUI Preset Merger"
+        }
+    ],
+    "https://github.com/WASasquatch/PPF_Noise_ComfyUI": [
+        [
+            "WAS_PFN_Latent"
+        ],
+        {
+            "title_aux": "PPF_Noise_ComfyUI"
         }
     ],
     "https://github.com/WASasquatch/was-node-suite-comfyui": [
@@ -1878,6 +1899,7 @@
             "ReencodeLatentPipe",
             "RegionalPrompt",
             "RegionalSampler",
+            "RemoveNoiseMask",
             "SAMDetectorCombined",
             "SAMDetectorSegmented",
             "SAMLoader",
@@ -2257,6 +2279,14 @@
         ],
         {
             "title_aux": "nui suite"
+        }
+    ],
+    "https://github.com/spro/comfyui-mirror": [
+        [
+            "LatentMirror"
+        ],
+        {
+            "title_aux": "Latent Mirror node for ComfyUI"
         }
     ],
     "https://github.com/ssitu/ComfyUI_UltimateSDUpscale": [
