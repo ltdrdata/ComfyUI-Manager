@@ -1300,7 +1300,7 @@
                 "https://github.com/laksjdjf/attention-couple-ComfyUI"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:Attention couple. This is a custom node that manipulates region-specific prompts. While vanilla ComfyUI employs an area specification method based on latent couples, this node divides regions using attention layers within UNet. (a.k.a. regional prompt)"
+            "description": "Nodes:Attention couple. This is a custom node that manipulates region-specific prompts. While vanilla ComfyUI employs an area specification method based on latent couples, this node divides regions using attention layers within UNet."
         },
         {
             "author": "alsritter",
@@ -1729,6 +1729,16 @@
             ],
             "install_type": "copy",
             "description": "Nodes: QRNG Node CSV. A node that takes in an array of random numbers from the ANU QRNG API and stores them locally for generating quantum random number noise_seeds in ComfyUI"
+        },
+        {
+            "author": "ntdviet",
+            "title": "ntdviet/comfyui-ext",
+            "reference": "https://github.com/ntdviet/comfyui-ext",
+            "files": [
+                "https://github.com/ntdviet/comfyui-ext/raw/main/custom_nodes/gcLatentTunnel/gcLatentTunnel.py"
+            ],
+            "install_type": "copy",
+            "description": "Nodes:LatentGarbageCollector. This ComfyUI custom node flushes the GPU cache and empty cuda interprocess memory. It's helpfull for low memory environment such as the free Google Colab, especially when the workflow VAE decode latents of the size above 1500x1500."
         },
         {
             "author": "theally",
