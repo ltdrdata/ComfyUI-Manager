@@ -22,53 +22,13 @@
         },
         {
             "author": "comfyanonymous",
-            "title": "ComfyUI_experiments/sampler_tonemap",
+            "title": "ComfyUI_experiments",
             "reference": "https://github.com/comfyanonymous/ComfyUI_experiments",
             "files": [
-                "https://github.com/comfyanonymous/ComfyUI_experiments/raw/master/sampler_tonemap.py"
+                "https://github.com/comfyanonymous/ComfyUI_experiments"
             ],
-            "install_type": "copy",
-            "description": "ModelSamplerTonemapNoiseTest a node that makes the sampler use a simple tonemapping algorithm to tonemap the noise. It will let you use higher CFG without breaking the image. To using higher CFG lower the multiplier value. Similar to Dynamic Thresholding extension of A1111."
-        },
-        {
-            "author": "comfyanonymous",
-            "title": "ComfyUI_experiments/sampler_rescalecfg",
-            "reference": "https://github.com/comfyanonymous/ComfyUI_experiments",
-            "files": [
-                "https://github.com/comfyanonymous/ComfyUI_experiments/raw/master/sampler_rescalecfg.py"
-            ],
-            "install_type": "copy",
-            "description": "RescaleClassifierFreeGuidance improves the problem of images being degraded by high CFG.To using higher CFG lower the multiplier value. Similar to Dynamic Thresholding extension of A1111. (<a href='https://arxiv.org/abs/2305.08891' target='blank'/>reference paper</a>)"
-        },
-        {
-            "author": "comfyanonymous",
-            "title": "ComfyUI_experiments/advanced_model_merging",
-            "reference": "https://github.com/comfyanonymous/ComfyUI_experiments",
-            "files": [
-                "https://github.com/comfyanonymous/ComfyUI_experiments/raw/master/advanced_model_merging.py"
-            ],
-            "install_type": "copy",
-            "description": "This provides a detailed model merge feature based on block weight. ModelMergeBlock, in vanilla ComfyUI, allows for adjusting the ratios of input/middle/output layers, but this node provides ratio adjustments for all blocks within each layer."
-        },
-        {
-            "author": "comfyanonymous",
-            "title": "ComfyUI_experiments/sdxl_model_merging",
-            "reference": "https://github.com/comfyanonymous/ComfyUI_experiments",
-            "files": [
-                "https://github.com/comfyanonymous/ComfyUI_experiments/raw/master/sdxl_model_merging.py"
-            ],
-            "install_type": "copy",
-            "description": "These nodes provide the capability to merge SDXL base models."
-        },
-        {
-            "author": "comfyanonymous",
-            "title": "ComfyUI_experiments/reference_only",
-            "reference": "https://github.com/comfyanonymous/ComfyUI_experiments",
-            "files": [
-                "https://github.com/comfyanonymous/ComfyUI_experiments/raw/master/reference_only.py"
-            ],
-            "install_type": "copy",
-            "description": "This node provides functionality corresponding to Reference only in Controlnet."
+            "install_type": "git-clone",
+            "description": "Nodes: ModelSamplerTonemapNoiseTest, ReferenceOnlySimple, RescaleClassifierFreeGuidanceTest, ModelMergeBlockNumber, ModelMergeSDXL, ModelMergeSDXLTransformers, ModelMergeSDXLDetailedTransformers.<p style='background-color: black; color: red;'>NOTE: This is a consolidation of the previously separate custom nodes. Please delete the sampler_tonemap.py, sampler_rescalecfg.py, advanced_model_merging.py, sdxl_model_merging.py, and reference_only.py files installed in custom_nodes before.</p>"
         },
         {
             "author": "Stability-AI",
@@ -598,6 +558,16 @@
             ],
             "install_type": "git-clone",
             "description": "ComfyUI nodes for the roop A1111 webui script."
+        },
+        {
+            "author": "ssitu",
+            "title": "ComfyUI fabric",
+            "reference": "https://github.com/ssitu/ComfyUI_fabric",
+            "files": [
+                "https://github.com/ssitu/ComfyUI_fabric"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI nodes based on the paper '<a href='https://arxiv.org/abs/2307.10159'/>FABRIC: Personalizing Diffusion Models with Iterative Feedback</a>' (Feedback via Attention-Based Reference Image Conditioning)"
         },
         {
             "author": "space-nuko",
@@ -1553,6 +1523,14 @@
             "description": "Nodes: tri3d-extract-hand."
         },
         {
+            "author": "picturesonpictures",
+            "title": "comfy_PoP",
+            "reference": "https://github.com/picturesonpictures/comfy_PoP",
+            "files": ["https://github.com/picturesonpictures/comfy_PoP"],
+            "install_type": "git-clone",
+            "description": "A collection of custom nodes for ComfyUI. Includes a quick canny edge detection node with unconventional settings, simple LoRA stack nodes for workflow efficiency, and a customizable aspect ratio node."
+        },
+        {
             "author": "taabata",
             "title": "Syrian Falcon Nodes",
             "reference": "https://github.com/taabata/Comfy_Syrian_Falcon_Nodes",
@@ -1793,15 +1771,6 @@
             ],
             "install_type": "unzip",
             "description": "Various image processing nodes."
-        },
-        {
-            "author": "picturesonpictures",
-            "title": "comfy_PoP",
-            "reference": "https://github.com/picturesonpictures/comfy_PoP",
-            "files": ["https://github.com/picturesonpictures/comfy_PoP"],
-            "install_type": "git-clone",
-            "description": "A collection of custom nodes for ComfyUI. Includes a quick canny edge detection node with unconventional settings, simple LoRA stack nodes for workflow efficiency, and a customizable aspect ratio node."
-        }
-          
+        } 
     ]
 }
