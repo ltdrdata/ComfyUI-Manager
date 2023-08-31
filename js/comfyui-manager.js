@@ -895,6 +895,10 @@ class AlternativesInstaller extends ComfyDialog {
 		for(let i in this.grid_rows) {
 			let data1 = this.grid_rows[i].data;
 			let data2 = data1.custom_node;
+
+			if(!data2)
+			    continue;
+
 			let content = data1.tags.toLowerCase() + data1.description.toLowerCase() + data2.author.toLowerCase() + data2.description.toLowerCase() + data2.title.toLowerCase();
 
 			if(this.filter && this.filter != '*') {
