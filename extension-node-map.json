@@ -381,7 +381,7 @@
             "Zoe-DepthMapPreprocessor"
         ],
         {
-            "title_aux": "(WIP) ComfyUI's ControlNet Preprocessors auxiliary models"
+            "title_aux": "(WIP) ComfyUI's ControlNet Auxiliary Preprocessors"
         }
     ],
     "https://github.com/FizzleDorf/AIT": [
@@ -1880,6 +1880,7 @@
         [
             "AddMask",
             "BasicPipeToDetailerPipe",
+            "BasicPipeToDetailerPipeSDXL",
             "BboxDetectorCombined",
             "BboxDetectorCombined_v2",
             "BboxDetectorForEach",
@@ -1897,12 +1898,14 @@
             "DetailerPipeToBasicPipe",
             "EditBasicPipe",
             "EditDetailerPipe",
+            "EditDetailerPipeSDXL",
             "EmptySegs",
             "FaceDetailer",
             "FaceDetailerPipe",
             "FromBasicPipe",
             "FromBasicPipe_v2",
             "FromDetailerPipe",
+            "FromDetailerPipeSDXL",
             "FromDetailerPipe_v2",
             "ImageMaskSwitch",
             "ImageReceiver",
@@ -1910,6 +1913,7 @@
             "ImpactCompare",
             "ImpactConditionalBranch",
             "ImpactConditionalStopIteration",
+            "ImpactControlNetApplySEGS",
             "ImpactDummyInput",
             "ImpactFloat",
             "ImpactImageBatchToImageList",
@@ -1938,6 +1942,7 @@
             "IterativeLatentUpscale",
             "KSamplerAdvancedProvider",
             "KSamplerProvider",
+            "LatentCompositeMasked",
             "LatentPixelScale",
             "LatentReceiver",
             "LatentSender",
@@ -1986,6 +1991,7 @@
             "ToBasicPipe",
             "ToBinaryMask",
             "ToDetailerPipe",
+            "ToDetailerPipeSDXL",
             "TwoAdvancedSamplersForMask",
             "TwoSamplersForMask",
             "TwoSamplersForMaskUpscalerProvider",
@@ -1998,6 +2004,23 @@
             "nickname": "Impact Pack",
             "title": "Impact Pack",
             "title_aux": "ComfyUI Impact Pack"
+        }
+    ],
+    "https://github.com/ltdrdata/ComfyUI-Inspire-Pack": [
+        [
+            "Canny",
+            "Canny_Preprocessor_Provider_for_SEGS //Inspire",
+            "LoraLoaderBlockWeight //Inspire",
+            "OpenPose_Preprocessor_Provider_for_SEGS //Inspire",
+            "OpenposePreprocessor",
+            "XY Input: Lora Block Weight //Inspire"
+        ],
+        {
+            "author": "Dr.Lt.Data",
+            "description": "This extension provides various nodes to support Lora Block Weight and the Impact Pack.",
+            "nickname": "Inspire Pack",
+            "title": "Inspire Pack",
+            "title_aux": "ComfyUI Inspire Pack"
         }
     ],
     "https://github.com/ltdrdata/ComfyUI-tomeSD-installer": [
@@ -2584,7 +2607,6 @@
     "https://github.com/wolfden/ComfyUi_PromptStylers": [
         [
             "SDXLPromptStylerHorror",
-            "SDXLPromptStylerMileHigh",
             "SDXLPromptStylerMisc",
             "SDXLPromptStylerbyArtist",
             "SDXLPromptStylerbyCamera",
@@ -2594,6 +2616,7 @@
             "SDXLPromptStylerbyFilter",
             "SDXLPromptStylerbyFocus",
             "SDXLPromptStylerbyLighting",
+            "SDXLPromptStylerbyMileHigh",
             "SDXLPromptStylerbyMood",
             "SDXLPromptStylerbyOriginal",
             "SDXLPromptStylerbySubject",
