@@ -4,6 +4,7 @@ import json
 from git import Repo
 from torchvision.datasets.utils import download_url
 
+builtin_nodes = ["KSampler"]
 
 def scan_in_file(filename):
     try:
@@ -61,7 +62,12 @@ def scan_in_file(filename):
                 key, value = line[1:].strip().split(':')
                 metadata[key.strip()] = value.strip()
 
+    for x in builtin_nodes:
+        if x in nodes:
+            nodes.remove(x)
+
     return nodes, metadata
+
 
 def get_py_file_paths(dirname):
     file_paths = []
