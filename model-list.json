@@ -201,6 +201,26 @@
       "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors"
     },
     {
+      "name": "diffusers/stable-diffusion-xl-1.0-inpainting-0.1 (UNET/fp16)",
+      "type": "unet",
+      "base": "SDXL",
+      "save_path": "unet/xl-inpaint-0.1",
+      "description": "[5.14GB] Stable Diffusion XL inpainting model 0.1. You need UNETLoader instead of CheckpointLoader.",
+      "reference": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1",
+      "filename": "diffusion_pytorch_model.fp16.safetensors",
+      "url": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1/resolve/main/unet/diffusion_pytorch_model.fp16.safetensors"
+    },
+    {
+      "name": "diffusers/stable-diffusion-xl-1.0-inpainting-0.1 (UNET)",
+      "type": "unet",
+      "base": "SDXL",
+      "save_path": "unet/xl-inpaint-0.1",
+      "description": "[10.3GB] Stable Diffusion XL inpainting model 0.1. You need UNETLoader instead of CheckpointLoader.",
+      "reference": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1/resolve/main/unet/diffusion_pytorch_model.safetensors"
+    },
+    {
       "name": "sd_xl_offset_example-lora_1.0.safetensors",
       "type": "lora",
       "base": "SDXL",
@@ -991,6 +1011,17 @@
       "filename": "ip-adapter_sd15.bin",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15.bin"
     },
+    {
+      "name": "wd15_ip_adapter_plus.bin",
+      "type": "IP-Adapter",
+      "base": "SDXL",
+      "save_path": "custom_nodes/IPAdapter-ComfyUI/models",
+      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "wd15_ip_adapter_plus.bin",
+      "url": "https://huggingface.co/furusu/IP-Adapter/resolve/main/wd15_ip_adapter_plus.bin"
+    },
+
     {
       "name": "pfg-novel-n10.pt",
       "type": "PFG",
