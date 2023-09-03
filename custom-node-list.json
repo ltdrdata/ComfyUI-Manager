@@ -52,16 +52,6 @@
         },
         {
             "author": "Fannovel16",
-            "title": "ControlNet Preprocessors",
-            "reference": "https://github.com/Fannovel16/comfy_controlnet_preprocessors",
-            "files": [
-                "https://github.com/Fannovel16/comfy_controlnet_preprocessors"
-            ],
-            "install_type": "git-clone",
-            "description": "ControlNet Preprocessors. (To use this extension, you need to download the required model file from <B>Install Models</B>)<BR> <p style='background-color: black; color: red;'>NOTE: To use nodes belonging to <B>controlnet v1</b> such as <B>Canny_Edge_Preprocessor, MIDAS_Depth_Map_Preprocessor, Uniformer_SemSegPreprocessor, etc.</B>, you need to copy the <font color='white'>config.yaml.example</font> file to <font color='white'>config.yaml</font> and change <font color='white'>skip_v1: True</font> to <font color='white'>skip_v1: False</font>.</p>"
-        },
-        {
-            "author": "Fannovel16",
             "title": "(WIP) ComfyUI's ControlNet Auxiliary Preprocessors",
             "reference": "https://github.com/Fannovel16/comfyui_controlnet_aux",
             "files": [
@@ -324,17 +314,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes: Image Remove Background (rembg)"
-        },
-        {
-            "author": "gamert",
-            "title": "ComfyUI_tagger",
-            "reference": "https://github.com/gamert/ComfyUI_tagger",
-            "pip": ["gradio"],
-            "files": [
-                "https://github.com/gamert/ComfyUI_tagger"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: CLIPTextEncodeTaggerDD, ImageTaggerDD. <p style='background-color: black; color: red;'>WARNING: Installing the current version is causing an issue where ComfyUI fails to start.</p>"
         },
         {
             "author": "YinBailiang",
@@ -651,16 +630,6 @@
             "description": "ComfyUI Extension Nodes for Automated Text Generation."
         },
         {
-            "author": "asd417",
-            "title": "CheckpointTomeLoader",
-            "reference": "https://github.com/asd417/tomeSD_for_Comfy",
-            "files": [
-                "https://github.com/ltdrdata/ComfyUI-tomeSD-installer"
-            ],
-            "install_type": "git-clone",
-            "description": "tomeSD(https://github.com/dbolya/tomesd) applied to ComfyUI stable diffusion UI using custom node. <B>Note:In vanilla ComfyUI, the TomePatchModel node is provided as a built-in feature.</B>"
-        },
-        {
             "author": "RockOfFire",
             "title": "ComfyUI_Comfyroll_CustomNodes",
             "reference": "https://github.com/RockOfFire/ComfyUI_Comfyroll_CustomNodes",
@@ -691,6 +660,16 @@
             "description": "ComfyUI extension that adds undo (and redo) functionality."
         },
         {
+            "author": "bmad4ever",
+            "title": "ComfyUI-Bmad-Custom-Nodes",
+            "reference": "https://github.com/bmad4ever/ComfyUI-Bmad-Custom-Nodes",
+            "files": [
+                "https://github.com/bmad4ever/ComfyUI-Bmad-Custom-Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "This custom node offers the following functionalities: API support for setting up API requests, computer vision primarily for masking purposes using GrabCut or contours, and general utility to streamline workflow setup or implement essential missing features."
+        },
+        {
             "author": "FizzleDorf",
             "title": "FizzNodes",
             "reference": "https://github.com/FizzleDorf/ComfyUI_FizzNodes",
@@ -698,7 +677,7 @@
                 "https://github.com/FizzleDorf/ComfyUI_FizzNodes"
             ],
             "install_type": "git-clone",
-            "description": "Custom animation and utility nodes for Comfyui."
+            "description": "Scheduled prompts, scheduled float/int values and wave function nodes for animations and utility. compatable with <a href='https://www.framesync.xyz/'>framesync</a> and <a href='https://www.chigozie.co.uk/keyframe-string-generator/'>keyframe-string-generator</a> for audio synced animations in Comfyui."
         },
         {
             "author": "FizzleDorf",
@@ -1569,6 +1548,16 @@
             ],
             "install_type": "git-clone",
             "description": "Various utility nodes for creating animations with ComfyUI"
+        },
+        {
+            "author": "seanlynch",
+            "title": "ComfyUI Optical Flow",
+            "reference": "https://github.com/seanlynch/comfyui-optical-flow",
+            "files": [
+                "https://github.com/seanlynch/comfyui-optical-flow"
+            ],
+            "install_type": "git-clone",
+            "description": "This package contains three nodes to help you compute optical flow between pairs of images, usually adjacent frames in a video, visualize the flow, and apply the flow to another image of the same dimensions. Most of the code is from Deforum, so this is released under the same license (MIT)."
         },
         {
             "author": "taabata",

@@ -444,6 +444,7 @@
             "Math Multiply Int Float (JPS)",
             "Math Multiply Int Int (JPS)",
             "Math Resolution Multiply (JPS)",
+            "Math Substract Int Int (JPS)",
             "Menu Disable Enable Switch (JPS)",
             "Menu Enable Disable Switch (JPS)",
             "Menu Sampler Scheduler (JPS)",
@@ -775,8 +776,6 @@
     "https://github.com/RockOfFire/ComfyUI_Comfyroll_CustomNodes": [
         [
             "CR Animate Transition",
-            "CR Animation Stack",
-            "CR Animation Stack Keyframes",
             "CR Apply ControlNet",
             "CR Apply LoRA Stack",
             "CR Apply Model Merge",
@@ -790,10 +789,7 @@
             "CR Color Tint",
             "CR Conditioning Input Switch",
             "CR ControlNet Input Switch",
-            "CR Debatch Frames",
             "CR Float To String",
-            "CR Gradient Float",
-            "CR Gradient Integer",
             "CR Halftone Grid",
             "CR Halftones",
             "CR Hires Fix Process Switch",
@@ -805,18 +801,11 @@
             "CR Image Pipe Out",
             "CR Image Size",
             "CR Img2Img Process Switch",
-            "CR Increment Float",
-            "CR Increment Integer",
-            "CR Index Increment",
-            "CR Index Multiply",
-            "CR Index Reset",
             "CR Integer Multiple",
             "CR Integer To String",
-            "CR Keyframe List",
             "CR Latent Batch Size",
             "CR Latent Input Switch",
             "CR LoRA Stack",
-            "CR Load Animation Frames",
             "CR Load LoRA",
             "CR Model Input Switch",
             "CR Model Stack",
@@ -827,9 +816,6 @@
             "CR Multi-ControlNet Stack",
             "CR Pipe Switch",
             "CR Process Switch",
-            "CR Prompt List",
-            "CR Prompt List Keyframes",
-            "CR Prompt Text",
             "CR SD1.5 Aspect Ratio",
             "CR SDXL Aspect Ratio",
             "CR SDXL Base Prompt Encoder",
@@ -843,10 +829,7 @@
             "CR Seed to Int",
             "CR Switch Model and CLIP",
             "CR Text Input Switch",
-            "CR Text Input Switch (4 way)",
-            "CR Text List To String",
-            "Comfyroll/Test/Animation Stack",
-            "Comfyroll/Test/Animation Stack Keyframes"
+            "CR Text Input Switch (4 way)"
         ],
         {
             "title_aux": "ComfyUI_Comfyroll_CustomNodes"
@@ -1426,6 +1409,58 @@
         ],
         {
             "title_aux": "CLIPSeg"
+        }
+    ],
+    "https://github.com/bmad4ever/ComfyUI-Bmad-Custom-Nodes": [
+        [
+            "Add String To Many",
+            "AdjustRect",
+            "AnyToAny",
+            "BoundingRect (contours)",
+            "ChameleonMask",
+            "CheckpointLoader (dirty)",
+            "CheckpointLoaderSimple (dirty)",
+            "Color Clip",
+            "Color Clip ADE20k",
+            "Conditioning (combine multiple)",
+            "Conditioning (combine selective)",
+            "Conditioning Grid (cond)",
+            "Conditioning Grid (string)",
+            "Conditioning Grid (string) Advanced",
+            "Contour To Mask",
+            "Contours",
+            "CreateRequestMetadata",
+            "Draw Contour(s)",
+            "Filter Contour",
+            "Framed Mask Grab Cut",
+            "Framed Mask Grab Cut 2",
+            "Get Contour from list",
+            "Get Models",
+            "Get Prompt",
+            "HypernetworkLoader (dirty)",
+            "Inpaint",
+            "Input/String to Int Array",
+            "Load 64 Encoded Image",
+            "LoraLoader (dirty)",
+            "MaskGrid N KSamplers Advanced",
+            "Merge Latent Batch Gridwise",
+            "MonoMerge",
+            "Otsu",
+            "Rect Grab Cut",
+            "Repeat Into Grid (image)",
+            "Repeat Into Grid (latent)",
+            "RequestInputs",
+            "Save Image (api)",
+            "SeamlessClone",
+            "SeamlessClone (simple)",
+            "SetRequestStateToComplete",
+            "String",
+            "String to Float",
+            "String to Integer",
+            "VAEEncodeBatch"
+        ],
+        {
+            "title_aux": "ComfyUI-Bmad-Custom-Nodes"
         }
     ],
     "https://github.com/bradsec/ComfyUI_ResolutionSelector": [
@@ -2324,6 +2359,16 @@
             "title_aux": "comfy_meh"
         }
     ],
+    "https://github.com/seanlynch/comfyui-optical-flow": [
+        [
+            "Apply optical flow",
+            "Compute optical flow",
+            "Visualize optical flow"
+        ],
+        {
+            "title_aux": "ComfyUI Optical Flow"
+        }
+    ],
     "https://github.com/shiimizu/ComfyUI_smZNodes": [
         [
             "smZ CLIPTextEncode"
@@ -2661,7 +2706,8 @@
             "SDXLPromptStylerbySurrealism",
             "SDXLPromptStylerbyTheme",
             "SDXLPromptStylerbyTimeofDay",
-            "SDXLPromptStylerbyWyvern"
+            "SDXLPromptStylerbyWyvern",
+            "SDXLPromptbyGothicRevival"
         ],
         {
             "title_aux": "SDXL Prompt Styler (customized version by wolfden)"
