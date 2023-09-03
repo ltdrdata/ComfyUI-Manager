@@ -600,6 +600,7 @@ class CustomNodesInstaller extends ComfyDialog {
 				data1.innerHTML = i+1;
 				var data2 = document.createElement('td');
 		        data2.style.maxWidth = "100px";
+				data2.className = "cm-node-author"
 				data2.textContent = ` ${data.author}`;
 				data2.style.whiteSpace = "nowrap";
                 data2.style.overflow = "hidden";
@@ -607,13 +608,16 @@ class CustomNodesInstaller extends ComfyDialog {
                 var data3 = document.createElement('td');
                 data3.style.maxWidth = "200px";
                 data3.style.wordWrap = "break-word";
+				data3.className = "cm-node-name"
                 data3.innerHTML = `&nbsp;<a href=${data.reference} target="_blank"><font color="skyblue"><b>${data.title}</b></font></a>`;
 				var data4 = document.createElement('td');
 				data4.innerHTML = data.description;
+				data4.className = "cm-node-desc"
 				var data5 = document.createElement('td');
 				data5.style.textAlign = "center";
 
 				var installBtn = document.createElement('button');
+				installBtn.className = "cm-btn-install";
 				var installBtn2 = null;
 				var installBtn3 = null;
 
@@ -623,6 +627,7 @@ class CustomNodesInstaller extends ComfyDialog {
 				case 'Disabled':
 					installBtn3 = document.createElement('button');
 					installBtn3.innerHTML = 'Enable';
+					installBtn3.className = "cm-btn-enable";
 					installBtn3.style.backgroundColor = 'blue';
 					installBtn3.style.color = 'white';
 					this.install_buttons.push(installBtn3);
@@ -633,12 +638,14 @@ class CustomNodesInstaller extends ComfyDialog {
 				case 'Update':
 					installBtn2 = document.createElement('button');
 					installBtn2.innerHTML = 'Update';
+					installBtn2.className = "cm-btn-update";
 					installBtn2.style.backgroundColor = 'blue';
 					installBtn2.style.color = 'white';
 					this.install_buttons.push(installBtn2);
 
 					installBtn3 = document.createElement('button');
 					installBtn3.innerHTML = 'Disable';
+					installBtn3.className = "cm-btn-disable";
 					installBtn3.style.backgroundColor = 'MediumSlateBlue';
 					installBtn3.style.color = 'white';
 					this.install_buttons.push(installBtn3);
@@ -649,6 +656,7 @@ class CustomNodesInstaller extends ComfyDialog {
 				case 'True':
 					installBtn3 = document.createElement('button');
 					installBtn3.innerHTML = 'Disable';
+					installBtn3.className = "cm-btn-disable";
 					installBtn3.style.backgroundColor = 'MediumSlateBlue';
 					installBtn3.style.color = 'white';
 					this.install_buttons.push(installBtn3);
@@ -1550,11 +1558,14 @@ class ModelInstaller extends ComfyDialog {
 				var data3 = document.createElement('td');
 				data3.innerHTML = `&nbsp;${data.base}`;
 				var data4 = document.createElement('td');
+				data4.className = "cm-node-name";
 				data4.innerHTML = `&nbsp;<a href=${data.reference} target="_blank"><font color="skyblue"><b>${data.name}</b></font></a>`;
 				var data5 = document.createElement('td');
+				data5.className = "cm-node-filename";
 				data5.innerHTML = `&nbsp;${data.filename}`;
 				data5.style.wordBreak = "break-all";
 				var data6 = document.createElement('td');
+				data6.className = "cm-node-desc";
 				data6.innerHTML = data.description;
 				data6.style.wordBreak = "break-all";
 				var data_install = document.createElement('td');
