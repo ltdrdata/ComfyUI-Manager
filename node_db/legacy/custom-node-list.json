@@ -1,0 +1,83 @@
+{
+    {
+        "author": "asd417",
+        "title": "CheckpointTomeLoader",
+        "reference": "https://github.com/asd417/tomeSD_for_Comfy",
+        "files": [
+            "https://github.com/ltdrdata/ComfyUI-tomeSD-installer"
+        ],
+        "install_type": "git-clone",
+        "description": "tomeSD(https://github.com/dbolya/tomesd) applied to ComfyUI stable diffusion UI using custom node. <B>Note:In vanilla ComfyUI, the TomePatchModel node is provided as a built-in feature.</B>"
+    },
+    {
+        "author": "gamert",
+        "title": "ComfyUI_tagger",
+        "reference": "https://github.com/gamert/ComfyUI_tagger",
+        "pip": ["gradio"],
+        "files": [
+            "https://github.com/gamert/ComfyUI_tagger"
+        ],
+        "install_type": "git-clone",
+        "description": "Nodes: CLIPTextEncodeTaggerDD, ImageTaggerDD. <p style='background-color: black; color: red;'>WARNING: Installing the current version is causing an issue where ComfyUI fails to start.</p>"
+    },
+    {
+        "author": "Fannovel16",
+        "title": "ControlNet Preprocessors",
+        "reference": "https://github.com/Fannovel16/comfy_controlnet_preprocessors",
+        "files": [
+            "https://github.com/Fannovel16/comfy_controlnet_preprocessors"
+        ],
+        "install_type": "git-clone",
+        "description": "ControlNet Preprocessors. (To use this extension, you need to download the required model file from <B>Install Models</B>)<BR> <p style='background-color: black; color: red;'>NOTE: To use nodes belonging to <B>controlnet v1</b> such as <B>Canny_Edge_Preprocessor, MIDAS_Depth_Map_Preprocessor, Uniformer_SemSegPreprocessor, etc.</B>, you need to copy the <font color='white'>config.yaml.example</font> file to <font color='white'>config.yaml</font> and change <font color='white'>skip_v1: True</font> to <font color='white'>skip_v1: False</font>.</p>"
+    },
+    {
+        "author": "comfyanonymous",
+        "title": "ComfyUI_experiments/sampler_tonemap",
+        "reference": "https://github.com/comfyanonymous/ComfyUI_experiments",
+        "files": [
+            "https://github.com/comfyanonymous/ComfyUI_experiments/raw/master/sampler_tonemap.py"
+        ],
+        "install_type": "copy",
+        "description": "ModelSamplerTonemapNoiseTest a node that makes the sampler use a simple tonemapping algorithm to tonemap the noise. It will let you use higher CFG without breaking the image. To using higher CFG lower the multiplier value. Similar to Dynamic Thresholding extension of A1111. "
+    },
+    {
+        "author": "comfyanonymous",
+        "title": "ComfyUI_experiments/sampler_rescalecfg",
+        "reference": "https://github.com/comfyanonymous/ComfyUI_experiments",
+        "files": [
+            "https://github.com/comfyanonymous/ComfyUI_experiments/raw/master/sampler_rescalecfg.py"
+        ],
+        "install_type": "copy",
+        "description": "RescaleClassifierFreeGuidance improves the problem of images being degraded by high CFG.To using higher CFG lower the multiplier value. Similar to Dynamic Thresholding extension of A1111. (<a href='https://arxiv.org/abs/2305.08891'/>reference paper</a>)<p style='background-color: black; color: red;'>It is recommended to use the integrated custom nodes in the default channel for update support rather than installing individual nodes.</p>"
+    },
+    {
+        "author": "comfyanonymous",
+        "title": "ComfyUI_experiments/advanced_model_merging",
+        "reference": "https://github.com/comfyanonymous/ComfyUI_experiments",
+        "files": [
+            "https://github.com/comfyanonymous/ComfyUI_experiments/raw/master/advanced_model_merging.py"
+        ],
+        "install_type": "copy",
+        "description": "This provides a detailed model merge feature based on block weight. ModelMergeBlock, in vanilla ComfyUI, allows for adjusting the ratios of input/middle/output layers, but this node provides ratio adjustments for all blocks within each layer.<p style='background-color: black; color: red;'>It is recommended to use the integrated custom nodes in the default channel for update support rather than installing individual nodes.</p>"
+    },
+    {
+        "author": "comfyanonymous",
+        "title": "ComfyUI_experiments/sdxl_model_merging",
+        "reference": "https://github.com/comfyanonymous/ComfyUI_experiments",
+        "files": [
+            "https://github.com/comfyanonymous/ComfyUI_experiments/raw/master/sdxl_model_merging.py"
+        ],
+        "install_type": "copy",
+        "description": "These nodes provide the capability to merge SDXL base models.<p style='background-color: black; color: red;'>It is recommended to use the integrated custom nodes in the default channel for update support rather than installing individual nodes.</p>"
+    },
+    {
+        "author": "comfyanonymous",
+        "title": "ComfyUI_experiments/reference_only",
+        "reference": "https://github.com/comfyanonymous/ComfyUI_experiments",
+        "files": [
+            "https://github.com/comfyanonymous/ComfyUI_experiments/raw/master/reference_only.py"
+        ],
+        "install_type": "copy",
+        "description": "This node provides functionality corresponding to Reference only in Controlnet.<p style='background-color: black; color: red;'>It is recommended to use the integrated custom nodes in the default channel for update support rather than installing individual nodes.</p>"
+    }
+}
