@@ -20,12 +20,12 @@ def scan_in_file(filename):
     nodes = set()
     class_dict = {}
 
-    pattern2 = r'_CLASS_MAPPINGS\["(.*?)"\]'
+    pattern2 = r'^[^=]*_CLASS_MAPPINGS\["(.*?)"\]'
     keys = re.findall(pattern2, code)
     for key in keys:
         nodes.add(key.strip())
 
-    pattern3 = r'_CLASS_MAPPINGS\[\'(.*?)\'\]'
+    pattern3 = r'^[^=]*_CLASS_MAPPINGS\[\'(.*?)\'\]'
     keys = re.findall(pattern3, code)
     for key in keys:
         nodes.add(key.strip())
@@ -147,7 +147,7 @@ def clone_or_pull_git_repository(git_url):
             print(f"Pulling {repo_name} failed: {e}")
     else:
         try:
-            repo = Repo.clone_from(git_url, repo_dir, recursive=True)
+            Repo.clone_from(git_url, repo_dir, recursive=True)
             print(f"Cloning {repo_name}...")
         except Exception as e:
             print(f"Cloning {repo_name} failed: {e}")
