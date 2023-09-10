@@ -1682,16 +1682,6 @@
             "description": "Implements iteration over sequences within a single workflow run. <p style='background-color: black; color: red;'>NOTE: This node replaces the execution of ComfyUI for iterative processing functionality.</p>"
         },
         {
-            "author": "Clybius",
-            "title": "ComfyUI-Latent-Modifiers",
-            "reference": "https://github.com/Clybius/ComfyUI-Latent-Modifiers",
-            "files": [
-                "https://github.com/Clybius/ComfyUI-Latent-Modifiers"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: Latent Diffusion Mega Modifier. ComfyUI nodes which modify the latent during the diffusion process. (Sharpness, Tonemap, Rescale, Extra Noise)"
-        },
-        {
             "author": "taabata",
             "title": "Syrian Falcon Nodes",
             "reference": "https://github.com/taabata/Comfy_Syrian_Falcon_Nodes",
@@ -1898,6 +1888,16 @@
             ],
             "install_type": "copy",
             "description": "Nodes:LatentGarbageCollector. This ComfyUI custom node flushes the GPU cache and empty cuda interprocess memory. It's helpfull for low memory environment such as the free Google Colab, especially when the workflow VAE decode latents of the size above 1500x1500."
+        },
+        {
+            "author": "Clybius",
+            "title": "ComfyUI-Latent-Modifiers",
+            "reference": "https://github.com/Clybius/ComfyUI-Latent-Modifiers",
+            "files": [
+                "https://github.com/Clybius/ComfyUI-Latent-Modifiers/raw/main/sampler_mega_modifier.py"
+            ],
+            "install_type": "copy",
+            "description": "Nodes: Latent Diffusion Mega Modifier. ComfyUI nodes which modify the latent during the diffusion process. (Sharpness, Tonemap, Rescale, Extra Noise)"
         },
         {
             "author": "theally",
