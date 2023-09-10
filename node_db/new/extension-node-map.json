@@ -757,8 +757,7 @@
     ],
     "https://github.com/RockOfFire/CR_Animation_Nodes": [
         [
-            "CR Animation Stack",
-            "CR Animation Stack Keyframes",
+            "CR Central Schedule",
             "CR Current Frame",
             "CR Cycle Images",
             "CR Cycle Images Simple",
@@ -767,7 +766,6 @@
             "CR Cycle Text",
             "CR Cycle Text Simple",
             "CR Debatch Frames",
-            "CR Encode Scheduled Prompts",
             "CR Encode Scheduled Prompts SD1.5",
             "CR Gradient Float",
             "CR Gradient Integer",
@@ -778,24 +776,32 @@
             "CR Index Increment",
             "CR Index Multiply",
             "CR Index Reset",
+            "CR Input Text List",
             "CR Interpolate Latents",
             "CR Keyframe List",
             "CR LoRA List",
             "CR Load Animation Frames",
+            "CR Load Scheduled LoRAs",
+            "CR Load Scheduled Models",
             "CR Model List",
-            "CR Multiline Text",
+            "CR Output Schedule To File",
             "CR Prompt List",
             "CR Prompt List Keyframes",
             "CR Prompt Text",
-            "CR Schedule Prompts",
+            "CR Schedule Input Switch",
             "CR Schedule Prompts SD1.5",
             "CR Schedule Prompts SDXL",
+            "CR Simple Prompt List",
+            "CR Simple Prompt List Keyframes",
+            "CR Simple Schedule",
             "CR Simple Text Scheduler",
             "CR Simple Value Scheduler",
             "CR String To Combo",
             "CR Text List",
             "CR Text List Simple",
-            "CR Text List To String"
+            "CR Text List To String",
+            "CR Text Scheduler",
+            "CR Value Scheduler"
         ],
         {
             "title_aux": "CR Animation Nodes"
@@ -1483,10 +1489,12 @@
     ],
     "https://github.com/bmad4ever/ComfyUI-Bmad-Custom-Nodes": [
         [
+            "AdaptiveThresholding",
             "Add String To Many",
             "AdjustRect",
             "AnyToAny",
             "BoundingRect (contours)",
+            "CLAHE",
             "CLIPEncodeMultiple",
             "CLIPEncodeMultipleAdvanced",
             "ChameleonMask",
@@ -1506,6 +1514,7 @@
             "ControlNetHadamard (manual)",
             "CreateRequestMetadata",
             "Draw Contour(s)",
+            "EqualizeHistogram",
             "Filter Contour",
             "FlatLatentsIntoSingleGrid",
             "Framed Mask Grab Cut",
@@ -1521,7 +1530,7 @@
             "MaskGrid N KSamplers Advanced",
             "Merge Latent Batch Gridwise",
             "MonoMerge",
-            "Otsu",
+            "OtsuThreshold",
             "Rect Grab Cut",
             "Repeat Into Grid (image)",
             "Repeat Into Grid (latent)",
@@ -2201,6 +2210,7 @@
             "LoadPromptsFromDir //Inspire",
             "LoraBlockInfo //Inspire",
             "LoraLoaderBlockWeight //Inspire",
+            "MediaPipeFaceMeshDetectorProvider //Inspire",
             "MiDaS_DepthMap_Preprocessor_Provider_for_SEGS //Inspire",
             "OpenPose_Preprocessor_Provider_for_SEGS //Inspire",
             "PromptExtractor //Inspire",
@@ -2436,8 +2446,12 @@
         [
             "AdaptiveCannyDetector_PoP",
             "AnyAspectRatio",
+            "ConditioningMultiplierPoP",
+            "ConditioningNormalizerPoP",
             "LoraStackLoader10_PoP",
-            "LoraStackLoader_PoP"
+            "LoraStackLoader_PoP",
+            "VAEDecoderPoP",
+            "VAEEncoderPoP"
         ],
         {
             "title_aux": "comfy_PoP"
