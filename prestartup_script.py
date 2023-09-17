@@ -4,6 +4,7 @@ import subprocess
 import sys
 import atexit
 import threading
+import re
 
 # Logger setup
 if os.path.exists("comfyui.log"):
@@ -14,6 +15,7 @@ if os.path.exists("comfyui.log"):
 original_stdout = sys.stdout
 original_stderr = sys.stderr
 
+tqdm = r'\d+%.*\[(.*?)\]'
 
 class Logger:
     def __init__(self, filename):
@@ -22,8 +24,16 @@ class Logger:
     def write(self, message):
         self.file.write(message)
         self.file.flush()
-        original_stdout.write(message)
-        original_stdout.flush()
+
+        match = re.search(tqdm, message)
+        if match:
+            message = re.sub(r'([#|])\d', r'\1▌', message)
+            message = re.sub('#', '█', message)
+            original_stderr.write(message)
+            original_stderr.flush()
+        else:
+            original_stdout.write(message)
+            original_stdout.flush()
 
     def flush(self):
         self.file.flush()
