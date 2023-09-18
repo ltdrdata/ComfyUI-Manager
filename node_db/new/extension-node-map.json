@@ -43,7 +43,9 @@
         [
             "AnimateDiffCombine",
             "AnimateDiffModuleLoader",
-            "AnimateDiffSampler"
+            "AnimateDiffSampler",
+            "ImageSizeAndBatchSize",
+            "LoadVideo"
         ],
         {
             "title_aux": "AnimateDiff"
@@ -511,12 +513,12 @@
     ],
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet": [
         [
-            "ControlNetApplyPartialBatch",
             "ControlNetLoaderAdvanced",
             "CustomControlNetWeights",
             "CustomT2IAdapterWeights",
             "DiffControlNetLoaderAdvanced",
             "LatentKeyframe",
+            "LatentKeyframeGroup",
             "LoadImagesFromDirectory",
             "ScaledSoftControlNetWeights",
             "SoftControlNetWeights",
@@ -1473,6 +1475,7 @@
             "Sine Curve [Dream]",
             "Smooth Event Curve [Dream]",
             "String Input [Dream]",
+            "String Tokenizer [Dream]",
             "String to Log Entry [Dream]",
             "Text Input [Dream]",
             "Triangle Curve [Dream]",
@@ -2788,7 +2791,9 @@
     ],
     "https://github.com/spacepxl/ComfyUI-HQ-Image-Save": [
         [
+            "LoadLatentEXR",
             "SaveEXR",
+            "SaveLatentEXR",
             "SaveTiff"
         ],
         {
@@ -2971,15 +2976,17 @@
     ],
     "https://github.com/tusharbhutt/Endless-Nodes": [
         [
+            "Endless Nodes Parameteriizer",
+            "Endless Nodes Parameterizer & Prompts",
             "Endless Nodes Six Input Text Switch",
             "Endless Nodes Six Integer IO Switch",
             "Endless Nodes Six Integer IO Widget"
         ],
         {
             "author": "Endless Sea of Stars",
-            "description": "Six Int Inputs and Output",
-            "nickname": "Endless",
-            "title": "Endless-SixIntIO",
+            "description": "A small set of nodes I created for various numerical and text inputs.",
+            "nickname": "Endless Nodes",
+            "title": "Endless Nodes",
             "title_aux": "Endless Nodes"
         }
     ],
