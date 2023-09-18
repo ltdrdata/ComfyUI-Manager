@@ -345,6 +345,9 @@
             "DWPreprocessor",
             "FakeScribblePreprocessor",
             "HEDPreprocessor",
+            "HintImageEnchance",
+            "ImageGenResolutionFromImage",
+            "ImageGenResolutionFromLatent",
             "InpaintPreprocessor",
             "LeReS-DepthMapPreprocessor",
             "LineArtPreprocessor",
@@ -357,6 +360,8 @@
             "OneFormer-COCO-SemSegPreprocessor",
             "OpenposePreprocessor",
             "PiDiNetPreprocessor",
+            "PixelPerfectResolution",
+            "RaftOpticalFlowPreprocessor",
             "SAMPreprocessor",
             "ScribblePreprocessor",
             "Scribble_XDoG_Preprocessor",
@@ -791,6 +796,7 @@
     "https://github.com/RockOfFire/CR_Animation_Nodes": [
         [
             "CR Central Schedule",
+            "CR Combine Schedules",
             "CR Current Frame",
             "CR Cycle Images",
             "CR Cycle Images Simple",
@@ -813,15 +819,17 @@
             "CR Keyframe List",
             "CR LoRA List",
             "CR Load Animation Frames",
+            "CR Load Schedule From File",
+            "CR Load Scheduled ControlNets",
             "CR Load Scheduled LoRAs",
             "CR Load Scheduled Models",
             "CR Model List",
-            "CR Output Schedule List",
             "CR Output Schedule To File",
             "CR Prompt List",
             "CR Prompt List Keyframes",
             "CR Prompt Text",
             "CR Schedule Input Switch",
+            "CR Schedule To ScheduleList",
             "CR Simple Prompt List",
             "CR Simple Prompt List Keyframes",
             "CR Simple Schedule",
@@ -1034,7 +1042,8 @@
     ],
     "https://github.com/TRI3D-LC/tri3d-comfyui-nodes": [
         [
-            "tri3d-extract-hand"
+            "tri3d-extract-hand",
+            "tri3d-fuzzification"
         ],
         {
             "title_aux": "tri3d-comfyui-nodes"
@@ -1602,6 +1611,7 @@
             "CreateRequestMetadata",
             "Draw Contour(s)",
             "EqualizeHistogram",
+            "EstimateColorInterval (hsv)",
             "Filter Contour",
             "FindComplementaryColor",
             "FindThreshold",
@@ -1612,8 +1622,10 @@
             "Get Models",
             "Get Prompt",
             "HypernetworkLoader (dirty)",
+            "InRange (hsv)",
             "Inpaint",
             "Input/String to Int Array",
+            "KMeansColor",
             "Load 64 Encoded Image",
             "LoraLoader (dirty)",
             "MaskGrid N KSamplers Advanced",
@@ -1622,6 +1634,7 @@
             "MorphologicOperation",
             "MorphologicSkeletoning",
             "OtsuThreshold",
+            "RGB to HSV",
             "Rect Grab Cut",
             "Repeat Into Grid (image)",
             "Repeat Into Grid (latent)",
@@ -2964,9 +2977,9 @@
         ],
         {
             "author": "Endless Sea of Stars",
-            "description": "A small set of nodes I created for various numerical and text inputs.",
-            "nickname": "Endless Nodes",
-            "title": "Endless Nodes",
+            "description": "Six Int Inputs and Output",
+            "nickname": "Endless",
+            "title": "Endless-SixIntIO",
             "title_aux": "Endless Nodes"
         }
     ],
