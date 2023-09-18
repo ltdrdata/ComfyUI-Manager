@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.27)")
+print("### Loading: ComfyUI-Manager (V0.28)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -236,9 +236,11 @@ print_comfyui_version()
 
 
 # use subprocess to avoid file system lock by git (Windows)
-def __win_check_git_update(path, do_fetch=False):
+def __win_check_git_update(path, do_fetch=False, do_update=False):
     if do_fetch:
         command = [sys.executable, git_script_path, "--fetch", path]
+    elif do_update:
+        command = [sys.executable, git_script_path, "--pull", path]
     else:
         command = [sys.executable, git_script_path, "--check", path]
 
@@ -260,13 +262,18 @@ def __win_check_git_pull(path):
     process.wait()
 
 
-def git_repo_has_updates(path, do_fetch=False):
+def git_repo_has_updates(path, do_fetch=False, do_update=False):
+    if do_fetch:
+        print(f"\rFetching: {path}", end='')
+    elif do_update:
+        print(f"\rUpdating: {path}", end='')
+
     # Check if the path is a git repository
     if not os.path.exists(os.path.join(path, '.git')):
         raise ValueError('Not a git repository')
 
     if platform.system() == "Windows":
-        return __win_check_git_update(path, do_fetch)
+        return __win_check_git_update(path, do_fetch, do_update)
     else:
         # Fetch the latest commits from the remote repository
         repo = git.Repo(path)
@@ -279,6 +286,12 @@ def git_repo_has_updates(path, do_fetch=False):
 
         if do_fetch:
             remote.fetch()
+        elif do_update:
+            try:
+                remote.pull(rebase=True)
+                repo.git.submodule('update', '--init', '--recursive')
+            except Exception as e:
+                print(f"Updating failed: '{path}'\n{e}")
 
         # Get the current commit hash and the commit hash of the remote branch
         commit_hash = repo.head.commit.hexsha
@@ -408,7 +421,7 @@ def get_model_path(data):
     return os.path.join(base_model, data['filename'])
 
 
-def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True):
+def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do_update=False):
     item['installed'] = 'None'
 
     if item['install_type'] == 'git-clone' and len(item['files']) == 1:
@@ -416,7 +429,7 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True):
         dir_path = os.path.join(custom_nodes_path, dir_name)
         if os.path.exists(dir_path):
             try:
-                if do_update_check and git_repo_has_updates(dir_path, do_fetch):
+                if do_update_check and git_repo_has_updates(dir_path, do_fetch, do_update):
                     item['installed'] = 'Update'
                 else:
                     item['installed'] = 'True'
@@ -448,9 +461,23 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True):
             item['installed'] = 'False'
 
 
-def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True):
+def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True, do_update=False):
+    if do_fetch:
+        print("Start fetching...")
+    elif do_update:
+        print("Start updating...")
+    elif do_update_check:
+        print("Start update check...")
+
     for item in json_obj['custom_nodes']:
-        check_a_custom_node_installed(item, do_fetch, do_update_check)
+        check_a_custom_node_installed(item, do_fetch, do_update_check, do_update)
+
+    if do_fetch:
+        print("\nFetch done.")
+    elif do_update:
+        print("\nUpdate done.")
+    elif do_update_check:
+        print("Update check done...")
 
 
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
@@ -481,6 +508,22 @@ async def fetch_updates(request):
 
         if update_exists:
             return web.Response(status=201)
+
+        return web.Response(status=200)
+    except:
+        return web.Response(status=400)
+
+
+@server.PromptServer.instance.routes.get("/customnode/update_all")
+async def update_all(request):
+    try:
+        if request.rel_url.query["mode"] == "local":
+            uri = local_db_custom_node_list
+        else:
+            uri = get_config()['channel_url'] + '/custom-node-list.json'
+
+        json_obj = await get_data(uri)
+        check_custom_nodes_installed(json_obj, do_update=True)
 
         return web.Response(status=200)
     except:
