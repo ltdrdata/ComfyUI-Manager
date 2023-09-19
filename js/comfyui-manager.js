@@ -265,9 +265,15 @@ async function updateAll(update_check_checkbox) {
 			app.ui.dialog.element.style.zIndex = 9999;
 			return false;
 		}
-
-        app.ui.dialog.show('ComfyUI and all extensions have been updated to the latest version.');
-        app.ui.dialog.element.style.zIndex = 9999;
+		if(response1.status == 201 || response2.status == 201) {
+	        app.ui.dialog.show('ComfyUI and all extensions have been updated to the latest version.');
+			app.ui.dialog.element.style.zIndex = 9999;
+			update_check_checkbox.checked = false;
+		}
+		else {
+			app.ui.dialog.show('ComfyUI and all extensions are already up-to-date with the latest versions.');
+	        app.ui.dialog.element.style.zIndex = 9999;
+        }
 
 		return true;
 	}

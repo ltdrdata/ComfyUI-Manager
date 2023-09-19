@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.28.7)")
+print("### Loading: ComfyUI-Manager (V0.28.8)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -500,9 +500,14 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
     if do_fetch:
         print(f"\x1b[2K\rFetching done.")
     elif do_update:
-        print(f"\x1b[2K\rUpdate done.")
+        update_exists = any(item['installed'] == 'Update' for item in json_obj['custom_nodes'])
+        if update_exists:
+            print(f"\x1b[2K\rUpdate done.")
+        else:
+            print(f"\x1b[2K\rAll extensions are already up-to-date.")
     elif do_update_check:
         print(f"\x1b[2K\rUpdate check done.")
+
 
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
 async def fetch_customnode_mappings(request):
@@ -548,6 +553,11 @@ async def update_all(request):
 
         json_obj = await get_data(uri)
         check_custom_nodes_installed(json_obj, do_update=True)
+
+        update_exists = any(item['installed'] == 'Update' for item in json_obj['custom_nodes'])
+
+        if update_exists:
+            return web.Response(status=201)
 
         return web.Response(status=200)
     except:
