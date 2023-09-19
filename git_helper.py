@@ -50,11 +50,17 @@ def gitpull(path):
     if repo.is_dirty():
         repo.git.stash()
 
+    commit_hash = repo.head.commit.hexsha
     try:
         origin = repo.remote(name='origin')
         origin.pull(rebase=True)
         repo.git.submodule('update', '--init', '--recursive')
-        print("CUSTOM NODE PULL: True")
+        new_commit_hash = repo.head.commit.hexsha
+
+        if commit_hash != new_commit_hash:
+            print("CUSTOM NODE PULL: True")
+        else:
+            print("CUSTOM NODE PULL: None")
     except Exception as e:
         print(e)
         print("CUSTOM NODE PULL: False")

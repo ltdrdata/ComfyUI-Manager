@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.28.1)")
+print("### Loading: ComfyUI-Manager (V0.28.2)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -251,6 +251,10 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
     if do_update:
         if "CUSTOM NODE PULL: True" in output:
             process.wait()
+            print(f"\rUpdated: '{path}'")
+            return True
+        elif "CUSTOM NODE PULL: None" in output:
+            process.wait()
             return True
         else:
             print(f"{output}")
@@ -294,17 +298,25 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
         remote_name = 'origin'
         remote = repo.remote(name=remote_name)
 
-        if do_fetch:
+        # Get the current commit hash
+        commit_hash = repo.head.commit.hexsha
+
+        if do_fetch or do_update:
             remote.fetch()
-        elif do_update:
+
+        if do_update:
             try:
                 remote.pull(rebase=True)
                 repo.git.submodule('update', '--init', '--recursive')
+                new_commit_hash = repo.head.commit.hexsha
+
+                if commit_hash != new_commit_hash:
+                    print(f"\rUpdated: '{path}'")
+
             except Exception as e:
                 print(f"Updating failed: '{path}'\n{e}")
 
-        # Get the current commit hash and the commit hash of the remote branch
-        commit_hash = repo.head.commit.hexsha
+        # Get commit hash of the remote branch
         remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
 
         # Compare the commit hashes to determine if the local repository is behind the remote repository
