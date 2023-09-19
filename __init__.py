@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.28.6)")
+print("### Loading: ComfyUI-Manager (V0.28.7)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -498,12 +498,11 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
         check_a_custom_node_installed(item, do_fetch, do_update_check, do_update)
 
     if do_fetch:
-        print("\nFetch done.")
+        print(f"\x1b[2K\rFetching done.")
     elif do_update:
-        print("\nUpdate done.")
+        print(f"\x1b[2K\rUpdate done.")
     elif do_update_check:
-        print("Update check done...")
-
+        print(f"\x1b[2K\rUpdate check done.")
 
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
 async def fetch_customnode_mappings(request):
