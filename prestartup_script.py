@@ -6,52 +6,79 @@ import atexit
 import threading
 import re
 
-# Logger setup
-if os.path.exists("comfyui.log"):
-    if os.path.exists("comfyui.prev.log"):
-       os.remove("comfyui.prev.log")
-    os.rename("comfyui.log", "comfyui.prev.log")
+try:
+    # Logger setup
+    if os.path.exists("comfyui.log"):
+        if os.path.exists("comfyui.prev.log"):
+            if os.path.exists("comfyui.prev2.log"):
+                os.remove("comfyui.prev2.log")
+            os.rename("comfyui.prev.log", "comfyui.prev2.log")
+        os.rename("comfyui.log", "comfyui.prev.log")
 
-original_stdout = sys.stdout
-original_stderr = sys.stderr
+    original_stdout = sys.stdout
+    original_stderr = sys.stderr
 
-tqdm = r'\d+%.*\[(.*?)\]'
+    tqdm = r'\d+%.*\[(.*?)\]'
 
-class Logger:
-    def __init__(self, filename):
-        self.file = open(filename, "w", encoding="utf-8")
+    log_file = open("comfyui.log", "w", encoding="utf-8")
+    log_lock = threading.Lock()
 
-    def write(self, message):
-        self.file.write(message)
-        self.file.flush()
+    class Logger:
+        def __init__(self, is_stdout):
+            self.is_stdout = is_stdout
 
-        match = re.search(tqdm, message)
-        if match:
-            message = re.sub(r'([#|])\d', r'\1▌', message)
-            message = re.sub('#', '█', message)
-            original_stderr.write(message)
-            original_stderr.flush()
-        else:
-            original_stdout.write(message)
-            original_stdout.flush()
+        def write(self, message):
+            if not self.is_stdout:
+                match = re.search(tqdm, message)
+                if match:
+                    message = re.sub(r'([#|])\d', r'\1▌', message)
+                    message = re.sub('#', '█', message)
+                    if '100%' in message:
+                        self.sync_write(message)
+                    else:
+                        original_stderr.write(message)
+                        original_stderr.flush()
+                else:
+                    self.sync_write(message)
+            else:
+                self.sync_write(message)
 
-    def flush(self):
-        self.file.flush()
-        original_stdout.flush()
+        def sync_write(self, message):
+            with log_lock:
+                log_file.write(message)
+                log_file.flush()
 
-    def close_file(self):
-        self.file.close()
+            if self.is_stdout:
+                original_stdout.write(message)
+                original_stdout.flush()
+            else:
+                original_stderr.write(message)
+                original_stderr.flush()
+
+        def flush(self):
+            log_file.flush()
+            if self.is_stdout:
+                original_stdout.flush()
+            else:
+                original_stderr.flush()
 
 
-def handle_stream(stream, prefix):
-    for line in stream:
-        print(prefix, line, end="")
+    def handle_stream(stream, prefix):
+        for line in stream:
+            print(prefix, line, end="")
 
 
-sys.stdout = Logger("comfyui.log")
-sys.stderr = sys.stdout
+    def close_log():
+        log_file.close()
 
-atexit.register(sys.stdout.close_file)
+
+    sys.stdout = Logger(True)
+    sys.stderr = Logger(False)
+
+    atexit.register(close_log)
+except Exception as e:
+    print(f"[ComfyUI-Manager] Logging failed: {e}")
+
 
 print("** ComfyUI start up time:", datetime.datetime.now())
 

@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.28.9)")
+print("### Loading: ComfyUI-Manager (V0.29)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -320,7 +320,7 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
                     return False
 
             except Exception as e:
-                print(f"Updating failed: {path}\n{e}")
+                print(f"\nUpdating failed: {path}\n{e}", file=sys.stderr)
 
         # Get commit hash of the remote branch
         remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
@@ -491,11 +491,11 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
 
 def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True, do_update=False):
     if do_fetch:
-        print("Start fetching...")
+        print("Start fetching...", end="")
     elif do_update:
-        print("Start updating...")
+        print("Start updating...", end="")
     elif do_update_check:
-        print("Start update check...")
+        print("Start update check...", end="")
 
     for item in json_obj['custom_nodes']:
         check_a_custom_node_installed(item, do_fetch, do_update_check, do_update)
@@ -662,7 +662,7 @@ def unzip_install(files):
 
             os.remove(temp_filename)
         except Exception as e:
-            print(f"Install(unzip) error: {url} / {e}")
+            print(f"Install(unzip) error: {url} / {e}", file=sys.stderr)
             return False
 
     print("Installation was successful.")
@@ -685,7 +685,7 @@ def download_url_with_agent(url, save_path):
             f.write(data)
 
     except Exception as e:
-        print(f"Download error: {url} / {e}")
+        print(f"Download error: {url} / {e}", file=sys.stderr)
         return False
 
     print("Installation was successful.")
@@ -704,7 +704,7 @@ def copy_install(files, js_path_name=None):
                 download_url(url, path)
 
         except Exception as e:
-            print(f"Install(copy) error: {url} / {e}")
+            print(f"Install(copy) error: {url} / {e}", file=sys.stderr)
             return False
 
     print("Installation was successful.")
@@ -723,7 +723,7 @@ def copy_uninstall(files, js_path_name='.'):
             elif os.path.exists(file_path + ".disabled"):
                 os.remove(file_path + ".disabled")
         except Exception as e:
-            print(f"Uninstall(copy) error: {url} / {e}")
+            print(f"Uninstall(copy) error: {url} / {e}", file=sys.stderr)
             return False
 
     print("Uninstallation was successful.")
@@ -752,7 +752,7 @@ def copy_set_active(files, is_disable, js_path_name='.'):
             os.rename(current_name, new_name)
 
         except Exception as e:
-            print(f"{action_name}(copy) error: {url} / {e}")
+            print(f"{action_name}(copy) error: {url} / {e}", file=sys.stderr)
 
             return False
 
@@ -802,7 +802,7 @@ def gitclone_install(files):
                 return False
 
         except Exception as e:
-            print(f"Install(git-clone) error: {url} / {e}")
+            print(f"Install(git-clone) error: {url} / {e}", file=sys.stderr)
             return False
 
     print("Installation was successful.")
@@ -871,7 +871,7 @@ def gitclone_uninstall(files):
             elif os.path.exists(dir_path + ".disabled"):
                 rmtree(dir_path + ".disabled")
         except Exception as e:
-            print(f"Uninstall(git-clone) error: {url} / {e}")
+            print(f"Uninstall(git-clone) error: {url} / {e}", file=sys.stderr)
             return False
 
     print("Uninstallation was successful.")
@@ -916,7 +916,7 @@ def gitclone_set_active(files, is_disable):
                     try_install_script(url, new_path, enable_script)
 
         except Exception as e:
-            print(f"{action_name}(git-clone) error: {url} / {e}")
+            print(f"{action_name}(git-clone) error: {url} / {e}", file=sys.stderr)
             return False
 
     print(f"{action_name} was successful.")
@@ -937,7 +937,7 @@ def gitclone_update(files):
                 return False
 
         except Exception as e:
-            print(f"Update(git-clone) error: {url} / {e}")
+            print(f"Update(git-clone) error: {url} / {e}", file=sys.stderr)
             return False
 
     print("Update was successful.")
@@ -1054,7 +1054,7 @@ async def install_custom_node(request):
         else:
             return web.Response(status=200)
     except Exception as e:
-        print(f"ComfyUI update fail: {e}")
+        print(f"ComfyUI update fail: {e}", file=sys.stderr)
         pass
 
     return web.Response(status=400)
@@ -1106,7 +1106,7 @@ async def install_model(request):
         if res:
             return web.json_response({}, content_type='application/json')
     except Exception as e:
-        print(f"[ERROR] {e}")
+        print(f"[ERROR] {e}", file=sys.stderr)
         pass
 
     return web.Response(status=400)
