@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.28.2)")
+print("### Loading: ComfyUI-Manager (V0.28.3)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -251,21 +251,24 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
     if do_update:
         if "CUSTOM NODE PULL: True" in output:
             process.wait()
-            print(f"\rUpdated: '{path}'")
+            print(f"\rUpdated: {path}")
             return True
         elif "CUSTOM NODE PULL: None" in output:
             process.wait()
             return True
         else:
-            print(f"{output}")
+            print(f"\rUpdate error: {path}")
             process.wait()
             return False
     else:
         if "CUSTOM NODE CHECK: True" in output:
             process.wait()
             return True
+        elif "CUSTOM NODE CHECK: False" in output:
+            process.wait()
+            return False
         else:
-            print(f"{output}")
+            print(f"\rFetch error: {path}")
             process.wait()
             return False
 
@@ -278,9 +281,9 @@ def __win_check_git_pull(path):
 
 def git_repo_has_updates(path, do_fetch=False, do_update=False):
     if do_fetch:
-        print(f"\rFetching: {path}", end='')
+        print(f"\x1b[2K\rFetching: {path}", end='')
     elif do_update:
-        print(f"\rUpdating: {path}", end='')
+        print(f"\x1b[2K\rUpdating: {path}", end='')
 
     # Check if the path is a git repository
     if not os.path.exists(os.path.join(path, '.git')):
@@ -311,7 +314,7 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
                 new_commit_hash = repo.head.commit.hexsha
 
                 if commit_hash != new_commit_hash:
-                    print(f"\rUpdated: '{path}'")
+                    print(f"\x1b[2K\rUpdated: '{path}'")
 
             except Exception as e:
                 print(f"Updating failed: '{path}'\n{e}")

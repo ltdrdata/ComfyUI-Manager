@@ -12,33 +12,38 @@ def gitclone(custom_nodes_path, url):
     repo.close()
 
 def gitcheck(path, do_fetch=False):
-    # Fetch the latest commits from the remote repository
-    repo = git.Repo(path)
+    try:
+        # Fetch the latest commits from the remote repository
+        repo = git.Repo(path)
 
-    current_branch = repo.active_branch
-    branch_name = current_branch.name
+        current_branch = repo.active_branch
+        branch_name = current_branch.name
 
-    remote_name = 'origin'
-    remote = repo.remote(name=remote_name)
+        remote_name = 'origin'
+        remote = repo.remote(name=remote_name)
 
-    if do_fetch:
-        remote.fetch()
+        if do_fetch:
+            remote.fetch()
 
-    # Get the current commit hash and the commit hash of the remote branch
-    commit_hash = repo.head.commit.hexsha
-    remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+        # Get the current commit hash and the commit hash of the remote branch
+        commit_hash = repo.head.commit.hexsha
+        remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
 
-    # Compare the commit hashes to determine if the local repository is behind the remote repository
-    if commit_hash != remote_commit_hash:
-        # Get the commit dates
-        commit_date = repo.head.commit.committed_datetime
-        remote_commit_date = repo.refs[f'{remote_name}/{branch_name}'].object.committed_datetime
+        # Compare the commit hashes to determine if the local repository is behind the remote repository
+        if commit_hash != remote_commit_hash:
+            # Get the commit dates
+            commit_date = repo.head.commit.committed_datetime
+            remote_commit_date = repo.refs[f'{remote_name}/{branch_name}'].object.committed_datetime
 
-        # Compare the commit dates to determine if the local repository is behind the remote repository
-        if commit_date < remote_commit_date:
-            print("CUSTOM NODE CHECK: True")
-    else:
-        print("CUSTOM NODE CHECK: False")
+            # Compare the commit dates to determine if the local repository is behind the remote repository
+            if commit_date < remote_commit_date:
+                print("CUSTOM NODE CHECK: True")
+        else:
+            print("CUSTOM NODE CHECK: False")
+    except Exception as e:
+        print(e)
+        print("CUSTOM NODE CHECK: Error")
+
 
 def gitpull(path):
     # Check if the path is a git repository
