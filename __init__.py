@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.28.8)")
+print("### Loading: ComfyUI-Manager (V0.28.9)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -315,6 +315,9 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
 
                 if commit_hash != new_commit_hash:
                     print(f"\x1b[2K\rUpdated: {path}")
+                    return True
+                else:
+                    return False
 
             except Exception as e:
                 print(f"Updating failed: {path}\n{e}")
