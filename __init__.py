@@ -314,10 +314,10 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
                 new_commit_hash = repo.head.commit.hexsha
 
                 if commit_hash != new_commit_hash:
-                    print(f"\x1b[2K\rUpdated: '{path}'")
+                    print(f"\x1b[2K\rUpdated: {path}")
 
             except Exception as e:
-                print(f"Updating failed: '{path}'\n{e}")
+                print(f"Updating failed: {path}\n{e}")
 
         # Get commit hash of the remote branch
         remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
