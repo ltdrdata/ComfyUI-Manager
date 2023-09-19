@@ -215,7 +215,7 @@ async function fetchUpdates(update_check_checkbox) {
 
 		const response = await api.fetchApi(`/customnode/fetch_updates?mode=${mode}`);
 
-		if(response.status != 200 || response.status != 201) {
+		if(response.status != 200 && response.status != 201) {
 			app.ui.dialog.show('Failed to fetch updates.');
 			app.ui.dialog.element.style.zIndex = 9999;
 			return false;
