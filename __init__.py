@@ -248,12 +248,20 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
     output, _ = process.communicate()
     output = output.decode('utf-8').strip()
 
-    if "CUSTOM NODE CHECK: True" in output:
-        process.wait()
-        return True
+    if do_update:
+        if "CUSTOM NODE PULL: True" in output:
+            process.wait()
+            return True
+        else:
+            process.wait()
+            return False
     else:
-        process.wait()
-        return False
+        if "CUSTOM NODE CHECK: True" in output:
+            process.wait()
+            return True
+        else:
+            process.wait()
+            return False
 
 
 def __win_check_git_pull(path):

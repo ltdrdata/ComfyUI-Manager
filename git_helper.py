@@ -50,9 +50,13 @@ def gitpull(path):
     if repo.is_dirty():
         repo.git.stash()
 
-    origin = repo.remote(name='origin')
-    origin.pull(rebase=True)
-    repo.git.submodule('update', '--init', '--recursive')
+    try:
+        origin = repo.remote(name='origin')
+        origin.pull(rebase=True)
+        repo.git.submodule('update', '--init', '--recursive')
+        print("CUSTOM NODE PULL: True")
+    except Exception as e:
+        print("CUSTOM NODE PULL: False")
 
     repo.close()
 
