@@ -266,7 +266,7 @@ async function updateAll(update_check_checkbox) {
 			return false;
 		}
 
-        app.ui.dialog.show('ComfyUI and all extensions are already up-to-date with the latest versions.');
+        app.ui.dialog.show('ComfyUI and all extensions have been updated to the latest version.');
         app.ui.dialog.element.style.zIndex = 9999;
 
 		return true;
