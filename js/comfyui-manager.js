@@ -2002,7 +2002,7 @@ app.registerExtension({
         nodeType.prototype.onDrawForeground = function (ctx) {
             const r = onDrawForeground?.apply?.(this, arguments);
 
-            if(!this.flags.collapsed && badge_mode != 'none' && this.size[1] > LiteGraph.NODE_TITLE_HEIGHT) {
+            if(!this.flags.collapsed && badge_mode != 'none' && nodeType.title_mode != LiteGraph.NO_TITLE) {
                 let text = "";
                 if(badge_mode == 'id_nick')
                     text = `#${this.id} `;
