@@ -56,6 +56,7 @@ def gitpull(path):
         repo.git.submodule('update', '--init', '--recursive')
         print("CUSTOM NODE PULL: True")
     except Exception as e:
+        print(e)
         print("CUSTOM NODE PULL: False")
 
     repo.close()

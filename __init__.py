@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.28)")
+print("### Loading: ComfyUI-Manager (V0.28.1)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -253,6 +253,7 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
             process.wait()
             return True
         else:
+            print(f"{output}")
             process.wait()
             return False
     else:
@@ -260,6 +261,7 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
             process.wait()
             return True
         else:
+            print(f"{output}")
             process.wait()
             return False
 
