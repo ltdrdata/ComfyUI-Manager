@@ -4,6 +4,7 @@ import folder_paths
 import os
 import sys
 import threading
+import subprocess
 
 
 def handle_stream(stream, prefix):
@@ -55,7 +56,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.30.1)")
+print("### Loading: ComfyUI-Manager (V0.30.2)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
