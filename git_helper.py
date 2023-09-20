@@ -1,6 +1,9 @@
 import sys
 import os
 import git
+import configparser
+
+config_path = os.path.join(os.path.dirname(__file__), "config.ini")
 
 def gitclone(custom_nodes_path, url):
     repo_name = os.path.splitext(os.path.basename(url))[0]
@@ -71,6 +74,17 @@ def gitpull(path):
         print("CUSTOM NODE PULL: False")
 
     repo.close()
+
+
+def setup_environment():
+    config = configparser.ConfigParser()
+    config.read(config_path)
+    if 'git_exe' in config['default'] and config['default']['git_exe'] != '':
+        git.Git().update_environment(GIT_PYTHON_GIT_EXECUTABLE=config['default']['git_exe'])
+
+
+setup_environment()
+
 
 try:
     if sys.argv[1] == "--clone":

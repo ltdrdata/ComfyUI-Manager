@@ -1,8 +1,8 @@
 import configparser
 import shutil
 import folder_paths
-import os, sys
-import subprocess
+import os
+import sys
 import threading
 
 
@@ -55,7 +55,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.29.1)")
+print("### Loading: ComfyUI-Manager (V0.30)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -91,6 +91,7 @@ def write_config():
     config['default'] = {
         'preview_method': get_current_preview_method(),
         'badge_mode': get_config()['badge_mode'],
+        'git_exe':  get_config()['git_exe'],
         'channel_url': get_config()['channel_url'],
         'channel_url_list': get_config()['channel_url_list']
     }
@@ -120,6 +121,7 @@ def read_config():
         return {
                     'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else get_current_preview_method(),
                     'badge_mode': default_conf['badge_mode'] if 'badge_mode' in default_conf else 'none',
+                    'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
                     'channel_url_list': ch_url_list
                }
@@ -128,6 +130,7 @@ def read_config():
         return {
             'preview_method': get_current_preview_method(),
             'badge_mode': 'none',
+            'git_exe': '',
             'channel_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
             'channel_url_list': ''
         }
@@ -391,7 +394,18 @@ def setup_js():
         print(f"### ComfyUI-Manager: Copy .js from '{js_src_path}' to '{js_dest_path}'")
         shutil.copy(js_src_path, js_dest_path)
 
+
 setup_js()
+
+
+def setup_environment():
+    git_exe = get_config()['git_exe']
+
+    if git_exe != '':
+        git.Git().update_environment(GIT_PYTHON_GIT_EXECUTABLE=git_exe)
+
+
+setup_environment()
 
 
 # Expand Server api
