@@ -79,7 +79,7 @@ def gitpull(path):
 def setup_environment():
     config = configparser.ConfigParser()
     config.read(config_path)
-    if 'git_exe' in config['default'] and config['default']['git_exe'] != '':
+    if 'default' in config and 'git_exe' in config['default'] and config['default']['git_exe'] != '':
         git.Git().update_environment(GIT_PYTHON_GIT_EXECUTABLE=config['default']['git_exe'])
 
 
