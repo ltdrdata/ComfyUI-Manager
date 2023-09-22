@@ -864,6 +864,7 @@
             "CR Apply ControlNet",
             "CR Apply LoRA Stack",
             "CR Apply Model Merge",
+            "CR Apply Multi Upscale",
             "CR Apply Multi-ControlNet",
             "CR Aspect Ratio",
             "CR Aspect Ratio SDXL",
@@ -895,6 +896,7 @@
             "CR Module Input",
             "CR Module Output",
             "CR Module Pipe Loader",
+            "CR Multi Upscale Stack",
             "CR Multi-ControlNet Stack",
             "CR Pipe Switch",
             "CR Process Switch",
@@ -908,7 +910,8 @@
             "CR Seed to Int",
             "CR Switch Model and CLIP",
             "CR Text Input Switch",
-            "CR Text Input Switch (4 way)"
+            "CR Text Input Switch (4 way)",
+            "CR Upscale Image"
         ],
         {
             "title_aux": "ComfyUI_Comfyroll_CustomNodes"
@@ -2464,6 +2467,15 @@
             "title_aux": "Facerestore CF (Code Former)"
         }
     ],
+    "https://github.com/mcmonkeyprojects/sd-dynamic-thresholding": [
+        [
+            "DynamicThresholdingFull",
+            "DynamicThresholdingSimple"
+        ],
+        {
+            "title_aux": "Stable Diffusion Dynamic Thresholding (CFG Scale Fix)"
+        }
+    ],
     "https://github.com/meap158/ComfyUI-GPU-temperature-protection": [
         [
             "GPUTemperatureProtection"
@@ -2703,7 +2715,9 @@
     ],
     "https://github.com/receyuki/comfyui-prompt-reader-node": [
         [
-            "SDPromptReader"
+            "SDParameterGenerator",
+            "SDPromptReader",
+            "SDPromptSaver"
         ],
         {
             "author": "receyuki",

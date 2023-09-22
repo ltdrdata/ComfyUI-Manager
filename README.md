@@ -96,6 +96,11 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 
 ![model-install-dialog](misc/nickname.jpg)
 
+## How to register your custom node into ComfyUI-Manager
+
+* Add an entry to `custom-node-list.json` located in the root of ComfyUI-Manager and submit a Pull Request.
+* NOTE: Before submitting the PR after making changes, please check `Use local DB` and ensure that the extension list loads without any issues in the `Install custom nodes` dialog. Occasionally, missing or extra commas can lead to JSON syntax errors.
+* The remaining JSON will be updated through scripts in the future, so you don't need to worry about it.
 
 ## Custom node support guide
 
@@ -131,6 +136,7 @@ NODE_CLASS_MAPPINGS.update({
 @description: This extension offers various detector nodes and detailer nodes that allow you to configure a workflow that automatically enhances facial details. And provide iterative upscaler.
 """
 ```
+
 
 * **Special purpose files** (optional)
   * `node_list.js` - When your custom nodes pattern of NODE_CLASS_MAPPINGS is not conventional, it is used to manually provide a list of nodes for reference. ([example](https://github.com/melMass/comfy_mtb/raw/main/node_list.json))
