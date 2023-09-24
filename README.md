@@ -45,6 +45,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Support for automatically installing dependencies of custom nodes upon restarting Colab notebooks.
 
 ## Changes
+* **0.29** Add `Update all` feature
 * **0.25** support db channel
   * You can directly modify the db channel settings in the `config.ini` file.
   * If you want to maintain a new DB channel, please modify the `channels.list` and submit a PR.
@@ -95,6 +96,11 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 
 ![model-install-dialog](misc/nickname.jpg)
 
+## How to register your custom node into ComfyUI-Manager
+
+* Add an entry to `custom-node-list.json` located in the root of ComfyUI-Manager and submit a Pull Request.
+* NOTE: Before submitting the PR after making changes, please check `Use local DB` and ensure that the extension list loads without any issues in the `Install custom nodes` dialog. Occasionally, missing or extra commas can lead to JSON syntax errors.
+* The remaining JSON will be updated through scripts in the future, so you don't need to worry about it.
 
 ## Custom node support guide
 
@@ -131,6 +137,7 @@ NODE_CLASS_MAPPINGS.update({
 """
 ```
 
+
 * **Special purpose files** (optional)
   * `node_list.js` - When your custom nodes pattern of NODE_CLASS_MAPPINGS is not conventional, it is used to manually provide a list of nodes for reference. ([example](https://github.com/melMass/comfy_mtb/raw/main/node_list.json))
   * `requirements.txt` - When installing, this pip requirements will be installed automatically 
@@ -155,17 +162,16 @@ NODE_CLASS_MAPPINGS.update({
 
 
 ## Troubleshooting
+* If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the ComfyUI-Manager/config.ini file that is generated.
 * If updating ComfyUI-Manager itself fails, please go to the **ComfyUI-Manager** directory and execute the command `git update-ref refs/remotes/origin/main a361cc1 && git fetch --all && git pull`.
  * Alternatively, download the update-fix.py script from [update-fix.py](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/update-fix.py) and place it in the ComfyUI-Manager directory. Then, run it using your Python command.
    For the portable version, use `..\..\..\python_embeded\python.exe update-fix.py`.
-* If Controlnet is set to skip_v1 true, nodes like `CannyEdgePreprocessor` will appear as extensions of missing nodes, but simply installing them is not enough, and direct modification of the user's config.yaml is required.
 * For cases where nodes like `PreviewTextNode` from `ComfyUI_Custom_Nodes_AlekPet` are only supported as front-end nodes, we currently do not provide missing nodes for them.
 * Currently, `vid2vid` is not being updated, causing compatibility issues.
 
 
 ## TODO: Unconventional form of custom node list
 
-* https://github.com/bmad4ever/ComfyUI-Bmad-Custom-Nodes
 * https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
 * https://github.com/senshilabs/NINJA-plugin
 
@@ -175,8 +181,8 @@ NODE_CLASS_MAPPINGS.update({
 - [x] category/keyword filter
 - [x] Automatic recognition of missing custom nodes
 - [x] Automatic installation suggestion of missing custom nodes
+- [x] 3rd party repository
 - [ ] installation from git url 
-- [ ] 3rd party repository
 - [ ] Specification of custom nodes
 - [ ] Specification scanner
 - [ ] Search extension by node name

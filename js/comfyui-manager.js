@@ -5,6 +5,7 @@ import {ComfyWidgets} from "../../scripts/widgets.js";
 
 var update_comfyui_button = null;
 var fetch_updates_button = null;
+var update_all_button = null;
 var badge_mode = "none";
 
 async function init_badge_mode() {
@@ -214,7 +215,7 @@ async function fetchUpdates(update_check_checkbox) {
 
 		const response = await api.fetchApi(`/customnode/fetch_updates?mode=${mode}`);
 
-		if(response.status == 400) {
+		if(response.status != 200 && response.status != 201) {
 			app.ui.dialog.show('Failed to fetch updates.');
 			app.ui.dialog.element.style.zIndex = 9999;
 			return false;
@@ -241,6 +242,49 @@ async function fetchUpdates(update_check_checkbox) {
 		fetch_updates_button.disabled = false;
 		fetch_updates_button.innerText = prev_text;
 		fetch_updates_button.style.backgroundColor = "";
+	}
+}
+
+async function updateAll(update_check_checkbox) {
+    let prev_text = update_all_button.innerText;
+	update_all_button.innerText = "Updating all...(ComfyUI)";
+	update_all_button.disabled = true;
+	update_all_button.style.backgroundColor = "gray";
+
+	try {
+		var mode = "url";
+        if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+            mode = "local";
+
+		update_all_button.innerText = "Updating all...";
+		const response1 = await api.fetchApi('/comfyui_manager/update_comfyui');
+		const response2 = await api.fetchApi(`/customnode/update_all?mode=${mode}`);
+
+		if(response1.status != 200 && response2.status != 201) {
+			app.ui.dialog.show('Failed to update ComfyUI or several extensions.<BR><BR>See terminal log.<BR>');
+			app.ui.dialog.element.style.zIndex = 9999;
+			return false;
+		}
+		if(response1.status == 201 || response2.status == 201) {
+	        app.ui.dialog.show('ComfyUI and all extensions have been updated to the latest version.');
+			app.ui.dialog.element.style.zIndex = 9999;
+		}
+		else {
+			app.ui.dialog.show('ComfyUI and all extensions are already up-to-date with the latest versions.');
+	        app.ui.dialog.element.style.zIndex = 9999;
+        }
+
+		return true;
+	}
+	catch(exception) {
+		app.ui.dialog.show(`Failed to update ComfyUI or several extensions / ${exception}`);
+		app.ui.dialog.element.style.zIndex = 9999;
+		return false;
+	}
+	finally {
+		update_all_button.disabled = false;
+		update_all_button.innerText = prev_text;
+		update_all_button.style.backgroundColor = "";
 	}
 }
 
@@ -1768,6 +1812,14 @@ class ManagerMenuDialog extends ComfyDialog {
 						() => fetchUpdates(this.update_check_checkbox)
 				});
 
+		update_all_button =
+				$el("button", {
+					type: "button",
+					textContent: "Update All",
+					onclick:
+						() => updateAll(this.update_check_checkbox)
+				});
+
         // preview method
 		let preview_combo = document.createElement("select");
         preview_combo.appendChild($el('option', {value:'auto', text:'Preview method: Auto'}, []));
@@ -1864,6 +1916,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				}),
 
                 $el("br", {}, []),
+				update_all_button,
 				update_comfyui_button,
 				fetch_updates_button,
 
@@ -1948,7 +2001,7 @@ app.registerExtension({
         nodeType.prototype.onDrawForeground = function (ctx) {
             const r = onDrawForeground?.apply?.(this, arguments);
 
-            if(!this.flags.collapsed && badge_mode != 'none' && this.size[1] > LiteGraph.NODE_TITLE_HEIGHT) {
+            if(!this.flags.collapsed && badge_mode != 'none' && nodeType.title_mode != LiteGraph.NO_TITLE) {
                 let text = "";
                 if(badge_mode == 'id_nick')
                     text = `#${this.id} `;
