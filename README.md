@@ -109,7 +109,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Please submit a pull request to update either the custom-node-list.json or model-list.json file.
 
 * The scanner currently provides a detection function for missing nodes, which is capable of detecting nodes described by the following two patterns.
-  * Or you can provide manually `node_list.js` file. 
+  * Or you can provide manually `node_list.json` file. 
 
 ```
 NODE_CLASS_MAPPINGS = {
@@ -139,7 +139,7 @@ NODE_CLASS_MAPPINGS.update({
 
 
 * **Special purpose files** (optional)
-  * `node_list.js` - When your custom nodes pattern of NODE_CLASS_MAPPINGS is not conventional, it is used to manually provide a list of nodes for reference. ([example](https://github.com/melMass/comfy_mtb/raw/main/node_list.json))
+  * `node_list.json` - When your custom nodes pattern of NODE_CLASS_MAPPINGS is not conventional, it is used to manually provide a list of nodes for reference. ([example](https://github.com/melMass/comfy_mtb/raw/main/node_list.json))
   * `requirements.txt` - When installing, this pip requirements will be installed automatically 
   * `install.py` - When installing, it is automatically called
   * `uninstall.py` - When uninstalling, it is automatically called
