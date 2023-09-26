@@ -27,6 +27,16 @@ try:
         def __init__(self, is_stdout):
             self.is_stdout = is_stdout
 
+        def fileno(self):
+            try:
+                if self.is_stdout:
+                    return original_stdout.fileno()
+                else:
+                    return original_stderr.fileno()
+            except AttributeError:
+                # Handle error
+                raise ValueError("The object does not have a fileno method")
+
         def write(self, message):
             if not self.is_stdout:
                 match = re.search(tqdm, message)
