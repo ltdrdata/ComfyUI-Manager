@@ -416,6 +416,8 @@
         [
             "AbsCosWave",
             "AbsSinWave",
+            "BatchPromptSchedule",
+            "BatchValueSchedule",
             "CosWave",
             "InvCosWave",
             "InvSinWave",
@@ -829,7 +831,10 @@
             "GPT Loader Simple",
             "GPTSampler",
             "Integer Variable",
-            "String Variable"
+            "LoadFramesFromFolder",
+            "String Variable",
+            "VideoLoader",
+            "VideoSaver"
         ],
         {
             "title_aux": "ComfyUI-N-Nodes"
@@ -1972,7 +1977,8 @@
     "https://github.com/cubiq/ComfyUI_IPAdapter_plus": [
         [
             "IPAdapterApply",
-            "IPAdapterModelLoader"
+            "IPAdapterModelLoader",
+            "PrepImageForClipVision"
         ],
         {
             "title_aux": "ComfyUI_IPAdapter_plus"
@@ -2496,6 +2502,7 @@
     ],
     "https://github.com/ltdrdata/ComfyUI-Inspire-Pack": [
         [
+            "AnimeLineArt_Preprocessor_Provider_for_SEGS //Inspire",
             "Canny_Preprocessor_Provider_for_SEGS //Inspire",
             "DWPreprocessor_Provider_for_SEGS //Inspire",
             "FakeScribblePreprocessor_Provider_for_SEGS //Inspire",
@@ -2504,11 +2511,13 @@
             "KSampler //Inspire",
             "KSamplerAdvanced //Inspire",
             "LeRes_DepthMap_Preprocessor_Provider_for_SEGS //Inspire",
+            "LineArt_Preprocessor_Provider_for_SEGS //Inspire",
             "LoadImagesFromDir //Inspire",
             "LoadPromptsFromDir //Inspire",
             "LoadPromptsFromFile //Inspire",
             "LoraBlockInfo //Inspire",
             "LoraLoaderBlockWeight //Inspire",
+            "Manga2Anime_LineArt_Preprocessor_Provider_for_SEGS //Inspire",
             "MediaPipeFaceMeshDetectorProvider //Inspire",
             "MediaPipe_FaceMesh_Preprocessor_Provider_for_SEGS //Inspire",
             "MiDaS_DepthMap_Preprocessor_Provider_for_SEGS //Inspire",
@@ -2937,10 +2946,20 @@
             "DependenciesEdit",
             "Fooocus_KSampler",
             "Fooocus_KSamplerAdvanced",
+            "GetBoolFromJson",
+            "GetFloatFromJson",
+            "GetIntFromJson",
+            "GetObjectFromJson",
+            "GetTextFromJson",
             "ImageMuxer",
             "ImageScaleDown",
             "ImageScaleDownBy",
+            "LoadImageAsMaskFromUrl",
             "LoadImageFromUrl",
+            "LoadJsonFromUrl",
+            "NumberScaler",
+            "RandomFloat",
+            "RandomInt",
             "SDXLAspectRatioSelector",
             "SDXLPromptStyler",
             "SeedSelector",
