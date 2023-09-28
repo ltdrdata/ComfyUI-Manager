@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+    
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+    
+        th {
+            background-color: #c2d2f2;
+        }
+    
+        td:first-child {
+            font-weight: bold;
+        }
+    
+        td:last-child {
+            font-style: italic;
+        }
+    
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    
+        .alternate-row {
+            background-color: #d7d7d7;
+        }
+    </style>
+    
+</head>
+<body>
+    <center><B><font size='20px'>ComfyUI Nodes Infos</font></B></center>
+    <table id="json-table">
+        <thead>
+            <tr>
+                <th style="width: 100px; text-align: center;"></th>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Descripion</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        async function load() {
+            let ext_list = await fetch('https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json');
+            let exts = await ext_list.json();
+            let node_map = await (await fetch('https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json')).json();
+
+            const tableBody = document.querySelector('#json-table tbody');
+
+            let alternateColor = false;
+
+            for (const key in exts.custom_nodes) {
+                const row = document.createElement('tr');
+                const nodesRow = document.createElement('tr');
+                if (alternateColor) {
+                    row.classList.add('alternate-row');
+                    nodesRow.classList.add('alternate-row');
+                }
+                alternateColor = !alternateColor;
+
+                const nodeInfoLabel = document.createElement('td');
+                const author = document.createElement('td');
+                const title = document.createElement('td');
+                const desc = document.createElement('td');
+
+                let item = exts.custom_nodes[key];
+
+                nodeInfoLabel.textContent = "NODE INFO";
+                author.textContent = item.author;
+                title.innerHTML = `<a href='${item.reference}' target='blank'>${item.title}</a>`;
+                desc.innerHTML = item.description;
+
+                row.appendChild(nodeInfoLabel);
+                row.appendChild(author);
+                row.appendChild(title);
+                row.appendChild(desc);
+
+                const nodeRowLabel = document.createElement('td');
+                const nodes = document.createElement('td');
+
+                nodeRowLabel.textContent = "NODES";
+
+                nodes.setAttribute('colspan', '3');
+
+                nodesRow.appendChild(nodeRowLabel);
+                nodesRow.appendChild(nodes);
+
+                tableBody.appendChild(row);
+                tableBody.appendChild(nodesRow);
+
+                var total_nodes = "";
+                for(let k in item.files) {
+                    let file = item.files[k];
+                    let nodes_in_file = node_map[file];
+
+                    if(!nodes_in_file)
+                        continue;
+
+                    for(let n in nodes_in_file[0]) {
+                        if(total_nodes != "")
+                            total_nodes += ", ";
+                        total_nodes += nodes_in_file[0][n];
+                    }
+                }
+                nodes.textContent = total_nodes;
+            }
+
+        }
+
+        load();
+    </script>
+</body>
+</html>
