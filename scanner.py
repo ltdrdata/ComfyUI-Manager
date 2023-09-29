@@ -4,7 +4,7 @@ import json
 from git import Repo
 from torchvision.datasets.utils import download_url
 
-builtin_nodes = ["KSampler"]
+builtin_nodes = ["KSampler", "CheckpointSave"]
 
 def scan_in_file(filename):
     try:
