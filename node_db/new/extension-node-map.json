@@ -329,6 +329,7 @@
         [
             "AMT VFI",
             "EISAI VFI",
+            "FILM VFI",
             "GMFSS Fortuna VFI",
             "IFRNet VFI",
             "IFUnet VFI",
@@ -571,7 +572,18 @@
     ],
     "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite": [
         [
+            "VHS_DuplicateImages",
+            "VHS_DuplicateLatents",
+            "VHS_GetImageCount",
+            "VHS_GetLatentCount",
+            "VHS_LoadImages",
             "VHS_LoadVideo",
+            "VHS_MergeImages",
+            "VHS_MergeLatents",
+            "VHS_SelectEveryNthImage",
+            "VHS_SelectEveryNthLatent",
+            "VHS_SplitImages",
+            "VHS_SplitLatents",
             "VHS_VideoCombine"
         ],
         {
@@ -1490,10 +1502,22 @@
         [
             "ZuellniExLlamaGenerator",
             "ZuellniExLlamaLoader",
-            "ZuellniExLlamaPreviewer"
+            "ZuellniTextPreviewer",
+            "ZuellniTextReplacer"
         ],
         {
             "title_aux": "ComfyUI-ExLlama"
+        }
+    ],
+    "https://github.com/Zuellni/ComfyUI-PickScore-Nodes": [
+        [
+            "ZuellniPickScoreImageProcessor",
+            "ZuellniPickScoreLoader",
+            "ZuellniPickScoreSelector",
+            "ZuellniPickScoreTextProcessor"
+        ],
+        {
+            "title_aux": "ComfyUI PickScore Nodes"
         }
     ],
     "https://github.com/adieyal/comfyui-dynamicprompts": [
@@ -1906,6 +1930,14 @@
             "title_aux": "Variation seeds"
         }
     ],
+    "https://github.com/chrisgoringe/cg-use-everywhere": [
+        [
+            "Seed Everywhere"
+        ],
+        {
+            "title_aux": "Use Everwhere"
+        }
+    ],
     "https://github.com/city96/ComfyUI_ColorMod": [
         [
             "ColorModEdges",
@@ -2010,7 +2042,11 @@
     "https://github.com/cubiq/ComfyUI_IPAdapter_plus": [
         [
             "IPAdapterApply",
+            "IPAdapterApplyEncoded",
+            "IPAdapterEncoder",
+            "IPAdapterLoadEmbeds",
             "IPAdapterModelLoader",
+            "IPAdapterSaveEmbeds",
             "PrepImageForClipVision"
         ],
         {
@@ -2978,6 +3014,7 @@
             "AV_VAELoader",
             "AspectRatioSelector",
             "BLIPCaption",
+            "BLIPLoader",
             "ColorBlend",
             "ColorCorrect",
             "DeepDanbooruCaption",
@@ -2994,16 +3031,17 @@
             "ImageAlphaComposite",
             "ImageGaussianBlur",
             "ImageMuxer",
+            "ImageRepeat",
             "ImageScaleDown",
             "ImageScaleDownBy",
             "ImageScaleDownToSize",
-            "ImageScaleDownToTotalPixels",
+            "ImageScaleToMegapixels",
             "LaMaInpaint",
-            "LaMaLoader",
             "LoadImageAsMaskFromUrl",
             "LoadImageFromUrl",
             "LoadJsonFromUrl",
             "NumberScaler",
+            "QRCodeGenerator",
             "RandomFloat",
             "RandomInt",
             "SAMEmbeddingToImage",
