@@ -458,6 +458,7 @@
         [
             "Conditioning Switch (JPS)",
             "ControlNet Switch (JPS)",
+            "Crop Image Square (JPS)",
             "Disable Enable Switch (JPS)",
             "Enable Disable Switch (JPS)",
             "Generation Settings (JPS)",
@@ -608,7 +609,11 @@
             "Send_To_Editor"
         ],
         {
-            "title_aux": "canvas_tab"
+            "author": "Lerc",
+            "description": "This extension provides a full page image editor with mask support. There are two nodes, one to receive images from the editor and one to send images to the editor.",
+            "nickname": "Canvas Tab",
+            "title": "Canvas Tab",
+            "title_aux": "Canvas Tab"
         }
     ],
     "https://github.com/LucianoCirino/efficiency-nodes-comfyui": [
@@ -840,13 +845,14 @@
         [
             "DynamicPrompt",
             "Float Variable",
+            "FrameInterpolation",
             "GPT Loader Simple",
             "GPTSampler",
             "Integer Variable",
             "LoadFramesFromFolder",
-            "String Variable",
-            "VideoLoader",
-            "VideoSaver"
+            "LoadVideo",
+            "SaveVideo",
+            "String Variable"
         ],
         {
             "title_aux": "ComfyUI-N-Nodes"
@@ -884,6 +890,7 @@
             "CR Cycle Text",
             "CR Cycle Text Simple",
             "CR Debatch Frames",
+            "CR Encode Scheduled Prompts",
             "CR Gradient Float",
             "CR Gradient Integer",
             "CR Image List",
@@ -899,8 +906,8 @@
             "CR LoRA List",
             "CR Load Animation Frames",
             "CR Load Flow Frames",
+            "CR Load Prompt Style",
             "CR Load Schedule From File",
-            "CR Load Scheduled ControlNets",
             "CR Load Scheduled LoRAs",
             "CR Load Scheduled Models",
             "CR Model List",
@@ -908,11 +915,13 @@
             "CR Output Schedule To File",
             "CR Prompt List",
             "CR Prompt List Keyframes",
+            "CR Prompt Scheduler",
             "CR Prompt Text",
             "CR Schedule Input Switch",
             "CR Schedule To ScheduleList",
             "CR Simple Prompt List",
             "CR Simple Prompt List Keyframes",
+            "CR Simple Prompt Scheduler",
             "CR Simple Schedule",
             "CR Simple Text Scheduler",
             "CR Simple Value Scheduler",
@@ -1192,6 +1201,10 @@
             "ttN xyPlot"
         ],
         {
+            "author": "tinyterra",
+            "description": "This extension offers various pipe nodes, fullscreen image viewer based on node history, dynamic widgets, interface customization, and more.",
+            "nickname": "ttNodes",
+            "title": "tinyterraNodes",
             "title_aux": "tinyterraNodes"
         }
     ],
@@ -1922,6 +1935,7 @@
         [
             "Image Chooser",
             "Latent Chooser",
+            "Multi Latent Chooser",
             "Preview for Image Chooser"
         ],
         {
@@ -1951,6 +1965,7 @@
         [
             "ColorModEdges",
             "ColorModPivot",
+            "LoadImageHighPrec",
             "PreviewImageHighPrec",
             "SaveImageHighPrec"
         ],
@@ -2360,6 +2375,7 @@
         [
             "ConditioningMultiCombine",
             "ConditioningSetMaskAndCombine",
+            "GrowMaskWithBlur",
             "INTConstant"
         ],
         {
@@ -3353,29 +3369,32 @@
             "Checkpoint Loader w/Name (WLSH)",
             "Empty Latent by Pixels (WLSH)",
             "Empty Latent by Ratio (WLSH)",
-            "Generate Edge Mask (WLSH)",
-            "Generate Face Mask (WLSH)",
-            "Image Save with Prompt Data (WLSH)",
+            "Empty Latent by Size (WLSH)",
+            "Generate Border Mask (WLSH)",
+            "Image Load with Metadata (WLSH)",
+            "Image Save with Prompt (WLSH)",
             "Image Save with Prompt File (WLSH)",
+            "Image Save with Prompt/Info (WLSH)",
+            "Image Save with Prompt/Info File (WLSH)",
             "Image Scale By Factor (WLSH)",
             "KSamplerAdvanced (WLSH)",
             "Multiply Integer (WLSH)",
             "Outpaint to Image (WLSH)",
-            "Read Prompt Data from Image (WLSH)",
+            "Quick Resolution Multiply (WLSH)",
             "Resolutions by Ratio (WLSH)",
             "SDXL Quick Empty Latent (WLSH)",
             "SDXL Quick Image Scale (WLSH)",
-            "SDXL Resolution Multiplier (WLSH)",
             "SDXL Resolutions (WLSH)",
             "SDXL Steps (WLSH)",
-            "Save Positive Prompt File (WLSH)",
-            "Save Prompt Info (WLSH)",
+            "Save Positive Prompt(WLSH)",
+            "Save Prompt (WLSH)",
+            "Save Prompt/Info (WLSH)",
             "Seed and Int (WLSH)",
             "Seed to Number (WLSH)",
             "Simple Pattern Replace (WLSH)",
             "Time String (WLSH)",
             "Upscale by Factor with Model (WLSH)",
-            "VAE Encode for Inpaint Padding (WLSH)"
+            "VAE Encode for Inpaint w/Padding (WLSH)"
         ],
         {
             "title_aux": "wlsh_nodes"
