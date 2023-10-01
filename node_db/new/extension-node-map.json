@@ -1,4 +1,14 @@
 {
+    "https://gist.github.com/alkemann/7361b8eb966f29c8238fd323409efb68/raw/f9605be0b38d38d3e3a2988f89248ff557010076/alkemann.py": [
+        [
+            "Int to Text",
+            "Save A1 Image",
+            "Seed With Text"
+        ],
+        {
+            "title_aux": "alkemann nodes"
+        }
+    ],
     "https://github.com/AIrjen/OneButtonPrompt": [
         [
             "CreatePromptVariant",
@@ -42,6 +52,7 @@
     "https://github.com/ArtVentureX/comfyui-animatediff": [
         [
             "AnimateDiffCombine",
+            "AnimateDiffLoraLoader",
             "AnimateDiffModuleLoader",
             "AnimateDiffSampler",
             "AnimateDiffSlidingWindowOptions",
@@ -317,12 +328,14 @@
     "https://github.com/Fannovel16/ComfyUI-Frame-Interpolation": [
         [
             "AMT VFI",
-            "ESAI VFI",
+            "EISAI VFI",
+            "FILM VFI",
             "GMFSS Fortuna VFI",
             "IFRNet VFI",
             "IFUnet VFI",
             "KSampler Gradually Adding More Denoise (efficient)",
             "M2M VFI",
+            "Make Interpolation State List",
             "RIFE VFI",
             "Sepconv VFI"
         ],
@@ -404,6 +417,8 @@
         [
             "AbsCosWave",
             "AbsSinWave",
+            "BatchPromptSchedule",
+            "BatchValueSchedule",
             "CosWave",
             "InvCosWave",
             "InvSinWave",
@@ -443,6 +458,7 @@
         [
             "Conditioning Switch (JPS)",
             "ControlNet Switch (JPS)",
+            "Crop Image Square (JPS)",
             "Disable Enable Switch (JPS)",
             "Enable Disable Switch (JPS)",
             "Generation Settings (JPS)",
@@ -542,6 +558,7 @@
     "https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved": [
         [
             "ADE_AnimateDiffCombine",
+            "ADE_AnimateDiffLoRALoader",
             "ADE_AnimateDiffLoaderV1Advanced",
             "ADE_AnimateDiffLoaderWithContext",
             "ADE_AnimateDiffUniformContextOptions",
@@ -556,6 +573,18 @@
     ],
     "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite": [
         [
+            "VHS_DuplicateImages",
+            "VHS_DuplicateLatents",
+            "VHS_GetImageCount",
+            "VHS_GetLatentCount",
+            "VHS_LoadImages",
+            "VHS_LoadVideo",
+            "VHS_MergeImages",
+            "VHS_MergeLatents",
+            "VHS_SelectEveryNthImage",
+            "VHS_SelectEveryNthLatent",
+            "VHS_SplitImages",
+            "VHS_SplitLatents",
             "VHS_VideoCombine"
         ],
         {
@@ -580,7 +609,11 @@
             "Send_To_Editor"
         ],
         {
-            "title_aux": "canvas_tab"
+            "author": "Lerc",
+            "description": "This extension provides a full page image editor with mask support. There are two nodes, one to receive images from the editor and one to send images to the editor.",
+            "nickname": "Canvas Tab",
+            "title": "Canvas Tab",
+            "title_aux": "Canvas Tab"
         }
     ],
     "https://github.com/LucianoCirino/efficiency-nodes-comfyui": [
@@ -636,6 +669,14 @@
             "title_aux": "ComfyLiterals"
         }
     ],
+    "https://github.com/M1kep/Comfy_KepKitchenSink": [
+        [
+            "KepRotateImage"
+        ],
+        {
+            "title_aux": "Comfy_KepKitchenSink"
+        }
+    ],
     "https://github.com/M1kep/Comfy_KepListStuff": [
         [
             "Empty Images",
@@ -651,6 +692,21 @@
         ],
         {
             "title_aux": "Comfy_KepListStuff"
+        }
+    ],
+    "https://github.com/M1kep/Comfy_KepMatteAnything": [
+        [
+            "MatteAnything_DinoBoxes",
+            "MatteAnything_GenerateVITMatte",
+            "MatteAnything_InitSamPredictor",
+            "MatteAnything_LoadDINO",
+            "MatteAnything_LoadVITMatteModel",
+            "MatteAnything_SAMLoader",
+            "MatteAnything_SAMMaskFromBoxes",
+            "MatteAnything_ToTrimap"
+        ],
+        {
+            "title_aux": "Comfy_KepMatteAnything"
         }
     ],
     "https://github.com/M1kep/KepPromptLang": [
@@ -670,6 +726,8 @@
             "Mask Ops"
         ],
         {
+            "author": "ManglerFTW",
+            "title": "ComfyI2I",
             "title_aux": "ComfyI2I"
         }
     ],
@@ -787,9 +845,13 @@
         [
             "DynamicPrompt",
             "Float Variable",
+            "FrameInterpolation",
             "GPT Loader Simple",
             "GPTSampler",
             "Integer Variable",
+            "LoadFramesFromFolder",
+            "LoadVideo",
+            "SaveVideo",
             "String Variable"
         ],
         {
@@ -828,6 +890,7 @@
             "CR Cycle Text",
             "CR Cycle Text Simple",
             "CR Debatch Frames",
+            "CR Encode Scheduled Prompts",
             "CR Gradient Float",
             "CR Gradient Integer",
             "CR Image List",
@@ -843,8 +906,8 @@
             "CR LoRA List",
             "CR Load Animation Frames",
             "CR Load Flow Frames",
+            "CR Load Prompt Style",
             "CR Load Schedule From File",
-            "CR Load Scheduled ControlNets",
             "CR Load Scheduled LoRAs",
             "CR Load Scheduled Models",
             "CR Model List",
@@ -852,11 +915,13 @@
             "CR Output Schedule To File",
             "CR Prompt List",
             "CR Prompt List Keyframes",
+            "CR Prompt Scheduler",
             "CR Prompt Text",
             "CR Schedule Input Switch",
             "CR Schedule To ScheduleList",
             "CR Simple Prompt List",
             "CR Simple Prompt List Keyframes",
+            "CR Simple Prompt Scheduler",
             "CR Simple Schedule",
             "CR Simple Text Scheduler",
             "CR Simple Value Scheduler",
@@ -1068,6 +1133,16 @@
             "title_aux": "ComfyWarp"
         }
     ],
+    "https://github.com/TGu-97/ComfyUI-TGu-utils": [
+        [
+            "MPNReroute",
+            "MPNSwitch",
+            "PNSwitch"
+        ],
+        {
+            "title_aux": "TGu Utilities"
+        }
+    ],
     "https://github.com/TRI3D-LC/tri3d-comfyui-nodes": [
         [
             "tri3d-atr-parse",
@@ -1105,6 +1180,7 @@
             "ttN imageREMBG",
             "ttN int",
             "ttN modelMerge",
+            "ttN multiModelMerge",
             "ttN pipe2BASIC",
             "ttN pipe2DETAILER",
             "ttN pipeEDIT",
@@ -1125,6 +1201,10 @@
             "ttN xyPlot"
         ],
         {
+            "author": "tinyterra",
+            "description": "This extension offers various pipe nodes, fullscreen image viewer based on node history, dynamic widgets, interface customization, and more.",
+            "nickname": "ttNodes",
+            "title": "tinyterraNodes",
             "title_aux": "tinyterraNodes"
         }
     ],
@@ -1151,6 +1231,15 @@
         ],
         {
             "title_aux": "ComfyUI Neural network latent upscale custom node"
+        }
+    ],
+    "https://github.com/WASasquatch/ASTERR": [
+        [
+            "ASTERR",
+            "SaveASTERR"
+        ],
+        {
+            "title_aux": "ASTERR"
         }
     ],
     "https://github.com/WASasquatch/ComfyUI_Preset_Merger": [
@@ -1435,11 +1524,22 @@
         [
             "ZuellniExLlamaGenerator",
             "ZuellniExLlamaLoader",
-            "ZuellniExLlamaLora",
-            "ZuellniExLlamaPreviewer"
+            "ZuellniTextPreviewer",
+            "ZuellniTextReplacer"
         ],
         {
             "title_aux": "ComfyUI-ExLlama"
+        }
+    ],
+    "https://github.com/Zuellni/ComfyUI-PickScore-Nodes": [
+        [
+            "ZuellniPickScoreImageProcessor",
+            "ZuellniPickScoreLoader",
+            "ZuellniPickScoreSelector",
+            "ZuellniPickScoreTextProcessor"
+        ],
+        {
+            "title_aux": "ComfyUI PickScore Nodes"
         }
     ],
     "https://github.com/adieyal/comfyui-dynamicprompts": [
@@ -1453,6 +1553,14 @@
         ],
         {
             "title_aux": "DynamicPrompts Custom Nodes"
+        }
+    ],
+    "https://github.com/alpertunga-bile/prompt-generator-comfyui": [
+        [
+            "Prompt Generator"
+        ],
+        {
+            "title_aux": "prompt-generator"
         }
     ],
     "https://github.com/alsritter/asymmetric-tiling-comfyui": [
@@ -1554,6 +1662,29 @@
         ],
         {
             "title_aux": "ComfyUI prompt control"
+        }
+    ],
+    "https://github.com/azazeal04/ComfyUI-Styles": [
+        [
+            "Aesthetic Styler",
+            "AestheticStyler",
+            "Anime Styler",
+            "AnimeStyler",
+            "Fantasy Styler",
+            "FantasyStyler",
+            "Gothic Styler",
+            "GothicStyler",
+            "Line Art Styler",
+            "LineArtStyler",
+            "Movie Poster_Styler",
+            "MoviePosterStyler",
+            "Punk Style",
+            "PunkStyler",
+            "Travel Poster Styler",
+            "TravelPosterStyler"
+        ],
+        {
+            "title_aux": "ComfyUI-Styles"
         }
     ],
     "https://github.com/badjeff/comfyui_lora_tag_loader": [
@@ -1804,6 +1935,7 @@
         [
             "Image Chooser",
             "Latent Chooser",
+            "Multi Latent Chooser",
             "Preview for Image Chooser"
         ],
         {
@@ -1819,6 +1951,26 @@
         ],
         {
             "title_aux": "Variation seeds"
+        }
+    ],
+    "https://github.com/chrisgoringe/cg-use-everywhere": [
+        [
+            "Seed Everywhere"
+        ],
+        {
+            "title_aux": "Use Everwhere"
+        }
+    ],
+    "https://github.com/city96/ComfyUI_ColorMod": [
+        [
+            "ColorModEdges",
+            "ColorModPivot",
+            "LoadImageHighPrec",
+            "PreviewImageHighPrec",
+            "SaveImageHighPrec"
+        ],
+        {
+            "title_aux": "ComfyUI_ColorMod"
         }
     ],
     "https://github.com/city96/ComfyUI_DiT": [
@@ -1914,7 +2066,12 @@
     "https://github.com/cubiq/ComfyUI_IPAdapter_plus": [
         [
             "IPAdapterApply",
-            "IPAdapterModelLoader"
+            "IPAdapterApplyEncoded",
+            "IPAdapterEncoder",
+            "IPAdapterLoadEmbeds",
+            "IPAdapterModelLoader",
+            "IPAdapterSaveEmbeds",
+            "PrepImageForClipVision"
         ],
         {
             "title_aux": "ComfyUI_IPAdapter_plus"
@@ -1933,7 +2090,6 @@
         [
             "ConsoleDebug+",
             "GetImageSize+",
-            "GrowShrinkMask+",
             "ImageCASharpening+",
             "ImageCrop+",
             "ImageDesaturate+",
@@ -2215,6 +2371,17 @@
             "title_aux": "ComfyUI-Jjk-Nodes"
         }
     ],
+    "https://github.com/kijai/ComfyUI-KJNodes": [
+        [
+            "ConditioningMultiCombine",
+            "ConditioningSetMaskAndCombine",
+            "GrowMaskWithBlur",
+            "INTConstant"
+        ],
+        {
+            "title_aux": "KJNodes for ComfyUI"
+        }
+    ],
     "https://github.com/kohya-ss/ControlNet-LLLite-ComfyUI": [
         [
             "LLLiteLoader"
@@ -2325,6 +2492,7 @@
             "FromDetailerPipe",
             "FromDetailerPipeSDXL",
             "FromDetailerPipe_v2",
+            "ImageListToImageBatch",
             "ImageMaskSwitch",
             "ImageReceiver",
             "ImageSender",
@@ -2347,6 +2515,7 @@
             "ImpactKSamplerAdvancedBasicPipe",
             "ImpactKSamplerBasicPipe",
             "ImpactLogger",
+            "ImpactMakeImageBatch",
             "ImpactMakeImageList",
             "ImpactMinMax",
             "ImpactNeg",
@@ -2437,7 +2606,9 @@
     ],
     "https://github.com/ltdrdata/ComfyUI-Inspire-Pack": [
         [
+            "AnimeLineArt_Preprocessor_Provider_for_SEGS //Inspire",
             "Canny_Preprocessor_Provider_for_SEGS //Inspire",
+            "Color_Preprocessor_Provider_for_SEGS //Inspire",
             "DWPreprocessor_Provider_for_SEGS //Inspire",
             "FakeScribblePreprocessor_Provider_for_SEGS //Inspire",
             "GlobalSeed //Inspire",
@@ -2445,10 +2616,13 @@
             "KSampler //Inspire",
             "KSamplerAdvanced //Inspire",
             "LeRes_DepthMap_Preprocessor_Provider_for_SEGS //Inspire",
+            "LineArt_Preprocessor_Provider_for_SEGS //Inspire",
+            "LoadImagesFromDir //Inspire",
             "LoadPromptsFromDir //Inspire",
             "LoadPromptsFromFile //Inspire",
             "LoraBlockInfo //Inspire",
             "LoraLoaderBlockWeight //Inspire",
+            "Manga2Anime_LineArt_Preprocessor_Provider_for_SEGS //Inspire",
             "MediaPipeFaceMeshDetectorProvider //Inspire",
             "MediaPipe_FaceMesh_Preprocessor_Provider_for_SEGS //Inspire",
             "MiDaS_DepthMap_Preprocessor_Provider_for_SEGS //Inspire",
@@ -2587,6 +2761,15 @@
         ],
         {
             "title_aux": "mihaiiancu/Inpaint"
+        }
+    ],
+    "https://github.com/mlinmg/ComfyUI-LaMA-Preprocessor": [
+        [
+            "LaMaPreprocessor",
+            "lamaPreprocessor"
+        ],
+        {
+            "title_aux": "LaMa Preprocessor [WIP]"
         }
     ],
     "https://github.com/mpiquero7164/ComfyUI-SaveImgPrompt": [
@@ -2756,11 +2939,12 @@
             "SDParameterGenerator",
             "SDPromptMerger",
             "SDPromptReader",
-            "SDPromptSaver"
+            "SDPromptSaver",
+            "SDTypeConverter"
         ],
         {
             "author": "receyuki",
-            "description": "ComfyUI node version of SD Prompt Reader",
+            "description": "ComfyUI node version of the SD Prompt Reader",
             "nickname": "SD Prompt Reader",
             "title": "SD Prompt Reader",
             "title_aux": "comfyui-prompt-reader-node"
@@ -2803,6 +2987,17 @@
         ],
         {
             "title_aux": "ComfyUI Optical Flow"
+        }
+    ],
+    "https://github.com/seanlynch/srl-nodes": [
+        [
+            "SRL Conditional Interrrupt",
+            "SRL Eval",
+            "SRL Filter Image List",
+            "SRL Format String"
+        ],
+        {
+            "title_aux": "SRL's nodes"
         }
     ],
     "https://github.com/shiimizu/ComfyUI_smZNodes": [
@@ -2854,16 +3049,37 @@
             "AV_VAELoader",
             "AspectRatioSelector",
             "BLIPCaption",
+            "BLIPLoader",
             "ColorBlend",
             "ColorCorrect",
             "DeepDanbooruCaption",
             "DependenciesEdit",
             "Fooocus_KSampler",
             "Fooocus_KSamplerAdvanced",
+            "GetBoolFromJson",
+            "GetFloatFromJson",
+            "GetIntFromJson",
+            "GetObjectFromJson",
+            "GetSAMEmbedding",
+            "GetTextFromJson",
+            "ISNetSegment",
+            "ImageAlphaComposite",
+            "ImageGaussianBlur",
             "ImageMuxer",
+            "ImageRepeat",
             "ImageScaleDown",
             "ImageScaleDownBy",
+            "ImageScaleDownToSize",
+            "ImageScaleToMegapixels",
+            "LaMaInpaint",
+            "LoadImageAsMaskFromUrl",
             "LoadImageFromUrl",
+            "LoadJsonFromUrl",
+            "NumberScaler",
+            "QRCodeGenerator",
+            "RandomFloat",
+            "RandomInt",
+            "SAMEmbeddingToImage",
             "SDXLAspectRatioSelector",
             "SDXLPromptStyler",
             "SeedSelector",
@@ -3106,6 +3322,7 @@
             "Endless Nodes Display Number",
             "Endless Nodes Display String",
             "Endless Nodes Eight Input Text Switch",
+            "Endless Nodes Image Reward",
             "Endless Nodes Image Save with Text File",
             "Endless Nodes Parameterizer",
             "Endless Nodes Parameterizer & Prompts",
@@ -3115,7 +3332,7 @@
         ],
         {
             "author": "BiffMunky",
-            "description": "A small set of nodes I created for various numerical and text inputs.",
+            "description": "A small set of nodes I created for various numerical and text inputs.  Features switches for text and numbers, parameter collection nodes, and two aesthetic scoring modwls.",
             "nickname": "\ud83c\udf0c Endless Nodes \ud83c\udf0c",
             "title": "\ud83c\udf0c An Endless Sea of Stars Nodes \ud83c\udf0c",
             "title_aux": "Endless Nodes"
@@ -3152,29 +3369,32 @@
             "Checkpoint Loader w/Name (WLSH)",
             "Empty Latent by Pixels (WLSH)",
             "Empty Latent by Ratio (WLSH)",
-            "Generate Edge Mask (WLSH)",
-            "Generate Face Mask (WLSH)",
-            "Image Save with Prompt Data (WLSH)",
+            "Empty Latent by Size (WLSH)",
+            "Generate Border Mask (WLSH)",
+            "Image Load with Metadata (WLSH)",
+            "Image Save with Prompt (WLSH)",
             "Image Save with Prompt File (WLSH)",
+            "Image Save with Prompt/Info (WLSH)",
+            "Image Save with Prompt/Info File (WLSH)",
             "Image Scale By Factor (WLSH)",
             "KSamplerAdvanced (WLSH)",
             "Multiply Integer (WLSH)",
             "Outpaint to Image (WLSH)",
-            "Read Prompt Data from Image (WLSH)",
+            "Quick Resolution Multiply (WLSH)",
             "Resolutions by Ratio (WLSH)",
             "SDXL Quick Empty Latent (WLSH)",
             "SDXL Quick Image Scale (WLSH)",
-            "SDXL Resolution Multiplier (WLSH)",
             "SDXL Resolutions (WLSH)",
             "SDXL Steps (WLSH)",
-            "Save Positive Prompt File (WLSH)",
-            "Save Prompt Info (WLSH)",
+            "Save Positive Prompt(WLSH)",
+            "Save Prompt (WLSH)",
+            "Save Prompt/Info (WLSH)",
             "Seed and Int (WLSH)",
             "Seed to Number (WLSH)",
             "Simple Pattern Replace (WLSH)",
             "Time String (WLSH)",
             "Upscale by Factor with Model (WLSH)",
-            "VAE Encode for Inpaint Padding (WLSH)"
+            "VAE Encode for Inpaint w/Padding (WLSH)"
         ],
         {
             "title_aux": "wlsh_nodes"

@@ -1938,6 +1938,11 @@ class ManagerMenuDialog extends ComfyDialog {
 					textContent: "ComfyUI Community Manual",
 					onclick: () => { window.open("https://blenderneko.github.io/ComfyUI-docs/", "comfyui-community-manual"); }
 				}),
+				$el("button", {
+					type: "button",
+					textContent: "ComfyUI Nodes Info",
+					onclick: () => { window.open("https://ltdrdata.github.io/", "comfyui-node-info"); }
+				}),
 
                 $el("br", {}, []),
 				$el("hr", {width: "100%"}, []),

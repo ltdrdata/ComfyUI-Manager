@@ -103,7 +103,7 @@ def get_nodes(target_dir):
 
 
 def get_git_urls_from_json(json_file):
-    with open(json_file) as file:
+    with open(json_file, encoding='utf-8') as file:
         data = json.load(file)
 
         custom_nodes = data.get('custom_nodes', [])
@@ -118,7 +118,7 @@ def get_git_urls_from_json(json_file):
 
 
 def get_py_urls_from_json(json_file):
-    with open(json_file) as file:
+    with open(json_file, encoding='utf-8') as file:
         data = json.load(file)
 
         custom_nodes = data.get('custom_nodes', [])
@@ -237,7 +237,7 @@ def gen_json(node_info):
         if os.path.exists(node_list_json_path):
             git_url, title = node_info[extension]
 
-            with open(node_list_json_path, 'r') as f:
+            with open(node_list_json_path, 'r', encoding='utf-8') as f:
                 node_list_json = json.load(f)
 
             metadata_in_url = {}
@@ -256,7 +256,7 @@ def gen_json(node_info):
             data[git_url] = (nodes, metadata_in_url)
 
     json_path = f"extension-node-map.json"
-    with open(json_path, "w") as file:
+    with open(json_path, "w", encoding='utf-8') as file:
         json.dump(data, file, indent=4, sort_keys=True)
 
 

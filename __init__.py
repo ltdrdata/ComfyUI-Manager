@@ -56,7 +56,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.30.4)")
+print("### Loading: ComfyUI-Manager (V0.32)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -229,9 +229,9 @@ def print_comfyui_version():
             pass
 
         if current_branch == "master":
-            print(f"### ComfyUI Revision: {comfy_ui_revision} [{git_hash[:8]}]")
+            print(f"### ComfyUI Revision: {comfy_ui_revision} [{git_hash[:8]}] | Released on '{repo.head.commit.committed_datetime.date()}'")
         else:
-            print(f"### ComfyUI Revision: {comfy_ui_revision} on '{current_branch}' [{git_hash[:8]}]")
+            print(f"### ComfyUI Revision: {comfy_ui_revision} on '{current_branch}' [{git_hash[:8]}] | Released on '{repo.head.commit.committed_datetime.date()}'")
     except:
         print("### ComfyUI Revision: UNKNOWN (The currently installed ComfyUI is not a Git repository)")
 
