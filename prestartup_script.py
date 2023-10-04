@@ -7,20 +7,28 @@ import threading
 import re
 
 try:
+    if '--port' in sys.argv:
+        port_index = sys.argv.index('--port')
+        if port_index + 1 < len(sys.argv):
+            port = int(sys.argv[port_index + 1])
+            postfix = f"_{port}"
+    else:
+        postfix = ""
+
     # Logger setup
-    if os.path.exists("comfyui.log"):
-        if os.path.exists("comfyui.prev.log"):
-            if os.path.exists("comfyui.prev2.log"):
-                os.remove("comfyui.prev2.log")
-            os.rename("comfyui.prev.log", "comfyui.prev2.log")
-        os.rename("comfyui.log", "comfyui.prev.log")
+    if os.path.exists(f"comfyui{postfix}.log"):
+        if os.path.exists(f"comfyui{postfix}.prev.log"):
+            if os.path.exists(f"comfyui{postfix}.prev2.log"):
+                os.remove(f"comfyui{postfix}.prev2.log")
+            os.rename(f"comfyui{postfix}.prev.log", f"comfyui{postfix}.prev2.log")
+        os.rename(f"comfyui{postfix}.log", f"comfyui{postfix}.prev.log")
 
     original_stdout = sys.stdout
     original_stderr = sys.stderr
 
     tqdm = r'\d+%.*\[(.*?)\]'
 
-    log_file = open("comfyui.log", "w", encoding="utf-8")
+    log_file = open(f"comfyui{postfix}.log", "w", encoding="utf-8")
     log_lock = threading.Lock()
 
     class Logger:
