@@ -851,7 +851,7 @@
         [
             "DynamicPrompt",
             "Float Variable",
-            "FrameInterpolation",
+            "FrameInterpolator",
             "GPT Loader Simple",
             "GPTSampler",
             "Integer Variable",
@@ -1201,7 +1201,6 @@
             "ttN imageOutput",
             "ttN imageREMBG",
             "ttN int",
-            "ttN modelMerge",
             "ttN multiModelMerge",
             "ttN pipe2BASIC",
             "ttN pipe2DETAILER",
@@ -1213,6 +1212,7 @@
             "ttN pipeKSamplerSDXL",
             "ttN pipeLoader",
             "ttN pipeLoaderSDXL",
+            "ttN pipeLoraStack",
             "ttN pipeOUT",
             "ttN seed",
             "ttN seedDebug",
@@ -1708,8 +1708,11 @@
             "CreateShapeFlow",
             "ExportBlendshapes",
             "ExportGLTF",
+            "Image Alpha Mask Merge",
             "ImageBridge",
-            "SAM MultiLayer"
+            "LoadImageWithAlpha",
+            "SAM MultiLayer",
+            "Save Image With Workflow"
         ],
         {
             "author": "Avatech Limited",
@@ -1847,8 +1850,10 @@
             "ConvertImg",
             "CopyMakeBorder",
             "CreateRequestMetadata",
+            "DistanceTransform",
             "Draw Contour(s)",
             "EqualizeHistogram",
+            "FadeMaskEdges",
             "Filter Contour",
             "FindComplementaryColor",
             "FindThreshold",
@@ -2479,6 +2484,17 @@
         ],
         {
             "title_aux": "IPAdapter-ComfyUI"
+        }
+    ],
+    "https://github.com/laksjdjf/LoRA-Merger-ComfyUI": [
+        [
+            "LoraLoaderFromWeight",
+            "LoraLoaderWeightOnly",
+            "LoraMerge",
+            "LoraSave"
+        ],
+        {
+            "title_aux": "LoRA-Merger-ComfyUI"
         }
     ],
     "https://github.com/laksjdjf/attention-couple-ComfyUI": [
@@ -3439,14 +3455,18 @@
             "Endless Nodes Parameterizer & Prompts",
             "Endless Nodes Six Input Text Switch",
             "Endless Nodes Six Integer IO Switch",
-            "Endless Nodes Six Integer IO Widget"
+            "Endless Nodes Six Integer IO Widget",
+            "Endless Nodes String to Float",
+            "Endless Nodes String to Integer",
+            "Endless Nodes String to Num",
+            "Endless Nodes String to X"
         ],
         {
             "author": "BiffMunky",
-            "description": "A small set of nodes I created for various numerical and text inputs.  Features switches for text and numbers, parameter collection nodes, and two aesthetic scoring models.",
-            "nickname": "\ud83c\udf0c Endless Nodes \ud83c\udf0c",
-            "title": "\ud83c\udf0c An Endless Sea of Stars Node \ud83c\udf0c",
-            "title_aux": "Endless \ufe0f\ud83c\udf0a\ud83c\udf20 Node \ud83c\udf0c"
+            "description": "A small set of nodes I created for various numerical and text inputs.  Features image saver with ability to have JSON saved to separate folder, parameter collection nodes, two aesthetic scoring models, switches for text and numbers, and conversion of string to numeric and vice versa.",
+            "nickname": "\u267e\ufe0f\ud83c\udf0a\u2728",
+            "title": "Endless \ufe0f\ud83c\udf0a\u2728 Nodes",
+            "title_aux": "Endless \ufe0f\ud83c\udf0a\u2728 Nodes"
         }
     ],
     "https://github.com/twri/sdxl_prompt_styler": [
