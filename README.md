@@ -175,7 +175,7 @@ NODE_CLASS_MAPPINGS.update({
 
 * https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
 * https://github.com/senshilabs/NINJA-plugin
-
+* https://github.com/MockbaTheBorg/Nodes
 
 ## Roadmap
 
