@@ -1940,6 +1940,12 @@ class ManagerMenuDialog extends ComfyDialog {
 				}),
 				$el("button", {
 					type: "button",
+					textContent: "ComfyUI Workflow Gallery",
+					onclick: () => { window.open("https://comfyworkflows.com/", "comfyui-workflow-gallery"); }
+				}),
+
+				$el("button", {
+					type: "button",
 					textContent: "ComfyUI Nodes Info",
 					onclick: () => { window.open("https://ltdrdata.github.io/", "comfyui-node-info"); }
 				}),
