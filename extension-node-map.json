@@ -330,6 +330,7 @@
             "AMT VFI",
             "EISAI VFI",
             "FILM VFI",
+            "FLAVR VFI",
             "GMFSS Fortuna VFI",
             "IFRNet VFI",
             "IFUnet VFI",
@@ -958,6 +959,7 @@
             "CR Color Tint",
             "CR Conditioning Input Switch",
             "CR ControlNet Input Switch",
+            "CR Float To Integer",
             "CR Float To String",
             "CR Halftone Grid",
             "CR Halftones",
@@ -970,12 +972,17 @@
             "CR Image Pipe Out",
             "CR Image Size",
             "CR Img2Img Process Switch",
+            "CR Index",
+            "CR Index Increment",
+            "CR Index Multiply",
+            "CR Index Reset",
             "CR Integer Multiple",
             "CR Integer To String",
             "CR Latent Batch Size",
             "CR Latent Input Switch",
             "CR LoRA Stack",
             "CR Load LoRA",
+            "CR Load XY Annotation From File",
             "CR Model Input Switch",
             "CR Model Merge Stack",
             "CR Module Input",
@@ -991,12 +998,24 @@
             "CR SDXL Prompt Mix Presets",
             "CR SDXL Prompt Mixer",
             "CR SDXL Style Text",
+            "CR Save XY Grid Image",
             "CR Seed",
             "CR Seed to Int",
+            "CR Split String",
+            "CR String To Combo",
+            "CR String To Number",
             "CR Switch Model and CLIP",
             "CR Text Input Switch",
             "CR Text Input Switch (4 way)",
-            "CR Upscale Image"
+            "CR Text List To String",
+            "CR Trigger",
+            "CR Upscale Image",
+            "CR XY From Folder",
+            "CR XY Grid",
+            "CR XY Index",
+            "CR XY Interpolate",
+            "CR XY List",
+            "CR XYZ Index"
         ],
         {
             "title_aux": "ComfyUI_Comfyroll_CustomNodes"
@@ -1324,8 +1343,10 @@
     ],
     "https://github.com/WASasquatch/WAS_Extras": [
         [
+            "CLIPTextEncodeList",
             "ConditioningBlend",
             "DebugInput",
+            "KSamplerSeq",
             "VAEEncodeForInpaint (WAS)",
             "VividSharpen"
         ],
@@ -1358,6 +1379,7 @@
             "Control Net Model Input Switch",
             "Convert Masks to Images",
             "Create Grid Image",
+            "Create Grid Image from Batch",
             "Create Morph Image",
             "Create Morph Image from Path",
             "Create Video from Path",
@@ -1437,8 +1459,6 @@
             "Integer place counter",
             "KSampler (WAS)",
             "KSampler Cycle",
-            "LangSAM Masking",
-            "LangSAM Model Loader",
             "Latent Input Switch",
             "Latent Noise Injection",
             "Latent Size to Number",
@@ -1588,6 +1608,17 @@
         ],
         {
             "title_aux": "ComfyUI PickScore Nodes"
+        }
+    ],
+    "https://github.com/a1lazydog/ComfyUI-AudioScheduler": [
+        [
+            "AmplitudeSchedule",
+            "AudioToFFTs",
+            "BatchAmplitudeSchedule",
+            "LoadAudioFromPath"
+        ],
+        {
+            "title_aux": "ComfyUI-AudioScheduler"
         }
     ],
     "https://github.com/adieyal/comfyui-dynamicprompts": [
@@ -2827,6 +2858,9 @@
             "Animation Builder (mtb)",
             "Any To String (mtb)",
             "Batch Float (mtb)",
+            "Batch Float Assemble (mtb)",
+            "Batch Float Fill (mtb)",
+            "Batch Make (mtb)",
             "Batch Shape (mtb)",
             "Batch Transform (mtb)",
             "Bbox (mtb)",
@@ -3505,7 +3539,8 @@
             "ESS String to Float",
             "ESS String to Integer",
             "ESS String to Num",
-            "ESS String to X"
+            "ESS String to X",
+            "\u267e\ufe0f\ud83c\udf0a\u2728 Image Saver with JSON"
         ],
         {
             "author": "BiffMunky",
