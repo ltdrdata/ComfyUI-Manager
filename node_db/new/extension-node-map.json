@@ -887,6 +887,19 @@
             "title_aux": "pfaeff-comfyui"
         }
     ],
+    "https://github.com/ProDALOR/comfyui_u2net": [
+        [
+            "U2NetBaseNormalization",
+            "U2NetChToMask",
+            "U2NetLoader",
+            "U2NetMaxNormalization",
+            "U2NetSegmentation",
+            "U2NetToMask"
+        ],
+        {
+            "title_aux": "comfyui_u2net"
+        }
+    ],
     "https://github.com/RockOfFire/CR_Animation_Nodes": [
         [
             "CR Central Schedule",
@@ -1181,8 +1194,13 @@
     ],
     "https://github.com/Sxela/ComfyWarp": [
         [
+            "ExtractOpticalFlow",
             "LoadFrame",
-            "LoadFrameSequence"
+            "LoadFrameFromDataset",
+            "LoadFrameSequence",
+            "MakeFrameDataset",
+            "OffsetNumber",
+            "WarpFrame"
         ],
         {
             "title_aux": "ComfyWarp"
@@ -3210,6 +3228,7 @@
             "AV_ControlNetEfficientLoader",
             "AV_ControlNetEfficientLoaderAdvanced",
             "AV_ControlNetEfficientStacker",
+            "AV_ControlNetEfficientStackerSimple",
             "AV_ControlNetLoader",
             "AV_ControlNetPreprocessor",
             "AV_LoraLoader",
