@@ -97,6 +97,8 @@
             "BSZAbsoluteHires",
             "BSZAspectHires",
             "BSZCombinedHires",
+            "BSZLatentFill",
+            "BSZLatentOffsetXL",
             "BSZPixelbuster",
             "BSZPixelbusterHelp",
             "BSZPrincipledSDXL"
@@ -400,18 +402,13 @@
             "title_aux": "ComfyUI's ControlNet Auxiliary Preprocessors"
         }
     ],
-    "https://github.com/FizzleDorf/AIT": [
+    "https://github.com/FizzleDorf/ComfyUI-AIT": [
         [
-            "AITemplateControlNetLoader",
-            "AITemplateEmptyLatentImage",
-            "AITemplateLatentUpscale",
-            "AITemplateLoader",
-            "AITemplateVAEDecode",
-            "AITemplateVAEEncode",
-            "AITemplateVAEEncodeForInpaint"
+            "AITLoader",
+            "AIT_Unet_Loader"
         ],
         {
-            "title_aux": "AIT"
+            "title_aux": "ComfyUI-AIT"
         }
     ],
     "https://github.com/FizzleDorf/ComfyUI_FizzNodes": [
@@ -1191,6 +1188,14 @@
             "title_aux": "SDXL_sizing"
         }
     ],
+    "https://github.com/Smuzzies/comfyui_chatbox_overlay/raw/main/chatbox_overlay.py": [
+        [
+            "Chatbox Overlay"
+        ],
+        {
+            "title_aux": "Chatbox Overlay node for ComfyUI"
+        }
+    ],
     "https://github.com/Stability-AI/stability-ComfyUI-nodes": [
         [
             "ColorBlend",
@@ -1642,12 +1647,16 @@
     ],
     "https://github.com/a1lazydog/ComfyUI-AudioScheduler": [
         [
-            "AmplitudeSchedule",
+            "AmplitudeToGraph",
+            "AmplitudeToNumber",
             "AudioToAmplitudeGraph",
             "AudioToFFTs",
             "BatchAmplitudeSchedule",
-            "FloatsToGraph",
-            "LoadAudio"
+            "GateNormalizedAmplitude",
+            "LoadAudio",
+            "NormalizeAmplitude",
+            "NormalizedAmplitudeToGraph",
+            "NormalizedAmplitudeToNumber"
         ],
         {
             "title_aux": "ComfyUI-AudioScheduler"
@@ -3320,6 +3329,14 @@
         ],
         {
             "title_aux": "ComfyUI-HQ-Image-Save"
+        }
+    ],
+    "https://github.com/spinagon/ComfyUI-seam-carving": [
+        [
+            "SeamCarving"
+        ],
+        {
+            "title_aux": "ComfyUI-seam-carving"
         }
     ],
     "https://github.com/spinagon/ComfyUI-seamless-tiling": [
