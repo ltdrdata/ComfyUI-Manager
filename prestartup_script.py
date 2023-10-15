@@ -6,6 +6,18 @@ import atexit
 import threading
 import re
 
+
+message_collapses = []
+
+
+def register_message_collapse(f):
+    global message_collapses
+    message_collapses.append(f)
+
+
+sys.__comfyui_manager_register_message_collapse = register_message_collapse
+
+
 try:
     if '--port' in sys.argv:
         port_index = sys.argv.index('--port')
@@ -46,6 +58,9 @@ try:
                 raise ValueError("The object does not have a fileno method")
 
         def write(self, message):
+            if any(f(message) for f in message_collapses):
+                return
+
             if not self.is_stdout:
                 match = re.search(tqdm, message)
                 if match:
