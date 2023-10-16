@@ -56,7 +56,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.35)")
+print("### Loading: ComfyUI-Manager (V0.35.1)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -468,7 +468,12 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
     item['installed'] = 'None'
 
     if item['install_type'] == 'git-clone' and len(item['files']) == 1:
-        dir_name = os.path.splitext(os.path.basename(item['files'][0]))[0].replace(".git", "")
+        url = item['files'][0]
+
+        if url.endswith("/"):
+            url = url[:-1]
+
+        dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
         dir_path = os.path.join(custom_nodes_path, dir_name)
         if os.path.exists(dir_path):
             try:
@@ -661,6 +666,8 @@ async def fetch_externalmodel_list(request):
 def unzip_install(files):
     temp_filename = 'manager-temp.zip'
     for url in files:
+        if url.endswith("/"):
+            url = url[:-1]
         try:
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
@@ -709,6 +716,8 @@ def download_url_with_agent(url, save_path):
 
 def copy_install(files, js_path_name=None):
     for url in files:
+        if url.endswith("/"):
+            url = url[:-1]
         try:
             if url.endswith(".py"):
                 download_url(url, custom_nodes_path)
@@ -728,6 +737,8 @@ def copy_install(files, js_path_name=None):
 
 def copy_uninstall(files, js_path_name='.'):
     for url in files:
+        if url.endswith("/"):
+            url = url[:-1]
         dir_name = os.path.basename(url)
         base_path = custom_nodes_path if url.endswith('.py') else os.path.join(js_path, js_path_name)
         file_path = os.path.join(base_path, dir_name)
@@ -752,6 +763,8 @@ def copy_set_active(files, is_disable, js_path_name='.'):
         action_name = "Enable"
 
     for url in files:
+        if url.endswith("/"):
+            url = url[:-1]
         dir_name = os.path.basename(url)
         base_path = custom_nodes_path if url.endswith('.py') else os.path.join(js_path, js_path_name)
         file_path = os.path.join(base_path, dir_name)
@@ -800,6 +813,8 @@ def execute_install_script(url, repo_path):
 def gitclone_install(files):
     print(f"install: {files}")
     for url in files:
+        if url.endswith("/"):
+            url = url[:-1]
         try:
             print(f"Download: git clone '{url}'")
             repo_name = os.path.splitext(os.path.basename(url))[0]
@@ -858,6 +873,8 @@ def gitclone_uninstall(files):
 
     print(f"uninstall: {files}")
     for url in files:
+        if url.endswith("/"):
+            url = url[:-1]
         try:
             dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
             dir_path = os.path.join(custom_nodes_path, dir_name)
@@ -903,6 +920,8 @@ def gitclone_set_active(files, is_disable):
 
     print(f"{action_name}: {files}")
     for url in files:
+        if url.endswith("/"):
+            url = url[:-1]
         try:
             dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
             dir_path = os.path.join(custom_nodes_path, dir_name)
@@ -943,6 +962,8 @@ def gitclone_update(files):
 
     print(f"Update: {files}")
     for url in files:
+        if url.endswith("/"):
+            url = url[:-1]
         try:
             repo_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
             repo_path = os.path.join(custom_nodes_path, repo_name)
@@ -995,7 +1016,7 @@ async def install_custom_node(request):
 
 
 @server.PromptServer.instance.routes.post("/customnode/uninstall")
-async def install_custom_node(request):
+async def uninstall_custom_node(request):
     json_data = await request.json()
 
     install_type = json_data['install_type']
@@ -1019,7 +1040,7 @@ async def install_custom_node(request):
 
 
 @server.PromptServer.instance.routes.post("/customnode/update")
-async def install_custom_node(request):
+async def update_custom_node(request):
     json_data = await request.json()
 
     install_type = json_data['install_type']
@@ -1039,7 +1060,7 @@ async def install_custom_node(request):
 
 
 @server.PromptServer.instance.routes.get("/comfyui_manager/update_comfyui")
-async def install_custom_node(request):
+async def update_comfyui(request):
     print(f"Update ComfyUI")
 
     try:
@@ -1076,7 +1097,7 @@ async def install_custom_node(request):
 
 
 @server.PromptServer.instance.routes.post("/customnode/toggle_active")
-async def install_custom_node(request):
+async def toggle_active(request):
     json_data = await request.json()
 
     install_type = json_data['install_type']
