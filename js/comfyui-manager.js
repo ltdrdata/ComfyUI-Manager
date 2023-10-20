@@ -1,7 +1,7 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
-import {ComfyWidgets} from "../../scripts/widgets.js";
+import { ComfyWidgets } from "../../scripts/widgets.js";
 
 var update_comfyui_button = null;
 var fetch_updates_button = null;
@@ -9,16 +9,16 @@ var update_all_button = null;
 var badge_mode = "none";
 
 async function init_badge_mode() {
-    api.fetchApi('/manager/badge_mode')
-    .then(response => response.text())
-    .then(data => { badge_mode = data; })
+	api.fetchApi('/manager/badge_mode')
+		.then(response => response.text())
+		.then(data => { badge_mode = data; })
 }
 
 await init_badge_mode();
 
 async function getCustomnodeMappings() {
 	var mode = "url";
-	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+	if (ManagerMenuDialog.instance.local_mode_checkbox.checked)
 		mode = "local";
 
 	const response = await api.fetchApi(`/customnode/getmappings?mode=${mode}`);
@@ -30,7 +30,7 @@ async function getCustomnodeMappings() {
 async function getUnresolvedNodesInComponent() {
 	try {
 		var mode = "url";
-		if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+		if (ManagerMenuDialog.instance.local_mode_checkbox.checked)
 			mode = "local";
 
 		const response = await api.fetchApi(`/component/get_unresolved`);
@@ -45,11 +45,11 @@ async function getUnresolvedNodesInComponent() {
 
 async function getCustomNodes() {
 	var mode = "url";
-	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+	if (ManagerMenuDialog.instance.local_mode_checkbox.checked)
 		mode = "local";
 
 	var skip_update = "";
-	if(ManagerMenuDialog.instance.update_check_checkbox.checked)
+	if (ManagerMenuDialog.instance.update_check_checkbox.checked)
 		skip_update = "&skip_update=true";
 
 	const response = await api.fetchApi(`/customnode/getlist?mode=${mode}${skip_update}`);
@@ -59,25 +59,25 @@ async function getCustomNodes() {
 }
 
 async function fetchNicknames() {
-    const response1 = await api.fetchApi(`/customnode/getmappings?mode=local`);
-    const mappings = await response1.json();
+	const response1 = await api.fetchApi(`/customnode/getmappings?mode=local`);
+	const mappings = await response1.json();
 
-    let result = {};
+	let result = {};
 
-    for(let i in mappings) {
-        let item = mappings[i];
-        var nickname;
-        if(item[1].title) {
-            nickname = item[1].title;
-        }
-        else {
-            nickname = item[1].title_aux;
-        }
+	for (let i in mappings) {
+		let item = mappings[i];
+		var nickname;
+		if (item[1].title) {
+			nickname = item[1].title;
+		}
+		else {
+			nickname = item[1].title_aux;
+		}
 
-        for(let j in item[0]) {
-            result[item[0][j]] = nickname;
-        }
-    }
+		for (let j in item[0]) {
+			result[item[0][j]] = nickname;
+		}
+	}
 
 	return result;
 }
@@ -86,11 +86,11 @@ let nicknames = await fetchNicknames();
 
 async function getAlterList() {
 	var mode = "url";
-	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+	if (ManagerMenuDialog.instance.local_mode_checkbox.checked)
 		mode = "local";
 
 	var skip_update = "";
-	if(ManagerMenuDialog.instance.update_check_checkbox.checked)
+	if (ManagerMenuDialog.instance.update_check_checkbox.checked)
 		skip_update = "&skip_update=true";
 
 	const response = await api.fetchApi(`/alternatives/getlist?mode=${mode}${skip_update}`);
@@ -101,7 +101,7 @@ async function getAlterList() {
 
 async function getModelList() {
 	var mode = "url";
-	if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
+	if (ManagerMenuDialog.instance.local_mode_checkbox.checked)
 		mode = "local";
 
 	const response = await api.fetchApi(`/externalmodel/getlist?mode=${mode}`);
@@ -111,61 +111,61 @@ async function getModelList() {
 }
 
 async function install_checked_custom_node(grid_rows, target_i, caller, mode) {
-	if(caller) {
-	    let failed = '';
+	if (caller) {
+		let failed = '';
 
-        caller.disableButtons();
+		caller.disableButtons();
 
-        for(let i in grid_rows) {
-            if(!grid_rows[i].checkbox.checked && i != target_i)
-                continue;
+		for (let i in grid_rows) {
+			if (!grid_rows[i].checkbox.checked && i != target_i)
+				continue;
 
-            var target;
+			var target;
 
-            if(grid_rows[i].data.custom_node) {
-                target = grid_rows[i].data.custom_node;
-            }
-            else {
-                target = grid_rows[i].data;
-            }
+			if (grid_rows[i].data.custom_node) {
+				target = grid_rows[i].data.custom_node;
+			}
+			else {
+				target = grid_rows[i].data;
+			}
 
-            caller.startInstall(target);
+			caller.startInstall(target);
 
-            try {
-                const response = await api.fetchApi(`/customnode/${mode}`, {
-                                                        method: 'POST',
-                                                        headers: { 'Content-Type': 'application/json' },
-                                                        body: JSON.stringify(target)
-                                                    });
+			try {
+				const response = await api.fetchApi(`/customnode/${mode}`, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(target)
+				});
 
-                if(response.status == 400) {
-                    app.ui.dialog.show(`${mode} failed: ${target.title}`);
-                    app.ui.dialog.element.style.zIndex = 9999;
-                    continue;
-                }
+				if (response.status == 400) {
+					app.ui.dialog.show(`${mode} failed: ${target.title}`);
+					app.ui.dialog.element.style.zIndex = 9999;
+					continue;
+				}
 
-                const status = await response.json();
-                app.ui.dialog.close();
-                target.installed = 'True';
-                continue;
-            }
-            catch(exception) {
-                failed += `<BR> ${target.title}`;
-            }
+				const status = await response.json();
+				app.ui.dialog.close();
+				target.installed = 'True';
+				continue;
+			}
+			catch (exception) {
+				failed += `<BR> ${target.title}`;
+			}
 		}
 
-		if(failed != '') {
-            app.ui.dialog.show(`${mode} failed: ${failed}`);
-            app.ui.dialog.element.style.zIndex = 9999;
+		if (failed != '') {
+			app.ui.dialog.show(`${mode} failed: ${failed}`);
+			app.ui.dialog.element.style.zIndex = 9999;
 		}
 
-        await caller.invalidateControl();
-        caller.updateMessage('<BR>To apply the installed/disabled/enabled custom node, please restart ComfyUI.');
+		await caller.invalidateControl();
+		caller.updateMessage('<BR>To apply the installed/disabled/enabled custom node, please restart ComfyUI.');
 	}
 }
 
 async function updateComfyUI() {
-    let prev_text = update_comfyui_button.innerText;
+	let prev_text = update_comfyui_button.innerText;
 	update_comfyui_button.innerText = "Updating ComfyUI...";
 	update_comfyui_button.disabled = true;
 	update_comfyui_button.style.backgroundColor = "gray";
@@ -173,13 +173,13 @@ async function updateComfyUI() {
 	try {
 		const response = await api.fetchApi('/comfyui_manager/update_comfyui');
 
-		if(response.status == 400) {
+		if (response.status == 400) {
 			app.ui.dialog.show('Failed to update ComfyUI.');
 			app.ui.dialog.element.style.zIndex = 9999;
 			return false;
 		}
 
-		if(response.status == 201) {
+		if (response.status == 201) {
 			app.ui.dialog.show('ComfyUI has been successfully updated.');
 			app.ui.dialog.element.style.zIndex = 9999;
 		}
@@ -190,7 +190,7 @@ async function updateComfyUI() {
 
 		return true;
 	}
-	catch(exception) {
+	catch (exception) {
 		app.ui.dialog.show(`Failed to update ComfyUI / ${exception}`);
 		app.ui.dialog.element.style.zIndex = 9999;
 		return false;
@@ -198,30 +198,30 @@ async function updateComfyUI() {
 	finally {
 		update_comfyui_button.disabled = false;
 		update_comfyui_button.innerText = prev_text;
-	    update_comfyui_button.style.backgroundColor = "";
+		update_comfyui_button.style.backgroundColor = "";
 	}
 }
 
 async function fetchUpdates(update_check_checkbox) {
-    let prev_text = fetch_updates_button.innerText;
+	let prev_text = fetch_updates_button.innerText;
 	fetch_updates_button.innerText = "Fetching updates...";
 	fetch_updates_button.disabled = true;
 	fetch_updates_button.style.backgroundColor = "gray";
 
 	try {
 		var mode = "url";
-        if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
-            mode = "local";
+		if (ManagerMenuDialog.instance.local_mode_checkbox.checked)
+			mode = "local";
 
 		const response = await api.fetchApi(`/customnode/fetch_updates?mode=${mode}`);
 
-		if(response.status != 200 && response.status != 201) {
+		if (response.status != 200 && response.status != 201) {
 			app.ui.dialog.show('Failed to fetch updates.');
 			app.ui.dialog.element.style.zIndex = 9999;
 			return false;
 		}
 
-		if(response.status == 201) {
+		if (response.status == 201) {
 			app.ui.dialog.show('There is an updated extension available.');
 			app.ui.dialog.element.style.zIndex = 9999;
 			update_check_checkbox.checked = false;
@@ -233,7 +233,7 @@ async function fetchUpdates(update_check_checkbox) {
 
 		return true;
 	}
-	catch(exception) {
+	catch (exception) {
 		app.ui.dialog.show(`Failed to update custom nodes / ${exception}`);
 		app.ui.dialog.element.style.zIndex = 9999;
 		return false;
@@ -246,37 +246,37 @@ async function fetchUpdates(update_check_checkbox) {
 }
 
 async function updateAll(update_check_checkbox) {
-    let prev_text = update_all_button.innerText;
+	let prev_text = update_all_button.innerText;
 	update_all_button.innerText = "Updating all...(ComfyUI)";
 	update_all_button.disabled = true;
 	update_all_button.style.backgroundColor = "gray";
 
 	try {
 		var mode = "url";
-        if(ManagerMenuDialog.instance.local_mode_checkbox.checked)
-            mode = "local";
+		if (ManagerMenuDialog.instance.local_mode_checkbox.checked)
+			mode = "local";
 
 		update_all_button.innerText = "Updating all...";
 		const response1 = await api.fetchApi('/comfyui_manager/update_comfyui');
 		const response2 = await api.fetchApi(`/customnode/update_all?mode=${mode}`);
 
-		if(response1.status != 200 && response2.status != 201) {
+		if (response1.status != 200 && response2.status != 201) {
 			app.ui.dialog.show('Failed to update ComfyUI or several extensions.<BR><BR>See terminal log.<BR>');
 			app.ui.dialog.element.style.zIndex = 9999;
 			return false;
 		}
-		if(response1.status == 201 || response2.status == 201) {
-	        app.ui.dialog.show('ComfyUI and all extensions have been updated to the latest version.');
+		if (response1.status == 201 || response2.status == 201) {
+			app.ui.dialog.show('ComfyUI and all extensions have been updated to the latest version.');
 			app.ui.dialog.element.style.zIndex = 9999;
 		}
 		else {
 			app.ui.dialog.show('ComfyUI and all extensions are already up-to-date with the latest versions.');
-	        app.ui.dialog.element.style.zIndex = 9999;
-        }
+			app.ui.dialog.element.style.zIndex = 9999;
+		}
 
 		return true;
 	}
-	catch(exception) {
+	catch (exception) {
 		app.ui.dialog.show(`Failed to update ComfyUI or several extensions / ${exception}`);
 		app.ui.dialog.element.style.zIndex = 9999;
 		return false;
@@ -289,22 +289,22 @@ async function updateAll(update_check_checkbox) {
 }
 
 async function install_model(target) {
-	if(ModelInstaller.instance) {
+	if (ModelInstaller.instance) {
 		ModelInstaller.instance.startInstall(target);
 
 		try {
 			const response = await api.fetchApi('/model/install', {
-													method: 'POST',
-													headers: { 'Content-Type': 'application/json' },
-													body: JSON.stringify(target)
-												});
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(target)
+			});
 
 			const status = await response.json();
 			app.ui.dialog.close();
 			target.installed = 'True';
 			return true;
 		}
-		catch(exception) {
+		catch (exception) {
 			app.ui.dialog.show(`Install failed: ${target.title} / ${exception}`);
 			app.ui.dialog.element.style.zIndex = 9999;
 			return false;
@@ -344,7 +344,7 @@ class CustomNodesInstaller extends ComfyDialog {
 	}
 
 	disableButtons() {
-		for(let i in this.install_buttons) {
+		for (let i in this.install_buttons) {
 			this.install_buttons[i].disabled = true;
 			this.install_buttons[i].style.backgroundColor = 'gray';
 		}
@@ -352,20 +352,20 @@ class CustomNodesInstaller extends ComfyDialog {
 
 	apply_searchbox(data) {
 		let keyword = this.search_box.value.toLowerCase();
-		for(let i in this.grid_rows) {
+		for (let i in this.grid_rows) {
 			let data = this.grid_rows[i].data;
 			let content = data.author.toLowerCase() + data.description.toLowerCase() + data.title.toLowerCase();
 
-			if(this.filter && this.filter != '*') {
-				if(this.filter != data.installed) {
+			if (this.filter && this.filter != '*') {
+				if (this.filter != data.installed) {
 					this.grid_rows[i].control.style.display = 'none';
 					continue;
 				}
 			}
 
-			if(keyword == "")
+			if (keyword == "")
 				this.grid_rows[i].control.style.display = null;
-			else if(content.includes(keyword)) {
+			else if (content.includes(keyword)) {
 				this.grid_rows[i].control.style.display = null;
 			}
 			else {
@@ -381,8 +381,8 @@ class CustomNodesInstaller extends ComfyDialog {
 		// build regex->url map
 		const regex_to_url = [];
 		for (let i in data) {
-			if(data[i]['nodename_pattern']) {
-				let item = {regex: new RegExp(data[i].nodename_pattern), url: data[i].files[0]};
+			if (data[i]['nodename_pattern']) {
+				let item = { regex: new RegExp(data[i].nodename_pattern), url: data[i].files[0] };
 				regex_to_url.push(item);
 			}
 		}
@@ -391,7 +391,7 @@ class CustomNodesInstaller extends ComfyDialog {
 		const name_to_url = {};
 		for (const url in mappings) {
 			const names = mappings[url];
-			for(const name in names[0]) {
+			for (const name in names[0]) {
 				name_to_url[names[0][name]] = url;
 			}
 		}
@@ -407,11 +407,11 @@ class CustomNodesInstaller extends ComfyDialog {
 			const node_type = nodes[i].type;
 			if (!registered_nodes.has(node_type)) {
 				const url = name_to_url[node_type.trim()];
-				if(url)
+				if (url)
 					missing_nodes.add(url);
 				else {
-					for(let j in regex_to_url) {
-						if(regex_to_url[j].regex.test(node_type)) {
+					for (let j in regex_to_url) {
+						if (regex_to_url[j].regex.test(node_type)) {
 							missing_nodes.add(regex_to_url[j].url);
 						}
 					}
@@ -423,7 +423,7 @@ class CustomNodesInstaller extends ComfyDialog {
 		for (let i in unresolved_nodes) {
 			let node_type = unresolved_nodes[i];
 			const url = name_to_url[node_type];
-			if(url)
+			if (url)
 				missing_nodes.add(url);
 		}
 
@@ -438,11 +438,11 @@ class CustomNodesInstaller extends ComfyDialog {
 			this.element.removeChild(this.element.children[0]);
 		}
 
-		const msg = $el('div', {id:'custom-message'},
+		const msg = $el('div', { id: 'custom-message' },
 			[$el('br'),
-			'The custom node DB is currently being updated, and updates to custom nodes are being checked for.',
+				'The custom node DB is currently being updated, and updates to custom nodes are being checked for.',
 			$el('br'),
-			'NOTE: Update only checks for extensions that have been fetched.',
+				'NOTE: Update only checks for extensions that have been fetched.',
 			$el('br')]);
 		msg.style.height = '100px';
 		msg.style.verticalAlign = 'middle';
@@ -453,7 +453,7 @@ class CustomNodesInstaller extends ComfyDialog {
 		// invalidate
 		this.data = (await getCustomNodes()).custom_nodes;
 
-		if(this.is_missing_node_mode)
+		if (this.is_missing_node_mode)
 			this.data = await this.filter_missing_node(this.data);
 
 		this.element.removeChild(msg);
@@ -472,89 +472,89 @@ class CustomNodesInstaller extends ComfyDialog {
 		this.message_box.innerHTML = msg;
 	}
 
-    invalidate_checks(is_checked, install_state) {
-        if(is_checked) {
-            for(let i in this.grid_rows) {
-                let data = this.grid_rows[i].data;
-                let checkbox = this.grid_rows[i].checkbox;
-                let buttons = this.grid_rows[i].buttons;
+	invalidate_checks(is_checked, install_state) {
+		if (is_checked) {
+			for (let i in this.grid_rows) {
+				let data = this.grid_rows[i].data;
+				let checkbox = this.grid_rows[i].checkbox;
+				let buttons = this.grid_rows[i].buttons;
 
-                checkbox.disabled = data.installed != install_state;
+				checkbox.disabled = data.installed != install_state;
 
-                if(checkbox.disabled) {
-                    for(let j in buttons) {
-                        buttons[j].style.display = 'none';
-                    }
-                }
-                else {
-                    for(let j in buttons) {
-                        buttons[j].style.display = null;
-                    }
-                }
-            }
+				if (checkbox.disabled) {
+					for (let j in buttons) {
+						buttons[j].style.display = 'none';
+					}
+				}
+				else {
+					for (let j in buttons) {
+						buttons[j].style.display = null;
+					}
+				}
+			}
 
-            this.checkbox_all.disabled = false;
-        }
-        else {
-            for(let i in this.grid_rows) {
-                let checkbox = this.grid_rows[i].checkbox;
-                if(checkbox.check)
-                    return; // do nothing
-            }
+			this.checkbox_all.disabled = false;
+		}
+		else {
+			for (let i in this.grid_rows) {
+				let checkbox = this.grid_rows[i].checkbox;
+				if (checkbox.check)
+					return; // do nothing
+			}
 
-            // every checkbox is unchecked -> enable all checkbox
-            for(let i in this.grid_rows) {
-                let checkbox = this.grid_rows[i].checkbox;
-                let buttons = this.grid_rows[i].buttons;
-                checkbox.disabled = false;
+			// every checkbox is unchecked -> enable all checkbox
+			for (let i in this.grid_rows) {
+				let checkbox = this.grid_rows[i].checkbox;
+				let buttons = this.grid_rows[i].buttons;
+				checkbox.disabled = false;
 
-                for(let j in buttons) {
-                    buttons[j].style.display = null;
-                }
-            }
+				for (let j in buttons) {
+					buttons[j].style.display = null;
+				}
+			}
 
-            this.checkbox_all.checked = false;
-            this.checkbox_all.disabled = true;
-        }
-    }
+			this.checkbox_all.checked = false;
+			this.checkbox_all.disabled = true;
+		}
+	}
 
-    check_all(is_checked) {
-        if(is_checked) {
-            // lookup first checked item's state
-            let check_state = null;
-            for(let i in this.grid_rows) {
-                let checkbox = this.grid_rows[i].checkbox;
-                if(checkbox.checked) {
-                    check_state = this.grid_rows[i].data.installed;
-                }
-            }
+	check_all(is_checked) {
+		if (is_checked) {
+			// lookup first checked item's state
+			let check_state = null;
+			for (let i in this.grid_rows) {
+				let checkbox = this.grid_rows[i].checkbox;
+				if (checkbox.checked) {
+					check_state = this.grid_rows[i].data.installed;
+				}
+			}
 
-            if(check_state == null)
-                return;
+			if (check_state == null)
+				return;
 
-            // check only same state items
-            for(let i in this.grid_rows) {
-                let checkbox = this.grid_rows[i].checkbox;
-                if(this.grid_rows[i].data.installed == check_state)
-                    checkbox.checked = true;
-            }
-        }
-        else {
-            // uncheck all
-            for(let i in this.grid_rows) {
-                let checkbox = this.grid_rows[i].checkbox;
-                let buttons = this.grid_rows[i].buttons;
-                checkbox.checked = false;
-                checkbox.disabled = false;
+			// check only same state items
+			for (let i in this.grid_rows) {
+				let checkbox = this.grid_rows[i].checkbox;
+				if (this.grid_rows[i].data.installed == check_state)
+					checkbox.checked = true;
+			}
+		}
+		else {
+			// uncheck all
+			for (let i in this.grid_rows) {
+				let checkbox = this.grid_rows[i].checkbox;
+				let buttons = this.grid_rows[i].buttons;
+				checkbox.checked = false;
+				checkbox.disabled = false;
 
-                for(let j in buttons) {
-                    buttons[j].style.display = null;
-                }
-            }
+				for (let j in buttons) {
+					buttons[j].style.display = null;
+				}
+			}
 
-            this.checkbox_all.disabled = true;
-        }
-    }
+			this.checkbox_all.disabled = true;
+		}
+	}
 
 	async createGrid() {
 		var grid = document.createElement('table');
@@ -562,24 +562,24 @@ class CustomNodesInstaller extends ComfyDialog {
 
 		this.grid_rows = {};
 
-        let self = this;
+		let self = this;
 
-        var thead = document.createElement('thead');
-        var tbody = document.createElement('tbody');
+		var thead = document.createElement('thead');
+		var tbody = document.createElement('tbody');
 
 		var headerRow = document.createElement('tr');
 		thead.style.position = "sticky";
 		thead.style.top = "0px";
-        thead.style.borderCollapse = "collapse";
-        thead.style.tableLayout = "fixed";
+		thead.style.borderCollapse = "collapse";
+		thead.style.tableLayout = "fixed";
 
 		var header0 = document.createElement('th');
 		header0.style.width = "20px";
-        this.checkbox_all = $el("input",{type:'checkbox', id:'check_all'},[]);
-        header0.appendChild(this.checkbox_all);
-        this.checkbox_all.checked = false;
-        this.checkbox_all.disabled = true;
-        this.checkbox_all.addEventListener('change', function() { self.check_all.call(self, self.checkbox_all.checked); });
+		this.checkbox_all = $el("input", { type: 'checkbox', id: 'check_all' }, []);
+		header0.appendChild(this.checkbox_all);
+		this.checkbox_all.checked = false;
+		this.checkbox_all.disabled = true;
+		this.checkbox_all.addEventListener('change', function () { self.check_all.call(self, self.checkbox_all.checked); });
 
 		var header1 = document.createElement('th');
 		header1.innerHTML = '&nbsp;&nbsp;ID&nbsp;&nbsp;';
@@ -593,7 +593,7 @@ class CustomNodesInstaller extends ComfyDialog {
 		var header4 = document.createElement('th');
 		header4.innerHTML = 'Description';
 		header4.style.width = "60%";
-//        header4.classList.add('expandable-column');
+		//        header4.classList.add('expandable-column');
 		var header5 = document.createElement('th');
 		header5.innerHTML = 'Install';
 		header5.style.width = "130px";
@@ -611,7 +611,7 @@ class CustomNodesInstaller extends ComfyDialog {
 		header5.style.position = "sticky";
 		header5.style.top = "0px";
 
-        thead.appendChild(headerRow);
+		thead.appendChild(headerRow);
 		headerRow.appendChild(header0);
 		headerRow.appendChild(header1);
 		headerRow.appendChild(header2);
@@ -628,32 +628,32 @@ class CustomNodesInstaller extends ComfyDialog {
 		grid.appendChild(thead);
 		grid.appendChild(tbody);
 
-		if(this.data)
+		if (this.data)
 			for (var i = 0; i < this.data.length; i++) {
 				const data = this.data[i];
 				let dataRow = document.createElement('tr');
 
 				let data0 = document.createElement('td');
-		        let checkbox = $el("input",{type:'checkbox', id:`check_${i}`},[]);
-		        data0.appendChild(checkbox);
-		        checkbox.checked = false;
-		        checkbox.addEventListener('change', function() { self.invalidate_checks.call(self, checkbox.checked, data.installed); });
+				let checkbox = $el("input", { type: 'checkbox', id: `check_${i}` }, []);
+				data0.appendChild(checkbox);
+				checkbox.checked = false;
+				checkbox.addEventListener('change', function () { self.invalidate_checks.call(self, checkbox.checked, data.installed); });
 
 				var data1 = document.createElement('td');
 				data1.style.textAlign = "center";
-				data1.innerHTML = i+1;
+				data1.innerHTML = i + 1;
 				var data2 = document.createElement('td');
-		        data2.style.maxWidth = "100px";
+				data2.style.maxWidth = "100px";
 				data2.className = "cm-node-author"
 				data2.textContent = ` ${data.author}`;
 				data2.style.whiteSpace = "nowrap";
-                data2.style.overflow = "hidden";
+				data2.style.overflow = "hidden";
 				data2.style.textOverflow = "ellipsis";
-                var data3 = document.createElement('td');
-                data3.style.maxWidth = "200px";
-                data3.style.wordWrap = "break-word";
+				var data3 = document.createElement('td');
+				data3.style.maxWidth = "200px";
+				data3.style.wordWrap = "break-word";
 				data3.className = "cm-node-name"
-                data3.innerHTML = `&nbsp;<a href=${data.reference} target="_blank"><font color="skyblue"><b>${data.title}</b></font></a>`;
+				data3.innerHTML = `&nbsp;<a href=${data.reference} target="_blank"><font color="skyblue"><b>${data.title}</b></font></a>`;
 				var data4 = document.createElement('td');
 				data4.innerHTML = data.description;
 				data4.className = "cm-node-desc"
@@ -667,71 +667,71 @@ class CustomNodesInstaller extends ComfyDialog {
 
 				this.install_buttons.push(installBtn);
 
-				switch(data.installed) {
-				case 'Disabled':
-					installBtn3 = document.createElement('button');
-					installBtn3.innerHTML = 'Enable';
-					installBtn3.className = "cm-btn-enable";
-					installBtn3.style.backgroundColor = 'blue';
-					installBtn3.style.color = 'white';
-					this.install_buttons.push(installBtn3);
+				switch (data.installed) {
+					case 'Disabled':
+						installBtn3 = document.createElement('button');
+						installBtn3.innerHTML = 'Enable';
+						installBtn3.className = "cm-btn-enable";
+						installBtn3.style.backgroundColor = 'blue';
+						installBtn3.style.color = 'white';
+						this.install_buttons.push(installBtn3);
 
-					installBtn.innerHTML = 'Uninstall';
-					installBtn.style.backgroundColor = 'red';
-					break;
-				case 'Update':
-					installBtn2 = document.createElement('button');
-					installBtn2.innerHTML = 'Update';
-					installBtn2.className = "cm-btn-update";
-					installBtn2.style.backgroundColor = 'blue';
-					installBtn2.style.color = 'white';
-					this.install_buttons.push(installBtn2);
+						installBtn.innerHTML = 'Uninstall';
+						installBtn.style.backgroundColor = 'red';
+						break;
+					case 'Update':
+						installBtn2 = document.createElement('button');
+						installBtn2.innerHTML = 'Update';
+						installBtn2.className = "cm-btn-update";
+						installBtn2.style.backgroundColor = 'blue';
+						installBtn2.style.color = 'white';
+						this.install_buttons.push(installBtn2);
 
-					installBtn3 = document.createElement('button');
-					installBtn3.innerHTML = 'Disable';
-					installBtn3.className = "cm-btn-disable";
-					installBtn3.style.backgroundColor = 'MediumSlateBlue';
-					installBtn3.style.color = 'white';
-					this.install_buttons.push(installBtn3);
+						installBtn3 = document.createElement('button');
+						installBtn3.innerHTML = 'Disable';
+						installBtn3.className = "cm-btn-disable";
+						installBtn3.style.backgroundColor = 'MediumSlateBlue';
+						installBtn3.style.color = 'white';
+						this.install_buttons.push(installBtn3);
 
-					installBtn.innerHTML = 'Uninstall';
-					installBtn.style.backgroundColor = 'red';
-					break;
-				case 'True':
-					installBtn3 = document.createElement('button');
-					installBtn3.innerHTML = 'Disable';
-					installBtn3.className = "cm-btn-disable";
-					installBtn3.style.backgroundColor = 'MediumSlateBlue';
-					installBtn3.style.color = 'white';
-					this.install_buttons.push(installBtn3);
+						installBtn.innerHTML = 'Uninstall';
+						installBtn.style.backgroundColor = 'red';
+						break;
+					case 'True':
+						installBtn3 = document.createElement('button');
+						installBtn3.innerHTML = 'Disable';
+						installBtn3.className = "cm-btn-disable";
+						installBtn3.style.backgroundColor = 'MediumSlateBlue';
+						installBtn3.style.color = 'white';
+						this.install_buttons.push(installBtn3);
 
-					installBtn.innerHTML = 'Uninstall';
-					installBtn.style.backgroundColor = 'red';
-					break;
-				case 'False':
-					installBtn.innerHTML = 'Install';
-					installBtn.style.backgroundColor = 'black';
-					installBtn.style.color = 'white';
-					break;
-				default:
-					installBtn.innerHTML = 'Try Install';
-					installBtn.style.backgroundColor = 'Gray';
-					installBtn.style.color = 'white';
+						installBtn.innerHTML = 'Uninstall';
+						installBtn.style.backgroundColor = 'red';
+						break;
+					case 'False':
+						installBtn.innerHTML = 'Install';
+						installBtn.style.backgroundColor = 'black';
+						installBtn.style.color = 'white';
+						break;
+					default:
+						installBtn.innerHTML = 'Try Install';
+						installBtn.style.backgroundColor = 'Gray';
+						installBtn.style.color = 'white';
 				}
 
-                let j = i;
-				if(installBtn2 != null) {
+				let j = i;
+				if (installBtn2 != null) {
 					installBtn2.style.width = "120px";
-					installBtn2.addEventListener('click', function() {
+					installBtn2.addEventListener('click', function () {
 						install_checked_custom_node(self.grid_rows, j, CustomNodesInstaller.instance, 'update');
 					});
 
 					data5.appendChild(installBtn2);
 				}
 
-				if(installBtn3 != null) {
+				if (installBtn3 != null) {
 					installBtn3.style.width = "120px";
-					installBtn3.addEventListener('click', function() {
+					installBtn3.addEventListener('click', function () {
 						install_checked_custom_node(self.grid_rows, j, CustomNodesInstaller.instance, 'toggle_active');
 					});
 
@@ -739,8 +739,8 @@ class CustomNodesInstaller extends ComfyDialog {
 				}
 
 				installBtn.style.width = "120px";
-				installBtn.addEventListener('click', function() {
-					if(this.innerHTML == 'Uninstall') {
+				installBtn.addEventListener('click', function () {
+					if (this.innerHTML == 'Uninstall') {
 						if (confirm(`Are you sure uninstall ${data.title}?`)) {
 							install_checked_custom_node(self.grid_rows, j, CustomNodesInstaller.instance, 'uninstall');
 						}
@@ -765,29 +765,29 @@ class CustomNodesInstaller extends ComfyDialog {
 				tbody.appendChild(dataRow);
 
 				let buttons = [];
-				if(installBtn) {
-				    buttons.push(installBtn);
-                }
-				if(installBtn2) {
-				    buttons.push(installBtn2);
-                }
-				if(installBtn3) {
-				    buttons.push(installBtn3);
-                }
+				if (installBtn) {
+					buttons.push(installBtn);
+				}
+				if (installBtn2) {
+					buttons.push(installBtn2);
+				}
+				if (installBtn3) {
+					buttons.push(installBtn3);
+				}
 
-				this.grid_rows[i] = {data:data, buttons:buttons, checkbox:checkbox, control:dataRow};
+				this.grid_rows[i] = { data: data, buttons: buttons, checkbox: checkbox, control: dataRow };
 			}
 
 		const panel = document.createElement('div');
-        panel.style.width = "100%";
+		panel.style.width = "100%";
 		panel.appendChild(grid);
 
-        function handleResize() {
-          const parentHeight = self.element.clientHeight;
-          const gridHeight = parentHeight - 200;
+		function handleResize() {
+			const parentHeight = self.element.clientHeight;
+			const gridHeight = parentHeight - 200;
 
-          grid.style.height = gridHeight + "px";
-        }
+			grid.style.height = gridHeight + "px";
+		}
 		window.addEventListener("resize", handleResize);
 
 		grid.style.position = "relative";
@@ -799,7 +799,7 @@ class CustomNodesInstaller extends ComfyDialog {
 		this.element.style.width = "80%";
 		this.element.appendChild(panel);
 
-        handleResize();
+		handleResize();
 	}
 
 	createFilterCombo() {
@@ -816,11 +816,11 @@ class CustomNodesInstaller extends ComfyDialog {
 
 		let items =
 			[
-				{ value:'*', text:'Filter: all' },
-				{ value:'Disabled', text:'Filter: disabled' },
-				{ value:'Update', text:'Filter: update' },
-				{ value:'True', text:'Filter: installed' },
-				{ value:'False', text:'Filter: not-installed' },
+				{ value: '*', text: 'Filter: all' },
+				{ value: 'Disabled', text: 'Filter: disabled' },
+				{ value: 'Update', text: 'Filter: update' },
+				{ value: 'True', text: 'Filter: installed' },
+				{ value: 'False', text: 'Filter: not-installed' },
 			];
 
 		items.forEach(item => {
@@ -831,13 +831,13 @@ class CustomNodesInstaller extends ComfyDialog {
 		});
 
 		let self = this;
-		combo.addEventListener('change', function(event) {
+		combo.addEventListener('change', function (event) {
 			self.filter = event.target.value;
 			self.apply_searchbox();
 		});
 
-        if(self.filter) {
-		    combo.value = self.filter;
+		if (self.filter) {
+			combo.value = self.filter;
 		}
 
 		return combo;
@@ -845,18 +845,18 @@ class CustomNodesInstaller extends ComfyDialog {
 
 	createHeaderControls() {
 		let self = this;
-		this.search_box = $el('input', {type:'text', id:'manager-customnode-search-box', placeholder:'input search keyword', value:this.search_keyword}, []);
+		this.search_box = $el('input', { type: 'text', id: 'manager-customnode-search-box', placeholder: 'input search keyword', value: this.search_keyword }, []);
 		this.search_box.style.height = "25px";
 		this.search_box.onkeydown = (event) => {
-				if (event.key === 'Enter') {
-					self.search_keyword = self.search_box.value;
-					self.apply_searchbox();
-				}
-				if (event.key === 'Escape') {
-					self.search_keyword = self.search_box.value;
-					self.apply_searchbox();
-				}
-			};
+			if (event.key === 'Enter') {
+				self.search_keyword = self.search_box.value;
+				self.apply_searchbox();
+			}
+			if (event.key === 'Escape') {
+				self.search_keyword = self.search_box.value;
+				self.apply_searchbox();
+			}
+		};
 
 
 		let search_button = document.createElement("button");
@@ -870,12 +870,12 @@ class CustomNodesInstaller extends ComfyDialog {
 		let filter_control = this.createFilterCombo();
 		filter_control.style.display = "inline-block";
 
-		let cell = $el('td', {width:'100%'}, [filter_control, this.search_box, '  ', search_button]);
-		let search_control = $el('table', {width:'100%'},
-				[
-					$el('tr', {}, [cell])
-				]
-			);
+		let cell = $el('td', { width: '100%' }, [filter_control, this.search_box, '  ', search_button]);
+		let search_control = $el('table', { width: '100%' },
+			[
+				$el('tr', {}, [cell])
+			]
+		);
 
 		cell.style.textAlign = "right";
 
@@ -888,7 +888,7 @@ class CustomNodesInstaller extends ComfyDialog {
 		close_button.onclick = () => { this.close(); }
 		close_button.style.display = "inline-block";
 
-		this.message_box = $el('div', {id:'custom-installer-message'}, [$el('br'), '']);
+		this.message_box = $el('div', { id: 'custom-installer-message' }, [$el('br'), '']);
 		this.message_box.style.height = '60px';
 		this.message_box.style.verticalAlign = 'middle';
 
@@ -903,7 +903,7 @@ class CustomNodesInstaller extends ComfyDialog {
 
 			this.element.style.display = "block";
 		}
-		catch(exception) {
+		catch (exception) {
 			app.ui.dialog.show(`Failed to get custom node list. / ${exception}`);
 		}
 	}
@@ -936,7 +936,7 @@ class AlternativesInstaller extends ComfyDialog {
 	}
 
 	disableButtons() {
-		for(let i in this.install_buttons) {
+		for (let i in this.install_buttons) {
 			this.install_buttons[i].disabled = true;
 			this.install_buttons[i].style.backgroundColor = 'gray';
 		}
@@ -944,25 +944,25 @@ class AlternativesInstaller extends ComfyDialog {
 
 	apply_searchbox(data) {
 		let keyword = this.search_box.value.toLowerCase();
-		for(let i in this.grid_rows) {
+		for (let i in this.grid_rows) {
 			let data1 = this.grid_rows[i].data;
 			let data2 = data1.custom_node;
 
-			if(!data2)
-			    continue;
+			if (!data2)
+				continue;
 
 			let content = data1.tags.toLowerCase() + data1.description.toLowerCase() + data2.author.toLowerCase() + data2.description.toLowerCase() + data2.title.toLowerCase();
 
-			if(this.filter && this.filter != '*') {
-				if(this.filter != data2.installed) {
+			if (this.filter && this.filter != '*') {
+				if (this.filter != data2.installed) {
 					this.grid_rows[i].control.style.display = 'none';
 					continue;
 				}
 			}
 
-			if(keyword == "")
+			if (keyword == "")
 				this.grid_rows[i].control.style.display = null;
-			else if(content.includes(keyword)) {
+			else if (content.includes(keyword)) {
 				this.grid_rows[i].control.style.display = null;
 			}
 			else {
@@ -979,11 +979,11 @@ class AlternativesInstaller extends ComfyDialog {
 			this.element.removeChild(this.element.children[0]);
 		}
 
-		const msg = $el('div', {id:'custom-message'},
+		const msg = $el('div', { id: 'custom-message' },
 			[$el('br'),
-			'The custom node DB is currently being updated, and updates to custom nodes are being checked for.',
+				'The custom node DB is currently being updated, and updates to custom nodes are being checked for.',
 			$el('br'),
-			'NOTE: Update only checks for extensions that have been fetched.',
+				'NOTE: Update only checks for extensions that have been fetched.',
 			$el('br')]);
 		msg.style.height = '100px';
 		msg.style.verticalAlign = 'middle';
@@ -1008,89 +1008,89 @@ class AlternativesInstaller extends ComfyDialog {
 		this.message_box.innerHTML = msg;
 	}
 
-    invalidate_checks(is_checked, install_state) {
-        if(is_checked) {
-            for(let i in this.grid_rows) {
-                let data = this.grid_rows[i].data;
-                let checkbox = this.grid_rows[i].checkbox;
-                let buttons = this.grid_rows[i].buttons;
+	invalidate_checks(is_checked, install_state) {
+		if (is_checked) {
+			for (let i in this.grid_rows) {
+				let data = this.grid_rows[i].data;
+				let checkbox = this.grid_rows[i].checkbox;
+				let buttons = this.grid_rows[i].buttons;
 
-                checkbox.disabled = data.custom_node.installed != install_state;
+				checkbox.disabled = data.custom_node.installed != install_state;
 
-                if(checkbox.disabled) {
-                    for(let j in buttons) {
-                        buttons[j].style.display = 'none';
-                    }
-                }
-                else {
-                    for(let j in buttons) {
-                        buttons[j].style.display = null;
-                    }
-                }
-            }
+				if (checkbox.disabled) {
+					for (let j in buttons) {
+						buttons[j].style.display = 'none';
+					}
+				}
+				else {
+					for (let j in buttons) {
+						buttons[j].style.display = null;
+					}
+				}
+			}
 
-            this.checkbox_all.disabled = false;
-        }
-        else {
-            for(let i in this.grid_rows) {
-                let checkbox = this.grid_rows[i].checkbox;
-                if(checkbox.check)
-                    return; // do nothing
-            }
+			this.checkbox_all.disabled = false;
+		}
+		else {
+			for (let i in this.grid_rows) {
+				let checkbox = this.grid_rows[i].checkbox;
+				if (checkbox.check)
+					return; // do nothing
+			}
 
-            // every checkbox is unchecked -> enable all checkbox
-            for(let i in this.grid_rows) {
-                let checkbox = this.grid_rows[i].checkbox;
-                let buttons = this.grid_rows[i].buttons;
-                checkbox.disabled = false;
+			// every checkbox is unchecked -> enable all checkbox
+			for (let i in this.grid_rows) {
+				let checkbox = this.grid_rows[i].checkbox;
+				let buttons = this.grid_rows[i].buttons;
+				checkbox.disabled = false;
 
-                for(let j in buttons) {
-                    buttons[j].style.display = null;
-                }
-            }
+				for (let j in buttons) {
+					buttons[j].style.display = null;
+				}
+			}
 
-            this.checkbox_all.checked = false;
-            this.checkbox_all.disabled = true;
-        }
-    }
+			this.checkbox_all.checked = false;
+			this.checkbox_all.disabled = true;
+		}
+	}
 
-    check_all(is_checked) {
-        if(is_checked) {
-            // lookup first checked item's state
-            let check_state = null;
-            for(let i in this.grid_rows) {
-                let checkbox = this.grid_rows[i].checkbox;
-                if(checkbox.checked) {
-                    check_state = this.grid_rows[i].data.custom_node.installed;
-                }
-            }
+	check_all(is_checked) {
+		if (is_checked) {
+			// lookup first checked item's state
+			let check_state = null;
+			for (let i in this.grid_rows) {
+				let checkbox = this.grid_rows[i].checkbox;
+				if (checkbox.checked) {
+					check_state = this.grid_rows[i].data.custom_node.installed;
+				}
+			}
 
-            if(check_state == null)
-                return;
+			if (check_state == null)
+				return;
 
-            // check only same state items
-            for(let i in this.grid_rows) {
-                let checkbox = this.grid_rows[i].checkbox;
-                if(this.grid_rows[i].data.custom_node.installed == check_state)
-                    checkbox.checked = true;
-            }
-        }
-        else {
-            // uncheck all
-            for(let i in this.grid_rows) {
-                let checkbox = this.grid_rows[i].checkbox;
-                let buttons = this.grid_rows[i].buttons;
-                checkbox.checked = false;
-                checkbox.disabled = false;
+			// check only same state items
+			for (let i in this.grid_rows) {
+				let checkbox = this.grid_rows[i].checkbox;
+				if (this.grid_rows[i].data.custom_node.installed == check_state)
+					checkbox.checked = true;
+			}
+		}
+		else {
+			// uncheck all
+			for (let i in this.grid_rows) {
+				let checkbox = this.grid_rows[i].checkbox;
+				let buttons = this.grid_rows[i].buttons;
+				checkbox.checked = false;
+				checkbox.disabled = false;
 
-                for(let j in buttons) {
-                    buttons[j].style.display = null;
-                }
-            }
+				for (let j in buttons) {
+					buttons[j].style.display = null;
+				}
+			}
 
-            this.checkbox_all.disabled = true;
-        }
-    }
+			this.checkbox_all.disabled = true;
+		}
+	}
 
 	async createGrid() {
 		var grid = document.createElement('table');
@@ -1098,24 +1098,24 @@ class AlternativesInstaller extends ComfyDialog {
 
 		this.grid_rows = {};
 
-        let self = this;
+		let self = this;
 
-        var thead = document.createElement('thead');
-        var tbody = document.createElement('tbody');
+		var thead = document.createElement('thead');
+		var tbody = document.createElement('tbody');
 
 		var headerRow = document.createElement('tr');
 		thead.style.position = "sticky";
 		thead.style.top = "0px";
-        thead.style.borderCollapse = "collapse";
-        thead.style.tableLayout = "fixed";
+		thead.style.borderCollapse = "collapse";
+		thead.style.tableLayout = "fixed";
 
 		var header0 = document.createElement('th');
 		header0.style.width = "20px";
-        this.checkbox_all = $el("input",{type:'checkbox', id:'check_all'},[]);
-        header0.appendChild(this.checkbox_all);
-        this.checkbox_all.checked = false;
-        this.checkbox_all.disabled = true;
-        this.checkbox_all.addEventListener('change', function() { self.check_all.call(self, self.checkbox_all.checked); });
+		this.checkbox_all = $el("input", { type: 'checkbox', id: 'check_all' }, []);
+		header0.appendChild(this.checkbox_all);
+		this.checkbox_all.checked = false;
+		this.checkbox_all.disabled = true;
+		this.checkbox_all.addEventListener('change', function () { self.check_all.call(self, self.checkbox_all.checked); });
 
 		var header1 = document.createElement('th');
 		header1.innerHTML = '&nbsp;&nbsp;ID&nbsp;&nbsp;';
@@ -1147,7 +1147,7 @@ class AlternativesInstaller extends ComfyDialog {
 		header5.style.position = "sticky";
 		header5.style.top = "0px";
 
-        thead.appendChild(headerRow);
+		thead.appendChild(headerRow);
 		headerRow.appendChild(header0);
 		headerRow.appendChild(header1);
 		headerRow.appendChild(header2);
@@ -1165,25 +1165,25 @@ class AlternativesInstaller extends ComfyDialog {
 		grid.appendChild(thead);
 		grid.appendChild(tbody);
 
-		if(this.data)
+		if (this.data)
 			for (var i = 0; i < this.data.length; i++) {
 				const data = this.data[i];
 				var dataRow = document.createElement('tr');
 
-                let data0 = document.createElement('td');
-		        let checkbox = $el("input",{type:'checkbox', id:`check_${i}`},[]);
-		        data0.appendChild(checkbox);
-		        checkbox.checked = false;
-		        checkbox.addEventListener('change', function() { self.invalidate_checks.call(self, checkbox.checked, data.custom_node?.installed); });
+				let data0 = document.createElement('td');
+				let checkbox = $el("input", { type: 'checkbox', id: `check_${i}` }, []);
+				data0.appendChild(checkbox);
+				checkbox.checked = false;
+				checkbox.addEventListener('change', function () { self.invalidate_checks.call(self, checkbox.checked, data.custom_node?.installed); });
 
 				var data1 = document.createElement('td');
 				data1.style.textAlign = "center";
-				data1.innerHTML = i+1;
+				data1.innerHTML = i + 1;
 				var data2 = document.createElement('td');
 				data2.innerHTML = `&nbsp;${data.tags}`;
 				var data3 = document.createElement('td');
 				var data4 = document.createElement('td');
-				if(data.custom_node) {
+				if (data.custom_node) {
 					data3.innerHTML = `&nbsp;${data.custom_node.author}`;
 					data4.innerHTML = `&nbsp;<a href=${data.custom_node.reference} target="_blank"><font color="skyblue"><b>${data.custom_node.title}</b></font></a>`;
 				}
@@ -1196,77 +1196,77 @@ class AlternativesInstaller extends ComfyDialog {
 				var data6 = document.createElement('td');
 				data6.style.textAlign = "center";
 
-                var installBtn = document.createElement('button');
-                var installBtn2 = null;
-                var installBtn3 = null;
+				var installBtn = document.createElement('button');
+				var installBtn2 = null;
+				var installBtn3 = null;
 
-				if(data.custom_node) {
+				if (data.custom_node) {
 					this.install_buttons.push(installBtn);
 
-					switch(data.custom_node.installed) {
-					case 'Disabled':
-						installBtn3 = document.createElement('button');
-						installBtn3.innerHTML = 'Enable';
-						installBtn3.style.backgroundColor = 'blue';
-						installBtn3.style.color = 'white';
-						this.install_buttons.push(installBtn3);
+					switch (data.custom_node.installed) {
+						case 'Disabled':
+							installBtn3 = document.createElement('button');
+							installBtn3.innerHTML = 'Enable';
+							installBtn3.style.backgroundColor = 'blue';
+							installBtn3.style.color = 'white';
+							this.install_buttons.push(installBtn3);
 
-						installBtn.innerHTML = 'Uninstall';
-						installBtn.style.backgroundColor = 'red';
-						installBtn.style.color = 'white';
-						break;
-					case 'Update':
-						installBtn2 = document.createElement('button');
-						installBtn2.innerHTML = 'Update';
-						installBtn2.style.backgroundColor = 'blue';
-						installBtn2.style.color = 'white';
-						this.install_buttons.push(installBtn2);
+							installBtn.innerHTML = 'Uninstall';
+							installBtn.style.backgroundColor = 'red';
+							installBtn.style.color = 'white';
+							break;
+						case 'Update':
+							installBtn2 = document.createElement('button');
+							installBtn2.innerHTML = 'Update';
+							installBtn2.style.backgroundColor = 'blue';
+							installBtn2.style.color = 'white';
+							this.install_buttons.push(installBtn2);
 
-						installBtn3 = document.createElement('button');
-						installBtn3.innerHTML = 'Disable';
-						installBtn3.style.backgroundColor = 'MediumSlateBlue';
-						installBtn3.style.color = 'white';
-						this.install_buttons.push(installBtn3);
+							installBtn3 = document.createElement('button');
+							installBtn3.innerHTML = 'Disable';
+							installBtn3.style.backgroundColor = 'MediumSlateBlue';
+							installBtn3.style.color = 'white';
+							this.install_buttons.push(installBtn3);
 
-						installBtn.innerHTML = 'Uninstall';
-						installBtn.style.backgroundColor = 'red';
-						installBtn.style.color = 'white';
-						break;
-					case 'True':
-						installBtn3 = document.createElement('button');
-						installBtn3.innerHTML = 'Disable';
-						installBtn3.style.backgroundColor = 'MediumSlateBlue';
-						installBtn3.style.color = 'white';
-						this.install_buttons.push(installBtn3);
+							installBtn.innerHTML = 'Uninstall';
+							installBtn.style.backgroundColor = 'red';
+							installBtn.style.color = 'white';
+							break;
+						case 'True':
+							installBtn3 = document.createElement('button');
+							installBtn3.innerHTML = 'Disable';
+							installBtn3.style.backgroundColor = 'MediumSlateBlue';
+							installBtn3.style.color = 'white';
+							this.install_buttons.push(installBtn3);
 
-						installBtn.innerHTML = 'Uninstall';
-						installBtn.style.backgroundColor = 'red';
-						installBtn.style.color = 'white';
-						break;
-					case 'False':
-						installBtn.innerHTML = 'Install';
-						installBtn.style.backgroundColor = 'black';
-						installBtn.style.color = 'white';
-						break;
-					default:
-						installBtn.innerHTML = 'Try Install';
-						installBtn.style.backgroundColor = 'Gray';
-						installBtn.style.color = 'white';
+							installBtn.innerHTML = 'Uninstall';
+							installBtn.style.backgroundColor = 'red';
+							installBtn.style.color = 'white';
+							break;
+						case 'False':
+							installBtn.innerHTML = 'Install';
+							installBtn.style.backgroundColor = 'black';
+							installBtn.style.color = 'white';
+							break;
+						default:
+							installBtn.innerHTML = 'Try Install';
+							installBtn.style.backgroundColor = 'Gray';
+							installBtn.style.color = 'white';
 					}
 
-                    let j = i;
-					if(installBtn2 != null) {
+					let j = i;
+					if (installBtn2 != null) {
 						installBtn2.style.width = "120px";
-						installBtn2.addEventListener('click', function() {
+						installBtn2.addEventListener('click', function () {
 							install_checked_custom_node(self.grid_rows, j, AlternativesInstaller.instance, 'update');
 						});
 
 						data6.appendChild(installBtn2);
 					}
 
-					if(installBtn3 != null) {
+					if (installBtn3 != null) {
 						installBtn3.style.width = "120px";
-						installBtn3.addEventListener('click', function() {
+						installBtn3.addEventListener('click', function () {
 							install_checked_custom_node(self.grid_rows, j, AlternativesInstaller.instance, 'toggle_active');
 						});
 
@@ -1275,8 +1275,8 @@ class AlternativesInstaller extends ComfyDialog {
 
 
 					installBtn.style.width = "120px";
-					installBtn.addEventListener('click', function() {
-						if(this.innerHTML == 'Uninstall') {
+					installBtn.addEventListener('click', function () {
+						if (this.innerHTML == 'Uninstall') {
 							if (confirm(`Are you sure uninstall ${data.title}?`)) {
 								install_checked_custom_node(self.grid_rows, j, AlternativesInstaller.instance, 'uninstall');
 							}
@@ -1303,29 +1303,29 @@ class AlternativesInstaller extends ComfyDialog {
 				tbody.appendChild(dataRow);
 
 				let buttons = [];
-				if(installBtn) {
-				    buttons.push(installBtn);
-                }
-				if(installBtn2) {
-				    buttons.push(installBtn2);
-                }
-				if(installBtn3) {
-				    buttons.push(installBtn3);
-                }
+				if (installBtn) {
+					buttons.push(installBtn);
+				}
+				if (installBtn2) {
+					buttons.push(installBtn2);
+				}
+				if (installBtn3) {
+					buttons.push(installBtn3);
+				}
 
-				this.grid_rows[i] = {data:data, buttons:buttons, checkbox:checkbox, control:dataRow};
+				this.grid_rows[i] = { data: data, buttons: buttons, checkbox: checkbox, control: dataRow };
 			}
 
 		const panel = document.createElement('div');
-        panel.style.width = "100%";
+		panel.style.width = "100%";
 		panel.appendChild(grid);
 
-        function handleResize() {
-          const parentHeight = self.element.clientHeight;
-          const gridHeight = parentHeight - 200;
+		function handleResize() {
+			const parentHeight = self.element.clientHeight;
+			const gridHeight = parentHeight - 200;
 
-          grid.style.height = gridHeight + "px";
-        }
+			grid.style.height = gridHeight + "px";
+		}
 		window.addEventListener("resize", handleResize);
 
 		grid.style.position = "relative";
@@ -1337,7 +1337,7 @@ class AlternativesInstaller extends ComfyDialog {
 		this.element.style.width = "80%";
 		this.element.appendChild(panel);
 
-        handleResize();
+		handleResize();
 	}
 
 	createFilterCombo() {
@@ -1354,11 +1354,11 @@ class AlternativesInstaller extends ComfyDialog {
 
 		let items =
 			[
-				{ value:'*', text:'Filter: all' },
-				{ value:'Disabled', text:'Filter: disabled' },
-				{ value:'Update', text:'Filter: update' },
-				{ value:'True', text:'Filter: installed' },
-				{ value:'False', text:'Filter: not-installed' },
+				{ value: '*', text: 'Filter: all' },
+				{ value: 'Disabled', text: 'Filter: disabled' },
+				{ value: 'Update', text: 'Filter: update' },
+				{ value: 'True', text: 'Filter: installed' },
+				{ value: 'False', text: 'Filter: not-installed' },
 			];
 
 		items.forEach(item => {
@@ -1369,13 +1369,13 @@ class AlternativesInstaller extends ComfyDialog {
 		});
 
 		let self = this;
-		combo.addEventListener('change', function(event) {
+		combo.addEventListener('change', function (event) {
 			self.filter = event.target.value;
 			self.apply_searchbox();
 		});
 
-        if(self.filter) {
-		    combo.value = self.filter;
+		if (self.filter) {
+			combo.value = self.filter;
 		}
 
 		return combo;
@@ -1383,18 +1383,18 @@ class AlternativesInstaller extends ComfyDialog {
 
 	createHeaderControls() {
 		let self = this;
-		this.search_box = $el('input', {type:'text', id:'manager-alternode-search-box', placeholder:'input search keyword', value:this.search_keyword}, []);
+		this.search_box = $el('input', { type: 'text', id: 'manager-alternode-search-box', placeholder: 'input search keyword', value: this.search_keyword }, []);
 		this.search_box.style.height = "25px";
 		this.search_box.onkeydown = (event) => {
-				if (event.key === 'Enter') {
-					self.search_keyword = self.search_box.value;
-					self.apply_searchbox();
-				}
-				if (event.key === 'Escape') {
-					self.search_keyword = self.search_box.value;
-					self.apply_searchbox();
-				}
-			};
+			if (event.key === 'Enter') {
+				self.search_keyword = self.search_box.value;
+				self.apply_searchbox();
+			}
+			if (event.key === 'Escape') {
+				self.search_keyword = self.search_box.value;
+				self.apply_searchbox();
+			}
+		};
 
 		let search_button = document.createElement("button");
 		search_button.innerHTML = "Search";
@@ -1407,12 +1407,12 @@ class AlternativesInstaller extends ComfyDialog {
 		let filter_control = this.createFilterCombo();
 		filter_control.style.display = "inline-block";
 
-		let cell = $el('td', {width:'100%'}, [filter_control, this.search_box, '  ', search_button]);
-		let search_control = $el('table', {width:'100%'},
-				[
-					$el('tr', {}, [cell])
-				]
-			);
+		let cell = $el('td', { width: '100%' }, [filter_control, this.search_box, '  ', search_button]);
+		let search_control = $el('table', { width: '100%' },
+			[
+				$el('tr', {}, [cell])
+			]
+		);
 
 		cell.style.textAlign = "right";
 		this.element.appendChild(search_control);
@@ -1424,7 +1424,7 @@ class AlternativesInstaller extends ComfyDialog {
 		close_button.onclick = () => { this.close(); }
 		close_button.style.display = "inline-block";
 
-		this.message_box = $el('div', {id:'alternatives-installer-message'}, [$el('br'), '']);
+		this.message_box = $el('div', { id: 'alternatives-installer-message' }, [$el('br'), '']);
 		this.message_box.style.height = '60px';
 		this.message_box.style.verticalAlign = 'middle';
 
@@ -1437,7 +1437,7 @@ class AlternativesInstaller extends ComfyDialog {
 			this.invalidateControl();
 			this.element.style.display = "block";
 		}
-		catch(exception) {
+		catch (exception) {
 			app.ui.dialog.show(`Failed to get alternatives list. / ${exception}`);
 			console.error(exception);
 		}
@@ -1471,7 +1471,7 @@ class ModelInstaller extends ComfyDialog {
 				type: "button",
 				textContent: "Close",
 				onclick: () => { this.close(); }
-				})
+			})
 		];
 	}
 
@@ -1480,7 +1480,7 @@ class ModelInstaller extends ComfyDialog {
 
 		self.updateMessage(`<BR><font color="green">Installing '${target.name}'</font>`);
 
-		for(let i in self.install_buttons) {
+		for (let i in self.install_buttons) {
 			self.install_buttons[i].disabled = true;
 			self.install_buttons[i].style.backgroundColor = 'gray';
 		}
@@ -1488,20 +1488,20 @@ class ModelInstaller extends ComfyDialog {
 
 	apply_searchbox(data) {
 		let keyword = this.search_box.value.toLowerCase();
-		for(let i in this.grid_rows) {
+		for (let i in this.grid_rows) {
 			let data = this.grid_rows[i].data;
 			let content = data.name.toLowerCase() + data.type.toLowerCase() + data.base.toLowerCase() + data.description.toLowerCase();
 
-			if(this.filter && this.filter != '*') {
-				if(this.filter != data.installed) {
+			if (this.filter && this.filter != '*') {
+				if (this.filter != data.installed) {
 					this.grid_rows[i].control.style.display = 'none';
 					continue;
 				}
 			}
 
-			if(keyword == "")
+			if (keyword == "")
 				this.grid_rows[i].control.style.display = null;
-			else if(content.includes(keyword)) {
+			else if (content.includes(keyword)) {
 				this.grid_rows[i].control.style.display = null;
 			}
 			else {
@@ -1520,7 +1520,7 @@ class ModelInstaller extends ComfyDialog {
 
 		await this.createHeaderControls();
 
-		if(this.search_keyword) {
+		if (this.search_keyword) {
 			this.search_box.value = this.search_keyword;
 		}
 
@@ -1538,14 +1538,14 @@ class ModelInstaller extends ComfyDialog {
 		var grid = document.createElement('table');
 		grid.setAttribute('id', 'external-models-grid');
 
-        var thead = document.createElement('thead');
-        var tbody = document.createElement('tbody');
+		var thead = document.createElement('thead');
+		var tbody = document.createElement('tbody');
 
 		var headerRow = document.createElement('tr');
 		thead.style.position = "sticky";
 		thead.style.top = "0px";
-        thead.style.borderCollapse = "collapse";
-        thead.style.tableLayout = "fixed";
+		thead.style.borderCollapse = "collapse";
+		thead.style.tableLayout = "fixed";
 
 		var header1 = document.createElement('th');
 		header1.innerHTML = '&nbsp;&nbsp;ID&nbsp;&nbsp;';
@@ -1570,7 +1570,7 @@ class ModelInstaller extends ComfyDialog {
 		header_down.innerHTML = 'Download';
 		header_down.style.width = "50px";
 
-        thead.appendChild(headerRow);
+		thead.appendChild(headerRow);
 		headerRow.appendChild(header1);
 		headerRow.appendChild(header2);
 		headerRow.appendChild(header3);
@@ -1590,13 +1590,13 @@ class ModelInstaller extends ComfyDialog {
 
 		this.grid_rows = {};
 
-		if(this.data)
+		if (this.data)
 			for (var i = 0; i < this.data.length; i++) {
 				const data = this.data[i];
 				var dataRow = document.createElement('tr');
 				var data1 = document.createElement('td');
 				data1.style.textAlign = "center";
-				data1.innerHTML = i+1;
+				data1.innerHTML = i + 1;
 				var data2 = document.createElement('td');
 				data2.innerHTML = `&nbsp;${data.type}`;
 				var data3 = document.createElement('td');
@@ -1619,23 +1619,23 @@ class ModelInstaller extends ComfyDialog {
 				installBtn.innerHTML = 'Install';
 				this.install_buttons.push(installBtn);
 
-				switch(data.installed) {
-				case 'True':
-					installBtn.innerHTML = 'Installed';
-					installBtn.style.backgroundColor = 'green';
-					installBtn.style.color = 'white';
-					installBtn.disabled = true;
-					break;
-				default:
-					installBtn.innerHTML = 'Install';
-					installBtn.style.backgroundColor = 'black';
-					installBtn.style.color = 'white';
-					break;
+				switch (data.installed) {
+					case 'True':
+						installBtn.innerHTML = 'Installed';
+						installBtn.style.backgroundColor = 'green';
+						installBtn.style.color = 'white';
+						installBtn.disabled = true;
+						break;
+					default:
+						installBtn.innerHTML = 'Install';
+						installBtn.style.backgroundColor = 'black';
+						installBtn.style.color = 'white';
+						break;
 				}
 
 				installBtn.style.width = "100px";
 
-				installBtn.addEventListener('click', function() {
+				installBtn.addEventListener('click', function () {
 					install_model(data);
 				});
 
@@ -1654,20 +1654,20 @@ class ModelInstaller extends ComfyDialog {
 				dataRow.appendChild(data_install);
 				tbody.appendChild(dataRow);
 
-				this.grid_rows[i] = {data:data, control:dataRow};
+				this.grid_rows[i] = { data: data, control: dataRow };
 			}
 
-        let self = this;
+		let self = this;
 		const panel = document.createElement('div');
-        panel.style.width = "100%";
+		panel.style.width = "100%";
 		panel.appendChild(grid);
 
-        function handleResize() {
-          const parentHeight = self.element.clientHeight;
-          const gridHeight = parentHeight - 200;
+		function handleResize() {
+			const parentHeight = self.element.clientHeight;
+			const gridHeight = parentHeight - 200;
 
-          grid.style.height = gridHeight + "px";
-        }
+			grid.style.height = gridHeight + "px";
+		}
 		window.addEventListener("resize", handleResize);
 
 		grid.style.position = "relative";
@@ -1679,7 +1679,7 @@ class ModelInstaller extends ComfyDialog {
 		this.element.style.width = "80%";
 		this.element.appendChild(panel);
 
-        handleResize();
+		handleResize();
 	}
 
 	createFilterCombo() {
@@ -1696,9 +1696,9 @@ class ModelInstaller extends ComfyDialog {
 
 		let items =
 			[
-				{ value:'*', text:'Filter: all' },
-				{ value:'True', text:'Filter: installed' },
-				{ value:'False', text:'Filter: not-installed' },
+				{ value: '*', text: 'Filter: all' },
+				{ value: 'True', text: 'Filter: installed' },
+				{ value: 'False', text: 'Filter: not-installed' },
 			];
 
 		items.forEach(item => {
@@ -1709,7 +1709,7 @@ class ModelInstaller extends ComfyDialog {
 		});
 
 		let self = this;
-		combo.addEventListener('change', function(event) {
+		combo.addEventListener('change', function (event) {
 			self.filter = event.target.value;
 			self.apply_searchbox();
 		});
@@ -1719,18 +1719,18 @@ class ModelInstaller extends ComfyDialog {
 
 	createHeaderControls() {
 		let self = this;
-		this.search_box = $el('input', {type:'text', id:'manager-model-search-box', placeholder:'input search keyword', value:this.search_keyword}, []);
+		this.search_box = $el('input', { type: 'text', id: 'manager-model-search-box', placeholder: 'input search keyword', value: this.search_keyword }, []);
 		this.search_box.style.height = "25px";
 		this.search_box.onkeydown = (event) => {
-				if (event.key === 'Enter') {
-					self.search_keyword = self.search_box.value;
-					self.apply_searchbox();
-				}
-				if (event.key === 'Escape') {
-					self.search_keyword = self.search_box.value;
-					self.apply_searchbox();
-				}
-			};
+			if (event.key === 'Enter') {
+				self.search_keyword = self.search_box.value;
+				self.apply_searchbox();
+			}
+			if (event.key === 'Escape') {
+				self.search_keyword = self.search_box.value;
+				self.apply_searchbox();
+			}
+		};
 
 		let search_button = document.createElement("button");
 		search_button.innerHTML = "Search";
@@ -1743,12 +1743,12 @@ class ModelInstaller extends ComfyDialog {
 		let filter_control = this.createFilterCombo();
 		filter_control.style.display = "inline-block";
 
-		let cell = $el('td', {width:'100%'}, [filter_control, this.search_box, '  ', search_button]);
-		let search_control = $el('table', {width:'100%'},
-				[
-					$el('tr', {}, [cell])
-				]
-			);
+		let cell = $el('td', { width: '100%' }, [filter_control, this.search_box, '  ', search_button]);
+		let search_control = $el('table', { width: '100%' },
+			[
+				$el('tr', {}, [cell])
+			]
+		);
 
 		cell.style.textAlign = "right";
 		this.element.appendChild(search_control);
@@ -1760,7 +1760,7 @@ class ModelInstaller extends ComfyDialog {
 		close_button.onclick = () => { this.close(); }
 		close_button.style.display = "inline-block";
 
-		this.message_box = $el('div', {id:'custom-download-message'}, [$el('br'), '']);
+		this.message_box = $el('div', { id: 'custom-download-message' }, [$el('br'), '']);
 		this.message_box.style.height = '60px';
 		this.message_box.style.verticalAlign = 'middle';
 
@@ -1773,7 +1773,7 @@ class ModelInstaller extends ComfyDialog {
 			this.invalidateControl();
 			this.element.style.display = "block";
 		}
-		catch(exception) {
+		catch (exception) {
 			app.ui.dialog.show(`Failed to get external model list. / ${exception}`);
 		}
 	}
@@ -1786,99 +1786,99 @@ class ManagerMenuDialog extends ComfyDialog {
 	local_mode_checkbox = null;
 
 	createButtons() {
-		this.local_mode_checkbox = $el("input",{type:'checkbox', id:"use_local_db"},[])
-		const checkbox_text = $el("label",{},[" Use local DB"])
+		this.local_mode_checkbox = $el("input", { type: 'checkbox', id: "use_local_db" }, [])
+		const checkbox_text = $el("label", {}, [" Use local DB"])
 		checkbox_text.style.color = "var(--fg-color)";
 		checkbox_text.style.marginRight = "10px";
 
-		this.update_check_checkbox = $el("input",{type:'checkbox', id:"skip_update_check"},[])
-		const uc_checkbox_text = $el("label",{},[" Skip update check"])
+		this.update_check_checkbox = $el("input", { type: 'checkbox', id: "skip_update_check" }, [])
+		const uc_checkbox_text = $el("label", {}, [" Skip update check"])
 		uc_checkbox_text.style.color = "var(--fg-color)";
 		this.update_check_checkbox.checked = true;
 
 		update_comfyui_button =
-				$el("button", {
-					type: "button",
-					textContent: "Update ComfyUI",
-					onclick:
-						() => updateComfyUI()
-				});
+			$el("button", {
+				type: "button",
+				textContent: "Update ComfyUI",
+				onclick:
+					() => updateComfyUI()
+			});
 
 		fetch_updates_button =
-				$el("button", {
-					type: "button",
-					textContent: "Fetch Updates",
-					onclick:
-						() => fetchUpdates(this.update_check_checkbox)
-				});
+			$el("button", {
+				type: "button",
+				textContent: "Fetch Updates",
+				onclick:
+					() => fetchUpdates(this.update_check_checkbox)
+			});
 
 		update_all_button =
-				$el("button", {
-					type: "button",
-					textContent: "Update All",
-					onclick:
-						() => updateAll(this.update_check_checkbox)
-				});
+			$el("button", {
+				type: "button",
+				textContent: "Update All",
+				onclick:
+					() => updateAll(this.update_check_checkbox)
+			});
 
-        // preview method
+		// preview method
 		let preview_combo = document.createElement("select");
-        preview_combo.appendChild($el('option', {value:'auto', text:'Preview method: Auto'}, []));
-        preview_combo.appendChild($el('option', {value:'taesd', text:'Preview method: TAESD (slow)'}, []));
-        preview_combo.appendChild($el('option', {value:'latent2rgb', text:'Preview method: Latent2RGB (fast)'}, []));
-        preview_combo.appendChild($el('option', {value:'none', text:'Preview method: None (very fast)'}, []));
+		preview_combo.appendChild($el('option', { value: 'auto', text: 'Preview method: Auto' }, []));
+		preview_combo.appendChild($el('option', { value: 'taesd', text: 'Preview method: TAESD (slow)' }, []));
+		preview_combo.appendChild($el('option', { value: 'latent2rgb', text: 'Preview method: Latent2RGB (fast)' }, []));
+		preview_combo.appendChild($el('option', { value: 'none', text: 'Preview method: None (very fast)' }, []));
 
-        api.fetchApi('/manager/preview_method')
-        .then(response => response.text())
-        .then(data => { preview_combo.value = data; })
+		api.fetchApi('/manager/preview_method')
+			.then(response => response.text())
+			.then(data => { preview_combo.value = data; })
 
-		preview_combo.addEventListener('change', function(event) {
-            api.fetchApi(`/manager/preview_method?value=${event.target.value}`);
+		preview_combo.addEventListener('change', function (event) {
+			api.fetchApi(`/manager/preview_method?value=${event.target.value}`);
 		});
 
-        // nickname
+		// nickname
 		let badge_combo = document.createElement("select");
-        badge_combo.appendChild($el('option', {value:'none', text:'Badge: None'}, []));
-        badge_combo.appendChild($el('option', {value:'nick', text:'Badge: Nickname'}, []));
-        badge_combo.appendChild($el('option', {value:'id_nick', text:'Badge: #ID Nickname'}, []));
+		badge_combo.appendChild($el('option', { value: 'none', text: 'Badge: None' }, []));
+		badge_combo.appendChild($el('option', { value: 'nick', text: 'Badge: Nickname' }, []));
+		badge_combo.appendChild($el('option', { value: 'id_nick', text: 'Badge: #ID Nickname' }, []));
 
-        api.fetchApi('/manager/badge_mode')
-        .then(response => response.text())
-        .then(data => { badge_combo.value = data; badge_mode = data; });
+		api.fetchApi('/manager/badge_mode')
+			.then(response => response.text())
+			.then(data => { badge_combo.value = data; badge_mode = data; });
 
-		badge_combo.addEventListener('change', function(event) {
-            api.fetchApi(`/manager/badge_mode?value=${event.target.value}`);
-            badge_mode = event.target.value;
-            app.graph.setDirtyCanvas(true);
+		badge_combo.addEventListener('change', function (event) {
+			api.fetchApi(`/manager/badge_mode?value=${event.target.value}`);
+			badge_mode = event.target.value;
+			app.graph.setDirtyCanvas(true);
 		});
 
-        // channel
+		// channel
 		let channel_combo = document.createElement("select");
-        api.fetchApi('/manager/channel_url_list')
-        .then(response => response.json())
-        .then(async data => {
-            try {
-				let urls = data.list;
-				for(let i in urls) {
-					if(urls[i] != '') {
-						let name_url = urls[i].split('::');
-	                    channel_combo.appendChild($el('option', {value:name_url[0], text:`Channel: ${name_url[0]}`}, []));
-	                }
-	            }
+		api.fetchApi('/manager/channel_url_list')
+			.then(response => response.json())
+			.then(async data => {
+				try {
+					let urls = data.list;
+					for (let i in urls) {
+						if (urls[i] != '') {
+							let name_url = urls[i].split('::');
+							channel_combo.appendChild($el('option', { value: name_url[0], text: `Channel: ${name_url[0]}` }, []));
+						}
+					}
 
-				channel_combo.addEventListener('change', function(event) {
-		            api.fetchApi(`/manager/channel_url_list?value=${event.target.value}`);
-				});
+					channel_combo.addEventListener('change', function (event) {
+						api.fetchApi(`/manager/channel_url_list?value=${event.target.value}`);
+					});
 
-                channel_combo.value = data.selected;
-			}
-			catch(exception) {
+					channel_combo.value = data.selected;
+				}
+				catch (exception) {
 
-			}
-        });
+				}
+			});
 
 		const res =
 			[
-				$el("tr.td", {width:"100%"}, [$el("font", {size:6, color:"white"}, [`ComfyUI Manager Menu`])]),
+				$el("tr.td", { width: "100%" }, [$el("font", { size: 6, color: "white" }, [`ComfyUI Manager Menu`])]),
 				$el("br", {}, []),
 				$el("div", {}, [this.local_mode_checkbox, checkbox_text, this.update_check_checkbox, uc_checkbox_text]),
 				$el("br", {}, []),
@@ -1887,7 +1887,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					textContent: "Install Custom Nodes",
 					onclick:
 						() => {
-							if(!CustomNodesInstaller.instance)
+							if (!CustomNodesInstaller.instance)
 								CustomNodesInstaller.instance = new CustomNodesInstaller(app);
 							CustomNodesInstaller.instance.show(false);
 						}
@@ -1898,7 +1898,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					textContent: "Install Missing Custom Nodes",
 					onclick:
 						() => {
-							if(!CustomNodesInstaller.instance)
+							if (!CustomNodesInstaller.instance)
 								CustomNodesInstaller.instance = new CustomNodesInstaller(app);
 							CustomNodesInstaller.instance.show(true);
 						}
@@ -1909,13 +1909,13 @@ class ManagerMenuDialog extends ComfyDialog {
 					textContent: "Install Models",
 					onclick:
 						() => {
-							if(!ModelInstaller.instance)
+							if (!ModelInstaller.instance)
 								ModelInstaller.instance = new ModelInstaller(app);
 							ModelInstaller.instance.show();
 						}
 				}),
 
-                $el("br", {}, []),
+				$el("br", {}, []),
 				update_all_button,
 				update_comfyui_button,
 				fetch_updates_button,
@@ -1926,7 +1926,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					textContent: "Alternatives of A1111",
 					onclick:
 						() => {
-							if(!AlternativesInstaller.instance)
+							if (!AlternativesInstaller.instance)
 								AlternativesInstaller.instance = new AlternativesInstaller(app);
 							AlternativesInstaller.instance.show();
 						}
@@ -1950,13 +1950,13 @@ class ManagerMenuDialog extends ComfyDialog {
 					onclick: () => { window.open("https://ltdrdata.github.io/", "comfyui-node-info"); }
 				}),
 
-                $el("br", {}, []),
-				$el("hr", {width: "100%"}, []),
+				$el("br", {}, []),
+				$el("hr", { width: "100%" }, []),
 				preview_combo,
 				badge_combo,
 				channel_combo,
-				$el("hr", {width: "100%"}, []),
-                $el("br", {}, []),
+				$el("hr", { width: "100%" }, []),
+				$el("br", {}, []),
 
 				$el("button", {
 					type: "button",
@@ -1976,7 +1976,7 @@ class ManagerMenuDialog extends ComfyDialog {
 	constructor() {
 		super();
 		this.element = $el("div.comfy-modal", { parent: document.body },
-			[ $el("div.comfy-modal-content",
+			[$el("div.comfy-modal-content",
 				[...this.createButtons()]),
 			]);
 	}
@@ -1985,6 +1985,189 @@ class ManagerMenuDialog extends ComfyDialog {
 		this.element.style.display = "block";
 	}
 }
+
+class ShareDialog extends ComfyDialog {
+	static instance = null;
+
+	createButtons() {
+		this.is_nsfw_checkbox = $el("input", { type: 'checkbox', id: "is_nsfw" }, [])
+		const is_nsfw_checkbox_text = $el("label", {}, [" Is this NSFW?"])
+		this.is_nsfw_checkbox.style.color = "var(--fg-color)";
+		this.is_nsfw_checkbox.checked = false;
+
+		this.credits_input = $el("input", {
+			type: "text",
+			placeholder: "This will be used to give you credits",
+			required: false,
+		}, []);
+
+		this.title_input = $el("input", {
+			type: "text",
+			// placeholder: "ex: Zombie animation - AnimateDiff",
+			required: false,
+		}, []);
+
+		this.description_input = $el("textarea", {
+			// placeholder: "ex: ",
+			required: false,
+		}, []);
+
+		this.share_button = $el("button", {
+			type: "button",
+			textContent: "Share",
+		}, []);
+
+		this.final_message = $el("div", {}, []);
+
+		this.share_button.onclick = async () => {
+			// alert("Title: " + this.title_input.value + "\nDescription: " + this.description_input.value + "\nCredits: " + this.credits_input.value + "\nNSFW: " + this.is_nsfw_checkbox.checked);
+			const prompt = await app.graphToPrompt();
+			console.log(prompt);
+
+			const nodes = app.graph._nodes;
+
+			const potential_outputs = [];
+			const potential_output_nodes = [];
+
+			// iterate over the array of nodes to find the ones that are marked as SaveImage
+			// TODO: Add support for AnimateDiffCombine, etc. nodes that save videos/gifs, etc.
+			for (let i = 0; i < nodes.length; i++) {
+				const node = nodes[i];
+				if (node.type !== "SaveImage") {
+					continue;
+				}
+
+				if (node.type === "SaveImage") {
+					potential_output_nodes.push(node);
+
+					// check if node has an 'images' array property
+					if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
+						// iterate over the images array and add each image to the potential_outputs array
+						for (let j = 0; j < node.images.length; j++) {
+							potential_outputs.push({ "type": "image", "image": node.images[j] });
+						}
+					}
+				}
+			}
+
+			if (potential_outputs.length === 0) {
+				if (potential_output_nodes.length === 0) {
+					// todo: add support for other output node types (animatediff combine, etc.)
+					alert("No SaveImage node found. To share this workflow, please run a SaveImage node to your graph and re-run your prompt.");
+				} else {
+					alert("To share this, please run a prompt first and then click 'Share'.");
+				}
+				this.close();
+				return;
+			}
+
+			// Change the text of the share button to "Sharing..." to indicate that the share process has started
+			this.share_button.textContent = "Sharing...";
+
+			const response = await api.fetchApi(`/manager/share`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					credits: this.credits_input.value,
+					title: this.title_input.value,
+					description: this.description_input.value,
+					is_nsfw: this.is_nsfw_checkbox.checked,
+					prompt,
+					potential_outputs,
+					potential_output_nodes
+				})
+			});
+
+			if (response.status != 200) {
+				alert("Failed to share your art. Please try again.");
+				this.close();
+				return;
+			}
+
+			this.final_message.innerHTML = "Your art has been shared: <a href='" + response.url + "' target='_blank'>" + response.url + "</a>";
+			this.final_message.style.color = "green";
+
+			// hide the share button
+			this.share_button.style.display = "none";
+			
+			// this.close();
+		}
+
+
+		const res =
+			[
+				$el("tr.td", { width: "100%" }, [
+					$el("font", { size: 6, color: "white" }, [`Share your art`]),
+					$el("div", { size: 3, color: "white" }, [
+						$el("a", {
+							href: `https://comfyworkflows.com/?ref=cms`,
+							target: `_blank`,
+							color: "white",
+							// style: `color:white;`
+						}, `comfyworkflows.com`)
+					])
+				]),
+				$el("p", { size: 4, color: "white" }, [`Get a public link for this art & workflow.`]),
+				// $el("br", {}, []),
+
+				$el("h2", {
+					textContent: "Your name/username (optional)",
+					size: 3,
+					color: "white"
+				}, []),
+				this.credits_input,
+				$el("br", {}, []),
+
+				$el("h2", {
+					textContent: "Title (optional)",
+					size: 3,
+					color: "white"
+				}, []),
+				this.title_input,
+				$el("br", {}, []),
+
+				$el("h2", {
+					textContent: "Description (optional)",
+					size: 3,
+					color: "white"
+				}, []),
+				this.description_input,
+				$el("br", {}, []),
+
+				$el("div", {}, [this.is_nsfw_checkbox, is_nsfw_checkbox_text]),
+				this.final_message,
+
+				$el("br", {}, []),
+				this.share_button,
+
+				$el("button", {
+					type: "button",
+					textContent: "Close",
+					onclick: () => this.close()
+				}),
+				$el("br", {}, []),
+			];
+
+		res[0].style.padding = "10px 10px 10px 10px";
+		res[0].style.backgroundColor = "black"; //"linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%)";
+		res[0].style.textAlign = "center";
+		res[0].style.height = "45px";
+		return res;
+	}
+
+	constructor() {
+		super();
+		this.element = $el("div.comfy-modal", { parent: document.body },
+			[$el("div.comfy-modal-content",
+				[...this.createButtons()]),
+			]);
+	}
+
+	show() {
+		this.element.style.display = "block";
+	}
+}
+
 
 app.registerExtension({
 	name: "Comfy.ManagerMenu",
@@ -2000,107 +2183,121 @@ app.registerExtension({
 		const managerButton = document.createElement("button");
 		managerButton.textContent = "Manager";
 		managerButton.onclick = () => {
-				if(!ManagerMenuDialog.instance)
-					ManagerMenuDialog.instance = new ManagerMenuDialog();
-				ManagerMenuDialog.instance.show();
-			}
+			if (!ManagerMenuDialog.instance)
+				ManagerMenuDialog.instance = new ManagerMenuDialog();
+			ManagerMenuDialog.instance.show();
+		}
 		menu.append(managerButton);
+
+		const shareButton = document.createElement("button");
+		shareButton.textContent = "Share";
+		shareButton.onclick = () => {
+			if (!ShareDialog.instance)
+				ShareDialog.instance = new ShareDialog();
+			ShareDialog.instance.show();
+		}
+		// make the background color a gradient of blue to green
+		shareButton.style.background = "linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%)";
+		shareButton.style.color = "black";
+		// shareButton.style.border = "none";
+		// shareButton.style.borderRadius = "15px";
+		menu.append(shareButton);
 	},
 
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        const onDrawForeground = nodeType.prototype.onDrawForeground;
-        nodeType.prototype.onDrawForeground = function (ctx) {
-            const r = onDrawForeground?.apply?.(this, arguments);
+		const onDrawForeground = nodeType.prototype.onDrawForeground;
+		nodeType.prototype.onDrawForeground = function (ctx) {
+			const r = onDrawForeground?.apply?.(this, arguments);
 
-            if(!this.flags.collapsed && badge_mode != 'none' && nodeType.title_mode != LiteGraph.NO_TITLE) {
-                let text = "";
-                if(badge_mode == 'id_nick')
-                    text = `#${this.id} `;
+			if (!this.flags.collapsed && badge_mode != 'none' && nodeType.title_mode != LiteGraph.NO_TITLE) {
+				let text = "";
+				if (badge_mode == 'id_nick')
+					text = `#${this.id} `;
 
-                if(nicknames[nodeData.name.trim()]) {
-                    let nick = nicknames[nodeData.name.trim()];
+				if (nicknames[nodeData.name.trim()]) {
+					let nick = nicknames[nodeData.name.trim()];
 
-                    if(nick.length > 25) {
-                        text += nick.substring(0,23)+"..";
-                    }
-                    else {
-                        text += nick;
-                    }
-                }
+					if (nick.length > 25) {
+						text += nick.substring(0, 23) + "..";
+					}
+					else {
+						text += nick;
+					}
+				}
 
-                if(text != "") {
-                    let fgColor = "white";
-                    let bgColor = "#0F1F0F";
-                    let visible = true;
+				if (text != "") {
+					let fgColor = "white";
+					let bgColor = "#0F1F0F";
+					let visible = true;
 
-                    ctx.save();
-                    ctx.font = "12px sans-serif";
-                    const sz = ctx.measureText(text);
-                    ctx.fillStyle = bgColor;
-                    ctx.beginPath();
-                    ctx.roundRect(this.size[0]-sz.width-12, -LiteGraph.NODE_TITLE_HEIGHT - 20, sz.width + 12, 20, 5);
-                    ctx.fill();
+					ctx.save();
+					ctx.font = "12px sans-serif";
+					const sz = ctx.measureText(text);
+					ctx.fillStyle = bgColor;
+					ctx.beginPath();
+					ctx.roundRect(this.size[0] - sz.width - 12, -LiteGraph.NODE_TITLE_HEIGHT - 20, sz.width + 12, 20, 5);
+					ctx.fill();
 
-                    ctx.fillStyle = fgColor;
-                    ctx.fillText(text, this.size[0]-sz.width-6, -LiteGraph.NODE_TITLE_HEIGHT - 6);
-                    ctx.restore();
-                }
-            }
+					ctx.fillStyle = fgColor;
+					ctx.fillText(text, this.size[0] - sz.width - 6, -LiteGraph.NODE_TITLE_HEIGHT - 6);
+					ctx.restore();
+				}
+			}
 
-            return r;
-        };
+			return r;
+		};
 	},
 
 	async loadedGraphNode(node, app) {
-	    if(node.has_errors) {
-            const onDrawForeground = node.onDrawForeground;
-            node.onDrawForeground = function (ctx) {
-                const r = onDrawForeground?.apply?.(this, arguments);
+		if (node.has_errors) {
+			const onDrawForeground = node.onDrawForeground;
+			node.onDrawForeground = function (ctx) {
+				const r = onDrawForeground?.apply?.(this, arguments);
 
-                if(!this.flags.collapsed && badge_mode != 'none') {
-                    let text = "";
-                    if(badge_mode == 'id_nick')
-                        text = `#${this.id} `;
+				if (!this.flags.collapsed && badge_mode != 'none') {
+					let text = "";
+					if (badge_mode == 'id_nick')
+						text = `#${this.id} `;
 
-                    if(nicknames[node.type.trim()]) {
-                        let nick = nicknames[node.type.trim()];
+					if (nicknames[node.type.trim()]) {
+						let nick = nicknames[node.type.trim()];
 
-                        if(nick.length > 25) {
-                            text += nick.substring(0,23)+"..";
-                        }
-                        else {
-                            text += nick;
-                        }
-                    }
+						if (nick.length > 25) {
+							text += nick.substring(0, 23) + "..";
+						}
+						else {
+							text += nick;
+						}
+					}
 
-                    if(text != "") {
-                        let fgColor = "white";
-                        let bgColor = "#0F1F0F";
-                        let visible = true;
+					if (text != "") {
+						let fgColor = "white";
+						let bgColor = "#0F1F0F";
+						let visible = true;
 
-                        ctx.save();
-                        ctx.font = "12px sans-serif";
-                        const sz = ctx.measureText(text);
-                        ctx.fillStyle = bgColor;
-                        ctx.beginPath();
-                        ctx.roundRect(this.size[0]-sz.width-12, -LiteGraph.NODE_TITLE_HEIGHT - 20, sz.width + 12, 20, 5);
-                        ctx.fill();
+						ctx.save();
+						ctx.font = "12px sans-serif";
+						const sz = ctx.measureText(text);
+						ctx.fillStyle = bgColor;
+						ctx.beginPath();
+						ctx.roundRect(this.size[0] - sz.width - 12, -LiteGraph.NODE_TITLE_HEIGHT - 20, sz.width + 12, 20, 5);
+						ctx.fill();
 
-                        ctx.fillStyle = fgColor;
-                        ctx.fillText(text, this.size[0]-sz.width-6, -LiteGraph.NODE_TITLE_HEIGHT - 6);
-                        ctx.restore();
+						ctx.fillStyle = fgColor;
+						ctx.fillText(text, this.size[0] - sz.width - 6, -LiteGraph.NODE_TITLE_HEIGHT - 6);
+						ctx.restore();
 
-                        ctx.save();
-                        ctx.font = "bold 14px sans-serif";
-                        const sz2 = ctx.measureText(node.type);
-                        ctx.fillStyle = 'white';
-                        ctx.fillText(node.type, this.size[0]/2-sz2.width/2, this.size[1]/2);
-                        ctx.restore();
-                    }
-                }
+						ctx.save();
+						ctx.font = "bold 14px sans-serif";
+						const sz2 = ctx.measureText(node.type);
+						ctx.fillStyle = 'white';
+						ctx.fillText(node.type, this.size[0] / 2 - sz2.width / 2, this.size[1] / 2);
+						ctx.restore();
+					}
+				}
 
-                return r;
-            };
-	    }
+				return r;
+			};
+		}
 	}
 });

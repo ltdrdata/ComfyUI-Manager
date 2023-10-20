@@ -531,7 +531,6 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
     elif do_update_check:
         print(f"\x1b[2K\rUpdate check done.")
 
-
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
 async def fetch_customnode_mappings(request):
     if request.rel_url.query["mode"] == "local":
@@ -1194,6 +1193,14 @@ async def channel_url_list(request):
                'list': channels}
         return web.json_response(res, status=200)
 
+    return web.Response(status=200)
+
+
+@server.PromptServer.instance.routes.post("/manager/share")
+async def share_art(request):
+    # get json data
+    json_data = await request.json()
+    print(json_data)
     return web.Response(status=200)
 
 WEB_DIRECTORY = "js"
