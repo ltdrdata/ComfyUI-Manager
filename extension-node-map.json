@@ -101,6 +101,7 @@
             "BSZLatentDebug",
             "BSZLatentFill",
             "BSZLatentOffsetXL",
+            "BSZLatentRGBAImage",
             "BSZPixelbuster",
             "BSZPixelbusterHelp",
             "BSZPrincipledSDXL"
@@ -407,8 +408,8 @@
     ],
     "https://github.com/FizzleDorf/ComfyUI-AIT": [
         [
-            "AITLoader",
-            "AIT_Unet_Loader"
+            "AIT_Unet_Loader",
+            "AIT_VAE_Encode_Loader"
         ],
         {
             "title_aux": "ComfyUI-AIT"
@@ -593,10 +594,12 @@
             "VHS_LoadVideoPath",
             "VHS_MergeImages",
             "VHS_MergeLatents",
+            "VHS_OutVideoInfo",
             "VHS_SelectEveryNthImage",
             "VHS_SelectEveryNthLatent",
             "VHS_SplitImages",
             "VHS_SplitLatents",
+            "VHS_UploadVideo",
             "VHS_VideoCombine"
         ],
         {
@@ -3297,6 +3300,19 @@
             "title_aux": "SRL's nodes"
         }
     ],
+    "https://github.com/shadowcz007/comfyui-mixlab-nodes": [
+        [
+            "KandinskyModel",
+            "KandinskyModelLoad",
+            "LoadImageFromPath",
+            "RandomPrompt",
+            "SplitLongMask",
+            "TransparentImage"
+        ],
+        {
+            "title_aux": "comfyui-mixlab-nodes"
+        }
+    ],
     "https://github.com/shiimizu/ComfyUI_smZNodes": [
         [
             "smZ CLIPTextEncode",
@@ -3853,6 +3869,7 @@
             "Memory_Excel",
             "Model_1",
             "Ollama",
+            "Output2String",
             "Planner",
             "Scientist",
             "TextCombine",
