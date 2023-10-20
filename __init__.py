@@ -1,4 +1,5 @@
 import configparser
+import mimetypes
 import shutil
 import folder_paths
 import os
@@ -1200,8 +1201,76 @@ async def channel_url_list(request):
 async def share_art(request):
     # get json data
     json_data = await request.json()
-    print(json_data)
-    return web.Response(status=200)
+
+    credits = json_data['credits']
+    title = json_data['title']
+    description = json_data['description']
+    is_nsfw = json_data['is_nsfw']
+    prompt = json_data['prompt']
+    potential_outputs = json_data['potential_outputs']
+
+    # for now, pick the first output
+    output_to_share = potential_outputs[0]
+    assert output_to_share['type'] in ('image',)
+
+    output_dir = folder_paths.get_output_directory()
+    asset_filename = output_to_share['image']['filename']
+    asset_subfolder = output_to_share['image']['subfolder']
+    asset_output_type = output_to_share['image']['type']
+
+    assert asset_output_type == "output"
+
+    if asset_subfolder:
+        asset_filepath = os.path.join(output_dir, asset_subfolder, asset_filename)
+    else:
+        asset_filepath = os.path.join(output_dir, asset_filename)
+
+    # get the mime type of the asset
+    assetFileType = mimetypes.guess_type(asset_filepath)[0]
+
+    share_website_host = "https://comfyworkflows.com"
+    share_endpoint = f"{share_website_host}/api"
+
+    # get presigned urls
+    async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+        async with session.post(
+            f"{share_endpoint}/get_presigned_urls",
+            json={
+                "assetFileName": asset_filename,
+                "assetFileType": assetFileType,
+            },
+        ) as resp:
+            assert resp.status == 200
+            presigned_urls_json = await resp.json()
+            assetFilePresignedUrl = presigned_urls_json["assetFilePresignedUrl"]
+            assetFileKey = presigned_urls_json["assetFileKey"]
+    
+    # upload asset
+    async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+        async with session.put(assetFilePresignedUrl, data=open(asset_filepath, "rb")) as resp:
+            assert resp.status == 200
+
+    # make a POST request to /api/upload_workflow with form data key values
+    async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+        form = aiohttp.FormData()
+        form.add_field("assetFileKey", assetFileKey)
+        form.add_field("assetFileType", assetFileType)
+        form.add_field("sharedWorkflowWorkflowJsonString", json.dumps(prompt['workflow']))
+        form.add_field("sharedWorkflowPromptJsonString", json.dumps(prompt['output']))
+        form.add_field("shareWorkflowCredits", credits)
+        form.add_field("shareWorkflowTitle", title)
+        form.add_field("shareWorkflowDescription", description)
+        form.add_field("shareWorkflowIsNSFW", str(is_nsfw).lower())
+
+        async with session.post(
+            f"{share_endpoint}/upload_workflow",
+            data=form,
+        ) as resp:
+            assert resp.status == 200
+            upload_workflow_json = await resp.json()
+            workflowId = upload_workflow_json["workflowId"]
+    
+    return web.json_response({"url" : f"{share_website_host}/workflows/{workflowId}"}, content_type='application/json', status=200)
 
 WEB_DIRECTORY = "js"
 NODE_CLASS_MAPPINGS = {}

@@ -2055,7 +2055,7 @@ class ShareDialog extends ComfyDialog {
 					// todo: add support for other output node types (animatediff combine, etc.)
 					alert("No SaveImage node found. To share this workflow, please run a SaveImage node to your graph and re-run your prompt.");
 				} else {
-					alert("To share this, please run a prompt first and then click 'Share'.");
+					alert("To share this, first run a prompt. Once it's done, click 'Share'.");
 				}
 				this.close();
 				return;
@@ -2074,7 +2074,7 @@ class ShareDialog extends ComfyDialog {
 					is_nsfw: this.is_nsfw_checkbox.checked,
 					prompt,
 					potential_outputs,
-					potential_output_nodes
+					// potential_output_nodes
 				})
 			});
 
@@ -2084,12 +2084,15 @@ class ShareDialog extends ComfyDialog {
 				return;
 			}
 
-			this.final_message.innerHTML = "Your art has been shared: <a href='" + response.url + "' target='_blank'>" + response.url + "</a>";
+			const response_json = await response.json();
+
+			this.final_message.innerHTML = "Your art has been shared: <a href='" + response_json.url + "' target='_blank'>" + response_json.url + "</a>";
 			this.final_message.style.color = "green";
 
 			// hide the share button
+			this.share_button.textContent = "Shared!";
 			this.share_button.style.display = "none";
-			
+
 			// this.close();
 		}
 
@@ -2143,7 +2146,18 @@ class ShareDialog extends ComfyDialog {
 				$el("button", {
 					type: "button",
 					textContent: "Close",
-					onclick: () => this.close()
+					onclick: () => {
+						// Reset state
+						this.share_button.textContent = "Share";
+						this.share_button.style.display = "inline-block";
+						this.final_message.innerHTML = "";
+						this.final_message.style.color = "white";
+						this.credits_input.value = "";
+						this.title_input.value = "";
+						this.description_input.value = "";
+						this.is_nsfw_checkbox.checked = false;
+						this.close()
+					}
 				}),
 				$el("br", {}, []),
 			];
