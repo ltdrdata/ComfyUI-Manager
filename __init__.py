@@ -1196,12 +1196,25 @@ async def channel_url_list(request):
 
     return web.Response(status=200)
 
+@server.PromptServer.instance.routes.get("/manager/check_matrix")
+async def check_matrix(request):
+    # Check if the user has provided Matrix credentials in a file called 'matrix_accesstoken'
+    # in the same directory as the ComfyUI base folder
+    print("Checking for Matrix credentials...")
+    if not os.path.exists(os.path.join(folder_paths.base_path, "matrix_accesstoken")):
+        return web.Response(status=404)
+    with open(os.path.join(folder_paths.base_path, "matrix_accesstoken"), "r") as f:
+        access_token = f.read()
+        if not access_token.strip():
+            return web.Response(status=404)
+    return web.Response(status=200)
 
 @server.PromptServer.instance.routes.post("/manager/share")
 async def share_art(request):
     # get json data
     json_data = await request.json()
 
+    share_destinations = json_data['share_destinations']
     credits = json_data['credits']
     title = json_data['title']
     description = json_data['description']
@@ -1228,49 +1241,87 @@ async def share_art(request):
     # get the mime type of the asset
     assetFileType = mimetypes.guess_type(asset_filepath)[0]
 
-    share_website_host = "https://comfyworkflows.com"
-    share_endpoint = f"{share_website_host}/api"
+    if "comfyworkflows" in share_destinations:
+        share_website_host = "https://comfyworkflows.com"
+        share_endpoint = f"{share_website_host}/api"
+        
+        # get presigned urls
+        async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+            async with session.post(
+                f"{share_endpoint}/get_presigned_urls",
+                json={
+                    "assetFileName": asset_filename,
+                    "assetFileType": assetFileType,
+                },
+            ) as resp:
+                assert resp.status == 200
+                presigned_urls_json = await resp.json()
+                assetFilePresignedUrl = presigned_urls_json["assetFilePresignedUrl"]
+                assetFileKey = presigned_urls_json["assetFileKey"]
+        
+        # upload asset
+        async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+            async with session.put(assetFilePresignedUrl, data=open(asset_filepath, "rb")) as resp:
+                assert resp.status == 200
 
-    # get presigned urls
-    async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
-        async with session.post(
-            f"{share_endpoint}/get_presigned_urls",
-            json={
-                "assetFileName": asset_filename,
-                "assetFileType": assetFileType,
-            },
-        ) as resp:
-            assert resp.status == 200
-            presigned_urls_json = await resp.json()
-            assetFilePresignedUrl = presigned_urls_json["assetFilePresignedUrl"]
-            assetFileKey = presigned_urls_json["assetFileKey"]
+        # make a POST request to /api/upload_workflow with form data key values
+        async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+            form = aiohttp.FormData()
+            form.add_field("assetFileKey", assetFileKey)
+            form.add_field("assetFileType", assetFileType)
+            form.add_field("sharedWorkflowWorkflowJsonString", json.dumps(prompt['workflow']))
+            form.add_field("sharedWorkflowPromptJsonString", json.dumps(prompt['output']))
+            form.add_field("shareWorkflowCredits", credits)
+            form.add_field("shareWorkflowTitle", title)
+            form.add_field("shareWorkflowDescription", description)
+            form.add_field("shareWorkflowIsNSFW", str(is_nsfw).lower())
+
+            async with session.post(
+                f"{share_endpoint}/upload_workflow",
+                data=form,
+            ) as resp:
+                assert resp.status == 200
+                upload_workflow_json = await resp.json()
+                workflowId = upload_workflow_json["workflowId"]
+
+    # check if the user has provided Matrix credentials
+    if "matrix" in share_destinations:
+        with open(os.path.join(folder_paths.base_path, "matrix_accesstoken"), "r") as f:
+            access_token = f.read().strip()
+        
+        comfyui_share_room_id = '!LGYSoacpJPhIfBqVfb:matrix.org'
+        filename = os.path.basename(asset_filepath)
+        content_type = assetFileType
+
+        try:
+            from matrix_client.api import MatrixHttpApi
+            matrix = MatrixHttpApi("https://matrix.org", token=access_token)
+            with open(asset_filepath, 'rb') as f:
+                mxc_url = matrix.media_upload(f.read(), content_type, filename=filename)['content_uri']
+            text_content = ""
+            if title:
+                text_content += f"{title}\n"
+            if description:
+                text_content += f"{description}\n"
+            if credits:
+                text_content += f"\ncredits: {credits}\n"
+            response = matrix.send_message(comfyui_share_room_id, text_content)
+            print(response)
+            response = matrix.send_content(comfyui_share_room_id, mxc_url, filename, 'm.image')
+            print(response)
+        except:
+            import traceback
+            traceback.print_exc()
+            return web.json_response({"error" : "An error occurred when sharing your art to Matrix."}, content_type='application/json', status=500)
     
-    # upload asset
-    async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
-        async with session.put(assetFilePresignedUrl, data=open(asset_filepath, "rb")) as resp:
-            assert resp.status == 200
-
-    # make a POST request to /api/upload_workflow with form data key values
-    async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
-        form = aiohttp.FormData()
-        form.add_field("assetFileKey", assetFileKey)
-        form.add_field("assetFileType", assetFileType)
-        form.add_field("sharedWorkflowWorkflowJsonString", json.dumps(prompt['workflow']))
-        form.add_field("sharedWorkflowPromptJsonString", json.dumps(prompt['output']))
-        form.add_field("shareWorkflowCredits", credits)
-        form.add_field("shareWorkflowTitle", title)
-        form.add_field("shareWorkflowDescription", description)
-        form.add_field("shareWorkflowIsNSFW", str(is_nsfw).lower())
-
-        async with session.post(
-            f"{share_endpoint}/upload_workflow",
-            data=form,
-        ) as resp:
-            assert resp.status == 200
-            upload_workflow_json = await resp.json()
-            workflowId = upload_workflow_json["workflowId"]
-    
-    return web.json_response({"url" : f"{share_website_host}/workflows/{workflowId}"}, content_type='application/json', status=200)
+    return web.json_response({
+        "comfyworkflows" : {
+            "url" : None if "comfyworkflows" not in share_destinations else f"{share_website_host}/workflows/{workflowId}",
+        },
+        "matrix" : {
+            "success" : None if "matrix" not in share_destinations else True
+        }
+    }, content_type='application/json', status=200)
 
 WEB_DIRECTORY = "js"
 NODE_CLASS_MAPPINGS = {}
