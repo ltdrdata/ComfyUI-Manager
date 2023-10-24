@@ -11,7 +11,8 @@
     ],
     "https://github.com/0xbitches/ComfyUI-LCM": [
         [
-            "LCMSampler"
+            "LCM_Sampler",
+            "LCM_img2img_Sampler"
         ],
         {
             "title_aux": "Latent Consistency Model for ComfyUI"
@@ -1266,10 +1267,12 @@
             "PM_ColorTransfer",
             "PM_ExpandMaskBox",
             "PM_FaceFusion",
+            "PM_FaceShapMatch",
             "PM_FaceSkin",
             "PM_GetImageInfo",
             "PM_ImageResizeTarget",
             "PM_ImageScaleShort",
+            "PM_MakeUpTransfer",
             "PM_MaskDilateErode",
             "PM_MaskMerge2Image",
             "PM_PortraitEnhancement",
@@ -1288,6 +1291,7 @@
             "tri3d-atr-parse-batch",
             "tri3d-extract-hand",
             "tri3d-extract-parts-batch",
+            "tri3d-extract-parts-mask-batch",
             "tri3d-fuzzification",
             "tri3d-position-hands",
             "tri3d-position-parts-batch"
@@ -2781,6 +2785,7 @@
             "CLIPSegDetectorProvider",
             "CfgScheduleHookProvider",
             "CombineRegionalPrompts",
+            "CoreMLDetailerHookProvider",
             "DenoiseScheduleHookProvider",
             "DetailerForEach",
             "DetailerForEachDebug",
