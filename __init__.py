@@ -62,7 +62,7 @@ comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
 
 comfy_path = os.path.dirname(folder_paths.__file__)
-custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
+custom_nodes_path = "/home/ubuntu/user_data/comfyui/custom_nodes"
 js_path = os.path.join(comfy_path, "web", "extensions")
 
 comfyui_manager_path = os.path.dirname(__file__)
