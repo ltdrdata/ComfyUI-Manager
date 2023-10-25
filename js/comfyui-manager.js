@@ -1988,6 +1988,22 @@ class ManagerMenuDialog extends ComfyDialog {
 
 class ShareDialog extends ComfyDialog {
 	static instance = null;
+	static matrix_auth = { homeserver: "matrix.org", username: "", password: "" };
+	static cw_sharekey = "";
+
+	constructor() {
+		super();
+
+		this.element = $el("div.comfy-modal", { parent: document.body },
+			[$el("div.comfy-modal-content",
+				{
+					style: {
+						overflowY: "auto",
+					}
+				},
+				[...this.createButtons()]),
+			]);
+	}
 
 	createButtons() {
 		this.is_nsfw_checkbox = $el("input", { type: 'checkbox', id: "is_nsfw" }, [])
@@ -2005,20 +2021,27 @@ class ShareDialog extends ComfyDialog {
 		this.comfyworkflows_destination_checkbox.style.color = "var(--fg-color)";
 		this.comfyworkflows_destination_checkbox.checked = true;
 
+		this.matrix_homeserver_input = $el("input", { type: 'text', id: "matrix_homeserver", placeholder: "matrix.org", value: ShareDialog.matrix_auth.homeserver || 'matrix.org' }, []);
+		this.matrix_username_input = $el("input", { type: 'text', placeholder: "Username", value: ShareDialog.matrix_auth.username || '' }, []);
+		this.matrix_password_input = $el("input", { type: 'password', placeholder: "Password", value: ShareDialog.matrix_auth.password || '' }, []);
+
+		this.cw_sharekey_input = $el("input", { type: 'text', placeholder: "Share key (found on your profile page)", value: ShareDialog.cw_sharekey || '' }, []);
+		this.cw_sharekey_input.style.width = "100%";
+
 		this.credits_input = $el("input", {
 			type: "text",
-			placeholder: "This will be used to give you credits",
+			placeholder: "This will be used to give credits",
 			required: false,
 		}, []);
 
 		this.title_input = $el("input", {
 			type: "text",
-			// placeholder: "ex: Zombie animation - AnimateDiff",
+			placeholder: "ex: My awesome art",
 			required: false,
 		}, []);
 
 		this.description_input = $el("textarea", {
-			// placeholder: "ex: ",
+			placeholder: "ex: Trying out a new workflow... ",
 			required: false,
 		}, []);
 
@@ -2029,11 +2052,43 @@ class ShareDialog extends ComfyDialog {
 
 		this.final_message = $el("div", {}, []);
 
-		this.share_button.onclick = async () => {
-			// alert("Title: " + this.title_input.value + "\nDescription: " + this.description_input.value + "\nCredits: " + this.credits_input.value + "\nNSFW: " + this.is_nsfw_checkbox.checked);
-			const prompt = await app.graphToPrompt();
-			console.log(prompt);
+		// get the user's existing matrix auth and share key
+		ShareDialog.matrix_auth = { homeserver: "matrix.org", username: "", password: "" };
+		try {
+			api.fetchApi(`/manager/get_matrix_auth`)
+				.then(response => response.json())
+				.then(data => {
+					ShareDialog.matrix_auth = data;
+					this.matrix_homeserver_input.value = ShareDialog.matrix_auth.homeserver;
+					this.matrix_username_input.value = ShareDialog.matrix_auth.username;
+					this.matrix_password_input.value = ShareDialog.matrix_auth.password;
+				})
+				.catch(error => {
+					// console.log(error);
+				});
+		} catch (error) {
+			// console.log(error);
+		}
 
+		// get the user's existing comfyworkflows share key
+		ShareDialog.cw_sharekey = "";
+		try {
+			console.log("Fetching comfyworkflows share key")
+			api.fetchApi(`/manager/get_comfyworkflows_auth`)
+				.then(response => response.json())
+				.then(data => {
+					ShareDialog.cw_sharekey = data.comfyworkflows_sharekey;
+					this.cw_sharekey_input.value = ShareDialog.cw_sharekey;
+				})
+				.catch(error => {
+					// console.log(error);
+				});
+		} catch (error) {
+			// console.log(error);
+		}
+
+		this.share_button.onclick = async () => {
+			const prompt = await app.graphToPrompt();
 			const nodes = app.graph._nodes;
 
 			const destinations = [];
@@ -2046,23 +2101,15 @@ class ShareDialog extends ComfyDialog {
 
 			// if destinations includes matrix, make an api call to /manager/check_matrix to ensure that the user has configured their matrix settings
 			if (destinations.includes("matrix")) {
-				const response = await api.fetchApi(`/manager/check_matrix`);
-				if (response.status != 200) {
-					alert("Please add your Matrix access token in a file called 'matrix_accesstoken' in the ComfyUI folder. To get your Matrix access token, go to https://app.element.io/, click on your profile, click on 'All settings', click on 'Help & About', and copy 'Access Token', and then click on 'Regenerate'.");
-					// Reset state
-					this.matrix_destination_checkbox.checked = true;
-					this.comfyworkflows_destination_checkbox.checked = true;
-					this.share_button.textContent = "Share";
-					this.share_button.style.display = "inline-block";
-					this.final_message.innerHTML = "";
-					this.final_message.style.color = "white";
-					this.credits_input.value = "";
-					this.title_input.value = "";
-					this.description_input.value = "";
-					this.is_nsfw_checkbox.checked = false;
-					this.close();
+				let definedMatrixAuth = !!this.matrix_homeserver_input.value && !!this.matrix_username_input.value && !!this.matrix_password_input.value;
+				if (!definedMatrixAuth) {
+					alert("Please set your Matrix account details.");
 					return;
 				}
+			}
+
+			if (destinations.includes("comfyworkflows") && !this.cw_sharekey_input.value && !confirm("You have NOT set your ComfyWorkflows.com share key. Your art will NOT be connected to your account (it will be shared anonymously). Continue?")) {
+				return;
 			}
 
 			const potential_outputs = [];
@@ -2107,6 +2154,14 @@ class ShareDialog extends ComfyDialog {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
+					matrix_auth: {
+						homeserver: this.matrix_homeserver_input.value,
+						username: this.matrix_username_input.value,
+						password: this.matrix_password_input.value,
+					},
+					cw_auth: {
+						cw_sharekey: this.cw_sharekey_input.value,
+					},
 					share_destinations: destinations,
 					credits: this.credits_input.value,
 					title: this.title_input.value,
@@ -2119,9 +2174,22 @@ class ShareDialog extends ComfyDialog {
 			});
 
 			if (response.status != 200) {
-				alert("Failed to share your art. Please try again.");
-				this.close();
-				return;
+				try {
+					const response_json = await response.json();
+					if (response_json.error) {
+						alert(response_json.error);
+						this.close();
+						return;
+					} else {
+						alert("Failed to share your art. Please try again.");
+						this.close();
+						return;
+					}
+				} catch (e) {
+					alert("Failed to share your art. Please try again.");
+					this.close();
+					return;
+				}
 			}
 
 			const response_json = await response.json();
@@ -2142,26 +2210,97 @@ class ShareDialog extends ComfyDialog {
 			// hide the share button
 			this.share_button.textContent = "Shared!";
 			this.share_button.style.display = "none";
-
 			// this.close();
 		}
-
 
 		const res =
 			[
 				$el("tr.td", { width: "100%" }, [
 					$el("font", { size: 6, color: "white" }, [`Share your art`]),
-					// $el("div", { size: 3, color: "white" }, [
-					// 	$el("a", {
-					// 		href: `https://comfyworkflows.com/?ref=cms`,
-					// 		target: `_blank`,
-					// 		color: "white",
-					// 		// style: `color:white;`
-					// 	}, `comfyworkflows.com`)
-					// ])
 				]),
-				$el("p", { size: 4, color: "white" }, [`Get a public link for this art & workflow.`]),
-				// $el("br", {}, []),
+				$el("br", {}, []),
+
+				$el("details", {
+					style: {
+						border: "1px solid #999",
+						padding: "5px",
+						borderRadius: "5px",
+						backgroundColor: "#222"
+					}
+				}, [
+					$el("summary", {
+						style: {
+							color: "white",
+							cursor: "pointer",
+						}
+					}, [`Matrix account`]),
+					$el("div", {
+						style: {
+							display: "flex",
+							flexDirection: "row",
+						}
+					}, [
+						$el("div", {
+							textContent: "Homeserver",
+							style: {
+								marginRight: "10px",
+							}
+						}, []),
+						this.matrix_homeserver_input,
+					]),
+
+					$el("div", {
+						style: {
+							display: "flex",
+							flexDirection: "row",
+						}
+					}, [
+						$el("div", {
+							textContent: "Username",
+							style: {
+								marginRight: "10px",
+							}
+						}, []),
+						this.matrix_username_input,
+					]),
+
+					$el("div", {
+						style: {
+							display: "flex",
+							flexDirection: "row",
+						}
+					}, [
+						$el("div", {
+							textContent: "Password",
+							style: {
+								marginRight: "10px",
+							}
+						}, []),
+						this.matrix_password_input,
+					]),
+
+				]),
+				$el("details", {
+					style: {
+						border: "1px solid #999",
+						marginTop: "10px",
+						padding: "5px",
+						borderRadius: "5px",
+						backgroundColor: "#222"
+					}
+				}, [
+					$el("summary", {
+						style: {
+							color: "white",
+							cursor: "pointer",
+						}
+					}, [`Comfyworkflows.com account`]),
+					$el("h4", {
+						textContent: "Share key (found on your profile page)",
+					}, []),
+					$el("p", { size: 3, color: "white" }, ["When provided, your art will be saved to your account."]),
+					this.cw_sharekey_input,
+				]),
 
 				$el("div", {}, [
 					$el("p", { size: 3, color: "white" }, [`Select where to share your art:`]),
@@ -2172,23 +2311,23 @@ class ShareDialog extends ComfyDialog {
 					comfyworkflows_destination_checkbox_text,
 				]),
 
-				$el("h2", {
-					textContent: "Your name/username (optional)",
+				$el("h4", {
+					textContent: "Credits (optional)",
 					size: 3,
 					color: "white"
 				}, []),
 				this.credits_input,
-				$el("br", {}, []),
+				// $el("br", {}, []),
 
-				$el("h2", {
+				$el("h4", {
 					textContent: "Title (optional)",
 					size: 3,
 					color: "white"
 				}, []),
 				this.title_input,
-				$el("br", {}, []),
+				// $el("br", {}, []),
 
-				$el("h2", {
+				$el("h4", {
 					textContent: "Description (optional)",
 					size: 3,
 					color: "white"
@@ -2230,14 +2369,6 @@ class ShareDialog extends ComfyDialog {
 		return res;
 	}
 
-	constructor() {
-		super();
-		this.element = $el("div.comfy-modal", { parent: document.body },
-			[$el("div.comfy-modal-content",
-				[...this.createButtons()]),
-			]);
-	}
-
 	show() {
 		this.element.style.display = "block";
 	}
@@ -2264,18 +2395,18 @@ app.registerExtension({
 		}
 		menu.append(managerButton);
 
+
 		const shareButton = document.createElement("button");
 		shareButton.textContent = "Share";
 		shareButton.onclick = () => {
-			if (!ShareDialog.instance)
+			if (!ShareDialog.instance) {
 				ShareDialog.instance = new ShareDialog();
+			}
 			ShareDialog.instance.show();
 		}
 		// make the background color a gradient of blue to green
 		shareButton.style.background = "linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%)";
 		shareButton.style.color = "black";
-		// shareButton.style.border = "none";
-		// shareButton.style.borderRadius = "15px";
 		menu.append(shareButton);
 	},
 

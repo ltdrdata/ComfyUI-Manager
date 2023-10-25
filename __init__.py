@@ -1196,23 +1196,74 @@ async def channel_url_list(request):
 
     return web.Response(status=200)
 
-@server.PromptServer.instance.routes.get("/manager/check_matrix")
-async def check_matrix(request):
+def get_matrix_auth():
+    if not os.path.exists(os.path.join(folder_paths.base_path, "matrix_auth")):
+        return None
+    with open(os.path.join(folder_paths.base_path, "matrix_auth"), "r") as f:
+        matrix_auth = f.read()
+        homeserver, username, password = matrix_auth.strip().split("\n")
+        if not homeserver or not username or not password:
+            return None
+    return {
+        "homeserver": homeserver,
+        "username": username,
+        "password": password,
+    }
+
+def get_comfyworkflows_auth():
+    if not os.path.exists(os.path.join(folder_paths.base_path, "comfyworkflows_sharekey")):
+        return None
+    with open(os.path.join(folder_paths.base_path, "comfyworkflows_sharekey"), "r") as f:
+        share_key = f.read()
+        if not share_key.strip():
+            return None
+    return share_key
+
+@server.PromptServer.instance.routes.get("/manager/get_matrix_auth")
+async def api_get_matrix_auth(request):
+    # print("Getting stored Matrix credentials...")
+    matrix_auth = get_matrix_auth()
+    if not matrix_auth:
+        return web.Response(status=404)
+    return web.json_response(matrix_auth)
+
+@server.PromptServer.instance.routes.get("/manager/get_comfyworkflows_auth")
+async def api_get_comfyworkflows_auth(request):
     # Check if the user has provided Matrix credentials in a file called 'matrix_accesstoken'
     # in the same directory as the ComfyUI base folder
-    print("Checking for Matrix credentials...")
-    if not os.path.exists(os.path.join(folder_paths.base_path, "matrix_accesstoken")):
+    # print("Getting stored Comfyworkflows.com auth...")
+    comfyworkflows_auth = get_comfyworkflows_auth()
+    if not comfyworkflows_auth:
         return web.Response(status=404)
-    with open(os.path.join(folder_paths.base_path, "matrix_accesstoken"), "r") as f:
-        access_token = f.read()
-        if not access_token.strip():
-            return web.Response(status=404)
-    return web.Response(status=200)
+    return web.json_response({"comfyworkflows_sharekey" : comfyworkflows_auth})
+
+def set_matrix_auth(json_data):
+    homeserver = json_data['homeserver']
+    username = json_data['username']
+    password = json_data['password']
+    with open(os.path.join(folder_paths.base_path, "matrix_auth"), "w") as f:
+        f.write("\n".join([homeserver, username, password]))
+
+def set_comfyworkflows_auth(comfyworkflows_sharekey):
+    with open(os.path.join(folder_paths.base_path, "comfyworkflows_sharekey"), "w") as f:
+        f.write(comfyworkflows_sharekey)
+
+def has_provided_matrix_auth(matrix_auth):
+    return matrix_auth['homeserver'].strip() and matrix_auth['username'].strip() and matrix_auth['password'].strip()
+
+def has_provided_comfyworkflows_auth(comfyworkflows_sharekey):
+    return comfyworkflows_sharekey.strip()
 
 @server.PromptServer.instance.routes.post("/manager/share")
 async def share_art(request):
     # get json data
     json_data = await request.json()
+
+    matrix_auth = json_data['matrix_auth']
+    comfyworkflows_sharekey = json_data['cw_auth']['cw_sharekey']
+
+    set_matrix_auth(matrix_auth)
+    set_comfyworkflows_auth(comfyworkflows_sharekey)
 
     share_destinations = json_data['share_destinations']
     credits = json_data['credits']
@@ -1267,6 +1318,9 @@ async def share_art(request):
         # make a POST request to /api/upload_workflow with form data key values
         async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
             form = aiohttp.FormData()
+            if comfyworkflows_sharekey:
+                form.add_field("shareKey", comfyworkflows_sharekey)
+            form.add_field("source", "comfyui_manager")
             form.add_field("assetFileKey", assetFileKey)
             form.add_field("assetFileType", assetFileType)
             form.add_field("sharedWorkflowWorkflowJsonString", json.dumps(prompt['workflow']))
@@ -1285,17 +1339,31 @@ async def share_art(request):
                 workflowId = upload_workflow_json["workflowId"]
 
     # check if the user has provided Matrix credentials
-    if "matrix" in share_destinations:
-        with open(os.path.join(folder_paths.base_path, "matrix_accesstoken"), "r") as f:
-            access_token = f.read().strip()
-        
+    if "matrix" in share_destinations:        
         comfyui_share_room_id = '!LGYSoacpJPhIfBqVfb:matrix.org'
         filename = os.path.basename(asset_filepath)
         content_type = assetFileType
 
         try:
             from matrix_client.api import MatrixHttpApi
-            matrix = MatrixHttpApi("https://matrix.org", token=access_token)
+            from matrix_client.client import MatrixClient
+
+            homeserver = 'matrix.org'
+            if matrix_auth:
+                homeserver = matrix_auth.get('homeserver', 'matrix.org')
+            homeserver = homeserver.replace("http://", "https://")
+            if not homeserver.startswith("https://"):
+                homeserver = "https://" + homeserver
+            
+            client = MatrixClient(homeserver)
+            try:
+                token = client.login(username=matrix_auth['username'], password=matrix_auth['password'])
+                if not token:
+                    return web.json_response({"error" : "Invalid Matrix credentials."}, content_type='application/json', status=400)
+            except:
+                return web.json_response({"error" : "Invalid Matrix credentials."}, content_type='application/json', status=400)
+
+            matrix = MatrixHttpApi(homeserver, token=token)
             with open(asset_filepath, 'rb') as f:
                 mxc_url = matrix.media_upload(f.read(), content_type, filename=filename)['content_uri']
             text_content = ""
@@ -1306,9 +1374,7 @@ async def share_art(request):
             if credits:
                 text_content += f"\ncredits: {credits}\n"
             response = matrix.send_message(comfyui_share_room_id, text_content)
-            print(response)
             response = matrix.send_content(comfyui_share_room_id, mxc_url, filename, 'm.image')
-            print(response)
         except:
             import traceback
             traceback.print_exc()
