@@ -9,6 +9,39 @@ var fetch_updates_button = null;
 var update_all_button = null;
 var badge_mode = "none";
 
+// copied style from https://github.com/pythongosssss/ComfyUI-Custom-Scripts
+const style = `
+#comfyworkflows-button {
+	position: relative;
+	overflow: hidden;
+ } 
+.pysssss-workflow-arrow-2 {
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   font-size: 12px;
+   display: flex;
+   align-items: center;
+   width: 24px;
+   justify-content: center;
+   background: rgba(255,255,255,0.1);
+   content: "▼";
+}
+.pysssss-workflow-arrow-2:after {
+	content: "▼";
+ }
+ .pysssss-workflow-arrow-2:hover {
+	filter: brightness(1.6);
+	background-color: var(--comfy-menu-bg);
+ }
+.pysssss-workflow-popup-2 ~ .litecontextmenu {
+	transform: scale(1.3);
+}
+`;
+
+
+
 async function init_badge_mode() {
 	api.fetchApi('/manager/badge_mode')
 		.then(response => response.text())
@@ -1940,10 +1973,49 @@ class ManagerMenuDialog extends ComfyDialog {
 					onclick: () => { window.open("https://blenderneko.github.io/ComfyUI-docs/", "comfyui-community-manual"); }
 				}),
 				$el("button", {
+					id: 'comfyworkflows-button',
 					type: "button",
 					textContent: "ComfyUI Workflow Gallery",
 					onclick: () => { window.open("https://comfyworkflows.com/", "comfyui-workflow-gallery"); }
-				}),
+				}, [
+					$el("div.pysssss-workflow-arrow-2", {
+						id: `comfyworkflows-button-arrow`,
+						// parent: document.getElementById(`comfyworkflows-button`),
+						onclick: (e) => {
+							e.preventDefault();
+							e.stopPropagation();
+
+							LiteGraph.closeAllContextMenus();
+							const menu = new LiteGraph.ContextMenu(
+								[
+									{
+										title: "Share your art",
+										callback: () => {
+											this.close();
+											if (!ShareDialog.instance) {
+												ShareDialog.instance = new ShareDialog();
+											}
+											ShareDialog.instance.show();
+										},
+									},
+									{
+										title: "Close",
+										callback: () => { 
+											this.close();
+										},
+									}
+								],
+								{
+									event: e,
+									scale: 1.3,
+								},
+								window
+							);
+							menu.root.classList.add("pysssss-workflow-popup-2");
+							menu.root.classList.add(`pysssss-workflow-comfyworkflows-button`);
+						},
+					})
+				]),
 
 				$el("button", {
 					type: "button",
@@ -1989,7 +2061,12 @@ class ManagerMenuDialog extends ComfyDialog {
 
 app.registerExtension({
 	name: "Comfy.ManagerMenu",
-
+	init() {
+		$el("style", {
+			textContent: style,
+			parent: document.head,
+		});
+	},
 	async setup() {
 		const menu = document.querySelector(".comfy-menu");
 		const separator = document.createElement("hr");
@@ -2019,6 +2096,23 @@ app.registerExtension({
 		// make the background color a gradient of blue to green
 		shareButton.style.background = "linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%)";
 		shareButton.style.color = "black";
+
+		app.ui.settings.addSetting({
+			id: "ComfyUIManager.ShowShareButtonInMainMenu",
+			name: "Show 'Share' button in the main menu",
+			type: "boolean",
+			defaultValue: true,
+			onChange: (value) => {
+				if (value) {
+					// show the button
+					shareButton.style.display = "inline-block";
+				} else {
+					// hide the button
+					shareButton.style.display = "none";
+				}
+			}
+		});
+
 		menu.append(shareButton);
 	},
 

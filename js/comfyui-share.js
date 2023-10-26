@@ -9,16 +9,16 @@ export class ShareDialog extends ComfyDialog {
 
 	constructor() {
 		super();
-
-		this.element = $el("div.comfy-modal", { parent: document.body },
-			[$el("div.comfy-modal-content",
-				{
-					style: {
-						overflowY: "auto",
-					}
-				},
-				[...this.createButtons()]),
-			]);
+        
+        this.element = $el("div.comfy-modal", { parent: document.body },
+        [$el("div.comfy-modal-content",
+            {
+                style: {
+                    overflowY: "auto",
+                }
+            },
+            [...this.createButtons()]),
+        ]);
 	}
 
 	createButtons() {
