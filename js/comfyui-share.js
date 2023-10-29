@@ -172,11 +172,6 @@ export class ShareDialog extends ComfyDialog {
 
 			// Change the text of the share button to "Sharing..." to indicate that the share process has started
 			this.share_button.textContent = "Sharing...";
-			console.log({
-				potential_outputs,
-				potential_output_nodes,
-				selectedOutputIndex: this.selectedOutputIndex,
-			})
 
 			const response = await api.fetchApi(`/manager/share`, {
 				method: 'POST',
