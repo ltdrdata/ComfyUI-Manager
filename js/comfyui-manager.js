@@ -2000,7 +2000,7 @@ class ManagerMenuDialog extends ComfyDialog {
 									},
 									{
 										title: "Close",
-										callback: () => { 
+										callback: () => {
 											this.close();
 										},
 									}
@@ -2091,7 +2091,44 @@ app.registerExtension({
 			if (!ShareDialog.instance) {
 				ShareDialog.instance = new ShareDialog();
 			}
-			ShareDialog.instance.show();
+
+			app.graphToPrompt().then(prompt => app.graph._nodes).then(nodes => {
+				const potential_outputs = [];
+				const potential_output_nodes = [];
+
+				// iterate over the array of nodes to find the ones that are marked as SaveImage
+				// TODO: Add support for AnimateDiffCombine, etc. nodes that save videos/gifs, etc.
+				for (let i = 0; i < nodes.length; i++) {
+					const node = nodes[i];
+					if (node.type !== "SaveImage") {
+						continue;
+					}
+
+					if (node.type === "SaveImage") {
+						potential_output_nodes.push(node);
+
+						// check if node has an 'images' array property
+						if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
+							// iterate over the images array and add each image to the potential_outputs array
+							for (let j = 0; j < node.images.length; j++) {
+								potential_outputs.push({ "type": "image", "image": node.images[j] });
+							}
+						}
+					}
+				}
+
+				if (potential_outputs.length === 0) {
+					if (potential_output_nodes.length === 0) {
+						// todo: add support for other output node types (animatediff combine, etc.)
+						alert("No SaveImage node found. To share this workflow, please run a SaveImage node to your graph and re-run your prompt.");
+					} else {
+						alert("To share this, first run a prompt. Once it's done, click 'Share'.");
+					}
+					return;
+				}
+
+				ShareDialog.instance.show({ potential_outputs, potential_output_nodes });
+			});
 		}
 		// make the background color a gradient of blue to green
 		shareButton.style.background = "linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%)";

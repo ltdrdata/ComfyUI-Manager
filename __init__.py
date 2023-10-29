@@ -1272,9 +1272,14 @@ async def share_art(request):
     is_nsfw = json_data['is_nsfw']
     prompt = json_data['prompt']
     potential_outputs = json_data['potential_outputs']
-
-    # for now, pick the first output
-    output_to_share = potential_outputs[0]
+    selected_output_index = json_data['selected_output_index']
+    
+    try:
+        output_to_share = potential_outputs[int(selected_output_index)]
+    except:
+        # for now, pick the first output
+        output_to_share = potential_outputs[0]
+    
     assert output_to_share['type'] in ('image',)
 
     output_dir = folder_paths.get_output_directory()

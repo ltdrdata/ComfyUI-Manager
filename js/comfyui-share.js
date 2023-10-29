@@ -2,35 +2,41 @@ import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
 
-export class ShareDialog extends ComfyDialog {  
+export class ShareDialog extends ComfyDialog {
 	static instance = null;
 	static matrix_auth = { homeserver: "matrix.org", username: "", password: "" };
 	static cw_sharekey = "";
 
 	constructor() {
 		super();
-        
-        this.element = $el("div.comfy-modal", { parent: document.body },
-        [$el("div.comfy-modal-content",
-            {
-                style: {
-                    overflowY: "auto",
-                }
-            },
-            [...this.createButtons()]),
-        ]);
+		this.element = $el("div.comfy-modal", {
+			parent: document.body, style: {
+				'overflow-y': "auto",
+			}
+		},
+			[$el("div.comfy-modal-content",
+				{},
+				[...this.createButtons()]),
+			]);
+		this.selectedOutputIndex = 0;
 	}
 
 	createButtons() {
+
+		this.radio_buttons = $el("div", {
+			id: "selectOutputImages",
+		}, []);
+
 		this.is_nsfw_checkbox = $el("input", { type: 'checkbox', id: "is_nsfw" }, [])
-		const is_nsfw_checkbox_text = $el("label", {}, [" Is this NSFW?"])
+		const is_nsfw_checkbox_text = $el("label", {
+		}, [" Is this NSFW?"])
 		this.is_nsfw_checkbox.style.color = "var(--fg-color)";
 		this.is_nsfw_checkbox.checked = false;
 
 		this.matrix_destination_checkbox = $el("input", { type: 'checkbox', id: "matrix_destination" }, [])
 		const matrix_destination_checkbox_text = $el("label", {}, [" ComfyUI Matrix server"])
 		this.matrix_destination_checkbox.style.color = "var(--fg-color)";
-		this.matrix_destination_checkbox.checked = true;
+		this.matrix_destination_checkbox.checked = false; //true;
 
 		this.comfyworkflows_destination_checkbox = $el("input", { type: 'checkbox', id: "comfyworkflows_destination" }, [])
 		const comfyworkflows_destination_checkbox_text = $el("label", {}, [" ComfyWorkflows.com"])
@@ -53,7 +59,7 @@ export class ShareDialog extends ComfyDialog {
 		this.title_input = $el("input", {
 			type: "text",
 			placeholder: "ex: My awesome art",
-			required: false,
+			required: false
 		}, []);
 
 		this.description_input = $el("textarea", {
@@ -62,7 +68,7 @@ export class ShareDialog extends ComfyDialog {
 		}, []);
 
 		this.share_button = $el("button", {
-			type: "button",
+			type: "submit",
 			textContent: "Share",
 		}, []);
 
@@ -89,7 +95,7 @@ export class ShareDialog extends ComfyDialog {
 		// get the user's existing comfyworkflows share key
 		ShareDialog.cw_sharekey = "";
 		try {
-			console.log("Fetching comfyworkflows share key")
+			// console.log("Fetching comfyworkflows share key")
 			api.fetchApi(`/manager/get_comfyworkflows_auth`)
 				.then(response => response.json())
 				.then(data => {
@@ -159,12 +165,18 @@ export class ShareDialog extends ComfyDialog {
 				} else {
 					alert("To share this, first run a prompt. Once it's done, click 'Share'.");
 				}
+				this.selectedOutputIndex = 0;
 				this.close();
 				return;
 			}
 
 			// Change the text of the share button to "Sharing..." to indicate that the share process has started
 			this.share_button.textContent = "Sharing...";
+			console.log({
+				potential_outputs,
+				potential_output_nodes,
+				selectedOutputIndex: this.selectedOutputIndex,
+			})
 
 			const response = await api.fetchApi(`/manager/share`, {
 				method: 'POST',
@@ -185,6 +197,7 @@ export class ShareDialog extends ComfyDialog {
 					is_nsfw: this.is_nsfw_checkbox.checked,
 					prompt,
 					potential_outputs,
+					selected_output_index: this.selectedOutputIndex,
 					// potential_output_nodes
 				})
 			});
@@ -319,7 +332,11 @@ export class ShareDialog extends ComfyDialog {
 				]),
 
 				$el("div", {}, [
-					$el("p", { size: 3, color: "white" }, [`Select where to share your art:`]),
+					$el("p", {
+						size: 3, color: "white", style: {
+							color: 'white'
+						}
+					}, [`Select where to share your art:`]),
 					this.matrix_destination_checkbox,
 					matrix_destination_checkbox_text,
 					$el("br", {}, []),
@@ -330,7 +347,10 @@ export class ShareDialog extends ComfyDialog {
 				$el("h4", {
 					textContent: "Credits (optional)",
 					size: 3,
-					color: "white"
+					color: "white",
+					style: {
+						color: 'white'
+					}
 				}, []),
 				this.credits_input,
 				// $el("br", {}, []),
@@ -338,7 +358,10 @@ export class ShareDialog extends ComfyDialog {
 				$el("h4", {
 					textContent: "Title (optional)",
 					size: 3,
-					color: "white"
+					color: "white",
+					style: {
+						color: 'white'
+					}
 				}, []),
 				this.title_input,
 				// $el("br", {}, []),
@@ -346,15 +369,23 @@ export class ShareDialog extends ComfyDialog {
 				$el("h4", {
 					textContent: "Description (optional)",
 					size: 3,
-					color: "white"
+					color: "white",
+					style: {
+						color: 'white'
+					}
 				}, []),
 				this.description_input,
 				$el("br", {}, []),
 
 				$el("div", {}, [this.is_nsfw_checkbox, is_nsfw_checkbox_text]),
-				this.final_message,
-
 				$el("br", {}, []),
+
+				this.radio_buttons,
+				$el("br", {}, []),
+
+				this.final_message,
+				$el("br", {}, []),
+
 				this.share_button,
 
 				$el("button", {
@@ -362,7 +393,7 @@ export class ShareDialog extends ComfyDialog {
 					textContent: "Close",
 					onclick: () => {
 						// Reset state
-						this.matrix_destination_checkbox.checked = true;
+						this.matrix_destination_checkbox.checked = false;
 						this.comfyworkflows_destination_checkbox.checked = true;
 						this.share_button.textContent = "Share";
 						this.share_button.style.display = "inline-block";
@@ -372,6 +403,7 @@ export class ShareDialog extends ComfyDialog {
 						this.title_input.value = "";
 						this.description_input.value = "";
 						this.is_nsfw_checkbox.checked = false;
+						this.selectedOutputIndex = 0;
 						this.close()
 					}
 				}),
@@ -385,7 +417,53 @@ export class ShareDialog extends ComfyDialog {
 		return res;
 	}
 
-	show() {
+	show({ potential_outputs, potential_output_nodes }) {
+		this.radio_buttons.innerHTML = ""; // clear the radio buttons
+		const new_radio_buttons = $el("div", {
+			id: "selectOutputImages-Options",
+			style: {
+				'overflow-y': 'auto',
+				'max-height': '400px',
+			}
+		}, potential_output_nodes.map((output, index) => {
+			const radio_button = $el("input", { type: 'radio', name: "selectOutputImages", value: index, required: index === 0 }, [])
+			const radio_button_img = $el("img", { src: output.imgs[0].src, style: { width: "auto", height: "100px" } }, []);
+			const radio_button_text = $el("label", {
+				// style: {
+				// 	color: 'white'
+				// }
+			}, [output.title])
+			radio_button.style.color = "var(--fg-color)";
+			radio_button.checked = index === 0;
+			if (radio_button.checked) {
+				this.selectedOutputIndex = index;
+			}
+
+			radio_button.onchange = () => {
+				this.selectedOutputIndex = parseInt(radio_button.value);
+			};
+
+			return $el("div", {
+				style: {
+					display: "flex",
+					'align-items': 'center',
+					'justify-content': 'space-between',
+				}
+			}, [radio_button, radio_button_text, radio_button_img]);
+		}));
+		const header = $el("h4", {
+			textContent: "Select an image to share",
+			size: 3,
+			color: "white",
+			style: {
+				'text-align': 'center',
+				color: 'white',
+				backgroundColor: 'black',
+				padding: '10px',
+			}
+		}, []);
+		this.radio_buttons.appendChild(header);
+		this.radio_buttons.appendChild(new_radio_buttons);
 		this.element.style.display = "block";
 	}
 }
