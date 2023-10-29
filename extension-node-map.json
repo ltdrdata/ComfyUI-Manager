@@ -119,6 +119,7 @@
             "BSZLatentbuster",
             "BSZPixelbuster",
             "BSZPixelbusterHelp",
+            "BSZPrincipledConditioning",
             "BSZPrincipledSampler",
             "BSZPrincipledScale"
         ],
@@ -464,8 +465,11 @@
             "BatchGLIGENSchedule",
             "BatchPromptSchedule",
             "BatchPromptScheduleEncodeSDXL",
+            "BatchPromptScheduleLatentInput",
+            "BatchPromptScheduleSDXLLatentInput",
             "BatchStringSchedule",
             "BatchValueSchedule",
+            "BatchValueScheduleLatentInput",
             "CosWave",
             "InvCosWave",
             "InvSinWave",
@@ -1030,6 +1034,7 @@
             "CR Composite Text",
             "CR Conditioning Input Switch",
             "CR ControlNet Input Switch",
+            "CR Draw Perspective Text",
             "CR Draw Text",
             "CR Float To Integer",
             "CR Float To String",
@@ -1076,6 +1081,7 @@
             "CR SDXL Style Text",
             "CR Seed",
             "CR Seed to Int",
+            "CR Simple Meme Template",
             "CR Split String",
             "CR Starburst Colors",
             "CR Starburst Lines",
@@ -1988,7 +1994,7 @@
             "Mikey Sampler Tiled",
             "Mikey Sampler Tiled Base Only",
             "MikeySamplerTiledAdvanced",
-            "OoobaPrompt",
+            "OobaPrompt",
             "PresetRatioSelector",
             "Prompt With SDXL",
             "Prompt With Style",
@@ -2202,9 +2208,13 @@
     ],
     "https://github.com/chibiace/ComfyUI-Chibi-Nodes": [
         [
+            "ConditionText",
             "ImageTool",
+            "LoadEmbedding",
             "Loader",
-            "Prompts"
+            "Prompts",
+            "SaveImages",
+            "Wildcards"
         ],
         {
             "title_aux": "ComfyUI-Chibi-Nodes"
@@ -2709,10 +2719,20 @@
             "CrossFadeImages",
             "GrowMaskWithBlur",
             "INTConstant",
+            "SomethingToString",
             "VRAM_Debug"
         ],
         {
             "title_aux": "KJNodes for ComfyUI"
+        }
+    ],
+    "https://github.com/kinfolk0117/ComfyUI_SimpleTiles": [
+        [
+            "TileMerge",
+            "TileSplit"
+        ],
+        {
+            "title_aux": "ComfyUI_SimpleTiles"
         }
     ],
     "https://github.com/kohya-ss/ControlNet-LLLite-ComfyUI": [
@@ -3188,7 +3208,9 @@
             "NoxinChime",
             "NoxinPromptLoad",
             "NoxinPromptSave",
-            "NoxinScaledResolution"
+            "NoxinScaledResolution",
+            "NoxinSimpleMath",
+            "NoxinSplitPrompt"
         ],
         {
             "title_aux": "ComfyUI_NoxinNodes"
@@ -3710,8 +3732,10 @@
         [
             "FreeU_LCM",
             "LCMGenerate",
+            "LCMGenerate_ReferenceOnly",
             "LCMGenerate_img2img",
             "LCMLoader",
+            "LCMLoader_ReferenceOnly",
             "LCMLoader_img2img",
             "LCM_outpaint_prep",
             "LoadImageNode_LCM",
