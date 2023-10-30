@@ -1199,25 +1199,31 @@ async def channel_url_list(request):
 def get_matrix_auth():
     if not os.path.exists(os.path.join(folder_paths.base_path, "matrix_auth")):
         return None
-    with open(os.path.join(folder_paths.base_path, "matrix_auth"), "r") as f:
-        matrix_auth = f.read()
-        homeserver, username, password = matrix_auth.strip().split("\n")
-        if not homeserver or not username or not password:
-            return None
-    return {
-        "homeserver": homeserver,
-        "username": username,
-        "password": password,
-    }
+    try:
+        with open(os.path.join(folder_paths.base_path, "matrix_auth"), "r") as f:
+            matrix_auth = f.read()
+            homeserver, username, password = matrix_auth.strip().split("\n")
+            if not homeserver or not username or not password:
+                return None
+        return {
+            "homeserver": homeserver,
+            "username": username,
+            "password": password,
+        }
+    except:
+        return None
 
 def get_comfyworkflows_auth():
     if not os.path.exists(os.path.join(folder_paths.base_path, "comfyworkflows_sharekey")):
         return None
-    with open(os.path.join(folder_paths.base_path, "comfyworkflows_sharekey"), "r") as f:
-        share_key = f.read()
-        if not share_key.strip():
-            return None
-    return share_key
+    try:
+        with open(os.path.join(folder_paths.base_path, "comfyworkflows_sharekey"), "r") as f:
+            share_key = f.read()
+            if not share_key.strip():
+                return None
+        return share_key
+    except:
+        return None
 
 @server.PromptServer.instance.routes.get("/manager/get_matrix_auth")
 async def api_get_matrix_auth(request):
