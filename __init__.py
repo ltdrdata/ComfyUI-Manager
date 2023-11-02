@@ -56,7 +56,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.36)")
+print("### Loading: ComfyUI-Manager (V0.36.1)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -1132,7 +1132,13 @@ async def install_model(request):
 
             if json_data['url'].startswith('https://github.com') or json_data['url'].startswith('https://huggingface.co'):
                 model_dir = get_model_dir(json_data)
-                download_url(json_data['url'], model_dir)
+
+                try:
+                    download_url(json_data['url'], model_dir)
+                except:
+                    fallback_url = json_data['url'].replace('https', 'http')
+                    download_url(fallback_url, model_dir)
+
                 return web.json_response({}, content_type='application/json')
             else:
                 res = download_url_with_agent(json_data['url'], model_path)
