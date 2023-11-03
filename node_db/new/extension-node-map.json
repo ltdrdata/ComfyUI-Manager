@@ -413,6 +413,7 @@
     "https://github.com/Fannovel16/comfyui_controlnet_aux": [
         [
             "AIO_Preprocessor",
+            "AnimeFace_SemSegPreprocessor",
             "AnimeLineArtPreprocessor",
             "BAE-NormalMapPreprocessor",
             "BinaryPreprocessor",
@@ -501,13 +502,18 @@
     ],
     "https://github.com/GMapeSplat/ComfyUI_ezXY": [
         [
-            "ItemFromList",
+            "ConcatenateString",
             "IterationDriver",
+            "JoinImages",
             "LineToConsole",
+            "NumberFromList",
             "NumbersToList",
             "PlotImages",
+            "StringFromList",
+            "StringToLabel",
             "StringToList",
             "ezMath",
+            "ezXY_AssemblePlot",
             "ezXY_Driver"
         ],
         {
@@ -1933,6 +1939,8 @@
     ],
     "https://github.com/aszc-dev/ComfyUI-CoreMLSuite": [
         [
+            "Core ML LCM Converter",
+            "Core ML LCM Sampler",
             "CoreMLModelAdapter",
             "CoreMLSampler",
             "CoreMLUNetLoader"
@@ -3133,6 +3141,17 @@
             "title_aux": "Recommended Resolution Calculator"
         }
     ],
+    "https://github.com/matan1905/ComfyUI-Serving-Toolkit": [
+        [
+            "DiscordServing",
+            "ServingInputNumber",
+            "ServingInputText",
+            "ServingOutput"
+        ],
+        {
+            "title_aux": "ComfyUI Serving toolkit"
+        }
+    ],
     "https://github.com/mav-rik/facerestore_cf": [
         [
             "CropFace",
@@ -3285,23 +3304,6 @@
         ],
         {
             "title_aux": "comfyUI_Nodes_nicolai256"
-        }
-    ],
-    "https://github.com/noembryo/ComfyUI-noEmbryo": [
-        [
-            "PromptTermList1",
-            "PromptTermList2",
-            "PromptTermList3",
-            "PromptTermList4",
-            "PromptTermList5",
-            "PromptTermList6"
-        ],
-        {
-            "author": "noEmbryo",
-            "description": "Some useful nodes.",
-            "nickname": "noEmbryo",
-            "title": "X Node",
-            "title_aux": "ComfyUI-noEmbryo"
         }
     ],
     "https://github.com/noxinias/ComfyUI_NoxinNodes": [
@@ -3836,10 +3838,13 @@
             "LCMGenerate",
             "LCMGenerate_ReferenceOnly",
             "LCMGenerate_img2img",
+            "LCMGenerate_img2img_controlnet",
             "LCMLoader",
             "LCMLoader_RefInpaint",
             "LCMLoader_ReferenceOnly",
+            "LCMLoader_controlnet",
             "LCMLoader_img2img",
+            "LCMT2IAdapter",
             "LCM_outpaint_prep",
             "LoadImageNode_LCM",
             "SaveImage_LCM"
@@ -4233,6 +4238,19 @@
         ],
         {
             "title_aux": "Cute Comfy"
+        }
+    ],
+    "https://raw.githubusercontent.com/noembryo/ComfyUI-noEmbryo/master/nodes.py": [
+        [
+            "PromptTermList1",
+            "PromptTermList2",
+            "PromptTermList3",
+            "PromptTermList4",
+            "PromptTermList5",
+            "PromptTermList6"
+        ],
+        {
+            "title_aux": "ComfyUI-noEmbryo nodes"
         }
     ],
     "https://raw.githubusercontent.com/throttlekitty/SDXLCustomAspectRatio/main/SDXLAspectRatio.py": [
