@@ -97,6 +97,18 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 
 ![model-install-dialog](misc/nickname.jpg)
 
+
+## Snapshot-Manager
+* When you press `Save snapshot` or use `Update All` on `Manager Menu`, the current installation status snapshot is saved.
+  * Snapshot file dir: `ComfyUI-Manager/snapshots`
+  * You can rename snapshot file.
+* Press the "Restore" button to revert to the installation status of the respective snapshot.
+  * However, for custom nodes not managed by Git, snapshot support is incomplete.
+* When you press `Restore`, it will take effect on the next ComfyUI startup.
+
+  
+![model-install-dialog](misc/snapshot.jpg)
+
 ## How to register your custom node into ComfyUI-Manager
 
 * Add an entry to `custom-node-list.json` located in the root of ComfyUI-Manager and submit a Pull Request.
