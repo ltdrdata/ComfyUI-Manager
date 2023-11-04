@@ -25,8 +25,11 @@ git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
 
 
 def handle_stream(stream, prefix):
-    for msg in stream:
-        print(prefix, msg, end="")
+    try:
+        for msg in stream:
+            print(prefix, msg, end="")
+    except Exception:
+        print("[!] ??? log decoding error ???")
 
 
 def process_wrap(cmd_str, cwd_path, handler=None):
@@ -147,11 +150,14 @@ if os.path.exists(restore_snapshot_path):
         cloned_repos = []
 
         def msg_capture(stream, prefix):
-            for msg in stream:
-                if msg.startswith("CLONE: "):
-                    cloned_repos.append(msg[7:])
+            try:
+                for msg in stream:
+                    if msg.startswith("CLONE: "):
+                        cloned_repos.append(msg[7:])
 
-                print(prefix, msg, end="")
+                    print(prefix, msg, end="")
+            except Exception:
+                print("[!] [snapshot restore] ??? log decoding error ???")
 
         print(f"[ComfyUI-Manager] Restore snapshot.")
         cmd_str = [sys.executable, git_script_path, '--apply-snapshot', restore_snapshot_path]
