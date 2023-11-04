@@ -6,7 +6,8 @@ import sys
 import threading
 import datetime
 import re
-
+from tqdm.auto import tqdm
+from git.remote import RemoteProgress
 
 def handle_stream(stream, prefix):
     for line in stream:
@@ -57,7 +58,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.37)")
+print("### Loading: ComfyUI-Manager (V0.38)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
@@ -952,6 +953,18 @@ def execute_install_script(url, repo_path):
     return True
 
 
+class GitProgress(RemoteProgress):
+    def __init__(self):
+        super().__init__()
+        self.pbar = tqdm()
+
+    def update(self, op_code, cur_count, max_count=None, message=''):
+        self.pbar.total = max_count
+        self.pbar.n = cur_count
+        self.pbar.pos = 0
+        self.pbar.refresh()
+
+
 def gitclone_install(files):
     print(f"install: {files}")
     for url in files:
@@ -966,7 +979,7 @@ def gitclone_install(files):
             if platform.system() == 'Windows':
                 run_script([sys.executable, git_script_path, "--clone", custom_nodes_path, url])
             else:
-                repo = git.Repo.clone_from(url, repo_path, recursive=True)
+                repo = git.Repo.clone_from(url, repo_path, recursive=True, progress=GitProgress())
                 repo.git.clear_cache()
                 repo.close()
 

@@ -163,6 +163,7 @@ if os.path.exists(restore_snapshot_path):
                 try:
                     repository_name = url.split("/")[-1].strip()
                     repo_path = os.path.join(custom_nodes_path, repository_name)
+                    repo_path = os.path.abspath(repo_path)
 
                     requirements_path = os.path.join(repo_path, 'requirements.txt')
                     install_script_path = os.path.join(repo_path, 'install.py')
@@ -179,6 +180,7 @@ if os.path.exists(restore_snapshot_path):
 
                     if os.path.exists(install_script_path):
                         install_cmd = [sys.executable, install_script_path]
+                        print(f">>> {install_cmd} / {repo_path}")
                         this_exit_code += process_wrap(install_cmd, repo_path)
 
                     if this_exit_code != 0:

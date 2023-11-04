@@ -5,10 +5,24 @@ import configparser
 import re
 import json
 from torchvision.datasets.utils import download_url
+from tqdm.auto import tqdm
+from git.remote import RemoteProgress
 
 config_path = os.path.join(os.path.dirname(__file__), "config.ini")
 nodelist_path = os.path.join(os.path.dirname(__file__), "custom-node-list.json")
 working_directory = os.getcwd()
+
+
+class GitProgress(RemoteProgress):
+    def __init__(self):
+        super().__init__()
+        self.pbar = tqdm()
+
+    def update(self, op_code, cur_count, max_count=None, message=''):
+        self.pbar.total = max_count
+        self.pbar.n = cur_count
+        self.pbar.pos = 0
+        self.pbar.refresh()
 
 
 def gitclone(custom_nodes_path, url, target_hash=None):
@@ -16,7 +30,7 @@ def gitclone(custom_nodes_path, url, target_hash=None):
     repo_path = os.path.join(custom_nodes_path, repo_name)
 
     # Clone the repository from the remote URL
-    repo = git.Repo.clone_from(url, repo_path, recursive=True)
+    repo = git.Repo.clone_from(url, repo_path, recursive=True, progress=GitProgress())
 
     if target_hash is not None:
         print(f"CHECKOUT: {repo_name} [{target_hash}]")
