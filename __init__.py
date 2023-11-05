@@ -6,15 +6,15 @@ import sys
 import threading
 import datetime
 import re
+import locale
 from tqdm.auto import tqdm
 
+version = "V0.39"
 
 def handle_stream(stream, prefix):
-    try:
-        for line in stream:
-            print(prefix, line, end="")
-    except Exception:
-        print("[!] ??? log decoding error ???")
+    stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
+    for line in stream:
+        print(prefix, line, end="")
 
 
 def run_script(cmd, cwd='.'):
@@ -63,7 +63,7 @@ sys.path.append('../..')
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.38.3)")
+print(f"### Loading: ComfyUI-Manager ({version})")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"

@@ -5,6 +5,7 @@ import sys
 import atexit
 import threading
 import re
+import locale
 
 
 message_collapses = []
@@ -25,11 +26,18 @@ git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
 
 
 def handle_stream(stream, prefix):
-    try:
-        for msg in stream:
-            print(prefix, msg, end="")
-    except Exception:
-        print("[!] ??? log decoding error ???")
+    stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
+    for msg in stream:
+        if prefix == '[!]' and ('it/s]' or 's/it]') in msg and ('%|' in msg or 'it [' in msg):
+            if msg.startswith('100%'):
+                print('\r' + msg, end="", file=sys.stderr),
+            else:
+                print('\r' + msg[:-1], end="", file=sys.stderr),
+        else:
+            if prefix == '[!]':
+                print(prefix, msg, end="", file=sys.stderr)
+            else:
+                print(prefix, msg, end="")
 
 
 def process_wrap(cmd_str, cwd_path, handler=None):
@@ -150,14 +158,25 @@ if os.path.exists(restore_snapshot_path):
         cloned_repos = []
 
         def msg_capture(stream, prefix):
-            try:
-                for msg in stream:
-                    if msg.startswith("CLONE: "):
-                        cloned_repos.append(msg[7:])
+            stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
+            for msg in stream:
+                if msg.startswith("CLONE: "):
+                    cloned_repos.append(msg[7:])
+                    if prefix == '[!]':
+                        print(prefix, msg, end="", file=sys.stderr)
+                    else:
+                        print(prefix, msg, end="")
 
-                    print(prefix, msg, end="")
-            except Exception:
-                print("[!] [snapshot restore] ??? log decoding error ???")
+                elif prefix == '[!]' and ('it/s]' in msg or 's/it]' in msg) and ('%|' in msg or 'it [' in msg):
+                    if msg.startswith('100%'):
+                        print('\r' + msg, end="", file=sys.stderr),
+                    else:
+                        print('\r'+msg[:-1], end="", file=sys.stderr),
+                else:
+                    if prefix == '[!]':
+                        print(prefix, msg, end="", file=sys.stderr)
+                    else:
+                        print(prefix, msg, end="")
 
         print(f"[ComfyUI-Manager] Restore snapshot.")
         cmd_str = [sys.executable, git_script_path, '--apply-snapshot', restore_snapshot_path]
