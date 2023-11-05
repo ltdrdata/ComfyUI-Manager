@@ -2092,7 +2092,12 @@ app.registerExtension({
 				ShareDialog.instance = new ShareDialog();
 			}
 
-			app.graphToPrompt().then(prompt => app.graph._nodes).then(nodes => {
+			app.graphToPrompt().then(prompt => {
+				console.log({prompt})
+				return app.graph._nodes;
+			}).then(nodes => {
+				console.log({nodes});
+
 				const potential_outputs = [];
 				const potential_output_nodes = [];
 

@@ -2,6 +2,8 @@ import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
 
+const VALID_OUTPUT_TYPES = ["SaveImage", "VHS_VideoCombine"];
+
 export class ShareDialog extends ComfyDialog {
 	static instance = null;
 	static matrix_auth = { homeserver: "matrix.org", username: "", password: "" };
@@ -110,8 +112,11 @@ export class ShareDialog extends ComfyDialog {
 		}
 
 		this.share_button.onclick = async () => {
+			alert("Clicked");
 			const prompt = await app.graphToPrompt();
 			const nodes = app.graph._nodes;
+
+			console.log({ prompt, nodes });
 
 			const destinations = [];
 			if (this.matrix_destination_checkbox.checked) {
@@ -141,7 +146,9 @@ export class ShareDialog extends ComfyDialog {
 			// TODO: Add support for AnimateDiffCombine, etc. nodes that save videos/gifs, etc.
 			for (let i = 0; i < nodes.length; i++) {
 				const node = nodes[i];
-				if (node.type !== "SaveImage") {
+				console.log({ node });
+
+				if (!VALID_OUTPUT_TYPES.includes(node.type)) {
 					continue;
 				}
 
@@ -156,7 +163,12 @@ export class ShareDialog extends ComfyDialog {
 						}
 					}
 				}
+				else if (node.type === "VHS_VideoCombine") {
+					potential_output_nodes.push(node);
+				}
 			}
+
+			console.log({ potential_outputs, potential_output_nodes })
 
 			if (potential_outputs.length === 0) {
 				if (potential_output_nodes.length === 0) {
