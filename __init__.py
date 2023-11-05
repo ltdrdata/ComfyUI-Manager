@@ -7,7 +7,6 @@ import threading
 import datetime
 import re
 from tqdm.auto import tqdm
-from git.remote import RemoteProgress
 
 
 def handle_stream(stream, prefix):
@@ -57,12 +56,14 @@ except:
     print(f"## ComfyUI-Manager: installing dependencies done.")
 
 
+from git.remote import RemoteProgress
+
 sys.path.append('../..')
 
 from torchvision.datasets.utils import download_url
 
 # ensure .js
-print("### Loading: ComfyUI-Manager (V0.38.2)")
+print("### Loading: ComfyUI-Manager (V0.38.3)")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
