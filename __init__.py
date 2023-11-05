@@ -9,7 +9,9 @@ import re
 import locale
 from tqdm.auto import tqdm
 
-version = "V0.39"
+
+version = "V0.39.1"
+print(f"### Loading: ComfyUI-Manager ({version})")
 
 
 def handle_stream(stream, prefix):
@@ -62,9 +64,6 @@ from git.remote import RemoteProgress
 sys.path.append('../..')
 
 from torchvision.datasets.utils import download_url
-
-# ensure .js
-print(f"### Loading: ComfyUI-Manager ({version})")
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
