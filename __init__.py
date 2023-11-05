@@ -11,6 +11,7 @@ from tqdm.auto import tqdm
 
 version = "V0.39"
 
+
 def handle_stream(stream, prefix):
     stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
     for line in stream:
