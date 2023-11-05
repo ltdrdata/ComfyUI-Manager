@@ -7,10 +7,11 @@ import threading
 import datetime
 import re
 import locale
+import subprocess  # don't remove this
 from tqdm.auto import tqdm
 
 
-version = "V0.39.1"
+version = "V0.39.2"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
