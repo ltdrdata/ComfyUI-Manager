@@ -28,7 +28,7 @@ git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
 def handle_stream(stream, prefix):
     stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
     for msg in stream:
-        if prefix == '[!]' and ('it/s]' or 's/it]') in msg and ('%|' in msg or 'it [' in msg):
+        if prefix == '[!]' and ('it/s]' in msg or 's/it]' in msg) and ('%|' in msg or 'it [' in msg):
             if msg.startswith('100%'):
                 print('\r' + msg, end="", file=sys.stderr),
             else:
