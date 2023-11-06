@@ -9,9 +9,9 @@ import re
 import locale
 import subprocess  # don't remove this
 from tqdm.auto import tqdm
+import concurrent
 
-
-version = "V0.39.3"
+version = "V0.40"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
@@ -554,8 +554,12 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
     elif do_update_check:
         print("Start update check...", end="")
 
-    for item in json_obj['custom_nodes']:
+    def process_custom_node(item):
         check_a_custom_node_installed(item, do_fetch, do_update_check, do_update)
+
+    with concurrent.futures.ThreadPoolExecutor(4) as executor:
+        for item in json_obj['custom_nodes']:
+            executor.submit(process_custom_node, item)
 
     if do_fetch:
         print(f"\x1b[2K\rFetching done.")
@@ -677,16 +681,19 @@ async def fetch_alternatives_list(request):
 
 
 def check_model_installed(json_obj):
-    for item in json_obj['models']:
-        item['installed'] = 'None'
-
+    def process_model(item):
         model_path = get_model_path(item)
+        item['installed'] = 'None'
 
         if model_path is not None:
             if os.path.exists(model_path):
                 item['installed'] = 'True'
             else:
                 item['installed'] = 'False'
+
+    with concurrent.futures.ThreadPoolExecutor(8) as executor:
+        for item in json_obj['models']:
+            executor.submit(process_model, item)
 
 
 @server.PromptServer.instance.routes.get("/externalmodel/getlist")
