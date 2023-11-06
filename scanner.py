@@ -171,14 +171,14 @@ def update_custom_nodes():
         node_info[name] = (url, title)
         clone_or_pull_git_repository(url)
 
-    max_threads = 10
-    with concurrent.futures.ThreadPoolExecutor(max_threads) as executor:
+    with concurrent.futures.ThreadPoolExecutor(10) as executor:
         for url, title in git_url_titles:
             executor.submit(process_git_url_title, url, title)
 
     py_url_titles = get_py_urls_from_json('custom-node-list.json')
 
-    for url, title in py_url_titles:
+    def download_and_store_info(url_title):
+        url, title = url_title
         name = os.path.basename(url)
         if name.endswith(".py"):
             node_info[name] = (url, title)
@@ -187,6 +187,9 @@ def update_custom_nodes():
             download_url(url, ".tmp")
         except:
             print(f"[ERROR] Cannot download '{url}'")
+
+    with concurrent.futures.ThreadPoolExecutor(10) as executor:
+        executor.map(download_and_store_info, py_url_titles)
             
     return node_info
 
