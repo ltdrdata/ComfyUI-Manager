@@ -1286,14 +1286,16 @@ async def share_art(request):
         # for now, pick the first output
         output_to_share = potential_outputs[0]
     
-    assert output_to_share['type'] in ('image',)
+    assert output_to_share['type'] in ('image', 'output')
 
     output_dir = folder_paths.get_output_directory()
-    asset_filename = output_to_share['image']['filename']
-    asset_subfolder = output_to_share['image']['subfolder']
-    asset_output_type = output_to_share['image']['type']
 
-    assert asset_output_type == "output"
+    if output_to_share['type'] == 'image':
+        asset_filename = output_to_share['image']['filename']
+        asset_subfolder = output_to_share['image']['subfolder']
+    else:
+        asset_filename = output_to_share['output']['filename']
+        asset_subfolder = output_to_share['output']['subfolder']
 
     if asset_subfolder:
         asset_filepath = os.path.join(output_dir, asset_subfolder, asset_filename)
@@ -1350,7 +1352,7 @@ async def share_art(request):
                 workflowId = upload_workflow_json["workflowId"]
 
     # check if the user has provided Matrix credentials
-    if "matrix" in share_destinations:        
+    if "matrix" in share_destinations:
         comfyui_share_room_id = '!LGYSoacpJPhIfBqVfb:matrix.org'
         filename = os.path.basename(asset_filepath)
         content_type = assetFileType
@@ -1377,6 +1379,9 @@ async def share_art(request):
             matrix = MatrixHttpApi(homeserver, token=token)
             with open(asset_filepath, 'rb') as f:
                 mxc_url = matrix.media_upload(f.read(), content_type, filename=filename)['content_uri']
+                        
+            workflow_json_mxc_url = matrix.media_upload(prompt['workflow'], 'application/json', filename='workflow.json')['content_uri']
+
             text_content = ""
             if title:
                 text_content += f"{title}\n"
@@ -1386,6 +1391,7 @@ async def share_art(request):
                 text_content += f"\ncredits: {credits}\n"
             response = matrix.send_message(comfyui_share_room_id, text_content)
             response = matrix.send_content(comfyui_share_room_id, mxc_url, filename, 'm.image')
+            response = matrix.send_content(comfyui_share_room_id, workflow_json_mxc_url, 'workflow.json', 'm.file')
         except:
             import traceback
             traceback.print_exc()

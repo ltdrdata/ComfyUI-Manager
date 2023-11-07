@@ -2,7 +2,7 @@ import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
 import { ComfyWidgets } from "../../scripts/widgets.js";
-import { ShareDialog } from "./comfyui-share.js";
+import { ShareDialog, SUPPORTED_OUTPUT_NODE_TYPES, parseURLPath, getPotentialOutputsAndOutputNodes } from "./comfyui-share.js";
 
 var update_comfyui_button = null;
 var fetch_updates_button = null;
@@ -2059,6 +2059,7 @@ class ManagerMenuDialog extends ComfyDialog {
 	}
 }
 
+
 app.registerExtension({
 	name: "Comfy.ManagerMenu",
 	init() {
@@ -2093,39 +2094,17 @@ app.registerExtension({
 			}
 
 			app.graphToPrompt().then(prompt => {
-				console.log({prompt})
+				// console.log({ prompt })
 				return app.graph._nodes;
 			}).then(nodes => {
-				console.log({nodes});
-
-				const potential_outputs = [];
-				const potential_output_nodes = [];
-
-				// iterate over the array of nodes to find the ones that are marked as SaveImage
-				// TODO: Add support for AnimateDiffCombine, etc. nodes that save videos/gifs, etc.
-				for (let i = 0; i < nodes.length; i++) {
-					const node = nodes[i];
-					if (node.type !== "SaveImage") {
-						continue;
-					}
-
-					if (node.type === "SaveImage") {
-						potential_output_nodes.push(node);
-
-						// check if node has an 'images' array property
-						if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
-							// iterate over the images array and add each image to the potential_outputs array
-							for (let j = 0; j < node.images.length; j++) {
-								potential_outputs.push({ "type": "image", "image": node.images[j] });
-							}
-						}
-					}
-				}
+				// console.log({ nodes });
+				const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
 
 				if (potential_outputs.length === 0) {
 					if (potential_output_nodes.length === 0) {
 						// todo: add support for other output node types (animatediff combine, etc.)
-						alert("No SaveImage node found. To share this workflow, please run a SaveImage node to your graph and re-run your prompt.");
+						const supported_nodes_string = SUPPORTED_OUTPUT_NODE_TYPES.join(", ");
+						alert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
 					} else {
 						alert("To share this, first run a prompt. Once it's done, click 'Share'.");
 					}
@@ -2197,7 +2176,6 @@ app.registerExtension({
 					ctx.restore();
 				}
 			}
-
 			return r;
 		};
 	},

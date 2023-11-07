@@ -2,7 +2,102 @@ import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
 
-const VALID_OUTPUT_TYPES = ["SaveImage", "VHS_VideoCombine"];
+export const SUPPORTED_OUTPUT_NODE_TYPES = [
+	"SaveImage",
+	"VHS_VideoCombine",
+	"ADE_AnimateDiffCombine",
+]
+
+export function getPotentialOutputsAndOutputNodes(nodes) {
+	const potential_outputs = [];
+	const potential_output_nodes = [];
+
+	// iterate over the array of nodes to find the ones that are marked as SaveImage
+	// TODO: Add support for AnimateDiffCombine, etc. nodes that save videos/gifs, etc.
+	for (let i = 0; i < nodes.length; i++) {
+		const node = nodes[i];
+		if (!SUPPORTED_OUTPUT_NODE_TYPES.includes(node.type)) {
+			continue;
+		}
+
+		if (node.type === "SaveImage") {
+			potential_output_nodes.push(node);
+
+			// check if node has an 'images' array property
+			if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
+				// iterate over the images array and add each image to the potential_outputs array
+				for (let j = 0; j < node.images.length; j++) {
+					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title });
+				}
+			}
+		}
+		else if (node.type === "VHS_VideoCombine") {
+			potential_output_nodes.push(node);
+
+			// check if node has a 'widgets' array property, with type 'image'
+			if (node.hasOwnProperty("widgets") && Array.isArray(node.widgets)) {
+				// iterate over the widgets array and add each image to the potential_outputs array
+				for (let j = 0; j < node.widgets.length; j++) {
+					if (node.widgets[j].type === "image") {
+						const widgetValue = node.widgets[j].value;
+						const parsedURLVals = parseURLPath(widgetValue);
+
+						// ensure that the parsedURLVals have 'filename', 'subfolder', 'type', and 'format' properties
+						if (parsedURLVals.hasOwnProperty("filename") && parsedURLVals.hasOwnProperty("subfolder") && parsedURLVals.hasOwnProperty("type") && parsedURLVals.hasOwnProperty("format")) {
+							if (parsedURLVals.type !== "output") {
+								// TODO
+							}
+							potential_outputs.push({ "type": "output", 'title' : node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": widgetValue, "format": parsedURLVals.format } });
+						}
+					}
+				}
+			}
+		}
+		else if (node.type === "ADE_AnimateDiffCombine") {
+			potential_output_nodes.push(node);
+
+			// check if node has a 'widgets' array property, with type 'image'
+			if (node.hasOwnProperty("widgets") && Array.isArray(node.widgets)) {
+				// iterate over the widgets array and add each image to the potential_outputs array
+				for (let j = 0; j < node.widgets.length; j++) {
+					if (node.widgets[j].type === "image") {
+						const widgetValue = node.widgets[j].value;
+						const parsedURLVals = parseURLPath(widgetValue);
+						// ensure that the parsedURLVals have 'filename', 'subfolder', 'type', and 'format' properties
+						if (parsedURLVals.hasOwnProperty("filename") && parsedURLVals.hasOwnProperty("subfolder") && parsedURLVals.hasOwnProperty("type") && parsedURLVals.hasOwnProperty("format")) {
+							if (parsedURLVals.type !== "output") {
+								// TODO
+								continue;
+							}
+							potential_outputs.push({ "type": "output", 'title' : node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "type": parsedURLVals.type, "value": widgetValue, "format": parsedURLVals.format } });
+						}
+					}
+				}
+			}
+		}
+	}
+	return { potential_outputs, potential_output_nodes };
+}
+
+
+export function parseURLPath(urlPath) {
+	// Extract the query string from the URL path
+	var queryString = urlPath.split('?')[1];
+
+	// Use the URLSearchParams API to parse the query string
+	var params = new URLSearchParams(queryString);
+
+	// Create an object to store the parsed parameters
+	var parsedParams = {};
+
+	// Iterate over each parameter and add it to the object
+	for (var pair of params.entries()) {
+		parsedParams[pair[0]] = pair[1];
+	}
+
+	// Return the object with the parsed parameters
+	return parsedParams;
+}
 
 export class ShareDialog extends ComfyDialog {
 	static instance = null;
@@ -24,7 +119,6 @@ export class ShareDialog extends ComfyDialog {
 	}
 
 	createButtons() {
-
 		this.radio_buttons = $el("div", {
 			id: "selectOutputImages",
 		}, []);
@@ -112,11 +206,10 @@ export class ShareDialog extends ComfyDialog {
 		}
 
 		this.share_button.onclick = async () => {
-			alert("Clicked");
 			const prompt = await app.graphToPrompt();
 			const nodes = app.graph._nodes;
 
-			console.log({ prompt, nodes });
+			// console.log({ prompt, nodes });
 
 			const destinations = [];
 			if (this.matrix_destination_checkbox.checked) {
@@ -139,41 +232,15 @@ export class ShareDialog extends ComfyDialog {
 				return;
 			}
 
-			const potential_outputs = [];
-			const potential_output_nodes = [];
+			const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
 
-			// iterate over the array of nodes to find the ones that are marked as SaveImage
-			// TODO: Add support for AnimateDiffCombine, etc. nodes that save videos/gifs, etc.
-			for (let i = 0; i < nodes.length; i++) {
-				const node = nodes[i];
-				console.log({ node });
-
-				if (!VALID_OUTPUT_TYPES.includes(node.type)) {
-					continue;
-				}
-
-				if (node.type === "SaveImage") {
-					potential_output_nodes.push(node);
-
-					// check if node has an 'images' array property
-					if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
-						// iterate over the images array and add each image to the potential_outputs array
-						for (let j = 0; j < node.images.length; j++) {
-							potential_outputs.push({ "type": "image", "image": node.images[j] });
-						}
-					}
-				}
-				else if (node.type === "VHS_VideoCombine") {
-					potential_output_nodes.push(node);
-				}
-			}
-
-			console.log({ potential_outputs, potential_output_nodes })
+			// console.log({ potential_outputs, potential_output_nodes })
 
 			if (potential_outputs.length === 0) {
 				if (potential_output_nodes.length === 0) {
 					// todo: add support for other output node types (animatediff combine, etc.)
-					alert("No SaveImage node found. To share this workflow, please run a SaveImage node to your graph and re-run your prompt.");
+					const supported_nodes_string = SUPPORTED_OUTPUT_NODE_TYPES.join(", ");
+					alert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
 				} else {
 					alert("To share this, first run a prompt. Once it's done, click 'Share'.");
 				}
@@ -425,16 +492,27 @@ export class ShareDialog extends ComfyDialog {
 	}
 
 	show({ potential_outputs, potential_output_nodes }) {
+		// console.log({ potential_outputs, potential_output_nodes })
 		this.radio_buttons.innerHTML = ""; // clear the radio buttons
 		const new_radio_buttons = $el("div", {
-			id: "selectOutputImages-Options",
+			id: "selectOutput-Options",
 			style: {
 				'overflow-y': 'auto',
 				'max-height': '400px',
 			}
-		}, potential_output_nodes.map((output, index) => {
+		}, potential_outputs.map((output, index) => {
 			const radio_button = $el("input", { type: 'radio', name: "selectOutputImages", value: index, required: index === 0 }, [])
-			const radio_button_img = $el("img", { src: output.imgs[0].src, style: { width: "auto", height: "100px" } }, []);
+			let radio_button_img;
+			if (output.type === "image") {
+				radio_button_img = $el("img", { src: `/view?filename=${output.image.filename}&subfolder=${output.image.subfolder}&type=${output.image.type}`, style: { width: "auto", height: "100px" } }, []);
+			} else if (output.type === "output") {
+				radio_button_img = $el("img", { src: output.output.value, style: { width: "auto", height: "100px" } }, []);
+			} else {
+				// unsupported output type
+				// this should never happen
+				// TODO
+				radio_button_img = $el("img", { src: "", style: { width: "auto", height: "100px" } }, []);
+			}
 			const radio_button_text = $el("label", {
 				// style: {
 				// 	color: 'white'
@@ -455,6 +533,7 @@ export class ShareDialog extends ComfyDialog {
 					display: "flex",
 					'align-items': 'center',
 					'justify-content': 'space-between',
+					'margin-bottom': '10px',
 				}
 			}, [radio_button, radio_button_text, radio_button_img]);
 		}));
