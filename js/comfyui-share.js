@@ -3,6 +3,7 @@ import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
 
 export const SUPPORTED_OUTPUT_NODE_TYPES = [
+	"PreviewImage",
 	"SaveImage",
 	"VHS_VideoCombine",
 	"ADE_AnimateDiffCombine",
@@ -21,6 +22,17 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 		}
 
 		if (node.type === "SaveImage") {
+			potential_output_nodes.push(node);
+
+			// check if node has an 'images' array property
+			if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
+				// iterate over the images array and add each image to the potential_outputs array
+				for (let j = 0; j < node.images.length; j++) {
+					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title });
+				}
+			}
+		}
+		else if (node.type === "PreviewImage") {
 			potential_output_nodes.push(node);
 
 			// check if node has an 'images' array property
@@ -503,7 +515,7 @@ export class ShareDialog extends ComfyDialog {
 		}, potential_outputs.map((output, index) => {
 			const radio_button = $el("input", { type: 'radio', name: "selectOutputImages", value: index, required: index === 0 }, [])
 			let radio_button_img;
-			if (output.type === "image") {
+			if (output.type === "image" || output.type === "temp") {
 				radio_button_img = $el("img", { src: `/view?filename=${output.image.filename}&subfolder=${output.image.subfolder}&type=${output.image.type}`, style: { width: "auto", height: "100px" } }, []);
 			} else if (output.type === "output") {
 				radio_button_img = $el("img", { src: output.output.value, style: { width: "auto", height: "100px" } }, []);

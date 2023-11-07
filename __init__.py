@@ -1285,14 +1285,16 @@ async def share_art(request):
     except:
         # for now, pick the first output
         output_to_share = potential_outputs[0]
-    
+        
     assert output_to_share['type'] in ('image', 'output')
-
     output_dir = folder_paths.get_output_directory()
 
     if output_to_share['type'] == 'image':
         asset_filename = output_to_share['image']['filename']
         asset_subfolder = output_to_share['image']['subfolder']
+
+        if output_to_share['image']['type'] == 'temp':
+            output_dir = folder_paths.get_temp_directory()
     else:
         asset_filename = output_to_share['output']['filename']
         asset_subfolder = output_to_share['output']['subfolder']
@@ -1316,16 +1318,26 @@ async def share_art(request):
                 json={
                     "assetFileName": asset_filename,
                     "assetFileType": assetFileType,
+                    "workflowJsonFileName" : 'workflow.json', 
+                    "workflowJsonFileType" : 'application/json',
+
                 },
             ) as resp:
                 assert resp.status == 200
                 presigned_urls_json = await resp.json()
                 assetFilePresignedUrl = presigned_urls_json["assetFilePresignedUrl"]
                 assetFileKey = presigned_urls_json["assetFileKey"]
+                workflowJsonFilePresignedUrl = presigned_urls_json["workflowJsonFilePresignedUrl"]
+                workflowJsonFileKey = presigned_urls_json["workflowJsonFileKey"]
         
         # upload asset
         async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
             async with session.put(assetFilePresignedUrl, data=open(asset_filepath, "rb")) as resp:
+                assert resp.status == 200
+
+        # upload workflow json
+        async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+            async with session.put(workflowJsonFilePresignedUrl, data=json.dumps(prompt['workflow']).encode('utf-8')) as resp:
                 assert resp.status == 200
 
         # make a POST request to /api/upload_workflow with form data key values
@@ -1336,6 +1348,7 @@ async def share_art(request):
             form.add_field("source", "comfyui_manager")
             form.add_field("assetFileKey", assetFileKey)
             form.add_field("assetFileType", assetFileType)
+            form.add_field("workflowJsonFileKey", workflowJsonFileKey)
             form.add_field("sharedWorkflowWorkflowJsonString", json.dumps(prompt['workflow']))
             form.add_field("sharedWorkflowPromptJsonString", json.dumps(prompt['output']))
             form.add_field("shareWorkflowCredits", credits)
