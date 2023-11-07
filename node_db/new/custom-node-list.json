@@ -1,6 +1,46 @@
 {
     "custom_nodes": [
         {
+            "author": "M1kep",
+            "title": "ComfyUI-KepOpenAI",
+            "reference": "https://github.com/M1kep/ComfyUI-KepOpenAI",
+            "files": [
+                "https://github.com/M1kep/ComfyUI-KepOpenAI"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI-KepOpenAI is a user-friendly node that serves as an interface to the GPT-4 with Vision (GPT-4V) API. This integration facilitates the processing of images coupled with text prompts, leveraging the capabilities of the OpenAI API to generate text completions that are contextually relevant to the provided inputs."
+        },
+        {
+            "author": "bmad4ever",
+            "title": "comfyui_ab_sampler",
+            "reference": "https://github.com/bmad4ever/comfyui_ab_samplercustom",
+            "files": [
+                "https://github.com/bmad4ever/comfyui_ab_samplercustom"
+            ],
+            "install_type": "git-clone",
+            "description": "Experimental sampler node. Sampling alternates between A and B inputs until only one remains, starting with A. B steps run over a 2x2 grid, where 3/4's of the grid are copies of the original input latent. When the optional mask is used, the region outside the defined roi is copied from the original latent at the end of every step."
+        },
+        {
+            "author": "AbyssYuan0",
+            "title": "ComfyUI_BadgerTools",
+            "reference": "https://github.com/AbyssYuan0/ComfyUI_BadgerTools",
+            "files": [
+                "https://github.com/AbyssYuan0/ComfyUI_BadgerTools"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:ImageOverlap-badger, FloatToInt-badger, IntToString-badger, FloatToString-badger, ImageNormalization-badger, ImageScaleToSide-badger, NovelToFizz-badger."
+        },
+        {
+            "author": "fexli",
+            "title": "fexli-util-node-comfyui",
+            "reference": "https://github.com/fexli/fexli-util-node-comfyui",
+            "files": [
+                "https://github.com/fexli/fexli-util-node-comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:FEImagePadForOutpaint, FEColorOut, FEColor2Image, FERandomizedColor2Image"
+        },
+        {
             "author": "nagolinc",
             "title": "ComfyUI_FastVAEDecorder_SDXL",
             "reference": "https://github.com/nagolinc/ComfyUI_FastVAEDecorder_SDXL",
@@ -259,7 +299,7 @@
                 "https://github.com/shadowcz007/comfyui-mixlab-nodes"
             ],
             "install_type": "git-clone",
-            "description": "Nodes: RandomPrompt, TransparentImage, LoadImageFromPath, SplitLongMask, ImagesCrop, RunWorkflow"
+            "description": "Nodes: RandomPrompt, TransparentImage, LoadImageFromPath, Splitting a long image into sections, ImagesCrop, Consistency Decoder Loader, Consistency Decoder Decode"
         },
         {
             "author": "chrisgoringe",
@@ -761,46 +801,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:Apply CDTuner, Apply Negapip. This extension provides the <a href='https://github.com/hako-mikan/sd-webui-cd-tuner' target='blank'>CD(Color/Detail) Tuner</a> and the <a href='https://github.com/hako-mikan/sd-webui-negpip' target='blank'>Negative Prompt in the Prompt</a>features."
-        },
-        {
-            "author": "PTA",
-            "title": "auto nodes layout",
-            "reference": "https://github.com/phineas-pta/comfyui-auto-nodes-layout",
-            "files": [
-                "https://github.com/phineas-pta/comfyui-auto-nodes-layout"
-            ],
-            "install_type": "git-clone",
-            "description": "A ComfyUI extension to apply better nodes layout algorithm to ComfyUI workflow (mostly for visualization purpose)"
-        },
-        {
-            "author": "rklaffehn",
-            "title": "rk-comfy-nodes",
-            "reference": "https://github.com/rklaffehn/rk-comfy-nodes",
-            "files": [
-                "https://github.com/rklaffehn/rk-comfy-nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: RK_CivitAIMetaChecker, RK_CivitAIAddHashes."
-        },
-        {
-            "author": "receyuki",
-            "title": "comfyui-prompt-reader-node",
-            "reference": "https://github.com/receyuki/comfyui-prompt-reader-node",
-            "files": [
-                "https://github.com/receyuki/comfyui-prompt-reader-node"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI node version of the SD Prompt Reader."
-        },
-        {
-            "author": "spacepxl",
-            "title": "ComfyUI-HQ-Image-Save",
-            "reference": "https://github.com/spacepxl/ComfyUI-HQ-Image-Save",
-            "files": [
-                "https://github.com/spacepxl/ComfyUI-HQ-Image-Save"
-            ],
-            "install_type": "git-clone",
-            "description": "Add Image Save nodes for TIFF 16 bit and EXR 32 bit formats. Probably only useful if you're applying a LUT or other color corrections, and care about preserving as much color accuracy as possible."
         }
     ]
 }

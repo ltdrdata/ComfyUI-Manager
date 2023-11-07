@@ -792,6 +792,16 @@
             "description": "This custom node offers the following functionalities: API support for setting up API requests, computer vision primarily for masking or collages, and general utility to streamline workflow setup or implement essential missing features."
         },
         {
+            "author": "bmad4ever",
+            "title": "comfyui_ab_sampler",
+            "reference": "https://github.com/bmad4ever/comfyui_ab_samplercustom",
+            "files": [
+                "https://github.com/bmad4ever/comfyui_ab_samplercustom"
+            ],
+            "install_type": "git-clone",
+            "description": "Experimental sampler node. Sampling alternates between A and B inputs until only one remains, starting with A. B steps run over a 2x2 grid, where 3/4's of the grid are copies of the original input latent. When the optional mask is used, the region outside the defined roi is copied from the original latent at the end of every step."
+        },
+        {
             "author": "FizzleDorf",
             "title": "FizzNodes",
             "reference": "https://github.com/FizzleDorf/ComfyUI_FizzNodes",
@@ -1333,6 +1343,16 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes: TAESD VAE Decode"
+        },
+        {
+            "author": "M1kep",
+            "title": "ComfyUI-KepOpenAI",
+            "reference": "https://github.com/M1kep/ComfyUI-KepOpenAI",
+            "files": [
+                "https://github.com/M1kep/ComfyUI-KepOpenAI"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI-KepOpenAI is a user-friendly node that serves as an interface to the GPT-4 with Vision (GPT-4V) API. This integration facilitates the processing of images coupled with text prompts, leveraging the capabilities of the OpenAI API to generate text completions that are contextually relevant to the provided inputs."
         },
         {
             "author": "uarefans",
@@ -2312,7 +2332,7 @@
                 "https://github.com/shadowcz007/comfyui-mixlab-nodes"
             ],
             "install_type": "git-clone",
-            "description": "Nodes: RandomPrompt, TransparentImage, LoadImageFromPath, SplitLongMask, ImagesCrop, RunWorkflow"
+            "description": "Nodes: RandomPrompt, TransparentImage, LoadImageFromPath, Splitting a long image into sections, ImagesCrop, Consistency Decoder Loader, Consistency Decoder Decode"
         },
         {
             "author": "ostris",
@@ -2454,6 +2474,56 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:Multi Lora Loader, Random (Prompt), Combine (Prompt), CSV Prompts Loader"
+        },
+        {
+            "author": "IAmMatan.com",
+            "title": "ComfyUI Serving toolkit",
+            "reference": "https://github.com/matan1905/ComfyUI-Serving-Toolkit",
+            "files": [
+                "https://github.com/matan1905/ComfyUI-Serving-Toolkit"
+            ],
+            "install_type": "git-clone",
+            "description": "This extension adds nodes that allow you to easily serve your workflow (for example using a discord bot) "
+        },
+        {
+            "author": "PCMonsterx",
+            "title": "ComfyUI-CSV-Loader",
+            "reference": "https://github.com/PCMonsterx/ComfyUI-CSV-Loader",
+            "files": [
+                "https://github.com/PCMonsterx/ComfyUI-CSV-Loader"
+            ],
+            "install_type": "git-clone",
+            "description": "CSV Loader for prompt building within ComfyUI interface. Allows access to positive/negative prompts associated with a name. Selections are being pulled from CSV files."
+        },
+        {
+            "author": "Trung0246",
+            "title": "ComfyUI-0246",
+            "reference": "https://github.com/Trung0246/ComfyUI-0246",
+            "files": [
+                "https://github.com/Trung0246/ComfyUI-0246"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: Highway. Random nodes for ComfyUI I made to solve my struggle with ComfyUI. Have varying quality."
+        },
+        {
+            "author": "fexli",
+            "title": "fexli-util-node-comfyui",
+            "reference": "https://github.com/fexli/fexli-util-node-comfyui",
+            "files": [
+                "https://github.com/fexli/fexli-util-node-comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:FEImagePadForOutpaint, FEColorOut, FEColor2Image, FERandomizedColor2Image"
+        },
+        {
+            "author": "AbyssYuan0",
+            "title": "ComfyUI_BadgerTools",
+            "reference": "https://github.com/AbyssYuan0/ComfyUI_BadgerTools",
+            "files": [
+                "https://github.com/AbyssYuan0/ComfyUI_BadgerTools"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:ImageOverlap-badger, FloatToInt-badger, IntToString-badger, FloatToString-badger, ImageNormalization-badger, ImageScaleToSide-badger, NovelToFizz-badger."
         },
         {
             "author": "Ser-Hilary",
@@ -2662,36 +2732,6 @@
             ],
             "install_type": "copy",
             "description": "Adds an Image Loader node that also shows images in subfolders of the default input directory"
-        },
-        {
-            "author": "IAmMatan.com",
-            "title": "ComfyUI Serving toolkit",
-            "reference": "https://github.com/matan1905/ComfyUI-Serving-Toolkit",
-            "files": [
-                "https://github.com/matan1905/ComfyUI-Serving-Toolkit"
-            ],
-            "install_type": "git-clone",
-            "description": "This extension adds nodes that allow you to easily serve your workflow (for example using a discord bot) "
-        },
-        {
-            "author": "PCMonsterx",
-            "title": "ComfyUI-CSV-Loader",
-            "reference": "https://github.com/PCMonsterx/ComfyUI-CSV-Loader",
-            "files": [
-                "https://github.com/PCMonsterx/ComfyUI-CSV-Loader"
-            ],
-            "install_type": "git-clone",
-            "description": "CSV Loader for prompt building within ComfyUI interface. Allows access to positive/negative prompts associated with a name. Selections are being pulled from CSV files."
-        },
-        {
-            "author": "Trung0246",
-            "title": "ComfyUI-0246",
-            "reference": "https://github.com/Trung0246/ComfyUI-0246",
-            "files": [
-                "https://github.com/Trung0246/ComfyUI-0246"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: Highway. Random nodes for ComfyUI I made to solve my struggle with ComfyUI. Have varying quality."
         },
         {
             "author": "Smuzzies",
