@@ -3,6 +3,7 @@ import os
 import json
 from git import Repo
 from torchvision.datasets.utils import download_url
+import concurrent
 
 builtin_nodes = ["KSampler", "CheckpointSave"]
 
@@ -162,17 +163,22 @@ def update_custom_nodes():
 
     git_url_titles = get_git_urls_from_json('custom-node-list.json')
 
-    for url, title in git_url_titles:
+    def process_git_url_title(url, title):
         name = os.path.basename(url)
         if name.endswith(".git"):
             name = name[:-4]
-            
+        
         node_info[name] = (url, title)
         clone_or_pull_git_repository(url)
 
+    with concurrent.futures.ThreadPoolExecutor(10) as executor:
+        for url, title in git_url_titles:
+            executor.submit(process_git_url_title, url, title)
+
     py_url_titles = get_py_urls_from_json('custom-node-list.json')
 
-    for url, title in py_url_titles:
+    def download_and_store_info(url_title):
+        url, title = url_title
         name = os.path.basename(url)
         if name.endswith(".py"):
             node_info[name] = (url, title)
@@ -181,6 +187,9 @@ def update_custom_nodes():
             download_url(url, ".tmp")
         except:
             print(f"[ERROR] Cannot download '{url}'")
+
+    with concurrent.futures.ThreadPoolExecutor(10) as executor:
+        executor.map(download_and_store_info, py_url_titles)
             
     return node_info
 

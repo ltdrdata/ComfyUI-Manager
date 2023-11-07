@@ -5,6 +5,7 @@ import sys
 import atexit
 import threading
 import re
+import locale
 
 
 message_collapses = []
@@ -16,6 +17,45 @@ def register_message_collapse(f):
 
 
 sys.__comfyui_manager_register_message_collapse = register_message_collapse
+
+comfyui_manager_path = os.path.dirname(__file__)
+custom_nodes_path = os.path.join(comfyui_manager_path, "..")
+startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
+restore_snapshot_path = os.path.join(startup_script_path, "restore-snapshot.json")
+git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
+
+
+def handle_stream(stream, prefix):
+    stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
+    for msg in stream:
+        if prefix == '[!]' and ('it/s]' in msg or 's/it]' in msg) and ('%|' in msg or 'it [' in msg):
+            if msg.startswith('100%'):
+                print('\r' + msg, end="", file=sys.stderr),
+            else:
+                print('\r' + msg[:-1], end="", file=sys.stderr),
+        else:
+            if prefix == '[!]':
+                print(prefix, msg, end="", file=sys.stderr)
+            else:
+                print(prefix, msg, end="")
+
+
+def process_wrap(cmd_str, cwd_path, handler=None):
+    process = subprocess.Popen(cmd_str, cwd=cwd_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
+
+    if handler is None:
+        handler = handle_stream
+
+    stdout_thread = threading.Thread(target=handler, args=(process.stdout, ""))
+    stderr_thread = threading.Thread(target=handler, args=(process.stderr, "[!]"))
+
+    stdout_thread.start()
+    stderr_thread.start()
+
+    stdout_thread.join()
+    stderr_thread.join()
+
+    return process.wait()
 
 
 try:
@@ -96,11 +136,6 @@ try:
                 original_stderr.flush()
 
 
-    def handle_stream(stream, prefix):
-        for line in stream:
-            print(prefix, line, end="")
-
-
     def close_log():
         log_file.close()
 
@@ -116,6 +151,82 @@ except Exception as e:
 print("** ComfyUI start up time:", datetime.datetime.now())
 
 
+if os.path.exists(restore_snapshot_path):
+    try:
+        import json
+
+        cloned_repos = []
+
+        def msg_capture(stream, prefix):
+            stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
+            for msg in stream:
+                if msg.startswith("CLONE: "):
+                    cloned_repos.append(msg[7:])
+                    if prefix == '[!]':
+                        print(prefix, msg, end="", file=sys.stderr)
+                    else:
+                        print(prefix, msg, end="")
+
+                elif prefix == '[!]' and ('it/s]' in msg or 's/it]' in msg) and ('%|' in msg or 'it [' in msg):
+                    if msg.startswith('100%'):
+                        print('\r' + msg, end="", file=sys.stderr),
+                    else:
+                        print('\r'+msg[:-1], end="", file=sys.stderr),
+                else:
+                    if prefix == '[!]':
+                        print(prefix, msg, end="", file=sys.stderr)
+                    else:
+                        print(prefix, msg, end="")
+
+        print(f"[ComfyUI-Manager] Restore snapshot.")
+        cmd_str = [sys.executable, git_script_path, '--apply-snapshot', restore_snapshot_path]
+        exit_code = process_wrap(cmd_str, custom_nodes_path, handler=msg_capture)
+
+        with open(restore_snapshot_path, 'r', encoding="UTF-8") as json_file:
+            info = json.load(json_file)
+            for url in cloned_repos:
+                try:
+                    repository_name = url.split("/")[-1].strip()
+                    repo_path = os.path.join(custom_nodes_path, repository_name)
+                    repo_path = os.path.abspath(repo_path)
+
+                    requirements_path = os.path.join(repo_path, 'requirements.txt')
+                    install_script_path = os.path.join(repo_path, 'install.py')
+
+                    this_exit_code = 0
+
+                    if os.path.exists(requirements_path):
+                        with open(requirements_path, 'r', encoding="UTF-8") as file:
+                            for line in file:
+                                package_name = line.strip()
+                                if package_name:
+                                    install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                                    this_exit_code += process_wrap(install_cmd, repo_path)
+
+                    if os.path.exists(install_script_path):
+                        install_cmd = [sys.executable, install_script_path]
+                        print(f">>> {install_cmd} / {repo_path}")
+                        this_exit_code += process_wrap(install_cmd, repo_path)
+
+                    if this_exit_code != 0:
+                        print(f"[ComfyUI-Manager] Restoring '{repository_name}' is failed.")
+
+                except Exception as e:
+                    print(e)
+                    print(f"[ComfyUI-Manager] Restoring '{repository_name}' is failed.")
+
+        if exit_code != 0:
+            print(f"[ComfyUI-Manager] Restore snapshot failed.")
+        else:
+            print(f"[ComfyUI-Manager] Restore snapshot done.")
+
+    except Exception as e:
+        print(e)
+        print(f"[ComfyUI-Manager] Restore snapshot failed.")
+
+    os.remove(restore_snapshot_path)
+
+
 # Perform install
 script_list_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "startup-scripts", "install-scripts.txt")
 
@@ -126,7 +237,7 @@ if os.path.exists(script_list_path):
 
     executed = set()
     # Read each line from the file and convert it to a list using eval
-    with open(script_list_path, 'r') as file:
+    with open(script_list_path, 'r', encoding="UTF-8") as file:
         for line in file:
             if line in executed:
                 continue
@@ -135,24 +246,17 @@ if os.path.exists(script_list_path):
 
             try:
                 script = eval(line)
-                print(f"\n## ComfyUI-Manager: EXECUTE => {script[1:]}")
+                if os.path.exists(script[0]):
+                    print(f"\n## ComfyUI-Manager: EXECUTE => {script[1:]}")
 
-                print(f"\n## Execute install/(de)activation script for '{script[0]}'")
-                process = subprocess.Popen(script[1:], cwd=script[0], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
+                    print(f"\n## Execute install/(de)activation script for '{script[0]}'")
+                    exit_code = process_wrap(script[1:], script[0])
 
-                stdout_thread = threading.Thread(target=handle_stream, args=(process.stdout, ""))
-                stderr_thread = threading.Thread(target=handle_stream, args=(process.stderr, "[!]"))
+                    if exit_code != 0:
+                        print(f"install/(de)activation script failed: {script[0]}")
+                else:
+                    print(f"\n## ComfyUI-Manager: CANCELED => {script[1:]}")
 
-                stdout_thread.start()
-                stderr_thread.start()
-
-                stdout_thread.join()
-                stderr_thread.join()
-
-                exit_code = process.wait()
-
-                if exit_code != 0:
-                    print(f"install/(de)activation script failed: {script[0]}")
             except Exception as e:
                 print(f"[ERROR] Failed to execute install/(de)activation script: {line} / {e}")
 

@@ -97,6 +97,18 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 
 ![model-install-dialog](misc/nickname.jpg)
 
+
+## Snapshot-Manager
+* When you press `Save snapshot` or use `Update All` on `Manager Menu`, the current installation status snapshot is saved.
+  * Snapshot file dir: `ComfyUI-Manager/snapshots`
+  * You can rename snapshot file.
+* Press the "Restore" button to revert to the installation status of the respective snapshot.
+  * However, for custom nodes not managed by Git, snapshot support is incomplete.
+* When you press `Restore`, it will take effect on the next ComfyUI startup.
+
+  
+![model-install-dialog](misc/snapshot.jpg)
+
 ## How to register your custom node into ComfyUI-Manager
 
 * Add an entry to `custom-node-list.json` located in the root of ComfyUI-Manager and submit a Pull Request.
@@ -157,10 +169,6 @@ NODE_CLASS_MAPPINGS.update({
 
 ![missing-list](misc/missing-list.png)
 
-* Currently, support is not available for custom nodes that can only be downloaded through civitai.
-
-* [ComfyUI_Custom_Nodes_AlekPet](https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet)
-
 
 ## Troubleshooting
 * If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the ComfyUI-Manager/config.ini file that is generated.
@@ -182,12 +190,12 @@ NODE_CLASS_MAPPINGS.update({
 - [x] category/keyword filter
 - [x] Automatic recognition of missing custom nodes
 - [x] Automatic installation suggestion of missing custom nodes
-- [x] 3rd party repository
-- [ ] installation from git url 
-- [ ] Specification of custom nodes
-- [ ] Specification scanner
-- [ ] Search extension by node name
-- [ ] workflow downloader
+- [x] 3rd party repository -> channels
+- [x] Specification of custom nodes
+- [x] Specification scanner
+- [x] workflow download -> workflow gallery
+- [x] Search extension by node name -> [ltdrdata.github.io](https://ltdrdata.github.io)
+- [ ] installation from git url
 
 
 # Disclaimer
