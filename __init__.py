@@ -11,7 +11,7 @@ import subprocess  # don't remove this
 from tqdm.auto import tqdm
 import concurrent
 
-version = "V0.40"
+version = "V0.40.1"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 

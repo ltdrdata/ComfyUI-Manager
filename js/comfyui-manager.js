@@ -84,24 +84,24 @@ async function updateComfyUI() {
 
 		if(response.status == 400) {
 			app.ui.dialog.show('Failed to update ComfyUI.');
-			app.ui.dialog.element.style.zIndex = 9999;
+			app.ui.dialog.element.style.zIndex = 10010;
 			return false;
 		}
 
 		if(response.status == 201) {
 			app.ui.dialog.show('ComfyUI has been successfully updated.');
-			app.ui.dialog.element.style.zIndex = 9999;
+			app.ui.dialog.element.style.zIndex = 10010;
 		}
 		else {
 			app.ui.dialog.show('ComfyUI is already up to date with the latest version.');
-			app.ui.dialog.element.style.zIndex = 9999;
+			app.ui.dialog.element.style.zIndex = 10010;
 		}
 
 		return true;
 	}
 	catch(exception) {
 		app.ui.dialog.show(`Failed to update ComfyUI / ${exception}`);
-		app.ui.dialog.element.style.zIndex = 9999;
+		app.ui.dialog.element.style.zIndex = 10010;
 		return false;
 	}
 	finally {
@@ -126,25 +126,25 @@ async function fetchUpdates(update_check_checkbox) {
 
 		if(response.status != 200 && response.status != 201) {
 			app.ui.dialog.show('Failed to fetch updates.');
-			app.ui.dialog.element.style.zIndex = 9999;
+			app.ui.dialog.element.style.zIndex = 10010;
 			return false;
 		}
 
 		if(response.status == 201) {
 			app.ui.dialog.show('There is an updated extension available.');
-			app.ui.dialog.element.style.zIndex = 9999;
+			app.ui.dialog.element.style.zIndex = 10010;
 			update_check_checkbox.checked = false;
 		}
 		else {
 			app.ui.dialog.show('All extensions are already up-to-date with the latest versions.');
-			app.ui.dialog.element.style.zIndex = 9999;
+			app.ui.dialog.element.style.zIndex = 10010;
 		}
 
 		return true;
 	}
 	catch(exception) {
 		app.ui.dialog.show(`Failed to update custom nodes / ${exception}`);
-		app.ui.dialog.element.style.zIndex = 9999;
+		app.ui.dialog.element.style.zIndex = 10010;
 		return false;
 	}
 	finally {
@@ -171,23 +171,23 @@ async function updateAll(update_check_checkbox) {
 
 		if(response1.status != 200 && response2.status != 201) {
 			app.ui.dialog.show('Failed to update ComfyUI or several extensions.<BR><BR>See terminal log.<BR>');
-			app.ui.dialog.element.style.zIndex = 9999;
+			app.ui.dialog.element.style.zIndex = 10010;
 			return false;
 		}
 		if(response1.status == 201 || response2.status == 201) {
 	        app.ui.dialog.show('ComfyUI and all extensions have been updated to the latest version.');
-			app.ui.dialog.element.style.zIndex = 9999;
+			app.ui.dialog.element.style.zIndex = 10010;
 		}
 		else {
 			app.ui.dialog.show('ComfyUI and all extensions are already up-to-date with the latest versions.');
-	        app.ui.dialog.element.style.zIndex = 9999;
+	        app.ui.dialog.element.style.zIndex = 10010;
         }
 
 		return true;
 	}
 	catch(exception) {
 		app.ui.dialog.show(`Failed to update ComfyUI or several extensions / ${exception}`);
-		app.ui.dialog.element.style.zIndex = 9999;
+		app.ui.dialog.element.style.zIndex = 10010;
 		return false;
 	}
 	finally {
