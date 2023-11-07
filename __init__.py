@@ -10,8 +10,9 @@ import locale
 import subprocess  # don't remove this
 from tqdm.auto import tqdm
 import concurrent
+import ssl
 
-version = "V0.40.1"
+version = "V0.41"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
@@ -111,7 +112,8 @@ def write_config():
         'badge_mode': get_config()['badge_mode'],
         'git_exe':  get_config()['git_exe'],
         'channel_url': get_config()['channel_url'],
-        'channel_url_list': get_config()['channel_url_list']
+        'channel_url_list': get_config()['channel_url_list'],
+        'bypass_ssl': get_config()['bypass_ssl']
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -141,7 +143,8 @@ def read_config():
                     'badge_mode': default_conf['badge_mode'] if 'badge_mode' in default_conf else 'none',
                     'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
-                    'channel_url_list': ch_url_list
+                    'channel_url_list': ch_url_list,
+                    'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else False,
                }
 
     except Exception:
@@ -150,7 +153,8 @@ def read_config():
             'badge_mode': 'none',
             'git_exe': '',
             'channel_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
-            'channel_url_list': ''
+            'channel_url_list': '',
+            'bypass_ssl': False
         }
 
 
@@ -1312,13 +1316,8 @@ async def install_model(request):
 
             if json_data['url'].startswith('https://github.com') or json_data['url'].startswith('https://huggingface.co'):
                 model_dir = get_model_dir(json_data)
-
-                try:
-                    download_url(json_data['url'], model_dir)
-                except:
-                    fallback_url = json_data['url'].replace('https', 'http')
-                    download_url(fallback_url, model_dir)
-
+                download_url(json_data['url'], model_dir)
+                
                 return web.json_response({}, content_type='application/json')
             else:
                 res = download_url_with_agent(json_data['url'], model_path)
@@ -1381,6 +1380,10 @@ async def channel_url_list(request):
         return web.json_response(res, status=200)
 
     return web.Response(status=200)
+
+
+if get_config()['bypass_ssl']:
+    ssl._create_default_https_context = ssl._create_unverified_context  # SSL certificate error fix.
 
 
 WEB_DIRECTORY = "js"
