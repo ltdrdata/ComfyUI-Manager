@@ -9,6 +9,29 @@ export const SUPPORTED_OUTPUT_NODE_TYPES = [
 	"ADE_AnimateDiffCombine",
 ]
 
+var docStyle = document.createElement('style');
+docStyle.innerHTML = `
+.cm-menu-container {
+  column-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cm-menu-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.cm-title {
+	padding: 10px 10px 0 10p;
+	background-color: black;
+	text-align: center;
+	height: 45px;
+}
+`;
+document.head.appendChild(docStyle);
+
 export function getPotentialOutputsAndOutputNodes(nodes) {
 	const potential_outputs = [];
 	const potential_output_nodes = [];
@@ -59,7 +82,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 							if (parsedURLVals.type !== "output") {
 								// TODO
 							}
-							potential_outputs.push({ "type": "output", 'title' : node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": widgetValue, "format": parsedURLVals.format } });
+							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": widgetValue, "format": parsedURLVals.format } });
 						}
 					}
 				}
@@ -81,7 +104,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 								// TODO
 								continue;
 							}
-							potential_outputs.push({ "type": "output", 'title' : node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "type": parsedURLVals.type, "value": widgetValue, "format": parsedURLVals.format } });
+							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "type": parsedURLVals.type, "value": widgetValue, "format": parsedURLVals.format } });
 						}
 					}
 				}
@@ -178,9 +201,230 @@ export class ShareDialog extends ComfyDialog {
 		this.share_button = $el("button", {
 			type: "submit",
 			textContent: "Share",
+			style: {
+				backgroundColor: "blue"
+			}
 		}, []);
 
-		this.final_message = $el("div", {}, []);
+		this.final_message = $el("div", {
+			style: {
+				color: "white",
+				textAlign: "center",
+				// marginTop: "10px",
+				// backgroundColor: "black",
+				padding: "10px",
+			}
+		}, []);
+
+		this.share_finalmessage_container = $el("div.cm-menu-container", {
+			id: "comfyui-share-finalmessage-container",
+			style: {
+				display: "none",
+			}
+		}, [
+			$el("div.cm-menu-column", [
+				this.final_message,
+				$el("button", {
+					type: "button",
+					textContent: "Close",
+					onclick: () => {
+						// Reset state
+						this.matrix_destination_checkbox.checked = false;
+						this.comfyworkflows_destination_checkbox.checked = true;
+						this.share_button.textContent = "Share";
+						this.share_button.style.display = "inline-block";
+						this.final_message.innerHTML = "";
+						this.final_message.style.color = "white";
+						this.credits_input.value = "";
+						this.title_input.value = "";
+						this.description_input.value = "";
+						this.is_nsfw_checkbox.checked = false;
+						this.selectedOutputIndex = 0;
+
+						// hide the final message
+						this.share_finalmessage_container.style.display = "none";
+
+						// show the share container
+						this.share_container.style.display = "flex";
+
+						this.close()
+					}
+				}),
+			])
+		]);
+		this.share_container = $el("div.cm-menu-container", {
+			id: "comfyui-share-container"
+		}, [
+			$el("div.cm-menu-column", [
+				$el("details", {
+					style: {
+						border: "1px solid #999",
+						padding: "5px",
+						borderRadius: "5px",
+						backgroundColor: "#222"
+					}
+				}, [
+					$el("summary", {
+						style: {
+							color: "white",
+							cursor: "pointer",
+						}
+					}, [`Matrix account`]),
+					$el("div", {
+						style: {
+							display: "flex",
+							flexDirection: "row",
+						}
+					}, [
+						$el("div", {
+							textContent: "Homeserver",
+							style: {
+								marginRight: "10px",
+							}
+						}, []),
+						this.matrix_homeserver_input,
+					]),
+
+					$el("div", {
+						style: {
+							display: "flex",
+							flexDirection: "row",
+						}
+					}, [
+						$el("div", {
+							textContent: "Username",
+							style: {
+								marginRight: "10px",
+							}
+						}, []),
+						this.matrix_username_input,
+					]),
+
+					$el("div", {
+						style: {
+							display: "flex",
+							flexDirection: "row",
+						}
+					}, [
+						$el("div", {
+							textContent: "Password",
+							style: {
+								marginRight: "10px",
+							}
+						}, []),
+						this.matrix_password_input,
+					]),
+
+				]),
+				$el("details", {
+					style: {
+						border: "1px solid #999",
+						marginTop: "10px",
+						padding: "5px",
+						borderRadius: "5px",
+						backgroundColor: "#222"
+					}
+				}, [
+					$el("summary", {
+						style: {
+							color: "white",
+							cursor: "pointer",
+						}
+					}, [`Comfyworkflows.com account`]),
+					$el("h4", {
+						textContent: "Share key (found on your profile page)",
+					}, []),
+					$el("p", { size: 3, color: "white" }, ["When provided, your art will be saved to your account."]),
+					this.cw_sharekey_input,
+				]),
+
+				$el("div", {}, [
+					$el("p", {
+						size: 3, color: "white", style: {
+							color: 'white'
+						}
+					}, [`Select where to share your art:`]),
+					this.matrix_destination_checkbox,
+					matrix_destination_checkbox_text,
+					$el("br", {}, []),
+					this.comfyworkflows_destination_checkbox,
+					comfyworkflows_destination_checkbox_text,
+				]),
+
+				$el("h4", {
+					textContent: "Credits (optional)",
+					size: 3,
+					color: "white",
+					style: {
+						color: 'white'
+					}
+				}, []),
+				this.credits_input,
+				// $el("br", {}, []),
+
+				$el("h4", {
+					textContent: "Title (optional)",
+					size: 3,
+					color: "white",
+					style: {
+						color: 'white'
+					}
+				}, []),
+				this.title_input,
+				// $el("br", {}, []),
+
+				$el("h4", {
+					textContent: "Description (optional)",
+					size: 3,
+					color: "white",
+					style: {
+						color: 'white'
+					}
+				}, []),
+				this.description_input,
+				$el("br", {}, []),
+
+				$el("div", {}, [this.is_nsfw_checkbox, is_nsfw_checkbox_text]),
+				// $el("br", {}, []),
+
+				// this.final_message,
+				// $el("br", {}, []),
+			]),
+			$el("div.cm-menu-column", [
+				this.radio_buttons,
+				$el("br", {}, []),
+
+				this.share_button,
+
+				$el("button", {
+					type: "button",
+					textContent: "Close",
+					onclick: () => {
+						// Reset state
+						this.matrix_destination_checkbox.checked = false;
+						this.comfyworkflows_destination_checkbox.checked = true;
+						this.share_button.textContent = "Share";
+						this.share_button.style.display = "inline-block";
+						this.final_message.innerHTML = "";
+						this.final_message.style.color = "white";
+						this.credits_input.value = "";
+						this.title_input.value = "";
+						this.description_input.value = "";
+						this.is_nsfw_checkbox.checked = false;
+						this.selectedOutputIndex = 0;
+
+						// hide the final message
+						this.share_finalmessage_container.style.display = "none";
+
+						// show the share container
+						this.share_container.style.display = "flex";
+
+						this.close()
+					}
+				}),
+				$el("br", {}, []),
+			]),
+		]);
 
 		// get the user's existing matrix auth and share key
 		ShareDialog.matrix_auth = { homeserver: "matrix.org", username: "", password: "" };
@@ -322,6 +566,10 @@ export class ShareDialog extends ComfyDialog {
 
 			this.final_message.style.color = "green";
 
+			// hide #comfyui-share-container and show #comfyui-share-finalmessage-container
+			this.share_container.style.display = "none";
+			this.share_finalmessage_container.style.display = "block";
+
 			// hide the share button
 			this.share_button.textContent = "Shared!";
 			this.share_button.style.display = "none";
@@ -335,165 +583,8 @@ export class ShareDialog extends ComfyDialog {
 				]),
 				$el("br", {}, []),
 
-				$el("details", {
-					style: {
-						border: "1px solid #999",
-						padding: "5px",
-						borderRadius: "5px",
-						backgroundColor: "#222"
-					}
-				}, [
-					$el("summary", {
-						style: {
-							color: "white",
-							cursor: "pointer",
-						}
-					}, [`Matrix account`]),
-					$el("div", {
-						style: {
-							display: "flex",
-							flexDirection: "row",
-						}
-					}, [
-						$el("div", {
-							textContent: "Homeserver",
-							style: {
-								marginRight: "10px",
-							}
-						}, []),
-						this.matrix_homeserver_input,
-					]),
-
-					$el("div", {
-						style: {
-							display: "flex",
-							flexDirection: "row",
-						}
-					}, [
-						$el("div", {
-							textContent: "Username",
-							style: {
-								marginRight: "10px",
-							}
-						}, []),
-						this.matrix_username_input,
-					]),
-
-					$el("div", {
-						style: {
-							display: "flex",
-							flexDirection: "row",
-						}
-					}, [
-						$el("div", {
-							textContent: "Password",
-							style: {
-								marginRight: "10px",
-							}
-						}, []),
-						this.matrix_password_input,
-					]),
-
-				]),
-				$el("details", {
-					style: {
-						border: "1px solid #999",
-						marginTop: "10px",
-						padding: "5px",
-						borderRadius: "5px",
-						backgroundColor: "#222"
-					}
-				}, [
-					$el("summary", {
-						style: {
-							color: "white",
-							cursor: "pointer",
-						}
-					}, [`Comfyworkflows.com account`]),
-					$el("h4", {
-						textContent: "Share key (found on your profile page)",
-					}, []),
-					$el("p", { size: 3, color: "white" }, ["When provided, your art will be saved to your account."]),
-					this.cw_sharekey_input,
-				]),
-
-				$el("div", {}, [
-					$el("p", {
-						size: 3, color: "white", style: {
-							color: 'white'
-						}
-					}, [`Select where to share your art:`]),
-					this.matrix_destination_checkbox,
-					matrix_destination_checkbox_text,
-					$el("br", {}, []),
-					this.comfyworkflows_destination_checkbox,
-					comfyworkflows_destination_checkbox_text,
-				]),
-
-				$el("h4", {
-					textContent: "Credits (optional)",
-					size: 3,
-					color: "white",
-					style: {
-						color: 'white'
-					}
-				}, []),
-				this.credits_input,
-				// $el("br", {}, []),
-
-				$el("h4", {
-					textContent: "Title (optional)",
-					size: 3,
-					color: "white",
-					style: {
-						color: 'white'
-					}
-				}, []),
-				this.title_input,
-				// $el("br", {}, []),
-
-				$el("h4", {
-					textContent: "Description (optional)",
-					size: 3,
-					color: "white",
-					style: {
-						color: 'white'
-					}
-				}, []),
-				this.description_input,
-				$el("br", {}, []),
-
-				$el("div", {}, [this.is_nsfw_checkbox, is_nsfw_checkbox_text]),
-				$el("br", {}, []),
-
-				this.radio_buttons,
-				$el("br", {}, []),
-
-				this.final_message,
-				$el("br", {}, []),
-
-				this.share_button,
-
-				$el("button", {
-					type: "button",
-					textContent: "Close",
-					onclick: () => {
-						// Reset state
-						this.matrix_destination_checkbox.checked = false;
-						this.comfyworkflows_destination_checkbox.checked = true;
-						this.share_button.textContent = "Share";
-						this.share_button.style.display = "inline-block";
-						this.final_message.innerHTML = "";
-						this.final_message.style.color = "white";
-						this.credits_input.value = "";
-						this.title_input.value = "";
-						this.description_input.value = "";
-						this.is_nsfw_checkbox.checked = false;
-						this.selectedOutputIndex = 0;
-						this.close()
-					}
-				}),
-				$el("br", {}, []),
+				this.share_finalmessage_container,
+				this.share_container,
 			];
 
 		res[0].style.padding = "10px 10px 10px 10px";
@@ -509,7 +600,7 @@ export class ShareDialog extends ComfyDialog {
 		const new_radio_buttons = $el("div", {
 			id: "selectOutput-Options",
 			style: {
-				'overflow-y': 'auto',
+				'overflow-y': 'scroll',
 				'max-height': '400px',
 			}
 		}, potential_outputs.map((output, index) => {
@@ -549,7 +640,7 @@ export class ShareDialog extends ComfyDialog {
 				}
 			}, [radio_button, radio_button_text, radio_button_img]);
 		}));
-		const header = $el("h4", {
+		const header = $el("h3", {
 			textContent: "Select an image to share",
 			size: 3,
 			color: "white",
@@ -558,9 +649,24 @@ export class ShareDialog extends ComfyDialog {
 				color: 'white',
 				backgroundColor: 'black',
 				padding: '10px',
+				'margin-top': '0px',
 			}
-		}, []);
+		}, [
+			$el("p", {
+				textContent: "Scroll to see all outputs",
+				size: 2,
+				color: "white",
+				style: {
+					'text-align': 'center',
+					color: 'white',
+					'margin-bottom': '5px',
+					'font-style': 'italic',
+					'font-size': '12px',
+				},
+			}, [])
+		]);
 		this.radio_buttons.appendChild(header);
+		// this.radio_buttons.appendChild(subheader);
 		this.radio_buttons.appendChild(new_radio_buttons);
 		this.element.style.display = "block";
 	}
