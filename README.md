@@ -1,8 +1,11 @@
 # ComfyUI Manager
 
-You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
+**ComfyUI-Manager** is an extension designed to enhance the usability of [ComfyUI](https://github.com/comfyanonymous/ComfyUI). It offers management functions to **install, remove, disable, and enable** various custom nodes of ComfyUI. Furthermore, this extension provides a hub feature and convenience functions to access a wide range of information within ComfyUI.
+
+![menu](misc/menu.jpg)
 
 ## NOTICE
+* You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
 * Versions prior to V0.22.2 will no longer detect missing nodes unless using a local database. Please update ComfyUI-Manager to the latest version.
 
 ## Installation
