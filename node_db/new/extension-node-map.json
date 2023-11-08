@@ -497,6 +497,9 @@
             "BatchValueSchedule",
             "BatchValueScheduleLatentInput",
             "CosWave",
+            "FizzFrame",
+            "FizzFrameConcatenate",
+            "Init FizzFrame",
             "InvCosWave",
             "InvSinWave",
             "Lerp",
@@ -507,6 +510,7 @@
             "SawtoothWave",
             "SinWave",
             "SquareWave",
+            "StringConcatenate",
             "StringSchedule",
             "TriangleWave",
             "ValueSchedule"
@@ -1059,6 +1063,7 @@
             "CR Apply Model Merge",
             "CR Apply Multi Upscale",
             "CR Apply Multi-ControlNet",
+            "CR Arabic Text RTL",
             "CR Aspect Ratio SDXL",
             "CR Batch Process Switch",
             "CR Checker Pattern",
@@ -1067,6 +1072,7 @@
             "CR Color Gradient",
             "CR Color Panel",
             "CR Color Tint",
+            "CR Comic Panel Templates",
             "CR Composite Text",
             "CR Conditioning Input Switch",
             "CR ControlNet Input Switch",
@@ -1074,6 +1080,7 @@
             "CR Draw Text",
             "CR Float To Integer",
             "CR Float To String",
+            "CR Halftone Filter",
             "CR Halftone Grid",
             "CR Hires Fix Process Switch",
             "CR Image Border",
@@ -1106,10 +1113,12 @@
             "CR Module Pipe Loader",
             "CR Multi Upscale Stack",
             "CR Multi-ControlNet Stack",
+            "CR Multi-Panel Meme Template",
             "CR Overlay Text",
             "CR Page Layout",
             "CR Pipe Switch",
             "CR Polygons",
+            "CR Popular Meme Templates",
             "CR Prompt Text",
             "CR Radial Gradient",
             "CR SD1.5 Aspect Ratio",
@@ -1344,7 +1353,9 @@
             "FC_CropMask",
             "FC_FaceDetection",
             "FC_FaceFusion",
-            "FC_LoraMerge"
+            "FC_LoraMerge",
+            "FC_Segment",
+            "FC_StyleLoraLoad"
         ],
         {
             "title_aux": "ComfyUI-FaceChain"
@@ -2936,6 +2947,15 @@
             "title_aux": "IPAdapter-ComfyUI"
         }
     ],
+    "https://github.com/laksjdjf/LCMSampler-ComfyUI": [
+        [
+            "SamplerLCM",
+            "TAESDLoader"
+        ],
+        {
+            "title_aux": "LCMSampler-ComfyUI"
+        }
+    ],
     "https://github.com/laksjdjf/LoRA-Merger-ComfyUI": [
         [
             "LoraLoaderFromWeight",
@@ -3949,6 +3969,7 @@
             "ImageOutputToComfyNodes",
             "ImageShuffle",
             "LCMGenerate",
+            "LCMGenerate_RIVAL",
             "LCMGenerate_ReferenceOnly",
             "LCMGenerate_img2img",
             "LCMGenerate_img2img_IPAdapter",
@@ -3956,6 +3977,7 @@
             "LCMGenerate_inpaintv2",
             "LCMGenerate_inpaintv3",
             "LCMLoader",
+            "LCMLoader_RIVAL",
             "LCMLoader_RefInpaint",
             "LCMLoader_ReferenceOnly",
             "LCMLoader_controlnet",
