@@ -5,7 +5,7 @@ import { CustomNodesInstaller } from "./custom-nodes-downloader.js";
 import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
 import { ModelInstaller } from "./model-downloader.js";
-import { manager_instance, setManagerInstance } from  "./common.js";
+import { manager_instance, setManagerInstance, install_via_git_url } from  "./common.js";
 
 var style = document.createElement('style');
 style.innerHTML = `
@@ -371,6 +371,17 @@ class ManagerMenuDialog extends ComfyDialog {
 						SnapshotManager.instance = new SnapshotManager(app);
 						SnapshotManager.instance.show();
 					}
+			}),
+			$el("button", {
+				type: "button",
+				textContent: "Install via Git URL",
+				onclick: () => {
+					var url = prompt("Please enter the URL of the Git repository to install", "");
+
+					if (url !== null) {
+						install_via_git_url(url);
+					}
+				}
 			}),
 		];
 	}

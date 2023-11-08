@@ -11,8 +11,9 @@ import subprocess  # don't remove this
 from tqdm.auto import tqdm
 import concurrent
 import ssl
+from urllib.parse import urlparse
 
-version = "V0.41"
+version = "V0.42"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
@@ -990,10 +991,20 @@ class GitProgress(RemoteProgress):
         self.pbar.pos = 0
         self.pbar.refresh()
 
+def is_valid_url(url):
+    try:
+        result = urlparse(url)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
 
 def gitclone_install(files):
     print(f"install: {files}")
     for url in files:
+        if not is_valid_url(url):
+            print(f"Invalid git url: '{url}'")
+            return False
+
         if url.endswith("/"):
             url = url[:-1]
         try:
@@ -1003,7 +1014,9 @@ def gitclone_install(files):
 
             # Clone the repository from the remote URL
             if platform.system() == 'Windows':
-                run_script([sys.executable, git_script_path, "--clone", custom_nodes_path, url])
+                res = run_script([sys.executable, git_script_path, "--clone", custom_nodes_path, url])
+                if res != 0:
+                    return False
             else:
                 repo = git.Repo.clone_from(url, repo_path, recursive=True, progress=GitProgress())
                 repo.git.clear_cache()
@@ -1192,6 +1205,20 @@ async def install_custom_node(request):
     if res:
         print(f"After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
+
+    return web.Response(status=400)
+
+
+@server.PromptServer.instance.routes.get("/customnode/install/git_url")
+async def install_custom_node_git_url(request):
+    res = False
+    if "url" in request.rel_url.query:
+        url = request.rel_url.query['url']
+        res = gitclone_install([url])
+
+    if res:
+        print(f"After restarting ComfyUI, please refresh the browser.")
+        return web.Response(status=200)
 
     return web.Response(status=400)
 

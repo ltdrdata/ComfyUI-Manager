@@ -60,3 +60,34 @@ export var manager_instance = null;
 export function setManagerInstance(obj) {
     manager_instance = obj;
 }
+
+function isValidURL(url) {
+    const pattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
+    return pattern.test(url);
+}
+
+export async function install_via_git_url(url) {
+	if(!url) {
+		return;
+	}
+
+	if(!isValidURL(url)) {
+        app.ui.dialog.show(`Invalid Git url '${url}'`);
+        app.ui.dialog.element.style.zIndex = 10010;
+		return;
+	}
+
+    app.ui.dialog.show(`Wait...<BR><BR>Installing '${url}'`);
+    app.ui.dialog.element.style.zIndex = 10010;
+
+    const res = await api.fetchApi(`/customnode/install/git_url?url=${url}`);
+
+    if(res.status == 200) {
+        app.ui.dialog.show(`'${url}' is installed<BR>To apply the installed/disabled/enabled custom node, please restart ComfyUI.`);
+        app.ui.dialog.element.style.zIndex = 10010;
+    }
+    else {
+        app.ui.dialog.show(`Failed to install '${url}'<BR>See terminal log.`);
+        app.ui.dialog.element.style.zIndex = 10010;
+    }
+}

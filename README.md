@@ -198,7 +198,7 @@ NODE_CLASS_MAPPINGS.update({
 - [x] Specification scanner
 - [x] workflow download -> workflow gallery
 - [x] Search extension by node name -> [ltdrdata.github.io](https://ltdrdata.github.io)
-- [ ] installation from git url
+- [x] installation from git url
 
 
 # Disclaimer
