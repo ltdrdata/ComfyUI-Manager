@@ -1,4 +1,5 @@
 import configparser
+import mimetypes
 import shutil
 import folder_paths
 import os
@@ -576,7 +577,6 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
             print(f"\x1b[2K\rAll extensions are already up-to-date.")
     elif do_update_check:
         print(f"\x1b[2K\rUpdate check done.")
-
 
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
 async def fetch_customnode_mappings(request):
@@ -1408,6 +1408,228 @@ async def channel_url_list(request):
 
     return web.Response(status=200)
 
+def get_matrix_auth():
+    if not os.path.exists(os.path.join(folder_paths.base_path, "matrix_auth")):
+        return None
+    try:
+        with open(os.path.join(folder_paths.base_path, "matrix_auth"), "r") as f:
+            matrix_auth = f.read()
+            homeserver, username, password = matrix_auth.strip().split("\n")
+            if not homeserver or not username or not password:
+                return None
+        return {
+            "homeserver": homeserver,
+            "username": username,
+            "password": password,
+        }
+    except:
+        return None
+
+def get_comfyworkflows_auth():
+    if not os.path.exists(os.path.join(folder_paths.base_path, "comfyworkflows_sharekey")):
+        return None
+    try:
+        with open(os.path.join(folder_paths.base_path, "comfyworkflows_sharekey"), "r") as f:
+            share_key = f.read()
+            if not share_key.strip():
+                return None
+        return share_key
+    except:
+        return None
+
+@server.PromptServer.instance.routes.get("/manager/get_matrix_auth")
+async def api_get_matrix_auth(request):
+    # print("Getting stored Matrix credentials...")
+    matrix_auth = get_matrix_auth()
+    if not matrix_auth:
+        return web.Response(status=404)
+    return web.json_response(matrix_auth)
+
+@server.PromptServer.instance.routes.get("/manager/get_comfyworkflows_auth")
+async def api_get_comfyworkflows_auth(request):
+    # Check if the user has provided Matrix credentials in a file called 'matrix_accesstoken'
+    # in the same directory as the ComfyUI base folder
+    # print("Getting stored Comfyworkflows.com auth...")
+    comfyworkflows_auth = get_comfyworkflows_auth()
+    if not comfyworkflows_auth:
+        return web.Response(status=404)
+    return web.json_response({"comfyworkflows_sharekey" : comfyworkflows_auth})
+
+def set_matrix_auth(json_data):
+    homeserver = json_data['homeserver']
+    username = json_data['username']
+    password = json_data['password']
+    with open(os.path.join(folder_paths.base_path, "matrix_auth"), "w") as f:
+        f.write("\n".join([homeserver, username, password]))
+
+def set_comfyworkflows_auth(comfyworkflows_sharekey):
+    with open(os.path.join(folder_paths.base_path, "comfyworkflows_sharekey"), "w") as f:
+        f.write(comfyworkflows_sharekey)
+
+def has_provided_matrix_auth(matrix_auth):
+    return matrix_auth['homeserver'].strip() and matrix_auth['username'].strip() and matrix_auth['password'].strip()
+
+def has_provided_comfyworkflows_auth(comfyworkflows_sharekey):
+    return comfyworkflows_sharekey.strip()
+
+@server.PromptServer.instance.routes.post("/manager/share")
+async def share_art(request):
+    # get json data
+    json_data = await request.json()
+
+    matrix_auth = json_data['matrix_auth']
+    comfyworkflows_sharekey = json_data['cw_auth']['cw_sharekey']
+
+    set_matrix_auth(matrix_auth)
+    set_comfyworkflows_auth(comfyworkflows_sharekey)
+
+    share_destinations = json_data['share_destinations']
+    credits = json_data['credits']
+    title = json_data['title']
+    description = json_data['description']
+    is_nsfw = json_data['is_nsfw']
+    prompt = json_data['prompt']
+    potential_outputs = json_data['potential_outputs']
+    selected_output_index = json_data['selected_output_index']
+    
+    try:
+        output_to_share = potential_outputs[int(selected_output_index)]
+    except:
+        # for now, pick the first output
+        output_to_share = potential_outputs[0]
+        
+    assert output_to_share['type'] in ('image', 'output')
+    output_dir = folder_paths.get_output_directory()
+
+    if output_to_share['type'] == 'image':
+        asset_filename = output_to_share['image']['filename']
+        asset_subfolder = output_to_share['image']['subfolder']
+
+        if output_to_share['image']['type'] == 'temp':
+            output_dir = folder_paths.get_temp_directory()
+    else:
+        asset_filename = output_to_share['output']['filename']
+        asset_subfolder = output_to_share['output']['subfolder']
+
+    if asset_subfolder:
+        asset_filepath = os.path.join(output_dir, asset_subfolder, asset_filename)
+    else:
+        asset_filepath = os.path.join(output_dir, asset_filename)
+
+    # get the mime type of the asset
+    assetFileType = mimetypes.guess_type(asset_filepath)[0]
+
+    if "comfyworkflows" in share_destinations:
+        share_website_host = "https://comfyworkflows.com"
+        share_endpoint = f"{share_website_host}/api"
+        
+        # get presigned urls
+        async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+            async with session.post(
+                f"{share_endpoint}/get_presigned_urls",
+                json={
+                    "assetFileName": asset_filename,
+                    "assetFileType": assetFileType,
+                    "workflowJsonFileName" : 'workflow.json', 
+                    "workflowJsonFileType" : 'application/json',
+
+                },
+            ) as resp:
+                assert resp.status == 200
+                presigned_urls_json = await resp.json()
+                assetFilePresignedUrl = presigned_urls_json["assetFilePresignedUrl"]
+                assetFileKey = presigned_urls_json["assetFileKey"]
+                workflowJsonFilePresignedUrl = presigned_urls_json["workflowJsonFilePresignedUrl"]
+                workflowJsonFileKey = presigned_urls_json["workflowJsonFileKey"]
+        
+        # upload asset
+        async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+            async with session.put(assetFilePresignedUrl, data=open(asset_filepath, "rb")) as resp:
+                assert resp.status == 200
+
+        # upload workflow json
+        async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+            async with session.put(workflowJsonFilePresignedUrl, data=json.dumps(prompt['workflow']).encode('utf-8')) as resp:
+                assert resp.status == 200
+
+        # make a POST request to /api/upload_workflow with form data key values
+        async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+            form = aiohttp.FormData()
+            if comfyworkflows_sharekey:
+                form.add_field("shareKey", comfyworkflows_sharekey)
+            form.add_field("source", "comfyui_manager")
+            form.add_field("assetFileKey", assetFileKey)
+            form.add_field("assetFileType", assetFileType)
+            form.add_field("workflowJsonFileKey", workflowJsonFileKey)
+            form.add_field("sharedWorkflowWorkflowJsonString", json.dumps(prompt['workflow']))
+            form.add_field("sharedWorkflowPromptJsonString", json.dumps(prompt['output']))
+            form.add_field("shareWorkflowCredits", credits)
+            form.add_field("shareWorkflowTitle", title)
+            form.add_field("shareWorkflowDescription", description)
+            form.add_field("shareWorkflowIsNSFW", str(is_nsfw).lower())
+
+            async with session.post(
+                f"{share_endpoint}/upload_workflow",
+                data=form,
+            ) as resp:
+                assert resp.status == 200
+                upload_workflow_json = await resp.json()
+                workflowId = upload_workflow_json["workflowId"]
+
+    # check if the user has provided Matrix credentials
+    if "matrix" in share_destinations:
+        comfyui_share_room_id = '!LGYSoacpJPhIfBqVfb:matrix.org'
+        filename = os.path.basename(asset_filepath)
+        content_type = assetFileType
+
+        try:
+            from matrix_client.api import MatrixHttpApi
+            from matrix_client.client import MatrixClient
+
+            homeserver = 'matrix.org'
+            if matrix_auth:
+                homeserver = matrix_auth.get('homeserver', 'matrix.org')
+            homeserver = homeserver.replace("http://", "https://")
+            if not homeserver.startswith("https://"):
+                homeserver = "https://" + homeserver
+            
+            client = MatrixClient(homeserver)
+            try:
+                token = client.login(username=matrix_auth['username'], password=matrix_auth['password'])
+                if not token:
+                    return web.json_response({"error" : "Invalid Matrix credentials."}, content_type='application/json', status=400)
+            except:
+                return web.json_response({"error" : "Invalid Matrix credentials."}, content_type='application/json', status=400)
+
+            matrix = MatrixHttpApi(homeserver, token=token)
+            with open(asset_filepath, 'rb') as f:
+                mxc_url = matrix.media_upload(f.read(), content_type, filename=filename)['content_uri']
+                        
+            workflow_json_mxc_url = matrix.media_upload(prompt['workflow'], 'application/json', filename='workflow.json')['content_uri']
+
+            text_content = ""
+            if title:
+                text_content += f"{title}\n"
+            if description:
+                text_content += f"{description}\n"
+            if credits:
+                text_content += f"\ncredits: {credits}\n"
+            response = matrix.send_message(comfyui_share_room_id, text_content)
+            response = matrix.send_content(comfyui_share_room_id, mxc_url, filename, 'm.image')
+            response = matrix.send_content(comfyui_share_room_id, workflow_json_mxc_url, 'workflow.json', 'm.file')
+        except:
+            import traceback
+            traceback.print_exc()
+            return web.json_response({"error" : "An error occurred when sharing your art to Matrix."}, content_type='application/json', status=500)
+    
+    return web.json_response({
+        "comfyworkflows" : {
+            "url" : None if "comfyworkflows" not in share_destinations else f"{share_website_host}/workflows/{workflowId}",
+        },
+        "matrix" : {
+            "success" : None if "matrix" not in share_destinations else True
+        }
+    }, content_type='application/json', status=200)
 
 WEB_DIRECTORY = "js"
 NODE_CLASS_MAPPINGS = {}
