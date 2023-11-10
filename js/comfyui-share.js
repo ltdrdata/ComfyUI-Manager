@@ -84,6 +84,17 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 							}
 							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": widgetValue, "format": parsedURLVals.format } });
 						}
+					} else if (node.widgets[j].type === "preview") {
+						const widgetValue = node.widgets[j].value;
+						const parsedURLVals = widgetValue.params;
+
+						// ensure that the parsedURLVals have 'filename', 'subfolder', 'type', and 'format' properties
+						if (parsedURLVals.hasOwnProperty("filename") && parsedURLVals.hasOwnProperty("subfolder") && parsedURLVals.hasOwnProperty("type") && parsedURLVals.hasOwnProperty("format")) {
+							if (parsedURLVals.type !== "output") {
+								// TODO
+							}
+							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": `/view?filename=${parsedURLVals.filename}&subfolder=${parsedURLVals.subfolder}&type=${parsedURLVals.type}&format=${parsedURLVals.format}`, "format": parsedURLVals.format } });
+						}
 					}
 				}
 			}
