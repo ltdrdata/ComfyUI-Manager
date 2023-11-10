@@ -13,7 +13,7 @@ import concurrent
 import ssl
 from urllib.parse import urlparse
 
-version = "V0.42"
+version = "V0.43"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
@@ -1407,10 +1407,6 @@ async def channel_url_list(request):
         return web.json_response(res, status=200)
 
     return web.Response(status=200)
-
-
-if get_config()['bypass_ssl']:
-    ssl._create_default_https_context = ssl._create_unverified_context  # SSL certificate error fix.
 
 
 WEB_DIRECTORY = "js"

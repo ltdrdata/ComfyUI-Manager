@@ -151,6 +151,22 @@ except Exception as e:
 print("** ComfyUI start up time:", datetime.datetime.now())
 
 
+def check_bypass_ssl():
+    import configparser
+    import ssl
+    config_path = os.path.join(os.path.dirname(__file__), "config.ini")
+    config = configparser.ConfigParser()
+    config.read(config_path)
+    default_conf = config['default']
+    
+    if 'bypass_ssl' in default_conf and default_conf['bypass_ssl'].lower() == 'true':
+        print(f"[ComfyUI-Manager] WARN: Unsafe - SSL verification option is Enabled. (see ComfyUI-Manager/config.ini)")
+        ssl._create_default_https_context = ssl._create_unverified_context  # SSL certificate error fix.
+
+
+check_bypass_ssl()
+
+
 if os.path.exists(restore_snapshot_path):
     try:
         import json
