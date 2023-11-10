@@ -603,7 +603,7 @@ app.registerExtension({
 						const supported_nodes_string = SUPPORTED_OUTPUT_NODE_TYPES.join(", ");
 						alert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
 					} else {
-						alert("To share this, first run a prompt. Once it's done, click 'Share'.");
+						alert("To share this, first run a prompt. Once it's done, click 'Share'.\n\nNOTE: Images of the Share target can only be selected in the PreviewImage, SaveImage, and VHS_VideoCombine nodes. In the case of VHS_VideoCombine, only the image/gif and image/webp formats are supported.");
 					}
 					return;
 				}
