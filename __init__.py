@@ -14,7 +14,7 @@ import concurrent
 import ssl
 from urllib.parse import urlparse
 
-version = "V0.43.1"
+version = "V1.0"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
