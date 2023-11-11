@@ -1,6 +1,37 @@
 {
   "models": [
     {
+      "name": "LCM LoRA SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/lcm/SD1.5",
+      "description": "Latent Consistency LoRA for SD1.5",
+      "reference": "https://huggingface.co/latent-consistency/lcm-lora-sdv1-5",
+      "filename": "pytorch_lora_weights.safetensors",
+      "url": "https://huggingface.co/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors"
+    },
+    {
+      "name": "LCM LoRA SSD-1B",
+      "type": "lora",
+      "base": "SSD-1B",
+      "save_path": "loras/lcm/SSD-1B",
+      "description": "Latent Consistency LoRA for SSD-1B",
+      "reference": "https://huggingface.co/latent-consistency/lcm-lora-ssd-1b",
+      "filename": "pytorch_lora_weights.safetensors",
+      "url": "https://huggingface.co/latent-consistency/lcm-lora-ssd-1b/resolve/main/pytorch_lora_weights.safetensors"
+    },
+    {
+      "name": "LCM LoRA SDXL",
+      "type": "lora",
+      "base": "SSD-1B",
+      "save_path": "loras/lcm/SDXL",
+      "description": "Latent Consistency LoRA for SDXL",
+      "reference": "https://huggingface.co/latent-consistency/lcm-lora-sdxl",
+      "filename": "pytorch_lora_weights.safetensors",
+      "url": "https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors"
+    },
+
+    {
       "name": "face_yolov8m-seg_60.pt (segm)",
       "type": "Ultralytics",
       "base": "Ultralytics",
