@@ -192,7 +192,7 @@ NODE_CLASS_MAPPINGS.update({
 
 - [ ] System displaying information about failed custom nodes import.
 - [ ] Guide for missing nodes in ComfyUI vanilla nodes.
-- [ ] Auto migration for nodes with changed structures.
+- [ ] Auto migration for custom nodes with changed structures.
 - [ ] Version control feature for nodes.
 - [ ] List of currently used custom nodes.
 - [ ] Template sharing system.
