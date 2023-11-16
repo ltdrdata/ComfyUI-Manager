@@ -28,7 +28,7 @@ export class OpenArtShareDialog extends ComfyDialog {
 	}
 	createButtons() {
         const sectionStyle = {
-            marginBottom: '20px',
+            marginBottom: '10px',
             padding: '15px',
             borderRadius: '8px',
             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
@@ -57,7 +57,7 @@ export class OpenArtShareDialog extends ComfyDialog {
         const labelStyle = {
 			color: "#f8f8f8",
             display: 'block',
-            marginBottom: '5px',
+            margin: '10px 0',
             fontWeight: 'bold',
 			textDecoration: 'none',
         };
@@ -71,19 +71,41 @@ export class OpenArtShareDialog extends ComfyDialog {
             color: '#fff',
             backgroundColor: '#007bff'
         };
+
+		// upload images input
+		this.uploadImagesInput = $el("input", { type: 'file', multiple: false, style: inputStyle })
 		
-		this.keyInput = $el("input", { type: 'text', placeholder: "Share Your key", style: inputStyle })
+		this.uploadImagesInput.addEventListener('change', async (e) => {
+			const file = e.target.files[0];
+			if (!file) {
+				return;
+			}
+			const reader = new FileReader();
+			reader.onload = async (e) => {
+				const imgData = e.target.result;
+				this.previewImage.src = imgData;
+			};
+			reader.readAsDataURL(file);
+		});
+
+		// preview image
+		this.previewImage = $el("img", { src: "", style: { maxWidth: '100%', maxHeight: '100px' } });
+
+		this.keyInput = $el("input", { type: 'text', placeholder: "Copy & paste your API key", style: inputStyle })
 		// Account Section
 		const AccountSection = $el("div", { style: sectionStyle }, [
 			$el("a", { style: headerLabelStyle, href: "https://openart.ai/workflows" }, ["Check out 1000+ workflows others have uploaded."]),
-			$el("a", { style: headerLabelStyle, href: "https://openart.ai/workflows" }, ["You can get OpenArt key at https://openart.ai/"]),
+			$el("a", { style: headerLabelStyle, href: "https://openart.ai/workflows" }, ["You can get API key at https://openart.ai/"]),
 			$el("label", { style: labelStyle }, ["OpenArt API Key"]),
 			this.keyInput,
 		]);
 
 		// Additional Inputs Section
 		const additionalInputsSection = $el("div", { style: sectionStyle }, [
-			$el("label", { style: labelStyle }, ["Details"]),
+			$el("label", { style: labelStyle }, ["Image/Thumbnail (Required)"]),
+			this.uploadImagesInput,
+			this.previewImage,
+			$el("label", { style: labelStyle }, ["Workflow Information"]),
 			$el("input", { type: "text", placeholder: "Title (required)", style: inputStyle }),
 			$el("textarea", { placeholder: "Description (optional)", style: {
 				...inputStyle,
