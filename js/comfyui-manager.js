@@ -1,7 +1,7 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
-import { ShareDialog, SUPPORTED_OUTPUT_NODE_TYPES, getPotentialOutputsAndOutputNodes } from "./comfyui-share.js";
+import { ShareDialog, SUPPORTED_OUTPUT_NODE_TYPES, getPotentialOutputsAndOutputNodes, ShareDialogChooser } from "./comfyui-share-common.js";
 import { CustomNodesInstaller } from "./custom-nodes-downloader.js";
 import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
@@ -586,9 +586,13 @@ app.registerExtension({
 		const shareButton = document.createElement("button");
 		shareButton.textContent = "Share";
 		shareButton.onclick = () => {
-			if (!ShareDialog.instance) {
-				ShareDialog.instance = new ShareDialog();
+
+			if(!ShareDialogChooser.instance) {
+				ShareDialogChooser.instance = new ShareDialogChooser();
 			}
+			// TODO: DEV ONLY, remove this line
+			ShareDialogChooser.instance.show({ potential_outputs : [], potential_output_nodes: [] });
+			return
 
 			app.graphToPrompt().then(prompt => {
 				// console.log({ prompt })
@@ -608,7 +612,7 @@ app.registerExtension({
 					return;
 				}
 
-				ShareDialog.instance.show({ potential_outputs, potential_output_nodes });
+				ShareDialogChooser.instance.show({ potential_outputs, potential_output_nodes });
 			});
 		}
 		// make the background color a gradient of blue to green

@@ -1,6 +1,7 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
+import { OpenArtShareDialog } from "./comfyui-share-openart.js";
 
 export const SUPPORTED_OUTPUT_NODE_TYPES = [
 	"PreviewImage",
@@ -149,7 +150,198 @@ export function parseURLPath(urlPath) {
 	// Return the object with the parsed parameters
 	return parsedParams;
 }
+export class ShareDialogChooser extends ComfyDialog {
+	static instance = null;
+	constructor() {
+		super();
+		this.element = $el("div.comfy-modal", {
+			parent: document.body, style: {
+				'overflow-y': "auto",
+			}
+		},
+			[$el("div.comfy-modal-content",
+				{},
+				[...this.createButtons()]),
+			]);
+			
+	}
+	createButtons() {
+		const handleShowOpenArtShareDialog = () => {
+			if (!OpenArtShareDialog.instance) {
+				OpenArtShareDialog.instance = new OpenArtShareDialog();
+			}
+			OpenArtShareDialog.instance.show({ potential_outputs: this.potential_output_nodes, potential_output_nodes: this.potential_output_nodes })
+			this.close();
+		}
+		
+		const handleShowShareDialog = () => {
+			if (!ShareDialog.instance) {
+				ShareDialog.instance = new ShareDialog();
+			}
+			ShareDialog.instance.show({ potential_outputs: this.potential_output_nodes, potential_output_nodes: this.potential_output_nodes })
+			this.close();
+		}
 
+		const buttons = [
+			{
+				key: "openart",
+				textContent: "OpenArt AI",
+				website: "https://openart.ai/workflows/",
+				description: "Best place to share your workflow and art.",
+				onclick: handleShowOpenArtShareDialog
+			},
+			{
+				key: "matrix",
+				textContent: "Matrix Server",
+				website: "https://app.element.io/#/room/%23comfyui_space%3Amatrix.org",
+				description: "Share your art on the official ComfyUI matrix server.",
+				onclick: handleShowShareDialog
+			},
+			{
+				key: "comfyworkflows",
+				textContent: "ComfyWorkflows",
+				website: "https://comfyworkflows.com",
+				description: "Share ComfyUI art: Download & drop any image into ComfyUI to load its workflow.",
+				onclick: handleShowShareDialog
+			},
+		];
+
+		function createShareButtonsWithDescriptions() {
+			// Responsive container
+			const container = $el("div", {
+				style: {
+					display: "flex",
+					'flex-wrap': 'wrap',
+					'justify-content': 'space-around',
+					'padding': '20px',
+				}
+			});
+		
+			buttons.forEach(b => {
+				const button = $el("button", {
+					type: "button",
+					textContent: b.textContent,
+					onclick: b.onclick,
+					style: {
+						'width': '25%',
+						'minWidth': '200px',
+						'background-color': b.backgroundColor || '',
+						'border-radius': '5px',
+						'cursor': 'pointer',
+						'padding': '5px 5px',
+						'margin-bottom': '5px',
+						'transition': 'background-color 0.3s',
+					}
+				});
+				button.addEventListener('mouseover', () => {
+					button.style.backgroundColor = '#007BFF'; // Change color on hover
+				});
+				button.addEventListener('mouseout', () => {
+					button.style.backgroundColor = b.backgroundColor || '';
+				});
+		
+				const description = $el("p", {
+					textContent: b.description,
+					style: {
+						'text-align': 'center',
+						color: 'white',
+						'font-style': 'italic',
+						'font-size': '14px',
+						'margin-bottom': '10px',
+					},
+				});
+		
+				const websiteLink = $el("a", {
+					textContent: "🌐 Website",
+					href: b.website,
+					target: "_blank",
+					style: {
+						color: 'white',
+						'margin-left': '10px',
+						'font-size': '12px',
+						'text-decoration': 'none',
+						'align-self': 'center',
+					},
+				});
+
+				// Add highlight to the website link
+				websiteLink.addEventListener('mouseover', () => {
+					websiteLink.style.opacity = '0.7';
+				});
+		
+				websiteLink.addEventListener('mouseout', () => {
+					websiteLink.style.opacity = '1';
+				});
+		
+				const buttonLinkContainer = $el("div", {
+					style: {
+						display: 'flex',
+						'align-items': 'center',
+						'margin-bottom': '10px',
+					}
+				}, [button, websiteLink]);
+		
+				const column = $el("div", {
+					style: {
+						'flex-basis': '100%',
+						'margin': '10px',
+						'padding': '20px',
+						'border': '1px solid #ddd',
+						'border-radius': '5px',
+						'box-shadow': '0 2px 4px rgba(0, 0, 0, 0.1)',
+					}
+				}, [buttonLinkContainer, description]);
+		
+				container.appendChild(column);
+			});
+		
+			return container;
+		}
+		
+
+		return [
+			$el("tr.td", { width: "100%" }, [
+				$el("font", { size: 6, color: "white" }, [`Where would you like to share your workflow?`]),
+			]),
+			$el("br", {}, []),
+
+			$el("div.cm-menu-container", {
+				id: "comfyui-share-container"
+			}, [
+				$el("div.cm-menu-column", [
+					$el("p", {
+						size: 3, color: "white", style: {
+							color: 'white'
+						}
+					}),
+					createShareButtonsWithDescriptions(),
+					$el("br", {}, []),
+				]),
+			]),
+			$el("div.cm-menu-container", {
+				id: "comfyui-share-container"
+			}, [
+				$el("button", {
+					type: "button",
+					style: {
+						margin: "0 25px",
+						width: "100%",
+					},
+					textContent: "Close",
+					onclick: () => {
+						this.close()
+					}
+				}),
+				$el("br", {}, []),
+			]),
+		];
+	}
+	show({ potential_outputs, potential_output_nodes }) {
+		this.element.style.display = "block";
+		this.potential_outputs = potential_outputs;
+		this.potential_output_nodes = potential_output_nodes;
+	}
+}
 export class ShareDialog extends ComfyDialog {
 	static instance = null;
 	static matrix_auth = { homeserver: "matrix.org", username: "", password: "" };
