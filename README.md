@@ -189,6 +189,7 @@ NODE_CLASS_MAPPINGS.update({
 * https://github.com/senshilabs/NINJA-plugin
 * https://github.com/MockbaTheBorg/Nodes
 
+
 ## Roadmap
 
 - [ ] System displaying information about failed custom nodes import.
@@ -198,6 +199,7 @@ NODE_CLASS_MAPPINGS.update({
 - [ ] List of currently used custom nodes.
 - [ ] Template sharing system.
 - [ ] 3rd party API system.
+- [ ] Collision checking system for nodes with the same ID across extensions.
 
 
 # Disclaimer
