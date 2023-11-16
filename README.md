@@ -190,15 +190,13 @@ NODE_CLASS_MAPPINGS.update({
 
 ## Roadmap
 
-- [x] category/keyword filter
-- [x] Automatic recognition of missing custom nodes
-- [x] Automatic installation suggestion of missing custom nodes
-- [x] 3rd party repository -> channels
-- [x] Specification of custom nodes
-- [x] Specification scanner
-- [x] workflow download -> workflow gallery
-- [x] Search extension by node name -> [ltdrdata.github.io](https://ltdrdata.github.io)
-- [x] installation from git url
+- [ ] System displaying information about failed custom nodes import.
+- [ ] Guide for missing nodes in ComfyUI vanilla nodes.
+- [ ] Auto migration for nodes with changed structures.
+- [ ] Version control feature for nodes.
+- [ ] List of currently used custom nodes.
+- [ ] Template sharing system.
+- [ ] 3rd party API system.
 
 
 # Disclaimer
