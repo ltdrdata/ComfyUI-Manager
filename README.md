@@ -5,6 +5,7 @@
 ![menu](misc/menu.jpg)
 
 ## NOTICE
+* If you wish to hide the 'Share' button, please refer to the settings menu.
 * You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
 * Versions prior to V0.22.2 will no longer detect missing nodes unless using a local database. Please update ComfyUI-Manager to the latest version.
 
