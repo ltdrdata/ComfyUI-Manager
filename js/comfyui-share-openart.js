@@ -94,11 +94,13 @@ export class OpenArtShareDialog extends ComfyDialog {
       type: "file",
       multiple: false,
       style: inputStyle,
+      accept: "image/*",
     });
 
     this.uploadImagesInput.addEventListener("change", async (e) => {
       const file = e.target.files[0];
       if (!file) {
+        this.previewImage.src = "";
         return;
       }
       const reader = new FileReader();
@@ -135,12 +137,16 @@ export class OpenArtShareDialog extends ComfyDialog {
 
     // Account Section
     const AccountSection = $el("div", { style: sectionStyle }, [
-      $el("a", { style: hyperLinkStyle, href: DEFAULT_HOMEPAGE_URL }, [
-        "Check out 1000+ workflows others have uploaded.",
-      ]),
-      $el("a", { style: hyperLinkStyle, href: DEFAULT_HOMEPAGE_URL }, [
-        "You can get API key at here.",
-      ]),
+      $el(
+        "a",
+        { style: hyperLinkStyle, href: DEFAULT_HOMEPAGE_URL, target: "_blank" },
+        ["Check out 1000+ workflows others have uploaded."]
+      ),
+      $el(
+        "a",
+        { style: hyperLinkStyle, href: DEFAULT_HOMEPAGE_URL, target: "_blank" },
+        ["You can get API key at here."]
+      ),
       $el("label", { style: labelStyle }, ["OpenArt API Key"]),
       this.keyInput,
     ]);
@@ -225,18 +231,27 @@ export class OpenArtShareDialog extends ComfyDialog {
           ...Object.entries(params),
         ])}`
       );
-	
-	const fullPath = addSearchParams(new URL(API_ENDPOINT + path), {
-		workflow_api_key: this.keyInput.value,
-	});
+
+    const fullPath = addSearchParams(new URL(API_ENDPOINT + path), {
+      workflow_api_key: this.keyInput.value,
+    });
 
     const response = await fetch(fullPath, options);
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
 
     if (statusText) {
       this.message.textContent = "";
     }
-
-    return await response.json();
+    const data = await response.json();
+    return {
+      ok: response.ok,
+      statusText: response.statusText,
+      status: response.status,
+      data,
+    };
   }
   async uploadThumbnail(uploadFile) {
     const form = new FormData();
@@ -250,7 +265,8 @@ export class OpenArtShareDialog extends ComfyDialog {
         },
         "Uploading thumbnail..."
       );
-      if (res.status === 200 && res.data) {
+
+      if (res.ok && res.data) {
         const { image_url, width, height } = res.data;
         this.uploadedImages.push({
           url: image_url,
@@ -267,6 +283,8 @@ export class OpenArtShareDialog extends ComfyDialog {
     }
   }
   async handleShareButtonClick() {
+    this.message.textContent = "";
+    this.saveKeyToLocalStorage(this.keyInput.value);
     try {
       this.shareButton.disabled = true;
       this.shareButton.textContent = "Sharing...";
@@ -274,13 +292,10 @@ export class OpenArtShareDialog extends ComfyDialog {
     } catch (e) {
       alert(e.message);
     }
-	this.shareButton.disabled = false;
-	this.shareButton.textContent = "Share";
-	this.message.textContent = "";
-	this.uploadedImages = [];
+    this.shareButton.disabled = false;
+    this.shareButton.textContent = "Share";
   }
   async share() {
-    this.uploadedImages = [];
     const prompt = await app.graphToPrompt();
     const workflowJSON = prompt["workflow"];
     const form_values = {
@@ -300,12 +315,23 @@ export class OpenArtShareDialog extends ComfyDialog {
       throw new Error("Name is required");
     }
 
-    for (const file of this.uploadImagesInput.files) {
-      await this.uploadThumbnail(file);
-    }
+    if (!this.uploadedImages.length) {
+      for (const file of this.uploadImagesInput.files) {
+        try {
+          await this.uploadThumbnail(file);
+        } catch (e) {
+          this.uploadedImages = [];
+          throw new Error(e.message);
+        }
+      }
 
-    if (this.uploadImagesInput.files.length === 0) {
-      throw new Error("No thumbnail uploaded");
+      if (this.uploadImagesInput.files.length === 0) {
+        throw new Error("No thumbnail uploaded");
+      }
+
+      if (this.uploadImagesInput.files.length === 0) {
+        throw new Error("No thumbnail uploaded");
+      }
     }
 
     try {
@@ -323,15 +349,18 @@ export class OpenArtShareDialog extends ComfyDialog {
         "Uploading workflow..."
       );
 
-      if (response.status === 200) {
-        console.log(response.data);
-        this.saveKeyToLocalStorage(this.keyInput.value);
+      if (response.ok) {
+        const { workflow_id } = response.data;
+        if (workflow_id) {
+          const url = `https://openart.ai/workflows/-/-/${workflow_id}`;
+          this.message.innerHTML = `Workflow has been shared successfully. <a href="${url}" target="_blank">Click here to view it.</a>`;
+        }
       }
     } catch (e) {
       throw new Error("Error sharing workflow: " + e.message);
     }
   }
-  show({ potential_outputs, potential_output_nodes }) {
+  show({ potential_outputs, potential_output_nodes } = {}) {
     this.element.style.display = "block";
     // read key from local storage and set it to the input
     const key = this.readKeyFromLocalStorage();
