@@ -3,13 +3,27 @@ import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
 
 const LOCAL_STORAGE_KEY = "openart_comfy_workflow_key";
+const DEFAULT_HOMEPAGE_URL = "https://openart.ai/workflows/dev?developer=true";
+
+const style = `
+.openart-share-dialog a {
+	color: #f8f8f8;
+}
+.openart-share-dialog a:hover {
+	color: #007bff;
+}
+`;
 
 export class OpenArtShareDialog extends ComfyDialog {
 	static instance = null;
 
 	constructor() {
 		super();
-		this.element = $el("div.comfy-modal", {
+		$el("style", {
+			textContent: style,
+			parent: document.head,
+		});
+		this.element = $el("div.comfy-modal.openart-share-dialog", {
 			parent: document.body, style: {
 				'overflow-y': "auto",
 			}
@@ -45,12 +59,10 @@ export class OpenArtShareDialog extends ComfyDialog {
             boxSizing: 'border-box'
         };
 
-		const headerLabelStyle = {
-			color: "#f8f8f8",
+		const hyperLinkStyle = {
 			display: 'block',
 			marginBottom: '15px',
 			fontWeight: 'bold',
-			textDecoration: 'none',
 			fontSize: '20px',
 		};
 
@@ -94,8 +106,8 @@ export class OpenArtShareDialog extends ComfyDialog {
 		this.keyInput = $el("input", { type: 'text', placeholder: "Copy & paste your API key", style: inputStyle })
 		// Account Section
 		const AccountSection = $el("div", { style: sectionStyle }, [
-			$el("a", { style: headerLabelStyle, href: "https://openart.ai/workflows" }, ["Check out 1000+ workflows others have uploaded."]),
-			$el("a", { style: headerLabelStyle, href: "https://openart.ai/workflows" }, ["You can get API key at https://openart.ai/"]),
+			$el("a", { style: hyperLinkStyle, href: DEFAULT_HOMEPAGE_URL }, ["Check out 1000+ workflows others have uploaded."]),
+			$el("a", { style: hyperLinkStyle, href: DEFAULT_HOMEPAGE_URL }, ["You can get API key at here."]),
 			$el("label", { style: labelStyle }, ["OpenArt API Key"]),
 			this.keyInput,
 		]);
@@ -106,7 +118,7 @@ export class OpenArtShareDialog extends ComfyDialog {
 			this.uploadImagesInput,
 			this.previewImage,
 			$el("label", { style: labelStyle }, ["Workflow Information"]),
-			$el("input", { type: "text", placeholder: "Title (required)", style: inputStyle }),
+			$el("input", { type: "text", placeholder: "Name (required)", style: inputStyle }),
 			$el("textarea", { placeholder: "Description (optional)", style: {
 				...inputStyle,
 				minHeight: '100px',
