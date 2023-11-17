@@ -170,7 +170,7 @@ export class ShareDialogChooser extends ComfyDialog {
 			if (!OpenArtShareDialog.instance) {
 				OpenArtShareDialog.instance = new OpenArtShareDialog();
 			}
-			OpenArtShareDialog.instance.show({ potential_outputs: this.potential_output_nodes, potential_output_nodes: this.potential_output_nodes })
+			OpenArtShareDialog.instance.show()
 			this.close();
 		}
 		
@@ -178,8 +178,27 @@ export class ShareDialogChooser extends ComfyDialog {
 			if (!ShareDialog.instance) {
 				ShareDialog.instance = new ShareDialog();
 			}
-			ShareDialog.instance.show({ potential_outputs: this.potential_output_nodes, potential_output_nodes: this.potential_output_nodes })
-			this.close();
+			app.graphToPrompt().then(prompt => {
+				// console.log({ prompt })
+				return app.graph._nodes;
+			}).then(nodes => {
+				// console.log({ nodes });
+				const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
+
+				if (potential_outputs.length === 0) {
+					if (potential_output_nodes.length === 0) {
+						// todo: add support for other output node types (animatediff combine, etc.)
+						const supported_nodes_string = SUPPORTED_OUTPUT_NODE_TYPES.join(", ");
+						alert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
+					} else {
+						alert("To share this, first run a prompt. Once it's done, click 'Share'.\n\nNOTE: Images of the Share target can only be selected in the PreviewImage, SaveImage, and VHS_VideoCombine nodes. In the case of VHS_VideoCombine, only the image/gif and image/webp formats are supported.");
+					}
+					return;
+				}
+
+				ShareDialogChooser.instance.show({ potential_outputs, potential_output_nodes });
+				this.close();
+			});
 		}
 
 		const buttons = [
@@ -336,10 +355,8 @@ export class ShareDialogChooser extends ComfyDialog {
 			]),
 		];
 	}
-	show({ potential_outputs, potential_output_nodes }) {
+	show() {
 		this.element.style.display = "block";
-		this.potential_outputs = potential_outputs;
-		this.potential_output_nodes = potential_output_nodes;
 	}
 }
 export class ShareDialog extends ComfyDialog {
