@@ -1,7 +1,7 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
-import { ShareDialog, SUPPORTED_OUTPUT_NODE_TYPES, getPotentialOutputsAndOutputNodes, ShareDialogChooser } from "./comfyui-share-common.js";
+import { ShareDialog, SUPPORTED_OUTPUT_NODE_TYPES, getPotentialOutputsAndOutputNodes, ShareDialogChooser, showOpenArtShareDialog, showShareDialog } from "./comfyui-share-common.js";
 import { CustomNodesInstaller } from "./custom-nodes-downloader.js";
 import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
@@ -42,7 +42,7 @@ const style = `
 #comfyworkflows-button {
 	position: relative;
 	overflow: hidden;
- } 
+ }
 .pysssss-workflow-arrow-2 {
    position: absolute;
    top: 0;
@@ -235,16 +235,16 @@ async function updateAll(update_check_checkbox) {
 
 function newDOMTokenList(initialTokens) {
 	const tmp = document.createElement(`div`);
-  
+
 	const classList = tmp.classList;
 	if (initialTokens) {
 	  initialTokens.forEach(token => {
 		classList.add(token);
 	  });
 	}
-  
+
 	return classList;
-  }  
+  }
 
 
 // -----------
@@ -401,12 +401,37 @@ class ManagerMenuDialog extends ComfyDialog {
 				}
 			});
 
+	    // share
+	    let share_combo = document.createElement("select");
+	    const share_options = [
+	      ['none', 'None'],
+	      ['openart', 'OpenArt AI'],
+	      ['matrix', 'Matrix Server'],
+	      ['comfyworkflows', 'ComfyWorkflows'],
+	      ['all', 'All'],
+	    ];
+	    for (const option of share_options) {
+          share_combo.appendChild($el('option', { value: option[0], text: `Share: ${option[1]}` }, []));
+        }
+        share_combo.addEventListener('change', function (event) {
+          const value = event.target.value;
+          localStorage.setItem("share_option", value);
+          const shareButton = document.getElementById("shareButton");
+          if (value === 'none') {
+            shareButton.style.display = "none";
+          } else {
+            shareButton.style.display = "inline-block";
+          }
+        });
+        share_combo.value = localStorage.getItem("share_option") || 'all';
+
 		return [
 			$el("div", {}, [this.local_mode_checkbox, checkbox_text, this.update_check_checkbox, uc_checkbox_text]),
 			$el("br", {}, []),
 			preview_combo,
 			badge_combo,
 			channel_combo,
+			share_combo,
 
 			$el("hr", {}, []),
 			$el("center", {}, ["!! EXPERIMENTAL !!"]),
@@ -466,14 +491,14 @@ class ManagerMenuDialog extends ComfyDialog {
 											if (!ShareDialog.instance) {
 												ShareDialog.instance = new ShareDialog();
 											}
-								
+
 											app.graphToPrompt().then(prompt => {
 												// console.log({ prompt })
 												return app.graph._nodes;
 											}).then(nodes => {
 												// console.log({ nodes });
 												const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
-								
+
 												if (potential_outputs.length === 0) {
 													if (potential_output_nodes.length === 0) {
 														// todo: add support for other output node types (animatediff combine, etc.)
@@ -484,7 +509,7 @@ class ManagerMenuDialog extends ComfyDialog {
 													}
 													return;
 												}
-								
+
 												ShareDialog.instance.show({ potential_outputs, potential_output_nodes });
 											});
 										},
@@ -582,37 +607,32 @@ app.registerExtension({
 			}
 		menu.append(managerButton);
 
-
 		const shareButton = document.createElement("button");
+		shareButton.id = "shareButton";
 		shareButton.textContent = "Share";
 		shareButton.onclick = () => {
+		    const shareOption = localStorage.getItem("share_option") || 'all';
+		    if (shareOption === 'openart') {
+		        showOpenArtShareDialog();
+			    return;
+		    } else if (shareOption === 'matrix' || shareOption === 'comfyworkflows') {
+		        showShareDialog();
+		        return;
+		    }
 
 			if(!ShareDialogChooser.instance) {
 				ShareDialogChooser.instance = new ShareDialogChooser();
 			}
-
 			ShareDialogChooser.instance.show();
-			return
 		}
 		// make the background color a gradient of blue to green
 		shareButton.style.background = "linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%)";
 		shareButton.style.color = "black";
 
-		app.ui.settings.addSetting({
-			id: "ComfyUIManager.ShowShareButtonInMainMenu",
-			name: "Show 'Share' button in the main menu",
-			type: "boolean",
-			defaultValue: true,
-			onChange: (value) => {
-				if (value) {
-					// show the button
-					shareButton.style.display = "inline-block";
-				} else {
-					// hide the button
-					shareButton.style.display = "none";
-				}
-			}
-		});
+		// Load share option from local storage to determine whether to show
+		// the share button.
+		const shouldShowShareButton = localStorage.getItem("share_option") !== 'none';
+		shareButton.style.display = shouldShowShareButton ? "inline-block" : "none";
 
 		menu.append(shareButton);
 	},

@@ -150,6 +150,39 @@ export function parseURLPath(urlPath) {
 	// Return the object with the parsed parameters
 	return parsedParams;
 }
+
+
+export const showOpenArtShareDialog = () => {
+  if (!OpenArtShareDialog.instance) {
+    OpenArtShareDialog.instance = new OpenArtShareDialog();
+  }
+  OpenArtShareDialog.instance.show();
+}
+
+export const showShareDialog = () => {
+  if (!ShareDialog.instance) {
+    ShareDialog.instance = new ShareDialog();
+  }
+  app.graphToPrompt().then(prompt => {
+    // console.log({ prompt })
+	return app.graph._nodes;
+  }).then(nodes => {
+    // console.log({ nodes });
+	const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
+	if (potential_outputs.length === 0) {
+	  if (potential_output_nodes.length === 0) {
+	    // todo: add support for other output node types (animatediff combine, etc.)
+		const supported_nodes_string = SUPPORTED_OUTPUT_NODE_TYPES.join(", ");
+		alert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
+	  } else {
+	    alert("To share this, first run a prompt. Once it's done, click 'Share'.\n\nNOTE: Images of the Share target can only be selected in the PreviewImage, SaveImage, and VHS_VideoCombine nodes. In the case of VHS_VideoCombine, only the image/gif and image/webp formats are supported.");
+	  }
+	  return;
+	}
+	ShareDialog.instance.show({ potential_outputs, potential_output_nodes });
+  });
+}
+
 export class ShareDialogChooser extends ComfyDialog {
 	static instance = null;
 	constructor() {
@@ -166,62 +199,36 @@ export class ShareDialogChooser extends ComfyDialog {
 
 	}
 	createButtons() {
-		const handleShowOpenArtShareDialog = () => {
-			if (!OpenArtShareDialog.instance) {
-				OpenArtShareDialog.instance = new OpenArtShareDialog();
-			}
-			OpenArtShareDialog.instance.show()
-			this.close();
-		}
-
-		const handleShowShareDialog = () => {
-			if (!ShareDialog.instance) {
-				ShareDialog.instance = new ShareDialog();
-			}
-			app.graphToPrompt().then(prompt => {
-				// console.log({ prompt })
-				return app.graph._nodes;
-			}).then(nodes => {
-				// console.log({ nodes });
-				const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
-
-				if (potential_outputs.length === 0) {
-					if (potential_output_nodes.length === 0) {
-						// todo: add support for other output node types (animatediff combine, etc.)
-						const supported_nodes_string = SUPPORTED_OUTPUT_NODE_TYPES.join(", ");
-						alert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
-					} else {
-						alert("To share this, first run a prompt. Once it's done, click 'Share'.\n\nNOTE: Images of the Share target can only be selected in the PreviewImage, SaveImage, and VHS_VideoCombine nodes. In the case of VHS_VideoCombine, only the image/gif and image/webp formats are supported.");
-					}
-					return;
-				}
-
-				ShareDialog.instance.show({ potential_outputs, potential_output_nodes });
-				this.close();
-			});
-		}
-
 		const buttons = [
 			{
 				key: "openart",
 				textContent: "OpenArt AI",
 				website: "https://openart.ai/workflows/",
 				description: "Share ComfyUI workflows and art on OpenArt.ai",
-				onclick: handleShowOpenArtShareDialog
+				onclick: () => {
+				  showOpenArtShareDialog();
+				  this.close();
+				}
 			},
 			{
 				key: "matrix",
 				textContent: "Matrix Server",
 				website: "https://app.element.io/#/room/%23comfyui_space%3Amatrix.org",
 				description: "Share your art on the official ComfyUI matrix server",
-				onclick: handleShowShareDialog
+				onclick: () => {
+				  showShareDialog();
+				  this.close();
+				}
 			},
 			{
 				key: "comfyworkflows",
 				textContent: "ComfyWorkflows",
 				website: "https://comfyworkflows.com",
 				description: "Share ComfyUI art on comfyworkflows.com",
-				onclick: handleShowShareDialog
+				onclick: () => {
+				  showShareDialog();
+				  this.close();
+				}
 			},
 		];
 
@@ -316,22 +323,22 @@ export class ShareDialogChooser extends ComfyDialog {
 			return container;
 		}
 
-
 		return [
-			$el("tr.td", { width: "100%" }, [
-				$el("font", { size: 6, color: "white" }, [`Where would you like to share your workflow?`]),
-			]),
-			$el("br", {}, []),
+		    $el("p", {
+		      textContent: 'Choose a platform to share your workflow',
+			    style: {
+				  'text-align': 'center',
+				  'color': 'white',
+				  'font-size': '18px',
+				  'margin-bottom': '10px',
+				},
+			  }
+			),
 
 			$el("div.cm-menu-container", {
 				id: "comfyui-share-container"
 			}, [
 				$el("div.cm-menu-column", [
-					$el("p", {
-						size: 3, color: "white", style: {
-							color: 'white'
-						}
-					}),
 					createShareButtonsWithDescriptions(),
 					$el("br", {}, []),
 				]),
@@ -391,12 +398,12 @@ export class ShareDialog extends ComfyDialog {
 		this.matrix_destination_checkbox = $el("input", { type: 'checkbox', id: "matrix_destination" }, [])
 		const matrix_destination_checkbox_text = $el("label", {}, [" ComfyUI Matrix server"])
 		this.matrix_destination_checkbox.style.color = "var(--fg-color)";
-		this.matrix_destination_checkbox.checked = false; //true;
+		this.matrix_destination_checkbox.checked = localStorage.getItem("share_option") === 'matrix'; //true;
 
 		this.comfyworkflows_destination_checkbox = $el("input", { type: 'checkbox', id: "comfyworkflows_destination" }, [])
 		const comfyworkflows_destination_checkbox_text = $el("label", {}, [" ComfyWorkflows.com"])
 		this.comfyworkflows_destination_checkbox.style.color = "var(--fg-color)";
-		this.comfyworkflows_destination_checkbox.checked = true;
+		this.comfyworkflows_destination_checkbox.checked = localStorage.getItem("share_option") !== 'matrix';
 
 		this.matrix_homeserver_input = $el("input", { type: 'text', id: "matrix_homeserver", placeholder: "matrix.org", value: ShareDialog.matrix_auth.homeserver || 'matrix.org' }, []);
 		this.matrix_username_input = $el("input", { type: 'text', placeholder: "Username", value: ShareDialog.matrix_auth.username || '' }, []);
@@ -453,8 +460,8 @@ export class ShareDialog extends ComfyDialog {
 					textContent: "Close",
 					onclick: () => {
 						// Reset state
-						this.matrix_destination_checkbox.checked = false;
-						this.comfyworkflows_destination_checkbox.checked = true;
+						this.matrix_destination_checkbox.checked = localStorage.getItem("share_option") === 'matrix';
+						this.comfyworkflows_destination_checkbox.checked = localStorage.getItem("share_option") !== 'matrix';
 						this.share_button.textContent = "Share";
 						this.share_button.style.display = "inline-block";
 						this.final_message.innerHTML = "";
@@ -625,8 +632,8 @@ export class ShareDialog extends ComfyDialog {
 					textContent: "Close",
 					onclick: () => {
 						// Reset state
-						this.matrix_destination_checkbox.checked = false;
-						this.comfyworkflows_destination_checkbox.checked = true;
+						this.matrix_destination_checkbox.checked = localStorage.getItem("share_option") === 'matrix';
+						this.comfyworkflows_destination_checkbox.checked = localStorage.getItem("share_option") !== 'matrix';
 						this.share_button.textContent = "Share";
 						this.share_button.style.display = "inline-block";
 						this.final_message.innerHTML = "";

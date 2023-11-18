@@ -4,9 +4,10 @@ import { ComfyDialog, $el } from "../../scripts/ui.js";
 
 const LOCAL_STORAGE_KEY = "openart_comfy_workflow_key";
 const DEFAULT_HOMEPAGE_URL = "https://openart.ai/workflows/dev?developer=true";
+//const DEFAULT_HOMEPAGE_URL = "http://localhost:8080/workflows/dev?developer=true";
 
-// const API_ENDPOINT = "https://openart.ai/api";
-const API_ENDPOINT = "http://localhost:8080/api";
+ const API_ENDPOINT = "https://openart.ai/api";
+//const API_ENDPOINT = "http://localhost:8080/api";
 
 const style = `
 .openart-share-dialog a {
