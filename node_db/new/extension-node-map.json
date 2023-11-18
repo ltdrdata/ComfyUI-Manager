@@ -56,6 +56,30 @@
             "title_aux": "ComfyUI Nodes for External Tooling"
         }
     ],
+    "https://github.com/Amorano/Jovimetrix": [
+        [
+            "\u2697\ufe0f Blend Images (jov)",
+            "\u2728 Shape Generator (jov)",
+            "\ud83c\udf08 HSV Image (jov)",
+            "\ud83c\udf31 Transform Image (jov)",
+            "\ud83c\udfad Invert Image (jov)",
+            "\ud83d\udd06 Pixel Shader Image (jov)",
+            "\ud83d\udd27 Adjust Image (jov)",
+            "\ud83d\udd30 Mirror Image (jov)",
+            "\ud83d\udd33 Tile Image (jov)",
+            "\ud83d\udd78\ufe0f Filter Image (jov)",
+            "\ud83d\uddfa\ufe0f Remap Image (jov)",
+            "\ud83d\udfea Constant Image (jov)",
+            "\ud83e\udd7b Gradient (jov)"
+        ],
+        {
+            "author": "amorano",
+            "description": "Shapes and Shaders.",
+            "nickname": "Jovimetrix",
+            "title": "Jovimetrix Composition Pack",
+            "title_aux": "Jovimetrix Composition Nodes"
+        }
+    ],
     "https://github.com/ArtBot2023/CharacterFaceSwap": [
         [
             "Color Blend",
@@ -544,7 +568,9 @@
     ],
     "https://github.com/Gourieff/comfyui-reactor-node": [
         [
-            "ReActorFaceSwap"
+            "ReActorFaceSwap",
+            "ReActorLoadFaceModel",
+            "ReActorSaveFaceModel"
         ],
         {
             "title_aux": "ReActor Node for ComfyUI"
@@ -732,7 +758,8 @@
             "BreakFrames",
             "BreakGrid",
             "GetKeyFrames",
-            "MakeGrid"
+            "MakeGrid",
+            "RandomImageFromDir"
         ],
         {
             "title_aux": "ComfyBreakAnim"
@@ -2035,7 +2062,9 @@
     ],
     "https://github.com/aszc-dev/ComfyUI-CoreMLSuite": [
         [
+            "Core ML Converter",
             "Core ML LCM Converter",
+            "Core ML LoRA Loader",
             "CoreMLModelAdapter",
             "CoreMLSampler",
             "CoreMLUNetLoader"
@@ -2178,6 +2207,7 @@
             "Color Clip (advanced)",
             "Color Clip ADE20k",
             "ColorDictionary",
+            "ColorDictionary (custom)",
             "Conditioning (combine multiple)",
             "Conditioning (combine selective)",
             "Conditioning Grid (cond)",
@@ -2200,10 +2230,12 @@
             "FlatLatentsIntoSingleGrid",
             "Framed Mask Grab Cut",
             "Framed Mask Grab Cut 2",
+            "FromListGetColors",
             "FromListGetConds",
             "FromListGetImages",
             "FromListGetLatents",
             "FromListGetModels",
+            "FromListGetStrings",
             "Get Contour from list",
             "Get Models",
             "Get Prompt",
@@ -2234,10 +2266,12 @@
             "String",
             "String to Float",
             "String to Integer",
+            "ToColorList",
             "ToCondList",
             "ToImageList",
             "ToLatentList",
             "ToModelList",
+            "ToStringList",
             "VAEEncodeBatch"
         ],
         {
@@ -2920,6 +2954,19 @@
             "title_aux": "ComfyUI-Jjk-Nodes"
         }
     ],
+    "https://github.com/ka-puna/comfyui-yanc": [
+        [
+            "YANC.ConcatStrings",
+            "YANC.FormatDatetimeString",
+            "YANC.GetWidgetValueString",
+            "YANC.IntegerCaster",
+            "YANC.MultilineString",
+            "YANC.TruncateString"
+        ],
+        {
+            "title_aux": "comfyui-yanc"
+        }
+    ],
     "https://github.com/kijai/ComfyUI-KJNodes": [
         [
             "BatchCLIPSeg",
@@ -2938,6 +2985,7 @@
             "CreateFadeMask",
             "CreateFluidMask",
             "CreateGradientMask",
+            "CreateShapeMask",
             "CreateTextMask",
             "CrossFadeImages",
             "EmptyLatentImagePresets",
@@ -2956,7 +3004,8 @@
             "RoundMask",
             "SaveImageWithAlpha",
             "SomethingToString",
-            "VRAM_Debug"
+            "VRAM_Debug",
+            "WidgetToString"
         ],
         {
             "title_aux": "KJNodes for ComfyUI"
@@ -3234,6 +3283,7 @@
             "CacheBackendDataNumberKey //Inspire",
             "CacheBackendDataNumberKeyList //Inspire",
             "Canny_Preprocessor_Provider_for_SEGS //Inspire",
+            "ChangeImageBatchSize //Inspire",
             "Color_Preprocessor_Provider_for_SEGS //Inspire",
             "DWPreprocessor_Provider_for_SEGS //Inspire",
             "FakeScribblePreprocessor_Provider_for_SEGS //Inspire",
@@ -3266,6 +3316,8 @@
             "RegionalConditioningColorMask //Inspire",
             "RegionalConditioningSimple //Inspire",
             "RegionalIPAdapterColorMask //Inspire",
+            "RegionalIPAdapterEncodedColorMask //Inspire",
+            "RegionalIPAdapterEncodedMask //Inspire",
             "RegionalIPAdapterMask //Inspire",
             "RegionalPromptColorMask //Inspire",
             "RegionalPromptSimple //Inspire",
@@ -3629,6 +3681,7 @@
     "https://github.com/peteromallet/ComfyUI-Creative-Interpolation": [
         [
             "ACN_AdvancedControlNetApplyImport",
+            "BatchCreativeInterpolation",
             "ControlNetLoaderAdvancedImport",
             "CustomControlNetWeights",
             "CustomT2IAdapterWeights",
@@ -3637,7 +3690,6 @@
             "LatentKeyframeGroupImport",
             "LatentKeyframeImport",
             "LatentKeyframeTiming",
-            "LinearBatchCreativeInterpolation",
             "LoadImagesFromDirectory",
             "ScaledSoftControlNetWeightsImport",
             "SoftControlNetWeights",
@@ -3735,6 +3787,15 @@
         ],
         {
             "title_aux": "rk-comfy-nodes"
+        }
+    ],
+    "https://github.com/romeobuilderotti/ComfyUI-PNG-Metadata": [
+        [
+            "SetMetadataAll",
+            "SetMetadataString"
+        ],
+        {
+            "title_aux": "ComfyUI PNG Metadata"
         }
     ],
     "https://github.com/s1dlx/comfy_meh/raw/main/meh.py": [
@@ -3841,6 +3902,7 @@
             "AspectRatioSelector",
             "BLIPCaption",
             "BLIPLoader",
+            "BooleanPrimitive",
             "ColorBlend",
             "ColorCorrect",
             "DeepDanbooruCaption",
@@ -4135,14 +4197,6 @@
         ],
         {
             "title_aux": "Save Image Extended for ComfyUI"
-        }
-    ],
-    "https://github.com/tkoenig89/ComfyUI_Load_Image_With_Metadata": [
-        [
-            "LoadImageWithMetadata"
-        ],
-        {
-            "title_aux": "Load Image with metadata"
         }
     ],
     "https://github.com/trojblue/trNodes": [
@@ -4514,7 +4568,7 @@
             "PromptTermList6"
         ],
         {
-            "title_aux": "ComfyUI-noEmbryo nodes"
+            "title_aux": "noEmbryo nodes"
         }
     ],
     "https://raw.githubusercontent.com/throttlekitty/SDXLCustomAspectRatio/main/SDXLAspectRatio.py": [

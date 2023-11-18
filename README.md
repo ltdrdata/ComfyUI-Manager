@@ -5,6 +5,7 @@
 ![menu](misc/menu.jpg)
 
 ## NOTICE
+* If you wish to hide the 'Share' button, please refer to the settings menu.
 * You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
 * Versions prior to V0.22.2 will no longer detect missing nodes unless using a local database. Please update ComfyUI-Manager to the latest version.
 
@@ -188,17 +189,17 @@ NODE_CLASS_MAPPINGS.update({
 * https://github.com/senshilabs/NINJA-plugin
 * https://github.com/MockbaTheBorg/Nodes
 
+
 ## Roadmap
 
-- [x] category/keyword filter
-- [x] Automatic recognition of missing custom nodes
-- [x] Automatic installation suggestion of missing custom nodes
-- [x] 3rd party repository -> channels
-- [x] Specification of custom nodes
-- [x] Specification scanner
-- [x] workflow download -> workflow gallery
-- [x] Search extension by node name -> [ltdrdata.github.io](https://ltdrdata.github.io)
-- [x] installation from git url
+- [ ] System displaying information about failed custom nodes import.
+- [ ] Guide for missing nodes in ComfyUI vanilla nodes.
+- [ ] Auto migration for custom nodes with changed structures.
+- [ ] Version control feature for nodes.
+- [ ] List of currently used custom nodes.
+- [ ] Template sharing system.
+- [ ] 3rd party API system.
+- [ ] Collision checking system for nodes with the same ID across extensions.
 
 
 # Disclaimer
