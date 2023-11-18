@@ -68,7 +68,7 @@ export class OpenArtShareDialog extends ComfyDialog {
       display: "block",
       marginBottom: "15px",
       fontWeight: "bold",
-      fontSize: "20px",
+      fontSize: "14px",
     };
 
     const labelStyle = {
@@ -135,18 +135,37 @@ export class OpenArtShareDialog extends ComfyDialog {
       },
     });
 
+    // LinkSection
+    this.communityLink = $el("a", {
+      style: hyperLinkStyle,
+      href: DEFAULT_HOMEPAGE_URL,
+      target: "_blank"
+    }, ["👉 Check out thousands of workflows shared from the community"])
+    this.getAPIKeyLink = $el("a", {
+      style: {
+        ...hyperLinkStyle,
+        color: "#59E8C6"
+      },
+      href: DEFAULT_HOMEPAGE_URL,
+      target: "_blank"
+    }, ["👉 Get your API key here"])
+    const LinkSection = $el(
+      "div",
+      {
+        style: {
+          marginTop: "10px",
+          display: "flex",
+          flexDirection: "column",
+        },
+      },
+      [
+        this.communityLink,
+        this.getAPIKeyLink,
+      ]
+    );
+
     // Account Section
     const AccountSection = $el("div", { style: sectionStyle }, [
-      $el(
-        "a",
-        { style: hyperLinkStyle, href: DEFAULT_HOMEPAGE_URL, target: "_blank" },
-        ["Check out 1000+ workflows others have uploaded."]
-      ),
-      $el(
-        "a",
-        { style: hyperLinkStyle, href: DEFAULT_HOMEPAGE_URL, target: "_blank" },
-        ["You can get API key at here."]
-      ),
       $el("label", { style: labelStyle }, ["OpenArt API Key"]),
       this.keyInput,
     ]);
@@ -160,6 +179,20 @@ export class OpenArtShareDialog extends ComfyDialog {
       this.NameInput,
       this.descriptionInput,
     ]);
+
+     // Message Section
+    this.message = $el(
+      "div",
+      {
+        style: {
+          color: "#ff3d00",
+          textAlign: "center",
+          padding: "10px",
+          fontSize: "20px",
+        },
+      },
+      []
+    );
 
     this.shareButton = $el("button", {
       type: "submit",
@@ -197,21 +230,9 @@ export class OpenArtShareDialog extends ComfyDialog {
       ]
     );
 
-    // Message Section
-    this.message = $el(
-      "div",
-      {
-        style: {
-          color: "#ff3d00",
-          textAlign: "center",
-          padding: "10px",
-          fontSize: "20px",
-        },
-      },
-      []
-    );
     // Composing the full layout
     const layout = [
+      LinkSection,
       AccountSection,
       additionalInputsSection,
       this.message,

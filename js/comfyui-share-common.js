@@ -163,7 +163,7 @@ export class ShareDialogChooser extends ComfyDialog {
 				{},
 				[...this.createButtons()]),
 			]);
-			
+
 	}
 	createButtons() {
 		const handleShowOpenArtShareDialog = () => {
@@ -173,7 +173,7 @@ export class ShareDialogChooser extends ComfyDialog {
 			OpenArtShareDialog.instance.show()
 			this.close();
 		}
-		
+
 		const handleShowShareDialog = () => {
 			if (!ShareDialog.instance) {
 				ShareDialog.instance = new ShareDialog();
@@ -206,21 +206,21 @@ export class ShareDialogChooser extends ComfyDialog {
 				key: "openart",
 				textContent: "OpenArt AI",
 				website: "https://openart.ai/workflows/",
-				description: "Best place to share your workflow and art.",
+				description: "Share ComfyUI workflows and art on OpenArt.ai",
 				onclick: handleShowOpenArtShareDialog
 			},
 			{
 				key: "matrix",
 				textContent: "Matrix Server",
 				website: "https://app.element.io/#/room/%23comfyui_space%3Amatrix.org",
-				description: "Share your art on the official ComfyUI matrix server.",
+				description: "Share your art on the official ComfyUI matrix server",
 				onclick: handleShowShareDialog
 			},
 			{
 				key: "comfyworkflows",
 				textContent: "ComfyWorkflows",
 				website: "https://comfyworkflows.com",
-				description: "Share ComfyUI art: Download & drop any image into ComfyUI to load its workflow.",
+				description: "Share ComfyUI art on comfyworkflows.com",
 				onclick: handleShowShareDialog
 			},
 		];
@@ -235,7 +235,7 @@ export class ShareDialogChooser extends ComfyDialog {
 					'padding': '20px',
 				}
 			});
-		
+
 			buttons.forEach(b => {
 				const button = $el("button", {
 					type: "button",
@@ -258,18 +258,17 @@ export class ShareDialogChooser extends ComfyDialog {
 				button.addEventListener('mouseout', () => {
 					button.style.backgroundColor = b.backgroundColor || '';
 				});
-		
+
 				const description = $el("p", {
 					textContent: b.description,
 					style: {
-						'text-align': 'center',
+						'text-align': 'left',
 						color: 'white',
-						'font-style': 'italic',
 						'font-size': '14px',
 						'margin-bottom': '10px',
 					},
 				});
-		
+
 				const websiteLink = $el("a", {
 					textContent: "🌐 Website",
 					href: b.website,
@@ -287,11 +286,11 @@ export class ShareDialogChooser extends ComfyDialog {
 				websiteLink.addEventListener('mouseover', () => {
 					websiteLink.style.opacity = '0.7';
 				});
-		
+
 				websiteLink.addEventListener('mouseout', () => {
 					websiteLink.style.opacity = '1';
 				});
-		
+
 				const buttonLinkContainer = $el("div", {
 					style: {
 						display: 'flex',
@@ -299,7 +298,7 @@ export class ShareDialogChooser extends ComfyDialog {
 						'margin-bottom': '10px',
 					}
 				}, [button, websiteLink]);
-		
+
 				const column = $el("div", {
 					style: {
 						'flex-basis': '100%',
@@ -310,13 +309,13 @@ export class ShareDialogChooser extends ComfyDialog {
 						'box-shadow': '0 2px 4px rgba(0, 0, 0, 0.1)',
 					}
 				}, [buttonLinkContainer, description]);
-		
+
 				container.appendChild(column);
 			});
-		
+
 			return container;
 		}
-		
+
 
 		return [
 			$el("tr.td", { width: "100%" }, [
