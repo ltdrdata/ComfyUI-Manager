@@ -135,6 +135,9 @@ try:
             else:
                 original_stderr.flush()
 
+        def reconfigure(self, *args, **kwargs):
+            pass
+
 
     def close_log():
         log_file.close()
