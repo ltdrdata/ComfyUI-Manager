@@ -196,7 +196,7 @@ export class ShareDialogChooser extends ComfyDialog {
 					return;
 				}
 
-				ShareDialogChooser.instance.show({ potential_outputs, potential_output_nodes });
+				ShareDialog.instance.show({ potential_outputs, potential_output_nodes });
 				this.close();
 			});
 		}
