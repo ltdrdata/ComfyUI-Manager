@@ -568,7 +568,9 @@
     ],
     "https://github.com/Gourieff/comfyui-reactor-node": [
         [
-            "ReActorFaceSwap"
+            "ReActorFaceSwap",
+            "ReActorLoadFaceModel",
+            "ReActorSaveFaceModel"
         ],
         {
             "title_aux": "ReActor Node for ComfyUI"
@@ -2060,7 +2062,9 @@
     ],
     "https://github.com/aszc-dev/ComfyUI-CoreMLSuite": [
         [
+            "Core ML Converter",
             "Core ML LCM Converter",
+            "Core ML LoRA Loader",
             "CoreMLModelAdapter",
             "CoreMLSampler",
             "CoreMLUNetLoader"
@@ -2203,6 +2207,7 @@
             "Color Clip (advanced)",
             "Color Clip ADE20k",
             "ColorDictionary",
+            "ColorDictionary (custom)",
             "Conditioning (combine multiple)",
             "Conditioning (combine selective)",
             "Conditioning Grid (cond)",
@@ -2225,10 +2230,12 @@
             "FlatLatentsIntoSingleGrid",
             "Framed Mask Grab Cut",
             "Framed Mask Grab Cut 2",
+            "FromListGetColors",
             "FromListGetConds",
             "FromListGetImages",
             "FromListGetLatents",
             "FromListGetModels",
+            "FromListGetStrings",
             "Get Contour from list",
             "Get Models",
             "Get Prompt",
@@ -2259,10 +2266,12 @@
             "String",
             "String to Float",
             "String to Integer",
+            "ToColorList",
             "ToCondList",
             "ToImageList",
             "ToLatentList",
             "ToModelList",
+            "ToStringList",
             "VAEEncodeBatch"
         ],
         {
@@ -2949,6 +2958,7 @@
         [
             "YANC.ConcatStrings",
             "YANC.FormatDatetimeString",
+            "YANC.GetWidgetValueString",
             "YANC.IntegerCaster",
             "YANC.MultilineString",
             "YANC.TruncateString"
@@ -3273,6 +3283,7 @@
             "CacheBackendDataNumberKey //Inspire",
             "CacheBackendDataNumberKeyList //Inspire",
             "Canny_Preprocessor_Provider_for_SEGS //Inspire",
+            "ChangeImageBatchSize //Inspire",
             "Color_Preprocessor_Provider_for_SEGS //Inspire",
             "DWPreprocessor_Provider_for_SEGS //Inspire",
             "FakeScribblePreprocessor_Provider_for_SEGS //Inspire",
@@ -4565,7 +4576,7 @@
             "PromptTermList6"
         ],
         {
-            "title_aux": "ComfyUI-noEmbryo nodes"
+            "title_aux": "noEmbryo nodes"
         }
     ],
     "https://raw.githubusercontent.com/throttlekitty/SDXLCustomAspectRatio/main/SDXLAspectRatio.py": [
