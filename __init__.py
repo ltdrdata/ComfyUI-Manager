@@ -1413,7 +1413,7 @@ async def channel_url_list(request):
 
 
 @server.PromptServer.instance.routes.get("/manager/share_option")
-async def channel_url_list(request):
+async def share_option(request):
     if "value" in request.rel_url.query:
         get_config()['share_option'] = request.rel_url.query['value']
         write_config()
