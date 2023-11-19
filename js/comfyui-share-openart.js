@@ -40,12 +40,35 @@ export class OpenArtShareDialog extends ComfyDialog {
     this.selectedOutputIndex = 0;
     this.uploadedImages = [];
   }
-  readKeyFromLocalStorage() {
-    return localStorage.getItem(LOCAL_STORAGE_KEY) || "";
+
+  async readKey() {
+    let key = ""
+    try {
+      // console.log("Fetching openart key")
+      key = await api.fetchApi(`/manager/get_openart_auth`)
+        .then(response => response.json())
+        .then(data => {
+          return data.openart_key;
+        })
+        .catch(error => {
+          // console.log(error);
+        });
+    } catch (error) {
+      // console.log(error);
+    }
+    return key || "";
   }
-  saveKeyToLocalStorage(value) {
-    localStorage.setItem(LOCAL_STORAGE_KEY, value);
+
+  async saveKey(value) {
+    await api.fetchApi(`/manager/set_openart_auth`, {
+      method: 'POST',
+	  headers: { 'Content-Type': 'application/json' },
+	  body: JSON.stringify({
+	    openart_key: value
+	  })
+	});
   }
+
   createButtons() {
     const sectionStyle = {
       marginBottom: "10px",
@@ -242,6 +265,7 @@ export class OpenArtShareDialog extends ComfyDialog {
 
     return layout;
   }
+
   async fetchApi(path, options, statusText) {
     if (statusText) {
       this.message.textContent = statusText;
@@ -275,6 +299,7 @@ export class OpenArtShareDialog extends ComfyDialog {
       data,
     };
   }
+
   async uploadThumbnail(uploadFile) {
     const form = new FormData();
     form.append("file", uploadFile);
@@ -304,9 +329,10 @@ export class OpenArtShareDialog extends ComfyDialog {
       }
     }
   }
+
   async handleShareButtonClick() {
     this.message.textContent = "";
-    this.saveKeyToLocalStorage(this.keyInput.value);
+    await this.saveKey(this.keyInput.value);
     try {
       this.shareButton.disabled = true;
       this.shareButton.textContent = "Sharing...";
@@ -317,6 +343,7 @@ export class OpenArtShareDialog extends ComfyDialog {
     this.shareButton.disabled = false;
     this.shareButton.textContent = "Share";
   }
+
   async share() {
     const prompt = await app.graphToPrompt();
     const workflowJSON = prompt["workflow"];
@@ -382,10 +409,10 @@ export class OpenArtShareDialog extends ComfyDialog {
       throw new Error("Error sharing workflow: " + e.message);
     }
   }
-  show({ potential_outputs, potential_output_nodes } = {}) {
+
+  async show({ potential_outputs, potential_output_nodes } = {}) {
     this.element.style.display = "block";
-    // read key from local storage and set it to the input
-    const key = this.readKeyFromLocalStorage();
+    const key = await this.readKey();
     this.keyInput.value = key;
   }
 }

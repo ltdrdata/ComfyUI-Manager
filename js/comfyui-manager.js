@@ -36,6 +36,7 @@ var update_comfyui_button = null;
 var fetch_updates_button = null;
 var update_all_button = null;
 var badge_mode = "none";
+let share_option = 'all';
 
 // copied style from https://github.com/pythongosssss/ComfyUI-Custom-Scripts
 const style = `
@@ -79,7 +80,16 @@ async function init_badge_mode() {
 		.then(data => { badge_mode = data; })
 }
 
+async function init_share_option() {
+    api.fetchApi('/manager/share_option')
+	    .then(response => response.text())
+		.then(data => {
+		    share_option = data || 'all';
+		});
+}
+
 await init_badge_mode();
+await init_share_option();
 
 
 async function fetchNicknames() {
@@ -413,9 +423,18 @@ class ManagerMenuDialog extends ComfyDialog {
 	    for (const option of share_options) {
           share_combo.appendChild($el('option', { value: option[0], text: `Share: ${option[1]}` }, []));
         }
+
+        api.fetchApi('/manager/share_option')
+			.then(response => response.text())
+			.then(data => {
+			    share_combo.value = data || 'all';
+			    share_option = data || 'all';
+			});
+
         share_combo.addEventListener('change', function (event) {
           const value = event.target.value;
-          localStorage.setItem("share_option", value);
+          share_option = value;
+          api.fetchApi(`/manager/share_option?value=${value}`);
           const shareButton = document.getElementById("shareButton");
           if (value === 'none') {
             shareButton.style.display = "none";
@@ -423,7 +442,6 @@ class ManagerMenuDialog extends ComfyDialog {
             shareButton.style.display = "inline-block";
           }
         });
-        share_combo.value = localStorage.getItem("share_option") || 'all';
 
 		return [
 			$el("div", {}, [this.local_mode_checkbox, checkbox_text, this.update_check_checkbox, uc_checkbox_text]),
@@ -611,12 +629,11 @@ app.registerExtension({
 		shareButton.id = "shareButton";
 		shareButton.textContent = "Share";
 		shareButton.onclick = () => {
-		    const shareOption = localStorage.getItem("share_option") || 'all';
-		    if (shareOption === 'openart') {
+		    if (share_option === 'openart') {
 		        showOpenArtShareDialog();
 			    return;
-		    } else if (shareOption === 'matrix' || shareOption === 'comfyworkflows') {
-		        showShareDialog();
+		    } else if (share_option === 'matrix' || share_option === 'comfyworkflows') {
+		        showShareDialog(share_option);
 		        return;
 		    }
 
@@ -631,7 +648,7 @@ app.registerExtension({
 
 		// Load share option from local storage to determine whether to show
 		// the share button.
-		const shouldShowShareButton = localStorage.getItem("share_option") !== 'none';
+		const shouldShowShareButton = share_option !== 'none';
 		shareButton.style.display = shouldShowShareButton ? "inline-block" : "none";
 
 		menu.append(shareButton);

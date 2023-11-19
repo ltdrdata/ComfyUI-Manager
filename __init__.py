@@ -115,6 +115,7 @@ def write_config():
         'git_exe':  get_config()['git_exe'],
         'channel_url': get_config()['channel_url'],
         'channel_url_list': get_config()['channel_url_list'],
+        'share_option': get_config()['share_option'],
         'bypass_ssl': get_config()['bypass_ssl']
     }
     with open(config_path, 'w') as configfile:
@@ -146,6 +147,7 @@ def read_config():
                     'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
                     'channel_url_list': ch_url_list,
+                    'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
                     'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else False,
                }
 
@@ -156,6 +158,7 @@ def read_config():
             'git_exe': '',
             'channel_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
             'channel_url_list': '',
+            'share_option': 'all',
             'bypass_ssl': False
         }
 
@@ -401,7 +404,7 @@ def git_pull(path):
         origin = repo.remote(name='origin')
         origin.pull()
         repo.git.submodule('update', '--init', '--recursive')
-        
+
         repo.close()
 
     return True
@@ -1344,7 +1347,7 @@ async def install_model(request):
             if json_data['url'].startswith('https://github.com') or json_data['url'].startswith('https://huggingface.co'):
                 model_dir = get_model_dir(json_data)
                 download_url(json_data['url'], model_dir)
-                
+
                 return web.json_response({}, content_type='application/json')
             else:
                 res = download_url_with_agent(json_data['url'], model_path)
@@ -1408,6 +1411,29 @@ async def channel_url_list(request):
 
     return web.Response(status=200)
 
+
+@server.PromptServer.instance.routes.get("/manager/share_option")
+async def channel_url_list(request):
+    if "value" in request.rel_url.query:
+        get_config()['share_option'] = request.rel_url.query['value']
+        write_config()
+    else:
+        return web.Response(text=get_config()['share_option'], status=200)
+
+    return web.Response(status=200)
+
+
+def get_openart_auth():
+    if not os.path.exists(os.path.join(folder_paths.base_path, ".openart_key")):
+        return None
+    try:
+        with open(os.path.join(folder_paths.base_path, ".openart_key"), "r") as f:
+            openart_key = f.read().strip()
+        return openart_key if openart_key else None
+    except:
+        return None
+
+
 def get_matrix_auth():
     if not os.path.exists(os.path.join(folder_paths.base_path, "matrix_auth")):
         return None
@@ -1436,6 +1462,22 @@ def get_comfyworkflows_auth():
         return share_key
     except:
         return None
+
+@server.PromptServer.instance.routes.get("/manager/get_openart_auth")
+async def api_get_openart_auth(request):
+    # print("Getting stored Matrix credentials...")
+    openart_key = get_openart_auth()
+    if not openart_key:
+        return web.Response(status=404)
+    return web.json_response({"openart_key": openart_key})
+
+@server.PromptServer.instance.routes.post("/manager/set_openart_auth")
+async def api_set_openart_auth(request):
+    json_data = await request.json()
+    openart_key = json_data['openart_key']
+    with open(os.path.join(folder_paths.base_path, ".openart_key"), "w") as f:
+        f.write(openart_key)
+    return web.Response(status=200)
 
 @server.PromptServer.instance.routes.get("/manager/get_matrix_auth")
 async def api_get_matrix_auth(request):
@@ -1491,13 +1533,13 @@ async def share_art(request):
     prompt = json_data['prompt']
     potential_outputs = json_data['potential_outputs']
     selected_output_index = json_data['selected_output_index']
-    
+
     try:
         output_to_share = potential_outputs[int(selected_output_index)]
     except:
         # for now, pick the first output
         output_to_share = potential_outputs[0]
-        
+
     assert output_to_share['type'] in ('image', 'output')
     output_dir = folder_paths.get_output_directory()
 
@@ -1522,7 +1564,7 @@ async def share_art(request):
     if "comfyworkflows" in share_destinations:
         share_website_host = "https://comfyworkflows.com"
         share_endpoint = f"{share_website_host}/api"
-        
+
         # get presigned urls
         async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
             async with session.post(
@@ -1530,7 +1572,7 @@ async def share_art(request):
                 json={
                     "assetFileName": asset_filename,
                     "assetFileType": assetFileType,
-                    "workflowJsonFileName" : 'workflow.json', 
+                    "workflowJsonFileName" : 'workflow.json',
                     "workflowJsonFileType" : 'application/json',
 
                 },
@@ -1541,7 +1583,7 @@ async def share_art(request):
                 assetFileKey = presigned_urls_json["assetFileKey"]
                 workflowJsonFilePresignedUrl = presigned_urls_json["workflowJsonFilePresignedUrl"]
                 workflowJsonFileKey = presigned_urls_json["workflowJsonFileKey"]
-        
+
         # upload asset
         async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
             async with session.put(assetFilePresignedUrl, data=open(asset_filepath, "rb")) as resp:
@@ -1592,7 +1634,7 @@ async def share_art(request):
             homeserver = homeserver.replace("http://", "https://")
             if not homeserver.startswith("https://"):
                 homeserver = "https://" + homeserver
-            
+
             client = MatrixClient(homeserver)
             try:
                 token = client.login(username=matrix_auth['username'], password=matrix_auth['password'])
@@ -1604,7 +1646,7 @@ async def share_art(request):
             matrix = MatrixHttpApi(homeserver, token=token)
             with open(asset_filepath, 'rb') as f:
                 mxc_url = matrix.media_upload(f.read(), content_type, filename=filename)['content_uri']
-                        
+
             workflow_json_mxc_url = matrix.media_upload(prompt['workflow'], 'application/json', filename='workflow.json')['content_uri']
 
             text_content = ""
@@ -1621,7 +1663,7 @@ async def share_art(request):
             import traceback
             traceback.print_exc()
             return web.json_response({"error" : "An error occurred when sharing your art to Matrix."}, content_type='application/json', status=500)
-    
+
     return web.json_response({
         "comfyworkflows" : {
             "url" : None if "comfyworkflows" not in share_destinations else f"{share_website_host}/workflows/{workflowId}",
