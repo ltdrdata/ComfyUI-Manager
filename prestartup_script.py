@@ -135,6 +135,9 @@ try:
             else:
                 original_stderr.flush()
 
+        def reconfigure(self, *args, **kwargs):
+            pass
+
 
     def close_log():
         log_file.close()
@@ -249,6 +252,26 @@ if os.path.exists(restore_snapshot_path):
 # Perform install
 script_list_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "startup-scripts", "install-scripts.txt")
 
+
+def execute_lazy_install_script(repo_path, executable):
+    install_script_path = os.path.join(repo_path, "install.py")
+    requirements_path = os.path.join(repo_path, "requirements.txt")
+
+    if os.path.exists(requirements_path):
+        print("Install: pip packages")
+        with open(requirements_path, "r") as requirements_file:
+            for line in requirements_file:
+                package_name = line.strip()
+                if package_name:
+                    install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                    process_wrap(install_cmd, repo_path)
+
+    if os.path.exists(install_script_path):
+        print(f"Install: install script")
+        install_cmd = [sys.executable, "install.py"]
+        process_wrap(install_cmd, repo_path)
+
+
 # Check if script_list_path exists
 if os.path.exists(script_list_path):
     print("\n#######################################################################")
@@ -265,7 +288,12 @@ if os.path.exists(script_list_path):
 
             try:
                 script = eval(line)
-                if os.path.exists(script[0]):
+
+                if script[1].startswith('#'):
+                    if script[1] == "#LAZY-INSTALL-SCRIPT":
+                        execute_lazy_install_script(script[0], script[2])
+
+                elif os.path.exists(script[0]):
                     print(f"\n## ComfyUI-Manager: EXECUTE => {script[1:]}")
 
                     print(f"\n## Execute install/(de)activation script for '{script[0]}'")

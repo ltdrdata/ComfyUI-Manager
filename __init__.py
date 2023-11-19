@@ -14,7 +14,7 @@ import concurrent
 import ssl
 from urllib.parse import urlparse
 
-version = "V1.0.1"
+version = "V1.1"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
@@ -34,6 +34,10 @@ def handle_stream(stream, prefix):
 
 
 def run_script(cmd, cwd='.'):
+    if len(cmd) > 0 and cmd[0].startswith("#"):
+        print(f"[ComfyUI-Manager] Unexpected behavior: `{cmd}`")
+        return 0
+
     process = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
 
     stdout_thread = threading.Thread(target=handle_stream, args=(process.stdout, ""))
@@ -236,6 +240,8 @@ def try_install_script(url, repo_path, install_cmd):
                 pass
 
         if code != 0:
+            if url is None:
+                url = os.path.dirname(repo_path)
             print(f"install script failed: {url}")
             return False
 
@@ -328,7 +334,9 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
         raise ValueError('Not a git repository')
 
     if platform.system() == "Windows":
-        return __win_check_git_update(path, do_fetch, do_update)
+        res = __win_check_git_update(path, do_fetch, do_update)
+        execute_install_script(None, path, lazy_mode=True)
+        return res
     else:
         # Fetch the latest commits from the remote repository
         repo = git.Repo(path)
@@ -352,6 +360,7 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
                 new_commit_hash = repo.head.commit.hexsha
 
                 if commit_hash != new_commit_hash:
+                    execute_install_script(None, path)
                     print(f"\x1b[2K\rUpdated: {path}")
                     return True
                 else:
@@ -961,24 +970,28 @@ def copy_set_active(files, is_disable, js_path_name='.'):
     return True
 
 
-def execute_install_script(url, repo_path):
+def execute_install_script(url, repo_path, lazy_mode=False):
     install_script_path = os.path.join(repo_path, "install.py")
     requirements_path = os.path.join(repo_path, "requirements.txt")
 
-    if os.path.exists(requirements_path):
-        print("Install: pip packages")
-        with open(requirements_path, "r") as requirements_file:
-            for line in requirements_file:
-                package_name = line.strip()
-                if package_name:
-                    install_cmd = [sys.executable, "-m", "pip", "install", package_name]
-                    if package_name.strip() != "":
-                        try_install_script(url, repo_path, install_cmd)
-
-    if os.path.exists(install_script_path):
-        print(f"Install: install script")
-        install_cmd = [sys.executable, "install.py"]
+    if lazy_mode:
+        install_cmd = ["#LAZY-INSTALL-SCRIPT",  sys.executable]
         try_install_script(url, repo_path, install_cmd)
+    else:
+        if os.path.exists(requirements_path):
+            print("Install: pip packages")
+            with open(requirements_path, "r") as requirements_file:
+                for line in requirements_file:
+                    package_name = line.strip()
+                    if package_name:
+                        install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                        if package_name.strip() != "":
+                            try_install_script(url, repo_path, install_cmd)
+
+        if os.path.exists(install_script_path):
+            print(f"Install: install script")
+            install_cmd = [sys.executable, "install.py"]
+            try_install_script(url, repo_path, install_cmd)
 
     return True
 
@@ -1166,7 +1179,7 @@ def gitclone_update(files):
             repo_path = os.path.join(custom_nodes_path, repo_name)
             git_pull(repo_path)
 
-            if not execute_install_script(url, repo_path):
+            if not execute_install_script(url, repo_path, lazy_mode=True):
                 return False
 
         except Exception as e:

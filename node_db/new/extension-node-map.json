@@ -58,23 +58,22 @@
     ],
     "https://github.com/Amorano/Jovimetrix": [
         [
-            "\u2697\ufe0f Blend Images (jov)",
+            "\u2697\ufe0f Blend (jov)",
             "\u2728 Shape Generator (jov)",
-            "\ud83c\udf08 HSV Image (jov)",
-            "\ud83c\udf31 Transform Image (jov)",
-            "\ud83c\udfad Invert Image (jov)",
+            "\ud83c\udf08 HSV (jov)",
+            "\ud83c\udf31 Transform (jov)",
+            "\ud83c\udf87 Expand (jov)",
+            "\ud83d\udd06 Pixel Shader (jov)",
             "\ud83d\udd06 Pixel Shader Image (jov)",
-            "\ud83d\udd27 Adjust Image (jov)",
-            "\ud83d\udd30 Mirror Image (jov)",
-            "\ud83d\udd33 Tile Image (jov)",
-            "\ud83d\udd78\ufe0f Filter Image (jov)",
-            "\ud83d\uddfa\ufe0f Remap Image (jov)",
-            "\ud83d\udfea Constant Image (jov)",
-            "\ud83e\udd7b Gradient (jov)"
+            "\ud83d\udd30 Mirror (jov)",
+            "\ud83d\udd33 Tile (jov)",
+            "\ud83d\udd78\ufe0f Adjust (jov)",
+            "\ud83d\uddfa\ufe0f Projection (jov)",
+            "\ud83d\udfea Constant (jov)"
         ],
         {
             "author": "amorano",
-            "description": "Shapes and Shaders.",
+            "description": "",
             "nickname": "Jovimetrix",
             "title": "Jovimetrix Composition Pack",
             "title_aux": "Jovimetrix Composition Nodes"
@@ -521,7 +520,8 @@
             "BatchStringSchedule",
             "BatchValueSchedule",
             "BatchValueScheduleLatentInput",
-            "CalculateLatentInterpFrameNumber",
+            "CalculateFrameOffset",
+            "ConcatStringSingle",
             "CosWave",
             "FizzFrame",
             "FizzFrameConcatenate",
@@ -539,7 +539,8 @@
             "StringConcatenate",
             "StringSchedule",
             "TriangleWave",
-            "ValueSchedule"
+            "ValueSchedule",
+            "convertKeyframeKeysToBatchKeys"
         ],
         {
             "title_aux": "FizzNodes"
@@ -871,6 +872,14 @@
         ],
         {
             "title_aux": "ComfyUI_TravelSuite"
+        }
+    ],
+    "https://github.com/Niutonian/ComfyUi-NoodleWebcam": [
+        [
+            "WebcamNode"
+        ],
+        {
+            "title_aux": "ComfyUi-NoodleWebcam"
         }
     ],
     "https://github.com/Nourepide/ComfyUI-Allor": [
@@ -1542,6 +1551,14 @@
         ],
         {
             "title_aux": "ComfyUI Neural network latent upscale custom node"
+        }
+    ],
+    "https://github.com/Umikaze-job/select_folder_path_easy": [
+        [
+            "SelectFolderPathEasy"
+        ],
+        {
+            "title_aux": "select_folder_path_easy"
         }
     ],
     "https://github.com/WASasquatch/ASTERR": [
@@ -2987,6 +3004,7 @@
             "CreateGradientMask",
             "CreateShapeMask",
             "CreateTextMask",
+            "CreateVoronoiMask",
             "CrossFadeImages",
             "EmptyLatentImagePresets",
             "FloatConstant",
@@ -3009,6 +3027,14 @@
         ],
         {
             "title_aux": "KJNodes for ComfyUI"
+        }
+    ],
+    "https://github.com/kinfolk0117/ComfyUI_GradientDeepShrink": [
+        [
+            "GradientPatchModelAddDownscale"
+        ],
+        {
+            "title_aux": "ComfyUI_GradientDeepShrink"
         }
     ],
     "https://github.com/kinfolk0117/ComfyUI_SimpleTiles": [
@@ -3277,6 +3303,7 @@
     "https://github.com/ltdrdata/ComfyUI-Inspire-Pack": [
         [
             "AnimeLineArt_Preprocessor_Provider_for_SEGS //Inspire",
+            "ApplyRegionalIPAdapters //Inspire",
             "BindImageListPromptList //Inspire",
             "CacheBackendData //Inspire",
             "CacheBackendDataList //Inspire",
