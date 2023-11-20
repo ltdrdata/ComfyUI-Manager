@@ -59,10 +59,12 @@
     "https://github.com/Amorano/Jovimetrix": [
         [
             "\u2697\ufe0f Blend (jov)",
+            "\u2697\ufe0f Blend Mask (jov)",
             "\u2728 Shape Generator (jov)",
             "\ud83c\udf08 HSV (jov)",
             "\ud83c\udf31 Transform (jov)",
-            "\ud83c\udf87 Expand (jov)",
+            "\ud83c\udf87 Extend (jov)",
+            "\ud83d\udcc9 Threshold (jov)",
             "\ud83d\udcf7 WebCam (jov)",
             "\ud83d\udd06 Pixel Shader (jov)",
             "\ud83d\udd06 Pixel Shader Image (jov)",
@@ -75,8 +77,7 @@
         ],
         {
             "author": "amorano",
-            "description": "",
-            "nickname": "Jovimetrix",
+            "description": "Procedural & Compositing. Includes a Webcam node.",
             "title": "Jovimetrix Composition Pack",
             "title_aux": "Jovimetrix Composition Nodes"
         }
@@ -493,7 +494,9 @@
     ],
     "https://github.com/Fictiverse/ComfyUI_Fictiverse": [
         [
+            "Add Noise to Image with Mask",
             "Color correction",
+            "Displace Image with Depth",
             "Displace Images with Mask"
         ],
         {
@@ -773,6 +776,7 @@
             "Checkpoint",
             "Float",
             "Int",
+            "KepStringLiteral",
             "Lora",
             "Operation",
             "String"
@@ -1404,10 +1408,12 @@
     ],
     "https://github.com/THtianhao/ComfyUI-FaceChain": [
         [
+            "FCStyleLoraLoad",
+            "FC_CropBottom",
             "FC_CropMask",
             "FC_FaceDetection",
             "FC_FaceFusion",
-            "FC_LoraMerge",
+            "FC_ReplaceImage",
             "FC_Segment",
             "FC_StyleLoraLoad"
         ],
@@ -2993,6 +2999,7 @@
             "BatchCropFromMaskAdvanced",
             "BatchUncrop",
             "BatchUncropAdvanced",
+            "BboxToInt",
             "ColorMatch",
             "ColorToMask",
             "ConditioningMultiCombine",
@@ -3004,6 +3011,7 @@
             "CreateFadeMask",
             "CreateFluidMask",
             "CreateGradientMask",
+            "CreateMagicMask",
             "CreateShapeMask",
             "CreateTextMask",
             "CreateVoronoiMask",
@@ -3943,7 +3951,6 @@
             "AV_ParametersPipeToPrompts",
             "AV_PromptsToParametersPipe",
             "AV_SAMLoader",
-            "AV_UploadImage",
             "AV_VAELoader",
             "AspectRatioSelector",
             "BLIPCaption",
