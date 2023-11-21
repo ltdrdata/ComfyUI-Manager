@@ -83,7 +83,7 @@ try:
     log_file = open(f"comfyui{postfix}.log", "w", encoding="utf-8")
     log_lock = threading.Lock()
 
-    class Logger:
+    class ComfyUIManagerLogger:
         def __init__(self, is_stdout):
             self.is_stdout = is_stdout
             self.encoding = "utf-8"
@@ -136,6 +136,10 @@ try:
             else:
                 original_stderr.flush()
 
+        def close(self):
+            self.flush()
+            pass
+
         def reconfigure(self, *args, **kwargs):
             pass
             
@@ -143,8 +147,8 @@ try:
         log_file.close()
 
 
-    sys.stdout = Logger(True)
-    sys.stderr = Logger(False)
+    sys.stdout = ComfyUIManagerLogger(True)
+    sys.stderr = ComfyUIManagerLogger(False)
 
     atexit.register(close_log)
 except Exception as e:
