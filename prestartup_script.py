@@ -138,7 +138,10 @@ try:
         def reconfigure(self, *args, **kwargs):
             pass
 
+        def encoding():
+            return "utf-8"
 
+            
     def close_log():
         log_file.close()
 
