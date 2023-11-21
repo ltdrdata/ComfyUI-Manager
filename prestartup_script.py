@@ -168,13 +168,44 @@ def check_bypass_ssl():
         default_conf = config['default']
 
         if 'bypass_ssl' in default_conf and default_conf['bypass_ssl'].lower() == 'true':
-            print(f"[ComfyUI-Manager] WARN: Unsafe - SSL verification option is Enabled. (see ComfyUI-Manager/config.ini)")
+            print(f"[ComfyUI-Manager] WARN: Unsafe - SSL verification bypass option is Enabled. (see ComfyUI-Manager/config.ini)")
             ssl._create_default_https_context = ssl._create_unverified_context  # SSL certificate error fix.
     except Exception:
         pass
 
 
 check_bypass_ssl()
+
+
+# Perform install
+processed_install = set()
+script_list_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "startup-scripts", "install-scripts.txt")
+pip_list = None
+
+
+def get_installed_packages():
+    global pip_list
+
+    if pip_list is None:
+        try:
+            result = subprocess.check_output([sys.executable, '-m', 'pip', 'list'], universal_newlines=True)
+            pip_list = set([line.split()[0].lower() for line in result.split('\n') if line.strip()])
+        except subprocess.CalledProcessError as e:
+            print(f"[ComfyUI-Manager] Failed to retrieve the information of installed pip packages.")
+            return set()
+    
+    return pip_list
+
+
+def is_installed(name):
+    name = name.strip()
+    pattern = r'([^<>!=]+)([<>!=]=?)'
+    match = re.search(pattern, name)
+    
+    if match:
+        name = match.group(1)
+        
+    return name.lower() in get_installed_packages()
 
 
 if os.path.exists(restore_snapshot_path):
@@ -225,11 +256,12 @@ if os.path.exists(restore_snapshot_path):
                         with open(requirements_path, 'r', encoding="UTF-8") as file:
                             for line in file:
                                 package_name = line.strip()
-                                if package_name:
+                                if package_name and not is_installed(package_name):
                                     install_cmd = [sys.executable, "-m", "pip", "install", package_name]
                                     this_exit_code += process_wrap(install_cmd, repo_path)
 
-                    if os.path.exists(install_script_path):
+                    if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
+                        processed_install.add(f'{repo_path}/install.py')
                         install_cmd = [sys.executable, install_script_path]
                         print(f">>> {install_cmd} / {repo_path}")
                         this_exit_code += process_wrap(install_cmd, repo_path)
@@ -253,26 +285,25 @@ if os.path.exists(restore_snapshot_path):
     os.remove(restore_snapshot_path)
 
 
-# Perform install
-script_list_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "startup-scripts", "install-scripts.txt")
-
-
 def execute_lazy_install_script(repo_path, executable):
+    global processed_install
+
     install_script_path = os.path.join(repo_path, "install.py")
     requirements_path = os.path.join(repo_path, "requirements.txt")
 
     if os.path.exists(requirements_path):
-        print("Install: pip packages")
+        print(f"Install: pip packages for '{repo_path}'")
         with open(requirements_path, "r") as requirements_file:
             for line in requirements_file:
                 package_name = line.strip()
-                if package_name:
-                    install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                if package_name and not is_installed(package_name):
+                    install_cmd = [executable, "-m", "pip", "install", package_name]
                     process_wrap(install_cmd, repo_path)
 
-    if os.path.exists(install_script_path):
-        print(f"Install: install script")
-        install_cmd = [sys.executable, "install.py"]
+    if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
+        processed_install.add(f'{repo_path}/install.py')
+        print(f"Install: install script for '{repo_path}'")
+        install_cmd = [executable, "install.py"]
         process_wrap(install_cmd, repo_path)
 
 
@@ -298,9 +329,12 @@ if os.path.exists(script_list_path):
                         execute_lazy_install_script(script[0], script[2])
 
                 elif os.path.exists(script[0]):
-                    print(f"\n## ComfyUI-Manager: EXECUTE => {script[1:]}")
+                    if 'pip' in script[1:] and 'install' in script[1:] and is_installed(script[-1]):
+                        continue
 
+                    print(f"\n## ComfyUI-Manager: EXECUTE => {script[1:]}")
                     print(f"\n## Execute install/(de)activation script for '{script[0]}'")
+
                     exit_code = process_wrap(script[1:], script[0])
 
                     if exit_code != 0:
@@ -318,3 +352,5 @@ if os.path.exists(script_list_path):
     print("\n[ComfyUI-Manager] Startup script completed.")
     print("#######################################################################\n")
 
+del processed_install
+del pip_list
