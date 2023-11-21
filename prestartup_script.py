@@ -86,6 +86,7 @@ try:
     class Logger:
         def __init__(self, is_stdout):
             self.is_stdout = is_stdout
+            self.encoding = "utf-8"
 
         def fileno(self):
             try:
@@ -137,10 +138,6 @@ try:
 
         def reconfigure(self, *args, **kwargs):
             pass
-
-        def encoding():
-            return "utf-8"
-
             
     def close_log():
         log_file.close()
