@@ -1,6 +1,16 @@
 {
     "custom_nodes": [
         {
+            "author": "ansonkao",
+            "title": "comfyui-geometry",
+            "reference": "https://github.com/ansonkao/comfyui-geometry",
+            "files": [
+                "https://github.com/ansonkao/comfyui-geometry"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: Mask to Centroid, Mask to Eigenvector. A small collection of custom nodes for use with ComfyUI, for geometry calculations"
+        },
+        {
             "author": "GTSuya-Studio",
             "title": "ComfyUI-GTSuya-Nodes",
             "reference": "https://github.com/GTSuya-Studio/ComfyUI-Gtsuya-Nodes",
@@ -28,7 +38,7 @@
                 "https://github.com/LonicaMewinsky/ComfyUI-RawSaver"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:SaveTifImage."
+            "description": "Nodes:SaveTifImage. ComfyUI custom node for purpose of saving image as uint16 tif file."
         },
         {
             "author": "natto-maki",
@@ -771,117 +781,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:Conditioning (Blend), Inpainting VAE Encode (WAS), VividSharpen. Experimental nodes, or other random extra helper nodes."
-        },
-        {
-            "author": "yolanother",
-            "title": "Image to Text Node",
-            "reference": "https://github.com/yolanother/DTAIImageToTextNode",
-            "files": [
-                "https://github.com/yolanother/DTAIImageToTextNode"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: Image URL to Text, Image to Text."
-        },
-        {
-            "author": "yolanother",
-            "title": "Comfy UI Online Loaders",
-            "reference": "https://github.com/yolanother/DTAIComfyLoaders",
-            "files": [
-                "https://github.com/yolanother/DTAIComfyLoaders"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: Submit Image (Parameters), Submit Image. A collection of loaders that use a shared common online data source rather than relying on the files to be present locally."
-        },
-        {
-            "author": "yolanother",
-            "title": "Comfy AI DoubTech.ai Image Sumission Node",
-            "reference": "https://github.com/yolanother/DTAIComfyImageSubmit",
-            "files": [
-                "https://github.com/yolanother/DTAIComfyImageSubmit"
-            ],
-            "install_type": "git-clone",
-            "description": "A ComfyAI submit node to upload images to DoubTech.ai"
-        },
-        {
-            "author": "yolanother",
-            "title": "Comfy UI QR Codes",
-            "reference": "https://github.com/yolanother/DTAIComfyQRCodes",
-            "files": [
-                "https://github.com/yolanother/DTAIComfyQRCodes"
-            ],
-            "install_type": "git-clone",
-            "description": "This extension introduces QR code nodes for the Comfy UI stable diffusion client. NOTE: ComfyUI qrcode extension required."
-        },
-        {
-            "author": "yolanother",
-            "title": "Variables for Comfy UI",
-            "reference": "https://github.com/yolanother/DTAIComfyVariables",
-            "files": [
-                "https://github.com/yolanother/DTAIComfyVariables"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: String, Int, Float, Short String, CLIP Text Encode (With Variables), String Format, Short String Format. This extension introduces quality of life improvements by providing variable nodes and shared global variables."
-        },
-        {
-            "author": "kijai",
-            "title": "KJNodes for ComfyUI",
-            "reference": "https://github.com/kijai/ComfyUI-KJNodes",
-            "files": [
-                "https://github.com/kijai/ComfyUI-KJNodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Various quality of life -nodes for ComfyUI, mostly just visual stuff to improve usability."
-        },
-        {
-            "author": "WASasquatch",
-            "title": "ASTERR",
-            "reference": "https://github.com/WASasquatch/ASTERR",
-            "files": [
-                "https://github.com/WASasquatch/ASTERR"
-            ],
-            "install_type": "git-clone",
-            "description": "Abstract Syntax Trees Evaluated Restricted Run (ASTERR) is a Python Script executor for ComfyUI. <p style='background-color: black; color: red;'>Warning:ASTERR runs Python Code from a Web Interface! It is highly recommended to run this in a closed-off environment, as it could have potential security risks.</p>"
-        },
-        {
-            "author": "Zuellni",
-            "title": "ComfyUI PickScore Nodes",
-            "reference": "https://github.com/Zuellni/ComfyUI-PickScore-Nodes",
-            "files": [
-                "https://github.com/Zuellni/ComfyUI-PickScore-Nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Image scoring nodes for ComfyUI using PickScore with a batch of images to predict which ones fit a given prompt the best."
-        },
-        {
-            "author": "chrisgoringe",
-            "title": "Use Everywhere (UE Nodes)",
-            "reference": "https://github.com/chrisgoringe/cg-use-everywhere",
-            "files": [
-                "https://github.com/chrisgoringe/cg-use-everywhere"
-            ],
-            "install_type": "git-clone",
-            "nodename_pattern": "^(UE\\? |UE )",
-            "description": "A set of nodes that allow data to be 'broadcast' to some or all unconnected inputs. Greatly reduces link spaghetti."
-        },
-        {
-            "author": "azazeal04",
-            "title": "ComfyUI-Styles",
-            "reference": "https://github.com/azazeal04/ComfyUI-Styles",
-            "files": [
-                "https://github.com/azazeal04/ComfyUI-Styles"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Anime_Styler, Fantasy_Styler, Gothic_Styler, Line_Art_Styler, Movie_Poster_Styler, Punk_Styler, Travel_Poster_Styler. This extension offers 8 art style nodes, each of which includes approximately 50 individual style variations."
-        },
-        {
-            "author": "city96",
-            "title": "ComfyUI_ColorMod",
-            "reference": "https://github.com/city96/ComfyUI_ColorMod",
-            "files": [
-                "https://github.com/city96/ComfyUI_ColorMod"
-            ],
-            "install_type": "git-clone",
-            "description": "This extension currently has two sets of nodes - one set for editing the contrast/color of images and another set for saving images as 16 bit PNG files."
-	    }
+        }
     ]
 }
