@@ -199,6 +199,10 @@ def get_installed_packages():
 
 def is_installed(name):
     name = name.strip()
+
+    if name.startswith('#'):
+        return True
+
     pattern = r'([^<>!=]+)([<>!=]=?)'
     match = re.search(pattern, name)
     
