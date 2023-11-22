@@ -59,22 +59,26 @@
     "https://github.com/Amorano/Jovimetrix": [
         [
             "\u2697\ufe0f Blend (jov)",
+            "\u2697\ufe0f Blend Mask (jov)",
             "\u2728 Shape Generator (jov)",
             "\ud83c\udf08 HSV (jov)",
             "\ud83c\udf31 Transform (jov)",
-            "\ud83c\udf87 Expand (jov)",
+            "\ud83c\udf69 GLSL (jov)",
+            "\ud83c\udf87 Extend (jov)",
+            "\ud83d\udcc9 Threshold (jov)",
+            "\ud83d\udcf7 WebCam (jov)",
             "\ud83d\udd06 Pixel Shader (jov)",
             "\ud83d\udd06 Pixel Shader Image (jov)",
             "\ud83d\udd30 Mirror (jov)",
             "\ud83d\udd33 Tile (jov)",
             "\ud83d\udd78\ufe0f Adjust (jov)",
             "\ud83d\uddfa\ufe0f Projection (jov)",
+            "\ud83d\ude8c Route (jov)",
             "\ud83d\udfea Constant (jov)"
         ],
         {
             "author": "amorano",
-            "description": "",
-            "nickname": "Jovimetrix",
+            "description": "Procedural & Compositing. Includes a Webcam node.",
             "title": "Jovimetrix Composition Pack",
             "title_aux": "Jovimetrix Composition Nodes"
         }
@@ -491,8 +495,11 @@
     ],
     "https://github.com/Fictiverse/ComfyUI_Fictiverse": [
         [
+            "Add Noise to Image with Mask",
             "Color correction",
-            "Displace Images with Mask"
+            "Displace Image with Depth",
+            "Displace Images with Mask",
+            "Zoom Image with Depth"
         ],
         {
             "title_aux": "ComfyUI Fictiverse Nodes"
@@ -565,6 +572,17 @@
         ],
         {
             "title_aux": "ezXY scripts and nodes"
+        }
+    ],
+    "https://github.com/GTSuya-Studio/ComfyUI-Gtsuya-Nodes": [
+        [
+            "Get From Danbooru",
+            "Simple Wildcards",
+            "Simple Wildcards (Dir.)",
+            "Wildcards"
+        ],
+        {
+            "title_aux": "ComfyUI-GTSuya-Nodes"
         }
     ],
     "https://github.com/Gourieff/comfyui-reactor-node": [
@@ -766,11 +784,20 @@
             "title_aux": "ComfyBreakAnim"
         }
     ],
+    "https://github.com/LonicaMewinsky/ComfyUI-RawSaver": [
+        [
+            "SaveTifImage"
+        ],
+        {
+            "title_aux": "ComfyUI-RawSaver"
+        }
+    ],
     "https://github.com/M1kep/ComfyLiterals": [
         [
             "Checkpoint",
             "Float",
             "Int",
+            "KepStringLiteral",
             "Lora",
             "Operation",
             "String"
@@ -1402,10 +1429,15 @@
     ],
     "https://github.com/THtianhao/ComfyUI-FaceChain": [
         [
+            "FCStyleLoraLoad",
+            "FC_CropAndPaste",
+            "FC_CropBottom",
+            "FC_CropFace",
             "FC_CropMask",
             "FC_FaceDetection",
             "FC_FaceFusion",
-            "FC_LoraMerge",
+            "FC_MaskOP",
+            "FC_ReplaceImage",
             "FC_Segment",
             "FC_StyleLoraLoad"
         ],
@@ -1445,10 +1477,14 @@
             "tri3d-atr-parse-batch",
             "tri3d-extract-hand",
             "tri3d-extract-parts-batch",
+            "tri3d-extract-parts-batch2",
             "tri3d-extract-parts-mask-batch",
             "tri3d-fuzzification",
+            "tri3d-interaction-canny",
             "tri3d-position-hands",
-            "tri3d-position-parts-batch"
+            "tri3d-position-parts-batch",
+            "tri3d-skin-feathered-padded-mask",
+            "tri3d-swap-pixels"
         ],
         {
             "title_aux": "tri3d-comfyui-nodes"
@@ -1619,9 +1655,11 @@
         [
             "BLVAEEncode",
             "CLIPTextEncodeList",
+            "CLIPTextEncodeSequence2",
             "ConditioningBlend",
             "DebugInput",
             "KSamplerSeq",
+            "KSamplerSeq2",
             "VAEEncodeForInpaint (WAS)",
             "VividSharpen"
         ],
@@ -2394,6 +2432,7 @@
             "Loader",
             "Prompts",
             "SaveImages",
+            "Textbox",
             "Wildcards"
         ],
         {
@@ -2647,6 +2686,16 @@
         ],
         {
             "title_aux": "ComfyUI-Vextra-Nodes"
+        }
+    ],
+    "https://github.com/drago87/ComfyUI_Dragos_Nodes": [
+        [
+            "file_padding",
+            "image_info",
+            "vae_loader"
+        ],
+        {
+            "title_aux": "ComfyUI_Dragos_Nodes"
         }
     ],
     "https://github.com/drustan-hawk/primitive-types": [
@@ -2971,6 +3020,16 @@
             "title_aux": "ComfyUI-Jjk-Nodes"
         }
     ],
+    "https://github.com/jojkaart/ComfyUI-sampler-lcm-alternative": [
+        [
+            "LCMScheduler",
+            "SamplerLCMAlternative",
+            "SamplerLCMCycle"
+        ],
+        {
+            "title_aux": "ComfyUI-sampler-lcm-alternative"
+        }
+    ],
     "https://github.com/ka-puna/comfyui-yanc": [
         [
             "YANC.ConcatStrings",
@@ -2991,6 +3050,7 @@
             "BatchCropFromMaskAdvanced",
             "BatchUncrop",
             "BatchUncropAdvanced",
+            "BboxToInt",
             "ColorMatch",
             "ColorToMask",
             "ConditioningMultiCombine",
@@ -3000,8 +3060,10 @@
             "ConditioningSetMaskAndCombine5",
             "CreateAudioMask",
             "CreateFadeMask",
+            "CreateFadeMaskAdvanced",
             "CreateFluidMask",
             "CreateGradientMask",
+            "CreateMagicMask",
             "CreateShapeMask",
             "CreateTextMask",
             "CreateVoronoiMask",
@@ -3571,12 +3633,40 @@
             "title_aux": "ComfyUI_FastVAEDecorder_SDXL"
         }
     ],
+    "https://github.com/natto-maki/ComfyUI-NegiTools": [
+        [
+            "NegiTools_OpenAiDalle3",
+            "NegiTools_OpenAiTranslate",
+            "NegiTools_SeedGenerator",
+            "NegiTools_StringFunction"
+        ],
+        {
+            "title_aux": "ComfyUI-NegiTools"
+        }
+    ],
     "https://github.com/nicolai256/comfyUI_Nodes_nicolai256/raw/main/yugioh-presets.py": [
         [
             "yugioh_Presets"
         ],
         {
             "title_aux": "comfyUI_Nodes_nicolai256"
+        }
+    ],
+    "https://github.com/noembryo/ComfyUI-noEmbryo": [
+        [
+            "PromptTermList1",
+            "PromptTermList2",
+            "PromptTermList3",
+            "PromptTermList4",
+            "PromptTermList5",
+            "PromptTermList6"
+        ],
+        {
+            "author": "noEmbryo",
+            "description": "Some useful nodes for ComfyUI",
+            "nickname": "noEmbryo",
+            "title": "noEmbryo nodes for ComfyUI",
+            "title_aux": "noEmbryo nodes"
         }
     ],
     "https://github.com/noxinias/ComfyUI_NoxinNodes": [
@@ -3668,6 +3758,18 @@
         ],
         {
             "title_aux": "Ostris Nodes ComfyUI"
+        }
+    ],
+    "https://github.com/oyvindg/ComfyUI-TrollSuite": [
+        [
+            "BinaryImageMask",
+            "ImagePadding",
+            "LoadLastImage",
+            "RandomMask",
+            "TransparentImage"
+        ],
+        {
+            "title_aux": "ComfyUI-TrollSuite"
         }
     ],
     "https://github.com/palant/extended-saveimage-comfyui": [
@@ -3924,7 +4026,6 @@
             "AV_ParametersPipeToPrompts",
             "AV_PromptsToParametersPipe",
             "AV_SAMLoader",
-            "AV_UploadImage",
             "AV_VAELoader",
             "AspectRatioSelector",
             "BLIPCaption",
@@ -4340,6 +4441,7 @@
             "Image Save with Prompt/Info (WLSH)",
             "Image Save with Prompt/Info File (WLSH)",
             "Image Scale By Factor (WLSH)",
+            "Image Scale by Shortside (WLSH)",
             "KSamplerAdvanced (WLSH)",
             "Multiply Integer (WLSH)",
             "Outpaint to Image (WLSH)",
@@ -4441,6 +4543,17 @@
         ],
         {
             "title_aux": "SDXLResolutionPresets"
+        }
+    ],
+    "https://github.com/wutipong/ComfyUI-TextUtils": [
+        [
+            "Text Utils - Join N-Elements of String List",
+            "Text Utils - Join String List",
+            "Text Utils - Join Strings",
+            "Text Utils - Split String to List"
+        ],
+        {
+            "title_aux": "ComfyUI-TextUtils"
         }
     ],
     "https://github.com/xXAdonesXx/NodeGPT": [
@@ -4583,19 +4696,6 @@
         ],
         {
             "title_aux": "Cute Comfy"
-        }
-    ],
-    "https://raw.githubusercontent.com/noembryo/ComfyUI-noEmbryo/master/nodes.py": [
-        [
-            "PromptTermList1",
-            "PromptTermList2",
-            "PromptTermList3",
-            "PromptTermList4",
-            "PromptTermList5",
-            "PromptTermList6"
-        ],
-        {
-            "title_aux": "noEmbryo nodes"
         }
     ],
     "https://raw.githubusercontent.com/throttlekitty/SDXLCustomAspectRatio/main/SDXLAspectRatio.py": [

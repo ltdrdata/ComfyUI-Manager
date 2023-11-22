@@ -1473,7 +1473,7 @@
             "files": [
                 "https://github.com/rgthree/rgthree-comfy"
             ],
-            "nodename_pattern": " (rgthree)$",
+            "nodename_pattern": " \\(rgthree\\)$",
             "install_type": "git-clone",
             "description": "Nodes: Seed, Reroute, Context, Lora Loader Stack, Context Switch, Fast Muter. These custom nodes helps organize the building of complex workflows."
         },
@@ -1688,14 +1688,14 @@
             "description": "Input your desired output final resolution, it will automaticaly set the initial recommended SDXL ratio/size and its Upscale Factor to reach that output final resolution, also there's an option for 2x/4x reverse Upscale Factor. These all to avoid using bad/arbitary initial ratio/resolution."
         },
         {
-            "author": "Nuked88",
+            "author": "Nuked",
             "title": "ComfyUI-N-Nodes",
             "reference": "https://github.com/Nuked88/ComfyUI-N-Nodes",
             "files": [
                 "https://github.com/Nuked88/ComfyUI-N-Nodes"
             ],
             "install_type": "git-clone",
-            "description": "A suite of custom nodes for ComfyUI, for now i just put Integer, string and float variable nodes."
+            "description": "A suite of custom nodes for ConfyUI that includes GPT text-prompt generation, LoadVideo,SaveVideo,LoadFramesFromFolder and FrameInterpolator"
         },
         {
             "author": "Extraltodeus",
@@ -2452,9 +2452,9 @@
             "title": "noEmbryo nodes",
             "reference": "https://github.com/noembryo/ComfyUI-noEmbryo",
             "files": [
-                "https://raw.githubusercontent.com/noembryo/ComfyUI-noEmbryo/master/nodes.py"
+                "https://github.com/noembryo/ComfyUI-noEmbryo"
             ],
-            "install_type": "copy",
+            "install_type": "git-clone",
             "description": "PromptTermList (1-6): are some nodes that help with the creation of Prompts inside ComfyUI. Resolution Scale outputs image dimensions using a scale factor. Regex Text Chopper outputs the chopped parts of a text using RegEx."
         },
         {
@@ -2678,6 +2678,97 @@
             "description": "Nodes:GradientPatchModelAddDownscale (Kohya Deep Shrink)."
         },
         {
+            "author": "Feidorian",
+            "title": "feidorian-ComfyNodes",
+            "reference": "https://github.com/Feidorian/feidorian-ComfyNodes",
+            "nodename_pattern": "^Feidorian_",
+            "files": [
+                "https://github.com/Feidorian/feidorian-ComfyNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "This extension provides various custom nodes. literals, loaders, logic, output, switches"
+        },
+        {
+            "author": "wutipong",
+            "title": "ComfyUI-TextUtils",
+            "reference": "https://github.com/wutipong/ComfyUI-TextUtils",
+            "files": [
+                "https://github.com/wutipong/ComfyUI-TextUtils"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Create N-Token String"
+        },
+        {
+            "author": "natto-maki",
+            "title": "ComfyUI-NegiTools",
+            "reference": "https://github.com/natto-maki/ComfyUI-NegiTools",
+            "files": [
+                "https://github.com/natto-maki/ComfyUI-NegiTools"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:OpenAI DALLe3"
+        },
+        {
+            "author": "LonicaMewinsky",
+            "title": "ComfyUI-RawSaver",
+            "reference": "https://github.com/LonicaMewinsky/ComfyUI-RawSaver",
+            "files": [
+                "https://github.com/LonicaMewinsky/ComfyUI-RawSaver"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:SaveTifImage. ComfyUI custom node for purpose of saving image as uint16 tif file."
+        },
+        {
+            "author": "jojkaart",
+            "title": "ComfyUI-sampler-lcm-alternative",
+            "reference": "https://github.com/jojkaart/ComfyUI-sampler-lcm-alternative",
+            "files": [
+                "https://github.com/jojkaart/ComfyUI-sampler-lcm-alternative"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:LCMScheduler, SamplerLCMAlternative, SamplerLCMCycle. ComfyUI Custom Sampler nodes that add a new improved LCM sampler functions"
+        },
+        {
+            "author": "GTSuya-Studio",
+            "title": "ComfyUI-GTSuya-Nodes",
+            "reference": "https://github.com/GTSuya-Studio/ComfyUI-Gtsuya-Nodes",
+            "files": [
+                "https://github.com/GTSuya-Studio/ComfyUI-Gtsuya-Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI-GTSuya-Nodes is a ComyUI extension designed to add several wildcards supports into ComfyUI. Wildcards allow you to use __name__ syntax in your prompt to get a random line from a file named name.txt in a wildcards directory."
+        },
+        {
+            "author": "oyvindg",
+            "title": "ComfyUI-TrollSuite",
+            "reference": "https://github.com/oyvindg/ComfyUI-TrollSuite",
+            "files": [
+                "https://github.com/oyvindg/ComfyUI-TrollSuite"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: BinaryImageMask, ImagePadding, LoadLastCreatedImage, RandomMask, TransparentImage."
+        },
+        {
+            "author": "drago87",
+            "title": "ComfyUI_Dragos_Nodes",
+            "reference": "https://github.com/drago87/ComfyUI_Dragos_Nodes",
+            "files": [
+                "https://github.com/drago87/ComfyUI_Dragos_Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:File Padding, Image Info, VAE Loader With Name"
+        },
+        {
+            "author": "ansonkao",
+            "title": "comfyui-geometry",
+            "reference": "https://github.com/ansonkao/comfyui-geometry",
+            "files": [
+                "https://github.com/ansonkao/comfyui-geometry"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: Mask to Centroid, Mask to Eigenvector. A small collection of custom nodes for use with ComfyUI, for geometry calculations"
+        },
+        {
             "author": "Off-Live",
             "title": "ComfyUI-off-suite",
             "reference": "https://github.com/Off-Live/ComfyUI-off-suite",
@@ -2685,7 +2776,7 @@
                 "https://github.com/Off-Live/ComfyUI-off-suite"
             ],
             "install_type": "copy",
-            "description": "Nodes:Image Crop Fit Node, OFF SEGS to Image, Crop Center wigh SEGS, GW Number Formatting Node."
+            "description": "Nodes:Image Crop Fit Node, OFF SEGS to Image, Crop Center wigh SEGS, Watermarking, GW Number Formatting Node."
         },
         {
             "author": "Ser-Hilary",
