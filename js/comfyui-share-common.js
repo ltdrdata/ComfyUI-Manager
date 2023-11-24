@@ -8,6 +8,7 @@ export const SUPPORTED_OUTPUT_NODE_TYPES = [
 	"SaveImage",
 	"VHS_VideoCombine",
 	"ADE_AnimateDiffCombine",
+	"SaveAnimatedWEBP",
 ]
 
 var docStyle = document.createElement('style');
@@ -127,6 +128,17 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 				}
 			}
 		}
+		else if (node.type === "SaveAnimatedWEBP") {
+		    potential_output_nodes.push(node);
+
+			// check if node has an 'images' array property
+			if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
+				// iterate over the images array and add each image to the potential_outputs array
+				for (let j = 0; j < node.images.length; j++) {
+					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title });
+				}
+			}
+		}
 	}
 	return { potential_outputs, potential_output_nodes };
 }
@@ -156,7 +168,16 @@ export const showOpenArtShareDialog = () => {
   if (!OpenArtShareDialog.instance) {
     OpenArtShareDialog.instance = new OpenArtShareDialog();
   }
-  OpenArtShareDialog.instance.show();
+
+  return app.graphToPrompt()
+    .then(prompt => {
+      // console.log({ prompt })
+      return app.graph._nodes;
+    })
+    .then(nodes => {
+        const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
+        OpenArtShareDialog.instance.show({ potential_outputs, potential_output_nodes});
+    })
 }
 
 export const showShareDialog = async (share_option) => {
@@ -199,7 +220,7 @@ export class ShareDialogChooser extends ComfyDialog {
 				{},
 				[...this.createButtons()]),
 			]);
-
+		this.selectedNodeId = null;
 	}
 	createButtons() {
 		const buttons = [
@@ -832,6 +853,26 @@ export class ShareDialog extends ComfyDialog {
 	}
 
 	show({ potential_outputs, potential_output_nodes, share_option }) {
+	    // Sort `potential_output_nodes` by node ID to make the order always
+        // consistent, but we should also keep `potential_outputs` in the same
+        // order as `potential_output_nodes`.
+        const potential_output_to_order = {};
+        potential_output_nodes.forEach((node, index) => {
+            potential_output_to_order[node.id] =[node, potential_outputs[index]];
+        })
+        // Sort the object `potential_output_to_order` by key (node ID)
+        const sorted_potential_output_to_order = Object.fromEntries(
+            Object.entries(potential_output_to_order).sort((a, b) => a[0].id - b[0].id)
+        );
+        const sorted_potential_outputs = []
+        const sorted_potential_output_nodes = []
+        for (const [key, value] of Object.entries(sorted_potential_output_to_order)) {
+            sorted_potential_output_nodes.push(value[0]);
+            sorted_potential_outputs.push(value[1]);
+        }
+        potential_output_nodes = sorted_potential_output_nodes;
+        potential_outputs = sorted_potential_outputs;
+
 		// console.log({ potential_outputs, potential_output_nodes })
 		this.radio_buttons.innerHTML = ""; // clear the radio buttons
 		const new_radio_buttons = $el("div", {
@@ -841,6 +882,7 @@ export class ShareDialog extends ComfyDialog {
 				'max-height': '400px',
 			}
 		}, potential_outputs.map((output, index) => {
+		    const potential_output_node = potential_output_nodes[index];
 			const radio_button = $el("input", { type: 'radio', name: "selectOutputImages", value: index, required: index === 0 }, [])
 			let radio_button_img;
 			if (output.type === "image" || output.type === "temp") {
@@ -859,7 +901,17 @@ export class ShareDialog extends ComfyDialog {
 				// }
 			}, [output.title])
 			radio_button.style.color = "var(--fg-color)";
-			radio_button.checked = index === 0;
+
+            // Make the radio button checked if it's the selected node,
+			// otherwise make the first radio button checked.
+			if (this.selectedNodeId) {
+			    if (this.selectedNodeId === potential_output_node.id) {
+			        radio_button.checked = true;
+			    }
+			} else {
+			    radio_button.checked = index === 0;
+			}
+
 			if (radio_button.checked) {
 				this.selectedOutputIndex = index;
 			}

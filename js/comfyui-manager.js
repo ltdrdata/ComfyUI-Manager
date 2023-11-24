@@ -2,6 +2,7 @@ import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
 import { ShareDialog, SUPPORTED_OUTPUT_NODE_TYPES, getPotentialOutputsAndOutputNodes, ShareDialogChooser, showOpenArtShareDialog, showShareDialog } from "./comfyui-share-common.js";
+import { OpenArtShareDialog } from "./comfyui-share-openart.js";
 import { CustomNodesInstaller } from "./custom-nodes-downloader.js";
 import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
@@ -256,6 +257,18 @@ function newDOMTokenList(initialTokens) {
 	return classList;
   }
 
+/**
+ * Check whether the node is a potential output node (img, gif or video output)
+ */
+const isOutputNode = (node) => {
+    return [
+        "VHS_VideoCombine",
+        "PreviewImage",
+        "SaveImage",
+        "ADE_AnimateDiffCombine",
+        "SaveAnimatedWEBP",
+    ].includes(node.type);
+}
 
 // -----------
 class ManagerMenuDialog extends ComfyDialog {
@@ -695,10 +708,12 @@ app.registerExtension({
 			}
 			return r;
 		};
+
+	    this._addExtraNodeContextMenu(nodeType, app);
 	},
 
 	async loadedGraphNode(node, app) {
-		if (node.has_errors) {
+	    if (node.has_errors) {
 			const onDrawForeground = node.onDrawForeground;
 			node.onDrawForeground = function (ctx) {
 				const r = onDrawForeground?.apply?.(this, arguments);
@@ -748,5 +763,36 @@ app.registerExtension({
 				return r;
 			};
 		}
-	}
+	},
+
+	_addExtraNodeContextMenu(node, app) {
+	    node.prototype.getExtraMenuOptions = function (_, options) {
+	    	if (isOutputNode(node)) {
+	    	    const { potential_outputs } = getPotentialOutputsAndOutputNodes([this]);
+	    	    const hasOutput = potential_outputs.length > 0;
+                options.push({
+				    content: "🏞️ Share Output",
+				    disabled: !hasOutput,
+					callback: (obj) => {
+					    if (!ShareDialog.instance) {
+					        ShareDialog.instance = new ShareDialog();
+					    }
+					    const shareButton = document.getElementById("shareButton");
+					    if (shareButton) {
+					        const currentNode = this;
+					        if (!OpenArtShareDialog.instance) {
+					            OpenArtShareDialog.instance = new OpenArtShareDialog();
+					        }
+					        OpenArtShareDialog.instance.selectedNodeId = currentNode.id;
+					        if (!ShareDialog.instance) {
+					            ShareDialog.instance = new ShareDialog(share_option);
+					        }
+					        ShareDialog.instance.selectedNodeId = currentNode.id;
+					        shareButton.click();
+					    }
+					}
+				}, null);
+			}
+	    }
+	},
 });

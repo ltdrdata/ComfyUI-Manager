@@ -826,14 +826,22 @@ def get_current_snapshot():
 
 
 def save_snapshot_with_postfix(postfix):
-        now = datetime.datetime.now()
+    now = datetime.datetime.now()
 
-        date_time_format = now.strftime("%Y-%m-%d_%H-%M-%S")
-        file_name = f"{date_time_format}_{postfix}"
+    date_time_format = now.strftime("%Y-%m-%d_%H-%M-%S")
+    file_name = f"{date_time_format}_{postfix}"
 
-        path = os.path.join(os.path.dirname(__file__), 'snapshots', f"{file_name}.json")
-        with open(path, "w") as json_file:
-            json.dump(get_current_snapshot(), json_file, indent=4)
+    path = os.path.join(os.path.dirname(__file__), 'snapshots', f"{file_name}.json")
+    with open(path, "w") as json_file:
+        json.dump(get_current_snapshot(), json_file, indent=4)
+
+
+@server.PromptServer.instance.routes.get("/snapshot/get_current")
+async def get_current_snapshot_api(request):
+    try:
+        return web.json_response(get_current_snapshot(), content_type='application/json')
+    except:
+        return web.Response(status=400)
 
 
 @server.PromptServer.instance.routes.get("/snapshot/save")
