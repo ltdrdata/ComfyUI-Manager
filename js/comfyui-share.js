@@ -34,7 +34,6 @@ docStyle.innerHTML = `
 document.head.appendChild(docStyle);
 
 export function getPotentialOutputsAndOutputNodes(nodes) {
-	console.log({ nodes });
 	const potential_outputs = [];
 	const potential_output_nodes = [];
 
