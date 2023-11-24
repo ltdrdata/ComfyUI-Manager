@@ -7,6 +7,7 @@ export const SUPPORTED_OUTPUT_NODE_TYPES = [
 	"SaveImage",
 	"VHS_VideoCombine",
 	"ADE_AnimateDiffCombine",
+	"SaveAnimatedWEBP"
 ]
 
 var docStyle = document.createElement('style');
@@ -33,6 +34,7 @@ docStyle.innerHTML = `
 document.head.appendChild(docStyle);
 
 export function getPotentialOutputsAndOutputNodes(nodes) {
+	console.log({ nodes });
 	const potential_outputs = [];
 	const potential_output_nodes = [];
 
@@ -88,7 +90,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 						const widgetValue = node.widgets[j].value;
 						const parsedURLVals = widgetValue.params;
 
-						if(!parsedURLVals.format.startsWith('image')) {
+						if (!parsedURLVals.format.startsWith('image')) {
 							// video isn't supported format
 							continue;
 						}
@@ -123,6 +125,17 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "type": parsedURLVals.type, "value": widgetValue, "format": parsedURLVals.format } });
 						}
 					}
+				}
+			}
+		}
+		else if (node.type === "SaveAnimatedWEBP") {
+			potential_output_nodes.push(node);
+
+			// check if node has an 'images' array property
+			if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
+				// iterate over the images array and add each image to the potential_outputs array
+				for (let j = 0; j < node.images.length; j++) {
+					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title });
 				}
 			}
 		}
