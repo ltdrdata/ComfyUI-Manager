@@ -150,6 +150,7 @@
             "BSZAspectHires",
             "BSZColoredLatentImageXL",
             "BSZCombinedHires",
+            "BSZHueChromaXL",
             "BSZInjectionKSampler",
             "BSZLatentDebug",
             "BSZLatentFill",
@@ -162,7 +163,8 @@
             "BSZPixelbusterHelp",
             "BSZPrincipledConditioning",
             "BSZPrincipledSampler",
-            "BSZPrincipledScale"
+            "BSZPrincipledScale",
+            "BSZStrangeResample"
         ],
         {
             "title_aux": "bsz-cui-extras"
@@ -2122,6 +2124,7 @@
             "Core ML LoRA Loader",
             "CoreMLModelAdapter",
             "CoreMLSampler",
+            "CoreMLSamplerAdvanced",
             "CoreMLUNetLoader"
         ],
         {
@@ -2354,6 +2357,17 @@
         ],
         {
             "title_aux": "braintacles-nodes"
+        }
+    ],
+    "https://github.com/bronkula/comfyui-fitsize": [
+        [
+            "FitSizeFromImage",
+            "FitSizeFromInt",
+            "FitSizeResizeImage",
+            "LoadToFitResizeImage"
+        ],
+        {
+            "title_aux": "comfyui-fitsize"
         }
     ],
     "https://github.com/budihartono/comfyui_otonx_nodes": [
@@ -2692,6 +2706,7 @@
         [
             "file_padding",
             "image_info",
+            "lora_loader",
             "vae_loader"
         ],
         {
@@ -3084,11 +3099,20 @@
             "RoundMask",
             "SaveImageWithAlpha",
             "SomethingToString",
+            "SplitBboxes",
             "VRAM_Debug",
             "WidgetToString"
         ],
         {
             "title_aux": "KJNodes for ComfyUI"
+        }
+    ],
+    "https://github.com/kijai/ComfyUI-SVD": [
+        [
+            "SVDimg2vid"
+        ],
+        {
+            "title_aux": "ComfyUI-SVD"
         }
     ],
     "https://github.com/kinfolk0117/ComfyUI_GradientDeepShrink": [
@@ -3273,6 +3297,7 @@
             "ImpactNeg",
             "ImpactNodeSetMuteState",
             "ImpactQueueTrigger",
+            "ImpactQueueTriggerCountdown",
             "ImpactSEGSClassify",
             "ImpactSEGSConcat",
             "ImpactSEGSLabelFilter",
@@ -3286,6 +3311,7 @@
             "ImpactSimpleDetectorSEGS",
             "ImpactSimpleDetectorSEGSPipe",
             "ImpactSimpleDetectorSEGS_for_AD",
+            "ImpactSleep",
             "ImpactStringSelector",
             "ImpactSwitch",
             "ImpactValueReceiver",
@@ -3883,6 +3909,7 @@
     ],
     "https://github.com/receyuki/comfyui-prompt-reader-node": [
         [
+            "SDBatchLoader",
             "SDParameterGenerator",
             "SDPromptMerger",
             "SDPromptReader",
@@ -3964,7 +3991,7 @@
             "KandinskyModelLoad",
             "LoadImagesFromPath",
             "RandomPrompt",
-            "RunWorkflow",
+            "ScreenShare",
             "SmoothMask",
             "SplitLongMask",
             "TransparentImage",
@@ -4319,12 +4346,33 @@
             "title_aux": "Styles CSV Loader Extension for ComfyUI"
         }
     ],
+    "https://github.com/thecooltechguy/ComfyUI-Stable-Video-Diffusion": [
+        [
+            "SVDDecoder",
+            "SVDModelLoader",
+            "SVDSampler",
+            "SVDSimpleImg2Vid"
+        ],
+        {
+            "title_aux": "ComfyUI Stable Video Diffusion"
+        }
+    ],
     "https://github.com/thedyze/save-image-extended-comfyui": [
         [
             "SaveImageExtended"
         ],
         {
             "title_aux": "Save Image Extended for ComfyUI"
+        }
+    ],
+    "https://github.com/toyxyz/ComfyUI_toyxyz_test_nodes": [
+        [
+            "CaptureWebcam",
+            "LoadWebcamImage",
+            "SaveImagetoPath"
+        ],
+        {
+            "title_aux": "ComfyUI_toyxyz_test_nodes"
         }
     ],
     "https://github.com/trojblue/trNodes": [
