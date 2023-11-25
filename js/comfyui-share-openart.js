@@ -548,6 +548,7 @@ export class OpenArtShareDialog extends ComfyDialog {
     this.previewImage.style.display = "none";
     const key = await this.readKey();
     this.keyInput.value = key;
+    this.uploadedImages = [];
 
     // If `selectedNodeId` is provided, we will select the corresponding radio
 	// button for the node. In addition, we move the selected radio button to
