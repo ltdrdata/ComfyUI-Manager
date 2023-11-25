@@ -526,7 +526,7 @@ export class OpenArtShareDialog extends ComfyDialog {
     // order as `potential_output_nodes`.
     const potential_output_to_order = {};
     potential_output_nodes.forEach((node, index) => {
-        potential_output_to_order[node.id] =[node, potential_outputs[index]];
+        potential_output_to_order[node.id] = [node, potential_outputs[index]];
     })
     // Sort the object `potential_output_to_order` by key (node ID)
     const sorted_potential_output_to_order = Object.fromEntries(
@@ -539,7 +539,7 @@ export class OpenArtShareDialog extends ComfyDialog {
         sorted_potential_outputs.push(value[1]);
     }
     potential_output_nodes = sorted_potential_output_nodes;
-    potential_outputs = sorted_potential_outputs.filter((output) => !!output);
+    potential_outputs = sorted_potential_outputs;
 
     this.message.innerHTML = "";
     this.message.textContent = "";

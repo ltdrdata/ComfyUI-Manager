@@ -47,30 +47,26 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 		}
 
 		if (node.type === "SaveImage") {
-			potential_output_nodes.push(node);
-
 			// check if node has an 'images' array property
 			if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
 				// iterate over the images array and add each image to the potential_outputs array
 				for (let j = 0; j < node.images.length; j++) {
+				    potential_output_nodes.push(node);
 					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title });
 				}
 			}
 		}
 		else if (node.type === "PreviewImage") {
-			potential_output_nodes.push(node);
-
 			// check if node has an 'images' array property
 			if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
 				// iterate over the images array and add each image to the potential_outputs array
 				for (let j = 0; j < node.images.length; j++) {
+				    potential_output_nodes.push(node);
 					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title });
 				}
 			}
 		}
 		else if (node.type === "VHS_VideoCombine") {
-			potential_output_nodes.push(node);
-
 			// check if node has a 'widgets' array property, with type 'image'
 			if (node.hasOwnProperty("widgets") && Array.isArray(node.widgets)) {
 				// iterate over the widgets array and add each image to the potential_outputs array
@@ -84,6 +80,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 							if (parsedURLVals.type !== "output") {
 								// TODO
 							}
+							potential_output_nodes.push(node);
 							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": widgetValue, "format": parsedURLVals.format } });
 						}
 					} else if (node.widgets[j].type === "preview") {
@@ -100,6 +97,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 							if (parsedURLVals.type !== "output") {
 								// TODO
 							}
+							potential_output_nodes.push(node);
 							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": `/view?filename=${parsedURLVals.filename}&subfolder=${parsedURLVals.subfolder}&type=${parsedURLVals.type}&format=${parsedURLVals.format}`, "format": parsedURLVals.format } });
 						}
 					}
@@ -107,8 +105,6 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 			}
 		}
 		else if (node.type === "ADE_AnimateDiffCombine") {
-			potential_output_nodes.push(node);
-
 			// check if node has a 'widgets' array property, with type 'image'
 			if (node.hasOwnProperty("widgets") && Array.isArray(node.widgets)) {
 				// iterate over the widgets array and add each image to the potential_outputs array
@@ -122,6 +118,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 								// TODO
 								continue;
 							}
+							potential_output_nodes.push(node);
 							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "type": parsedURLVals.type, "value": widgetValue, "format": parsedURLVals.format } });
 						}
 					}
@@ -129,17 +126,18 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 			}
 		}
 		else if (node.type === "SaveAnimatedWEBP") {
-		    potential_output_nodes.push(node);
-
 			// check if node has an 'images' array property
 			if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
 				// iterate over the images array and add each image to the potential_outputs array
 				for (let j = 0; j < node.images.length; j++) {
+				    potential_output_nodes.push(node);
 					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title });
 				}
 			}
 		}
 	}
+
+    // Note: make sure that two arrays are the same length
 	return { potential_outputs, potential_output_nodes };
 }
 
@@ -858,7 +856,7 @@ export class ShareDialog extends ComfyDialog {
         // order as `potential_output_nodes`.
         const potential_output_to_order = {};
         potential_output_nodes.forEach((node, index) => {
-            potential_output_to_order[node.id] =[node, potential_outputs[index]];
+            potential_output_to_order[node.id] = [node, potential_outputs[index]];
         })
         // Sort the object `potential_output_to_order` by key (node ID)
         const sorted_potential_output_to_order = Object.fromEntries(
