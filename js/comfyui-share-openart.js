@@ -33,6 +33,9 @@ const sectionStyle = {
   padding: 0,
   borderRadius: "8px",
   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
 };
 
 export class OpenArtShareDialog extends ComfyDialog {
@@ -109,7 +112,7 @@ export class OpenArtShareDialog extends ComfyDialog {
     const labelStyle = {
       color: "#f8f8f8",
       display: "block",
-      margin: "10px 0",
+      margin: "10px 0 0 0",
       fontWeight: "bold",
       textDecoration: "none",
     };
@@ -157,7 +160,7 @@ export class OpenArtShareDialog extends ComfyDialog {
     // preview image
     this.previewImage = $el("img", {
       src: "",
-      style: { maxWidth: "100%", maxHeight: "100px", display: "none" },
+      style: { width: "100%", maxHeight: "100px", objectFit: "contain", display: "none" },
     });
 
     this.keyInput = $el("input", {
@@ -186,8 +189,7 @@ export class OpenArtShareDialog extends ComfyDialog {
 	  style: {
 	    'text-align': 'center',
 		color: 'white',
-		padding: '10px',
-		'margin-bottom': '10px',
+		margin: '0 0 10px 0',
 	  }
 	});
 
@@ -222,15 +224,16 @@ export class OpenArtShareDialog extends ComfyDialog {
 
     // Account Section
     const accountSection = $el("div", { style: sectionStyle }, [
-      $el("label", { style: labelStyle }, ["OpenArt API Key"]),
+      $el("label", { style: labelStyle }, ["1️⃣ OpenArt API Key"]),
       this.keyInput,
     ]);
 
     // Output Upload Section
     const outputUploadSection = $el("div", { style: sectionStyle }, [
-      $el("label", { style: labelStyle }, ["Upload Image/Thumbnail (Required)"]),
-      this.uploadImagesInput,
+      $el("label", { style: {...labelStyle, margin: "10px 0 0 0"} }, ["2️⃣ Image/Thumbnail (Required)"]),
+      $el("div", { style: { ...labelStyle, margin: "5px 0 10px 0", fontSize: '12px', fontWeight: "normal"} }, ["Upload or choose one from the outputs"]),
       this.previewImage,
+      this.uploadImagesInput,
     ]);
 
     // Outputs Section
@@ -240,7 +243,7 @@ export class OpenArtShareDialog extends ComfyDialog {
 
     // Additional Inputs Section
     const additionalInputsSection = $el("div", { style: sectionStyle }, [
-      $el("label", { style: labelStyle }, ["Workflow Information"]),
+      $el("label", { style: labelStyle }, ["3️⃣ Workflow Information"]),
       this.NameInput,
       this.descriptionInput,
     ]);
@@ -562,7 +565,7 @@ export class OpenArtShareDialog extends ComfyDialog {
 	    id: "selectOutput-Options",
 	    style: {
 	      'overflow-y': 'scroll',
-		  'max-height': '250px',
+		  'max-height': '200px',
 
 		  'display': 'grid',
 		  'grid-template-columns': 'repeat(auto-fit, minmax(100px, 1fr))',
@@ -666,29 +669,17 @@ export class OpenArtShareDialog extends ComfyDialog {
 	  })
 	);
 
-	const header = $el("div",
-	  {
-	    textContent: "Or choose an output below",
-	    fontSize: '15px',
-		color: "white",
-		style: {
-		  ...sectionStyle,
-		  color: 'white',
-		},
-	  },
-	  [
+	const header =
 	    $el("p", {
-		  textContent: "Scroll to see all",
+		  textContent: this.radioButtons.length === 0 ? "Queue Prompt to see the outputs" : "Outputs (scroll to see all)",
 		  size: 2,
 		  color: "white",
 		  style: {
 			color: 'white',
-			margin: '5px 0',
+			margin: '0 0 5px 0',
 			fontSize: '12px',
 		  },
 		}, [])
-	  ]
-	);
     this.outputsSection.innerHTML = "";
     this.outputsSection.appendChild(header);
     this.outputsSection.appendChild(new_radio_buttons);
