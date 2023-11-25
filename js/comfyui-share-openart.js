@@ -153,6 +153,11 @@ export class OpenArtShareDialog extends ComfyDialog {
           ele.checked = false;
           ele.parentElement.classList.remove("checked");
         });
+
+        // Add the opacity style toggle here to indicate that they only need
+        // to upload one image or choose one from the outputs.
+        this.outputsSection.style.opacity = 0.35;
+        this.uploadImagesInput.style.opacity = 1;
       };
       reader.readAsDataURL(file);
     });
@@ -160,7 +165,13 @@ export class OpenArtShareDialog extends ComfyDialog {
     // preview image
     this.previewImage = $el("img", {
       src: "",
-      style: { width: "100%", maxHeight: "100px", objectFit: "contain", display: "none" },
+      style: {
+        width: "100%",
+        maxHeight: "100px",
+        objectFit: "contain",
+        display: "none",
+        marginTop: '10px',
+      },
     });
 
     this.keyInput = $el("input", {
@@ -231,7 +242,6 @@ export class OpenArtShareDialog extends ComfyDialog {
     // Output Upload Section
     const outputUploadSection = $el("div", { style: sectionStyle }, [
       $el("label", { style: {...labelStyle, margin: "10px 0 0 0"} }, ["2️⃣ Image/Thumbnail (Required)"]),
-      $el("div", { style: { ...labelStyle, margin: "5px 0 10px 0", fontSize: '12px', fontWeight: "normal"} }, ["Upload or choose one from the outputs"]),
       this.previewImage,
       this.uploadImagesInput,
     ]);
@@ -644,6 +654,11 @@ export class OpenArtShareDialog extends ComfyDialog {
             this.previewImage.style.display = "block";
             this.selectedFile = file;
 		  })
+
+		  // Add the opacity style toggle here to indicate that they only need
+          // to upload one image or choose one from the outputs.
+          this.outputsSection.style.opacity = 1;
+          this.uploadImagesInput.style.opacity = 0.35;
 		};
 
 		if (radio_button.checked) {
@@ -655,6 +670,10 @@ export class OpenArtShareDialog extends ComfyDialog {
             this.previewImage.style.display = "block";
             this.selectedFile = file;
 		  })
+		  // Add the opacity style toggle here to indicate that they only need
+          // to upload one image or choose one from the outputs.
+          this.outputsSection.style.opacity = 1;
+          this.uploadImagesInput.style.opacity = 0.35;
 		}
 
 		this.radioButtons.push(radio_button);
@@ -675,7 +694,7 @@ export class OpenArtShareDialog extends ComfyDialog {
 
 	const header =
 	    $el("p", {
-		  textContent: this.radioButtons.length === 0 ? "Queue Prompt to see the outputs" : "Outputs (scroll to see all)",
+		  textContent: this.radioButtons.length === 0 ? "Queue Prompt to see the outputs" : "Or choose one from the outputs (scroll to see all)",
 		  size: 2,
 		  color: "white",
 		  style: {
