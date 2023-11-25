@@ -766,10 +766,19 @@ app.registerExtension({
 	},
 
 	_addExtraNodeContextMenu(node, app) {
-	    node.prototype.getExtraMenuOptions = function (_, options) {
-	    	if (isOutputNode(node)) {
+        const origGetExtraMenuOptions = node.prototype.getExtraMenuOptions;
+        node.prototype.getExtraMenuOptions = function (_, options) {
+            origGetExtraMenuOptions?.apply?.(this, arguments);
+            if (isOutputNode(node)) {
 	    	    const { potential_outputs } = getPotentialOutputsAndOutputNodes([this]);
 	    	    const hasOutput = potential_outputs.length > 0;
+
+	    	    // Check if the previous menu option is `null`. If it's not,
+	    	    // then we need to add a `null` as a separator.
+	    	    if (options[options.length - 1] !== null) {
+	    	        options.push(null);
+	    	    }
+
                 options.push({
 				    content: "🏞️ Share Output",
 				    disabled: !hasOutput,
@@ -793,6 +802,6 @@ app.registerExtension({
 					}
 				}, null);
 			}
-	    }
+        }
 	},
 });
