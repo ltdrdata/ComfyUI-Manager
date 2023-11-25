@@ -52,7 +52,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 				// iterate over the images array and add each image to the potential_outputs array
 				for (let j = 0; j < node.images.length; j++) {
 				    potential_output_nodes.push(node);
-					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title });
+					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title, "node_id": node.id });
 				}
 			}
 		}
@@ -62,7 +62,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 				// iterate over the images array and add each image to the potential_outputs array
 				for (let j = 0; j < node.images.length; j++) {
 				    potential_output_nodes.push(node);
-					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title });
+					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title, "node_id": node.id });
 				}
 			}
 		}
@@ -81,7 +81,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 								// TODO
 							}
 							potential_output_nodes.push(node);
-							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": widgetValue, "format": parsedURLVals.format } });
+							potential_outputs.push({ "type": "output", 'title': node.title, "node_id": node.id , "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": widgetValue, "format": parsedURLVals.format } });
 						}
 					} else if (node.widgets[j].type === "preview") {
 						const widgetValue = node.widgets[j].value;
@@ -98,7 +98,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 								// TODO
 							}
 							potential_output_nodes.push(node);
-							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": `/view?filename=${parsedURLVals.filename}&subfolder=${parsedURLVals.subfolder}&type=${parsedURLVals.type}&format=${parsedURLVals.format}`, "format": parsedURLVals.format } });
+							potential_outputs.push({ "type": "output", 'title': node.title, "node_id": node.id , "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": `/view?filename=${parsedURLVals.filename}&subfolder=${parsedURLVals.subfolder}&type=${parsedURLVals.type}&format=${parsedURLVals.format}`, "format": parsedURLVals.format } });
 						}
 					}
 				}
@@ -137,7 +137,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 		}
 	}
 
-    // Note: make sure that two arrays are the same length
+	// Note: make sure that two arrays are the same length
 	return { potential_outputs, potential_output_nodes };
 }
 
@@ -850,29 +850,34 @@ export class ShareDialog extends ComfyDialog {
 		return res;
 	}
 
-	show({ potential_outputs, potential_output_nodes, share_option }) {
-	    // Sort `potential_output_nodes` by node ID to make the order always
-        // consistent, but we should also keep `potential_outputs` in the same
-        // order as `potential_output_nodes`.
-        const potential_output_to_order = {};
-        potential_output_nodes.forEach((node, index) => {
-            potential_output_to_order[node.id] = [node, potential_outputs[index]];
-        })
-        // Sort the object `potential_output_to_order` by key (node ID)
-        const sorted_potential_output_to_order = Object.fromEntries(
-            Object.entries(potential_output_to_order).sort((a, b) => a[0].id - b[0].id)
-        );
-        const sorted_potential_outputs = []
-        const sorted_potential_output_nodes = []
-        for (const [key, value] of Object.entries(sorted_potential_output_to_order)) {
-            sorted_potential_output_nodes.push(value[0]);
-            sorted_potential_outputs.push(value[1]);
-        }
-        potential_output_nodes = sorted_potential_output_nodes;
-        potential_outputs = sorted_potential_outputs;
+	show({potential_outputs, potential_output_nodes, share_option}) {
+		// Sort `potential_output_nodes` by node ID to make the order always
+		// consistent, but we should also keep `potential_outputs` in the same
+		// order as `potential_output_nodes`.
+		const potential_output_to_order = {};
+		potential_output_nodes.forEach((node, index) => {
+      if (node.id in potential_output_to_order) {
+        potential_output_to_order[node.id][1].push(potential_outputs[index]);
+      } else {
+        potential_output_to_order[node.id] = [node, [potential_outputs[index]]];
+      }
+    })
+		// Sort the object `potential_output_to_order` by key (node ID)
+		const sorted_potential_output_to_order = Object.fromEntries(
+			Object.entries(potential_output_to_order).sort((a, b) => a[0].id - b[0].id)
+		);
+		const sorted_potential_outputs = []
+		const sorted_potential_output_nodes = []
+		for (const [key, value] of Object.entries(sorted_potential_output_to_order)) {
+			sorted_potential_output_nodes.push(value[0]);
+			sorted_potential_outputs.push(...value[1]);
+		}
+		potential_output_nodes = sorted_potential_output_nodes;
+		potential_outputs = sorted_potential_outputs;
 
 		// console.log({ potential_outputs, potential_output_nodes })
 		this.radio_buttons.innerHTML = ""; // clear the radio buttons
+		let is_radio_button_checked = false;  // only check the first radio button if multiple images from the same node
 		const new_radio_buttons = $el("div", {
 			id: "selectOutput-Options",
 			style: {
@@ -880,7 +885,7 @@ export class ShareDialog extends ComfyDialog {
 				'max-height': '400px',
 			}
 		}, potential_outputs.map((output, index) => {
-		    const potential_output_node = potential_output_nodes[index];
+			const {node_id} = output;
 			const radio_button = $el("input", { type: 'radio', name: "selectOutputImages", value: index, required: index === 0 }, [])
 			let radio_button_img;
 			if (output.type === "image" || output.type === "temp") {
@@ -903,8 +908,9 @@ export class ShareDialog extends ComfyDialog {
             // Make the radio button checked if it's the selected node,
 			// otherwise make the first radio button checked.
 			if (this.selectedNodeId) {
-			    if (this.selectedNodeId === potential_output_node.id) {
+			    if (this.selectedNodeId === node_id && !is_radio_button_checked) {
 			        radio_button.checked = true;
+							is_radio_button_checked = true;
 			    }
 			} else {
 			    radio_button.checked = index === 0;
