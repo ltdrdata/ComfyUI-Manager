@@ -245,6 +245,31 @@ export class OpenArtShareDialog extends ComfyDialog {
       this.descriptionInput,
     ]);
 
+    // OpenArt Contest Section
+    this.joinContestCheckbox = $el("input",{type:'checkbox', id:"join_contest"},[])
+    this.joinContestDescription = $el("a", {
+      style: {
+        ...hyperLinkStyle,
+        display: 'inline-block',
+        color: "#59E8C6",
+        fontSize: '12px',
+        marginLeft: '10px',
+        marginBottom: 0,
+      },
+      href: "https://contest.openart.ai/",
+      target: "_blank"
+    }, ["🏆 I'm participating in the OpenArt workflow contest"])
+    this.joinContestLabel = $el("label", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        cursor: 'pointer',
+      }
+    },[this.joinContestCheckbox, this.joinContestDescription])
+    const contestSection = $el("div", { style: sectionStyle }, [
+      this.joinContestLabel,
+    ]);
+
      // Message Section
     this.message = $el(
       "div",
@@ -303,6 +328,7 @@ export class OpenArtShareDialog extends ComfyDialog {
       outputUploadSection,
       this.outputsSection,
       additionalInputsSection,
+      contestSection,
       this.message,
       buttonsSection,
     ];
@@ -439,6 +465,8 @@ export class OpenArtShareDialog extends ComfyDialog {
       }
     }
 
+    const join_contest = this.joinContestCheckbox.checked;
+
     try {
       const response = await this.fetchApi(
         "/workflows/publish",
@@ -452,7 +480,8 @@ export class OpenArtShareDialog extends ComfyDialog {
             advanced_config: {
               workflow_api_json: workflowAPIJSON,
               snapshot: current_snapshot,
-            }
+            },
+            join_contest,
           }),
         },
         "Uploading workflow..."
@@ -507,7 +536,7 @@ export class OpenArtShareDialog extends ComfyDialog {
         sorted_potential_outputs.push(value[1]);
     }
     potential_output_nodes = sorted_potential_output_nodes;
-    potential_outputs = sorted_potential_outputs;
+    potential_outputs = sorted_potential_outputs.filter((output) => !!output);
 
     this.message.innerHTML = "";
     this.message.textContent = "";
