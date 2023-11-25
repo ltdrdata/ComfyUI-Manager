@@ -583,10 +583,13 @@ export class OpenArtShareDialog extends ComfyDialog {
 	  potential_outputs.map((output, index) => {
 		const radio_button = $el("input", { type: 'radio', name: "selectOutputImages", value: index, required: index === 0 }, [])
 		let radio_button_img;
+		let filename;
 		if (output.type === "image" || output.type === "temp") {
 		  radio_button_img = $el("img", { src: `/view?filename=${output.image.filename}&subfolder=${output.image.subfolder}&type=${output.image.type}`, style: { width: "100px", height: "100px", objectFit: "cover", borderRadius: "5px" } }, []);
+		  filename = output.image.filename
 		} else if (output.type === "output") {
 		  radio_button_img = $el("img", { src: output.output.value, style: { width: "auto", height: "100px", objectFit: "cover", borderRadius: "5px" } }, []);
+		  filename = output.filename
 		} else {
 		  // unsupported output type
 		  // this should never happen
@@ -634,7 +637,7 @@ export class OpenArtShareDialog extends ComfyDialog {
 		  radio_button.parentElement.classList.add("checked");
 
 		  this.fetchImageBlob(radio_button_img.src).then((blob) => {
-		    const file = new File([blob], output.image.filename, {
+		    const file = new File([blob], filename, {
               type: blob.type,
             });
 		    this.previewImage.src = radio_button_img.src;
@@ -645,7 +648,7 @@ export class OpenArtShareDialog extends ComfyDialog {
 
 		if (radio_button.checked) {
 		  this.fetchImageBlob(radio_button_img.src).then((blob) => {
-		    const file = new File([blob], output.image.filename, {
+		    const file = new File([blob], filename, {
               type: blob.type,
             });
 		    this.previewImage.src = radio_button_img.src;
