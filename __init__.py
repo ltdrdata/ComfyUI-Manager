@@ -13,8 +13,10 @@ from tqdm.auto import tqdm
 import concurrent
 import ssl
 from urllib.parse import urlparse
+import http.client
+import re
 
-version = "V1.3"
+version = "V1.4"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
@@ -84,6 +86,7 @@ from torchvision.datasets.utils import download_url
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
+comfy_ui_commit_date = ""
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -244,6 +247,8 @@ def try_install_script(url, repo_path, install_cmd):
 
 def print_comfyui_version():
     global comfy_ui_revision
+    global comfy_ui_commit_date
+
     try:
         repo = git.Repo(os.path.dirname(folder_paths.__file__))
 
@@ -257,10 +262,11 @@ def print_comfyui_version():
         except:
             pass
 
+        comfy_ui_commit_date = repo.head.commit.committed_datetime.date()
         if current_branch == "master":
-            print(f"### ComfyUI Revision: {comfy_ui_revision} [{git_hash[:8]}] | Released on '{repo.head.commit.committed_datetime.date()}'")
+            print(f"### ComfyUI Revision: {comfy_ui_revision} [{git_hash[:8]}] | Released on '{comfy_ui_commit_date}'")
         else:
-            print(f"### ComfyUI Revision: {comfy_ui_revision} on '{current_branch}' [{git_hash[:8]}] | Released on '{repo.head.commit.committed_datetime.date()}'")
+            print(f"### ComfyUI Revision: {comfy_ui_revision} on '{current_branch}' [{git_hash[:8]}] | Released on '{comfy_ui_commit_date}'")
     except:
         print("### ComfyUI Revision: UNKNOWN (The currently installed ComfyUI is not a Git repository)")
 
@@ -531,10 +537,15 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
             try:
                 if do_update_check and git_repo_has_updates(dir_path, do_fetch, do_update):
                     item['installed'] = 'Update'
+                elif sys.__comfyui_manager_is_import_failed_extension(dir_name):
+                    item['installed'] = 'Fail'
                 else:
                     item['installed'] = 'True'
             except:
-                item['installed'] = 'True'
+                if sys.__comfyui_manager_is_import_failed_extension(dir_name):
+                    item['installed'] = 'Fail'
+                else:
+                    item['installed'] = 'True'
 
         elif os.path.exists(dir_path + ".disabled"):
             item['installed'] = 'Disabled'
@@ -554,7 +565,10 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
 
         file_path = os.path.join(base_path, dir_name)
         if os.path.exists(file_path):
-            item['installed'] = 'True'
+            if sys.__comfyui_manager_is_import_failed_extension(dir_name):
+                item['installed'] = 'Fail'
+            else:
+                item['installed'] = 'True'
         elif os.path.exists(file_path + ".disabled"):
             item['installed'] = 'Disabled'
         else:
@@ -1420,6 +1434,37 @@ async def channel_url_list(request):
         return web.json_response(res, status=200)
 
     return web.Response(status=200)
+
+
+@server.PromptServer.instance.routes.get("/manager/notice")
+async def get_notice(request):
+    url = "github.com"
+    path = "/ltdrdata/ltdrdata.github.io/wiki/News"
+
+    conn = http.client.HTTPSConnection(url)
+    conn.request("GET", path)
+
+    response = conn.getresponse()
+
+    try:
+        if response.status == 200:
+            html_content = response.read().decode('utf-8')
+
+            pattern = re.compile(r'<div class="markdown-body">([\s\S]*?)</div>')
+            match = pattern.search(html_content)
+
+            if match:
+                markdown_content = match.group(1)
+                markdown_content += f"<HR>ComfyUI: {comfy_ui_revision} ({comfy_ui_commit_date})"
+                markdown_content += f"<BR>Manager: {version}"
+                return web.Response(text=markdown_content, status=200)
+            else:
+                return web.Response(text="Unable to retrieve Notice", status=200)
+        else:
+            return web.Response(text="Unable to retrieve Notice", status=200)
+    finally:
+        conn.close()
+
 
 def get_matrix_auth():
     if not os.path.exists(os.path.join(folder_paths.base_path, "matrix_auth")):

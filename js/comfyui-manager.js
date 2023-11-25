@@ -28,6 +28,16 @@ docStyle.innerHTML = `
 	text-align: center;
 	height: 45px;
 }
+
+.cm-notice-board {
+	width: 250px;
+	height: 130px;
+	overflow: auto;
+	color: var(--input-text);
+	border: 1px solid #ccc;
+	padding: 10px;
+	overflow-x: hidden;
+};
 `;
 
 document.head.appendChild(docStyle);
@@ -77,6 +87,14 @@ async function init_badge_mode() {
 	api.fetchApi('/manager/badge_mode')
 		.then(response => response.text())
 		.then(data => { badge_mode = data; })
+}
+
+async function init_notice(notice) {
+	api.fetchApi('/manager/notice')
+		.then(response => response.text())
+		.then(data => {
+			notice.innerHTML = data;
+		})
 }
 
 await init_badge_mode();
@@ -436,7 +454,7 @@ class ManagerMenuDialog extends ComfyDialog {
 	}
 
 	createControlsRight() {
-		return [
+		const elts = [
 				$el("button", {
 					type: "button",
 					textContent: "ComfyUI Community Manual",
@@ -514,7 +532,16 @@ class ManagerMenuDialog extends ComfyDialog {
 					textContent: "ComfyUI Nodes Info",
 					onclick: () => { window.open("https://ltdrdata.github.io/", "comfyui-node-info"); }
 				}),
+				$el("br", {}, []),
 		];
+
+		var textarea = document.createElement("div");
+		textarea.className = "cm-notice-board";
+		elts.push(textarea);
+
+		init_notice(textarea);
+
+		return elts;
 	}
 
 	constructor() {
@@ -647,6 +674,10 @@ app.registerExtension({
 				if (nicknames[nodeData.name.trim()]) {
 					let nick = nicknames[nodeData.name.trim()];
 
+					if (nick == 'ComfyUI') {
+						nick = "🦊"
+					}
+
 					if (nick.length > 25) {
 						text += nick.substring(0, 23) + "..";
 					}
@@ -690,6 +721,10 @@ app.registerExtension({
 
 					if (nicknames[node.type.trim()]) {
 						let nick = nicknames[node.type.trim()];
+
+						if (nick == 'ComfyUI') {
+							nick = "🦊"
+						}
 
 						if (nick.length > 25) {
 							text += nick.substring(0, 23) + "..";
