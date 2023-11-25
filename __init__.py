@@ -16,7 +16,7 @@ from urllib.parse import urlparse
 import http.client
 import re
 
-version = "V1.4"
+version = "V1.4.1"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
@@ -1490,10 +1490,10 @@ async def share_option(request):
 
 
 def get_openart_auth():
-    if not os.path.exists(os.path.join(folder_paths.base_path, ".openart_key")):
+    if not os.path.exists(os.path.join(comfyui_manager_path, ".openart_key")):
         return None
     try:
-        with open(os.path.join(folder_paths.base_path, ".openart_key"), "r") as f:
+        with open(os.path.join(comfyui_manager_path, ".openart_key"), "r") as f:
             openart_key = f.read().strip()
         return openart_key if openart_key else None
     except:
@@ -1501,10 +1501,10 @@ def get_openart_auth():
 
 
 def get_matrix_auth():
-    if not os.path.exists(os.path.join(folder_paths.base_path, "matrix_auth")):
+    if not os.path.exists(os.path.join(comfyui_manager_path, "matrix_auth")):
         return None
     try:
-        with open(os.path.join(folder_paths.base_path, "matrix_auth"), "r") as f:
+        with open(os.path.join(comfyui_manager_path, "matrix_auth"), "r") as f:
             matrix_auth = f.read()
             homeserver, username, password = matrix_auth.strip().split("\n")
             if not homeserver or not username or not password:
@@ -1518,10 +1518,10 @@ def get_matrix_auth():
         return None
 
 def get_comfyworkflows_auth():
-    if not os.path.exists(os.path.join(folder_paths.base_path, "comfyworkflows_sharekey")):
+    if not os.path.exists(os.path.join(comfyui_manager_path, "comfyworkflows_sharekey")):
         return None
     try:
-        with open(os.path.join(folder_paths.base_path, "comfyworkflows_sharekey"), "r") as f:
+        with open(os.path.join(comfyui_manager_path, "comfyworkflows_sharekey"), "r") as f:
             share_key = f.read()
             if not share_key.strip():
                 return None
@@ -1541,7 +1541,7 @@ async def api_get_openart_auth(request):
 async def api_set_openart_auth(request):
     json_data = await request.json()
     openart_key = json_data['openart_key']
-    with open(os.path.join(folder_paths.base_path, ".openart_key"), "w") as f:
+    with open(os.path.join(comfyui_manager_path, ".openart_key"), "w") as f:
         f.write(openart_key)
     return web.Response(status=200)
 
@@ -1567,11 +1567,11 @@ def set_matrix_auth(json_data):
     homeserver = json_data['homeserver']
     username = json_data['username']
     password = json_data['password']
-    with open(os.path.join(folder_paths.base_path, "matrix_auth"), "w") as f:
+    with open(os.path.join(comfyui_manager_path, "matrix_auth"), "w") as f:
         f.write("\n".join([homeserver, username, password]))
 
 def set_comfyworkflows_auth(comfyworkflows_sharekey):
-    with open(os.path.join(folder_paths.base_path, "comfyworkflows_sharekey"), "w") as f:
+    with open(os.path.join(comfyui_manager_path, "comfyworkflows_sharekey"), "w") as f:
         f.write(comfyworkflows_sharekey)
 
 def has_provided_matrix_auth(matrix_auth):
