@@ -1,13 +1,14 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
+import { OpenArtShareDialog } from "./comfyui-share-openart.js";
 
 export const SUPPORTED_OUTPUT_NODE_TYPES = [
 	"PreviewImage",
 	"SaveImage",
 	"VHS_VideoCombine",
 	"ADE_AnimateDiffCombine",
-	"SaveAnimatedWEBP"
+	"SaveAnimatedWEBP",
 ]
 
 var docStyle = document.createElement('style');
@@ -46,30 +47,26 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 		}
 
 		if (node.type === "SaveImage") {
-			potential_output_nodes.push(node);
-
 			// check if node has an 'images' array property
 			if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
 				// iterate over the images array and add each image to the potential_outputs array
 				for (let j = 0; j < node.images.length; j++) {
+				    potential_output_nodes.push(node);
 					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title });
 				}
 			}
 		}
 		else if (node.type === "PreviewImage") {
-			potential_output_nodes.push(node);
-
 			// check if node has an 'images' array property
 			if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
 				// iterate over the images array and add each image to the potential_outputs array
 				for (let j = 0; j < node.images.length; j++) {
+				    potential_output_nodes.push(node);
 					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title });
 				}
 			}
 		}
 		else if (node.type === "VHS_VideoCombine") {
-			potential_output_nodes.push(node);
-
 			// check if node has a 'widgets' array property, with type 'image'
 			if (node.hasOwnProperty("widgets") && Array.isArray(node.widgets)) {
 				// iterate over the widgets array and add each image to the potential_outputs array
@@ -83,13 +80,14 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 							if (parsedURLVals.type !== "output") {
 								// TODO
 							}
+							potential_output_nodes.push(node);
 							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": widgetValue, "format": parsedURLVals.format } });
 						}
 					} else if (node.widgets[j].type === "preview") {
 						const widgetValue = node.widgets[j].value;
 						const parsedURLVals = widgetValue.params;
 
-						if (!parsedURLVals.format.startsWith('image')) {
+						if(!parsedURLVals.format.startsWith('image')) {
 							// video isn't supported format
 							continue;
 						}
@@ -99,6 +97,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 							if (parsedURLVals.type !== "output") {
 								// TODO
 							}
+							potential_output_nodes.push(node);
 							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "value": `/view?filename=${parsedURLVals.filename}&subfolder=${parsedURLVals.subfolder}&type=${parsedURLVals.type}&format=${parsedURLVals.format}`, "format": parsedURLVals.format } });
 						}
 					}
@@ -106,8 +105,6 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 			}
 		}
 		else if (node.type === "ADE_AnimateDiffCombine") {
-			potential_output_nodes.push(node);
-
 			// check if node has a 'widgets' array property, with type 'image'
 			if (node.hasOwnProperty("widgets") && Array.isArray(node.widgets)) {
 				// iterate over the widgets array and add each image to the potential_outputs array
@@ -121,6 +118,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 								// TODO
 								continue;
 							}
+							potential_output_nodes.push(node);
 							potential_outputs.push({ "type": "output", 'title': node.title, "output": { "filename": parsedURLVals.filename, "subfolder": parsedURLVals.subfolder, "type": parsedURLVals.type, "value": widgetValue, "format": parsedURLVals.format } });
 						}
 					}
@@ -128,17 +126,18 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 			}
 		}
 		else if (node.type === "SaveAnimatedWEBP") {
-			potential_output_nodes.push(node);
-
 			// check if node has an 'images' array property
 			if (node.hasOwnProperty("images") && Array.isArray(node.images)) {
 				// iterate over the images array and add each image to the potential_outputs array
 				for (let j = 0; j < node.images.length; j++) {
+				    potential_output_nodes.push(node);
 					potential_outputs.push({ "type": "image", "image": node.images[j], "title": node.title });
 				}
 			}
 		}
 	}
+
+    // Note: make sure that two arrays are the same length
 	return { potential_outputs, potential_output_nodes };
 }
 
@@ -162,13 +161,242 @@ export function parseURLPath(urlPath) {
 	return parsedParams;
 }
 
+
+export const showOpenArtShareDialog = () => {
+  if (!OpenArtShareDialog.instance) {
+    OpenArtShareDialog.instance = new OpenArtShareDialog();
+  }
+
+  return app.graphToPrompt()
+    .then(prompt => {
+      // console.log({ prompt })
+      return app.graph._nodes;
+    })
+    .then(nodes => {
+        const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
+        OpenArtShareDialog.instance.show({ potential_outputs, potential_output_nodes});
+    })
+}
+
+export const showShareDialog = async (share_option) => {
+  if (!ShareDialog.instance) {
+    ShareDialog.instance = new ShareDialog(share_option);
+  }
+  return app.graphToPrompt()
+    .then(prompt => {
+      // console.log({ prompt })
+      return app.graph._nodes;
+    })
+    .then(nodes => {
+      // console.log({ nodes });
+      const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
+      if (potential_outputs.length === 0) {
+        if (potential_output_nodes.length === 0) {
+          // todo: add support for other output node types (animatediff combine, etc.)
+          const supported_nodes_string = SUPPORTED_OUTPUT_NODE_TYPES.join(", ");
+          alert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
+        } else {
+          alert("To share this, first run a prompt. Once it's done, click 'Share'.\n\nNOTE: Images of the Share target can only be selected in the PreviewImage, SaveImage, and VHS_VideoCombine nodes. In the case of VHS_VideoCombine, only the image/gif and image/webp formats are supported.");
+        }
+        return false;
+      }
+      ShareDialog.instance.show({ potential_outputs, potential_output_nodes, share_option });
+      return true;
+    });
+}
+
+export class ShareDialogChooser extends ComfyDialog {
+	static instance = null;
+	constructor() {
+		super();
+		this.element = $el("div.comfy-modal", {
+			parent: document.body, style: {
+				'overflow-y': "auto",
+			}
+		},
+			[$el("div.comfy-modal-content",
+				{},
+				[...this.createButtons()]),
+			]);
+		this.selectedNodeId = null;
+	}
+	createButtons() {
+		const buttons = [
+			{
+				key: "openart",
+				textContent: "OpenArt AI",
+				website: "https://openart.ai/workflows/",
+				description: "Share ComfyUI workflows and art on OpenArt.ai",
+				onclick: () => {
+				  showOpenArtShareDialog();
+				  this.close();
+				}
+			},
+			{
+				key: "matrix",
+				textContent: "Matrix Server",
+				website: "https://app.element.io/#/room/%23comfyui_space%3Amatrix.org",
+				description: "Share your art on the official ComfyUI matrix server",
+				onclick: async () => {
+				  showShareDialog('matrix').then((suc) => {
+				    suc && this.close();
+				  })
+				}
+			},
+			{
+				key: "comfyworkflows",
+				textContent: "ComfyWorkflows",
+				website: "https://comfyworkflows.com",
+				description: "Share ComfyUI art on comfyworkflows.com",
+				onclick: () => {
+				  showShareDialog('comfyworkflows').then((suc) => {
+				    suc && this.close();
+				  })
+				}
+			},
+		];
+
+		function createShareButtonsWithDescriptions() {
+			// Responsive container
+			const container = $el("div", {
+				style: {
+					display: "flex",
+					'flex-wrap': 'wrap',
+					'justify-content': 'space-around',
+					'padding': '20px',
+				}
+			});
+
+			buttons.forEach(b => {
+				const button = $el("button", {
+					type: "button",
+					textContent: b.textContent,
+					onclick: b.onclick,
+					style: {
+						'width': '25%',
+						'minWidth': '200px',
+						'background-color': b.backgroundColor || '',
+						'border-radius': '5px',
+						'cursor': 'pointer',
+						'padding': '5px 5px',
+						'margin-bottom': '5px',
+						'transition': 'background-color 0.3s',
+					}
+				});
+				button.addEventListener('mouseover', () => {
+					button.style.backgroundColor = '#007BFF'; // Change color on hover
+				});
+				button.addEventListener('mouseout', () => {
+					button.style.backgroundColor = b.backgroundColor || '';
+				});
+
+				const description = $el("p", {
+					textContent: b.description,
+					style: {
+						'text-align': 'left',
+						color: 'white',
+						'font-size': '14px',
+						'margin-bottom': '10px',
+					},
+				});
+
+				const websiteLink = $el("a", {
+					textContent: "🌐 Website",
+					href: b.website,
+					target: "_blank",
+					style: {
+						color: 'white',
+						'margin-left': '10px',
+						'font-size': '12px',
+						'text-decoration': 'none',
+						'align-self': 'center',
+					},
+				});
+
+				// Add highlight to the website link
+				websiteLink.addEventListener('mouseover', () => {
+					websiteLink.style.opacity = '0.7';
+				});
+
+				websiteLink.addEventListener('mouseout', () => {
+					websiteLink.style.opacity = '1';
+				});
+
+				const buttonLinkContainer = $el("div", {
+					style: {
+						display: 'flex',
+						'align-items': 'center',
+						'margin-bottom': '10px',
+					}
+				}, [button, websiteLink]);
+
+				const column = $el("div", {
+					style: {
+						'flex-basis': '100%',
+						'margin': '10px',
+						'padding': '20px',
+						'border': '1px solid #ddd',
+						'border-radius': '5px',
+						'box-shadow': '0 2px 4px rgba(0, 0, 0, 0.1)',
+					}
+				}, [buttonLinkContainer, description]);
+
+				container.appendChild(column);
+			});
+
+			return container;
+		}
+
+		return [
+		    $el("p", {
+		      textContent: 'Choose a platform to share your workflow',
+			    style: {
+				  'text-align': 'center',
+				  'color': 'white',
+				  'font-size': '18px',
+				  'margin-bottom': '10px',
+				},
+			  }
+			),
+
+			$el("div.cm-menu-container", {
+				id: "comfyui-share-container"
+			}, [
+				$el("div.cm-menu-column", [
+					createShareButtonsWithDescriptions(),
+					$el("br", {}, []),
+				]),
+			]),
+			$el("div.cm-menu-container", {
+				id: "comfyui-share-container"
+			}, [
+				$el("button", {
+					type: "button",
+					style: {
+						margin: "0 25px",
+						width: "100%",
+					},
+					textContent: "Close",
+					onclick: () => {
+						this.close()
+					}
+				}),
+				$el("br", {}, []),
+			]),
+		];
+	}
+	show() {
+		this.element.style.display = "block";
+	}
+}
 export class ShareDialog extends ComfyDialog {
 	static instance = null;
 	static matrix_auth = { homeserver: "matrix.org", username: "", password: "" };
 	static cw_sharekey = "";
 
-	constructor() {
+	constructor(share_option) {
 		super();
+		this.share_option = share_option;
 		this.element = $el("div.comfy-modal", {
 			parent: document.body, style: {
 				'overflow-y': "auto",
@@ -195,12 +423,12 @@ export class ShareDialog extends ComfyDialog {
 		this.matrix_destination_checkbox = $el("input", { type: 'checkbox', id: "matrix_destination" }, [])
 		const matrix_destination_checkbox_text = $el("label", {}, [" ComfyUI Matrix server"])
 		this.matrix_destination_checkbox.style.color = "var(--fg-color)";
-		this.matrix_destination_checkbox.checked = false; //true;
+		this.matrix_destination_checkbox.checked = this.share_option === 'matrix'; //true;
 
 		this.comfyworkflows_destination_checkbox = $el("input", { type: 'checkbox', id: "comfyworkflows_destination" }, [])
 		const comfyworkflows_destination_checkbox_text = $el("label", {}, [" ComfyWorkflows.com"])
 		this.comfyworkflows_destination_checkbox.style.color = "var(--fg-color)";
-		this.comfyworkflows_destination_checkbox.checked = true;
+		this.comfyworkflows_destination_checkbox.checked = this.share_option !== 'matrix';
 
 		this.matrix_homeserver_input = $el("input", { type: 'text', id: "matrix_homeserver", placeholder: "matrix.org", value: ShareDialog.matrix_auth.homeserver || 'matrix.org' }, []);
 		this.matrix_username_input = $el("input", { type: 'text', placeholder: "Username", value: ShareDialog.matrix_auth.username || '' }, []);
@@ -257,8 +485,8 @@ export class ShareDialog extends ComfyDialog {
 					textContent: "Close",
 					onclick: () => {
 						// Reset state
-						this.matrix_destination_checkbox.checked = false;
-						this.comfyworkflows_destination_checkbox.checked = true;
+						this.matrix_destination_checkbox.checked = this.share_option === 'matrix';
+						this.comfyworkflows_destination_checkbox.checked = this.share_option !== 'matrix';
 						this.share_button.textContent = "Share";
 						this.share_button.style.display = "inline-block";
 						this.final_message.innerHTML = "";
@@ -429,8 +657,8 @@ export class ShareDialog extends ComfyDialog {
 					textContent: "Close",
 					onclick: () => {
 						// Reset state
-						this.matrix_destination_checkbox.checked = false;
-						this.comfyworkflows_destination_checkbox.checked = true;
+						this.matrix_destination_checkbox.checked = this.share_option === 'matrix';
+						this.comfyworkflows_destination_checkbox.checked = this.share_option !== 'matrix';
 						this.share_button.textContent = "Share";
 						this.share_button.style.display = "inline-block";
 						this.final_message.innerHTML = "";
@@ -622,7 +850,27 @@ export class ShareDialog extends ComfyDialog {
 		return res;
 	}
 
-	show({ potential_outputs, potential_output_nodes }) {
+	show({ potential_outputs, potential_output_nodes, share_option }) {
+	    // Sort `potential_output_nodes` by node ID to make the order always
+        // consistent, but we should also keep `potential_outputs` in the same
+        // order as `potential_output_nodes`.
+        const potential_output_to_order = {};
+        potential_output_nodes.forEach((node, index) => {
+            potential_output_to_order[node.id] = [node, potential_outputs[index]];
+        })
+        // Sort the object `potential_output_to_order` by key (node ID)
+        const sorted_potential_output_to_order = Object.fromEntries(
+            Object.entries(potential_output_to_order).sort((a, b) => a[0].id - b[0].id)
+        );
+        const sorted_potential_outputs = []
+        const sorted_potential_output_nodes = []
+        for (const [key, value] of Object.entries(sorted_potential_output_to_order)) {
+            sorted_potential_output_nodes.push(value[0]);
+            sorted_potential_outputs.push(value[1]);
+        }
+        potential_output_nodes = sorted_potential_output_nodes;
+        potential_outputs = sorted_potential_outputs;
+
 		// console.log({ potential_outputs, potential_output_nodes })
 		this.radio_buttons.innerHTML = ""; // clear the radio buttons
 		const new_radio_buttons = $el("div", {
@@ -632,6 +880,7 @@ export class ShareDialog extends ComfyDialog {
 				'max-height': '400px',
 			}
 		}, potential_outputs.map((output, index) => {
+		    const potential_output_node = potential_output_nodes[index];
 			const radio_button = $el("input", { type: 'radio', name: "selectOutputImages", value: index, required: index === 0 }, [])
 			let radio_button_img;
 			if (output.type === "image" || output.type === "temp") {
@@ -650,7 +899,17 @@ export class ShareDialog extends ComfyDialog {
 				// }
 			}, [output.title])
 			radio_button.style.color = "var(--fg-color)";
-			radio_button.checked = index === 0;
+
+            // Make the radio button checked if it's the selected node,
+			// otherwise make the first radio button checked.
+			if (this.selectedNodeId) {
+			    if (this.selectedNodeId === potential_output_node.id) {
+			        radio_button.checked = true;
+			    }
+			} else {
+			    radio_button.checked = index === 0;
+			}
+
 			if (radio_button.checked) {
 				this.selectedOutputIndex = index;
 			}
@@ -697,5 +956,14 @@ export class ShareDialog extends ComfyDialog {
 		// this.radio_buttons.appendChild(subheader);
 		this.radio_buttons.appendChild(new_radio_buttons);
 		this.element.style.display = "block";
+
+		share_option = share_option || this.share_option;
+		if (share_option === 'comfyworkflows') {
+		    this.matrix_destination_checkbox.checked = false;
+            this.comfyworkflows_destination_checkbox.checked = true;
+        } else {
+            this.matrix_destination_checkbox.checked = true;
+            this.comfyworkflows_destination_checkbox.checked = false;
+        }
 	}
 }

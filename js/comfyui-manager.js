@@ -1,7 +1,8 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
-import { ShareDialog, SUPPORTED_OUTPUT_NODE_TYPES, getPotentialOutputsAndOutputNodes } from "./comfyui-share.js";
+import { ShareDialog, SUPPORTED_OUTPUT_NODE_TYPES, getPotentialOutputsAndOutputNodes, ShareDialogChooser, showOpenArtShareDialog, showShareDialog } from "./comfyui-share-common.js";
+import { OpenArtShareDialog } from "./comfyui-share-openart.js";
 import { CustomNodesInstaller } from "./custom-nodes-downloader.js";
 import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
@@ -36,13 +37,14 @@ var update_comfyui_button = null;
 var fetch_updates_button = null;
 var update_all_button = null;
 var badge_mode = "none";
+let share_option = 'all';
 
 // copied style from https://github.com/pythongosssss/ComfyUI-Custom-Scripts
 const style = `
 #comfyworkflows-button {
 	position: relative;
 	overflow: hidden;
- } 
+ }
 .pysssss-workflow-arrow-2 {
    position: absolute;
    top: 0;
@@ -79,7 +81,16 @@ async function init_badge_mode() {
 		.then(data => { badge_mode = data; })
 }
 
+async function init_share_option() {
+    api.fetchApi('/manager/share_option')
+	    .then(response => response.text())
+		.then(data => {
+		    share_option = data || 'all';
+		});
+}
+
 await init_badge_mode();
+await init_share_option();
 
 
 async function fetchNicknames() {
@@ -235,17 +246,29 @@ async function updateAll(update_check_checkbox) {
 
 function newDOMTokenList(initialTokens) {
 	const tmp = document.createElement(`div`);
-  
+
 	const classList = tmp.classList;
 	if (initialTokens) {
 	  initialTokens.forEach(token => {
 		classList.add(token);
 	  });
 	}
-  
-	return classList;
-  }  
 
+	return classList;
+  }
+
+/**
+ * Check whether the node is a potential output node (img, gif or video output)
+ */
+const isOutputNode = (node) => {
+    return [
+        "VHS_VideoCombine",
+        "PreviewImage",
+        "SaveImage",
+        "ADE_AnimateDiffCombine",
+        "SaveAnimatedWEBP",
+    ].includes(node.type);
+}
 
 // -----------
 class ManagerMenuDialog extends ComfyDialog {
@@ -401,12 +424,45 @@ class ManagerMenuDialog extends ComfyDialog {
 				}
 			});
 
+	    // share
+	    let share_combo = document.createElement("select");
+	    const share_options = [
+	      ['none', 'None'],
+	      ['openart', 'OpenArt AI'],
+	      ['matrix', 'Matrix Server'],
+	      ['comfyworkflows', 'ComfyWorkflows'],
+	      ['all', 'All'],
+	    ];
+	    for (const option of share_options) {
+          share_combo.appendChild($el('option', { value: option[0], text: `Share: ${option[1]}` }, []));
+        }
+
+        api.fetchApi('/manager/share_option')
+			.then(response => response.text())
+			.then(data => {
+			    share_combo.value = data || 'all';
+			    share_option = data || 'all';
+			});
+
+        share_combo.addEventListener('change', function (event) {
+          const value = event.target.value;
+          share_option = value;
+          api.fetchApi(`/manager/share_option?value=${value}`);
+          const shareButton = document.getElementById("shareButton");
+          if (value === 'none') {
+            shareButton.style.display = "none";
+          } else {
+            shareButton.style.display = "inline-block";
+          }
+        });
+
 		return [
 			$el("div", {}, [this.local_mode_checkbox, checkbox_text, this.update_check_checkbox, uc_checkbox_text]),
 			$el("br", {}, []),
 			preview_combo,
 			badge_combo,
 			channel_combo,
+			share_combo,
 
 			$el("hr", {}, []),
 			$el("center", {}, ["!! EXPERIMENTAL !!"]),
@@ -466,14 +522,14 @@ class ManagerMenuDialog extends ComfyDialog {
 											if (!ShareDialog.instance) {
 												ShareDialog.instance = new ShareDialog();
 											}
-								
+
 											app.graphToPrompt().then(prompt => {
 												// console.log({ prompt })
 												return app.graph._nodes;
 											}).then(nodes => {
 												// console.log({ nodes });
 												const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
-								
+
 												if (potential_outputs.length === 0) {
 													if (potential_output_nodes.length === 0) {
 														// todo: add support for other output node types (animatediff combine, etc.)
@@ -484,7 +540,7 @@ class ManagerMenuDialog extends ComfyDialog {
 													}
 													return;
 												}
-								
+
 												ShareDialog.instance.show({ potential_outputs, potential_output_nodes });
 											});
 										},
@@ -582,54 +638,31 @@ app.registerExtension({
 			}
 		menu.append(managerButton);
 
-
 		const shareButton = document.createElement("button");
+		shareButton.id = "shareButton";
 		shareButton.textContent = "Share";
 		shareButton.onclick = () => {
-			if (!ShareDialog.instance) {
-				ShareDialog.instance = new ShareDialog();
+		    if (share_option === 'openart') {
+		        showOpenArtShareDialog();
+			    return;
+		    } else if (share_option === 'matrix' || share_option === 'comfyworkflows') {
+		        showShareDialog(share_option);
+		        return;
+		    }
+
+			if(!ShareDialogChooser.instance) {
+				ShareDialogChooser.instance = new ShareDialogChooser();
 			}
-
-			app.graphToPrompt().then(prompt => {
-				// console.log({ prompt })
-				return app.graph._nodes;
-			}).then(nodes => {
-				// console.log({ nodes });
-				const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
-
-				if (potential_outputs.length === 0) {
-					if (potential_output_nodes.length === 0) {
-						// todo: add support for other output node types (animatediff combine, etc.)
-						const supported_nodes_string = SUPPORTED_OUTPUT_NODE_TYPES.join(", ");
-						alert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
-					} else {
-						alert("To share this, first run a prompt. Once it's done, click 'Share'.\n\nNOTE: Images of the Share target can only be selected in the PreviewImage, SaveImage, and VHS_VideoCombine nodes. In the case of VHS_VideoCombine, only the image/gif and image/webp formats are supported.");
-					}
-					return;
-				}
-
-				ShareDialog.instance.show({ potential_outputs, potential_output_nodes });
-			});
+			ShareDialogChooser.instance.show();
 		}
 		// make the background color a gradient of blue to green
 		shareButton.style.background = "linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%)";
 		shareButton.style.color = "black";
 
-		app.ui.settings.addSetting({
-			id: "ComfyUIManager.ShowShareButtonInMainMenu",
-			name: "Show 'Share' button in the main menu",
-			type: "boolean",
-			defaultValue: true,
-			onChange: (value) => {
-				if (value) {
-					// show the button
-					shareButton.style.display = "inline-block";
-				} else {
-					// hide the button
-					shareButton.style.display = "none";
-				}
-			}
-		});
+		// Load share option from local storage to determine whether to show
+		// the share button.
+		const shouldShowShareButton = share_option !== 'none';
+		shareButton.style.display = shouldShowShareButton ? "inline-block" : "none";
 
 		menu.append(shareButton);
 	},
@@ -675,10 +708,12 @@ app.registerExtension({
 			}
 			return r;
 		};
+
+	    this._addExtraNodeContextMenu(nodeType, app);
 	},
 
 	async loadedGraphNode(node, app) {
-		if (node.has_errors) {
+	    if (node.has_errors) {
 			const onDrawForeground = node.onDrawForeground;
 			node.onDrawForeground = function (ctx) {
 				const r = onDrawForeground?.apply?.(this, arguments);
@@ -728,5 +763,45 @@ app.registerExtension({
 				return r;
 			};
 		}
-	}
+	},
+
+	_addExtraNodeContextMenu(node, app) {
+        const origGetExtraMenuOptions = node.prototype.getExtraMenuOptions;
+        node.prototype.getExtraMenuOptions = function (_, options) {
+            origGetExtraMenuOptions?.apply?.(this, arguments);
+            if (isOutputNode(node)) {
+	    	    const { potential_outputs } = getPotentialOutputsAndOutputNodes([this]);
+	    	    const hasOutput = potential_outputs.length > 0;
+
+	    	    // Check if the previous menu option is `null`. If it's not,
+	    	    // then we need to add a `null` as a separator.
+	    	    if (options[options.length - 1] !== null) {
+	    	        options.push(null);
+	    	    }
+
+                options.push({
+				    content: "🏞️ Share Output",
+				    disabled: !hasOutput,
+					callback: (obj) => {
+					    if (!ShareDialog.instance) {
+					        ShareDialog.instance = new ShareDialog();
+					    }
+					    const shareButton = document.getElementById("shareButton");
+					    if (shareButton) {
+					        const currentNode = this;
+					        if (!OpenArtShareDialog.instance) {
+					            OpenArtShareDialog.instance = new OpenArtShareDialog();
+					        }
+					        OpenArtShareDialog.instance.selectedNodeId = currentNode.id;
+					        if (!ShareDialog.instance) {
+					            ShareDialog.instance = new ShareDialog(share_option);
+					        }
+					        ShareDialog.instance.selectedNodeId = currentNode.id;
+					        shareButton.click();
+					    }
+					}
+				}, null);
+			}
+        }
+	},
 });
