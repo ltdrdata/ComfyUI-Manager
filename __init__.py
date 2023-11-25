@@ -13,8 +13,10 @@ from tqdm.auto import tqdm
 import concurrent
 import ssl
 from urllib.parse import urlparse
+import http.client
+import re
 
-version = "V1.3"
+version = "V1.4"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
@@ -84,6 +86,7 @@ from torchvision.datasets.utils import download_url
 
 comfy_ui_required_revision = 1240
 comfy_ui_revision = "Unknown"
+comfy_ui_commit_date = ""
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -247,6 +250,8 @@ def try_install_script(url, repo_path, install_cmd):
 
 def print_comfyui_version():
     global comfy_ui_revision
+    global comfy_ui_commit_date
+
     try:
         repo = git.Repo(os.path.dirname(folder_paths.__file__))
 
@@ -260,10 +265,11 @@ def print_comfyui_version():
         except:
             pass
 
+        comfy_ui_commit_date = repo.head.commit.committed_datetime.date()
         if current_branch == "master":
-            print(f"### ComfyUI Revision: {comfy_ui_revision} [{git_hash[:8]}] | Released on '{repo.head.commit.committed_datetime.date()}'")
+            print(f"### ComfyUI Revision: {comfy_ui_revision} [{git_hash[:8]}] | Released on '{comfy_ui_commit_date}'")
         else:
-            print(f"### ComfyUI Revision: {comfy_ui_revision} on '{current_branch}' [{git_hash[:8]}] | Released on '{repo.head.commit.committed_datetime.date()}'")
+            print(f"### ComfyUI Revision: {comfy_ui_revision} on '{current_branch}' [{git_hash[:8]}] | Released on '{comfy_ui_commit_date}'")
     except:
         print("### ComfyUI Revision: UNKNOWN (The currently installed ComfyUI is not a Git repository)")
 
@@ -413,7 +419,7 @@ def git_pull(path):
         origin = repo.remote(name='origin')
         origin.pull()
         repo.git.submodule('update', '--init', '--recursive')
-
+        
         repo.close()
 
     return True
@@ -534,10 +540,15 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
             try:
                 if do_update_check and git_repo_has_updates(dir_path, do_fetch, do_update):
                     item['installed'] = 'Update'
+                elif sys.__comfyui_manager_is_import_failed_extension(dir_name):
+                    item['installed'] = 'Fail'
                 else:
                     item['installed'] = 'True'
             except:
-                item['installed'] = 'True'
+                if sys.__comfyui_manager_is_import_failed_extension(dir_name):
+                    item['installed'] = 'Fail'
+                else:
+                    item['installed'] = 'True'
 
         elif os.path.exists(dir_path + ".disabled"):
             item['installed'] = 'Disabled'
@@ -557,7 +568,10 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
 
         file_path = os.path.join(base_path, dir_name)
         if os.path.exists(file_path):
-            item['installed'] = 'True'
+            if sys.__comfyui_manager_is_import_failed_extension(dir_name):
+                item['installed'] = 'Fail'
+            else:
+                item['installed'] = 'True'
         elif os.path.exists(file_path + ".disabled"):
             item['installed'] = 'Disabled'
         else:
@@ -826,14 +840,14 @@ def get_current_snapshot():
 
 
 def save_snapshot_with_postfix(postfix):
-    now = datetime.datetime.now()
+        now = datetime.datetime.now()
 
-    date_time_format = now.strftime("%Y-%m-%d_%H-%M-%S")
-    file_name = f"{date_time_format}_{postfix}"
+        date_time_format = now.strftime("%Y-%m-%d_%H-%M-%S")
+        file_name = f"{date_time_format}_{postfix}"
 
-    path = os.path.join(os.path.dirname(__file__), 'snapshots', f"{file_name}.json")
-    with open(path, "w") as json_file:
-        json.dump(get_current_snapshot(), json_file, indent=4)
+        path = os.path.join(os.path.dirname(__file__), 'snapshots', f"{file_name}.json")
+        with open(path, "w") as json_file:
+            json.dump(get_current_snapshot(), json_file, indent=4)
 
 
 @server.PromptServer.instance.routes.get("/snapshot/get_current")
@@ -1368,7 +1382,7 @@ async def install_model(request):
             if json_data['url'].startswith('https://github.com') or json_data['url'].startswith('https://huggingface.co'):
                 model_dir = get_model_dir(json_data)
                 download_url(json_data['url'], model_dir)
-
+                
                 return web.json_response({}, content_type='application/json')
             else:
                 res = download_url_with_agent(json_data['url'], model_path)
@@ -1431,6 +1445,37 @@ async def channel_url_list(request):
         return web.json_response(res, status=200)
 
     return web.Response(status=200)
+
+
+@server.PromptServer.instance.routes.get("/manager/notice")
+async def get_notice(request):
+    url = "github.com"
+    path = "/ltdrdata/ltdrdata.github.io/wiki/News"
+
+    conn = http.client.HTTPSConnection(url)
+    conn.request("GET", path)
+
+    response = conn.getresponse()
+
+    try:
+        if response.status == 200:
+            html_content = response.read().decode('utf-8')
+
+            pattern = re.compile(r'<div class="markdown-body">([\s\S]*?)</div>')
+            match = pattern.search(html_content)
+
+            if match:
+                markdown_content = match.group(1)
+                markdown_content += f"<HR>ComfyUI: {comfy_ui_revision} ({comfy_ui_commit_date})"
+                markdown_content += f"<BR>Manager: {version}"
+                return web.Response(text=markdown_content, status=200)
+            else:
+                return web.Response(text="Unable to retrieve Notice", status=200)
+        else:
+            return web.Response(text="Unable to retrieve Notice", status=200)
+    finally:
+        conn.close()
+
 
 
 @server.PromptServer.instance.routes.get("/manager/share_option")
@@ -1554,13 +1599,13 @@ async def share_art(request):
     prompt = json_data['prompt']
     potential_outputs = json_data['potential_outputs']
     selected_output_index = json_data['selected_output_index']
-
+    
     try:
         output_to_share = potential_outputs[int(selected_output_index)]
     except:
         # for now, pick the first output
         output_to_share = potential_outputs[0]
-
+        
     assert output_to_share['type'] in ('image', 'output')
     output_dir = folder_paths.get_output_directory()
 
@@ -1585,7 +1630,7 @@ async def share_art(request):
     if "comfyworkflows" in share_destinations:
         share_website_host = "https://comfyworkflows.com"
         share_endpoint = f"{share_website_host}/api"
-
+        
         # get presigned urls
         async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
             async with session.post(
@@ -1655,7 +1700,7 @@ async def share_art(request):
             homeserver = homeserver.replace("http://", "https://")
             if not homeserver.startswith("https://"):
                 homeserver = "https://" + homeserver
-
+            
             client = MatrixClient(homeserver)
             try:
                 token = client.login(username=matrix_auth['username'], password=matrix_auth['password'])
@@ -1667,7 +1712,7 @@ async def share_art(request):
             matrix = MatrixHttpApi(homeserver, token=token)
             with open(asset_filepath, 'rb') as f:
                 mxc_url = matrix.media_upload(f.read(), content_type, filename=filename)['content_uri']
-
+                        
             workflow_json_mxc_url = matrix.media_upload(prompt['workflow'], 'application/json', filename='workflow.json')['content_uri']
 
             text_content = ""
@@ -1684,7 +1729,7 @@ async def share_art(request):
             import traceback
             traceback.print_exc()
             return web.json_response({"error" : "An error occurred when sharing your art to Matrix."}, content_type='application/json', status=500)
-
+    
     return web.json_response({
         "comfyworkflows" : {
             "url" : None if "comfyworkflows" not in share_destinations else f"{share_website_host}/workflows/{workflowId}",

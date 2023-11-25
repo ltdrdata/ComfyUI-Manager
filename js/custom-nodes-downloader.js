@@ -29,6 +29,53 @@ async function getCustomnodeMappings() {
 	return data;
 }
 
+async function getConflictMappings() {
+	var mode = "url";
+	if(manager_instance.local_mode_checkbox.checked)
+		mode = "local";
+
+	const response = await api.fetchApi(`/customnode/getmappings?mode=${mode}`);
+
+	const data = await response.json();
+
+	let node_to_extensions_map = {};
+
+	for(let k in data) {
+		for(let i in data[k][0]) {
+			let node = data[k][0][i];
+			let l = node_to_extensions_map[node];
+			if(!l) {
+				l = [];
+				node_to_extensions_map[node] = l;
+			}
+			l.push(k);
+		}
+	}
+
+	let conflict_map = {};
+	for(let node in node_to_extensions_map) {
+		if(node_to_extensions_map[node].length > 1) {
+			for(let i in node_to_extensions_map[node]) {
+				let extension = node_to_extensions_map[node][i];
+				let l = conflict_map[extension];
+
+				if(!l) {
+					l = [];
+					conflict_map[extension] = l;
+				}
+
+				for(let j in node_to_extensions_map[node]) {
+					let extension2 = node_to_extensions_map[node][j];
+					if(extension != extension2)
+						l.push([node, extension2]);
+				}
+			}
+		}
+	}
+
+	return conflict_map;
+}
+
 async function getUnresolvedNodesInComponent() {
 	try {
 		var mode = "url";
@@ -179,6 +226,8 @@ export class CustomNodesInstaller extends ComfyDialog {
 
 		// invalidate
 		this.data = (await getCustomNodes()).custom_nodes;
+
+		this.conflict_mappings = await getConflictMappings();
 
 		if(this.is_missing_node_mode)
 			this.data = await this.filter_missing_node(this.data);
@@ -369,6 +418,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 				var data1 = document.createElement('td');
 				data1.style.textAlign = "center";
 				data1.innerHTML = i+1;
+
 				var data2 = document.createElement('td');
 		        data2.style.maxWidth = "100px";
 				data2.className = "cm-node-author"
@@ -376,14 +426,43 @@ export class CustomNodesInstaller extends ComfyDialog {
 				data2.style.whiteSpace = "nowrap";
                 data2.style.overflow = "hidden";
 				data2.style.textOverflow = "ellipsis";
+
                 var data3 = document.createElement('td');
                 data3.style.maxWidth = "200px";
                 data3.style.wordWrap = "break-word";
 				data3.className = "cm-node-name"
                 data3.innerHTML = `&nbsp;<a href=${data.reference} target="_blank"><font color="skyblue"><b>${data.title}</b></font></a>`;
+				if(data.installed == 'Fail')
+					data3.innerHTML = '&nbsp;<font color="BLACK"><B>(IMPORT FAILED)</B></font>' + data3.innerHTML;
+
 				var data4 = document.createElement('td');
 				data4.innerHTML = data.description;
 				data4.className = "cm-node-desc"
+
+				let conflicts = this.conflict_mappings[data.files[0]];
+				if(conflicts) {
+					let buf = '<BR><BR><FONT color="#AA3333"><B>Conflicted Nodes:</B><BR>';
+					for(let k in conflicts) {
+						let node_name = conflicts[k][0];
+
+						let extension_name = conflicts[k][1].split('/').pop();
+						if(extension_name.endsWith('/')) {
+							extension_name = extension_name.slice(0, -1);
+						}
+						if(node_name.endsWith('.git')) {
+							extension_name = extension_name.slice(0, -4);
+						}
+
+						buf += `${node_name} [${extension_name}], `;
+					}
+
+					if(buf.endsWith(', ')) {
+						buf = buf.slice(0, -2);
+					}
+					buf += "</FONT>";
+					data4.innerHTML += buf;
+				}
+
 				var data5 = document.createElement('td');
 				data5.style.textAlign = "center";
 
@@ -424,6 +503,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 					installBtn.innerHTML = 'Uninstall';
 					installBtn.style.backgroundColor = 'red';
 					break;
+				case 'Fail':
 				case 'True':
 					installBtn3 = document.createElement('button');
 					installBtn3.innerHTML = 'Disable';
@@ -441,7 +521,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 					installBtn.style.color = 'white';
 					break;
 				default:
-					installBtn.innerHTML = 'Try Install';
+					installBtn.innerHTML = `Try Install${data.installed}`;
 					installBtn.style.backgroundColor = 'Gray';
 					installBtn.style.color = 'white';
 				}
@@ -479,7 +559,10 @@ export class CustomNodesInstaller extends ComfyDialog {
 
 				data5.appendChild(installBtn);
 
-				dataRow.style.backgroundColor = "var(--bg-color)";
+				if(data.installed == 'Fail')
+					dataRow.style.backgroundColor = "#880000";
+				else
+					dataRow.style.backgroundColor = "var(--bg-color)";
 				dataRow.style.color = "var(--fg-color)";
 				dataRow.style.textAlign = "left";
 
@@ -548,6 +631,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 				{ value:'Update', text:'Filter: update' },
 				{ value:'True', text:'Filter: installed' },
 				{ value:'False', text:'Filter: not-installed' },
+				{ value:'Fail', text:'Filter: import failed' },
 			];
 
 		items.forEach(item => {

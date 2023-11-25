@@ -193,14 +193,14 @@ NODE_CLASS_MAPPINGS.update({
 
 ## Roadmap
 
-- [ ] System displaying information about failed custom nodes import.
-- [ ] Guide for missing nodes in ComfyUI vanilla nodes.
+- [x] System displaying information about failed custom nodes import.
+- [x] Guide for missing nodes in ComfyUI vanilla nodes.
+- [x] Collision checking system for nodes with the same ID across extensions.
 - [ ] Auto migration for custom nodes with changed structures.
 - [ ] Version control feature for nodes.
 - [ ] List of currently used custom nodes.
 - [ ] Template sharing system.
 - [ ] 3rd party API system.
-- [ ] Collision checking system for nodes with the same ID across extensions.
 
 
 # Disclaimer

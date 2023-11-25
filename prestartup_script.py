@@ -9,6 +9,7 @@ import locale
 
 
 message_collapses = []
+import_failed_extensions = set()
 
 
 def register_message_collapse(f):
@@ -16,10 +17,16 @@ def register_message_collapse(f):
     message_collapses.append(f)
 
 
+def is_import_failed_extension(x):
+    global import_failed_extensions
+    return x in import_failed_extensions
+
+
 sys.__comfyui_manager_register_message_collapse = register_message_collapse
+sys.__comfyui_manager_is_import_failed_extension = is_import_failed_extension
 
 comfyui_manager_path = os.path.dirname(__file__)
-custom_nodes_path = os.path.join(comfyui_manager_path, "..")
+custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, ".."))
 startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
 restore_snapshot_path = os.path.join(startup_script_path, "restore-snapshot.json")
 git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
@@ -78,7 +85,12 @@ try:
     original_stdout = sys.stdout
     original_stderr = sys.stderr
 
-    tqdm = r'\d+%.*\[(.*?)\]'
+    pat_tqdm = r'\d+%.*\[(.*?)\]'
+    pat_import_fail = r'seconds \(IMPORT FAILED\):'
+    pat_custom_node = r'[/\\]custom_nodes[/\\](.*)$'
+
+    is_start_mode = True
+    is_import_fail_mode = False
 
     log_file = open(f"comfyui{postfix}.log", "w", encoding="utf-8")
     log_lock = threading.Lock()
@@ -99,11 +111,30 @@ try:
                 raise ValueError("The object does not have a fileno method")
 
         def write(self, message):
+            global is_start_mode
+            global is_import_fail_mode
+
             if any(f(message) for f in message_collapses):
                 return
 
+            if is_start_mode:
+                if is_import_fail_mode:
+                    match = re.search(pat_custom_node, message)
+                    if match:
+                        import_failed_extensions.add(match.group(1))
+                        is_import_fail_mode = False
+                else:
+                    match = re.search(pat_import_fail, message)
+                    if match:
+                        is_import_fail_mode = True
+                    else:
+                        is_import_fail_mode = False
+
+                    if 'Starting server' in message:
+                        is_start_mode = False
+
             if not self.is_stdout:
-                match = re.search(tqdm, message)
+                match = re.search(pat_tqdm, message)
                 if match:
                     message = re.sub(r'([#|])\d', r'\1▌', message)
                     message = re.sub('#', '█', message)

@@ -29,6 +29,16 @@ docStyle.innerHTML = `
 	text-align: center;
 	height: 45px;
 }
+
+.cm-notice-board {
+	width: 250px;
+	height: 160px;
+	overflow: auto;
+	color: var(--input-text);
+	border: 1px solid #ccc;
+	padding: 10px;
+	overflow-x: hidden;
+};
 `;
 
 document.head.appendChild(docStyle);
@@ -87,6 +97,14 @@ async function init_share_option() {
 		.then(data => {
 		    share_option = data || 'all';
 		});
+}
+
+async function init_notice(notice) {
+	api.fetchApi('/manager/notice')
+		.then(response => response.text())
+		.then(data => {
+			notice.innerHTML = data;
+		})
 }
 
 await init_badge_mode();
@@ -492,7 +510,7 @@ class ManagerMenuDialog extends ComfyDialog {
 	}
 
 	createControlsRight() {
-		return [
+		const elts = [
 				$el("button", {
 					type: "button",
 					textContent: "ComfyUI Community Manual",
@@ -570,7 +588,16 @@ class ManagerMenuDialog extends ComfyDialog {
 					textContent: "ComfyUI Nodes Info",
 					onclick: () => { window.open("https://ltdrdata.github.io/", "comfyui-node-info"); }
 				}),
+				$el("br", {}, []),
 		];
+
+		var textarea = document.createElement("div");
+		textarea.className = "cm-notice-board";
+		elts.push(textarea);
+
+		init_notice(textarea);
+
+		return elts;
 	}
 
 	constructor() {
@@ -603,7 +630,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		this.element = $el("div.comfy-modal", { parent: document.body }, [ content ]);
 		this.element.style.width = '1000px';
-		this.element.style.height = '400px';
+		this.element.style.height = '420px';
 		this.element.style.zIndex = 10000;
 	}
 
@@ -637,6 +664,7 @@ app.registerExtension({
 				manager_instance.show();
 			}
 		menu.append(managerButton);
+
 
 		const shareButton = document.createElement("button");
 		shareButton.id = "shareButton";
@@ -679,6 +707,10 @@ app.registerExtension({
 
 				if (nicknames[nodeData.name.trim()]) {
 					let nick = nicknames[nodeData.name.trim()];
+
+					if (nick == 'ComfyUI') {
+						nick = "🦊"
+					}
 
 					if (nick.length > 25) {
 						text += nick.substring(0, 23) + "..";
@@ -725,6 +757,10 @@ app.registerExtension({
 
 					if (nicknames[node.type.trim()]) {
 						let nick = nicknames[node.type.trim()];
+
+						if (nick == 'ComfyUI') {
+							nick = "🦊"
+						}
 
 						if (nick.length > 25) {
 							text += nick.substring(0, 23) + "..";

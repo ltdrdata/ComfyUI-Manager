@@ -5,9 +5,12 @@ from git import Repo
 from torchvision.datasets.utils import download_url
 import concurrent
 
-builtin_nodes = ["KSampler", "CheckpointSave"]
+builtin_nodes = set()
 
-def scan_in_file(filename):
+
+def scan_in_file(filename, is_builtin=False):
+    global builtin_nodes
+
     try:
         with open(filename, encoding='utf-8') as file:
             code = file.read()
@@ -63,9 +66,12 @@ def scan_in_file(filename):
                 key, value = line[1:].strip().split(':')
                 metadata[key.strip()] = value.strip()
 
-    for x in builtin_nodes:
-        if x in nodes:
-            nodes.remove(x)
+    if is_builtin:
+        builtin_nodes += set(nodes)
+    else:
+        for x in builtin_nodes:
+            if x in nodes:
+                nodes.remove(x)
 
     return nodes, metadata
 
@@ -113,7 +119,9 @@ def get_git_urls_from_json(json_file):
             if node.get('install_type') == 'git-clone':
                 files = node.get('files', [])
                 if files:
-                    git_clone_files.append((files[0],node.get('title')))
+                    git_clone_files.append((files[0], node.get('title')))
+
+    git_clone_files.append(("https://github.com/comfyanonymous/ComfyUI", "ComfyUI"))
 
     return git_clone_files
 
@@ -190,13 +198,17 @@ def update_custom_nodes():
 
     with concurrent.futures.ThreadPoolExecutor(10) as executor:
         executor.map(download_and_store_info, py_url_titles)
-            
+
     return node_info
 
 
 def gen_json(node_info):
     # scan from .py file
     node_files, node_dirs = get_nodes(".tmp")
+
+    comfyui_path = os.path.abspath(os.path.join('.tmp', "ComfyUI"))
+    node_dirs.remove(comfyui_path)
+    node_dirs = [comfyui_path] + node_dirs
 
     data = {}
     for dirname in node_dirs:
@@ -205,7 +217,7 @@ def gen_json(node_info):
         
         nodes = set()
         for py in py_files:
-            nodes_in_file, metadata_in_file = scan_in_file(py)
+            nodes_in_file, metadata_in_file = scan_in_file(py, dirname == "ComfyUI")
             nodes.update(nodes_in_file)
             metadata.update(metadata_in_file)
         
