@@ -1,7 +1,7 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
-import { install_checked_custom_node, manager_instance } from  "./common.js";
+import { install_checked_custom_node, manager_instance, rebootAPI } from  "./common.js";
 
 async function getAlterList() {
 	var mode = "url";
@@ -31,8 +31,9 @@ export class AlternativesInstaller extends ComfyDialog {
 		this.data = null;
 	}
 
-	constructor() {
+	constructor(app, manager_dialog) {
 		super();
+		this.manager_dialog = manager_dialog;
 		this.search_keyword = '';
 		this.element = $el("div.comfy-modal", { parent: document.body }, []);
 	}
@@ -112,8 +113,18 @@ export class AlternativesInstaller extends ComfyDialog {
 		this.createBottomControls();
 	}
 
-	updateMessage(msg) {
+	updateMessage(msg, btn_id) {
 		this.message_box.innerHTML = msg;
+		if(btn_id) {
+			const rebootButton = document.getElementById(btn_id);
+			const self = this;
+			rebootButton.onclick = function() {
+				if(rebootAPI()) {
+					self.close();
+					self.manager_dialog.close();
+				}
+			};
+		}
 	}
 
     invalidate_checks(is_checked, install_state) {

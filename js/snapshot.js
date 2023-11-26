@@ -1,7 +1,7 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
-import { manager_instance } from  "./common.js";
+import { manager_instance, rebootAPI } from  "./common.js";
 
 
 async function restore_snapshot(target) {
@@ -23,7 +23,7 @@ async function restore_snapshot(target) {
 		}
 		finally {
 			await SnapshotManager.instance.invalidateControl();
-			SnapshotManager.instance.updateMessage("<BR>To apply the snapshot, please restart ComfyUI.");
+			SnapshotManager.instance.updateMessage("<BR>To apply the snapshot, please <button id='cm-reboot-button'><font size='3px'>RESTART</font></button> ComfyUI.", 'cm-reboot-button');
 		}
 	}
 }
@@ -87,8 +87,9 @@ export class SnapshotManager extends ComfyDialog {
 		this.data = null;
 	}
 
-	constructor() {
+	constructor(app, manager_dialog) {
 		super();
+		this.manager_dialog = manager_dialog;
 		this.search_keyword = '';
 		this.element = $el("div.comfy-modal", { parent: document.body }, []);
 	}
@@ -132,8 +133,18 @@ export class SnapshotManager extends ComfyDialog {
 		await this.createBottomControls();
 	}
 
-	updateMessage(msg) {
+	updateMessage(msg, btn_id) {
 		this.message_box.innerHTML = msg;
+		if(btn_id) {
+			const rebootButton = document.getElementById(btn_id);
+			const self = this;
+			rebootButton.onclick = function() {
+				if(rebootAPI()) {
+					self.close();
+					self.manager_dialog.close();
+				}
+			};
+		}
 	}
 
 	async createGrid(models_json) {

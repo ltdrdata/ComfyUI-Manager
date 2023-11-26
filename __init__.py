@@ -16,7 +16,7 @@ from urllib.parse import urlparse
 import http.client
 import re
 
-version = "V1.4.1"
+version = "V1.5"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
@@ -1477,6 +1477,10 @@ async def get_notice(request):
         conn.close()
 
 
+@server.PromptServer.instance.routes.get("/manager/reboot")
+def restart(self):
+    return os.execv(sys.executable, ['python'] + sys.argv)
+
 
 @server.PromptServer.instance.routes.get("/manager/share_option")
 async def share_option(request):
@@ -1517,6 +1521,7 @@ def get_matrix_auth():
     except:
         return None
 
+
 def get_comfyworkflows_auth():
     if not os.path.exists(os.path.join(comfyui_manager_path, "comfyworkflows_sharekey")):
         return None
@@ -1529,6 +1534,7 @@ def get_comfyworkflows_auth():
     except:
         return None
 
+
 @server.PromptServer.instance.routes.get("/manager/get_openart_auth")
 async def api_get_openart_auth(request):
     # print("Getting stored Matrix credentials...")
@@ -1536,6 +1542,7 @@ async def api_get_openart_auth(request):
     if not openart_key:
         return web.Response(status=404)
     return web.json_response({"openart_key": openart_key})
+
 
 @server.PromptServer.instance.routes.post("/manager/set_openart_auth")
 async def api_set_openart_auth(request):
@@ -1545,6 +1552,7 @@ async def api_set_openart_auth(request):
         f.write(openart_key)
     return web.Response(status=200)
 
+
 @server.PromptServer.instance.routes.get("/manager/get_matrix_auth")
 async def api_get_matrix_auth(request):
     # print("Getting stored Matrix credentials...")
@@ -1552,6 +1560,7 @@ async def api_get_matrix_auth(request):
     if not matrix_auth:
         return web.Response(status=404)
     return web.json_response(matrix_auth)
+
 
 @server.PromptServer.instance.routes.get("/manager/get_comfyworkflows_auth")
 async def api_get_comfyworkflows_auth(request):
@@ -1563,12 +1572,14 @@ async def api_get_comfyworkflows_auth(request):
         return web.Response(status=404)
     return web.json_response({"comfyworkflows_sharekey" : comfyworkflows_auth})
 
+
 def set_matrix_auth(json_data):
     homeserver = json_data['homeserver']
     username = json_data['username']
     password = json_data['password']
     with open(os.path.join(comfyui_manager_path, "matrix_auth"), "w") as f:
         f.write("\n".join([homeserver, username, password]))
+
 
 def set_comfyworkflows_auth(comfyworkflows_sharekey):
     with open(os.path.join(comfyui_manager_path, "comfyworkflows_sharekey"), "w") as f:

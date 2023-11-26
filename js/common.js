@@ -1,6 +1,20 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 
+export function rebootAPI() {
+	if (confirm("Are you sure you'd like to reboot the server?")) {
+		try {
+			api.fetchApi("/manager/reboot");
+		}
+		catch(exception) {
+
+		}
+		return true;
+	}
+
+	return false;
+}
+
 export async function install_checked_custom_node(grid_rows, target_i, caller, mode) {
 	if(caller) {
 	    let failed = '';
@@ -51,7 +65,7 @@ export async function install_checked_custom_node(grid_rows, target_i, caller, m
 		}
 
         await caller.invalidateControl();
-        caller.updateMessage('<BR>To apply the installed/disabled/enabled custom node, please restart ComfyUI.');
+        caller.updateMessage("<BR>To apply the installed/updated/disabled/enabled custom node, please <button id='cm-reboot-button'><font size='3px'>RESTART</font></button> ComfyUI.", 'cm-reboot-button');
 	}
 };
 

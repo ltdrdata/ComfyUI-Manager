@@ -7,7 +7,7 @@ import { CustomNodesInstaller } from "./custom-nodes-downloader.js";
 import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
 import { ModelInstaller } from "./model-downloader.js";
-import { manager_instance, setManagerInstance, install_via_git_url } from  "./common.js";
+import { manager_instance, setManagerInstance, install_via_git_url, rebootAPI } from  "./common.js";
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
@@ -219,7 +219,7 @@ async function fetchUpdates(update_check_checkbox) {
 	}
 }
 
-async function updateAll(update_check_checkbox) {
+async function updateAll(update_check_checkbox, manager_dialog) {
 	let prev_text = update_all_button.innerText;
 	update_all_button.innerText = "Updating all...(ComfyUI)";
 	update_all_button.disabled = true;
@@ -240,7 +240,15 @@ async function updateAll(update_check_checkbox) {
 			return false;
 		}
 		if(response1.status == 201 || response2.status == 201) {
-	        app.ui.dialog.show('ComfyUI and all extensions have been updated to the latest version.');
+	        app.ui.dialog.show("ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button id='cm-reboot-button'><font size='3px'>RESTART</font></button> ComfyUI.");
+
+			const rebootButton = document.getElementById('cm-reboot-button');
+			rebootButton.onclick = function() {
+				if(rebootAPI()) {
+					manager_dialog.close();
+				}
+			};
+
 			app.ui.dialog.element.style.zIndex = 10010;
 		}
 		else {
@@ -293,6 +301,8 @@ class ManagerMenuDialog extends ComfyDialog {
 	local_mode_checkbox = null;
 
 	createControlsMid() {
+		let self = this;
+
 		update_comfyui_button =
 			$el("button", {
 				type: "button",
@@ -314,7 +324,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				type: "button",
 				textContent: "Update All",
 				onclick:
-					() => updateAll(this.update_check_checkbox)
+					() => updateAll(this.update_check_checkbox, self)
 			});
 
 		const res =
@@ -325,7 +335,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					onclick:
 						() => {
 							if(!CustomNodesInstaller.instance)
-								CustomNodesInstaller.instance = new CustomNodesInstaller(app);
+								CustomNodesInstaller.instance = new CustomNodesInstaller(app, self);
 							CustomNodesInstaller.instance.show(false);
 						}
 				}),
@@ -336,7 +346,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					onclick:
 						() => {
 							if(!CustomNodesInstaller.instance)
-								CustomNodesInstaller.instance = new CustomNodesInstaller(app);
+								CustomNodesInstaller.instance = new CustomNodesInstaller(app, self);
 							CustomNodesInstaller.instance.show(true);
 						}
 				}),
@@ -347,7 +357,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					onclick:
 						() => {
 							if(!ModelInstaller.instance)
-								ModelInstaller.instance = new ModelInstaller(app);
+								ModelInstaller.instance = new ModelInstaller(app, self);
 							ModelInstaller.instance.show();
 						}
 				}),
@@ -364,7 +374,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					onclick:
 						() => {
 							if(!AlternativesInstaller.instance)
-								AlternativesInstaller.instance = new AlternativesInstaller(app);
+								AlternativesInstaller.instance = new AlternativesInstaller(app, self);
 							AlternativesInstaller.instance.show();
 						}
 				}),
@@ -376,6 +386,8 @@ class ManagerMenuDialog extends ComfyDialog {
 	}
 
 	createControlsLeft() {
+		let self = this;
+
 		this.local_mode_checkbox = $el("input",{type:'checkbox', id:"use_local_db"},[])
 		const checkbox_text = $el("label",{},[" Use local DB"])
 		checkbox_text.style.color = "var(--fg-color)";
@@ -491,7 +503,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				onclick:
 					() => {
 						if(!SnapshotManager.instance)
-						SnapshotManager.instance = new SnapshotManager(app);
+						SnapshotManager.instance = new SnapshotManager(app, self);
 						SnapshotManager.instance.show();
 					}
 			}),
