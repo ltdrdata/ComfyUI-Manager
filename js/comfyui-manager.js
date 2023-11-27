@@ -425,7 +425,9 @@ class ManagerMenuDialog extends ComfyDialog {
 		let badge_combo = document.createElement("select");
 		badge_combo.appendChild($el('option', { value: 'none', text: 'Badge: None' }, []));
 		badge_combo.appendChild($el('option', { value: 'nick', text: 'Badge: Nickname' }, []));
+		badge_combo.appendChild($el('option', { value: 'nick_hide', text: 'Badge: Nickname (hide built-in)' }, []));
 		badge_combo.appendChild($el('option', { value: 'id_nick', text: 'Badge: #ID Nickname' }, []));
+		badge_combo.appendChild($el('option', { value: 'id_nick_hide', text: 'Badge: #ID Nickname (hide built-in)' }, []));
 
 		api.fetchApi('/manager/badge_mode')
 			.then(response => response.text())
@@ -722,14 +724,19 @@ app.registerExtension({
 
 			if (!this.flags.collapsed && badge_mode != 'none' && nodeType.title_mode != LiteGraph.NO_TITLE) {
 				let text = "";
-				if (badge_mode == 'id_nick')
+				if (badge_mode.startsWith('id_nick'))
 					text = `#${this.id} `;
 
 				if (nicknames[nodeData.name.trim()]) {
 					let nick = nicknames[nodeData.name.trim()];
 
 					if (nick == 'ComfyUI') {
-						nick = "🦊"
+						if(badge_mode.endsWith('hide')) {
+							nick = "";
+						}
+						else {
+							nick = "🦊"
+						}
 					}
 
 					if (nick.length > 25) {
@@ -772,14 +779,19 @@ app.registerExtension({
 
 				if (!this.flags.collapsed && badge_mode != 'none') {
 					let text = "";
-					if (badge_mode == 'id_nick')
+					if (badge_mode.startsWith('id_nick'))
 						text = `#${this.id} `;
 
 					if (nicknames[node.type.trim()]) {
 						let nick = nicknames[node.type.trim()];
 
 						if (nick == 'ComfyUI') {
-							nick = "🦊"
+							if(badge_mode.endsWith('hide')) {
+								nick = "";
+							}
+							else {
+								nick = "🦊"
+							}
 						}
 
 						if (nick.length > 25) {
