@@ -12,15 +12,15 @@ import { manager_instance, setManagerInstance, install_via_git_url, rebootAPI } 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
 .cm-menu-container {
-  column-gap: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+	column-gap: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .cm-menu-column {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .cm-title {
@@ -38,7 +38,15 @@ docStyle.innerHTML = `
 	border: 1px solid #ccc;
 	padding: 10px;
 	overflow-x: hidden;
-};
+}
+
+.cm-conflicted-nodes-text {
+	background-color: #CCCC55 !important;
+	color: #AA3333 !important;
+	font-size: 10px;
+	border-radius: 5px;
+	padding: 5px;
+}
 `;
 
 document.head.appendChild(docStyle);
@@ -56,17 +64,17 @@ const style = `
 	overflow: hidden;
  }
 .pysssss-workflow-arrow-2 {
-   position: absolute;
-   top: 0;
-   bottom: 0;
-   right: 0;
-   font-size: 12px;
-   display: flex;
-   align-items: center;
-   width: 24px;
-   justify-content: center;
-   background: rgba(255,255,255,0.1);
-   content: "▼";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	font-size: 12px;
+	display: flex;
+	align-items: center;
+	width: 24px;
+	justify-content: center;
+	background: rgba(255,255,255,0.1);
+	content: "▼";
 }
 .pysssss-workflow-arrow-2:after {
 	content: "▼";
@@ -92,10 +100,10 @@ async function init_badge_mode() {
 }
 
 async function init_share_option() {
-    api.fetchApi('/manager/share_option')
-	    .then(response => response.text())
+	api.fetchApi('/manager/share_option')
+		.then(response => response.text())
 		.then(data => {
-		    share_option = data || 'all';
+			share_option = data || 'all';
 		});
 }
 
@@ -184,8 +192,8 @@ async function fetchUpdates(update_check_checkbox) {
 
 	try {
 		var mode = "url";
-        if(manager_instance.local_mode_checkbox.checked)
-            mode = "local";
+		if(manager_instance.local_mode_checkbox.checked)
+			mode = "local";
 
 		const response = await api.fetchApi(`/customnode/fetch_updates?mode=${mode}`);
 
@@ -227,8 +235,8 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 
 	try {
 		var mode = "url";
-        if(manager_instance.local_mode_checkbox.checked)
-            mode = "local";
+		if(manager_instance.local_mode_checkbox.checked)
+			mode = "local";
 
 		update_all_button.innerText = "Updating all...";
 		const response1 = await api.fetchApi('/comfyui_manager/update_comfyui');
@@ -240,7 +248,7 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 			return false;
 		}
 		if(response1.status == 201 || response2.status == 201) {
-	        app.ui.dialog.show("ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button id='cm-reboot-button'><font size='3px'>RESTART</font></button> ComfyUI.");
+			app.ui.dialog.show("ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button id='cm-reboot-button'><font size='3px'>RESTART</font></button> ComfyUI. And refresh browser.");
 
 			const rebootButton = document.getElementById('cm-reboot-button');
 			rebootButton.onclick = function() {
@@ -253,8 +261,8 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 		}
 		else {
 			app.ui.dialog.show('ComfyUI and all extensions are already up-to-date with the latest versions.');
-	        app.ui.dialog.element.style.zIndex = 10010;
-        }
+			app.ui.dialog.element.style.zIndex = 10010;
+		}
 
 		return true;
 	}
@@ -275,25 +283,25 @@ function newDOMTokenList(initialTokens) {
 
 	const classList = tmp.classList;
 	if (initialTokens) {
-	  initialTokens.forEach(token => {
+		initialTokens.forEach(token => {
 		classList.add(token);
-	  });
+		});
 	}
 
 	return classList;
-  }
+	}
 
 /**
  * Check whether the node is a potential output node (img, gif or video output)
  */
 const isOutputNode = (node) => {
-    return [
-        "VHS_VideoCombine",
-        "PreviewImage",
-        "SaveImage",
-        "ADE_AnimateDiffCombine",
-        "SaveAnimatedWEBP",
-    ].includes(node.type);
+	return [
+		"VHS_VideoCombine",
+		"PreviewImage",
+		"SaveImage",
+		"ADE_AnimateDiffCombine",
+		"SaveAnimatedWEBP",
+	].includes(node.type);
 }
 
 // -----------
@@ -362,7 +370,7 @@ class ManagerMenuDialog extends ComfyDialog {
 						}
 				}),
 
-                $el("br", {}, []),
+				$el("br", {}, []),
 				update_all_button,
 				update_comfyui_button,
 				fetch_updates_button,
@@ -454,37 +462,37 @@ class ManagerMenuDialog extends ComfyDialog {
 				}
 			});
 
-	    // share
-	    let share_combo = document.createElement("select");
-	    const share_options = [
-	      ['none', 'None'],
-	      ['openart', 'OpenArt AI'],
-	      ['matrix', 'Matrix Server'],
-	      ['comfyworkflows', 'ComfyWorkflows'],
-	      ['all', 'All'],
-	    ];
-	    for (const option of share_options) {
-          share_combo.appendChild($el('option', { value: option[0], text: `Share: ${option[1]}` }, []));
-        }
+		// share
+		let share_combo = document.createElement("select");
+		const share_options = [
+			['none', 'None'],
+			['openart', 'OpenArt AI'],
+			['matrix', 'Matrix Server'],
+			['comfyworkflows', 'ComfyWorkflows'],
+			['all', 'All'],
+		];
+		for (const option of share_options) {
+			share_combo.appendChild($el('option', { value: option[0], text: `Share: ${option[1]}` }, []));
+		}
 
-        api.fetchApi('/manager/share_option')
+		api.fetchApi('/manager/share_option')
 			.then(response => response.text())
 			.then(data => {
-			    share_combo.value = data || 'all';
-			    share_option = data || 'all';
+				share_combo.value = data || 'all';
+				share_option = data || 'all';
 			});
 
-        share_combo.addEventListener('change', function (event) {
-          const value = event.target.value;
-          share_option = value;
-          api.fetchApi(`/manager/share_option?value=${value}`);
-          const shareButton = document.getElementById("shareButton");
-          if (value === 'none') {
-            shareButton.style.display = "none";
-          } else {
-            shareButton.style.display = "inline-block";
-          }
-        });
+		share_combo.addEventListener('change', function (event) {
+			const value = event.target.value;
+			share_option = value;
+			api.fetchApi(`/manager/share_option?value=${value}`);
+			const shareButton = document.getElementById("shareButton");
+			if (value === 'none') {
+				shareButton.style.display = "none";
+			} else {
+				shareButton.style.display = "inline-block";
+			}
+		});
 
 		return [
 			$el("div", {}, [this.local_mode_checkbox, checkbox_text, this.update_check_checkbox, uc_checkbox_text]),
@@ -682,13 +690,13 @@ app.registerExtension({
 		shareButton.id = "shareButton";
 		shareButton.textContent = "Share";
 		shareButton.onclick = () => {
-		    if (share_option === 'openart') {
-		        showOpenArtShareDialog();
-			    return;
-		    } else if (share_option === 'matrix' || share_option === 'comfyworkflows') {
-		        showShareDialog(share_option);
-		        return;
-		    }
+			if (share_option === 'openart') {
+				showOpenArtShareDialog();
+				return;
+			} else if (share_option === 'matrix' || share_option === 'comfyworkflows') {
+				showShareDialog(share_option);
+				return;
+			}
 
 			if(!ShareDialogChooser.instance) {
 				ShareDialogChooser.instance = new ShareDialogChooser();
@@ -753,11 +761,11 @@ app.registerExtension({
 			return r;
 		};
 
-	    this._addExtraNodeContextMenu(nodeType, app);
+		this._addExtraNodeContextMenu(nodeType, app);
 	},
 
 	async loadedGraphNode(node, app) {
-	    if (node.has_errors) {
+		if (node.has_errors) {
 			const onDrawForeground = node.onDrawForeground;
 			node.onDrawForeground = function (ctx) {
 				const r = onDrawForeground?.apply?.(this, arguments);
@@ -814,42 +822,42 @@ app.registerExtension({
 	},
 
 	_addExtraNodeContextMenu(node, app) {
-        const origGetExtraMenuOptions = node.prototype.getExtraMenuOptions;
-        node.prototype.getExtraMenuOptions = function (_, options) {
-            origGetExtraMenuOptions?.apply?.(this, arguments);
-            if (isOutputNode(node)) {
-	    	    const { potential_outputs } = getPotentialOutputsAndOutputNodes([this]);
-	    	    const hasOutput = potential_outputs.length > 0;
+		const origGetExtraMenuOptions = node.prototype.getExtraMenuOptions;
+		node.prototype.getExtraMenuOptions = function (_, options) {
+			origGetExtraMenuOptions?.apply?.(this, arguments);
+			if (isOutputNode(node)) {
+				const { potential_outputs } = getPotentialOutputsAndOutputNodes([this]);
+				const hasOutput = potential_outputs.length > 0;
 
-	    	    // Check if the previous menu option is `null`. If it's not,
-	    	    // then we need to add a `null` as a separator.
-	    	    if (options[options.length - 1] !== null) {
-	    	        options.push(null);
-	    	    }
+				// Check if the previous menu option is `null`. If it's not,
+				// then we need to add a `null` as a separator.
+				if (options[options.length - 1] !== null) {
+					options.push(null);
+				}
 
-                options.push({
-				    content: "🏞️ Share Output",
-				    disabled: !hasOutput,
+				options.push({
+					content: "🏞️ Share Output",
+					disabled: !hasOutput,
 					callback: (obj) => {
-					    if (!ShareDialog.instance) {
-					        ShareDialog.instance = new ShareDialog();
-					    }
-					    const shareButton = document.getElementById("shareButton");
-					    if (shareButton) {
-					        const currentNode = this;
-					        if (!OpenArtShareDialog.instance) {
-					            OpenArtShareDialog.instance = new OpenArtShareDialog();
-					        }
-					        OpenArtShareDialog.instance.selectedNodeId = currentNode.id;
-					        if (!ShareDialog.instance) {
-					            ShareDialog.instance = new ShareDialog(share_option);
-					        }
-					        ShareDialog.instance.selectedNodeId = currentNode.id;
-					        shareButton.click();
-					    }
+						if (!ShareDialog.instance) {
+							ShareDialog.instance = new ShareDialog();
+						}
+						const shareButton = document.getElementById("shareButton");
+						if (shareButton) {
+							const currentNode = this;
+							if (!OpenArtShareDialog.instance) {
+								OpenArtShareDialog.instance = new OpenArtShareDialog();
+							}
+							OpenArtShareDialog.instance.selectedNodeId = currentNode.id;
+							if (!ShareDialog.instance) {
+								ShareDialog.instance = new ShareDialog(share_option);
+							}
+							ShareDialog.instance.selectedNodeId = currentNode.id;
+							shareButton.click();
+						}
 					}
 				}, null);
 			}
-        }
+		}
 	},
 });

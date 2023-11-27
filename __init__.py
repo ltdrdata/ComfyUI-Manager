@@ -15,8 +15,9 @@ import ssl
 from urllib.parse import urlparse
 import http.client
 import re
+import signal
 
-version = "V1.5"
+version = "V1.5.1"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
@@ -1479,7 +1480,12 @@ async def get_notice(request):
 
 @server.PromptServer.instance.routes.get("/manager/reboot")
 def restart(self):
-    return os.execv(sys.executable, ['python'] + sys.argv)
+    try:
+        sys.stdout.close_log()
+    except Exception as e:
+        pass
+
+    return os.execv(sys.executable, [sys.executable] + sys.argv)
 
 
 @server.PromptServer.instance.routes.get("/manager/share_option")

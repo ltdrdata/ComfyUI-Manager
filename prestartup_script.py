@@ -173,11 +173,18 @@ try:
 
         def reconfigure(self, *args, **kwargs):
             pass
+
+        # You can close through sys.stderr.close_log()
+        def close_log(self):
+            sys.stderr = original_stderr
+            sys.stdout = original_stdout
+            log_file.close()
             
     def close_log():
+        sys.stderr = original_stderr
+        sys.stdout = original_stdout
         log_file.close()
-
-
+        
     sys.stdout = ComfyUIManagerLogger(True)
     sys.stderr = ComfyUIManagerLogger(False)
 
