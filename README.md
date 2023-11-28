@@ -166,6 +166,7 @@ NODE_CLASS_MAPPINGS.update({
   * `enable.py` - When enabled, it is automatically called
   * **All scripts are executed from the root path of the corresponding custom node.**
 
+
 ## Support of missing nodes installation
 
 ![missing-menu](misc/missing-menu.png)
@@ -189,6 +190,7 @@ NODE_CLASS_MAPPINGS.update({
 * https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
 * https://github.com/senshilabs/NINJA-plugin
 * https://github.com/MockbaTheBorg/Nodes
+* https://github.com/filliptm/ComfyUI_Fill-Nodes
 
 
 ## Roadmap
