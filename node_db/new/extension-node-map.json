@@ -51,13 +51,13 @@
     ],
     "https://github.com/AbdullahAlfaraj/Comfy-Photoshop-SD": [
         [
+            "APS_LatentBatch",
             "APS_Seed",
             "ContentMaskLatent",
             "ControlNetScript",
             "ControlnetUnit",
             "GaussianLatentImage",
             "GetConfig",
-            "LatentBatch",
             "LoadImageBase64",
             "LoadImageWithMetaData",
             "LoadLorasFromPrompt",
@@ -1135,6 +1135,8 @@
             "CR Color Tint",
             "CR Combine Schedules",
             "CR Comic Panel Templates",
+            "CR Comic Panel Templates (Advanced)",
+            "CR Comic Panel Templates Advanced",
             "CR Composite Text",
             "CR Conditioning Input Switch",
             "CR Conditioning Mixer",
@@ -1232,6 +1234,7 @@
             "CR Prompt Text",
             "CR Prompt Weight Scheduler",
             "CR Radial Gradient",
+            "CR Random Hex Color",
             "CR SD1.5 Aspect Ratio",
             "CR SDXL Aspect Ratio",
             "CR SDXL Base Prompt Encoder",
@@ -1449,6 +1452,15 @@
         ],
         {
             "title_aux": "Chatbox Overlay node for ComfyUI"
+        }
+    ],
+    "https://github.com/SoftMeng/ComfyUI_Mexx_Styler": [
+        [
+            "MexxSDXLPromptStyler",
+            "MexxSDXLPromptStylerAdvanced"
+        ],
+        {
+            "title_aux": "ComfyUI_Mexx_Styler"
         }
     ],
     "https://github.com/Stability-AI/stability-ComfyUI-nodes": [
@@ -2280,6 +2292,7 @@
             "Mikey Sampler Tiled",
             "Mikey Sampler Tiled Base Only",
             "MikeySamplerTiledAdvanced",
+            "MikeySamplerTiledAdvancedBaseOnly",
             "OobaPrompt",
             "PresetRatioSelector",
             "Prompt With SDXL",
@@ -3229,8 +3242,10 @@
             "KSampler (Efficient)",
             "KSampler Adv. (Efficient)",
             "KSampler SDXL (Eff.)",
+            "LatentUpscaler",
             "LoRA Stacker",
             "Manual XY Entry Info",
+            "NNLatentUpscale",
             "Noise Control Script",
             "Pack SDXL Tuple",
             "Tiled Upscaler Script",
@@ -3342,6 +3357,7 @@
             "INTConstant",
             "ImageBatchTestPattern",
             "ImageConcanate",
+            "ImageGrabPIL",
             "ImageGridComposite2x2",
             "ImageGridComposite3x3",
             "OffsetMask",
@@ -3859,6 +3875,7 @@
             "Mask To Image (mtb)",
             "Math Expression (mtb)",
             "Model Patch Seamless (mtb)",
+            "Pick From Batch (mtb)",
             "Qr Code (mtb)",
             "Restore Face (mtb)",
             "Save Gif (mtb)",
@@ -4825,6 +4842,21 @@
             "title_aux": "ComfyUI-Openpose-Editor-Plus"
         }
     ],
+    "https://github.com/wmatson/easy-comfy-nodes": [
+        [
+            "EZAssocDictNode",
+            "EZAssocImgNode",
+            "EZAssocStrNode",
+            "EZEmptyDictNode",
+            "EZHttpPostNode",
+            "EZLoadImgBatchFromUrlsNode",
+            "EZLoadImgFromUrlNode",
+            "EZVideoCombiner"
+        ],
+        {
+            "title_aux": "easy-comfy-nodes"
+        }
+    ],
     "https://github.com/wolfden/ComfyUi_PromptStylers": [
         [
             "SDXLPromptStylerAll",
@@ -5047,7 +5079,7 @@
     ],
     "https://github.com/zhuanqianfish/ComfyUI-EasyNode": [
         [
-            "LoadBase64Image",
+            "EasyCaptureNode",
             "SendImageWebSocket"
         ],
         {
