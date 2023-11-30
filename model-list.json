@@ -46,9 +46,9 @@
       "base": "upscale",
       "save_path": "default",
       "description": "RealESRGAN x2 upscaler model",
-      "reference": "https://huggingface.co/sberbank-ai/Real-ESRGAN",
+      "reference": "https://huggingface.co/ai-forever/Real-ESRGAN",
       "filename": "RealESRGAN_x2.pth",
-      "url": "https://huggingface.co/sberbank-ai/Real-ESRGAN/resolve/main/RealESRGAN_x2.pth"
+      "url": "https://huggingface.co/ai-forever/Real-ESRGAN/resolve/main/RealESRGAN_x2.pth"
     },
     {
       "name": "RealESRGAN x4",
@@ -56,9 +56,39 @@
       "base": "upscale",
       "save_path": "default",
       "description": "RealESRGAN x4 upscaler model",
-      "reference": "https://huggingface.co/sberbank-ai/Real-ESRGAN",
+      "reference": "https://huggingface.co/ai-forever/Real-ESRGAN",
       "filename": "RealESRGAN_x4.pth",
-      "url": "https://huggingface.co/sberbank-ai/Real-ESRGAN/resolve/main/RealESRGAN_x4.pth"
+      "url": "https://huggingface.co/ai-forever/Real-ESRGAN/resolve/main/RealESRGAN_x4.pth"
+    },
+	{
+      "name": "ESRGAN x4",
+      "type": "upscale",
+      "base": "upscale",
+      "save_path": "default",
+      "description": "ESRGAN x4 upscaler model",
+      "reference": "https://huggingface.co/Afizi/ESRGAN_4x.pth",
+      "filename": "ESRGAN_4x.pth",
+      "url": "https://huggingface.co/Afizi/ESRGAN_4x.pth/resolve/main/ESRGAN_4x.pth"
+    },
+	{
+      "name": "4x_foolhardy_Remacri",
+      "type": "upscale",
+      "base": "upscale",
+      "save_path": "default",
+      "description": "4x_foolhardy_Remacri upscaler model",
+      "reference": "https://huggingface.co/FacehugmanIII/4x_foolhardy_Remacri",
+      "filename": "4x_foolhardy_Remacri.pth",
+      "url": "https://huggingface.co/FacehugmanIII/4x_foolhardy_Remacri/resolve/main/4x_foolhardy_Remacri.pth"
+    },
+	{
+      "name": "4x-AnimeSharp",
+      "type": "upscale",
+      "base": "upscale",
+      "save_path": "default",
+      "description": "4x-AnimeSharp upscaler model",
+      "reference": "https://huggingface.co/konohashinobi4/4xAnimesharp",
+      "filename": "4x-AnimeSharp.pth",
+      "url": "https://huggingface.co/konohashinobi4/4xAnimesharp/resolve/main/4x-AnimeSharp.pth"
     },
     {
       "name": "4x-UltraSharp",
@@ -70,15 +100,45 @@
       "filename": "4x-UltraSharp.pth",
       "url": "https://huggingface.co/datasets/Kizi-Art/Upscale/resolve/fa98e357882a23b8e7928957a39462fbfaee1af5/4x-UltraSharp.pth"
     },
+	{
+      "name": "4x_NMKD-Siax_200k",
+      "type": "upscale",
+      "base": "upscale",
+      "save_path": "default",
+      "description": "4x_NMKD-Siax_200k upscaler model",
+      "reference": "https://huggingface.co/gemasai/4x_NMKD-Siax_200k",
+      "filename": "4x_NMKD-Siax_200k.pth",
+      "url": "https://huggingface.co/gemasai/4x_NMKD-Siax_200k/resolve/main/4x_NMKD-Siax_200k.pth"
+    },
+	{
+      "name": "8x_NMKD-Superscale_150000_G",
+      "type": "upscale",
+      "base": "upscale",
+      "save_path": "default",
+      "description": "8x_NMKD-Superscale_150000_G upscaler model",
+      "reference": "https://huggingface.co/uwg/upscaler",
+      "filename": "8x_NMKD-Superscale_150000_G.pth",
+      "url": "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/8x_NMKD-Superscale_150000_G.pth"
+    },
+	{
+      "name": "Inswapper-fp16 (face swap)",
+      "type": "insightface",
+      "base" : "inswapper",
+      "save_path": "insightface",
+      "description": "[264MB] Checkpoint of the insightface swapper model<BR>(used by ComfyUI-FaceSwap, comfyui-reactor-node, CharacterFaceSwap,<BR>ComfyUI roop and comfy_mtb)",
+      "reference": "https://github.com/facefusion/facefusion-assets",
+      "filename": "inswapper_128_fp16.onnx",
+      "url": "https://github.com/facefusion/facefusion-assets/releases/download/models/inswapper_128_fp16.onnx"
+    },
     {
       "name": "Inswapper (face swap)",
       "type": "insightface",
       "base" : "inswapper",
       "save_path": "insightface",
-      "description": "Checkpoint of the insightface swapper model (used by Comfy-Roop and comfy_mtb)",
-      "reference": "https://huggingface.co/deepinsight/inswapper/",
+      "description": "[529MB] Checkpoint of the insightface swapper model<BR>(used by ComfyUI-FaceSwap, comfyui-reactor-node, CharacterFaceSwap,<BR>ComfyUI roop and comfy_mtb)",
+      "reference": "https://github.com/facefusion/facefusion-assets",
       "filename": "inswapper_128.onnx",
-      "url": "https://huggingface.co/deepinsight/inswapper/resolve/main/inswapper_128.onnx"
+      "url": "https://github.com/facefusion/facefusion-assets/releases/download/models/inswapper_128.onnx"
     },
     {
       "name": "Deepbump",
@@ -409,8 +469,7 @@
       "reference": "https://huggingface.co/hakurei/waifu-diffusion-v1-4",
       "filename": "kl-f8-anime2.ckpt",
       "url": "https://huggingface.co/hakurei/waifu-diffusion-v1-4/resolve/main/vae/kl-f8-anime2.ckpt"
-    },
-    
+    },  
     {
       "name": "LCM LoRA SD1.5",
       "type": "lora",
@@ -441,7 +500,6 @@
       "filename": "pytorch_lora_weights.safetensors",
       "url": "https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors"
     },
-
     {
       "name": "Theovercomer8's Contrast Fix (SD2.1)",
       "type": "lora",
@@ -562,7 +620,6 @@
       "filename": "diffusion_pytorch_model.safetensors",
       "url": "https://huggingface.co/CiaraRowles/controlnet-temporalnet-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors"
     },
-
     {
       "name": "CLIPVision model (stabilityai/clip_vision_g)",
       "type": "clip_vision",
@@ -573,7 +630,6 @@
       "filename": "clip_vision_g.safetensors",
       "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/revision/clip_vision_g.safetensors"
     },
-
     {
       "name": "CLIPVision model (openai/clip-vit-large)",
       "type": "clip_vision",
@@ -604,7 +660,6 @@
       "filename": "pytorch_model.bin",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/image_encoder/pytorch_model.bin"
     },
-
     {
       "name": "stabilityai/control-lora-canny-rank128.safetensors",
       "type": "controlnet",
@@ -645,8 +700,6 @@
       "filename": "control-lora-sketch-rank128-metadata.safetensors",
       "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-sketch-rank128-metadata.safetensors"
     },
-
-
     {
       "name": "stabilityai/control-lora-canny-rank256.safetensors",
       "type": "controlnet",
@@ -1284,90 +1337,78 @@
       "filename": "v2_lora_ZoomOut.ckpt",
       "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v2_lora_ZoomOut.ckpt"
     },
-
     {
-      "name": "ip-adapter_sdxl.bin<BR>(install to IPAdapter-ComfyUI)",
-      "type": "IP-Adapter",
-      "base": "SDXL",
-      "save_path": "custom_nodes/IPAdapter-ComfyUI/models",
-      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter_sdxl.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter_sdxl.bin"
-    },
-    {
-      "name": "ip-adapter_sd15.bin<BR>(install to IPAdapter-ComfyUI)",
+      "name": "ip-adapter_sd15.bin<BR>(IPAdapter-ComfyUI)",
       "type": "IP-Adapter",
       "base": "SD1.5",
       "save_path": "custom_nodes/IPAdapter-ComfyUI/models",
-      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models<BR>extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
       "reference": "https://huggingface.co/h94/IP-Adapter",
       "filename": "ip-adapter_sd15.bin",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15.bin"
     },
-    {
-      "name": "wd15_ip_adapter_plus.bin<BR>(install to IPAdapter-ComfyUI)",
-      "type": "IP-Adapter",
-      "base": "SDXL",
-      "save_path": "custom_nodes/IPAdapter-ComfyUI/models",
-      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "wd15_ip_adapter_plus.bin",
-      "url": "https://huggingface.co/furusu/IP-Adapter/resolve/main/wd15_ip_adapter_plus.bin"
-    },
-    {
-      "name": "ip-adapter-plus_sd15.bin<BR>(install to IPAdapter-ComfyUI)",
+	{
+      "name": "ip-adapter_sd15_light.bin<BR>(IPAdapter-ComfyUI)",
       "type": "IP-Adapter",
       "base": "SD1.5",
       "save_path": "custom_nodes/IPAdapter-ComfyUI/models",
-      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "description": "Use this when text prompt is more important than reference images",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "ip-adapter_sd15_light.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15_light.bin"
+    },
+	{
+      "name": "ip-adapter-plus_sd15.bin<BR>(IPAdapter-ComfyUI)",
+      "type": "IP-Adapter",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/IPAdapter-ComfyUI/models",
+      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models<BR>extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
       "reference": "https://huggingface.co/h94/IP-Adapter",
       "filename": "ip-adapter-plus_sd15.bin",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter-plus_sd15.bin"
     },
     {
-      "name": "ip-adapter-plus-face_sd15.bin<BR>(install to IPAdapter-ComfyUI)",
+      "name": "ip-adapter-plus-face_sd15.bin<BR>(IPAdapter-ComfyUI)",
       "type": "IP-Adapter",
       "base": "SD1.5",
       "save_path": "custom_nodes/IPAdapter-ComfyUI/models",
-      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models<BR>extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
       "reference": "https://huggingface.co/h94/IP-Adapter",
       "filename": "ip-adapter-plus-face_sd15.bin",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter-plus-face_sd15.bin"
     },
-
-    {
-      "name": "ip-adapter-plus_sdxl_vit-h.bin<BR>(install to ComfyUI_IPAdapter_plus)",
+	{
+      "name": "ip-adapter-full-face_sd15.bin<BR>(IPAdapter-ComfyUI)",
       "type": "IP-Adapter",
-      "base": "SDXL",
-      "save_path": "custom_nodes/ComfyUI_IPAdapter_plus/models",
-      "description": "Pressing 'install' directly downloads the model from the ComfyUI_IPAdapter_plus/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/IPAdapter-ComfyUI/models",
+      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models<BR>extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
       "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter-plus_sdxl_vit-h.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter-plus_sdxl_vit-h.bin"
+      "filename": "ip-adapter-full-face_sd15.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter-full-face_sd15.bin"
     },
-    {
-      "name": "ip-adapter_sdxl_vit-h.bin<BR>(install to ComfyUI_IPAdapter_plus)",
+	{
+      "name": "ip-adapter_sdxl.bin<BR>(IPAdapter-ComfyUI)",
       "type": "IP-Adapter",
       "base": "SDXL",
-      "save_path": "custom_nodes/ComfyUI_IPAdapter_plus/models",
-      "description": "Pressing 'install' directly downloads the model from the ComfyUI_IPAdapter_plus/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter_sdxl_vit-h.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter_sdxl_vit-h.bin"
-    },
-    {
-      "name": "ip-adapter_sdxl.bin<BR>(install to ComfyUI_IPAdapter_plus)",
-      "type": "IP-Adapter",
-      "base": "SDXL",
-      "save_path": "custom_nodes/ComfyUI_IPAdapter_plus/models",
-      "description": "Pressing 'install' directly downloads the model from the ComfyUI_IPAdapter_plus/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "save_path": "custom_nodes/IPAdapter-ComfyUI/models",
+      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models<BR>extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
       "reference": "https://huggingface.co/h94/IP-Adapter",
       "filename": "ip-adapter_sdxl.bin",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter_sdxl.bin"
     },
     {
-      "name": "ip-adapter_sd15.bin<BR>(install to ComfyUI_IPAdapter_plus)",
+      "name": "wd15_ip_adapter_plus.bin<BR>(IPAdapter-ComfyUI)",
+      "type": "IP-Adapter",
+      "base": "SDXL",
+      "save_path": "custom_nodes/IPAdapter-ComfyUI/models",
+      "description": "Pressing 'install' directly downloads the model from the IPAdapter-ComfyUI/models<BR>extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "wd15_ip_adapter_plus.bin",
+      "url": "https://huggingface.co/furusu/IP-Adapter/resolve/main/wd15_ip_adapter_plus.bin"
+    },
+	{
+      "name": "ip-adapter_sd15.bin<BR>(ComfyUI_IPAdapter_plus)",
       "type": "IP-Adapter",
       "base": "SD1.5",
       "save_path": "custom_nodes/ComfyUI_IPAdapter_plus/models",
@@ -1376,7 +1417,86 @@
       "filename": "ip-adapter_sd15.bin",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15.bin"
     },
-
+	{
+      "name": "ip-adapter_sd15_light.bin<BR>(ComfyUI_IPAdapter_plus)",
+      "type": "IP-Adapter",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/ComfyUI_IPAdapter_plus/models",
+      "description": "Use this when text prompt is more important than reference images",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "ip-adapter_sd15_light.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15_light.bin"
+    },
+	{
+      "name": "ip-adapter-plus_sd15.bin<BR>(ComfyUI_IPAdapter_plus)",
+      "type": "IP-Adapter",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/ComfyUI_IPAdapter_plus/models",
+      "description": "Pressing 'install' directly downloads the model from the ComfyUI_IPAdapter_plus/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "ip-adapter-plus_sd15.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter-plus_sd15.bin"
+    },
+    {
+      "name": "ip-adapter-plus-face_sd15.bin<BR>(ComfyUI_IPAdapter_plus)",
+      "type": "IP-Adapter",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/ComfyUI_IPAdapter_plus/models",
+      "description": "Pressing 'install' directly downloads the model from the ComfyUI_IPAdapter_plus/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "ip-adapter-plus-face_sd15.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter-plus-face_sd15.bin"
+    },
+	{
+      "name": "ip-adapter-full-face_sd15.bin<BR>(ComfyUI_IPAdapter_plus)",
+      "type": "IP-Adapter",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/ComfyUI_IPAdapter_plus/models",
+      "description": "Pressing 'install' directly downloads the model from the ComfyUI_IPAdapter_plus/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "ip-adapter-full-face_sd15.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter-full-face_sd15.bin"
+    },
+	{
+      "name": "ip-adapter_sdxl.bin<BR>(ComfyUI_IPAdapter_plus)",
+      "type": "IP-Adapter",
+      "base": "SDXL",
+      "save_path": "custom_nodes/ComfyUI_IPAdapter_plus/models",
+      "description": "Pressing 'install' directly downloads the model from the ComfyUI_IPAdapter_plus/models extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "ip-adapter_sdxl.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter_sdxl.bin"
+    },
+	{
+      "name": "ip-adapter_sdxl_vit-h.bin<BR>(ComfyUI_IPAdapter_plus)",
+      "type": "IP-Adapter",
+      "base": "SDXL",
+      "save_path": "custom_nodes/ComfyUI_IPAdapter_plus/models",
+      "description": "This model requires the use of the SD1.5 encoder despite being for SDXL checkpoints",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "ip-adapter_sdxl_vit-h.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter_sdxl_vit-h.bin"
+    },
+    {
+      "name": "ip-adapter-plus_sdxl_vit-h.bin<BR>(ComfyUI_IPAdapter_plus)",
+      "type": "IP-Adapter",
+      "base": "SDXL",
+      "save_path": "custom_nodes/ComfyUI_IPAdapter_plus/models",
+      "description": "This model requires the use of the SD1.5 encoder despite being for SDXL checkpoints",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "ip-adapter-plus_sdxl_vit-h.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter-plus_sdxl_vit-h.bin"
+    },
+	    {
+      "name": "ip-adapter-plus-face_sdxl_vit-h.bin<BR>(ComfyUI_IPAdapter_plus)",
+      "type": "IP-Adapter",
+      "base": "SDXL",
+      "save_path": "custom_nodes/ComfyUI_IPAdapter_plus/models",
+      "description": "This model requires the use of the SD1.5 encoder despite being for SDXL checkpoints",
+      "reference": "https://huggingface.co/h94/IP-Adapter",
+      "filename": "ip-adapter-plus-face_sdxl_vit-h.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter-plus-face_sdxl_vit-h.bin"
+    },
     {
       "name": "pfg-novel-n10.pt",
       "type": "PFG",
