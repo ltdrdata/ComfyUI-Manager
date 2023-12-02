@@ -1249,6 +1249,7 @@
             "CR Prompt Weight Scheduler",
             "CR Radial Gradient",
             "CR Random Hex Color",
+            "CR Random RGB",
             "CR SD1.5 Aspect Ratio",
             "CR SDXL Aspect Ratio",
             "CR SDXL Base Prompt Encoder",
@@ -2309,13 +2310,16 @@
             "Batch Load Images",
             "Batch Resize Image for SDXL",
             "Checkpoint Loader Simple Mikey",
+            "CinematicLook",
             "Empty Latent Ratio Custom SDXL",
             "Empty Latent Ratio Select SDXL",
+            "EvalFloats",
             "FileNamePrefix",
             "Float to String",
             "HaldCLUT",
             "Image Caption",
             "ImageBorder",
+            "ImageOverlay",
             "ImagePaste",
             "Int to String",
             "LoraSyntaxProcessor",
@@ -2356,6 +2360,18 @@
         ],
         {
             "title_aux": "Mikey Nodes"
+        }
+    ],
+    "https://github.com/bedovyy/ComfyUI_NAIDGenerator": [
+        [
+            "GenerateNAID",
+            "ImageToNAIMask",
+            "Img2ImgOptionNAID",
+            "InpaintingOptionNAID",
+            "ModelOptionNAID"
+        ],
+        {
+            "title_aux": "ComfyUI_NAIDGenerator"
         }
     ],
     "https://github.com/biegert/ComfyUI-CLIPSeg/raw/main/custom_nodes/clipseg.py": [
@@ -3169,14 +3185,6 @@
             "title_aux": "Comfyui-Lama"
         }
     ],
-    "https://github.com/hinablue/ComfyUI_3dPoseEditor": [
-        [
-            "Hina.PoseEditor3D"
-        ],
-        {
-            "title_aux": "ComfyUI 3D Pose Editor"
-        }
-    ],
     "https://github.com/hnmr293/ComfyUI-nodes-hnmr": [
         [
             "CLIPIter",
@@ -3258,6 +3266,63 @@
         ],
         {
             "title_aux": "FaceSwap"
+        }
+    ],
+    "https://github.com/jags111/ComfyUI_Jags_Audiotools": [
+        [
+            "BatchJoinAudio",
+            "BatchToList",
+            "BitCrushAudioFX",
+            "ChorusAudioFX",
+            "ClippingAudioFX",
+            "CompressorAudioFX",
+            "ConcatAudioList",
+            "ConvolutionAudioFX",
+            "CutAudio",
+            "DelayAudioFX",
+            "DistortionAudioFX",
+            "DuplicateAudio",
+            "GainAudioFX",
+            "GenerateAudioSample",
+            "GenerateAudioWave",
+            "GetAudioFromFolderIndex",
+            "GetStringByIndex",
+            "HighShelfFilter",
+            "HighpassFilter",
+            "ImageToSpectral",
+            "InvertAudioFX",
+            "JoinAudio",
+            "LadderFilter",
+            "LimiterAudioFX",
+            "LoadAudioFile",
+            "LoadAudioModel (DD)",
+            "LoadVST3",
+            "LowShelfFilter",
+            "LowpassFilter",
+            "MP3CompressorAudioFX",
+            "MixAudioTensors",
+            "NoiseGateAudioFX",
+            "OTTAudioFX",
+            "PeakFilter",
+            "PhaserEffectAudioFX",
+            "PitchShiftAudioFX",
+            "PlotSpectrogram",
+            "PreviewAudioFile",
+            "PreviewAudioTensor",
+            "ResampleAudio",
+            "ReverbAudioFX",
+            "ReverseAudio",
+            "SaveAudioTensor",
+            "SequenceVariation",
+            "SliceAudio",
+            "StretchAudio"
+        ],
+        {
+            "author": "jags111",
+            "description": "This extension offers various audio generation tools",
+            "nickname": "Audiotools",
+            "title": "Jags_Audiotools",
+            "title_aux": "ComfyUI_Jags_Audiotools"
         }
     ],
     "https://github.com/jags111/ComfyUI_Jags_VectorMagic": [
@@ -3391,6 +3456,7 @@
             "CreateTextMask",
             "CreateVoronoiMask",
             "CrossFadeImages",
+            "DummyLatentOut",
             "EmptyLatentImagePresets",
             "FloatConstant",
             "GetImageRangeFromBatch",
@@ -3426,7 +3492,8 @@
     ],
     "https://github.com/kinfolk0117/ComfyUI_GradientDeepShrink": [
         [
-            "GradientPatchModelAddDownscale"
+            "GradientPatchModelAddDownscale",
+            "GradientPatchModelAddDownscaleAdvanced"
         ],
         {
             "title_aux": "ComfyUI_GradientDeepShrink"
@@ -3460,6 +3527,8 @@
     ],
     "https://github.com/komojini/ComfyUI_SDXL_DreamBooth_LoRA_CustomNodes": [
         [
+            "S3 Bucket LoRA",
+            "S3Bucket_Load_LoRA",
             "XL DreamBooth LoRA",
             "XLDB_LoRA"
         ],
