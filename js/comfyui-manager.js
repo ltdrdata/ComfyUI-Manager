@@ -397,12 +397,12 @@ class ManagerMenuDialog extends ComfyDialog {
 		let self = this;
 
 		this.local_mode_checkbox = $el("input",{type:'checkbox', id:"use_local_db"},[])
-		const checkbox_text = $el("label",{},[" Use local DB"])
+		const checkbox_text = $el("label",{for: "use_local_db"},[" Use local DB"])
 		checkbox_text.style.color = "var(--fg-color)";
 		checkbox_text.style.marginRight = "10px";
 
 		this.update_check_checkbox = $el("input",{type:'checkbox', id:"skip_update_check"},[])
-		const uc_checkbox_text = $el("label",{},[" Skip update check"])
+		const uc_checkbox_text = $el("label",{for:"skip_update_check"},[" Skip update check"])
 		uc_checkbox_text.style.color = "var(--fg-color)";
 		this.update_check_checkbox.checked = true;
 
