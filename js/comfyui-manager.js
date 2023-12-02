@@ -32,7 +32,7 @@ docStyle.innerHTML = `
 }
 
 .cm-notice-board {
-	width: 250px;
+	width: 360px;
 	height: 160px;
 	overflow: auto;
 	color: var(--input-text);
