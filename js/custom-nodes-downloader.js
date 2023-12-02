@@ -226,7 +226,9 @@ export class CustomNodesInstaller extends ComfyDialog {
 		this.element.appendChild(msg);
 
 		// invalidate
-		this.data = (await getCustomNodes()).custom_nodes;
+		let data = await getCustomNodes();
+		this.data = data.custom_nodes;
+		this.channel = data.channel;
 
 		this.conflict_mappings = await getConflictMappings();
 
@@ -692,7 +694,14 @@ export class CustomNodesInstaller extends ComfyDialog {
 		let filter_control = this.createFilterCombo();
 		filter_control.style.display = "inline-block";
 
-		let cell = $el('td', {width:'100%'}, [filter_control, this.search_box, '  ', search_button]);
+		let channel_badge = null;
+		if(this.channel != 'default') {
+			channel_badge = $el('span', {id:'cm-channel-badge'}, [`Channel: ${this.channel}`]);
+		}
+		else {
+
+		}
+		let cell = $el('td', {width:'100%'}, [filter_control, channel_badge, this.search_box, '  ', search_button]);
 		let search_control = $el('table', {width:'100%'},
 				[
 					$el('tr', {}, [cell])

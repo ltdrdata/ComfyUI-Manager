@@ -29,6 +29,22 @@ docStyle.innerHTML = `
 	background-color: black;
 	text-align: center;
 	height: 45px;
+	font-weight: bold;
+}
+
+#cm-channel-badge {
+	color: white;
+	background-color: #AA0000;
+	width: 150px;
+	height: 23px;
+	font-size: 13px;
+	border-radius: 5px;
+	left: 250px;
+	top: 38px;
+	align-content: center;
+	justify-content: center;
+	text-align: center;
+	font-weight: bold;
 }
 
 .cm-notice-board {
@@ -46,7 +62,27 @@ docStyle.innerHTML = `
 	color: #AA3333 !important;
 	font-size: 10px;
 	border-radius: 5px;
-	padding: 5px;
+	padding: 10px;
+}
+
+.cm-warn-note {
+	background-color: #000000 !important;
+	color: #FF0000 !important;
+	font-size: 13px;
+	border-radius: 5px;
+	padding: 10px;
+	overflow-x: hidden;
+	overflow: auto;
+}
+
+.cm-info-note {
+	background-color: #000000 !important;
+	color: #FF0000 !important;
+	font-size: 13px;
+	border-radius: 5px;
+	padding: 10px;
+	overflow-x: hidden;
+	overflow: auto;
 }
 `;
 
@@ -61,6 +97,10 @@ let share_option = 'all';
 // copied style from https://github.com/pythongosssss/ComfyUI-Custom-Scripts
 const style = `
 #comfyworkflows-button {
+	position: relative;
+	overflow: hidden;
+ }
+ #cm-manual-button {
 	position: relative;
 	overflow: hidden;
  }
@@ -88,6 +128,9 @@ const style = `
 	transform: scale(1.3);
 }
 #comfyworkflows-button-menu {
+	z-index: 10000000000 !important;
+}
+#cm-manual-button-menu {
 	z-index: 10000000000 !important;
 }
 `;
@@ -541,10 +584,51 @@ class ManagerMenuDialog extends ComfyDialog {
 	createControlsRight() {
 		const elts = [
 				$el("button", {
+					id: 'cm-manual-button',
 					type: "button",
 					textContent: "ComfyUI Community Manual",
 					onclick: () => { window.open("https://blenderneko.github.io/ComfyUI-docs/", "comfyui-community-manual"); }
-				}),
+				}, [
+					$el("div.pysssss-workflow-arrow-2", {
+						id: `cm-manual-button-arrow`,
+						onclick: (e) => {
+							e.preventDefault();
+							e.stopPropagation();
+
+							LiteGraph.closeAllContextMenus();
+							const menu = new LiteGraph.ContextMenu(
+								[
+									{
+										title: "Comfy Custom Node How To",
+										callback: () => { window.open("https://github.com/chrisgoringe/Comfy-Custom-Node-How-To/wiki/aaa_index", "comfyui-community-manual1"); },
+									},
+									{
+										title: "ComfyUI Guide To Making Custom Nodes",
+										callback: () => { window.open("https://github.com/Suzie1/ComfyUI_Guide_To_Making_Custom_Nodes/wiki", "comfyui-community-manual2"); },
+									},
+									{
+										title: "ComfyUI Examples",
+										callback: () => { window.open("https://comfyanonymous.github.io/ComfyUI_examples", "comfyui-community-manual3"); },
+									},
+									{
+										title: "Close",
+										callback: () => {
+											this.close();
+										},
+									}
+								],
+								{
+									event: e,
+									scale: 1.3,
+								},
+								window
+							);
+							// set the id so that we can override the context menu's z-index to be above the comfyui manager menu
+							menu.root.id = "cm-manual-button-menu";
+							menu.root.classList.add("pysssss-workflow-popup-2");
+						},
+					})
+				]),
 
 				$el("button", {
 					id: 'comfyworkflows-button',
@@ -554,7 +638,6 @@ class ManagerMenuDialog extends ComfyDialog {
 				}, [
 					$el("div.pysssss-workflow-arrow-2", {
 						id: `comfyworkflows-button-arrow`,
-						// parent: document.getElementById(`comfyworkflows-button`),
 						onclick: (e) => {
 							e.preventDefault();
 							e.stopPropagation();

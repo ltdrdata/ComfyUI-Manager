@@ -17,7 +17,7 @@ import http.client
 import re
 import signal
 
-version = "V1.5.3"
+version = "V1.6"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
@@ -605,6 +605,7 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
     elif do_update_check:
         print(f"\x1b[2K\rUpdate check done.")
 
+
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
 async def fetch_customnode_mappings(request):
     if request.rel_url.query["mode"] == "local":
@@ -662,6 +663,47 @@ async def update_all(request):
         return web.Response(status=400)
 
 
+def convert_markdown_to_html(input_text):
+    pattern_a = re.compile(r'\[a/([^]]+)\]\(([^)]+)\)')
+    pattern_w = re.compile(r'\[w/([^]]+)\]')
+    pattern_i = re.compile(r'\[i/([^]]+)\]')
+    pattern_bold = re.compile(r'\*\*([^*]+)\*\*')
+    pattern_white = re.compile(r'%%([^*]+)%%')
+
+    def replace_a(match):
+        return f"<a href='{match.group(2)}'>{match.group(1)}</a>"
+
+    def replace_w(match):
+        return f"<p class='cm-warn-note'>{match.group(1)}</p>"
+
+    def replace_i(match):
+        return f"<p class='cm-info-note'>{match.group(1)}</p>"
+
+    def replace_bold(match):
+        return f"<B>{match.group(1)}</B>"
+
+    def replace_white(match):
+        return f"<font color='white'>{match.group(1)}</font>"
+
+    input_text = input_text.replace('\\[', '&#91;').replace('\\]', '&#93;').replace('<', '&lt;').replace('>', '&gt;')
+
+    result_text = re.sub(pattern_a, replace_a, input_text)
+    result_text = re.sub(pattern_w, replace_w, result_text)
+    result_text = re.sub(pattern_i, replace_i, result_text)
+    result_text = re.sub(pattern_bold, replace_bold, result_text)
+    result_text = re.sub(pattern_white, replace_white, result_text)
+
+    return result_text.replace("\n", "<BR>")
+
+
+def populate_markdown(x):
+    if 'description' in x:
+        x['description'] = convert_markdown_to_html(x['description'])
+
+    if 'title' in x:
+        x['title'] = x['title'].replace('<', '&lt;').replace('>', '&gt;')
+
+
 @server.PromptServer.instance.routes.get("/customnode/getlist")
 async def fetch_customnode_list(request):
     if "skip_update" in request.rel_url.query and request.rel_url.query["skip_update"] == "true":
@@ -670,12 +712,31 @@ async def fetch_customnode_list(request):
         skip_update = False
 
     if request.rel_url.query["mode"] == "local":
+        channel = 'local'
         uri = local_db_custom_node_list
     else:
-        uri = get_config()['channel_url'] + '/custom-node-list.json'
+        channel = get_config()['channel_url']
+        uri = channel + '/custom-node-list.json'
 
     json_obj = await get_data(uri)
     check_custom_nodes_installed(json_obj, False, not skip_update)
+
+    for x in json_obj['custom_nodes']:
+        populate_markdown(x)
+
+    if channel != 'local':
+        channels = default_channels+","+get_config()['channel_url_list']
+        channels = channels.split(',')
+
+        found = 'custom'
+        for item in channels:
+            item_info = item.split('::')
+            if len(item_info) == 2 and item_info[1] == channel:
+                found = item_info[0]
+
+        channel = found
+
+    json_obj['channel'] = channel
 
     return web.json_response(json_obj, content_type='application/json')
 
@@ -698,6 +759,7 @@ async def fetch_alternatives_list(request):
     custom_node_json = await get_data(uri2)
 
     fileurl_to_custom_node = {}
+
     for item in custom_node_json['custom_nodes']:
         for fileurl in item['files']:
             fileurl_to_custom_node[fileurl] = item
@@ -707,6 +769,9 @@ async def fetch_alternatives_list(request):
         if fileurl in fileurl_to_custom_node:
             custom_node = fileurl_to_custom_node[fileurl]
             check_a_custom_node_installed(custom_node, not skip_update)
+
+            populate_markdown(item)
+            populate_markdown(custom_node)
             item['custom_node'] = custom_node
 
     return web.json_response(alter_json, content_type='application/json')
@@ -1591,11 +1656,14 @@ def set_comfyworkflows_auth(comfyworkflows_sharekey):
     with open(os.path.join(comfyui_manager_path, "comfyworkflows_sharekey"), "w") as f:
         f.write(comfyworkflows_sharekey)
 
+
 def has_provided_matrix_auth(matrix_auth):
     return matrix_auth['homeserver'].strip() and matrix_auth['username'].strip() and matrix_auth['password'].strip()
 
+
 def has_provided_comfyworkflows_auth(comfyworkflows_sharekey):
     return comfyworkflows_sharekey.strip()
+
 
 @server.PromptServer.instance.routes.post("/manager/share")
 async def share_art(request):
