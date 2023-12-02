@@ -32,11 +32,11 @@ docStyle.innerHTML = `
 }
 
 .cm-notice-board {
-	width: 360px;
+	width: 320px;
 	height: 160px;
 	overflow: auto;
 	color: var(--input-text);
-	border: 1px solid #ccc;
+	border: 1px solid var(--descrip-text);
 	padding: 10px;
 	overflow-x: hidden;
 }
