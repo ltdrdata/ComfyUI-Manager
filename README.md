@@ -5,7 +5,7 @@
 ![menu](misc/menu.jpg)
 
 ## NOTICE
-* 🏆 Join us for the [ComfyUI Workflow Contest](https://contest.openart.ai/), hosted by OpenArt AI (11.27.2023 - 12.15.2023). Our esteemed judge panel includes Scott E. Detweiler, Olivio Sarikas, MERJIC麦橘, among others. We're also thrilled to have the authors of ComfyUI Manager and AnimateDiff as our special guests!  
+* 🏆 Join us for the [ComfyUI Workflow Contest](https://contest.openart.ai/), hosted by OpenArt AI (11.27.2023 - 12.15.2023). Our esteemed judge panel includes Scott E. Detweiler, Olivio Sarikas, MERJIC麦橘, among others. We're also thrilled to have the authors of ComfyUI Manager and AnimateDiff as our special guests!
 * If you wish to hide the "Share" button, click "Manager" and choose "Share: None" option.
 * You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
 * Versions prior to V0.22.2 will no longer detect missing nodes unless using a local database. Please update ComfyUI-Manager to the latest version.
@@ -76,31 +76,50 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 
 1. Click "Manager" button on main menu
 
-![mainmenu](misc/main.png)
+    ![mainmenu](misc/main.jpg)
 
 
 2. If you click on 'Install Custom Nodes' or 'Install Models', an installer dialog will open.
 
-![menu](misc/menu.jpg)
+    ![menu](misc/menu.jpg)
 
-* When the 'Use local DB' feature is enabled, the application will utilize the data stored locally on your device, rather than retrieving node/model information over the internet
+    * When the 'Use local DB' feature is enabled, the application will utilize the data stored locally on your device, rather than retrieving node/model information over the internet
 
-* The ```Fetch Updates``` menu retrieves update data for custom nodes locally. Actual updates are applied by clicking the ```Update``` button in the ```Install Custom Nodes``` menu.
+    * The ```Fetch Updates``` menu retrieves update data for custom nodes locally. Actual updates are applied by clicking the ```Update``` button in the ```Install Custom Nodes``` menu.
 
 3. Click 'Install' or 'Try Install' button.
 
-![node-install-dialog](misc/custom-nodes.png)
+    ![node-install-dialog](misc/custom-nodes.jpg)
 
-![model-install-dialog](misc/models.png)
+    ![model-install-dialog](misc/models.png)
 
-* Installed: This item is already installed.
-* Install: Clicking this button will install the item.
-* Try Install: This is a custom node of which installation information cannot be confirmed. Click the button to try installing it.
+    * Installed: This item is already installed.
+    * Install: Clicking this button will install the item.
+    * Try Install: This is a custom node of which installation information cannot be confirmed. Click the button to try installing it.
 
-4. If you set the `Badge:` item in the menu as `Badge: Nickname` or `Badge: #ID Nickname`, the information badge will be displayed on the node.
-* `Badge: Nickname` displays the nickname of custom nodes, while `Badge: ID Nickname` also includes the internal ID of the node.
+    * If a red background `Channel` indicator appears at the top, it means it is not the default channel. Since the amount of information held is different from the default channel, many custom nodes may not appear in this channel state.
+      * Channel settings have a broad impact, affecting not only the node list but also all functions like "Update all."
+    * Conflicted Nodes with a yellow background show a list of nodes conflicting with other extensions in the respective extension. This issue needs to be addressed by the developer, and users should be aware that due to these conflicts, some nodes may not function correctly and may need to be installed accordingly.
 
-![model-install-dialog](misc/nickname.jpg)
+4. If you set the `Badge:` item in the menu as `Badge: Nickname`, `Badge: Nickname (hide built-in)`, `Badge: #ID Nickname`, `Badge: #ID Nickname (hide built-in)` the information badge will be displayed on the node.
+    * When selecting (hide built-in), it hides the 🦊 icon, which signifies built-in nodes.
+      * Nodes without any indication on the badge are custom nodes that Manager cannot recognize.
+    * `Badge: Nickname` displays the nickname of custom nodes, while `Badge: #ID Nickname` also includes the internal ID of the node.
+
+    ![model-install-dialog](misc/nickname.jpg)
+
+
+5. Share
+  ![menu](misc/main.jpg) ![share](misc/share.jpg) 
+
+  * You can share the workflow by clicking the Share button at the bottom of the main menu or selecting Share Output from the Context Menu of the Image node.
+  * Currently, it supports sharing via [https://comfyworkflows.com/](https://comfyworkflows.com/) and [https://openart.ai](https://openart.ai/workflows/dev), as well as through the Matrix channel.
+
+  ![menu](misc/share-setting.jpg)
+  
+  * Through the Share settings in the Manager menu, you can configure the behavior of the Share button in the Main menu or Share Ouput button on Context Menu.
+    * `None`: hide from Main menu
+    * `All`: Show a dialog where the user can select a title for sharing.
 
 
 ## Snapshot-Manager
@@ -111,7 +130,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
   * However, for custom nodes not managed by Git, snapshot support is incomplete.
 * When you press `Restore`, it will take effect on the next ComfyUI startup.
 
-  
+
 ![model-install-dialog](misc/snapshot.jpg)
 
 ## How to register your custom node into ComfyUI-Manager
