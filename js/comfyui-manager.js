@@ -21,6 +21,7 @@ docStyle.innerHTML = `
 .cm-menu-column {
 	display: flex;
 	flex-direction: column;
+	flex: 1 1 auto;
 }
 
 .cm-title {
