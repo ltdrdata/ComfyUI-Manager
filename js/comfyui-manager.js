@@ -399,15 +399,18 @@ class ManagerMenuDialog extends ComfyDialog {
 		this.local_mode_checkbox = $el("input",{type:'checkbox', id:"use_local_db"},[])
 		const checkbox_text = $el("label",{for: "use_local_db"},[" Use local DB"])
 		checkbox_text.style.color = "var(--fg-color)";
+		checkbox_text.style.cursor = "pointer";
 		checkbox_text.style.marginRight = "10px";
 
 		this.update_check_checkbox = $el("input",{type:'checkbox', id:"skip_update_check"},[])
 		const uc_checkbox_text = $el("label",{for:"skip_update_check"},[" Skip update check"])
 		uc_checkbox_text.style.color = "var(--fg-color)";
+		uc_checkbox_text.style.cursor = "pointer";
 		this.update_check_checkbox.checked = true;
 
 		// preview method
 		let preview_combo = document.createElement("select");
+		preview_combo.style.cursor = "pointer";
 		preview_combo.appendChild($el('option', { value: 'auto', text: 'Preview method: Auto' }, []));
 		preview_combo.appendChild($el('option', { value: 'taesd', text: 'Preview method: TAESD (slow)' }, []));
 		preview_combo.appendChild($el('option', { value: 'latent2rgb', text: 'Preview method: Latent2RGB (fast)' }, []));
@@ -423,6 +426,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// nickname
 		let badge_combo = document.createElement("select");
+		badge_combo.style.cursor = "pointer";
 		badge_combo.appendChild($el('option', { value: 'none', text: 'Badge: None' }, []));
 		badge_combo.appendChild($el('option', { value: 'nick', text: 'Badge: Nickname' }, []));
 		badge_combo.appendChild($el('option', { value: 'nick_hide', text: 'Badge: Nickname (hide built-in)' }, []));
@@ -441,6 +445,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// channel
 		let channel_combo = document.createElement("select");
+		channel_combo.style.cursor = "pointer";
 		api.fetchApi('/manager/channel_url_list')
 			.then(response => response.json())
 			.then(async data => {
@@ -466,6 +471,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// share
 		let share_combo = document.createElement("select");
+		share_combo.style.cursor = "pointer";
 		const share_options = [
 			['none', 'None'],
 			['openart', 'OpenArt AI'],
