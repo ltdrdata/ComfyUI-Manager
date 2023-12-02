@@ -129,7 +129,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 		let keyword = this.search_box.value.toLowerCase();
 		for(let i in this.grid_rows) {
 			let data = this.grid_rows[i].data;
-			let content = data.author.toLowerCase() + data.description.toLowerCase() + data.title.toLowerCase();
+			let content = data.author.toLowerCase() + data.description.toLowerCase() + data.title.toLowerCase() + data.reference.toLowerCase();
 
 			if(this.filter && this.filter != '*') {
 				if(this.filter != data.installed) {
@@ -694,7 +694,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 		let filter_control = this.createFilterCombo();
 		filter_control.style.display = "inline-block";
 
-		let channel_badge = null;
+		let channel_badge = '';
 		if(this.channel != 'default') {
 			channel_badge = $el('span', {id:'cm-channel-badge'}, [`Channel: ${this.channel}`]);
 		}
