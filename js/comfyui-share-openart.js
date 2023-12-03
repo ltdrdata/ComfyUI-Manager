@@ -175,7 +175,7 @@ export class OpenArtShareDialog extends ComfyDialog {
     });
 
     this.keyInput = $el("input", {
-      type: "text",
+      type: "password",
       placeholder: "Copy & paste your API key",
       style: inputStyle,
     });
