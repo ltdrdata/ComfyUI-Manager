@@ -80,7 +80,7 @@ function isValidURL(url) {
     return pattern.test(url);
 }
 
-export async function install_via_git_url(url) {
+export async function install_via_git_url(url, manager_dialog) {
 	if(!url) {
 		return;
 	}
@@ -97,7 +97,16 @@ export async function install_via_git_url(url) {
     const res = await api.fetchApi(`/customnode/install/git_url?url=${url}`);
 
     if(res.status == 200) {
-        app.ui.dialog.show(`'${url}' is installed<BR>To apply the installed/disabled/enabled custom node, please restart ComfyUI.`);
+        app.ui.dialog.show(`'${url}' is installed<BR>To apply the installed custom node, please <button id='cm-reboot-button'><font size='3px'>RESTART</font></button> ComfyUI.`);
+
+		const rebootButton = document.getElementById('cm-reboot-button');
+		const self = this;
+		rebootButton.onclick = function() {
+			if(rebootAPI()) {
+				manager_dialog.close();
+			}
+		};
+
         app.ui.dialog.element.style.zIndex = 10010;
     }
     else {

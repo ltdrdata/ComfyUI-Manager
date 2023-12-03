@@ -574,7 +574,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					var url = prompt("Please enter the URL of the Git repository to install", "");
 
 					if (url !== null) {
-						install_via_git_url(url);
+						install_via_git_url(url, self);
 					}
 				}
 			}),
