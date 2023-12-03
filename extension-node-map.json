@@ -476,6 +476,14 @@
             "title_aux": "ComfyUI MotionDiff"
         }
     ],
+    "https://github.com/Fannovel16/ComfyUI-Video-Matting": [
+        [
+            "Robust Video Matting"
+        ],
+        {
+            "title_aux": "ComfyUI-Video-Matting"
+        }
+    ],
     "https://github.com/Fannovel16/comfyui_controlnet_aux": [
         [
             "AIO_Preprocessor",
@@ -656,6 +664,7 @@
             "Largest Int (JPS)",
             "Latent Switch (JPS)",
             "Lora Loader (JPS)",
+            "Mask Switch (JPS)",
             "Model Switch (JPS)",
             "Multiply Float Float (JPS)",
             "Multiply Int Float (JPS)",
@@ -2222,6 +2231,46 @@
             "title_aux": "Dream Project Animation Nodes"
         }
     ],
+    "https://github.com/alt-key-project/comfyui-dream-video-batches": [
+        [
+            "Blended Transition [DVB]",
+            "Calculation [DVB]",
+            "Create Frame Set [DVB]",
+            "Divide [DVB]",
+            "Fade From Black [DVB]",
+            "Fade To Black [DVB]",
+            "Float Input [DVB]",
+            "For Each Done [DVB]",
+            "For Each Filename [DVB]",
+            "Frame Set Append [DVB]",
+            "Frame Set Frame Dimensions Scaled [DVB]",
+            "Frame Set Index Offset [DVB]",
+            "Frame Set Merger [DVB]",
+            "Frame Set Reindex [DVB]",
+            "Frame Set Repeat [DVB]",
+            "Frame Set Reverse [DVB]",
+            "Frame Set Split Beginning [DVB]",
+            "Frame Set Split End [DVB]",
+            "Frame Set Splitter [DVB]",
+            "Generate Inbetween Frames [DVB]",
+            "Int Input [DVB]",
+            "Linear Camera Pan [DVB]",
+            "Linear Camera Roll [DVB]",
+            "Linear Camera Zoom [DVB]",
+            "Load Image From Path [DVB]",
+            "Multiply [DVB]",
+            "Sine Camera Pan [DVB]",
+            "Sine Camera Roll [DVB]",
+            "Sine Camera Zoom [DVB]",
+            "String Input [DVB]",
+            "Text Input [DVB]",
+            "Trace Memory Allocation [DVB]",
+            "Unwrap Frame Set [DVB]"
+        ],
+        {
+            "title_aux": "Dream Video Batches"
+        }
+    ],
     "https://github.com/andersxa/comfyui-PromptAttention": [
         [
             "CLIPAttentionMaskEncode"
@@ -2459,6 +2508,7 @@
             "MonoMerge",
             "MorphologicOperation",
             "MorphologicSkeletoning",
+            "NaiveAutoKMeansColor",
             "OtsuThreshold",
             "RGB to HSV",
             "Rect Grab Cut",
@@ -2919,11 +2969,13 @@
             "ImageFlip+",
             "ImagePosterize+",
             "ImageResize+",
+            "MaskBatch+",
             "MaskBlur+",
             "MaskFlip+",
             "MaskPreview+",
             "ModelCompile+",
-            "SimpleMath+"
+            "SimpleMath+",
+            "TransitionMask+"
         ],
         {
             "title_aux": "ComfyUI Essentials"
@@ -3274,6 +3326,7 @@
             "BatchJoinAudio",
             "BatchToList",
             "BitCrushAudioFX",
+            "BulkVariation",
             "ChorusAudioFX",
             "ClippingAudioFX",
             "CompressorAudioFX",
@@ -3287,6 +3340,7 @@
             "GenerateAudioSample",
             "GenerateAudioWave",
             "GetAudioFromFolderIndex",
+            "GetSingle",
             "GetStringByIndex",
             "HighShelfFilter",
             "HighpassFilter",
@@ -3295,6 +3349,8 @@
             "JoinAudio",
             "LadderFilter",
             "LimiterAudioFX",
+            "ListToBatch",
+            "LoadAudioDir",
             "LoadAudioFile",
             "LoadAudioModel (DD)",
             "LoadVST3",
@@ -3459,6 +3515,7 @@
             "CrossFadeImages",
             "DummyLatentOut",
             "EmptyLatentImagePresets",
+            "FlipSigmasAdjusted",
             "FloatConstant",
             "GetImageRangeFromBatch",
             "GrowMaskWithBlur",
@@ -3468,6 +3525,8 @@
             "ImageGrabPIL",
             "ImageGridComposite2x2",
             "ImageGridComposite3x3",
+            "InjectNoiseToLatent",
+            "NormalizeLatent",
             "OffsetMask",
             "ReplaceImagesInBatch",
             "ResizeMask",
@@ -4732,6 +4791,8 @@
             "LCMLoader_controlnet",
             "LCMLoader_controlnet_inpaint",
             "LCMLoader_img2img",
+            "LCMLoraLoader_inpaint",
+            "LCMLora_inpaint",
             "LCMT2IAdapter",
             "LCM_IPAdapter",
             "LCM_IPAdapter_inpaint",
