@@ -39,12 +39,15 @@ docStyle.innerHTML = `
 	height: 23px;
 	font-size: 13px;
 	border-radius: 5px;
-	left: 250px;
-	top: 38px;
+	left: 5px;
+	top: 5px;
 	align-content: center;
 	justify-content: center;
 	text-align: center;
 	font-weight: bold;
+	float: left;
+	vertical-align: middle;
+	position: relative;
 }
 
 .cm-notice-board {
