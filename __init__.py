@@ -17,7 +17,7 @@ import http.client
 import re
 import signal
 
-version = "V1.7"
+version = "V1.7.1"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 

@@ -66,7 +66,7 @@ docStyle.innerHTML = `
 .cm-notice-board {
 	width: 310px;
 	padding: 0px !important;
-	height: 150px;
+	height: 190px;
 	overflow: auto;
 	color: var(--input-text);
 	border: 1px solid var(--descrip-text);
