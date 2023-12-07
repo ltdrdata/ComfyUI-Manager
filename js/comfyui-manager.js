@@ -83,8 +83,8 @@ docStyle.innerHTML = `
 }
 
 .cm-warn-note {
-	background-color: #000000 !important;
-	color: #FF0000 !important;
+	background-color: #101010 !important;
+	color: #FF3800 !important;
 	font-size: 13px;
 	border-radius: 5px;
 	padding: 10px;
@@ -93,8 +93,8 @@ docStyle.innerHTML = `
 }
 
 .cm-info-note {
-	background-color: #000000 !important;
-	color: #FF0000 !important;
+	background-color: #101010 !important;
+	color: #FF3800 !important;
 	font-size: 13px;
 	border-radius: 5px;
 	padding: 10px;
