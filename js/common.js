@@ -65,7 +65,7 @@ export async function install_checked_custom_node(grid_rows, target_i, caller, m
 		}
 
         await caller.invalidateControl();
-        caller.updateMessage("<BR>To apply the installed/updated/disabled/enabled custom node, please <button id='cm-reboot-button'><font size='3px'>RESTART</font></button> ComfyUI. And refresh browser.", 'cm-reboot-button');
+        caller.updateMessage("<BR>To apply the installed/updated/disabled/enabled custom node, please <button id='cm-reboot-button' class='cm-small-button'>RESTART</button> ComfyUI. And refresh browser.", 'cm-reboot-button');
 	}
 };
 

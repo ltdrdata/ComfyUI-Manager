@@ -23,7 +23,7 @@ async function restore_snapshot(target) {
 		}
 		finally {
 			await SnapshotManager.instance.invalidateControl();
-			SnapshotManager.instance.updateMessage("<BR>To apply the snapshot, please <button id='cm-reboot-button'><font size='3px'>RESTART</font></button> ComfyUI. And refresh browser.", 'cm-reboot-button');
+			SnapshotManager.instance.updateMessage("<BR>To apply the snapshot, please <button id='cm-reboot-button' class='cm-small-button'>RESTART</button> ComfyUI. And refresh browser.", 'cm-reboot-button');
 		}
 	}
 }
@@ -102,7 +102,7 @@ export class SnapshotManager extends ComfyDialog {
 
 	createControls() {
 		return [
-			$el("button", {
+			$el("button.cm-small-button", {
 				type: "button",
 				textContent: "Close",
 				onclick: () => { this.close(); }
@@ -258,11 +258,13 @@ export class SnapshotManager extends ComfyDialog {
 
 	async createBottomControls() {
 		var close_button = document.createElement("button");
+		close_button.className = "cm-small-button";
 		close_button.innerHTML = "Close";
 		close_button.onclick = () => { this.close(); }
 		close_button.style.display = "inline-block";
 
 		var save_button = document.createElement("button");
+		save_button.className = "cm-small-button";
 		save_button.innerHTML = "Save snapshot";
 		save_button.onclick = () => { save_current_snapshot(); }
 		save_button.style.display = "inline-block";

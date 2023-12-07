@@ -13,7 +13,7 @@ var docStyle = document.createElement('style');
 docStyle.innerHTML = `
 #cm-manager-dialog {
 	width: 1000px;
-	height: 360px;
+	height: 410px;
 	box-sizing: content-box;
 	z-index: 10000;
 }
@@ -136,9 +136,27 @@ const style = `
 
 .cm-button {
 	width: 310px;
-	height: 27px;
+	height: 30px;
 	position: relative;
 	overflow: hidden;
+	font-size: 17px !important;
+}
+
+.cm-small-button {
+	width: 120px;
+	height: 30px;
+	position: relative;
+	overflow: hidden;
+	box-sizing: border-box;
+	font-size: 17px !important;
+}
+
+.cm-search-filter {
+	width: 200px;
+	height: 30px !important;
+	position: relative;
+	overflow: hidden;
+	box-sizing: border-box;
 }
 
 #cm-close-button {
@@ -336,7 +354,7 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 			return false;
 		}
 		if(response1.status == 201 || response2.status == 201) {
-			app.ui.dialog.show("ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button id='cm-reboot-button'><font size='3px'>RESTART</font></button> ComfyUI. And refresh browser.");
+			app.ui.dialog.show("ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button id='cm-small-button' class='cm-restart-button'>RESTART</button> ComfyUI. And refresh browser.");
 
 			const rebootButton = document.getElementById('cm-reboot-button');
 			rebootButton.onclick = function() {
