@@ -310,7 +310,7 @@ async function fetchUpdates(update_check_checkbox) {
 		}
 
 		if (response.status == 201) {
-			app.ui.dialog.show('There is an updated extension available.');
+			app.ui.dialog.show('There is an updated extension available.<BR><BR><P><B>NOTE:<BR>Fetch Updates is not an update.<BR>Please update from "Install Custom Nodes".</B></P>');
 			app.ui.dialog.element.style.zIndex = 10010;
 			update_check_checkbox.checked = false;
 		}
