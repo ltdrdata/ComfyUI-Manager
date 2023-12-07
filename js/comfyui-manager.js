@@ -11,25 +11,38 @@ import { manager_instance, setManagerInstance, install_via_git_url, rebootAPI } 
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
+#cm-manager-dialog {
+	width: 1000px;
+	height: 360px;
+	box-sizing: content-box;
+	z-index: 10000;
+}
+
 .cm-menu-container {
 	column-gap: 20px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	box-sizing: content-box;
 }
 
 .cm-menu-column {
 	display: flex;
 	flex-direction: column;
 	flex: 1 1 auto;
+	width: 300px;
+	box-sizing: content-box;
 }
 
 .cm-title {
-	padding: 10px 10px 0 10p;
 	background-color: black;
 	text-align: center;
-	height: 45px;
+	height: 40px;
+	width: calc(100% - 10px);
 	font-weight: bold;
+	justify-content: center;
+	align-content: center;
+	vertical-align: middle;
 }
 
 #cm-channel-badge {
@@ -51,8 +64,9 @@ docStyle.innerHTML = `
 }
 
 .cm-notice-board {
-	width: 320px;
-	height: 160px;
+	width: 310px;
+	padding: 0px !important;
+	height: 150px;
 	overflow: auto;
 	color: var(--input-text);
 	border: 1px solid var(--descrip-text);
@@ -100,13 +114,40 @@ let share_option = 'all';
 // copied style from https://github.com/pythongosssss/ComfyUI-Custom-Scripts
 const style = `
 #comfyworkflows-button {
+	width: 310px;
+	height: 27px;
+	padding: 0px !important;
 	position: relative;
 	overflow: hidden;
- }
- #cm-manual-button {
+}
+#cm-nodeinfo-button {
+	width: 310px;
+	height: 27px;
+	padding: 0px !important;
 	position: relative;
 	overflow: hidden;
- }
+}
+#cm-manual-button {
+	width: 310px;
+	height: 27px;
+	position: relative;
+	overflow: hidden;
+}
+
+.cm-button {
+	width: 310px;
+	height: 27px;
+	position: relative;
+	overflow: hidden;
+}
+
+#cm-close-button {
+	width: calc(100% - 65px);
+	bottom: 10px;
+	position: absolute;
+	overflow: hidden;
+}
+
 .pysssss-workflow-arrow-2 {
 	position: absolute;
 	top: 0;
@@ -359,7 +400,7 @@ class ManagerMenuDialog extends ComfyDialog {
 		let self = this;
 
 		update_comfyui_button =
-			$el("button", {
+			$el("button.cm-button", {
 				type: "button",
 				textContent: "Update ComfyUI",
 				onclick:
@@ -367,7 +408,7 @@ class ManagerMenuDialog extends ComfyDialog {
 			});
 
 		fetch_updates_button =
-			$el("button", {
+			$el("button.cm-button", {
 				type: "button",
 				textContent: "Fetch Updates",
 				onclick:
@@ -375,7 +416,7 @@ class ManagerMenuDialog extends ComfyDialog {
 			});
 
 		update_all_button =
-			$el("button", {
+			$el("button.cm-button", {
 				type: "button",
 				textContent: "Update All",
 				onclick:
@@ -384,7 +425,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		const res =
 			[
-				$el("button", {
+				$el("button.cm-button", {
 					type: "button",
 					textContent: "Install Custom Nodes",
 					onclick:
@@ -395,7 +436,7 @@ class ManagerMenuDialog extends ComfyDialog {
 						}
 				}),
 
-				$el("button", {
+				$el("button.cm-button", {
 					type: "button",
 					textContent: "Install Missing Custom Nodes",
 					onclick:
@@ -406,7 +447,7 @@ class ManagerMenuDialog extends ComfyDialog {
 						}
 				}),
 
-				$el("button", {
+				$el("button.cm-button", {
 					type: "button",
 					textContent: "Install Models",
 					onclick:
@@ -423,7 +464,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				fetch_updates_button,
 
 				$el("br", {}, []),
-				$el("button", {
+				$el("button.cm-button", {
 					type: "button",
 					textContent: "Alternatives of A1111",
 					onclick:
@@ -432,9 +473,7 @@ class ManagerMenuDialog extends ComfyDialog {
 								AlternativesInstaller.instance = new AlternativesInstaller(app, self);
 							AlternativesInstaller.instance.show();
 						}
-				}),
-
-				$el("br", {}, []),
+				})
 			];
 
 		return res;
@@ -560,7 +599,7 @@ class ManagerMenuDialog extends ComfyDialog {
 			$el("hr", {}, []),
 			$el("center", {}, ["!! EXPERIMENTAL !!"]),
 			$el("br", {}, []),
-			$el("button", {
+			$el("button.cm-button", {
 				type: "button",
 				textContent: "Snapshot Manager",
 				onclick:
@@ -570,7 +609,7 @@ class ManagerMenuDialog extends ComfyDialog {
 						SnapshotManager.instance.show();
 					}
 			}),
-			$el("button", {
+			$el("button.cm-button", {
 				type: "button",
 				textContent: "Install via Git URL",
 				onclick: () => {
@@ -586,10 +625,10 @@ class ManagerMenuDialog extends ComfyDialog {
 
 	createControlsRight() {
 		const elts = [
-				$el("button", {
+				$el("button.cm-button", {
 					id: 'cm-manual-button',
 					type: "button",
-					textContent: "ComfyUI Community Manual",
+					textContent: "Community Manual",
 					onclick: () => { window.open("https://blenderneko.github.io/ComfyUI-docs/", "comfyui-community-manual"); }
 				}, [
 					$el("div.pysssss-workflow-arrow-2", {
@@ -636,7 +675,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				$el("button", {
 					id: 'comfyworkflows-button',
 					type: "button",
-					textContent: "ComfyUI Workflow Gallery",
+					textContent: "Workflow Gallery",
 					onclick: () => { window.open("https://comfyworkflows.com/", "comfyui-workflow-gallery"); }
 				}, [
 					$el("div.pysssss-workflow-arrow-2", {
@@ -698,9 +737,10 @@ class ManagerMenuDialog extends ComfyDialog {
 					})
 				]),
 
-				$el("button", {
+				$el("button.cm-button", {
+					id: 'cm-nodeinfo-button',
 					type: "button",
-					textContent: "ComfyUI Nodes Info",
+					textContent: "Nodes Info",
 					onclick: () => { window.open("https://ltdrdata.github.io/", "comfyui-node-info"); }
 				}),
 				$el("br", {}, []),
@@ -718,15 +758,12 @@ class ManagerMenuDialog extends ComfyDialog {
 	constructor() {
 		super();
 
-		const close_button = $el("button", { type: "button", textContent: "Close", onclick: () => this.close() });
-		close_button.style.position = "absolute";
-		close_button.style.bottom = "20px";
-		close_button.style.width = "calc(100% - 60px)";
+		const close_button = $el("button", { id: "cm-close-button", type: "button", textContent: "Close", onclick: () => this.close() });
 
 		const content =
 				$el("div.comfy-modal-content",
 					[
-						$el("tr.cm-title", {width:"100%"}, [
+						$el("tr.cm-title", {}, [
 								$el("font", {size:6, color:"white"}, [`ComfyUI Manager Menu`])]
 							),
 						$el("br", {}, []),
@@ -736,6 +773,8 @@ class ManagerMenuDialog extends ComfyDialog {
 								$el("div.cm-menu-column", [...this.createControlsMid()]),
 								$el("div.cm-menu-column", [...this.createControlsRight()])
 							]),
+				
+						$el("br", {}, []),
 						close_button,
 					]
 				);
@@ -743,10 +782,7 @@ class ManagerMenuDialog extends ComfyDialog {
 		content.style.width = '100%';
 		content.style.height = '100%';
 
-		this.element = $el("div.comfy-modal", { parent: document.body }, [ content ]);
-		this.element.style.width = '1000px';
-		this.element.style.height = '420px';
-		this.element.style.zIndex = 10000;
+		this.element = $el("div.comfy-modal", { id:'cm-manager-dialog', parent: document.body }, [ content ]);
 	}
 
 	show() {
