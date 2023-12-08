@@ -35,6 +35,7 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 ### Installation[method3] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
 
 To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you can follow these steps:
+prerequisite: python-is-python3, python3-venv
 
 1. Download [scripts/install-comfyui-venv-linux.sh](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-comfyui-venv-linux.sh) into empty install directory
 - ComfyUI will be installed in the subdirectory of the specified directory, and the directory will contain the generated executable script.
@@ -146,7 +147,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Please submit a pull request to update either the custom-node-list.json or model-list.json file.
 
 * The scanner currently provides a detection function for missing nodes, which is capable of detecting nodes described by the following two patterns.
-  * Or you can provide manually `node_list.json` file. 
+  * Or you can provide manually `node_list.json` file.
 
 ```
 NODE_CLASS_MAPPINGS = {
@@ -209,7 +210,6 @@ NODE_CLASS_MAPPINGS.update({
 * https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
 * https://github.com/senshilabs/NINJA-plugin
 * https://github.com/MockbaTheBorg/Nodes
-* https://github.com/filliptm/ComfyUI_Fill-Nodes
 
 
 ## Roadmap
@@ -227,3 +227,9 @@ NODE_CLASS_MAPPINGS.update({
 # Disclaimer
 
 * This extension simply provides the convenience of installing custom nodes and does not guarantee their proper functioning.
+
+
+## Credit
+ComfyUI/[ComfyUI](https://github.com/comfyanonymous/ComfyUI) - A powerful and modular stable diffusion GUI.
+
+**And, for all ComfyUI custom node developers**
