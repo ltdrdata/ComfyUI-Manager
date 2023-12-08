@@ -177,9 +177,20 @@ export class CustomNodesInstaller extends ComfyDialog {
 		}
 
 		const missing_nodes = new Set();
-		const nodes = app.graph.serialize().nodes;
+		const workflow = app.graph.serialize();
+		const group_nodes = workflow.extra && workflow.extra.groupNodes ? workflow.extra.groupNodes : [];
+		let nodes = workflow.nodes;
+
+		for (let i in group_nodes) {
+			let group_node = group_nodes[i];
+			nodes = nodes.concat(group_node.nodes);
+		}
+
 		for (let i in nodes) {
 			const node_type = nodes[i].type;
+			if(node_type.startsWith('workflow/'))
+				continue;
+
 			if (!registered_nodes.has(node_type)) {
 				const url = name_to_url[node_type.trim()];
 				if(url)
