@@ -32,9 +32,7 @@ async function install_model(target) {
 }
 
 async function getModelList() {
-	var mode = "url";
-	if(manager_instance.local_mode_checkbox.checked)
-		mode = "local";
+	var mode = manager_instance.datasrc_combo.value;
 
 	const response = await api.fetchApi(`/externalmodel/getlist?mode=${mode}`);
 

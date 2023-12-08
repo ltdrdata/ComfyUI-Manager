@@ -4,9 +4,7 @@ import { ComfyDialog, $el } from "../../scripts/ui.js";
 import { install_checked_custom_node, manager_instance, rebootAPI } from  "./common.js";
 
 async function getAlterList() {
-	var mode = "url";
-	if(manager_instance.local_mode_checkbox.checked)
-		mode = "local";
+	var mode = manager_instance.datasrc_combo.value;
 
 	var skip_update = "";
 	if(manager_instance.update_check_checkbox.checked)

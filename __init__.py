@@ -18,7 +18,7 @@ import re
 import signal
 import nodes
 
-version = "V1.9"
+version = "V1.10"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 required_comfyui_revision = 1793
@@ -96,6 +96,7 @@ custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
 js_path = os.path.join(comfy_path, "web", "extensions")
 
 comfyui_manager_path = os.path.dirname(__file__)
+cache_dir = os.path.join(comfyui_manager_path, '.cache')
 local_db_model = os.path.join(comfyui_manager_path, "model-list.json")
 local_db_alter = os.path.join(comfyui_manager_path, "alter-list.json")
 local_db_custom_node_list = os.path.join(comfyui_manager_path, "custom-node-list.json")
@@ -484,6 +485,44 @@ import zipfile
 import urllib.request
 
 
+def simple_hash(input_string):
+    hash_value = 0
+    for char in input_string:
+        hash_value = (hash_value * 31 + ord(char)) % (2**32)
+
+    return hash_value
+
+
+async def get_data_by_mode(mode, filename):
+    try:
+        if mode == "local":
+            uri = os.path.join(comfyui_manager_path, filename)
+            json_obj = await get_data(uri)
+        else:
+            uri = get_config()['channel_url'] + '/' + filename
+            cache_uri = str(simple_hash(uri))+'_'+filename
+            cache_uri = os.path.join(cache_dir, cache_uri)
+
+            if mode == "cache":
+                if is_file_created_within_one_day(cache_uri):
+                    json_obj = await get_data(cache_uri)
+                else:
+                    json_obj = await get_data(uri)
+                    with open(cache_uri, "w", encoding='utf-8') as file:
+                        json.dump(json_obj, file, indent=4, sort_keys=True)
+            else:
+                uri = get_config()['channel_url'] + '/' + filename
+                json_obj = await get_data(uri)
+                with open(cache_uri, "w", encoding='utf-8') as file:
+                    json.dump(json_obj, file, indent=4, sort_keys=True)
+    except Exception as e:
+        print(f"[ComfyUI-Manager] Due to a network error, switching to local mode.\n=> {filename}\n=> {e}")
+        uri = os.path.join(comfyui_manager_path, filename)
+        json_obj = await get_data(uri)
+
+    return json_obj
+
+
 def get_model_dir(data):
     if data['save_path'] != 'default':
         if '..' in data['save_path'] or data['save_path'].startswith('/'):
@@ -609,14 +648,20 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
         print(f"\x1b[2K\rUpdate check done.")
 
 
+def is_file_created_within_one_day(file_path):
+    if not os.path.exists(file_path):
+        return False
+
+    file_creation_time = os.path.getctime(file_path)
+    current_time = datetime.datetime.now().timestamp()
+    time_difference = current_time - file_creation_time
+
+    return time_difference <= 86400
+
+
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
 async def fetch_customnode_mappings(request):
-    if request.rel_url.query["mode"] == "local":
-        uri = local_db_extension_node_mappings
-    else:
-        uri = get_config()['channel_url'] + '/extension-node-map.json'
-        
-    json_obj = await get_data(uri)
+    json_obj = await get_data_by_mode(request.rel_url.query["mode"], 'extension-node-map.json')
     
     all_nodes = set()
     patterns = []
@@ -639,12 +684,8 @@ async def fetch_customnode_mappings(request):
 @server.PromptServer.instance.routes.get("/customnode/fetch_updates")
 async def fetch_updates(request):
     try:
-        if request.rel_url.query["mode"] == "local":
-            uri = local_db_custom_node_list
-        else:
-            uri = get_config()['channel_url'] + '/custom-node-list.json'
+        json_obj = await get_data_by_mode(request.rel_url.query["mode"], 'custom-node-list.json')
 
-        json_obj = await get_data(uri)
         check_custom_nodes_installed(json_obj, True)
 
         update_exists = any('custom_nodes' in json_obj and 'installed' in node and node['installed'] == 'Update' for node in
@@ -663,12 +704,8 @@ async def update_all(request):
     try:
         save_snapshot_with_postfix('autosave')
 
-        if request.rel_url.query["mode"] == "local":
-            uri = local_db_custom_node_list
-        else:
-            uri = get_config()['channel_url'] + '/custom-node-list.json'
+        json_obj = await get_data_by_mode(request.rel_url.query["mode"], 'custom-node-list.json')
 
-        json_obj = await get_data(uri)
         check_custom_nodes_installed(json_obj, do_update=True)
 
         update_exists = any(item['installed'] == 'Update' for item in json_obj['custom_nodes'])
@@ -731,12 +768,11 @@ async def fetch_customnode_list(request):
 
     if request.rel_url.query["mode"] == "local":
         channel = 'local'
-        uri = local_db_custom_node_list
     else:
         channel = get_config()['channel_url']
-        uri = channel + '/custom-node-list.json'
 
-    json_obj = await get_data(uri)
+    json_obj = await get_data_by_mode(request.rel_url.query["mode"], 'custom-node-list.json')
+
     check_custom_nodes_installed(json_obj, False, not skip_update)
 
     for x in json_obj['custom_nodes']:
@@ -766,15 +802,8 @@ async def fetch_alternatives_list(request):
     else:
         skip_update = False
 
-    if request.rel_url.query["mode"] == "local":
-        uri1 = local_db_alter
-        uri2 = local_db_custom_node_list
-    else:
-        uri1 = get_config()['channel_url'] + '/alter-list.json'
-        uri2 = get_config()['channel_url'] + '/custom-node-list.json'
-
-    alter_json = await get_data(uri1)
-    custom_node_json = await get_data(uri2)
+    alter_json = await get_data_by_mode(request.rel_url.query["mode"], 'alter-list.json')
+    custom_node_json = await get_data_by_mode(request.rel_url.query["mode"], 'custom-node-list.json')
 
     fileurl_to_custom_node = {}
 
@@ -813,12 +842,8 @@ def check_model_installed(json_obj):
 
 @server.PromptServer.instance.routes.get("/externalmodel/getlist")
 async def fetch_externalmodel_list(request):
-    if request.rel_url.query["mode"] == "local":
-        uri = local_db_model
-    else:
-        uri = get_config()['channel_url'] + '/model-list.json'
+    json_obj = await get_data_by_mode(request.rel_url.query["mode"], 'model-list.json')
 
-    json_obj = await get_data(uri)
     check_model_installed(json_obj)
 
     return web.json_response(json_obj, content_type='application/json')

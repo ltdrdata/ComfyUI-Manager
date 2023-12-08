@@ -224,7 +224,6 @@ async function init_notice(notice) {
 await init_badge_mode();
 await init_share_option();
 
-
 async function fetchNicknames() {
 	const response1 = await api.fetchApi(`/customnode/getmappings?mode=local`);
 	const mappings = await response1.json();
@@ -235,7 +234,10 @@ async function fetchNicknames() {
 	for (let i in mappings) {
 		let item = mappings[i];
 		var nickname;
-		if (item[1].title) {
+		if (item[1].nickname) {
+			nickname = item[1].nickname;
+		}
+		else if (item[1].title) {
 			nickname = item[1].title;
 		}
 		else {
@@ -255,6 +257,84 @@ async function fetchNicknames() {
 }
 
 const [nicknames, nickname_patterns] = await fetchNicknames();
+
+function getNickname(node, nodename) {
+	if(node.nickname) {
+		return node.nickname;
+	}
+	else {
+		if (nicknames[nodename]) {
+			node.nickname = nicknames[nodename];
+		}
+		else {
+			for(let i in nickname_patterns) {
+				let item = nickname_patterns[i];
+				if(nodename.match(item[0])) {
+					node.nickname = item[1];
+				}
+			}
+		}
+
+		return node.nickname;
+	}
+}
+
+function drawBadge(node, orig, ctx) {
+	const r = orig?.apply?.(node, arguments);
+
+	if (!node.flags.collapsed && badge_mode != 'none' && node.constructor.title_mode != LiteGraph.NO_TITLE) {
+		let text = "";
+		if (badge_mode.startsWith('id_nick'))
+			text = `#${node.id} `;
+
+		let nick = node.getNickname();
+		if (nick) {
+			if (nick == 'ComfyUI') {
+				if(badge_mode.endsWith('hide')) {
+					nick = "";
+				}
+				else {
+					nick = "🦊"
+				}
+			}
+
+			if (nick.length > 25) {
+				text += nick.substring(0, 23) + "..";
+			}
+			else {
+				text += nick;
+			}
+		}
+
+		if (text != "") {
+			let fgColor = "white";
+			let bgColor = "#0F1F0F";
+			let visible = true;
+
+			ctx.save();
+			ctx.font = "12px sans-serif";
+			const sz = ctx.measureText(text);
+			ctx.fillStyle = bgColor;
+			ctx.beginPath();
+			ctx.roundRect(node.size[0] - sz.width - 12, -LiteGraph.NODE_TITLE_HEIGHT - 20, sz.width + 12, 20, 5);
+			ctx.fill();
+
+			ctx.fillStyle = fgColor;
+			ctx.fillText(text, node.size[0] - sz.width - 6, -LiteGraph.NODE_TITLE_HEIGHT - 6);
+			ctx.restore();
+
+			if (node.has_errors) {
+				ctx.save();
+				ctx.font = "bold 14px sans-serif";
+				const sz2 = ctx.measureText(node.type);
+				ctx.fillStyle = 'white';
+				ctx.fillText(node.type, node.size[0] / 2 - sz2.width / 2, node.size[1] / 2);
+				ctx.restore();
+			}
+		}
+	}
+	return r;
+}
 
 
 async function updateComfyUI() {
@@ -302,9 +382,7 @@ async function fetchUpdates(update_check_checkbox) {
 	fetch_updates_button.style.backgroundColor = "gray";
 
 	try {
-		var mode = "url";
-		if(manager_instance.local_mode_checkbox.checked)
-			mode = "local";
+		var mode = manager_instance.datasrc_combo.value;
 
 		const response = await api.fetchApi(`/customnode/fetch_updates?mode=${mode}`);
 
@@ -345,9 +423,7 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 	update_all_button.style.backgroundColor = "gray";
 
 	try {
-		var mode = "url";
-		if(manager_instance.local_mode_checkbox.checked)
-			mode = "local";
+		var mode = manager_instance.datasrc_combo.value;
 
 		update_all_button.innerText = "Updating all...";
 		const response1 = await api.fetchApi('/comfyui_manager/update_comfyui');
@@ -417,8 +493,6 @@ const isOutputNode = (node) => {
 
 // -----------
 class ManagerMenuDialog extends ComfyDialog {
-	local_mode_checkbox = null;
-
 	createControlsMid() {
 		let self = this;
 
@@ -505,17 +579,18 @@ class ManagerMenuDialog extends ComfyDialog {
 	createControlsLeft() {
 		let self = this;
 
-		this.local_mode_checkbox = $el("input",{type:'checkbox', id:"use_local_db"},[])
-		const checkbox_text = $el("label",{for: "use_local_db"},[" Use local DB"])
-		checkbox_text.style.color = "var(--fg-color)";
-		checkbox_text.style.cursor = "pointer";
-		checkbox_text.style.marginRight = "10px";
-
 		this.update_check_checkbox = $el("input",{type:'checkbox', id:"skip_update_check"},[])
 		const uc_checkbox_text = $el("label",{for:"skip_update_check"},[" Skip update check"])
 		uc_checkbox_text.style.color = "var(--fg-color)";
 		uc_checkbox_text.style.cursor = "pointer";
 		this.update_check_checkbox.checked = true;
+
+		// db mode
+		this.datasrc_combo = document.createElement("select");
+		this.datasrc_combo.style.cursor = "pointer";
+		this.datasrc_combo.appendChild($el('option', { value: 'cache', text: 'DB: Cache (1day)' }, []));
+		this.datasrc_combo.appendChild($el('option', { value: 'local', text: 'DB: Local' }, []));
+		this.datasrc_combo.appendChild($el('option', { value: 'url', text: 'DB: Remote' }, []));
 
 		// preview method
 		let preview_combo = document.createElement("select");
@@ -612,8 +687,9 @@ class ManagerMenuDialog extends ComfyDialog {
 		});
 
 		return [
-			$el("div", {}, [this.local_mode_checkbox, checkbox_text, this.update_check_checkbox, uc_checkbox_text]),
+			$el("div", {}, [this.update_check_checkbox, uc_checkbox_text]),
 			$el("br", {}, []),
+			this.datasrc_combo,
 			preview_combo,
 			badge_combo,
 			channel_combo,
@@ -870,120 +946,21 @@ app.registerExtension({
 	},
 
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
-		const onDrawForeground = nodeType.prototype.onDrawForeground;
-		nodeType.prototype.onDrawForeground = function (ctx) {
-			const r = onDrawForeground?.apply?.(this, arguments);
-
-			if (!this.flags.collapsed && badge_mode != 'none' && nodeType.title_mode != LiteGraph.NO_TITLE) {
-				let text = "";
-				if (badge_mode.startsWith('id_nick'))
-					text = `#${this.id} `;
-
-				if (nicknames[nodeData.name.trim()]) {
-					let nick = nicknames[nodeData.name.trim()];
-
-					if (nick == 'ComfyUI') {
-						if(badge_mode.endsWith('hide')) {
-							nick = "";
-						}
-						else {
-							nick = "🦊"
-						}
-					}
-
-					if (nick.length > 25) {
-						text += nick.substring(0, 23) + "..";
-					}
-					else {
-						text += nick;
-					}
-				}
-
-				if (text != "") {
-					let fgColor = "white";
-					let bgColor = "#0F1F0F";
-					let visible = true;
-
-					ctx.save();
-					ctx.font = "12px sans-serif";
-					const sz = ctx.measureText(text);
-					ctx.fillStyle = bgColor;
-					ctx.beginPath();
-					ctx.roundRect(this.size[0] - sz.width - 12, -LiteGraph.NODE_TITLE_HEIGHT - 20, sz.width + 12, 20, 5);
-					ctx.fill();
-
-					ctx.fillStyle = fgColor;
-					ctx.fillText(text, this.size[0] - sz.width - 6, -LiteGraph.NODE_TITLE_HEIGHT - 6);
-					ctx.restore();
-				}
-			}
-			return r;
-		};
-
 		this._addExtraNodeContextMenu(nodeType, app);
 	},
 	async nodeCreated(node, app) {
-
+		if(!node.badge_enabled) {
+			node.getNickname = function () { return getNickname(node, node.comfyClass.trim()) };
+			const orig = node.__proto__.onDrawForeground;
+			node.onDrawForeground = function (ctx) { drawBadge(node, orig, ctx) };
+			node.badge_enabled = true;
+		}
 	},
 	async loadedGraphNode(node, app) {
-		if (node.has_errors) {
-			const onDrawForeground = node.onDrawForeground;
-			node.onDrawForeground = function (ctx) {
-				const r = onDrawForeground?.apply?.(this, arguments);
-
-				if (!this.flags.collapsed && badge_mode != 'none') {
-					let text = "";
-					if (badge_mode.startsWith('id_nick'))
-						text = `#${this.id} `;
-
-					if (nicknames[node.type.trim()]) {
-						let nick = nicknames[node.type.trim()];
-
-						if (nick == 'ComfyUI') {
-							if(badge_mode.endsWith('hide')) {
-								nick = "";
-							}
-							else {
-								nick = "🦊"
-							}
-						}
-
-						if (nick.length > 25) {
-							text += nick.substring(0, 23) + "..";
-						}
-						else {
-							text += nick;
-						}
-					}
-
-					if (text != "") {
-						let fgColor = "white";
-						let bgColor = "#0F1F0F";
-						let visible = true;
-
-						ctx.save();
-						ctx.font = "12px sans-serif";
-						const sz = ctx.measureText(text);
-						ctx.fillStyle = bgColor;
-						ctx.beginPath();
-						ctx.roundRect(this.size[0] - sz.width - 12, -LiteGraph.NODE_TITLE_HEIGHT - 20, sz.width + 12, 20, 5);
-						ctx.fill();
-
-						ctx.fillStyle = fgColor;
-						ctx.fillText(text, this.size[0] - sz.width - 6, -LiteGraph.NODE_TITLE_HEIGHT - 6);
-						ctx.restore();
-
-						ctx.save();
-						ctx.font = "bold 14px sans-serif";
-						const sz2 = ctx.measureText(node.type);
-						ctx.fillStyle = 'white';
-						ctx.fillText(node.type, this.size[0] / 2 - sz2.width / 2, this.size[1] / 2);
-						ctx.restore();
-					}
-				}
-
-				return r;
-			};
+		if(!node.badge_enabled) {
+			const orig = node.onDrawForeground;
+			node.getNickname = function () { return getNickname(node, node.type.trim()) };
+			node.onDrawForeground = function (ctx) { drawBadge(node, orig, ctx) };
 		}
 	},
 

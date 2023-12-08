@@ -4,9 +4,7 @@ import { ComfyDialog, $el } from "../../scripts/ui.js";
 import { install_checked_custom_node, manager_instance, rebootAPI } from  "./common.js";
 
 async function getCustomNodes() {
-	var mode = "url";
-	if(manager_instance.local_mode_checkbox.checked)
-		mode = "local";
+	var mode = manager_instance.datasrc_combo.value;
 
 	var skip_update = "";
 	if(manager_instance.update_check_checkbox.checked)
@@ -19,9 +17,7 @@ async function getCustomNodes() {
 }
 
 async function getCustomnodeMappings() {
-	var mode = "url";
-	if(manager_instance.local_mode_checkbox.checked)
-		mode = "local";
+	var mode = manager_instance.datasrc_combo.value;
 
 	const response = await api.fetchApi(`/customnode/getmappings?mode=${mode}`);
 
@@ -30,9 +26,7 @@ async function getCustomnodeMappings() {
 }
 
 async function getConflictMappings() {
-	var mode = "url";
-	if(manager_instance.local_mode_checkbox.checked)
-		mode = "local";
+	var mode = manager_instance.datasrc_combo.value;
 
 	const response = await api.fetchApi(`/customnode/getmappings?mode=${mode}`);
 
@@ -78,9 +72,7 @@ async function getConflictMappings() {
 
 async function getUnresolvedNodesInComponent() {
 	try {
-		var mode = "url";
-		if(manager_instance.local_mode_checkbox.checked)
-			mode = "local";
+		var mode = manager_instance.datasrc_combo.value;
 
 		const response = await api.fetchApi(`/component/get_unresolved`);
 
