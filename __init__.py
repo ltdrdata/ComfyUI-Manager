@@ -17,7 +17,7 @@ import http.client
 import re
 import signal
 
-version = "V1.8.2"
+version = "V1.8.3"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 required_comfyui_revision = 1793
@@ -1534,9 +1534,6 @@ async def get_notice(request):
 
             if match:
                 markdown_content = match.group(1)
-
-                print(f"markdown_content: {markdown_content}")
-
                 markdown_content += f"<HR>ComfyUI: {comfy_ui_revision}[{comfy_ui_hash[:6]}]({comfy_ui_commit_date})"
                 # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
                 markdown_content += f"<BR>Manager: {version}"
