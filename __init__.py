@@ -16,8 +16,9 @@ from urllib.parse import urlparse
 import http.client
 import re
 import signal
+import nodes
 
-version = "V1.8.3"
+version = "V1.9"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 required_comfyui_revision = 1793
@@ -614,8 +615,23 @@ async def fetch_customnode_mappings(request):
         uri = local_db_extension_node_mappings
     else:
         uri = get_config()['channel_url'] + '/extension-node-map.json'
-
+        
     json_obj = await get_data(uri)
+    
+    all_nodes = set()
+    patterns = []
+    for k, x in json_obj.items():
+        all_nodes.update(set(x[0]))
+
+        if 'nodename_pattern' in x[1]:
+            patterns.append((x[1]['nodename_pattern'], x[0]))
+
+    missing_nodes = set(nodes.NODE_CLASS_MAPPINGS.keys()) - all_nodes
+
+    for x in missing_nodes:
+        for pat, item in patterns:
+            if re.match(pat, x):
+                item.append(x)
 
     return web.json_response(json_obj, content_type='application/json')
 

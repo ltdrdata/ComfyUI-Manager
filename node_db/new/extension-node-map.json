@@ -94,6 +94,16 @@
             "title_aux": "ComfyUI Nodes for External Tooling"
         }
     ],
+    "https://github.com/Amorano/Jovimetrix": [
+        [],
+        {
+            "author": "amorano",
+            "description": "Procedural & Compositing. Includes a Webcam node.",
+            "nodename_pattern": " \\(jov\\)$",
+            "title": "Jovimetrix Composition Pack",
+            "title_aux": "Jovimetrix Composition Nodes"
+        }
+    ],
     "https://github.com/ArtBot2023/CharacterFaceSwap": [
         [
             "Color Blend",
@@ -130,7 +140,8 @@
         [
             "LogSigmas",
             "SpliceDenoised",
-            "SpliceLatents"
+            "SpliceLatents",
+            "TemporalSplice"
         ],
         {
             "title_aux": "SpliceTools"
@@ -546,6 +557,13 @@
             "title_aux": "ComfyUI's ControlNet Auxiliary Preprocessors"
         }
     ],
+    "https://github.com/Feidorian/feidorian-ComfyNodes": [
+        [],
+        {
+            "nodename_pattern": "^Feidorian_",
+            "title_aux": "feidorian-ComfyNodes"
+        }
+    ],
     "https://github.com/Fictiverse/ComfyUI_Fictiverse": [
         [
             "Add Noise to Image with Mask",
@@ -652,11 +670,12 @@
     ],
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
-            "Center Sampler",
-            "Center Sampler XL",
+            "Hook Recenter",
+            "Hook Recenter XL",
             "Normalization",
             "NormalizationXL",
-            "Tensor Debug"
+            "Tensor Debug",
+            "Unhook Recenter"
         ],
         {
             "title_aux": "ComfyUI Diffusion Color Grading"
@@ -1104,7 +1123,9 @@
     ],
     "https://github.com/Off-Live/ComfyUI-off-suite": [
         [
+            "Cached Image Load From URL",
             "Crop Center wigh SEGS",
+            "Crop Center with SEGS",
             "GW Number Formatting",
             "Image Crop Fit",
             "Image Resize Fit",
@@ -1704,6 +1725,7 @@
             "author": "tinyterra",
             "description": "This extension offers various pipe nodes, fullscreen image viewer based on node history, dynamic widgets, interface customization, and more.",
             "nickname": "ttNodes",
+            "nodename_pattern": "^ttN ",
             "title": "tinyterraNodes",
             "title_aux": "tinyterraNodes"
         }
@@ -2707,7 +2729,8 @@
     ],
     "https://github.com/chflame163/ComfyUI_MSSpeech_TTS": [
         [
-            "MicorsoftSpeech_TTS"
+            "MicorsoftSpeech_TTS",
+            "Play Sound"
         ],
         {
             "title_aux": "ComfyUI_MSSpeech_TTS"
@@ -2766,6 +2789,7 @@
             "Seed Everywhere"
         ],
         {
+            "nodename_pattern": "(^(Prompts|Anything) Everywhere|Simple String)",
             "title_aux": "Use Everywhere (UE Nodes)"
         }
     ],
@@ -3089,12 +3113,12 @@
             "title_aux": "KSampler GPU"
         }
     ],
-    "https://github.com/daxthin/facedetailer": [
+    "https://github.com/daxthin/DZ-FaceDetailer": [
         [
             "DZ_Face_Detailer"
         ],
         {
-            "title_aux": "facedetailer"
+            "title_aux": "DZ-FaceDetailer"
         }
     ],
     "https://github.com/dimtoneff/ComfyUI-PixelArt-Detector": [
@@ -3244,6 +3268,14 @@
         ],
         {
             "title_aux": "Pixelization"
+        }
+    ],
+    "https://github.com/filliptm/ComfyUI_Fill-Nodes": [
+        [
+            "FL_ImageRandomizer"
+        ],
+        {
+            "title_aux": "ComfyUI_Fill-Nodes"
         }
     ],
     "https://github.com/fitCorder/fcSuite/raw/main/fcSuite.py": [
@@ -3534,6 +3566,13 @@
             "title_aux": "Efficiency Nodes for ComfyUI Version 2.0+"
         }
     ],
+    "https://github.com/jamesWalker55/comfyui-various": [
+        [],
+        {
+            "nodename_pattern": "^JW",
+            "title_aux": "Various ComfyUI Nodes by Type"
+        }
+    ],
     "https://github.com/jjkramhoeft/ComfyUI-Jjk-Nodes": [
         [
             "JjkConcat",
@@ -3553,6 +3592,22 @@
         ],
         {
             "title_aux": "ComfyUI-sampler-lcm-alternative"
+        }
+    ],
+    "https://github.com/jtrue/ComfyUI-JaRue": [
+        [
+            "ConcatStringWithDelimiter_jru",
+            "ConcatString_jru",
+            "Float2Int_jru",
+            "Float2String_jru",
+            "ImageSizer_jru",
+            "Int2FloatMultiply_jru",
+            "Int2String_jru",
+            "String2Int_jru",
+            "YouTube2Prompt_jru"
+        ],
+        {
+            "title_aux": "ComfyUI-JaRue"
         }
     ],
     "https://github.com/ka-puna/comfyui-yanc": [
@@ -3677,7 +3732,9 @@
     ],
     "https://github.com/knuknX/ComfyUI-Image-Tools": [
         [
-            "BatchImageResizeProcessor",
+            "ImageBatchSqueezeProcessor",
+            "ImageBgRemoveProcessor",
+            "ImageStandardResizeProcessor",
             "SingleImagePathLoader",
             "SingleImageUrlLoader"
         ],
@@ -4022,6 +4079,7 @@
             "author": "Dr.Lt.Data",
             "description": "This extension provides various nodes to support Lora Block Weight and the Impact Pack.",
             "nickname": "Inspire Pack",
+            "nodename_pattern": "Inspire$",
             "title": "Inspire Pack",
             "title_aux": "ComfyUI Inspire Pack"
         }
@@ -4174,6 +4232,7 @@
             "Vae Decode (mtb)"
         ],
         {
+            "nodename_pattern": "\\(mtb\\)$",
             "title_aux": "MTB Nodes"
         }
     ],
@@ -4363,6 +4422,7 @@
             "Text Box - Ostris"
         ],
         {
+            "nodename_pattern": "- Ostris$",
             "title_aux": "Ostris Nodes ComfyUI"
         }
     ],
@@ -4415,23 +4475,7 @@
     ],
     "https://github.com/peteromallet/ComfyUI-Creative-Interpolation": [
         [
-            "ACN_AdvancedControlNetApplyImport",
-            "BatchCreativeInterpolation",
-            "ControlNetLoaderAdvancedImport",
-            "CustomControlNetWeights",
-            "CustomT2IAdapterWeights",
-            "DiffControlNetLoaderAdvancedImport",
-            "FILMVFIImport",
-            "LatentKeyframeBatchedGroupImport",
-            "LatentKeyframeGroupImport",
-            "LatentKeyframeImport",
-            "LatentKeyframeTiming",
-            "LoadImagesFromDirectory",
-            "MaskGenerator",
-            "ScaledSoftControlNetWeightsImport",
-            "SoftControlNetWeights",
-            "SoftT2IAdapterWeights",
-            "TimestepKeyframe"
+            "BatchCreativeInterpolation"
         ],
         {
             "title_aux": "ComfyUI-Creative-Interpolation [Beta]"
@@ -4504,6 +4548,17 @@
             "nickname": "SD Prompt Reader",
             "title": "SD Prompt Reader",
             "title_aux": "comfyui-prompt-reader-node"
+        }
+    ],
+    "https://github.com/rgthree/rgthree-comfy": [
+        [],
+        {
+            "author": "rgthree",
+            "description": "A bunch of nodes I created that I also find useful.",
+            "nickname": "rgthree",
+            "nodename_pattern": " \\(rgthree\\)$",
+            "title": "Comfy Nodes",
+            "title_aux": "rgthree's ComfyUi Nodes"
         }
     ],
     "https://github.com/richinsley/Comfy-LFO": [
@@ -4583,6 +4638,7 @@
             "ChatGPTOpenAI",
             "CombineMasks_",
             "CombineSegMasks",
+            "EditLayer",
             "EmptyLayer",
             "EnhanceImage",
             "FaceToMask",
@@ -4597,6 +4653,8 @@
             "ShowTextForGPT",
             "SmoothMask",
             "SplitLongMask",
+            "SvgImage",
+            "TextImage",
             "TransparentImage",
             "VAEDecodeConsistencyDecoder",
             "VAELoaderConsistencyDecoder"
@@ -4906,6 +4964,7 @@
             "ImageShuffle",
             "LCMGenerate",
             "LCMGenerate_ReferenceOnly",
+            "LCMGenerate_SDTurbo",
             "LCMGenerate_img2img",
             "LCMGenerate_img2img_IPAdapter",
             "LCMGenerate_img2img_controlnet",
@@ -4914,6 +4973,7 @@
             "LCMLoader",
             "LCMLoader_RefInpaint",
             "LCMLoader_ReferenceOnly",
+            "LCMLoader_SDTurbo",
             "LCMLoader_controlnet",
             "LCMLoader_controlnet_inpaint",
             "LCMLoader_img2img",
@@ -5017,6 +5077,7 @@
             "Random Line 4"
         ],
         {
+            "nodename_pattern": "\\(mtb\\)$",
             "title_aux": "Hakkun-ComfyUI-nodes"
         }
     ],

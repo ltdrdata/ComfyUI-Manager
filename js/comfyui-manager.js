@@ -230,6 +230,7 @@ async function fetchNicknames() {
 	const mappings = await response1.json();
 
 	let result = {};
+	let nickname_patterns = [];
 
 	for (let i in mappings) {
 		let item = mappings[i];
@@ -244,12 +245,16 @@ async function fetchNicknames() {
 		for (let j in item[0]) {
 			result[item[0][j]] = nickname;
 		}
+
+		if(item[1].nodename_pattern) {
+			nickname_patterns.push([item[1].nodename_pattern, nickname]);
+		}
 	}
 
-	return result;
+	return [result, nickname_patterns];
 }
 
-let nicknames = await fetchNicknames();
+const [nicknames, nickname_patterns] = await fetchNicknames();
 
 
 async function updateComfyUI() {
@@ -917,7 +922,9 @@ app.registerExtension({
 
 		this._addExtraNodeContextMenu(nodeType, app);
 	},
+	async nodeCreated(node, app) {
 
+	},
 	async loadedGraphNode(node, app) {
 		if (node.has_errors) {
 			const onDrawForeground = node.onDrawForeground;
