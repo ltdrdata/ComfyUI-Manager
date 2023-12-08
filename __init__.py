@@ -17,7 +17,7 @@ import http.client
 import re
 import signal
 
-version = "V1.8.1"
+version = "V1.8.2"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 required_comfyui_revision = 1793
@@ -253,13 +253,14 @@ def try_install_script(url, repo_path, install_cmd):
 def print_comfyui_version():
     global comfy_ui_revision
     global comfy_ui_commit_date
+    global comfy_ui_hash
 
     try:
         repo = git.Repo(os.path.dirname(folder_paths.__file__))
 
         comfy_ui_revision = len(list(repo.iter_commits('HEAD')))
         current_branch = repo.active_branch.name
-        git_hash = repo.head.commit.hexsha
+        comfy_ui_hash = repo.head.commit.hexsha
 
         try:
             if int(comfy_ui_revision) < comfy_ui_required_revision:
@@ -269,9 +270,9 @@ def print_comfyui_version():
 
         comfy_ui_commit_date = repo.head.commit.committed_datetime.date()
         if current_branch == "master":
-            print(f"### ComfyUI Revision: {comfy_ui_revision} [{git_hash[:8]}] | Released on '{comfy_ui_commit_date}'")
+            print(f"### ComfyUI Revision: {comfy_ui_revision} [{comfy_ui_hash[:8]}] | Released on '{comfy_ui_commit_date}'")
         else:
-            print(f"### ComfyUI Revision: {comfy_ui_revision} on '{current_branch}' [{git_hash[:8]}] | Released on '{comfy_ui_commit_date}'")
+            print(f"### ComfyUI Revision: {comfy_ui_revision} on '{current_branch}' [{comfy_ui_hash[:8]}] | Released on '{comfy_ui_commit_date}'")
     except:
         print("### ComfyUI Revision: UNKNOWN (The currently installed ComfyUI is not a Git repository)")
 
@@ -1533,7 +1534,11 @@ async def get_notice(request):
 
             if match:
                 markdown_content = match.group(1)
-                markdown_content += f"<HR>ComfyUI: {comfy_ui_revision} ({comfy_ui_commit_date})"
+
+                print(f"markdown_content: {markdown_content}")
+
+                markdown_content += f"<HR>ComfyUI: {comfy_ui_revision}[{comfy_ui_hash[:6]}]({comfy_ui_commit_date})"
+                # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
                 markdown_content += f"<BR>Manager: {version}"
 
                 try:
