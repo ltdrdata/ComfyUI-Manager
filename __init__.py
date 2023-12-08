@@ -17,9 +17,10 @@ import http.client
 import re
 import signal
 
-version = "V1.8"
+version = "V1.8.1"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
+required_comfyui_revision = 1793
 
 def handle_stream(stream, prefix):
     stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
@@ -1534,6 +1535,13 @@ async def get_notice(request):
                 markdown_content = match.group(1)
                 markdown_content += f"<HR>ComfyUI: {comfy_ui_revision} ({comfy_ui_commit_date})"
                 markdown_content += f"<BR>Manager: {version}"
+
+                try:
+                    if required_comfyui_revision > int(comfy_ui_revision):
+                        markdown_content = f'<P style="color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
+                except:
+                    pass
+
                 return web.Response(text=markdown_content, status=200)
             else:
                 return web.Response(text="Unable to retrieve Notice", status=200)
