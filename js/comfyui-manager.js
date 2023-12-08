@@ -435,7 +435,7 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 			return false;
 		}
 		if(response1.status == 201 || response2.status == 201) {
-			app.ui.dialog.show("ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button id='cm-small-button' class='cm-restart-button'>RESTART</button> ComfyUI. And refresh browser.");
+			app.ui.dialog.show("ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button class='cm-small-button' id='cm-reboot-button'>RESTART</button> ComfyUI. And refresh browser.");
 
 			const rebootButton = document.getElementById('cm-reboot-button');
 			rebootButton.onclick = function() {
