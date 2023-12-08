@@ -493,6 +493,17 @@ def simple_hash(input_string):
     return hash_value
 
 
+def is_file_created_within_one_day(file_path):
+    if not os.path.exists(file_path):
+        return False
+
+    file_creation_time = os.path.getctime(file_path)
+    current_time = datetime.datetime.now().timestamp()
+    time_difference = current_time - file_creation_time
+
+    return time_difference <= 86400
+
+
 async def get_data_by_mode(mode, filename):
     try:
         if mode == "local":
@@ -646,17 +657,6 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
             print(f"\x1b[2K\rAll extensions are already up-to-date.")
     elif do_update_check:
         print(f"\x1b[2K\rUpdate check done.")
-
-
-def is_file_created_within_one_day(file_path):
-    if not os.path.exists(file_path):
-        return False
-
-    file_creation_time = os.path.getctime(file_path)
-    current_time = datetime.datetime.now().timestamp()
-    time_difference = current_time - file_creation_time
-
-    return time_difference <= 86400
 
 
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
