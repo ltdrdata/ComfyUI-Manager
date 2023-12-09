@@ -18,7 +18,7 @@ import re
 import signal
 import nodes
 
-version = "V1.10.1"
+version = "V1.10.2"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 required_comfyui_revision = 1793

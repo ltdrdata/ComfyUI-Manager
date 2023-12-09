@@ -130,12 +130,13 @@ export class ModelInstaller extends ComfyDialog {
 		if(btn_id) {
 			const rebootButton = document.getElementById(btn_id);
 			const self = this;
-			rebootButton.onclick = function() {
-				if(rebootAPI()) {
-					self.close();
-					self.manager_dialog.close();
-				}
-			};
+			rebootButton.addEventListener("click",
+				function() {
+					if(rebootAPI()) {
+						self.close();
+						self.manager_dialog.close();
+					}
+				});
 		}
 	}
 

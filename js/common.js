@@ -101,11 +101,13 @@ export async function install_via_git_url(url, manager_dialog) {
 
 		const rebootButton = document.getElementById('cm-reboot-button');
 		const self = this;
-		rebootButton.onclick = function() {
-			if(rebootAPI()) {
-				manager_dialog.close();
-			}
-		};
+
+		rebootButton.addEventListener("click",
+			function() {
+				if(rebootAPI()) {
+					manager_dialog.close();
+				}
+			});
 
         app.ui.dialog.element.style.zIndex = 10010;
     }
