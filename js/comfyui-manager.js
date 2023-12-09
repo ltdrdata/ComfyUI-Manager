@@ -279,8 +279,9 @@ function getNickname(node, nodename) {
 	}
 }
 
-function drawBadge(node, orig, ctx) {
-	const r = orig?.apply?.(node, arguments);
+function drawBadge(node, orig, restArgs) {
+	let ctx = restArgs[0];
+	const r = orig?.apply?.(node, restArgs);
 
 	if (!node.flags.collapsed && badge_mode != 'none' && node.constructor.title_mode != LiteGraph.NO_TITLE) {
 		let text = "";
@@ -953,7 +954,9 @@ app.registerExtension({
 		if(!node.badge_enabled) {
 			node.getNickname = function () { return getNickname(node, node.comfyClass.trim()) };
 			const orig = node.__proto__.onDrawForeground;
-			node.onDrawForeground = function (ctx) { drawBadge(node, orig, ctx) };
+			node.onDrawForeground = function (ctx) {
+				drawBadge(node, orig, arguments)
+			};
 			node.badge_enabled = true;
 		}
 	},
@@ -961,7 +964,7 @@ app.registerExtension({
 		if(!node.badge_enabled) {
 			const orig = node.onDrawForeground;
 			node.getNickname = function () { return getNickname(node, node.type.trim()) };
-			node.onDrawForeground = function (ctx) { drawBadge(node, orig, ctx) };
+			node.onDrawForeground = function (ctx) { drawBadge(node, orig, arguments) };
 		}
 	},
 
