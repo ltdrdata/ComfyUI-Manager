@@ -18,10 +18,13 @@ import re
 import signal
 import nodes
 
-version = "V1.10.4"
+version = "V1.11"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 required_comfyui_revision = 1793
+
+
+cache_lock = threading.Lock()
 
 def handle_stream(stream, prefix):
     stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
@@ -437,8 +440,9 @@ async def get_data(uri):
             async with session.get(uri) as resp:
                 json_text = await resp.text()
     else:
-        with open(uri, "r", encoding="utf-8") as f:
-            json_text = f.read()
+        with cache_lock:
+            with open(uri, "r", encoding="utf-8") as f:
+                json_text = f.read()
 
     json_obj = json.loads(json_text)
     return json_obj
@@ -519,13 +523,15 @@ async def get_data_by_mode(mode, filename):
                     json_obj = await get_data(cache_uri)
                 else:
                     json_obj = await get_data(uri)
-                    with open(cache_uri, "w", encoding='utf-8') as file:
-                        json.dump(json_obj, file, indent=4, sort_keys=True)
+                    with cache_lock:
+                        with open(cache_uri, "w", encoding='utf-8') as file:
+                            json.dump(json_obj, file, indent=4, sort_keys=True)
             else:
                 uri = get_config()['channel_url'] + '/' + filename
                 json_obj = await get_data(uri)
-                with open(cache_uri, "w", encoding='utf-8') as file:
-                    json.dump(json_obj, file, indent=4, sort_keys=True)
+                with cache_lock:
+                    with open(cache_uri, "w", encoding='utf-8') as file:
+                        json.dump(json_obj, file, indent=4, sort_keys=True)
     except Exception as e:
         print(f"[ComfyUI-Manager] Due to a network error, switching to local mode.\n=> {filename}\n=> {e}")
         uri = os.path.join(comfyui_manager_path, filename)
@@ -1874,6 +1880,31 @@ async def share_art(request):
             "success" : None if "matrix" not in share_destinations else True
         }
     }, content_type='application/json', status=200)
+
+
+import asyncio
+async def default_cache_update():
+    async def get_cache(filename):
+        uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/' + filename
+        cache_uri = str(simple_hash(uri)) + '_' + filename
+        cache_uri = os.path.join(cache_dir, cache_uri)
+
+        json_obj = await get_data(uri)
+
+        with cache_lock:
+            with open(cache_uri, "w", encoding='utf-8') as file:
+                json.dump(json_obj, file, indent=4, sort_keys=True)
+                print(f"[ComfyUI-Manager] default cache updated: {uri}")
+
+    a = get_cache("custom-node-list.json")
+    b = get_cache("extension-node-map.json")
+    c = get_cache("model-list.json")
+    d = get_cache("alter-list.json")
+
+    await asyncio.gather(a, b, c, d)
+
+threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()
+
 
 WEB_DIRECTORY = "js"
 NODE_CLASS_MAPPINGS = {}
