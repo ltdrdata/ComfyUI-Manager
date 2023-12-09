@@ -18,7 +18,7 @@ import re
 import signal
 import nodes
 
-version = "V1.11"
+version = "V1.11.1"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 required_comfyui_revision = 1793
@@ -1587,7 +1587,7 @@ async def get_notice(request):
 
                 try:
                     if required_comfyui_revision > int(comfy_ui_revision):
-                        markdown_content = f'<P style="color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
+                        markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
                 except:
                     pass
 
