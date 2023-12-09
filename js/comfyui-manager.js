@@ -590,9 +590,9 @@ class ManagerMenuDialog extends ComfyDialog {
 		// db mode
 		this.datasrc_combo = document.createElement("select");
 		this.datasrc_combo.style.cursor = "pointer";
-		this.datasrc_combo.appendChild($el('option', { value: 'cache', text: 'DB: Cache (1day)' }, []));
+		this.datasrc_combo.appendChild($el('option', { value: 'cache', text: 'DB: Channel (1day cache)' }, []));
 		this.datasrc_combo.appendChild($el('option', { value: 'local', text: 'DB: Local' }, []));
-		this.datasrc_combo.appendChild($el('option', { value: 'url', text: 'DB: Remote' }, []));
+		this.datasrc_combo.appendChild($el('option', { value: 'url', text: 'DB: Channel (remote)' }, []));
 
 		// preview method
 		let preview_combo = document.createElement("select");

@@ -84,7 +84,15 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 
     ![menu](misc/menu.jpg)
 
-    * When the 'Use local DB' feature is enabled, the application will utilize the data stored locally on your device, rather than retrieving node/model information over the internet
+    * There are three DB modes: `DB: Channel (1day cache)`, `DB: Local`, and `DB: Channel (remote)`. 
+      * `Channel (1day cache)` utilizes Channel cache information with a validity period of one day to quickly display the list.
+        * This information will be updated when there is no cache, when the cache expires, or when external information is retrieved through the Channel (remote).
+        * Whenever you start ComfyUI anew, this mode is always set as the **default** mode.
+      * `Local` uses information stored locally in ComfyUI-Manager.
+        * This information will be updated only when you update ComfyUI-Manager.
+        * For custom node developers, they should use this mode when registering their nodes in `custom-node-list.json` and testing them.
+      * `Channel (remote)` retrieves information from the remote channel, always displaying the latest list.
+      * In cases where retrieval is not possible due to network errors, it will forcibly use local information.
 
     * The ```Fetch Updates``` menu retrieves update data for custom nodes locally. Actual updates are applied by clicking the ```Update``` button in the ```Install Custom Nodes``` menu.
 
