@@ -7,7 +7,22 @@ import concurrent
 
 builtin_nodes = set()
 
+import sys
 
+
+# prepare temp dir
+if len(sys.argv) > 1:
+    temp_dir = sys.argv[1]
+else:
+    temp_dir = os.path.join(os.getcwd(), ".tmp")
+
+if not os.path.exists(temp_dir):
+    os.makedirs(temp_dir)
+
+print(f"TEMP DIR: {temp_dir}")
+
+
+# scan
 def scan_in_file(filename, is_builtin=False):
     global builtin_nodes
 
@@ -143,7 +158,7 @@ def get_py_urls_from_json(json_file):
 
 def clone_or_pull_git_repository(git_url):
     repo_name = git_url.split("/")[-1].split(".")[0]
-    repo_dir = os.path.join(os.getcwd(), ".tmp", repo_name)
+    repo_dir = os.path.join(temp_dir, repo_name)
 
     if os.path.exists(repo_dir):
         try:
@@ -163,9 +178,8 @@ def clone_or_pull_git_repository(git_url):
 
 
 def update_custom_nodes():
-    tmp_dir = os.path.join(os.getcwd(), ".tmp")
-    if not os.path.exists(tmp_dir):
-        os.makedirs(tmp_dir)
+    if not os.path.exists(temp_dir):
+        os.makedirs(temp_dir)
 
     node_info = {}
 
@@ -192,7 +206,7 @@ def update_custom_nodes():
             node_info[name] = (url, title, node_pattern)
 
         try:
-            download_url(url, ".tmp")
+            download_url(url, temp_dir)
         except:
             print(f"[ERROR] Cannot download '{url}'")
 
@@ -204,9 +218,9 @@ def update_custom_nodes():
 
 def gen_json(node_info):
     # scan from .py file
-    node_files, node_dirs = get_nodes(".tmp")
+    node_files, node_dirs = get_nodes(temp_dir)
 
-    comfyui_path = os.path.abspath(os.path.join('.tmp', "ComfyUI"))
+    comfyui_path = os.path.abspath(os.path.join(temp_dir, "ComfyUI"))
     node_dirs.remove(comfyui_path)
     node_dirs = [comfyui_path] + node_dirs
 
@@ -255,10 +269,10 @@ def gen_json(node_info):
                 print(f"Missing info: {url}")
 
     # scan from node_list.json file
-    extensions = [name for name in os.listdir('.tmp') if os.path.isdir(os.path.join('.tmp', name))]
+    extensions = [name for name in os.listdir(temp_dir) if os.path.isdir(os.path.join(temp_dir, name))]
 
     for extension in extensions:
-        node_list_json_path = os.path.join('.tmp', extension, 'node_list.json')
+        node_list_json_path = os.path.join(temp_dir, extension, 'node_list.json')
         if os.path.exists(node_list_json_path):
             git_url, title, node_pattern = node_info[extension]
 
@@ -294,3 +308,4 @@ updated_node_info = update_custom_nodes()
 
 print("\n# 'extension-node-map.json' file is generated.\n")
 gen_json(updated_node_info)
+
