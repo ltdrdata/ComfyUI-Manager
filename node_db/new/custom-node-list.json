@@ -1,6 +1,36 @@
 {
     "custom_nodes": [
         {
+            "author": "aria1th",
+            "title": "ComfyUI-LogicUtils",
+            "reference": "https://github.com/aria1th/ComfyUI-LogicUtils",
+            "files": [
+                "https://github.com/aria1th/ComfyUI-LogicUtils"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:UniformRandomFloat..., RandomShuffleInt, YieldableIterator..., LogicGate..., Add..., MergeString, MemoryNode, ..."
+        },
+        {
+            "author": "modusCell",
+            "title": "Preset Dimensions",
+            "reference": "https://github.com/modusCell/ComfyUI-dimension-node-modusCell",
+            "files": [
+                "https://github.com/modusCell/ComfyUI-dimension-node-modusCell"
+            ],
+            "install_type": "git-clone",
+            "description": "Simple node for sharing latent image size between nodes. Preset dimensions for SD and XL."
+        },
+        {
+            "author": "mmaker",
+            "title": "Color Enhance",
+            "reference": "https://git.mmaker.moe/mmaker/sd-webui-color-enhance",
+            "files": [
+                "https://git.mmaker.moe/mmaker/sd-webui-color-enhance"
+            ],
+            "install_type": "git-clone",
+            "description": "Node: Color Enhance, Color Blend. This is the same algorithm GIMP/GEGL uses for color enhancement. The gist of this implementation is that it converts the color space to CIELCh(ab) and normalizes the chroma (or [colorfulness](https://en.wikipedia.org/wiki/Colorfulness)] component. Original source can be found in the link below."
+        },
+        {
             "author": "bruefire",
             "title": "ComfyUI Sequential Image Loader",
             "reference": "https://github.com/bruefire/ComfyUI-SeqImageLoader",
@@ -67,6 +97,7 @@
             "files": [
                 "https://github.com/jtrue/ComfyUI-JaRue"
             ],
+            "nodename_pattern": "_jru$",
             "install_type": "git-clone",
             "description": "A collection of nodes powering a tensor oracle on a home network with automation"
         },
