@@ -266,7 +266,7 @@ def gen_json(node_info):
                     metadata['nodename_pattern'] = node_pattern
                 data[url] = (nodes, metadata)
             else:
-                print(f"Missing info: {url}")
+                print(f"Missing info: {file}")
 
     # scan from node_list.json file
     extensions = [name for name in os.listdir(temp_dir) if os.path.isdir(os.path.join(temp_dir, name))]
@@ -291,7 +291,7 @@ def gen_json(node_info):
 
             metadata_in_url['title_aux'] = title
             if node_pattern is not None:
-                metadata['nodename_pattern'] = node_pattern
+                metadata_in_url['nodename_pattern'] = node_pattern
             nodes = list(nodes)
             nodes.sort()
             data[git_url] = (nodes, metadata_in_url)
