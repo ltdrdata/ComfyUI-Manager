@@ -6,6 +6,7 @@ import atexit
 import threading
 import re
 import locale
+import platform
 
 
 message_collapses = []
@@ -193,7 +194,9 @@ except Exception as e:
     print(f"[ComfyUI-Manager] Logging failed: {e}")
 
 
-print("** ComfyUI start up time:", datetime.datetime.now())
+print("** ComfyUI startup time:", datetime.datetime.now())
+print("** Python version:", sys.version)
+print("** Platform:", platform.system())
 
 
 def check_bypass_ssl():

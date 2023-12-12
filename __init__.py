@@ -17,9 +17,12 @@ import http.client
 import re
 import signal
 import nodes
+import torch
 
-version = "V1.11.2"
+
+version = "V1.11.3"
 print(f"### Loading: ComfyUI-Manager ({version})")
+
 
 required_comfyui_revision = 1793
 comfy_ui_hash = "-"
