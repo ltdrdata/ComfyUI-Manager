@@ -195,8 +195,9 @@ except Exception as e:
 
 
 print("** ComfyUI startup time:", datetime.datetime.now())
-print("** Python version:", sys.version)
 print("** Platform:", platform.system())
+print("** Python version:", sys.version)
+print("** Python executable:", sys.executable)
 
 
 def check_bypass_ssl():

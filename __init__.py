@@ -20,7 +20,7 @@ import nodes
 import torch
 
 
-version = "V1.11.3"
+version = "V1.11.4"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
