@@ -198,6 +198,7 @@ print("** ComfyUI startup time:", datetime.datetime.now())
 print("** Platform:", platform.system())
 print("** Python version:", sys.version)
 print("** Python executable:", sys.executable)
+print("** Log path:", os.path.abspath('comfyui.log'))
 
 
 def check_bypass_ssl():
