@@ -33,6 +33,36 @@ restore_snapshot_path = os.path.join(startup_script_path, "restore-snapshot.json
 git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
 
 
+class TerminalHook:
+    def __init__(self):
+        self.hooks = {}
+
+    def add_hook(self, k, v):
+        self.hooks[k] = v
+
+    def remove_hook(self, k):
+        if k in self.hooks:
+            del self.hooks[k]
+
+    def write_stderr(self, msg):
+        for v in self.hooks.values():
+            try:
+                v.write_stderr(msg)
+            except Exception:
+                pass
+
+    def write_stdout(self, msg):
+        for v in self.hooks.values():
+            try:
+                v.write_stdout(msg)
+            except Exception:
+                pass
+
+
+terminal_hook = TerminalHook()
+sys.__comfyui_manager_terminal_hook = terminal_hook
+
+
 def handle_stream(stream, prefix):
     stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
     for msg in stream:
@@ -157,9 +187,11 @@ try:
             if self.is_stdout:
                 original_stdout.write(message)
                 original_stdout.flush()
+                terminal_hook.write_stderr(message)
             else:
                 original_stderr.write(message)
                 original_stderr.flush()
+                terminal_hook.write_stdout(message)
 
         def flush(self):
             log_file.flush()

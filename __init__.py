@@ -20,7 +20,7 @@ import nodes
 import torch
 
 
-version = "V1.11.5"
+version = "V1.12"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 
@@ -1515,6 +1515,28 @@ async def install_model(request):
         pass
 
     return web.Response(status=400)
+
+
+class ManagerTerminalHook:
+    def write_stderr(self, msg):
+        server.PromptServer.instance.send_sync("manager-terminal-feedback", {"data": msg})
+
+    def write_stdout(self, msg):
+        server.PromptServer.instance.send_sync("manager-terminal-feedback", {"data": msg})
+
+
+manager_terminal_hook = ManagerTerminalHook()
+
+
+@server.PromptServer.instance.routes.get("/manager/terminal")
+async def terminal_mode(request):
+    if "mode" in request.rel_url.query:
+        if request.rel_url.query['mode'] == 'true':
+            sys.__comfyui_manager_terminal_hook.add_hook('cm', manager_terminal_hook)
+        else:
+            sys.__comfyui_manager_terminal_hook.remove_hook('cm')
+
+    return web.Response(status=200)
 
 
 @server.PromptServer.instance.routes.get("/manager/preview_method")
