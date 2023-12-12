@@ -18,10 +18,11 @@ import re
 import signal
 import nodes
 
-version = "V1.11.1"
+version = "V1.11.2"
 print(f"### Loading: ComfyUI-Manager ({version})")
 
 required_comfyui_revision = 1793
+comfy_ui_hash = "-"
 
 
 cache_lock = threading.Lock()
