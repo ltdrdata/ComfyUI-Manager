@@ -3,6 +3,7 @@ import {ComfyWidgets} from "../../scripts/widgets.js";
 // Node that add notes to your project
 
 let terminal_node;
+let log_mode = false;
 
 app.registerExtension({
 	name: "Comfy.Manager.Terminal",
@@ -13,15 +14,6 @@ app.registerExtension({
 			bgcolor = "#000000";
 			groupcolor = LGraphCanvas.node_colors.black.groupcolor;
 			constructor() {
-				if(terminal_node) {
-					try {
-						terminal_node.widgets[0].value = 'The output of this node is disabled because another terminal node has appeared.';
-						node.widgets[1].value = terminal_node.widgets[1].value;
-					}
-					catch {}
-				}
-
-				terminal_node = this;
 				this.logs = [];
 
 				if (!this.properties) {
@@ -33,18 +25,27 @@ app.registerExtension({
 				ComfyWidgets.BOOLEAN(this, "mode", ["", {default:true, label_on:'Logging', label_off:'Stop'}], app)
 				ComfyWidgets.INT(this, "lines", ["", {default:500, min:10, max:10000, steps:1}], app)
 
+				let self = this;
 				Object.defineProperty(this.widgets[1], 'value', {
 					set: (v) => {
 						api.fetchApi(`/manager/terminal?mode=${v}`, {});
-						this._value = v;
+						log_mode = v;
 					},
 					get: () => {
-						return this._value;
+						return log_mode;
 					}
 				});
 
 				this.serialize_widgets = false;
 				this.isVirtualNode = true;
+
+				if(terminal_node) {
+					try {
+						terminal_node.widgets[0].value = 'The output of this node is disabled because another terminal node has appeared.';
+					}
+					catch {}
+				}
+				terminal_node = this;
 			}
 		}
 
