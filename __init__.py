@@ -20,7 +20,7 @@ import nodes
 import torch
 
 
-version = [1, 13, 2]
+version = [1, 13, 3]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -302,6 +302,16 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, _ = process.communicate()
     output = output.decode('utf-8').strip()
+
+    if 'detected dubious' in output:
+        try:
+            # fix and try again
+            print(f"[ComfyUI-Manager] Try fixing 'Dubious' error on '{path}'")
+            process = subprocess.Popen(['git', 'config', '--global', '--add', 'safe.directory', path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            output, _ = process.communicate()
+            output = output.decode('utf-8').strip()
+        except Exception as e:
+            print(f'[ComfyUI-Manager] failed to fixing')
 
     if do_update:
         if "CUSTOM NODE PULL: True" in output:
