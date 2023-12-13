@@ -20,7 +20,7 @@ import nodes
 import torch
 
 
-version = [1, 13]
+version = [1, 13, 1]
 version_str = f"V{version[0]}.{version[1]}" + ('.' + version[2] if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -1625,7 +1625,7 @@ async def get_notice(request):
                 markdown_content = match.group(1)
                 markdown_content += f"<HR>ComfyUI: {comfy_ui_revision}[{comfy_ui_hash[:6]}]({comfy_ui_commit_date})"
                 # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
-                markdown_content += f"<BR>Manager: {version}"
+                markdown_content += f"<BR>Manager: {version_str}"
 
                 try:
                     if required_comfyui_revision > int(comfy_ui_revision):
