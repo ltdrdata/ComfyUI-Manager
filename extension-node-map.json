@@ -2608,6 +2608,7 @@
             "FromListGet1Image",
             "FromListGet1Int",
             "FromListGet1Latent",
+            "FromListGet1Mask",
             "FromListGet1Model",
             "FromListGet1String",
             "FromListGetColors",
@@ -2616,6 +2617,7 @@
             "FromListGetImages",
             "FromListGetInts",
             "FromListGetLatents",
+            "FromListGetMasks",
             "FromListGetModels",
             "FromListGetStrings",
             "Get Contour from list",
@@ -2659,6 +2661,7 @@
             "ToImageList",
             "ToIntList",
             "ToLatentList",
+            "ToMaskList",
             "ToModelList",
             "ToStringList",
             "UnGridify (image)",
@@ -2693,7 +2696,8 @@
     ],
     "https://github.com/brianfitzgerald/style_aligned_comfy": [
         [
-            "StyleAlignedPatch"
+            "StyleAlignedBatchAlign",
+            "StyleAlignedReferenceSampler"
         ],
         {
             "title_aux": "StyleAligned for ComfyUI"
@@ -2717,7 +2721,8 @@
     ],
     "https://github.com/bruefire/ComfyUI-SeqImageLoader": [
         [
-            "VFrame Loader With Mask Editor"
+            "VFrame Loader With Mask Editor",
+            "Video Loader With Mask Editor"
         ],
         {
             "title_aux": "ComfyUI Sequential Image Loader"
@@ -3083,6 +3088,14 @@
             "title_aux": "ComfyUI_experiments"
         }
     ],
+    "https://github.com/concarne000/ConCarneNode": [
+        [
+            "BingImageGrabber"
+        ],
+        {
+            "title_aux": "ConCarneNode"
+        }
+    ],
     "https://github.com/coreyryanhanson/ComfyQR": [
         [
             "comfy-qr-by-image-size",
@@ -3406,6 +3419,14 @@
             "title_aux": "Save Image with Generation Metadata"
         }
     ],
+    "https://github.com/glifxyz/ComfyUI-GlifNodes": [
+        [
+            "GlifConsistencyVAE"
+        ],
+        {
+            "title_aux": "ComfyUI-GlifNodes"
+        }
+    ],
     "https://github.com/guoyk93/yk-node-suite-comfyui": [
         [
             "YKImagePadForOutpaint",
@@ -3487,10 +3508,12 @@
     "https://github.com/idrirap/ComfyUI-Lora-Auto-Trigger-Words": [
         [
             "FusionText",
+            "LoraListNames",
             "LoraLoaderAdvanced",
             "LoraLoaderStackedAdvanced",
             "LoraLoaderStackedVanilla",
             "LoraLoaderVanilla",
+            "LoraTagsOnly",
             "Randomizer",
             "TagsFormater",
             "TagsSelector",
@@ -3761,6 +3784,14 @@
             "title_aux": "KJNodes for ComfyUI"
         }
     ],
+    "https://github.com/kijai/ComfyUI-Marigold": [
+        [
+            "MarigoldDepthEstimation"
+        ],
+        {
+            "title_aux": "Marigold depth estimation in ComfyUI"
+        }
+    ],
     "https://github.com/kijai/ComfyUI-SVD": [
         [
             "SVDimg2vid"
@@ -3832,15 +3863,6 @@
         ],
         {
             "title_aux": "abg-comfyui"
-        }
-    ],
-    "https://github.com/laksjdjf/IPAdapter-ComfyUI": [
-        [
-            "IPAdapter",
-            "ImageCrop"
-        ],
-        {
-            "title_aux": "IPAdapter-ComfyUI"
         }
     ],
     "https://github.com/laksjdjf/LCMSampler-ComfyUI": [
@@ -4089,12 +4111,14 @@
             "AnimeLineArt_Preprocessor_Provider_for_SEGS //Inspire",
             "ApplyRegionalIPAdapters //Inspire",
             "BindImageListPromptList //Inspire",
+            "CLIPTextEncodeWithWeight //Inspire",
             "CacheBackendData //Inspire",
             "CacheBackendDataList //Inspire",
             "CacheBackendDataNumberKey //Inspire",
             "CacheBackendDataNumberKeyList //Inspire",
             "Canny_Preprocessor_Provider_for_SEGS //Inspire",
             "ChangeImageBatchSize //Inspire",
+            "CheckpointLoaderSimpleShared //Inspire",
             "Color_Preprocessor_Provider_for_SEGS //Inspire",
             "ConcatConditioningsWithMultiplier //Inspire",
             "DWPreprocessor_Provider_for_SEGS //Inspire",
@@ -4345,7 +4369,8 @@
     ],
     "https://github.com/modusCell/ComfyUI-dimension-node-modusCell": [
         [
-            "DimensionProvider modusCell"
+            "DimensionProviderFree modusCell",
+            "DimensionProviderRatio modusCell"
         ],
         {
             "title_aux": "Preset Dimensions"
@@ -4370,11 +4395,14 @@
     "https://github.com/natto-maki/ComfyUI-NegiTools": [
         [
             "NegiTools_CompositeImages",
+            "NegiTools_DepthEstimationByMarigold",
             "NegiTools_ImageProperties",
             "NegiTools_LatentProperties",
             "NegiTools_NoiseImageGenerator",
             "NegiTools_OpenAiDalle3",
             "NegiTools_OpenAiTranslate",
+            "NegiTools_OpenPoseToPointList",
+            "NegiTools_PointListToMask",
             "NegiTools_SeedGenerator",
             "NegiTools_StringFunction"
         ],
@@ -5085,8 +5113,10 @@
     ],
     "https://github.com/theUpsider/ComfyUI-Logic": [
         [
+            "Bool",
             "Compare",
             "DebugPrint",
+            "Float",
             "If ANY execute A else B",
             "Int",
             "String"

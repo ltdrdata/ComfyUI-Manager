@@ -1,6 +1,55 @@
 {
     "custom_nodes": [
         {
+            "author": "#NOTICE_1.13",
+            "title": "NOTICE: This channel is not the default channel.",
+            "reference": "https://github.com/ltdrdata/ComfyUI-Manager",
+            "files": [],
+            "install_type": "git-clone",
+            "description": "If you see this message, your ComfyUI-Manager is outdated.\nRecent channel provides only the list of the latest nodes. If you want to find the complete node list, please go to the Default channel."
+        },
+
+        {
+            "author": "concarne000",
+            "title": "ConCarneNode",
+            "reference": "https://github.com/concarne000/ConCarneNode",
+            "files": [
+                "https://github.com/concarne000/ConCarneNode"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Bing Image Grabber node for ComfyUI."
+        },
+        {
+            "author": "Haoming02",
+            "title": "ComfyUI Menu Anchor",
+            "reference": "https://github.com/Haoming02/comfyui-menu-anchor",
+            "files": [
+                "https://github.com/Haoming02/comfyui-menu-anchor"
+            ],
+            "install_type": "git-clone",
+            "description": "This is an Extension for ComfyUI, which moves the menu to the specified corner on startup."
+        },
+        {
+            "author": "glifxyz",
+            "title": "ComfyUI-GlifNodes",
+            "reference": "https://github.com/glifxyz/ComfyUI-GlifNodes",
+            "files": [
+                "https://github.com/glifxyz/ComfyUI-GlifNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Consistency VAE Decoder."
+        },
+        {
+            "author": "kijai",
+            "title": "Marigold depth estimation in ComfyUI",
+            "reference": "https://github.com/kijai/ComfyUI-Marigold",
+            "files": [
+                "https://github.com/kijai/ComfyUI-Marigold"
+            ],
+            "install_type": "git-clone",
+            "description": "This is a wrapper node for Marigold depth estimation: [https://github.com/prs-eth/Marigold](https://github.com/kijai/ComfyUI-Marigold). Currently using the same diffusers pipeline as in the original implementation, so in addition to the custom node, you need the model in diffusers format.\nNOTE: See details in repo to install."
+        },
+        {
             "author": "spacepxl",
             "title": "ComfyUI-Image-Filters",
             "reference": "https://github.com/spacepxl/ComfyUI-Image-Filters",
@@ -179,7 +228,7 @@
                 "https://github.com/thecooltechguy/ComfyUI-MagicAnimate"
             ],
             "install_type": "git-clone",
-            "description": "Easily use Magic Animate within ComfyUI!"
+            "description": "Easily use Magic Animate within ComfyUI!\n[w/WARN: This extension requires 110GB+ disk space.]"
         },
         {
             "author": "knuknX",
@@ -681,87 +730,6 @@
             ],
             "install_type": "git-clone",
             "description": "This extension simply connects the nodes and specifies the output path of the generated images to a manageable path."
-        },
-        {
-            "author": "amorano",
-            "title": "Jovimetrix Composition Nodes",
-            "reference": "https://github.com/Amorano/Jovimetrix",
-            "files": [
-                "https://github.com/Amorano/Jovimetrix"
-            ],
-            "nodename_pattern": " \\(jov\\)$",
-            "install_type": "git-clone",
-            "description": "Compose like Substance Designer. Webcams, Media Streams (in/out), Tick animation, Color correction, Geometry manipulation, Pixel shader, Polygonal shape generator, Remap images gometry and color, Heavily inspired by WAS and MTB Node Suites"
-        },
-        {
-            "author": "romeobuilderotti",
-            "title": "ComfyUI PNG Metadata",
-            "reference": "https://github.com/romeobuilderotti/ComfyUI-PNG-Metadata",
-            "files": [
-                "https://github.com/romeobuilderotti/ComfyUI-PNG-Metadata"
-            ],
-            "install_type": "git-clone",
-            "description": "Add custom Metadata fields to your saved PNG files."
-        },
-        {
-            "author": "ka-puna",
-            "title": "comfyui-yanc",
-            "reference": "https://github.com/ka-puna/comfyui-yanc",
-            "files": [
-                "https://github.com/ka-puna/comfyui-yanc"
-            ],
-            "install_type": "git-clone",
-            "description": "NOTE: Concatenate Strings, Format Datetime String, Integer Caster, Multiline String, Truncate String. Yet Another Node Collection, a repository of simple nodes for ComfyUI. This repository eases the addition or removal of custom nodes to itself."
-        },
-        {
-            "author": "TheBarret",
-            "title": "ZSuite",
-            "reference": "https://github.com/TheBarret/ZSuite",
-            "files": [
-                "https://github.com/TheBarret/ZSuite"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Prompter, RF Noise, SeedMod."
-        },
-        {
-            "author": "palant",
-            "title": "Extended Save Image for ComfyUI",
-            "reference": "https://github.com/palant/extended-saveimage-comfyui",
-            "files": [
-                "https://github.com/palant/extended-saveimage-comfyui"
-            ],
-            "install_type": "git-clone",
-            "description": "This custom node is largely identical to the usual Save Image but allows saving images also in JPEG and WEBP formats, the latter with both lossless and lossy compression. Metadata is embedded in the images as usual, and the resulting images can be used to load a workflow."
-        },
-        {
-            "author": "LonicaMewinsky",
-            "title": "ComfyBreakAnim",
-            "reference": "https://github.com/LonicaMewinsky/ComfyUI-MakeFrame",
-            "files": [
-                "https://github.com/LonicaMewinsky/ComfyUI-MakeFrame"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:BreakFrames, GetKeyFrames, MakeGrid."
-        },
-        {
-            "author": "gemell1",
-            "title": "ComfyUI_GMIC",
-            "reference": "https://github.com/gemell1/ComfyUI_GMIC",
-            "files": [
-                "https://github.com/gemell1/ComfyUI_GMIC"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:GMIC Image Processing."
-        },
-        {
-            "author": "peteromallet",
-            "title": "ComfyUI-Creative-Interpolation [Beta]",
-            "reference": "https://github.com/peteromallet/ComfyUI-Creative-Interpolation",
-            "files": [
-                "https://github.com/peteromallet/ComfyUI-Creative-Interpolation"
-            ],
-            "install_type": "git-clone",
-            "description": "This a ComfyUI node for batch creative interpolation. The goal is to allow you to input a batch of images, and to provide a range of simple settings to control how the images are interpolated between."
         }
     ]
 }

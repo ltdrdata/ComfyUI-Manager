@@ -20,8 +20,9 @@ import nodes
 import torch
 
 
-version = "V1.12.1"
-print(f"### Loading: ComfyUI-Manager ({version})")
+version = [1, 13, 2]
+version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
+print(f"### Loading: ComfyUI-Manager ({version_str})")
 
 
 required_comfyui_revision = 1793
@@ -782,6 +783,21 @@ async def fetch_customnode_list(request):
         channel = get_config()['channel_url']
 
     json_obj = await get_data_by_mode(request.rel_url.query["mode"], 'custom-node-list.json')
+
+    def is_ignored_notice(code):
+        global version
+
+        if code is not None and code.startswith('#NOTICE_'):
+            try:
+                notice_version = [int(x) for x in code[8:].split('.')]
+                return notice_version[0] < version[0] or (notice_version[0] == version[0] and notice_version[1] <= version[1])
+            except Exception:
+                return False
+        else:
+            False
+
+
+    json_obj['custom_nodes'] = [record for record in json_obj['custom_nodes'] if not is_ignored_notice(record.get('author'))]
 
     check_custom_nodes_installed(json_obj, False, not skip_update)
 
@@ -1609,7 +1625,7 @@ async def get_notice(request):
                 markdown_content = match.group(1)
                 markdown_content += f"<HR>ComfyUI: {comfy_ui_revision}[{comfy_ui_hash[:6]}]({comfy_ui_commit_date})"
                 # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
-                markdown_content += f"<BR>Manager: {version}"
+                markdown_content += f"<BR>Manager: {version_str}"
 
                 try:
                     if required_comfyui_revision > int(comfy_ui_revision):
