@@ -3644,6 +3644,16 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
+        },
+        {
+            "author": "Aegis72",
+            "title": "AegisFlow Utility Nodes",
+            "reference": "https://github.com/aegis72/aegisflow_utility_nodes",
+            "files": [
+                "https://github.com/aegis72/aegisflow_utility_nodes/tree/main"
+            ],
+            "install_type": "git-clone",
+            "description": "These nodes will be placed in comfyui/custom_nodes/aegisflow and contains the image passer (accepts an image as either wired or wirelessly, input and passes it through. Latent passer does the same for latents, and the Preprocessor chooser allows a passthrough image and 10 controlnets to be passed in AegisFlow Shima. The inputs on the Preprocessor  chooser should not be renamed if you intend to accept image inputs wirelessly through UE nodes. It can be done, but the send node input regex for each controlnet preprocessor column must also be changed."
         }
     ]
 }
