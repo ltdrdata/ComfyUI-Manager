@@ -17,7 +17,7 @@
 To install ComfyUI-Manager in addition to an existing installation of ComfyUI, you can follow the following steps:
 
 1. cd custom_nodes
-2. git clone https://github.com/ltdrdata/ComfyUI-Manager.git
+2. `git clone https://github.com/ltdrdata/ComfyUI-Manager.git`
 3. Restart ComfyUI
 
 
@@ -43,7 +43,8 @@ prerequisite: python-is-python3, python3-venv
 3. `./install-comfyui-venv-linux.sh`
 
 ### Installation Precautions
-* **DO**: `ComfyUI-Manager` must be accurately located in the path `ComfyUI/custom_nodes/ComfyUI-Manager`
+* **DO**: `ComfyUI-Manager` files must be accurately located in the path `ComfyUI/custom_nodes/ComfyUI-Manager`
+  * Installing in a compressed file format is not recommended.
 * **DON'T**: Decompress directly into the `ComfyUI/custom_nodes` location, resulting in the Manager contents like `__init__.py` being placed directly in that directory.
   * You have to remove all ComfyUI-Manager files from `ComfyUI/custom_nodes`
 * **DON'T**: In a form where decompression occurs in a path such as `ComfyUI/custom_nodes/ComfyUI-Manager/ComfyUI-Manager`.
