@@ -48,7 +48,7 @@ docStyle.innerHTML = `
 #cm-channel-badge {
 	color: white;
 	background-color: #AA0000;
-	width: 150px;
+	width: 220px;
 	height: 23px;
 	font-size: 13px;
 	border-radius: 5px;

@@ -575,9 +575,11 @@ export class CustomNodesInstaller extends ComfyDialog {
 					}
 				});
 
-				data5.appendChild(installBtn);
+				if(!data.author.startsWith('#NOTICE')){
+					data5.appendChild(installBtn);
+				}
 
-				if(data.installed == 'Fail')
+				if(data.installed == 'Fail' || data.author.startsWith('#NOTICE'))
 					dataRow.style.backgroundColor = "#880000";
 				else
 					dataRow.style.backgroundColor = "var(--bg-color)";
@@ -702,7 +704,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 
 		let channel_badge = '';
 		if(this.channel != 'default') {
-			channel_badge = $el('span', {id:'cm-channel-badge'}, [`Channel: ${this.channel}`]);
+			channel_badge = $el('span', {id:'cm-channel-badge'}, [`Channel: ${this.channel} (Incomplete list)`]);
 		}
 		else {
 

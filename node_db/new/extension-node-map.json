@@ -2608,6 +2608,7 @@
             "FromListGet1Image",
             "FromListGet1Int",
             "FromListGet1Latent",
+            "FromListGet1Mask",
             "FromListGet1Model",
             "FromListGet1String",
             "FromListGetColors",
@@ -2616,6 +2617,7 @@
             "FromListGetImages",
             "FromListGetInts",
             "FromListGetLatents",
+            "FromListGetMasks",
             "FromListGetModels",
             "FromListGetStrings",
             "Get Contour from list",
@@ -2659,6 +2661,7 @@
             "ToImageList",
             "ToIntList",
             "ToLatentList",
+            "ToMaskList",
             "ToModelList",
             "ToStringList",
             "UnGridify (image)",
@@ -2717,7 +2720,8 @@
     ],
     "https://github.com/bruefire/ComfyUI-SeqImageLoader": [
         [
-            "VFrame Loader With Mask Editor"
+            "VFrame Loader With Mask Editor",
+            "Video Loader With Mask Editor"
         ],
         {
             "title_aux": "ComfyUI Sequential Image Loader"
@@ -3406,6 +3410,14 @@
             "title_aux": "Save Image with Generation Metadata"
         }
     ],
+    "https://github.com/glifxyz/ComfyUI-GlifNodes": [
+        [
+            "GlifConsistencyVAE"
+        ],
+        {
+            "title_aux": "ComfyUI-GlifNodes"
+        }
+    ],
     "https://github.com/guoyk93/yk-node-suite-comfyui": [
         [
             "YKImagePadForOutpaint",
@@ -3487,10 +3499,12 @@
     "https://github.com/idrirap/ComfyUI-Lora-Auto-Trigger-Words": [
         [
             "FusionText",
+            "LoraListNames",
             "LoraLoaderAdvanced",
             "LoraLoaderStackedAdvanced",
             "LoraLoaderStackedVanilla",
             "LoraLoaderVanilla",
+            "LoraTagsOnly",
             "Randomizer",
             "TagsFormater",
             "TagsSelector",
@@ -3759,6 +3773,14 @@
         ],
         {
             "title_aux": "KJNodes for ComfyUI"
+        }
+    ],
+    "https://github.com/kijai/ComfyUI-Marigold": [
+        [
+            "MarigoldDepthEstimation"
+        ],
+        {
+            "title_aux": "Marigold depth estimation in ComfyUI"
         }
     ],
     "https://github.com/kijai/ComfyUI-SVD": [
@@ -4345,7 +4367,8 @@
     ],
     "https://github.com/modusCell/ComfyUI-dimension-node-modusCell": [
         [
-            "DimensionProvider modusCell"
+            "DimensionProviderFree modusCell",
+            "DimensionProviderRatio modusCell"
         ],
         {
             "title_aux": "Preset Dimensions"
@@ -5085,8 +5108,10 @@
     ],
     "https://github.com/theUpsider/ComfyUI-Logic": [
         [
+            "Bool",
             "Compare",
             "DebugPrint",
+            "Float",
             "If ANY execute A else B",
             "Int",
             "String"
