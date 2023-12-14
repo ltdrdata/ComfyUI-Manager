@@ -20,7 +20,7 @@ import nodes
 import torch
 
 
-version = [1, 13, 3]
+version = [1, 13, 4]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -306,7 +306,7 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
     if 'detected dubious' in output:
         try:
             # fix and try again
-            print(f"[ComfyUI-Manager] Try fixing 'Dubious' error on '{path}'")
+            print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on '{path}' repo")
             process = subprocess.Popen(['git', 'config', '--global', '--add', 'safe.directory', path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             output, _ = process.communicate()
             output = output.decode('utf-8').strip()
@@ -1472,7 +1472,14 @@ async def update_comfyui(request):
 
         remote_name = 'origin'
         remote = repo.remote(name=remote_name)
-        remote.fetch()
+
+        try:
+            remote.fetch()
+        except Exception as e:
+            if 'detected dubious' in e:
+                print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
+                subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', comfy_path])
+                remote.fetch()
 
         commit_hash = repo.head.commit.hexsha
         remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
