@@ -20,7 +20,7 @@ import nodes
 import torch
 
 
-version = [1, 13, 5]
+version = [1, 13, 6]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -315,6 +315,12 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
             output = output.decode('utf-8').strip()
         except Exception as e:
             print(f'[ComfyUI-Manager] failed to fixing')
+
+        if 'detected dubious' in output:
+            print(f'\n[ComfyUI-Manager] Failed to fixing repository setup. Please execute this command on cmd: \n'
+                  f'-----------------------------------------------------------------------------------------\n'
+                  f'git config --global --add safe.directory "{path}"\n'
+                  f'-----------------------------------------------------------------------------------------\n')
 
     if do_update:
         if "CUSTOM NODE PULL: True" in output:
@@ -1482,7 +1488,13 @@ async def update_comfyui(request):
             if 'detected dubious' in e:
                 print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
                 subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', comfy_path])
-                remote.fetch()
+                try:
+                    remote.fetch()
+                except Exception:
+                    print(f"\n[ComfyUI-Manager] Failed to fixing repository setup. Please execute this command on cmd: \n"
+                          f"-----------------------------------------------------------------------------------------\n"
+                          f'git config --global --add safe.directory "{comfy_path}"\n'
+                          f"-----------------------------------------------------------------------------------------\n")
 
         commit_hash = repo.head.commit.hexsha
         remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha

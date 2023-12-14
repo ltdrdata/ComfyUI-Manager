@@ -32,6 +32,8 @@ startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
 restore_snapshot_path = os.path.join(startup_script_path, "restore-snapshot.json")
 git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
 
+std_log_lock = threading.Lock()
+
 
 class TerminalHook:
     def __init__(self):
@@ -184,25 +186,27 @@ try:
                 log_file.write(message)
                 log_file.flush()
 
-            if self.is_stdout:
-                original_stdout.write(message)
-                original_stdout.flush()
-                terminal_hook.write_stderr(message)
-            else:
-                original_stderr.write(message)
-                original_stderr.flush()
-                terminal_hook.write_stdout(message)
+            with std_log_lock:
+                if self.is_stdout:
+                    original_stdout.write(message)
+                    original_stdout.flush()
+                    terminal_hook.write_stderr(message)
+                else:
+                    original_stderr.write(message)
+                    original_stderr.flush()
+                    terminal_hook.write_stdout(message)
 
         def flush(self):
             log_file.flush()
-            if self.is_stdout:
-                original_stdout.flush()
-            else:
-                original_stderr.flush()
+
+            with std_log_lock:
+                if self.is_stdout:
+                    original_stdout.flush()
+                else:
+                    original_stderr.flush()
 
         def close(self):
             self.flush()
-            pass
 
         def reconfigure(self, *args, **kwargs):
             pass
