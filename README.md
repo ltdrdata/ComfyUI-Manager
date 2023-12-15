@@ -241,6 +241,10 @@ NODE_CLASS_MAPPINGS.update({
 - [ ] List of currently used custom nodes.
 - [ ] Template sharing system.
 - [ ] 3rd party API system.
+- [ ] Download support multiple model download.
+- [ ] Model download via url.
+- [ ] List sorting.
+- [ ] Provides description of node.
 
 
 # Disclaimer
