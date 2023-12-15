@@ -20,7 +20,7 @@ import nodes
 import torch
 
 
-version = [1, 13, 6]
+version = [1, 13, 7]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -756,7 +756,7 @@ def convert_markdown_to_html(input_text):
     pattern_white = re.compile(r'%%([^*]+)%%')
 
     def replace_a(match):
-        return f"<a href='{match.group(2)}'>{match.group(1)}</a>"
+        return f"<a href='{match.group(2)}' target='blank'>{match.group(1)}</a>"
 
     def replace_w(match):
         return f"<p class='cm-warn-note'>{match.group(1)}</p>"
@@ -784,6 +784,9 @@ def convert_markdown_to_html(input_text):
 def populate_markdown(x):
     if 'description' in x:
         x['description'] = convert_markdown_to_html(x['description'])
+
+    if 'name' in x:
+        x['name'] = x['name'].replace('<', '&lt;').replace('>', '&gt;')
 
     if 'title' in x:
         x['title'] = x['title'].replace('<', '&lt;').replace('>', '&gt;')
@@ -890,6 +893,9 @@ async def fetch_externalmodel_list(request):
     json_obj = await get_data_by_mode(request.rel_url.query["mode"], 'model-list.json')
 
     check_model_installed(json_obj)
+
+    for x in json_obj['models']:
+        populate_markdown(x)
 
     return web.json_response(json_obj, content_type='application/json')
 
