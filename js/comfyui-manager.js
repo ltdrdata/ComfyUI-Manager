@@ -13,7 +13,7 @@ var docStyle = document.createElement('style');
 docStyle.innerHTML = `
 #cm-manager-dialog {
 	width: 1000px;
-	height: 410px;
+	height: 420px;
 	box-sizing: content-box;
 	z-index: 10000;
 }
@@ -119,6 +119,7 @@ const style = `
 	padding: 0px !important;
 	position: relative;
 	overflow: hidden;
+	font-size: 17px !important;
 }
 #cm-nodeinfo-button {
 	width: 310px;
@@ -126,6 +127,7 @@ const style = `
 	padding: 0px !important;
 	position: relative;
 	overflow: hidden;
+	font-size: 17px !important;
 }
 #cm-manual-button {
 	width: 310px;
@@ -142,8 +144,54 @@ const style = `
 	font-size: 17px !important;
 }
 
+.cm-experimental-button {
+	width: 290px;
+	height: 30px;
+	position: relative;
+	overflow: hidden;
+	font-size: 17px !important;
+}
+
+.cm-experimental {
+	width: 310px;
+	border: 1px solid #555;
+	border-radius: 5px;
+	padding: 10px;
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	box-sizing: border-box;
+}
+
+.cm-experimental-legend {
+	margin-top: -20px;
+	margin-left: 95px;
+	width:100px;
+	height:20px;
+	font-size: 13px;
+	font-weight: bold;
+	background-color: #990000;
+	color: #CCFFFF;
+	border-radius: 5px;
+}
+
+.cm-menu-combo {
+	cursor: pointer;
+	width: 310px;
+	box-sizing: border-box;
+}
+
 .cm-small-button {
 	width: 120px;
+	height: 30px;
+	position: relative;
+	overflow: hidden;
+	box-sizing: border-box;
+	font-size: 17px !important;
+}
+
+#cm-install-customnodes-button {
+	width: 200px;
 	height: 30px;
 	position: relative;
 	overflow: hidden;
@@ -394,7 +442,20 @@ async function fetchUpdates(update_check_checkbox) {
 		}
 
 		if (response.status == 201) {
-			app.ui.dialog.show('There is an updated extension available.<BR><BR><P><B>NOTE:<BR>Fetch Updates is not an update.<BR>Please update from "Install Custom Nodes".</B></P>');
+			app.ui.dialog.show("There is an updated extension available.<BR><BR><P><B>NOTE:<BR>Fetch Updates is not an update.<BR>Please update from <button id='cm-install-customnodes-button'>Install Custom Nodes</button> </B></P>");
+
+			const button = document.getElementById('cm-install-customnodes-button');
+			button.addEventListener("click",
+				async function() {
+					app.ui.dialog.close();
+
+					if(!CustomNodesInstaller.instance)
+						CustomNodesInstaller.instance = new CustomNodesInstaller(app, self);
+
+					await CustomNodesInstaller.instance.show(CustomNodesInstaller.ShowMode.UPDATE);
+				}
+			);
+
 			app.ui.dialog.element.style.zIndex = 10010;
 			update_check_checkbox.checked = false;
 		}
@@ -531,7 +592,7 @@ class ManagerMenuDialog extends ComfyDialog {
 						() => {
 							if(!CustomNodesInstaller.instance)
 								CustomNodesInstaller.instance = new CustomNodesInstaller(app, self);
-							CustomNodesInstaller.instance.show(false);
+							CustomNodesInstaller.instance.show(CustomNodesInstaller.ShowMode.NORMAL);
 						}
 				}),
 
@@ -542,7 +603,7 @@ class ManagerMenuDialog extends ComfyDialog {
 						() => {
 							if(!CustomNodesInstaller.instance)
 								CustomNodesInstaller.instance = new CustomNodesInstaller(app, self);
-							CustomNodesInstaller.instance.show(true);
+							CustomNodesInstaller.instance.show(CustomNodesInstaller.ShowMode.MISSING_NODES);
 						}
 				}),
 
@@ -589,14 +650,14 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// db mode
 		this.datasrc_combo = document.createElement("select");
-		this.datasrc_combo.style.cursor = "pointer";
+		this.datasrc_combo.className = "cm-menu-combo";
 		this.datasrc_combo.appendChild($el('option', { value: 'cache', text: 'DB: Channel (1day cache)' }, []));
 		this.datasrc_combo.appendChild($el('option', { value: 'local', text: 'DB: Local' }, []));
 		this.datasrc_combo.appendChild($el('option', { value: 'url', text: 'DB: Channel (remote)' }, []));
 
 		// preview method
 		let preview_combo = document.createElement("select");
-		preview_combo.style.cursor = "pointer";
+		preview_combo.className = "cm-menu-combo";
 		preview_combo.appendChild($el('option', { value: 'auto', text: 'Preview method: Auto' }, []));
 		preview_combo.appendChild($el('option', { value: 'taesd', text: 'Preview method: TAESD (slow)' }, []));
 		preview_combo.appendChild($el('option', { value: 'latent2rgb', text: 'Preview method: Latent2RGB (fast)' }, []));
@@ -612,7 +673,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// nickname
 		let badge_combo = document.createElement("select");
-		badge_combo.style.cursor = "pointer";
+		badge_combo.className = "cm-menu-combo";
 		badge_combo.appendChild($el('option', { value: 'none', text: 'Badge: None' }, []));
 		badge_combo.appendChild($el('option', { value: 'nick', text: 'Badge: Nickname' }, []));
 		badge_combo.appendChild($el('option', { value: 'nick_hide', text: 'Badge: Nickname (hide built-in)' }, []));
@@ -631,7 +692,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// channel
 		let channel_combo = document.createElement("select");
-		channel_combo.style.cursor = "pointer";
+		channel_combo.className = "cm-menu-combo";
 		api.fetchApi('/manager/channel_url_list')
 			.then(response => response.json())
 			.then(async data => {
@@ -657,7 +718,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// share
 		let share_combo = document.createElement("select");
-		share_combo.style.cursor = "pointer";
+		share_combo.className = "cm-menu-combo";
 		const share_options = [
 			['none', 'None'],
 			['openart', 'OpenArt AI'],
@@ -696,20 +757,7 @@ class ManagerMenuDialog extends ComfyDialog {
 			badge_combo,
 			channel_combo,
 			share_combo,
-
-			$el("hr", {}, []),
-			$el("center", {}, ["!! EXPERIMENTAL !!"]),
 			$el("br", {}, []),
-			$el("button.cm-button", {
-				type: "button",
-				textContent: "Snapshot Manager",
-				onclick:
-					() => {
-						if(!SnapshotManager.instance)
-						SnapshotManager.instance = new SnapshotManager(app, self);
-						SnapshotManager.instance.show();
-					}
-			}),
 			$el("button.cm-button", {
 				type: "button",
 				textContent: "Install via Git URL",
@@ -721,6 +769,21 @@ class ManagerMenuDialog extends ComfyDialog {
 					}
 				}
 			}),
+
+			$el("br", {}, []),
+			$el("filedset.cm-experimental", {}, [
+					$el("legend.cm-experimental-legend", {}, ["EXPERIMENTAL"]),
+					$el("button.cm-experimental-button", {
+						type: "button",
+						textContent: "Snapshot Manager",
+						onclick:
+							() => {
+								if(!SnapshotManager.instance)
+								SnapshotManager.instance = new SnapshotManager(app, self);
+								SnapshotManager.instance.show();
+							}
+					})
+				]),
 		];
 	}
 

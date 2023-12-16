@@ -3,6 +3,7 @@ import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
 import { install_checked_custom_node, manager_instance, rebootAPI } from  "./common.js";
 
+
 async function getCustomNodes() {
 	var mode = manager_instance.datasrc_combo.value;
 
@@ -90,6 +91,12 @@ export class CustomNodesInstaller extends ComfyDialog {
 	install_buttons = [];
 	message_box = null;
 	data = null;
+
+	static ShowMode = {
+	  NORMAL: 0,
+	  MISSING_NODES: 1,
+	  UPDATE: 2,
+	};
 
 	clear() {
 		this.install_buttons = [];
@@ -235,7 +242,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 
 		this.conflict_mappings = await getConflictMappings();
 
-		if(this.is_missing_node_mode)
+		if(this.show_mode == CustomNodesInstaller.ShowMode.MISSING_NODES)
 			this.data = await this.filter_missing_node(this.data);
 
 		this.element.removeChild(msg);
@@ -661,6 +668,13 @@ export class CustomNodesInstaller extends ComfyDialog {
 			combo.appendChild(option);
 		});
 
+		if(this.show_mode == CustomNodesInstaller.ShowMode.UPDATE) {
+			this.filter = 'Update';
+		}
+		else if(this.show_mode == CustomNodesInstaller.ShowMode.MISSING_NODES) {
+			this.filter = '*';
+		}
+
 		let self = this;
 		combo.addEventListener('change', function(event) {
 			self.filter = event.target.value;
@@ -736,8 +750,13 @@ export class CustomNodesInstaller extends ComfyDialog {
 		this.element.appendChild(close_button);
 	}
 
-	async show(is_missing_node_mode) {
-		this.is_missing_node_mode = is_missing_node_mode;
+	async show(show_mode) {
+		this.show_mode = show_mode;
+
+		if(this.show_mode != CustomNodesInstaller.ShowMode.NORMAL) {
+			this.search_keyword = '';
+		}
+
 		try {
 			this.invalidateControl();
 
