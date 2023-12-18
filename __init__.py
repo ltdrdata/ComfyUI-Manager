@@ -20,7 +20,7 @@ import nodes
 import torch
 
 
-version = [1, 14]
+version = [1, 15]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -115,15 +115,42 @@ startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
 config_path = os.path.join(os.path.dirname(__file__), "config.ini")
 cached_config = None
 
-
-default_channels = 'default::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main,recent::https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/node_db/new,'
-with open(os.path.join(comfyui_manager_path, 'channels.list'), 'r') as file:
-    channels = file.read()
-    default_channels = channels.replace('\n', ',')
-
+channel_list_path = os.path.join(comfyui_manager_path, 'channels.list')
+channel_dict = None
+channel_list = None
 
 from comfy.cli_args import args
 import latent_preview
+
+
+def get_channel_dict():
+    global channel_dict
+
+    if channel_dict is None:
+        channel_dict = {}
+
+        if not os.path.exists(channel_list_path):
+            shutil.copy(channel_list_path+'.template', channel_list_path)
+
+        with open(os.path.join(comfyui_manager_path, 'channels.list'), 'r') as file:
+            channels = file.read()
+            for x in channels.split('\n'):
+                channel_info = x.split("::")
+                if len(channel_info) == 2:
+                    channel_dict[channel_info[0]] = channel_info[1]
+
+    return channel_dict
+
+
+def get_channel_list():
+    global channel_list
+
+    if channel_list is None:
+        channel_list = []
+        for k, v in get_channel_dict().items():
+            channel_list.append(f"{k}::{v}")
+
+    return channel_list
 
 
 def write_config():
@@ -133,7 +160,6 @@ def write_config():
         'badge_mode': get_config()['badge_mode'],
         'git_exe':  get_config()['git_exe'],
         'channel_url': get_config()['channel_url'],
-        'channel_url_list': get_config()['channel_url_list'],
         'share_option': get_config()['share_option'],
         'bypass_ssl': get_config()['bypass_ssl']
     }
@@ -147,25 +173,11 @@ def read_config():
         config.read(config_path)
         default_conf = config['default']
 
-        channel_url_list_is_valid = True
-        if 'channel_url_list' in default_conf and default_conf['channel_url_list'] != '':
-            for item in default_conf['channel_url_list'].split(","):
-                if len(item.split("::")) != 2:
-                    channel_url_list_is_valid = False
-                    break
-
-        if channel_url_list_is_valid:
-            ch_url_list = default_conf['channel_url_list']
-        else:
-            print(f"[WARN] ComfyUI-Manager: channel_url_list is invalid format")
-            ch_url_list = ''
-
         return {
                     'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else get_current_preview_method(),
                     'badge_mode': default_conf['badge_mode'] if 'badge_mode' in default_conf else 'none',
                     'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
-                    'channel_url_list': ch_url_list,
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
                     'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else False,
                }
@@ -176,7 +188,6 @@ def read_config():
             'badge_mode': 'none',
             'git_exe': '',
             'channel_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
-            'channel_url_list': '',
             'share_option': 'all',
             'bypass_ssl': False
         }
@@ -827,14 +838,12 @@ async def fetch_customnode_list(request):
         populate_markdown(x)
 
     if channel != 'local':
-        channels = default_channels+","+get_config()['channel_url_list']
-        channels = channels.split(',')
-
         found = 'custom'
-        for item in channels:
-            item_info = item.split('::')
-            if len(item_info) == 2 and item_info[1] == channel:
-                found = item_info[0]
+
+        for name, url in get_channel_dict().items():
+            if url == channel:
+                found = name
+                break
 
         channel = found
 
@@ -1617,26 +1626,23 @@ async def badge_mode(request):
 
 @server.PromptServer.instance.routes.get("/manager/channel_url_list")
 async def channel_url_list(request):
-    channels = default_channels+","+get_config()['channel_url_list']
-    channels = channels.split(',')
-
+    channels = get_channel_dict()
     if "value" in request.rel_url.query:
-        for item in channels:
-            name_url = item.split("::")
-            if len(name_url) == 2 and name_url[0] == request.rel_url.query['value']:
-                get_config()['channel_url'] = name_url[1]
-                write_config()
-                break
+        channel_url = channels.get(request.rel_url.query['value'])
+        if channel_url is not None:
+            get_config()['channel_url'] = channel_url
+            write_config()
     else:
         selected = 'custom'
         selected_url = get_config()['channel_url']
-        for item in channels:
-            item_info = item.split('::')
-            if len(item_info) == 2 and item_info[1] == selected_url:
-                selected = item_info[0]
+
+        for name, url in channels.items():
+            if url == selected_url:
+                selected = name
+                break
 
         res = {'selected': selected,
-               'list': channels}
+               'list': get_channel_list()}
         return web.json_response(res, status=200)
 
     return web.Response(status=200)
@@ -1950,14 +1956,14 @@ async def share_art(request):
         except:
             import traceback
             traceback.print_exc()
-            return web.json_response({"error" : "An error occurred when sharing your art to Matrix."}, content_type='application/json', status=500)
+            return web.json_response({"error": "An error occurred when sharing your art to Matrix."}, content_type='application/json', status=500)
     
     return web.json_response({
-        "comfyworkflows" : {
-            "url" : None if "comfyworkflows" not in share_destinations else f"{share_website_host}/workflows/{workflowId}",
+        "comfyworkflows": {
+            "url": None if "comfyworkflows" not in share_destinations else f"{share_website_host}/workflows/{workflowId}",
         },
-        "matrix" : {
-            "success" : None if "matrix" not in share_destinations else True
+        "matrix": {
+            "success": None if "matrix" not in share_destinations else True
         }
     }, content_type='application/json', status=200)
 

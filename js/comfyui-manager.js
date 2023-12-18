@@ -753,9 +753,9 @@ class ManagerMenuDialog extends ComfyDialog {
 			$el("div", {}, [this.update_check_checkbox, uc_checkbox_text]),
 			$el("br", {}, []),
 			this.datasrc_combo,
+			channel_combo,
 			preview_combo,
 			badge_combo,
-			channel_combo,
 			share_combo,
 			$el("br", {}, []),
 			$el("button.cm-button", {
