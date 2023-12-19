@@ -511,6 +511,26 @@
       "url": "https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors"
     },
     {
+      "name": "Segmind-Vega",
+      "type": "checkpoint",
+      "base": "segmind-vega",
+      "save_path": "checkpoints/segmind-vega",
+      "description": "The Segmind-Vega Model is a distilled version of the Stable Diffusion XL (SDXL), offering a remarkable 70% reduction in size and an impressive 100% speedup while retaining high-quality text-to-image generation capabilities.",
+      "reference": "https://huggingface.co/segmind/Segmind-Vega",
+      "filename": "segmind-vega.safetensors",
+      "url": "https://huggingface.co/segmind/Segmind-Vega/resolve/main/segmind-vega.safetensors"
+    },
+    {
+      "name": "Segmind-VegaRT - Latent Consistency Model (LCM) LoRA of Segmind-Vega",
+      "type": "lora",
+      "base": "segmind-vega",
+      "save_path": "loras/segmind-vega",
+      "description": "Segmind-VegaRT a distilled consistency adapter for Segmind-Vega that allows to reduce the number of inference steps to only between 2 - 8 steps.",
+      "reference": "https://huggingface.co/segmind/Segmind-VegaRT",
+      "filename": "pytorch_lora_weights.safetensors",
+      "url": "https://huggingface.co/segmind/Segmind-VegaRT/resolve/main/pytorch_lora_weights.safetensors"
+    },
+    {
       "name": "Theovercomer8's Contrast Fix (SD2.1)",
       "type": "lora",
       "base": "SD2.1",
