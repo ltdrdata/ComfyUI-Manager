@@ -78,7 +78,7 @@ def scan_in_file(filename, is_builtin=False):
     for line in lines:
         if line.startswith('@'):
             if line.startswith("@author:") or line.startswith("@title:") or line.startswith("@nickname:") or line.startswith("@description:"):
-                key, value = line[1:].strip().split(':')
+                key, value = line[1:].strip().split(':', 1)
                 metadata[key.strip()] = value.strip()
 
     if is_builtin:
