@@ -236,6 +236,7 @@
     "https://github.com/BennyKok/comfyui-deploy": [
         [
             "ComfyUIDeployExternalImage",
+            "ComfyUIDeployExternalImageAlpha",
             "ComfyUIDeployExternalText"
         ],
         {
@@ -1617,6 +1618,7 @@
             "CR Draw Perspective Text",
             "CR Draw Text",
             "CR Encode Scheduled Prompts",
+            "CR Feathered Border",
             "CR Float To Integer",
             "CR Float To String",
             "CR Font File List",
@@ -1754,6 +1756,7 @@
             "CR VAE Input Switch",
             "CR Value",
             "CR Value Scheduler",
+            "CR Vignette Filter",
             "CR XY From Folder",
             "CR XY Grid",
             "CR XY Index",
@@ -2252,6 +2255,7 @@
             "Text Input Switch",
             "Text List",
             "Text List Concatenate",
+            "Text List to Text",
             "Text Load Line From File",
             "Text Multiline",
             "Text Parse A1111 Embeddings",
@@ -2355,6 +2359,8 @@
         [
             "ConcatText_Zho",
             "DisplayText_Zho",
+            "Gemini_API_Chat_Zho",
+            "Gemini_API_S_Chat_Zho",
             "Gemini_API_S_Vsion_ImgURL_Zho",
             "Gemini_API_S_Zho",
             "Gemini_API_Vsion_ImgURL_Zho",
@@ -2462,6 +2468,7 @@
             "Brightness & Contrast_Ally",
             "Gaussian Blur_Ally",
             "Image Flip_ally",
+            "Placeholder Tuple",
             "aegisflow Multi_Pass"
         ],
         {
@@ -2788,14 +2795,6 @@
             "title_aux": "comfyui_ab_sampler"
         }
     ],
-    "https://github.com/bmad4ever/comfyui_lists_cartesian_product": [
-        [
-            "AnyListCartesianProduct"
-        ],
-        {
-            "title_aux": "Lists Cartesian Product"
-        }
-    ],
     "https://github.com/bmad4ever/comfyui_bmad_nodes": [
         [
             "AdaptiveThresholding",
@@ -2834,6 +2833,15 @@
             "DistanceTransform",
             "Draw Contour(s)",
             "EqualizeHistogram",
+            "ExtendColorList",
+            "ExtendCondList",
+            "ExtendFloatList",
+            "ExtendImageList",
+            "ExtendIntList",
+            "ExtendLatentList",
+            "ExtendMaskList",
+            "ExtendModelList",
+            "ExtendStringList",
             "FadeMaskEdges",
             "Filter Contour",
             "FindComplementaryColor",
@@ -2910,6 +2918,14 @@
         ],
         {
             "title_aux": "Bmad Nodes"
+        }
+    ],
+    "https://github.com/bmad4ever/comfyui_lists_cartesian_product": [
+        [
+            "AnyListCartesianProduct"
+        ],
+        {
+            "title_aux": "Lists Cartesian Product"
         }
     ],
     "https://github.com/bradsec/ComfyUI_ResolutionSelector": [
@@ -3899,6 +3915,7 @@
             "GenerateAudioSample",
             "GenerateAudioWave",
             "GetAudioFromFolderIndex",
+            "GetInteger",
             "GetSingle",
             "GetStringByIndex",
             "HighShelfFilter",
@@ -4283,7 +4300,10 @@
         [
             "Base64ToImage",
             "ImageToBase64",
+            "ImageToBase64Advanced",
             "LoadImageToBase64",
+            "MaskImageToBase64",
+            "MaskToBase64Image",
             "SamAutoMaskSEGS"
         ],
         {
@@ -5218,7 +5238,12 @@
             "FloatToText",
             "GridFloatList",
             "GridFloats",
+            "GridIntList",
+            "GridInts",
+            "GridStringList",
+            "GridStrings",
             "ImageGridCommander",
+            "IntToText",
             "SaveImageGrid",
             "TextConcatenator"
         ],
