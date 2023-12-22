@@ -854,31 +854,30 @@ class ManagerMenuDialog extends ComfyDialog {
 									{
 										title: "Share your art",
 										callback: () => {
-											this.close();
-											if (!ShareDialog.instance) {
-												ShareDialog.instance = new ShareDialog();
-											}
-
-											app.graphToPrompt().then(prompt => {
-												// console.log({ prompt })
-												return app.graph._nodes;
-											}).then(nodes => {
-												// console.log({ nodes });
-												const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
-
-												if (potential_outputs.length === 0) {
-													if (potential_output_nodes.length === 0) {
-														// todo: add support for other output node types (animatediff combine, etc.)
-														const supported_nodes_string = SUPPORTED_OUTPUT_NODE_TYPES.join(", ");
-														alert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
-													} else {
-														alert("To share this, first run a prompt. Once it's done, click 'Share'.");
+													if (share_option === 'openart') {
+														showOpenArtShareDialog();
+														return;
+													} else if (share_option === 'matrix' || share_option === 'comfyworkflows') {
+														showShareDialog(share_option);
+														return;
 													}
-													return;
-												}
 
-												ShareDialog.instance.show({ potential_outputs, potential_output_nodes });
-											});
+													if(!ShareDialogChooser.instance) {
+														ShareDialogChooser.instance = new ShareDialogChooser();
+													}
+													ShareDialogChooser.instance.show();
+										},
+									},
+									{
+										title: "Open 'openart.ai'",
+										callback: () => {
+											window.open("https://openart.ai/workflows/dev", "comfyui-workflow-gallery");
+										},
+									},
+									{
+										title: "Open 'comfyworkflows.com'",
+										callback: () => {
+											window.open("https://comfyworkflows.com/", "comfyui-workflow-gallery");
 										},
 									},
 									{

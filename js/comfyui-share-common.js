@@ -387,6 +387,7 @@ export class ShareDialogChooser extends ComfyDialog {
 	}
 	show() {
 		this.element.style.display = "block";
+		this.element.style.zIndex = 10001;
 	}
 }
 export class ShareDialog extends ComfyDialog {
