@@ -26,17 +26,17 @@
       "type": "controlnet",
       "base": "SD1.x",
       "save_path": "controlnet/SD1.5/animatediff",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "description": "AnimateDiff SparseCtrl RGB ControlNet model",
       "reference": "https://huggingface.co/guoyww/animatediff",
       "filename": "v3_sd15_sparsectrl_rgb.ckpt",
       "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_sparsectrl_rgb.ckpt"
     },
     {
-      "name": "animatediff/v3_sd15_sparsectrl_scribble.ckpt (ComfyUI-AnimateDiff-Evolved)",
+      "name": "animatediff/v3_sd15_sparsectrl_scribble.ckpt",
       "type": "controlnet",
       "base": "SD1.x",
       "save_path": "controlnet/SD1.5/animatediff",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "description": "AnimateDiff SparseCtrl Scribble ControlNet model",
       "reference": "https://huggingface.co/guoyww/animatediff",
       "filename": "v3_sd15_sparsectrl_scribble.ckpt",
       "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_sparsectrl_scribble.ckpt"
@@ -52,11 +52,11 @@
       "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_mm.ckpt"
     },
     {
-      "name": "animatediff/v3_sd15_adapter.ckpt (ComfyUI-AnimateDiff-Evolved)",
-      "type": "animatediff",
+      "name": "animatediff/v3_sd15_adapter.ckpt",
+      "type": "lora",
       "base": "SD1.x",
-      "save_path": "custom_nodes/ComfyUI-AnimateDiff-Evolved/models",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
+      "save_path": "loras/SD1.5/animatediff",
+      "description": "AnimateDiff Adapter LoRA (SD1.5)",
       "reference": "https://huggingface.co/guoyww/animatediff",
       "filename": "v3_sd15_adapter.ckpt",
       "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_adapter.ckpt"
