@@ -20,7 +20,7 @@ import nodes
 import torch
 
 
-version = [1, 15, 1]
+version = [1, 16]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -1966,6 +1966,49 @@ async def share_art(request):
             "success": None if "matrix" not in share_destinations else True
         }
     }, content_type='application/json', status=200)
+
+
+
+def register_api(k, f):
+    sys.CM_api[k] = f
+
+
+def sanitize(data):
+    return data.replace("<", "&lt;").replace(">", "&gt;")
+
+
+def lookup_customnode_by_url(data, target):
+    for x in data['custom_nodes']:
+        if target in x['files']:
+            dir_name = os.path.splitext(os.path.basename(target))[0].replace(".git", "")
+            dir_path = os.path.join(custom_nodes_path, dir_name)
+            if os.path.exists(dir_path):
+                x['installed'] = 'True'
+            elif os.path.exists(dir_path + ".disabled"):
+                x['installed'] = 'Disabled'
+            return x
+
+    return None
+
+
+async def _confirm_try_install(sender, custom_node_url, msg):
+    json_obj = await get_data_by_mode('default', 'custom-node-list.json')
+
+    sender = sanitize(sender)
+    msg = sanitize(msg)
+    target = lookup_customnode_by_url(json_obj, custom_node_url)
+
+    if target is not None:
+        server.PromptServer.instance.send_sync("cm-api-try-install-customnode",
+                                               {"sender": sender, "target": target, "msg": msg})
+    else:
+        print(f"[ComfyUI Manager API] Failed to try install - Unknown custom node url '{custom_node_url}'")
+
+
+def confirm_try_install(sender, custom_node_url, msg):
+    asyncio.run(_confirm_try_install(sender, custom_node_url, msg))
+
+register_api('cm.try-install-custom-node', confirm_try_install)
 
 
 import asyncio

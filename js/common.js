@@ -1,6 +1,10 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 
+export async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export function rebootAPI() {
 	if (confirm("Are you sure you'd like to reboot the server?")) {
 		try {

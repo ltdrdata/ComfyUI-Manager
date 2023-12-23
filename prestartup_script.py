@@ -9,6 +9,9 @@ import locale
 import platform
 
 
+sys.CM_api = {}
+
+
 message_collapses = []
 import_failed_extensions = set()
 
