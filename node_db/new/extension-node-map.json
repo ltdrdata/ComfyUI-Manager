@@ -908,6 +908,11 @@
         [
             "ACN_AdvancedControlNetApply",
             "ACN_DefaultUniversalWeights",
+            "ACN_SparseCtrlIndexMethodNode",
+            "ACN_SparseCtrlLoaderAdvanced",
+            "ACN_SparseCtrlMergedLoaderAdvanced",
+            "ACN_SparseCtrlRGBPreprocessor",
+            "ACN_SparseCtrlSpreadMethodNode",
             "ControlNetLoaderAdvanced",
             "CustomControlNetWeights",
             "CustomT2IAdapterWeights",
@@ -3137,6 +3142,7 @@
             "ExtraVAELoader",
             "PixArtCheckpointLoader",
             "PixArtDPMSampler",
+            "PixArtLoraLoader",
             "PixArtResolutionSelect",
             "PixArtT5TextEncode",
             "T5TextEncode",
@@ -3380,7 +3386,9 @@
             "IPAdapterLoadEmbeds",
             "IPAdapterModelLoader",
             "IPAdapterSaveEmbeds",
-            "PrepImageForClipVision"
+            "InsightFaceLoader",
+            "PrepImageForClipVision",
+            "PrepImageForInsightFace"
         ],
         {
             "title_aux": "ComfyUI_IPAdapter_plus"
@@ -4374,11 +4382,14 @@
             "ImpactControlNetApplySEGS",
             "ImpactDecomposeSEGS",
             "ImpactDilateMask",
+            "ImpactDilateMaskInSEGS",
             "ImpactDilate_Mask_SEG_ELT",
             "ImpactDummyInput",
             "ImpactEdit_SEG_ELT",
             "ImpactFloat",
             "ImpactFrom_SEG_ELT",
+            "ImpactGaussianBlurMask",
+            "ImpactGaussianBlurMaskInSEGS",
             "ImpactHFTransformersClassifierProvider",
             "ImpactImageBatchToImageList",
             "ImpactImageInfo",
@@ -5172,12 +5183,12 @@
             "Color",
             "CombineMasks_",
             "CombineSegMasks",
-            "EmptyLayer",
             "EnhanceImage",
             "FaceToMask",
             "FeatheredMask",
             "FloatingVideo",
             "Font",
+            "GamePal",
             "ImageCropByAlpha",
             "LoadImagesFromPath",
             "MergeLayers",
@@ -5193,6 +5204,7 @@
             "SplitLongMask",
             "SvgImage",
             "TextImage",
+            "TextToNumber",
             "TransparentImage",
             "VAEDecodeConsistencyDecoder",
             "VAELoaderConsistencyDecoder"
@@ -5637,6 +5649,16 @@
         ],
         {
             "title_aux": "trNodes"
+        }
+    ],
+    "https://github.com/ttulttul/ComfyUI-Iterative-Mixer": [
+        [
+            "Batch Unsampler",
+            "Iterative Mixing KSampler",
+            "Iterative Mixing KSampler Advanced"
+        ],
+        {
+            "title_aux": "ComfyUI Iterative Mixing Nodes"
         }
     ],
     "https://github.com/tudal/Hakkun-ComfyUI-nodes/raw/main/hakkun_nodes.py": [
