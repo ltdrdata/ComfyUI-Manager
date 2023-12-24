@@ -410,13 +410,16 @@ if os.path.exists(script_list_path):
             try:
                 script = eval(line)
 
-                if script[1].startswith('#'):
+                if script[1].startswith('#') and script[1] != '#FORCE':
                     if script[1] == "#LAZY-INSTALL-SCRIPT":
                         execute_lazy_install_script(script[0], script[2])
 
                 elif os.path.exists(script[0]):
-                    if 'pip' in script[1:] and 'install' in script[1:] and is_installed(script[-1]):
-                        continue
+                    if script[1] == "#FORCE":
+                        del script[1]
+                    else:
+                        if 'pip' in script[1:] and 'install' in script[1:] and is_installed(script[-1]):
+                            continue
 
                     print(f"\n## ComfyUI-Manager: EXECUTE => {script[1:]}")
                     print(f"\n## Execute install/(de)activation script for '{script[0]}'")

@@ -7,13 +7,13 @@ import { CustomNodesInstaller } from "./custom-nodes-downloader.js";
 import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
 import { ModelInstaller } from "./model-downloader.js";
-import { manager_instance, setManagerInstance, install_via_git_url, rebootAPI } from  "./common.js";
+import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI } from  "./common.js";
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
 #cm-manager-dialog {
 	width: 1000px;
-	height: 420px;
+	height: 450px;
 	box-sizing: content-box;
 	z-index: 10000;
 }
@@ -781,6 +781,18 @@ class ManagerMenuDialog extends ComfyDialog {
 								if(!SnapshotManager.instance)
 								SnapshotManager.instance = new SnapshotManager(app, self);
 								SnapshotManager.instance.show();
+							}
+					}),
+					$el("button.cm-experimental-button", {
+						type: "button",
+						textContent: "Install PIP packages",
+						onclick:
+							() => {
+								var url = prompt("Please enumerate the pip packages to be installed.\n\nExample: insightface opencv-python-headless>=4.1.1\n", "");
+
+								if (url !== null) {
+									install_pip(url, self);
+								}
 							}
 					})
 				]),

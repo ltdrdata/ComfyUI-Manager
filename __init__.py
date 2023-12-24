@@ -20,7 +20,7 @@ import nodes
 import torch
 
 
-version = [1, 16]
+version = [1, 17]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -1198,12 +1198,14 @@ class GitProgress(RemoteProgress):
         self.pbar.pos = 0
         self.pbar.refresh()
 
+
 def is_valid_url(url):
     try:
         result = urlparse(url)
         return all([result.scheme, result.netloc])
     except ValueError:
         return False
+
 
 def gitclone_install(files):
     print(f"install: {files}")
@@ -1238,6 +1240,11 @@ def gitclone_install(files):
 
     print("Installation was successful.")
     return True
+
+
+def pip_install(packages):
+    install_cmd = ['#FORCE', sys.executable, "-m", "pip", "install", '-U'] + packages
+    try_install_script('pip install via manager', '.', install_cmd)
 
 
 import platform
@@ -1428,6 +1435,16 @@ async def install_custom_node_git_url(request):
         return web.Response(status=200)
 
     return web.Response(status=400)
+
+
+@server.PromptServer.instance.routes.get("/customnode/install/pip")
+async def install_custom_node_git_url(request):
+    res = False
+    if "packages" in request.rel_url.query:
+        packages = request.rel_url.query['packages']
+        pip_install(packages.split(' '))
+
+    return web.Response(status=200)
 
 
 @server.PromptServer.instance.routes.post("/customnode/uninstall")
