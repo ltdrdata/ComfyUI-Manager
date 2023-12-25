@@ -87,7 +87,7 @@ export function getPotentialOutputsAndOutputNodes(nodes) {
 						const widgetValue = node.widgets[j].value;
 						const parsedURLVals = widgetValue.params;
 
-						if(!parsedURLVals.format.startsWith('image')) {
+						if(!parsedURLVals.format?.startsWith('image')) {
 							// video isn't supported format
 							continue;
 						}
