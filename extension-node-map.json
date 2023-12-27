@@ -49,6 +49,14 @@
             "title_aux": "ComfyUI-safety-checker"
         }
     ],
+    "https://github.com/54rt1n/ComfyUI-DareMerge": [
+        [
+            "DareModelMerger"
+        ],
+        {
+            "title_aux": "ComfyUI-DareMerge"
+        }
+    ],
     "https://github.com/80sVectorz/ComfyUI-Static-Primitives": [
         [
             "FloatStaticPrimitive",
@@ -58,21 +66,6 @@
         ],
         {
             "title_aux": "ComfyUI-Static-Primitives"
-        }
-    ],
-    "https://github.com/AI2lab/comfyUI-tool-2lab": [
-        [
-            "Azure_Openai_GPT",
-            "ChatGLM_GPT",
-            "Openai_chatGPT",
-            "baidu_translator",
-            "properties_loader",
-            "show_text",
-            "show_web_image",
-            "youdao_translator"
-        ],
-        {
-            "title_aux": "comfyUI-tool-2lab"
         }
     ],
     "https://github.com/AIrjen/OneButtonPrompt": [
@@ -900,6 +893,15 @@
         ],
         {
             "title_aux": "ComfyUI-Saveaswebp"
+        }
+    ],
+    "https://github.com/Kangkang625/ComfyUI-paint-by-example": [
+        [
+            "PaintbyExamplePipeLoader",
+            "PaintbyExampleSampler"
+        ],
+        {
+            "title_aux": "ComfyUI-Paint-by-Example"
         }
     ],
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet": [
@@ -2030,6 +2032,7 @@
             "0246.JunctionBatch",
             "0246.Loop",
             "0246.Merge",
+            "0246.Pick",
             "0246.RandomInt",
             "0246.Script",
             "0246.ScriptImbue",
@@ -2347,14 +2350,14 @@
     ],
     "https://github.com/YMC-GitHub/ymc-node-suite-comfyui": [
         [
-            "Image Save",
-            "Save Text File",
             "canvas-util-cal-size",
             "conditioning-util-input-switch",
             "cutoff-region-util",
             "hks-util-cal-denoise-step",
             "img-util-get-image-size",
             "img-util-switch-input-image",
+            "io-image-save",
+            "io-text-save",
             "io-util-file-list-get",
             "io-util-file-list-get-text",
             "number-util-random-num",
@@ -2779,6 +2782,7 @@
             "ImagePaste",
             "Int to String",
             "LMStudioPrompt",
+            "Load Image Based on Number",
             "LoraSyntaxProcessor",
             "Mikey Sampler",
             "Mikey Sampler Base Only",
@@ -4553,8 +4557,11 @@
             "SAMLoader",
             "SEGSDetailer",
             "SEGSDetailerForAnimateDiff",
+            "SEGSLabelFilterDetailerHookProvider",
+            "SEGSOrderedFilterDetailerHookProvider",
             "SEGSPaste",
             "SEGSPreview",
+            "SEGSRangeFilterDetailerHookProvider",
             "SEGSSwitch",
             "SEGSToImageList",
             "SegmDetectorCombined",
@@ -4898,6 +4905,8 @@
             "NegiTools_OpenAiTranslate",
             "NegiTools_OpenPoseToPointList",
             "NegiTools_PointListToMask",
+            "NegiTools_RandomImageLoader",
+            "NegiTools_SaveImageToDirectory",
             "NegiTools_SeedGenerator",
             "NegiTools_StereoImageGenerator",
             "NegiTools_StringFunction"
@@ -5271,6 +5280,7 @@
     "https://github.com/shadowcz007/comfyui-mixlab-nodes": [
         [
             "3DImage",
+            "AppInfo",
             "AreaToMask",
             "CLIPSeg",
             "CLIPSeg_",
@@ -5283,12 +5293,15 @@
             "EnhanceImage",
             "FaceToMask",
             "FeatheredMask",
+            "FloatSlider",
             "FloatingVideo",
             "Font",
             "GamePal",
             "ImageCropByAlpha",
+            "IntNumber",
             "LoadImagesFromPath",
             "MergeLayers",
+            "MultiplicationNode",
             "NewLayer",
             "NoiseImage",
             "RandomPrompt",
@@ -5302,6 +5315,7 @@
             "SplitLongMask",
             "SvgImage",
             "TextImage",
+            "TextInput_",
             "TextToNumber",
             "TransparentImage",
             "VAEDecodeConsistencyDecoder",
