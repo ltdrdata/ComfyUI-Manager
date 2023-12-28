@@ -851,9 +851,40 @@ class ManagerMenuDialog extends ComfyDialog {
 				$el("button", {
           id: 'workflowgallery-button',
           type: "button",
-          textContent: "Workflow Gallery",
-          onclick: this.handleWorkflowGalleryButtonClick,
+					style: {
+            ...(localStorage.getItem("wg_last_visited") ? {height: '50px'} : {})
+					},
+          onclick: (e) => {
+						const last_visited_site = localStorage.getItem("wg_last_visited")
+						if (!!last_visited_site) {
+							window.open(last_visited_site, "comfyui-workflow-gallery");
+						} else {
+							this.handleWorkflowGalleryButtonClick(e)
+						}
+					},
 				}, [
+					$el("p", {
+            textContent: 'Workflow Gallery',
+            style: {
+              'text-align': 'center',
+              'color': 'white',
+              'font-size': '18px',
+              'margin': 0,
+              'padding': 0,
+            }
+          }, [
+						$el("p", {
+							id: 'workflowgallery-button-last-visited-label',
+							textContent: `(${localStorage.getItem("wg_last_visited") ? localStorage.getItem("wg_last_visited").split('/')[2] : ''})`,
+							style: {
+								'text-align': 'center',
+								'color': 'white',
+								'font-size': '12px',
+								'margin': 0,
+								'padding': 0,
+							}
+						})
+					]),
           $el("div.pysssss-workflow-arrow-2", {
             id: `comfyworkflows-button-arrow`,
             onclick: this.handleWorkflowGalleryButtonClick
@@ -916,6 +947,16 @@ class ManagerMenuDialog extends ComfyDialog {
     e.preventDefault();
     e.stopPropagation();
     LiteGraph.closeAllContextMenus();
+
+		// Modify the style of the button so that the UI can indicate the last
+		// visited site right away.
+		const modifyButtonStyle = (url) => {
+			const workflowGalleryButton = document.getElementById('workflowgallery-button');
+			workflowGalleryButton.style.height = '50px';
+			const lastVisitedLabel = document.getElementById('workflowgallery-button-last-visited-label');
+			lastVisitedLabel.textContent = `(${url.split('/')[2]})`;
+		}
+
     const menu = new LiteGraph.ContextMenu(
       [
         {
@@ -937,14 +978,20 @@ class ManagerMenuDialog extends ComfyDialog {
         },
         {
           title: "Open 'openart.ai'",
-          callback: () => {
-            window.open("https://openart.ai/workflows/dev", "comfyui-workflow-gallery");
-          },
+					callback: () => {
+						const url = "https://openart.ai/workflows/dev";
+						localStorage.setItem("wg_last_visited", url);
+						window.open(url, "comfyui-workflow-gallery");
+						modifyButtonStyle(url);
+					},
         },
         {
           title: "Open 'comfyworkflows.com'",
           callback: () => {
-            window.open("https://comfyworkflows.com/", "comfyui-workflow-gallery");
+						const url = "https://comfyworkflows.com/";
+						localStorage.setItem("wg_last_visited", url);
+            window.open(url, "comfyui-workflow-gallery");
+						modifyButtonStyle(url);
           },
         },
         {
