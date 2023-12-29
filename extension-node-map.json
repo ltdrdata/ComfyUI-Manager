@@ -1029,7 +1029,9 @@
             "DiffusersSchedulerLoader",
             "DiffusersVaeLoader",
             "StreamDiffusionCreateStream",
-            "StreamDiffusionSampler"
+            "StreamDiffusionFastSampler",
+            "StreamDiffusionSampler",
+            "StreamDiffusionWarmup"
         ],
         {
             "title_aux": "ComfyUI-Diffusers"
@@ -1410,8 +1412,10 @@
         [
             "AnalyseMetadata",
             "DateIntegerNode",
+            "DisplayMetaOptions",
             "LoadImageWithMeta",
-            "MetadataOverlayNode"
+            "MetadataOverlayNode",
+            "VideoPathMetaExtraction"
         ],
         {
             "title_aux": "ComfyUI-RenderRiftNodes"
@@ -1638,6 +1642,7 @@
             "CR Aspect Ratio SDXL",
             "CR Batch Process Switch",
             "CR Binary Pattern",
+            "CR Binary To List",
             "CR Central Schedule",
             "CR Check Job Complete",
             "CR Checker Pattern",
@@ -1713,6 +1718,7 @@
             "CR Interpolate Rotation",
             "CR Interpolate Track",
             "CR Interpolate Zoom",
+            "CR Intertwine Lists",
             "CR Job Current Frame",
             "CR Job List",
             "CR Job Scheduler",
@@ -1837,7 +1843,7 @@
         ],
         {
             "author": "Suzie1",
-            "description": "160 custom nodes for Graphics, Animation, IO, Aspect Ratio, Model Merge, ControlNet, LoRA, XY Grid, and Utilities.",
+            "description": "162 custom nodes for Graphics, Animation, IO, Aspect Ratio, Model Merge, ControlNet, LoRA, XY Grid, and Utilities.",
             "nickname": "Comfyroll Studio",
             "title": "Comfyroll Studio",
             "title_aux": "ComfyUI_Comfyroll_CustomNodes"
@@ -2049,7 +2055,9 @@
             "0246.RandomInt",
             "0246.Script",
             "0246.ScriptImbue",
+            "0246.ScriptNode",
             "0246.ScriptPlan",
+            "0246.ScriptRule",
             "0246.Stringify"
         ],
         {
@@ -2544,6 +2552,14 @@
             "title_aux": "AegisFlow Utility Nodes"
         }
     ],
+    "https://github.com/ai-liam/comfyui_liam_util": [
+        [
+            "LiamLoadImage"
+        ],
+        {
+            "title_aux": "LiamUtil"
+        }
+    ],
     "https://github.com/aianimation55/ComfyUI-FatLabels": [
         [
             "FatLabels"
@@ -2743,11 +2759,14 @@
             "B_ENUM",
             "B_VECTOR3",
             "B_VECTOR4",
+            "Combine Points",
             "CreateShapeFlow",
             "ExportBlendshapes",
             "ExportGLTF",
+            "Extract Boundary Points",
             "Image Alpha Mask Merge",
             "ImageBridge",
+            "LoadImageFromRequest",
             "LoadImageWithAlpha",
             "SAM MultiLayer",
             "Save Image With Workflow"
@@ -3493,6 +3512,7 @@
     "https://github.com/cubiq/ComfyUI_essentials": [
         [
             "ConsoleDebug+",
+            "ExtractKeyframes+",
             "GetImageSize+",
             "ImageCASharpening+",
             "ImageCrop+",
@@ -3506,6 +3526,7 @@
             "MaskBlur+",
             "MaskExpandBatch+",
             "MaskFlip+",
+            "MaskFromBatch+",
             "MaskFromColor+",
             "MaskPreview+",
             "ModelCompile+",
@@ -4133,6 +4154,15 @@
         {
             "nodename_pattern": "^JW",
             "title_aux": "Various ComfyUI Nodes by Type"
+        }
+    ],
+    "https://github.com/jesenzhang/ComfyUI_StreamDiffusion": [
+        [
+            "StreamDiffusion_Loader",
+            "StreamDiffusion_Sampler"
+        ],
+        {
+            "title_aux": "ComfyUI_StreamDiffusion"
         }
     ],
     "https://github.com/jitcoder/lora-info": [
