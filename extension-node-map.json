@@ -169,6 +169,7 @@
     "https://github.com/AustinMroz/ComfyUI-SpliceTools": [
         [
             "LogSigmas",
+            "RerangeSigmas",
             "SpliceDenoised",
             "SpliceLatents",
             "TemporalSplice"
@@ -311,6 +312,33 @@
         ],
         {
             "title_aux": "Tiled sampling for ComfyUI"
+        }
+    ],
+    "https://github.com/CYBERLOOM-INC/ComfyUI-nodes-hnmr": [
+        [
+            "CLIPIter",
+            "Dict2Model",
+            "GridImage",
+            "ImageBlend2",
+            "KSamplerOverrided",
+            "KSamplerSetting",
+            "KSamplerXYZ",
+            "LatentToHist",
+            "LatentToImage",
+            "ModelIter",
+            "RandomLatentImage",
+            "SaveStateDict",
+            "SaveText",
+            "StateDictLoader",
+            "StateDictMerger",
+            "StateDictMergerBlockWeighted",
+            "StateDictMergerBlockWeightedMulti",
+            "VAEDecodeBatched",
+            "VAEEncodeBatched",
+            "VAEIter"
+        ],
+        {
+            "title_aux": "ComfyUI-nodes-hnmr"
         }
     ],
     "https://github.com/CaptainGrock/ComfyUIInvisibleWatermark/raw/main/Invisible%20Watermark.py": [
@@ -646,6 +674,7 @@
             "M-LSDPreprocessor",
             "Manga2Anime_LineArt_Preprocessor",
             "MediaPipe-FaceMeshPreprocessor",
+            "MeshGraphormer-DepthMapPreprocessor",
             "MiDaS-DepthMapPreprocessor",
             "MiDaS-NormalMapPreprocessor",
             "OneFormer-ADE20K-SemSegPreprocessor",
@@ -1447,7 +1476,8 @@
             "ImageSize(FaceParsing)",
             "MaskComposite(FaceParsing)",
             "MaskListComposite(FaceParsing)",
-            "MaskListSelect(FaceParsing)"
+            "MaskListSelect(FaceParsing)",
+            "SkinDetectTraditional(FaceParsing)"
         ],
         {
             "title_aux": "comfyui_face_parsing"
@@ -1776,6 +1806,7 @@
             "CR Load Workflow",
             "CR Load XY Annotation From File",
             "CR Mask Text",
+            "CR Math Operation",
             "CR Model Input Switch",
             "CR Model List",
             "CR Model Merge Stack",
@@ -1814,6 +1845,7 @@
             "CR SDXL Aspect Ratio",
             "CR SDXL Base Prompt Encoder",
             "CR SDXL Prompt Mix Presets",
+            "CR SDXL Prompt Mixer",
             "CR SDXL Style Text",
             "CR Save Text To File",
             "CR Schedule Camera Movements",
@@ -2572,6 +2604,7 @@
     ],
     "https://github.com/aegis72/aegisflow_utility_nodes": [
         [
+            "Aegisflow CLIP Pass",
             "Aegisflow Image Pass",
             "Aegisflow Latent Pass",
             "Aegisflow Model Pass",
@@ -3526,6 +3559,7 @@
         [
             "IPAdapterApply",
             "IPAdapterApplyEncoded",
+            "IPAdapterApplyFaceID",
             "IPAdapterBatchEmbeds",
             "IPAdapterEncoder",
             "IPAdapterLoadEmbeds",
@@ -3550,6 +3584,7 @@
     ],
     "https://github.com/cubiq/ComfyUI_essentials": [
         [
+            "BatchCount+",
             "ConsoleDebug+",
             "ExtractKeyframes+",
             "GetImageSize+",
@@ -3888,8 +3923,9 @@
     ],
     "https://github.com/florestefano1975/comfyui-prompt-composer": [
         [
-            "PromptComposerAssembler",
             "PromptComposerEffect",
+            "PromptComposerGrouping",
+            "PromptComposerMerge",
             "PromptComposerStyler",
             "PromptComposerTextSingle",
             "promptComposerTextMultiple"
@@ -3985,33 +4021,6 @@
         ],
         {
             "title_aux": "Comfyui-Lama"
-        }
-    ],
-    "https://github.com/hnmr293/ComfyUI-nodes-hnmr": [
-        [
-            "CLIPIter",
-            "Dict2Model",
-            "GridImage",
-            "ImageBlend2",
-            "KSamplerOverrided",
-            "KSamplerSetting",
-            "KSamplerXYZ",
-            "LatentToHist",
-            "LatentToImage",
-            "ModelIter",
-            "RandomLatentImage",
-            "SaveStateDict",
-            "SaveText",
-            "StateDictLoader",
-            "StateDictMerger",
-            "StateDictMergerBlockWeighted",
-            "StateDictMergerBlockWeightedMulti",
-            "VAEDecodeBatched",
-            "VAEEncodeBatched",
-            "VAEIter"
-        ],
-        {
-            "title_aux": "ComfyUI-nodes-hnmr"
         }
     ],
     "https://github.com/hustille/ComfyUI_Fooocus_KSampler": [
@@ -5401,6 +5410,7 @@
             "GetImageSize_",
             "ImageCropByAlpha",
             "IntNumber",
+            "LaMaInpainting",
             "LimitNumber",
             "LoadImagesFromPath",
             "LoadImagesFromURL",
@@ -5408,6 +5418,7 @@
             "MultiplicationNode",
             "NewLayer",
             "NoiseImage",
+            "PromptSlide",
             "RandomPrompt",
             "ResizeImageMixlab",
             "ScreenShare",
