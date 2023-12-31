@@ -165,14 +165,16 @@ const style = `
 
 .cm-experimental-legend {
 	margin-top: -20px;
-	margin-left: 95px;
-	width:100px;
+	margin-left: 50%;
+	width:auto;
 	height:20px;
 	font-size: 13px;
 	font-weight: bold;
 	background-color: #990000;
 	color: #CCFFFF;
 	border-radius: 5px;
+	text-align: center;
+	transform: translateX(-50%);
 }
 
 .cm-menu-combo {
