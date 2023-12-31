@@ -1517,8 +1517,8 @@ async def update_comfyui(request):
 
         try:
             remote.fetch()
-        except Exception as str(e):
-            if 'detected dubious' in e:
+        except Exception as e:
+            if 'detected dubious' in str(e):
                 print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
                 safedir_path = comfy_path.replace('\\', '/')
                 subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', safedir_path])
