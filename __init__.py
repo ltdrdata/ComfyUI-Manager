@@ -20,7 +20,7 @@ import nodes
 import torch
 
 
-version = [1, 17, 1]
+version = [1, 18]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
