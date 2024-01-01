@@ -317,8 +317,9 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
     if 'detected dubious' in output:
         try:
             # fix and try again
-            print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on '{path}' repo")
-            process = subprocess.Popen(['git', 'config', '--global', '--add', 'safe.directory', path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            safedir_path = path.replace('\\', '/')
+            print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on '{safedir_path}' repo")
+            process = subprocess.Popen(['git', 'config', '--global', '--add', 'safe.directory', safedir_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             output, _ = process.communicate()
 
             process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -330,7 +331,7 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
         if 'detected dubious' in output:
             print(f'\n[ComfyUI-Manager] Failed to fixing repository setup. Please execute this command on cmd: \n'
                   f'-----------------------------------------------------------------------------------------\n'
-                  f'git config --global --add safe.directory "{path}"\n'
+                  f'git config --global --add safe.directory "{safedir_path}"\n'
                   f'-----------------------------------------------------------------------------------------\n')
 
     if do_update:
@@ -1517,15 +1518,16 @@ async def update_comfyui(request):
         try:
             remote.fetch()
         except Exception as e:
-            if 'detected dubious' in e:
+            if 'detected dubious' in str(e):
                 print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
-                subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', comfy_path])
+                safedir_path = comfy_path.replace('\\', '/')
+                subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', safedir_path])
                 try:
                     remote.fetch()
                 except Exception:
                     print(f"\n[ComfyUI-Manager] Failed to fixing repository setup. Please execute this command on cmd: \n"
                           f"-----------------------------------------------------------------------------------------\n"
-                          f'git config --global --add safe.directory "{comfy_path}"\n'
+                          f'git config --global --add safe.directory "{safedir_path}"\n'
                           f"-----------------------------------------------------------------------------------------\n")
 
         commit_hash = repo.head.commit.hexsha
