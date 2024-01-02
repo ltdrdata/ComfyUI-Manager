@@ -1,6 +1,8 @@
 import configparser
 import mimetypes
 import shutil
+import traceback
+
 import folder_paths
 import os
 import sys
@@ -18,9 +20,10 @@ import re
 import signal
 import nodes
 import torch
+import cm_global
 
 
-version = [1, 18]
+version = [1, 19]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -283,6 +286,8 @@ def print_comfyui_version():
         current_branch = repo.active_branch.name
         comfy_ui_hash = repo.head.commit.hexsha
 
+        cm_global.variables['comfyui.revision'] = comfy_ui_revision
+
         try:
             if int(comfy_ui_revision) < comfy_ui_required_revision:
                 print(f"\n\n## [WARN] ComfyUI-Manager: Your ComfyUI version ({comfy_ui_revision}) is too old. Please update to the latest version. ##\n\n")
@@ -290,6 +295,18 @@ def print_comfyui_version():
             pass
 
         comfy_ui_commit_date = repo.head.commit.committed_datetime.date()
+
+        # process on_revision_detected -->
+        for k, f in cm_global.variables['cm.on_revision_detected_handler']:
+            try:
+                f(comfy_ui_revision)
+            except Exception:
+                print(f"[ERROR] '{k}' on_revision_detected_handler")
+                traceback.print_exc()
+
+        del cm_global.variables['cm.on_revision_detected_handler']
+        # <--
+
         if current_branch == "master":
             print(f"### ComfyUI Revision: {comfy_ui_revision} [{comfy_ui_hash[:8]}] | Released on '{comfy_ui_commit_date}'")
         else:
@@ -1987,11 +2004,6 @@ async def share_art(request):
     }, content_type='application/json', status=200)
 
 
-
-def register_api(k, f):
-    sys.CM_api[k] = f
-
-
 def sanitize(data):
     return data.replace("<", "&lt;").replace(">", "&gt;")
 
@@ -2027,7 +2039,8 @@ async def _confirm_try_install(sender, custom_node_url, msg):
 def confirm_try_install(sender, custom_node_url, msg):
     asyncio.run(_confirm_try_install(sender, custom_node_url, msg))
 
-register_api('cm.try-install-custom-node', confirm_try_install)
+
+cm_global.register_api('cm.try-install-custom-node', confirm_try_install)
 
 
 import asyncio
@@ -2057,4 +2070,10 @@ threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()
 WEB_DIRECTORY = "js"
 NODE_CLASS_MAPPINGS = {}
 __all__ = ['NODE_CLASS_MAPPINGS']
+
+cm_global.register_extension('ComfyUI-Manager',
+                             {'version': version,
+                              'name': 'ComfyUI Manager',
+                              'nodes': {'Terminal Log //CM'},
+                              'description': 'It provides the ability to manage custom nodes in ComfyUI.', })
 

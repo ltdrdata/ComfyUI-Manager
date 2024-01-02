@@ -7,13 +7,18 @@ import threading
 import re
 import locale
 import platform
+import traceback
 
 
-sys.CM_api = {}
+glob_path = os.path.join(os.path.dirname(__file__), "glob")
+sys.path.append(glob_path)
+
+import cm_global
 
 
 message_collapses = []
 import_failed_extensions = set()
+cm_global.variables['cm.on_revision_detected_handler'] = []
 
 
 def register_message_collapse(f):
@@ -21,13 +26,16 @@ def register_message_collapse(f):
     message_collapses.append(f)
 
 
-def is_import_failed_extension(x):
+def is_import_failed_extension(name):
     global import_failed_extensions
-    return x in import_failed_extensions
+    return name in import_failed_extensions
 
 
 sys.__comfyui_manager_register_message_collapse = register_message_collapse
 sys.__comfyui_manager_is_import_failed_extension = is_import_failed_extension
+cm_global.register_api('cm.register_message_collapse', register_message_collapse)
+cm_global.register_api('cm.is_import_failed_extension', is_import_failed_extension)
+
 
 comfyui_manager_path = os.path.dirname(__file__)
 custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, ".."))

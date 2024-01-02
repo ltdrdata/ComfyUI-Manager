@@ -65,9 +65,5 @@ app.registerExtension({
 				},
 			});
 		});
-	},
-
-	nodeCreated(node, app) {
-		console.log('test');
 	}
 });
