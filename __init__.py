@@ -301,14 +301,17 @@ def print_comfyui_version():
         comfy_ui_commit_date = repo.head.commit.committed_datetime.date()
 
         # process on_revision_detected -->
-        for k, f in cm_global.variables['cm.on_revision_detected_handler']:
-            try:
-                f(comfy_ui_revision)
-            except Exception:
-                print(f"[ERROR] '{k}' on_revision_detected_handler")
-                traceback.print_exc()
+        if 'cm.on_revision_detected_handler' in cm_global.variables:
+            for k, f in cm_global.variables['cm.on_revision_detected_handler']:
+                try:
+                    f(comfy_ui_revision)
+                except Exception:
+                    print(f"[ERROR] '{k}' on_revision_detected_handler")
+                    traceback.print_exc()
 
-        del cm_global.variables['cm.on_revision_detected_handler']
+            del cm_global.variables['cm.on_revision_detected_handler']
+        else:
+            print(f"[ComfyUI-Manager] Some features are restricted due to your ComfyUI being outdated.")
         # <--
 
         if current_branch == "master":
