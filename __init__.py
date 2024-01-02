@@ -8,22 +8,26 @@ import os
 import sys
 import threading
 import datetime
-import re
 import locale
 import subprocess  # don't remove this
 from tqdm.auto import tqdm
 import concurrent
-import ssl
 from urllib.parse import urlparse
 import http.client
 import re
-import signal
 import nodes
-import torch
-import cm_global
+
+try:
+    import cm_global
+except:
+    glob_path = os.path.join(os.path.dirname(__file__), "glob")
+    sys.path.append(glob_path)
+    import cm_global
+
+    print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [1, 19]
+version = [1, 19, 1]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 

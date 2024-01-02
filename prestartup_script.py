@@ -7,7 +7,6 @@ import threading
 import re
 import locale
 import platform
-import traceback
 
 
 glob_path = os.path.join(os.path.dirname(__file__), "glob")
