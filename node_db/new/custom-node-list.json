@@ -12,6 +12,66 @@
 
 
         {
+            "author": "Millyarde",
+            "title": "Pomfy - Photoshop and ComfyUI 2-way sync",
+            "reference": "https://github.com/Millyarde/Pomfy",
+            "files": [
+                "https://github.com/Millyarde/Pomfy"
+            ],
+            "install_type": "git-clone",
+            "description": "Photoshop custom nodes inside of ComfyUi, send and get data via Photoshop UXP plugin for cross platform support"
+        },
+        {
+            "author": "ntc-ai",
+            "title": "ComfyUI - Apply LoRA Stacker with DARE",
+            "reference": "https://github.com/ntc-ai/ComfyUI-DARE-LoRA-Merge",
+            "files": [
+                "https://github.com/ntc-ai/ComfyUI-DARE-LoRA-Merge"
+            ],
+            "install_type": "git-clone",
+            "description": "An experiment about combining multiple LoRAs with [a/DARE](https://arxiv.org/pdf/2311.03099.pdf)"
+        },
+        {
+            "author": "tocubed",
+            "title": "ComfyUI-AudioReactor",
+            "reference": "https://github.com/tocubed/ComfyUI-AudioReactor",
+            "files": [
+                "https://github.com/tocubed/ComfyUI-AudioReactor"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: Shadertoy, Load Audio (from Path), Audio Frame Transform (Shadertoy), Audio Frame Transform (Beats)"
+        },
+        {
+            "author": "spacepxl",
+            "title": "ComfyUI-RAVE",
+            "reference": "https://github.com/spacepxl/ComfyUI-RAVE",
+            "files": [
+                "https://github.com/spacepxl/ComfyUI-RAVE"
+            ],
+            "install_type": "git-clone",
+            "description": "Unofficial ComfyUI implementation of [a/RAVE](https://rave-video.github.io/)"
+        },
+        {
+            "author": "ownimage",
+            "title": "ComfyUI-ownimage",
+            "reference": "https://github.com/ownimage/ComfyUI-ownimage",
+            "files": [
+                "https://github.com/ownimage/ComfyUI-ownimage"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Caching Image Loader."
+        },
+        {
+            "author": "wwwins",
+            "title": "ComfyUI-Simple-Aspect-Ratio",
+            "reference": "https://github.com/wwwins/ComfyUI-Simple-Aspect-Ratio",
+            "files": [
+                "https://github.com/wwwins/ComfyUI-Simple-Aspect-Ratio"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:SimpleAspectRatio"
+        },
+        {
             "author": "dmarx",
             "title": "ComfyUI-AudioReactive",
             "reference": "https://github.com/dmarx/ComfyUI-AudioReactive",
@@ -63,7 +123,7 @@
         },
         {
             "author": "an90ray",
-            "title": "ComfyUI-DareMerge",
+            "title": "ComfyUI_RErouter_CustomNodes",
             "reference": "https://github.com/an90ray/ComfyUI_RErouter_CustomNodes",
             "files": [
                 "https://github.com/an90ray/ComfyUI_RErouter_CustomNodes"
@@ -635,66 +695,6 @@
             ],
             "install_type": "git-clone",
             "description": "Implementation of the [a/StyleAligned](https://style-aligned-gen.github.io/) paper for ComfyUI. This node allows you to apply a consistent style to all images in a batch; by default it will use the first image in the batch as the style reference, forcing all other images to be consistent with it."
-        },
-        {
-            "author": "MitoshiroPJ",
-            "title": "ComfyUI Slothful Attention",
-            "reference": "https://github.com/MitoshiroPJ/comfyui_slothful_attention",
-            "files": [
-                "https://github.com/MitoshiroPJ/comfyui_slothful_attention"
-            ],
-            "install_type": "git-clone",
-            "description": "This custom node allow controlling output without training. The reducing method is similar to [a/Spatial-Reduction Attention](https://paperswithcode.com/method/spatial-reduction-attention), but generating speed may not be increased on typical image sizes due to overheads. (In some cases, slightly slower)"
-        },
-        {
-            "author": "aria1th",
-            "title": "ComfyUI-LogicUtils",
-            "reference": "https://github.com/aria1th/ComfyUI-LogicUtils",
-            "files": [
-                "https://github.com/aria1th/ComfyUI-LogicUtils"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:UniformRandomFloat..., RandomShuffleInt, YieldableIterator..., LogicGate..., Add..., MergeString, MemoryNode, ..."
-        },
-        {
-            "author": "modusCell",
-            "title": "Preset Dimensions",
-            "reference": "https://github.com/modusCell/ComfyUI-dimension-node-modusCell",
-            "files": [
-                "https://github.com/modusCell/ComfyUI-dimension-node-modusCell"
-            ],
-            "install_type": "git-clone",
-            "description": "Simple node for sharing latent image size between nodes. Preset dimensions for SD and XL."
-        },
-        {
-            "author": "mmaker",
-            "title": "Color Enhance",
-            "reference": "https://git.mmaker.moe/mmaker/sd-webui-color-enhance",
-            "files": [
-                "https://git.mmaker.moe/mmaker/sd-webui-color-enhance"
-            ],
-            "install_type": "git-clone",
-            "description": "Node: Color Enhance, Color Blend. This is the same algorithm GIMP/GEGL uses for color enhancement. The gist of this implementation is that it converts the color space to CIELCh(ab) and normalizes the chroma (or [colorfulness](https://en.wikipedia.org/wiki/Colorfulness)] component. Original source can be found in the link below."
-        },
-        {
-            "author": "bruefire",
-            "title": "ComfyUI Sequential Image Loader",
-            "reference": "https://github.com/bruefire/ComfyUI-SeqImageLoader",
-            "files": [
-                "https://github.com/bruefire/ComfyUI-SeqImageLoader"
-            ],
-            "install_type": "git-clone",
-            "description": "This is an extension node for ComfyUI that allows you to load frames from a video in bulk and perform masking and sketching on each frame through a GUI."
-        },
-        {
-            "author": "yolain",
-            "title": "ComfyUI Easy Use",
-            "reference": "https://github.com/yolain/ComfyUI-Easy-Use",
-            "files": [
-                "https://github.com/yolain/ComfyUI-Easy-Use"
-            ],
-            "install_type": "git-clone",
-            "description": "To enhance the usability of ComfyUI, optimizations and integrations have been implemented for several commonly used nodes."
         }
     ]
 }

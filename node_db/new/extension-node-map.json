@@ -70,6 +70,7 @@
     ],
     "https://github.com/AIrjen/OneButtonPrompt": [
         [
+            "AutoNegativePrompt",
             "CreatePromptVariant",
             "OneButtonPrompt",
             "SavePromptToFile"
@@ -987,10 +988,15 @@
             "ADE_AnimateDiffModelSettingsAdvancedAttnStrengths",
             "ADE_AnimateDiffModelSettingsSimple",
             "ADE_AnimateDiffModelSettings_Release",
+            "ADE_AnimateDiffSamplingSettings",
             "ADE_AnimateDiffUniformContextOptions",
-            "ADE_AnimateDiffUniformContextOptionsExperimental",
             "ADE_AnimateDiffUnload",
             "ADE_EmptyLatentImageLarge",
+            "ADE_IterationOptsDefault",
+            "ADE_IterationOptsFreeInit",
+            "ADE_NoiseLayerAdd",
+            "ADE_NoiseLayerAddWeighted",
+            "ADE_NoiseLayerReplace",
             "AnimateDiffLoaderV1",
             "CheckpointLoaderSimpleWithNoiseSelect"
         ],
@@ -1057,6 +1063,7 @@
     ],
     "https://github.com/Limitex/ComfyUI-Diffusers": [
         [
+            "CreateIntListNode",
             "DiffusersClipTextEncode",
             "DiffusersModelMakeup",
             "DiffusersPipelineLoader",
@@ -1064,6 +1071,7 @@
             "DiffusersSaveImage",
             "DiffusersSchedulerLoader",
             "DiffusersVaeLoader",
+            "LcmLoraLoader",
             "StreamDiffusionCreateStream",
             "StreamDiffusionFastSampler",
             "StreamDiffusionSampler",
@@ -1706,7 +1714,7 @@
             "CR Batch Images From List",
             "CR Batch Process Switch",
             "CR Binary Pattern",
-            "CR Binary To List",
+            "CR Binary To Bit List",
             "CR Central Schedule",
             "CR Check Job Complete",
             "CR Checker Pattern",
@@ -1911,7 +1919,7 @@
         ],
         {
             "author": "Suzie1",
-            "description": "165 custom nodes for Graphics, Animation, IO, Aspect Ratio, Model Merge, ControlNet, LoRA, XY Grid, and Utilities.",
+            "description": "150 custom nodes for Graphics, Animation, IO, Aspect Ratio, Model Merge, ControlNet, LoRA, XY Grid, and Utilities.",
             "nickname": "Comfyroll Studio",
             "title": "Comfyroll Studio",
             "title_aux": "ComfyUI_Comfyroll_CustomNodes"
@@ -2768,7 +2776,7 @@
             "String (RE)"
         ],
         {
-            "title_aux": "ComfyUI-DareMerge"
+            "title_aux": "ComfyUI_RErouter_CustomNodes"
         }
     ],
     "https://github.com/andersxa/comfyui-PromptAttention": [
@@ -2887,6 +2895,7 @@
             "Empty Latent Ratio Custom SDXL",
             "Empty Latent Ratio Select SDXL",
             "EvalFloats",
+            "FaceFixerOpenCV",
             "FileNamePrefix",
             "FileNamePrefixDateDirFirst",
             "Float to String",
@@ -3586,6 +3595,7 @@
     "https://github.com/cubiq/ComfyUI_essentials": [
         [
             "BatchCount+",
+            "CLIPTextEncodeSDXL+",
             "ConsoleDebug+",
             "ExtractKeyframes+",
             "GetImageSize+",
@@ -3606,6 +3616,7 @@
             "MaskFromColor+",
             "MaskPreview+",
             "ModelCompile+",
+            "SDXLResolutionPicker+",
             "SimpleMath+",
             "StableZero123_Increments",
             "TransitionMask+"
@@ -3695,7 +3706,25 @@
     ],
     "https://github.com/dmarx/ComfyUI-AudioReactive": [
         [
-            "OpRms"
+            "OpAbs",
+            "OpBandpass",
+            "OpClamp",
+            "OpHarmonic",
+            "OpModulo",
+            "OpNormalize",
+            "OpNovelty",
+            "OpPercussive",
+            "OpPow",
+            "OpPow2",
+            "OpPredominant_pulse",
+            "OpQuantize",
+            "OpRms",
+            "OpSmoosh",
+            "OpSmooth",
+            "OpSqrt",
+            "OpStretch",
+            "OpSustain",
+            "OpThreshold"
         ],
         {
             "title_aux": "ComfyUI-AudioReactive"
@@ -4347,6 +4376,7 @@
             "ImageGridComposite2x2",
             "ImageGridComposite3x3",
             "InjectNoiseToLatent",
+            "MarigoldVAELoader",
             "NormalizeLatent",
             "OffsetMask",
             "ReferenceOnlySimple3",
@@ -4515,6 +4545,7 @@
     "https://github.com/lldacing/comfyui-easyapi-nodes": [
         [
             "Base64ToImage",
+            "Base64ToMask",
             "ImageToBase64",
             "ImageToBase64Advanced",
             "LoadImageToBase64",
@@ -5084,6 +5115,16 @@
             "title_aux": "ComfyUI_NoxinNodes"
         }
     ],
+    "https://github.com/ntc-ai/ComfyUI-DARE-LoRA-Merge": [
+        [
+            "Apply LoRA",
+            "DARE Merge LoRA Stack",
+            "Save LoRA"
+        ],
+        {
+            "title_aux": "ComfyUI - Apply LoRA Stacker with DARE"
+        }
+    ],
     "https://github.com/ntdviet/comfyui-ext/raw/main/custom_nodes/gcLatentTunnel/gcLatentTunnel.py": [
         [
             "gcLatentTunnel"
@@ -5161,6 +5202,14 @@
         {
             "nodename_pattern": "- Ostris$",
             "title_aux": "Ostris Nodes ComfyUI"
+        }
+    ],
+    "https://github.com/ownimage/ComfyUI-ownimage": [
+        [
+            "Caching Image Loader"
+        ],
+        {
+            "title_aux": "ComfyUI-ownimage"
         }
     ],
     "https://github.com/oyvindg/ComfyUI-TrollSuite": [
@@ -5277,7 +5326,9 @@
             "ZHG FaceIndex",
             "ZHG GetMaskArea",
             "ZHG SaveImage",
-            "ZHG SmoothEdge"
+            "ZHG SmoothEdge",
+            "ZHG UltimateSDUpscale",
+            "ZHG UltimateSDUpscaleNoUpscale"
         ],
         {
             "title_aux": "zhihuige-nodes-comfyui"
@@ -5639,6 +5690,19 @@
             "title_aux": "ComfyUI-Image-Filters"
         }
     ],
+    "https://github.com/spacepxl/ComfyUI-RAVE": [
+        [
+            "ConditioningDebug",
+            "ImageGridCompose",
+            "ImageGridDecompose",
+            "KSamplerRAVE",
+            "LatentGridCompose",
+            "LatentGridDecompose"
+        ],
+        {
+            "title_aux": "ComfyUI-RAVE"
+        }
+    ],
     "https://github.com/spinagon/ComfyUI-seam-carving": [
         [
             "SeamCarving"
@@ -5888,6 +5952,17 @@
         ],
         {
             "title_aux": "Save Image Extended for ComfyUI"
+        }
+    ],
+    "https://github.com/tocubed/ComfyUI-AudioReactor": [
+        [
+            "AudioFrameTransformBeats",
+            "AudioFrameTransformShadertoy",
+            "AudioLoadPath",
+            "Shadertoy"
+        ],
+        {
+            "title_aux": "ComfyUI-AudioReactor"
         }
     ],
     "https://github.com/toyxyz/ComfyUI_toyxyz_test_nodes": [
@@ -6188,6 +6263,14 @@
         ],
         {
             "title_aux": "ComfyUI-TextUtils"
+        }
+    ],
+    "https://github.com/wwwins/ComfyUI-Simple-Aspect-Ratio": [
+        [
+            "SimpleAspectRatio"
+        ],
+        {
+            "title_aux": "ComfyUI-Simple-Aspect-Ratio"
         }
     ],
     "https://github.com/xXAdonesXx/NodeGPT": [
