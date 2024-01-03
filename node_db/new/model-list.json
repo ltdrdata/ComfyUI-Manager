@@ -23,6 +23,16 @@
 
 
     {
+      "name": "ControlNet-HandRefiner-pruned (inpaint-depth-hand; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "This inpaint-depth controlnet model is specialized for the hand refiner.",
+      "reference": "https://huggingface.co/hr16/ControlNet-HandRefiner-pruned",
+      "filename": "control_sd15_inpaint_depth_hand_fp16.safetensors",
+      "url": "https://huggingface.co/hr16/ControlNet-HandRefiner-pruned/resolve/main/control_sd15_inpaint_depth_hand_fp16.safetensors"
+    },
+    {
       "name": "LongAnimatediff/lt_long_mm_16_64_frames_v1.1.ckpt (ComfyUI-AnimateDiff-Evolved)",
       "type": "animatediff",
       "base": "SD1.x",
@@ -707,48 +717,6 @@
       "reference": "https://huggingface.co/stabilityai/control-lora",
       "filename": "control-lora-sketch-rank256.safetensors",
       "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank256/control-lora-sketch-rank256.safetensors"
-    },
-
-    {
-      "name": "kohya-ss/ControlNet-LLLite: SDXL Canny Anime",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "custom_nodes/ControlNet-LLLite-ComfyUI/models",
-      "description": "[46.2MB] An extremely compactly designed controlnet model (a.k.a. ControlNet-LLLite). Note: The model structure is highly experimental and may be subject to change in the future.",
-      "reference": "https://huggingface.co/kohya-ss/controlnet-lllite",
-      "filename": "controllllite_v01032064e_sdxl_canny_anime.safetensors",
-      "url": "https://huggingface.co/kohya-ss/controlnet-lllite/resolve/main/controllllite_v01032064e_sdxl_canny_anime.safetensors"
-    },
-
-    {
-      "name": "SDXL-controlnet: OpenPose (v2)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "default",
-      "description": "ControlNet openpose model for SDXL",
-      "reference": "https://huggingface.co/thibaud/controlnet-openpose-sdxl-1.0",
-      "filename": "OpenPoseXL2.safetensors",
-      "url": "https://huggingface.co/thibaud/controlnet-openpose-sdxl-1.0/resolve/main/OpenPoseXL2.safetensors"
-    },
-    {
-      "name": "controlnet-SargeZT/controlnet-sd-xl-1.0-softedge-dexined",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "default",
-      "description": "ControlNet softedge model for SDXL",
-      "reference": "https://huggingface.co/SargeZT/controlnet-sd-xl-1.0-softedge-dexined",
-      "filename": "controlnet-sd-xl-1.0-softedge-dexined.safetensors",
-      "url": "https://huggingface.co/SargeZT/controlnet-sd-xl-1.0-softedge-dexined/resolve/main/controlnet-sd-xl-1.0-softedge-dexined.safetensors"
-    },
-    {
-      "name": "controlnet-SargeZT/controlnet-sd-xl-1.0-depth-16bit-zoe",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "default",
-      "description": "ControlNet depth-zoe model for SDXL",
-      "reference": "https://huggingface.co/SargeZT/controlnet-sd-xl-1.0-depth-16bit-zoe",
-      "filename": "depth-zoe-xl-v1.0-controlnet.safetensors",
-      "url": "https://huggingface.co/SargeZT/controlnet-sd-xl-1.0-depth-16bit-zoe/resolve/main/depth-zoe-xl-v1.0-controlnet.safetensors"
     }
   ]  
 }
