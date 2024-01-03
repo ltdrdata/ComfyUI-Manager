@@ -27,7 +27,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [1, 19, 1]
+version = [1, 19, 2]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -1604,13 +1604,15 @@ async def install_model(request):
         if model_path is not None:
             print(f"Install model '{json_data['name']}' into '{model_path}'")
 
-            if json_data['url'].startswith('https://github.com') or json_data['url'].startswith('https://huggingface.co'):
+            model_url = json_data['url']
+
+            if model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de'):
                 model_dir = get_model_dir(json_data)
-                download_url(json_data['url'], model_dir)
+                download_url(model_url, model_dir, filename=json_data['filename'])
                 
                 return web.json_response({}, content_type='application/json')
             else:
-                res = download_url_with_agent(json_data['url'], model_path)
+                res = download_url_with_agent(model_url, model_path)
         else:
             print(f"Model installation error: invalid model type - {json_data['type']}")
 
