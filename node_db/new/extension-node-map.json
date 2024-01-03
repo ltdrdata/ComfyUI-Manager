@@ -51,7 +51,9 @@
     ],
     "https://github.com/54rt1n/ComfyUI-DareMerge": [
         [
-            "DareModelMerger"
+            "BlockModelMergerAdv",
+            "DareModelMerger",
+            "MagnitudeModelMerger"
         ],
         {
             "title_aux": "ComfyUI-DareMerge"
@@ -108,7 +110,9 @@
             "StringToFizz-badger",
             "TextListToString-badger",
             "VideoCut-badger",
-            "getImageSide-badger"
+            "getImageSide-badger",
+            "getParentDir-badger",
+            "mkdir-badger"
         ],
         {
             "title_aux": "ComfyUI_BadgerTools"
@@ -1069,7 +1073,6 @@
             "DiffusersModelMakeup",
             "DiffusersPipelineLoader",
             "DiffusersSampler",
-            "DiffusersSaveImage",
             "DiffusersSchedulerLoader",
             "DiffusersVaeLoader",
             "LcmLoraLoader",
@@ -1808,6 +1811,7 @@
             "CR Job Current Frame",
             "CR Job List",
             "CR Job Scheduler",
+            "CR KSampler",
             "CR Keyframe List",
             "CR Latent Batch Size",
             "CR Latent Input Switch",
@@ -1878,6 +1882,7 @@
             "CR Seed",
             "CR Seed to Int",
             "CR Select Model",
+            "CR Set Value On Binary",
             "CR Set Value On Boolean",
             "CR Simple Annotations",
             "CR Simple Banner",
@@ -1885,6 +1890,7 @@
             "CR Simple Binary Pattern Simple",
             "CR Simple Image Compare",
             "CR Simple Image Watermark",
+            "CR Simple List",
             "CR Simple Meme Template",
             "CR Simple Prompt List",
             "CR Simple Prompt List Keyframes",
@@ -1906,6 +1912,8 @@
             "CR Style List",
             "CR Switch Model and CLIP",
             "CR System TrueType Font",
+            "CR Text",
+            "CR Text Concatenate",
             "CR Text Input Switch",
             "CR Text Input Switch (4 way)",
             "CR Text List",
@@ -1925,6 +1933,7 @@
             "CR XY Index",
             "CR XY Interpolate",
             "CR XY List",
+            "CR XY Product",
             "CR XY Save Grid Image",
             "CR XYZ Index",
             "CR XYZ Interpolate",
@@ -1932,7 +1941,7 @@
         ],
         {
             "author": "Suzie1",
-            "description": "150 custom nodes for Graphics, Animation, IO, Aspect Ratio, Model Merge, ControlNet, LoRA, XY Grid, and Utilities.",
+            "description": "154 custom nodes for artists, designers and animators.",
             "nickname": "Comfyroll Studio",
             "title": "Comfyroll Studio",
             "title_aux": "ComfyUI_Comfyroll_CustomNodes"
@@ -2023,6 +2032,7 @@
             "tri3d-extract-parts-mask-batch",
             "tri3d-fuzzification",
             "tri3d-interaction-canny",
+            "tri3d-load-pose-json",
             "tri3d-pose-adaption",
             "tri3d-pose-to-image",
             "tri3d-position-hands",
@@ -3993,6 +4003,14 @@
             "title_aux": "comfyui-prompt-composer"
         }
     ],
+    "https://github.com/flowtyone/ComfyUI-Flowty-LDSR": [
+        [
+            "LDSRUpscaler"
+        ],
+        {
+            "title_aux": "ComfyUI-Flowty-LDSR"
+        }
+    ],
     "https://github.com/flyingshutter/As_ComfyUI_CustomNodes": [
         [
             "BatchIndex_AS",
@@ -5347,10 +5365,10 @@
             "Cover ZHGMasks",
             "ZHG FaceIndex",
             "ZHG GetMaskArea",
+            "ZHG Image Levels",
             "ZHG SaveImage",
             "ZHG SmoothEdge",
-            "ZHG UltimateSDUpscale",
-            "ZHG UltimateSDUpscaleNoUpscale"
+            "ZHG UltimateSDUpscale"
         ],
         {
             "title_aux": "zhihuige-nodes-comfyui"
@@ -5493,6 +5511,7 @@
             "Font",
             "GamePal",
             "GetImageSize_",
+            "GradientImage",
             "ImageCropByAlpha",
             "IntNumber",
             "LaMaInpainting",
@@ -6359,12 +6378,14 @@
             "easy imageSizeByLongerSide",
             "easy imageSizeBySide",
             "easy kSampler",
+            "easy kSamplerInpainting",
             "easy kSamplerSDTurbo",
             "easy kSamplerTiled",
             "easy loraStack",
             "easy negative",
             "easy pipeIn",
             "easy pipeOut",
+            "easy pipeToBasicPipe",
             "easy portraitMaster",
             "easy poseEditor",
             "easy positive",

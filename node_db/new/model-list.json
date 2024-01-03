@@ -1,6 +1,17 @@
 {
   "models": [
     {
+      "name": "ControlNet-HandRefiner-pruned (inpaint-depth-hand; fp16)",
+      "type": "controlnet",
+      "base": "SD1.5",
+      "save_path": "default",
+      "description": "This inpaint-depth controlnet model is specialized for the hand refiner.",
+      "reference": "https://huggingface.co/hr16/ControlNet-HandRefiner-pruned",
+      "filename": "control_sd15_inpaint_depth_hand_fp16.safetensors",
+      "url": "https://huggingface.co/hr16/ControlNet-HandRefiner-pruned/resolve/main/control_sd15_inpaint_depth_hand_fp16.safetensors"
+    },
+
+    {
       "name": "ip-adapter-faceid_sd15.bin",
       "type": "IP-Adapter",
       "base": "SD1.5",
@@ -21,17 +32,6 @@
       "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sd15_lora.safetensors"
     },
 
-
-    {
-      "name": "ControlNet-HandRefiner-pruned (inpaint-depth-hand; fp16)",
-      "type": "controlnet",
-      "base": "SD1.5",
-      "save_path": "default",
-      "description": "This inpaint-depth controlnet model is specialized for the hand refiner.",
-      "reference": "https://huggingface.co/hr16/ControlNet-HandRefiner-pruned",
-      "filename": "control_sd15_inpaint_depth_hand_fp16.safetensors",
-      "url": "https://huggingface.co/hr16/ControlNet-HandRefiner-pruned/resolve/main/control_sd15_inpaint_depth_hand_fp16.safetensors"
-    },
     {
       "name": "LongAnimatediff/lt_long_mm_16_64_frames_v1.1.ckpt (ComfyUI-AnimateDiff-Evolved)",
       "type": "animatediff",
