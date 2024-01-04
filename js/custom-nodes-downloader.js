@@ -131,7 +131,10 @@ export class CustomNodesInstaller extends ComfyDialog {
 			let content = data.author.toLowerCase() + data.description.toLowerCase() + data.title.toLowerCase() + data.reference.toLowerCase();
 
 			if(this.filter && this.filter != '*') {
-				if(this.filter != data.installed) {
+				if(this.filter == 'True' && (data.installed == 'Update' || data.installed == 'Fail')) {
+					this.grid_rows[i].control.style.display = null;
+				}
+				else if(this.filter != data.installed) {
 					this.grid_rows[i].control.style.display = 'none';
 					continue;
 				}
@@ -530,6 +533,15 @@ export class CustomNodesInstaller extends ComfyDialog {
 					break;
 				case 'Fail':
 				case 'True':
+					if(manager_instance.update_check_checkbox.checked) {
+						installBtn2 = document.createElement('button');
+						installBtn2.innerHTML = 'Try update';
+						installBtn2.className = "cm-btn-update";
+						installBtn2.style.backgroundColor = 'Gray';
+						installBtn2.style.color = 'white';
+						this.install_buttons.push(installBtn2);
+					}
+
 					installBtn3 = document.createElement('button');
 					installBtn3.innerHTML = 'Disable';
 					installBtn3.className = "cm-btn-disable";
