@@ -27,7 +27,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [1, 23, 1]
+version = [1, 24]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -349,7 +349,7 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
             process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             output, _ = process.communicate()
             output = output.decode('utf-8').strip()
-        except Exception as e:
+        except Exception:
             print(f'[ComfyUI-Manager] failed to fixing')
 
         if 'detected dubious' in output:
@@ -359,28 +359,29 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
                   f'-----------------------------------------------------------------------------------------\n')
 
     if do_update:
-        if "CUSTOM NODE PULL: True" in output:
+        if "CUSTOM NODE PULL: Success" in output:
             process.wait()
             print(f"\rUpdated: {path}")
-            return True
+            return True, True    # updated
         elif "CUSTOM NODE PULL: None" in output:
             process.wait()
-            return True
+            return False, True   # there is no update
         else:
             print(f"\rUpdate error: {path}")
             process.wait()
-            return False
+            return False, False  # update failed
     else:
         if "CUSTOM NODE CHECK: True" in output:
             process.wait()
-            return True
+            return True, True
         elif "CUSTOM NODE CHECK: False" in output:
             process.wait()
-            return False
+            return False, True
         else:
             print(f"\rFetch error: {path}")
+            print(f"\n{output}\n")
             process.wait()
-            return False
+            return False, True
 
 
 def __win_check_git_pull(path):
@@ -408,9 +409,10 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
         raise ValueError('Not a git repository')
 
     if platform.system() == "Windows":
-        res = __win_check_git_update(path, do_fetch, do_update)
-        execute_install_script(None, path, lazy_mode=True)
-        return res
+        updated, success = __win_check_git_update(path, do_fetch, do_update)
+        if updated and success:
+            execute_install_script(None, path, lazy_mode=True)
+        return updated, success
     else:
         # Fetch the latest commits from the remote repository
         repo = git.Repo(path)
@@ -428,6 +430,14 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
             if repo.head.is_detached:
                 switch_to_default_branch(repo)
 
+            current_branch = repo.active_branch
+            branch_name = current_branch.name
+            remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+
+            if commit_hash == remote_commit_hash:
+                repo.close()
+                return False, True
+
             try:
                 remote.pull()
                 repo.git.submodule('update', '--init', '--recursive')
@@ -436,15 +446,17 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
                 if commit_hash != new_commit_hash:
                     execute_install_script(None, path)
                     print(f"\x1b[2K\rUpdated: {path}")
-                    return True
+                    return True, True
                 else:
-                    return False
+                    return False, False
 
             except Exception as e:
                 print(f"\nUpdating failed: {path}\n{e}", file=sys.stderr)
+                return False, False
 
         if repo.head.is_detached:
-            return True
+            repo.close()
+            return True, True
 
         # Get commit hash of the remote branch
         current_branch = repo.active_branch
@@ -460,9 +472,12 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
 
             # Compare the commit dates to determine if the local repository is behind the remote repository
             if commit_date < remote_commit_date:
-                return True
+                repo.close()
+                return True, True
 
-    return False
+        repo.close()
+
+    return False, True
 
 
 def git_pull(path):
@@ -658,14 +673,17 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
         dir_path = os.path.join(custom_nodes_path, dir_name)
         if os.path.exists(dir_path):
             try:
-                if do_update_check and git_repo_has_updates(dir_path, do_fetch, do_update):
+                update_state, success = git_repo_has_updates(dir_path, do_fetch, do_update)
+                if (do_update_check or do_update) and update_state:
                     item['installed'] = 'Update'
-                elif sys.__comfyui_manager_is_import_failed_extension(dir_name):
+                elif do_update and not success:
+                    item['installed'] = 'Fail'
+                elif cm_global.try_call(api="cm.is_import_failed_extension", name=dir_name):
                     item['installed'] = 'Fail'
                 else:
                     item['installed'] = 'True'
             except:
-                if sys.__comfyui_manager_is_import_failed_extension(dir_name):
+                if cm_global.try_call(api="cm.is_import_failed_extension", name=dir_name):
                     item['installed'] = 'Fail'
                 else:
                     item['installed'] = 'True'
@@ -688,7 +706,7 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
 
         file_path = os.path.join(base_path, dir_name)
         if os.path.exists(file_path):
-            if sys.__comfyui_manager_is_import_failed_extension(dir_name):
+            if cm_global.try_call(api="cm.is_import_failed_extension", name=dir_name):
                 item['installed'] = 'Fail'
             else:
                 item['installed'] = 'True'
@@ -774,12 +792,17 @@ async def update_all(request):
 
         check_custom_nodes_installed(json_obj, do_update=True)
 
-        update_exists = any(item['installed'] == 'Update' for item in json_obj['custom_nodes'])
+        updated = [item['title'] for item in json_obj['custom_nodes'] if item['installed'] == 'Update']
+        failed = [item['title'] for item in json_obj['custom_nodes'] if item['installed'] == 'Fail']
 
-        if update_exists:
-            return web.Response(status=201)
+        res = {'updated': updated, 'failed': failed}
 
-        return web.Response(status=200)
+        if len(updated) == 0 and len(failed) == 0:
+            status = 200
+        else:
+            status = 201
+
+        return web.json_response(res, status=status, content_type='application/json')
     except:
         return web.Response(status=400)
 

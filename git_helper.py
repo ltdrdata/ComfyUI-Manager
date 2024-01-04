@@ -101,19 +101,32 @@ def gitpull(path):
         if repo.head.is_detached:
             switch_to_default_branch(repo)
 
-        origin = repo.remote(name='origin')
-        origin.pull()
+        current_branch = repo.active_branch
+        branch_name = current_branch.name
+
+        remote_name = 'origin'
+        remote = repo.remote(name=remote_name)
+
+        remote.fetch()
+        remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+
+        if commit_hash == remote_commit_hash:
+            print("CUSTOM NODE PULL: None")  # there is no update
+            repo.close()
+            return
+
+        remote.pull()
 
         repo.git.submodule('update', '--init', '--recursive')
         new_commit_hash = repo.head.commit.hexsha
 
         if commit_hash != new_commit_hash:
-            print("CUSTOM NODE PULL: True")
+            print("CUSTOM NODE PULL: Success")  # update success
         else:
-            print("CUSTOM NODE PULL: None")
+            print("CUSTOM NODE PULL: Fail")  # update fail
     except Exception as e:
         print(e)
-        print("CUSTOM NODE PULL: False")
+        print("CUSTOM NODE PULL: Fail")  # unknown git error
 
     repo.close()
 

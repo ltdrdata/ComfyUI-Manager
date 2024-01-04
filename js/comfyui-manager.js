@@ -499,7 +499,23 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 			return false;
 		}
 		if(response1.status == 201 || response2.status == 201) {
-			app.ui.dialog.show("ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button class='cm-small-button' id='cm-reboot-button'>RESTART</button> ComfyUI. And refresh browser.");
+			const update_info = await response2.json();
+
+			let failed_list = "";
+			if(update_info.failed.length > 0) {
+				failed_list = "<BR>FAILED: "+update_info.failed.join(", ");
+			}
+
+			let updated_list = "";
+			if(update_info.updated.length > 0) {
+				updated_list = "<BR>UPDATED: "+update_info.updated.join(", ");
+			}
+
+			app.ui.dialog.show(
+				"ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button class='cm-small-button' id='cm-reboot-button'>RESTART</button> ComfyUI. And refresh browser.<BR>"
+				+failed_list
+				+updated_list
+				);
 
 			const rebootButton = document.getElementById('cm-reboot-button');
 			rebootButton.addEventListener("click",
