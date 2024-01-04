@@ -142,6 +142,7 @@ try:
         def __init__(self, is_stdout):
             self.is_stdout = is_stdout
             self.encoding = "utf-8"
+            self.last_char = ''
 
         def fileno(self):
             try:
@@ -193,8 +194,13 @@ try:
 
         def sync_write(self, message):
             with log_lock:
-                log_file.write(message)
+                timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')[:-3]
+                if self.last_char != '\n':
+                    log_file.write(message)
+                else:
+                    log_file.write(f"[{timestamp}] {message}")
                 log_file.flush()
+                self.last_char = message[-1]
 
             with std_log_lock:
                 if self.is_stdout:

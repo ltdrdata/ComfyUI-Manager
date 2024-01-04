@@ -27,7 +27,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [1, 21]
+version = [1, 23]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -35,8 +35,8 @@ print(f"### Loading: ComfyUI-Manager ({version_str})")
 required_comfyui_revision = 1793
 comfy_ui_hash = "-"
 
-
 cache_lock = threading.Lock()
+
 
 def handle_stream(stream, prefix):
     stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
