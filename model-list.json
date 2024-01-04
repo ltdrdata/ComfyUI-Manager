@@ -121,7 +121,7 @@
       "url": "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/8x_NMKD-Superscale_150000_G.pth"
     },
     {
-      "name": "LDSR",
+      "name": "LDSR(Latent Diffusion Super Resolution)",
       "type": "upscale",
       "base": "upscale",
       "save_path": "upscale_models/ldsr",
@@ -129,6 +129,16 @@
       "reference": "https://github.com/CompVis/latent-diffusion",
       "filename": "last.ckpt",
       "url": "https://heibox.uni-heidelberg.de/f/578df07c8fc04ffbadf3/?dl=1"
+    },
+    {
+      "name": "stabilityai/stable-diffusion-x4-upscaler",
+      "type": "checkpoint",
+      "base": "upscale",
+      "save_path": "checkpoints/upscale",
+      "description": "[3.53GB] This upscaling model is a latent text-guided diffusion model and should be used with SD_4XUpscale_Conditioning and KSampler.",
+      "reference": "https://huggingface.co/stabilityai/stable-diffusion-x4-upscaler",
+      "filename": "x4-upscaler-ema.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-x4-upscaler/resolve/main/x4-upscaler-ema.safetensors"
     },
     {
       "name": "Inswapper-fp16 (face swap)",

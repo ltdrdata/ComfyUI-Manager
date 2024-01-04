@@ -1,5 +1,6 @@
 {
   "models": [
+
     {
       "name": "ControlNet-HandRefiner-pruned (inpaint-depth-hand; fp16)",
       "type": "controlnet",
@@ -11,7 +12,17 @@
       "url": "https://huggingface.co/hr16/ControlNet-HandRefiner-pruned/resolve/main/control_sd15_inpaint_depth_hand_fp16.safetensors"
     },
     {
-      "name": "LDSR",
+      "name": "stabilityai/stable-diffusion-x4-upscaler",
+      "type": "checkpoint",
+      "base": "upscale",
+      "save_path": "checkpoints/upscale",
+      "description": "[3.53GB] This upscaling model is a latent text-guided diffusion model and should be used with SD_4XUpscale_Conditioning and KSampler.",
+      "reference": "https://huggingface.co/stabilityai/stable-diffusion-x4-upscaler",
+      "filename": "x4-upscaler-ema.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-x4-upscaler/resolve/main/x4-upscaler-ema.safetensors"
+    },
+    {
+      "name": "LDSR(Latent Diffusion Super Resolution)",
       "type": "upscale",
       "base": "upscale",
       "save_path": "upscale_models/ldsr",
