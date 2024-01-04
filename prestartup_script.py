@@ -200,7 +200,7 @@ try:
                 else:
                     log_file.write(f"[{timestamp}] {message}")
                 log_file.flush()
-                self.last_char = message[-1]
+                self.last_char = message if message == '' else message[-1]
 
             with std_log_lock:
                 if self.is_stdout:
