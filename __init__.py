@@ -27,7 +27,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [1, 20]
+version = [1, 21]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -1267,6 +1267,30 @@ def gitclone_install(files):
     return True
 
 
+def gitclone_fix(files):
+    print(f"Try fixing: {files}")
+    for url in files:
+        if not is_valid_url(url):
+            print(f"Invalid git url: '{url}'")
+            return False
+
+        if url.endswith("/"):
+            url = url[:-1]
+        try:
+            repo_name = os.path.splitext(os.path.basename(url))[0]
+            repo_path = os.path.join(custom_nodes_path, repo_name)
+
+            if not execute_install_script(url, repo_path):
+                return False
+
+        except Exception as e:
+            print(f"Install(git-clone) error: {url} / {e}", file=sys.stderr)
+            return False
+
+    print(f"Attempt to fixing '{files}' is done.")
+    return True
+
+
 def pip_install(packages):
     install_cmd = ['#FORCE', sys.executable, "-m", "pip", "install", '-U'] + packages
     try_install_script('pip install via manager', '.', install_cmd)
@@ -1435,6 +1459,36 @@ async def install_custom_node(request):
 
     elif install_type == "git-clone":
         res = gitclone_install(json_data['files'])
+
+    if 'pip' in json_data:
+        for pname in json_data['pip']:
+            install_cmd = [sys.executable, "-m", "pip", "install", pname]
+            try_install_script(json_data['files'][0], ".", install_cmd)
+
+    if res:
+        print(f"After restarting ComfyUI, please refresh the browser.")
+        return web.json_response({}, content_type='application/json')
+
+    return web.Response(status=400)
+
+
+@server.PromptServer.instance.routes.post("/customnode/fix")
+async def fix_custom_node(request):
+    json_data = await request.json()
+
+    install_type = json_data['install_type']
+
+    print(f"Install custom node '{json_data['title']}'")
+
+    res = False
+
+    if len(json_data['files']) == 0:
+        return web.Response(status=400)
+
+    if install_type == "git-clone":
+        res = gitclone_fix(json_data['files'])
+    else:
+        return web.Response(status=400)
 
     if 'pip' in json_data:
         for pname in json_data['pip']:
