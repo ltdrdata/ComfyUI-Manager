@@ -7,13 +7,13 @@ import { CustomNodesInstaller } from "./custom-nodes-downloader.js";
 import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
 import { ModelInstaller } from "./model-downloader.js";
-import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI } from  "./common.js";
+import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI, free_models } from  "./common.js";
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
 #cm-manager-dialog {
 	width: 1000px;
-	height: 450px;
+	height: 460px;
 	box-sizing: content-box;
 	z-index: 10000;
 }
@@ -66,7 +66,7 @@ docStyle.innerHTML = `
 .cm-notice-board {
 	width: 310px;
 	padding: 0px !important;
-	height: 190px;
+	height: 250px;
 	overflow: auto;
 	color: var(--input-text);
 	border: 1px solid var(--descrip-text);
@@ -812,10 +812,15 @@ class ManagerMenuDialog extends ComfyDialog {
 									install_pip(url, self);
 								}
 							}
+					}),
+					$el("button.cm-experimental-button", {
+						type: "button",
+						textContent: "Unload models",
+						onclick: () => { free_models(); }
 					})
 				]),
 		];
-	}
+}
 
 	createControlsRight() {
 		const elts = [
