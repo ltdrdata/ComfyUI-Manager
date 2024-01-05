@@ -1,5 +1,15 @@
 {
   "models": [
+    {
+      "name": "TencentARC/motionctrl.pth",
+      "type": "checkpoints",
+      "base": "MotionCtrl",
+      "save_path": "checkpoints/motionctrl",
+      "description": "To use the ComfyUI-MotionCtrl extension, downloading this model is required.",
+      "reference": "https://huggingface.co/TencentARC/MotionCtrl",
+      "filename": "motionctrl.pth",
+      "url": "https://huggingface.co/TencentARC/MotionCtrl/blob/main/motionctrl.pth"
+    },
 
     {
       "name": "ControlNet-HandRefiner-pruned (inpaint-depth-hand; fp16)",
@@ -707,47 +717,6 @@
       "reference": "https://huggingface.co/stabilityai/control-lora",
       "filename": "control-lora-sketch-rank128-metadata.safetensors",
       "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-sketch-rank128-metadata.safetensors"
-    },
-
-    {
-      "name": "stabilityai/control-lora-canny-rank256.safetensors",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "default",
-      "description": "Control-LoRA: canny rank256",
-      "reference": "https://huggingface.co/stabilityai/control-lora",
-      "filename": "control-lora-canny-rank256.safetensors",
-      "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank256/control-lora-canny-rank256.safetensors"
-    },
-    {
-      "name": "stabilityai/control-lora-depth-rank256.safetensors",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "default",
-      "description": "Control-LoRA: depth rank256",
-      "reference": "https://huggingface.co/stabilityai/control-lora",
-      "filename": "control-lora-depth-rank256.safetensors",
-      "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank256/control-lora-depth-rank256.safetensors"
-    },
-    {
-      "name": "stabilityai/control-lora-recolor-rank256.safetensors",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "default",
-      "description": "Control-LoRA: recolor rank256",
-      "reference": "https://huggingface.co/stabilityai/control-lora",
-      "filename": "control-lora-recolor-rank256.safetensors",
-      "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank256/control-lora-recolor-rank256.safetensors"
-    },
-    {
-      "name": "stabilityai/control-lora-sketch-rank256.safetensors",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "default",
-      "description": "Control-LoRA: sketch rank256",
-      "reference": "https://huggingface.co/stabilityai/control-lora",
-      "filename": "control-lora-sketch-rank256.safetensors",
-      "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank256/control-lora-sketch-rank256.safetensors"
     }
   ]  
 }
