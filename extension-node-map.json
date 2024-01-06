@@ -1786,6 +1786,7 @@
             "CR Float To Integer",
             "CR Float To String",
             "CR Font File List",
+            "CR Get Parameter From Prompt",
             "CR Gradient Float",
             "CR Gradient Integer",
             "CR Halftone Filter",
@@ -1958,7 +1959,7 @@
         ],
         {
             "author": "Suzie1",
-            "description": "157 custom nodes for artists, designers and animators.",
+            "description": "159 custom nodes for artists, designers and animators.",
             "nickname": "Comfyroll Studio",
             "title": "Comfyroll Studio",
             "title_aux": "ComfyUI_Comfyroll_CustomNodes"
@@ -1995,17 +1996,15 @@
     ],
     "https://github.com/THtianhao/ComfyUI-FaceChain": [
         [
-            "FCStyleLoraLoad",
-            "FC_CropAndPaste",
-            "FC_CropBottom",
-            "FC_CropFace",
-            "FC_CropMask",
-            "FC_FaceDetection",
-            "FC_FaceFusion",
-            "FC_MaskOP",
-            "FC_ReplaceImage",
-            "FC_Segment",
-            "FC_StyleLoraLoad"
+            "FC CropAndPaste",
+            "FC CropBottom",
+            "FC FaceDetectCrop",
+            "FC FaceFusion",
+            "FC FaceSegment",
+            "FC MaskOP",
+            "FC ReplaceImage",
+            "FC StyleLoraLoad",
+            "FCStyleLoraLoad"
         ],
         {
             "title_aux": "ComfyUI-FaceChain"
@@ -2220,7 +2219,8 @@
     ],
     "https://github.com/WASasquatch/FreeU_Advanced": [
         [
-            "FreeU (Advanced)"
+            "FreeU (Advanced)",
+            "FreeU_V2 (Advanced)"
         ],
         {
             "title_aux": "FreeU_Advanced"
@@ -3302,6 +3302,14 @@
             "title_aux": "Image loader with subfolders"
         }
     ],
+    "https://github.com/celsojr2013/comfyui_simpletools/raw/main/google_translator.py": [
+        [
+            "GoogleTranslator"
+        ],
+        {
+            "title_aux": "ComfyUI SimpleTools Suit"
+        }
+    ],
     "https://github.com/ceruleandeep/ComfyUI-LLaVA-Captioner": [
         [
             "LlavaCaptioner"
@@ -3314,7 +3322,10 @@
         [
             "Load Motion Camera Preset",
             "Load Motion Traj Preset",
+            "Load Motionctrl Checkpoint",
+            "Motionctrl Cond",
             "Motionctrl Sample",
+            "Motionctrl Sample Simple",
             "Select Image Indices"
         ],
         {
@@ -3439,12 +3450,15 @@
             "LoadCurrentWorkflowJSON",
             "LoadDiskWorkflowJSON",
             "LoadImageUrl",
+            "LoadLatentNumpy",
+            "LoadLatentUrl",
             "RemoteChainEnd",
             "RemoteChainStart",
             "RemoteQueueSimple",
             "RemoteQueueWorker",
             "SaveDiskWorkflowJSON",
-            "SaveImageUrl"
+            "SaveImageUrl",
+            "SaveLatentNumpy"
         ],
         {
             "title_aux": "ComfyUI_NetDist"
@@ -3602,6 +3616,7 @@
             "SplitImageWithAlpha",
             "SplitSigmas",
             "StableZero123_Conditioning",
+            "StableZero123_Conditioning_Batched",
             "StyleModelApply",
             "StyleModelLoader",
             "TomePatchModel",
@@ -5621,6 +5636,7 @@
             "MultiplicationNode",
             "NewLayer",
             "NoiseImage",
+            "PromptImage",
             "PromptSimplification",
             "PromptSlide",
             "RandomPrompt",
@@ -6484,7 +6500,16 @@
         [
             "dynamicThresholdingFull",
             "easy LLLiteLoader",
+            "easy XYInputs: CFG Scale",
+            "easy XYInputs: ControlNet",
+            "easy XYInputs: Denoise",
+            "easy XYInputs: ModelMergeBlocks",
+            "easy XYInputs: PromptSR",
+            "easy XYInputs: Sampler/Scheduler",
+            "easy XYInputs: Seeds++ Batch",
+            "easy XYInputs: Steps",
             "easy XYPlot",
+            "easy XYPlotAdvanced",
             "easy a1111Loader",
             "easy comfyLoader",
             "easy controlnetLoader",

@@ -27,7 +27,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [1, 25]
+version = [1, 25, 1]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -673,15 +673,17 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
         dir_path = os.path.join(custom_nodes_path, dir_name)
         if os.path.exists(dir_path):
             try:
-                update_state, success = git_repo_has_updates(dir_path, do_fetch, do_update)
-                if (do_update_check or do_update) and update_state:
-                    item['installed'] = 'Update'
-                elif do_update and not success:
+                item['installed'] = 'True'  # default
+
+                if cm_global.try_call(api="cm.is_import_failed_extension", name=dir_name):
                     item['installed'] = 'Fail'
-                elif cm_global.try_call(api="cm.is_import_failed_extension", name=dir_name):
-                    item['installed'] = 'Fail'
-                else:
-                    item['installed'] = 'True'
+
+                if do_update_check:
+                    update_state, success = git_repo_has_updates(dir_path, do_fetch, do_update)
+                    if (do_update_check or do_update) and update_state:
+                        item['installed'] = 'Update'
+                    elif do_update and not success:
+                        item['installed'] = 'Fail'
             except:
                 if cm_global.try_call(api="cm.is_import_failed_extension", name=dir_name):
                     item['installed'] = 'Fail'
@@ -727,7 +729,7 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
     def process_custom_node(item):
         check_a_custom_node_installed(item, do_fetch, do_update_check, do_update)
 
-    with concurrent.futures.ThreadPoolExecutor(4) as executor:
+    with concurrent.futures.ThreadPoolExecutor(8) as executor:
         for item in json_obj['custom_nodes']:
             executor.submit(process_custom_node, item)
 

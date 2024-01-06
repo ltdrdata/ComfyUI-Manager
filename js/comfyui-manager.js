@@ -13,7 +13,7 @@ var docStyle = document.createElement('style');
 docStyle.innerHTML = `
 #cm-manager-dialog {
 	width: 1000px;
-	height: 460px;
+	height: 465px;
 	box-sizing: content-box;
 	z-index: 10000;
 }
@@ -66,7 +66,7 @@ docStyle.innerHTML = `
 .cm-notice-board {
 	width: 310px;
 	padding: 0px !important;
-	height: 250px;
+	height: 230px;
 	overflow: auto;
 	color: var(--input-text);
 	border: 1px solid var(--descrip-text);

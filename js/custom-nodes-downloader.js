@@ -568,7 +568,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 					installBtn.style.color = 'white';
 					break;
 				default:
-					installBtn.innerHTML = `Try Install${data.installed}`;
+					installBtn.innerHTML = `Try Install`;
 					installBtn.style.backgroundColor = 'Gray';
 					installBtn.style.color = 'white';
 				}
