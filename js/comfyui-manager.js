@@ -563,13 +563,7 @@ function newDOMTokenList(initialTokens) {
  * Check whether the node is a potential output node (img, gif or video output)
  */
 const isOutputNode = (node) => {
-	return [
-		"VHS_VideoCombine",
-		"PreviewImage",
-		"SaveImage",
-		"ADE_AnimateDiffCombine",
-		"SaveAnimatedWEBP",
-	].includes(node.type);
+	return SUPPORTED_OUTPUT_NODE_TYPES.includes(node.type);
 }
 
 // -----------

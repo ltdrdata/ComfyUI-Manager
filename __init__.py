@@ -16,6 +16,7 @@ from urllib.parse import urlparse
 import http.client
 import re
 import nodes
+import hashlib
 
 try:
     import cm_global
@@ -1932,6 +1933,47 @@ def has_provided_comfyworkflows_auth(comfyworkflows_sharekey):
     return comfyworkflows_sharekey.strip()
 
 
+
+def extract_model_file_names(json_data):
+    """Extract unique file names from the input JSON data."""
+    file_names = set()
+    model_filename_extensions = {'.safetensors', '.ckpt', '.pt', '.pth', '.bin'}
+
+    # Recursively search for file names in the JSON data
+    def recursive_search(data):
+        if isinstance(data, dict):
+            for value in data.values():
+                recursive_search(value)
+        elif isinstance(data, list):
+            for item in data:
+                recursive_search(item)
+        elif isinstance(data, str) and '.' in data:
+            file_names.add(os.path.basename(data)) # file_names.add(data)
+
+    recursive_search(json_data)
+    return [f for f in list(file_names) if os.path.splitext(f)[1] in model_filename_extensions]
+
+def find_file_paths(base_dir, file_names):
+    """Find the paths of the files in the base directory."""
+    file_paths = {}
+
+    for root, dirs, files in os.walk(base_dir):
+        # Exclude certain directories
+        dirs[:] = [d for d in dirs if d not in ['.git']]
+
+        for file in files:
+            if file in file_names:
+                file_paths[file] = os.path.join(root, file)
+    return file_paths
+
+def compute_sha256_checksum(filepath):
+    """Compute the SHA256 checksum of a file, in chunks"""
+    sha256 = hashlib.sha256()
+    with open(filepath, 'rb') as f:
+        for chunk in iter(lambda: f.read(4096), b''):
+            sha256.update(chunk)
+    return sha256.hexdigest()
+
 @server.PromptServer.instance.routes.post("/manager/share")
 async def share_art(request):
     # get json data
@@ -1992,7 +2034,6 @@ async def share_art(request):
                     "assetFileType": assetFileType,
                     "workflowJsonFileName" : 'workflow.json',
                     "workflowJsonFileType" : 'application/json',
-
                 },
             ) as resp:
                 assert resp.status == 200
@@ -2012,6 +2053,17 @@ async def share_art(request):
             async with session.put(workflowJsonFilePresignedUrl, data=json.dumps(prompt['workflow']).encode('utf-8')) as resp:
                 assert resp.status == 200
 
+        model_filenames = extract_model_file_names(prompt['workflow'])
+        model_file_paths = find_file_paths(folder_paths.base_path, model_filenames)
+
+        models_info = {}
+        for filename, filepath in model_file_paths.items():
+            models_info[filename] = {
+                "filename": filename,
+                "sha256_checksum": compute_sha256_checksum(filepath),
+                "relative_path": os.path.relpath(filepath, folder_paths.base_path),
+            }
+
         # make a POST request to /api/upload_workflow with form data key values
         async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
             form = aiohttp.FormData()
@@ -2027,7 +2079,9 @@ async def share_art(request):
             form.add_field("shareWorkflowTitle", title)
             form.add_field("shareWorkflowDescription", description)
             form.add_field("shareWorkflowIsNSFW", str(is_nsfw).lower())
-
+            form.add_field("currentSnapshot", json.dumps(get_current_snapshot()))
+            form.add_field("modelsInfo", json.dumps(models_info))
+            
             async with session.post(
                 f"{share_endpoint}/upload_workflow",
                 data=form,
