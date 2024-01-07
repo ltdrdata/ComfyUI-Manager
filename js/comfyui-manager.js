@@ -1014,14 +1014,14 @@ class ManagerMenuDialog extends ComfyDialog {
 						modifyButtonStyle(url);
 					},
         },
-				{
+        {
           title: "Open 'youml.com'",
-					callback: () => {
-						const url = "https://youml.com/?from=comfyui-share";
-						localStorage.setItem("wg_last_visited", url);
-						window.open(url, "comfyui-workflow-gallery");
-						modifyButtonStyle(url);
-					},
+          callback: () => {
+            const url = "https://youml.com/?from=comfyui-share";
+            localStorage.setItem("wg_last_visited", url);
+            window.open(url, "comfyui-workflow-gallery");
+            modifyButtonStyle(url);
+          },
         },
         {
           title: "Open 'comfyworkflows.com'",
