@@ -28,7 +28,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [1, 25, 2]
+version = [1, 25, 3]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -1518,7 +1518,7 @@ async def fix_custom_node(request):
 
     if 'pip' in json_data:
         for pname in json_data['pip']:
-            install_cmd = [sys.executable, "-m", "pip", "install", pname]
+            install_cmd = [sys.executable, "-m", "pip", "install", '-U', pname]
             try_install_script(json_data['files'][0], ".", install_cmd)
 
     if res:
