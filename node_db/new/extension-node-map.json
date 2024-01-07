@@ -2008,6 +2008,8 @@
             "FC FaceSegAndReplace",
             "FC FaceSegment",
             "FC MaskOP",
+            "FC RemoveCannyFace",
+            "FC ReplaceByMask",
             "FCStyleLoraLoad"
         ],
         {
@@ -4494,7 +4496,8 @@
     "https://github.com/kft334/Knodes": [
         [
             "Image(s) To Websocket (Base64)",
-            "ImageOutput"
+            "ImageOutput",
+            "Load Image(s) From Websocket (Base64)"
         ],
         {
             "title_aux": "Knodes"
@@ -4589,6 +4592,14 @@
         ],
         {
             "title_aux": "ComfyUI_GradientDeepShrink"
+        }
+    ],
+    "https://github.com/kinfolk0117/ComfyUI_Pilgram": [
+        [
+            "Pilgram"
+        ],
+        {
+            "title_aux": "ComfyUI_Pilgram"
         }
     ],
     "https://github.com/kinfolk0117/ComfyUI_SimpleTiles": [
@@ -5688,6 +5699,17 @@
             "title_aux": "comfyui-mixlab-nodes"
         }
     ],
+    "https://github.com/shiimizu/ComfyUI-TiledDiffusion": [
+        [
+            "NoiseInversion",
+            "TiledDiffusion",
+            "VAEDecodeTiled_TiledDiffusion",
+            "VAEEncodeTiled_TiledDiffusion"
+        ],
+        {
+            "title_aux": "Tiled Diffusion & VAE for ComfyUI"
+        }
+    ],
     "https://github.com/shiimizu/ComfyUI_smZNodes": [
         [
             "smZ CLIPTextEncode",
@@ -5890,10 +5912,16 @@
     ],
     "https://github.com/spacepxl/ComfyUI-Image-Filters": [
         [
+            "AdainImage",
+            "AdainLatent",
             "AlphaClean",
             "AlphaMatte",
+            "BatchNormalizeImage",
+            "BatchNormalizeLatent",
             "BlurImageFast",
             "BlurMaskFast",
+            "ClampOutliers",
+            "DifferenceChecker",
             "DilateErodeMask",
             "EnhanceDetail",
             "GuidedFilterAlpha",

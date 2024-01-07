@@ -11,6 +11,36 @@
         
 
         {
+            "author": "shiimizu",
+            "title": "Tiled Diffusion & VAE for ComfyUI",
+            "reference": "https://github.com/shiimizu/ComfyUI-TiledDiffusion",
+            "files": [
+                "https://github.com/shiimizu/ComfyUI-TiledDiffusion"
+            ],
+            "install_type": "git-clone",
+            "description": "The extension enables large image drawing & upscaling with limited VRAM via the following techniques:\n1.Two SOTA diffusion tiling algorithms: [a/Mixture of Diffusers](https://github.com/albarji/mixture-of-diffusers) and [a/MultiDiffusion](https://github.com/omerbt/MultiDiffusion)\n2.pkuliyi2015's Tiled VAE algorithm."
+        },
+        {
+            "author": "ginlov",
+            "title": "segment_to_mask_comfyui",
+            "reference": "https://github.com/ginlov/segment_to_mask_comfyui",
+            "files": [
+                "https://github.com/ginlov/segment_to_mask_comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:SegToMask"
+        },
+        {
+            "author": "kinfolk0117",
+            "title": "ComfyUI_Pilgram",
+            "reference": "https://github.com/kinfolk0117/ComfyUI_Pilgram",
+            "files": [
+                "https://github.com/kinfolk0117/ComfyUI_Pilgram"
+            ],
+            "install_type": "git-clone",
+            "description": "Use [a/Pilgram2](https://github.com/mgineer85/pilgram2) filters in ComfyUI"
+        },
+        {
             "author": "Daniel Lewis",
             "title": "ComfyUI-Llama",
             "reference": "https://github.com/daniel-lewis-ab/ComfyUI-Llama",
@@ -663,189 +693,6 @@
             ],
             "install_type": "git-clone",
             "description": "A few nodes to mix sigmas and a custom scheduler that uses phi, then one using eval() to be able to schedule with custom formulas."
-        },
-        {
-            "author": "BennyKok",
-            "title": "ComfyUI Deploy",
-            "reference": "https://github.com/BennyKok/comfyui-deploy",
-            "files": [
-                "https://github.com/BennyKok/comfyui-deploy"
-            ],
-            "install_type": "git-clone",
-            "description": "Open source comfyui deployment platform, a vercel for generative workflow infra."
-        },
-        {
-            "author": "Rui",
-            "title": "RUI-Nodes",
-            "reference": "https://github.com/rui40000/RUI-Nodes",
-            "files": [
-                "https://github.com/rui40000/RUI-Nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Rui's workflow-specific custom node, written using GPT."
-        },
-        {
-            "author": "SpaceKendo",
-            "title": "Text to video for Stable Video Diffusion in ComfyUI",
-            "reference": "https://github.com/SpaceKendo/ComfyUI-svd_txt2vid",
-            "files": [
-                "https://github.com/SpaceKendo/ComfyUI-svd_txt2vid"
-            ],
-            "install_type": "git-clone",
-            "description": "This is node replaces the init_image conditioning for the [a/Stable Video Diffusion](https://github.com/Stability-AI/generative-models) image to video model with text embeds, together with a conditioning frame. The conditioning frame is a set of latents."
-        },
-        {
-            "author": "NimaNzrii",
-            "title": "comfyui-photoshop",
-            "reference": "https://github.com/NimaNzrii/comfyui-photoshop",
-            "files": [
-                "https://github.com/NimaNzrii/comfyui-photoshop"
-            ],
-            "install_type": "git-clone",
-            "description": "Photoshop node inside of ComfyUi, send and get data from Photoshop"
-        },
-        {
-            "author": "NimaNzrii",
-            "title": "comfyui-popup_preview",
-            "reference": "https://github.com/NimaNzrii/comfyui-popup_preview",
-            "files": [
-                "https://github.com/NimaNzrii/comfyui-popup_preview"
-            ],
-            "install_type": "git-clone",
-            "description": "popup preview for comfyui"
-        },
-
-
-        {
-            "author": "AI2lab",
-            "title": "comfyUI-tool-2lab",
-            "reference": "https://github.com/AI2lab/comfyUI-tool-2lab",
-            "files": [
-                "https://github.com/AI2lab/comfyUI-tool-2lab"
-            ],
-            "install_type": "git-clone",
-            "description": "Integrate non-painting capabilities into comfyUI, including data, algorithms, video processing, large models, etc., to facilitate the construction of more powerful workflows."
-        },
-        {
-            "author": "LZC",
-            "title": "Hayo comfyui nodes",
-            "reference": "https://github.com/1shadow1/hayo_comfyui_nodes",
-            "files": [
-                "https://github.com/1shadow1/hayo_comfyui_nodes/raw/main/LZCNodes.py"
-            ],
-            "install_type": "copy",
-            "description": "Nodes:tensor_trans_pil, Make Transparent mask, MergeImages, words_generatee, load_PIL image"
-        },
-        {
-            "author": "MNeMoNiCuZ",
-            "title": "ComfyUI-mnemic-nodes",
-            "reference": "https://github.com/MNeMoNiCuZ/ComfyUI-mnemic-nodes",
-            "files": [
-                "https://github.com/MNeMoNiCuZ/ComfyUI-mnemic-nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Save Text File"
-        },
-        {
-            "author": "vienteck",
-            "title": "ComfyUI-Chat-GPT-Integration",
-            "reference": "https://github.com/vienteck/ComfyUI-Chat-GPT-Integration",
-            "files": [
-                "https://github.com/vienteck/ComfyUI-Chat-GPT-Integration"
-            ],
-            "install_type": "git-clone",
-            
-            "description": "This extension is a reimagined version based on the [a/ComfyUI-QualityOfLifeSuit_Omar92](https://github.com/omar92/ComfyUI-QualityOfLifeSuit_Omar92) extension, and it supports integration with ChatGPT through the new OpenAI API.\nNOTE: See detailed installation instructions on the [a/repository](https://github.com/vienteck/ComfyUI-Chat-GPT-Integration)."
-        },
-        {
-            "author": "Haoming02",
-            "title": "ComfyUI Tab Handler",
-            "reference": "https://github.com/Haoming02/comfyui-tab-handler",
-            "files": [
-                "https://github.com/Haoming02/comfyui-tab-handler"
-            ],
-            "install_type": "git-clone",
-            "description": "This is an Extension for ComfyUI, which moves the menu to the specified corner on startup."
-        },
-        {
-            "author": "glibsonoran",
-            "title": "Plush-for-ComfyUI",
-            "reference": "https://github.com/glibsonoran/Plush-for-ComfyUI",
-            "files": [
-                "https://github.com/glibsonoran/Plush-for-ComfyUI"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: Style Prompt, OAI Dall_e Image. Plush contains two OpenAI enabled nodes: Style Prompt: Takes your prompt and the art style you specify and generates a prompt from ChatGPT3 or 4 that Stable Diffusion can use to generate an image in that style. OAI Dall_e 3: Takes your prompt and parameters and produces a Dall_e3 image in ComfyUI."
-        },
-        {
-            "author": "Aegis72",
-            "title": "AegisFlow Utility Nodes",
-            "reference": "https://github.com/aegis72/aegisflow_utility_nodes",
-            "files": [
-                "https://github.com/aegis72/aegisflow_utility_nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "These nodes will be placed in comfyui/custom_nodes/aegisflow and contains the image passer (accepts an image as either wired or wirelessly, input and passes it through. Latent passer does the same for latents, and the Preprocessor chooser allows a passthrough image and 10 controlnets to be passed in AegisFlow Shima. The inputs on the Preprocessor  chooser should not be renamed if you intend to accept image inputs wirelessly through UE nodes. It can be done, but the send node input regex for each controlnet preprocessor column must also be changed."
-        },
-        {
-            "author": "concarne000",
-            "title": "ConCarneNode",
-            "reference": "https://github.com/concarne000/ConCarneNode",
-            "files": [
-                "https://github.com/concarne000/ConCarneNode"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Bing Image Grabber node for ComfyUI."
-        },
-        {
-            "author": "Haoming02",
-            "title": "ComfyUI Menu Anchor",
-            "reference": "https://github.com/Haoming02/comfyui-menu-anchor",
-            "files": [
-                "https://github.com/Haoming02/comfyui-menu-anchor"
-            ],
-            "install_type": "git-clone",
-            "description": "This is an Extension for ComfyUI, which moves the menu to the specified corner on startup."
-        },
-        {
-            "author": "glifxyz",
-            "title": "ComfyUI-GlifNodes",
-            "reference": "https://github.com/glifxyz/ComfyUI-GlifNodes",
-            "files": [
-                "https://github.com/glifxyz/ComfyUI-GlifNodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Consistency VAE Decoder."
-        },
-        {
-            "author": "kijai",
-            "title": "Marigold depth estimation in ComfyUI",
-            "reference": "https://github.com/kijai/ComfyUI-Marigold",
-            "files": [
-                "https://github.com/kijai/ComfyUI-Marigold"
-            ],
-            "install_type": "git-clone",
-            "description": "This is a wrapper node for Marigold depth estimation: [https://github.com/prs-eth/Marigold](https://github.com/kijai/ComfyUI-Marigold). Currently using the same diffusers pipeline as in the original implementation, so in addition to the custom node, you need the model in diffusers format.\nNOTE: See details in repo to install."
-        },
-        {
-            "author": "spacepxl",
-            "title": "ComfyUI-Image-Filters",
-            "reference": "https://github.com/spacepxl/ComfyUI-Image-Filters",
-            "files": [
-                "https://github.com/spacepxl/ComfyUI-Image-Filters"
-            ],
-            "install_type": "git-clone",
-            "description": "Image and matte filtering nodes for ComfyUI `image/filters/*`"
-        },
-        {
-            "author": "Haoming02",
-            "title": "ComfyUI Clear Screen",
-            "reference": "https://github.com/Haoming02/comfyui-clear-screen",
-            "files": [
-                "https://github.com/Haoming02/comfyui-clear-screen"
-            ],
-            "install_type": "git-clone",
-            "description": "This is an Extension for ComfyUI, which adds a button, CLS, to clear the console window."
         }
     ]
 }
