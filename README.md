@@ -133,7 +133,9 @@ This repository provides Colab notebooks that allow you to install and use Comfy
   ![menu](misc/main.jpg) ![share](misc/share.jpg) 
 
   * You can share the workflow by clicking the Share button at the bottom of the main menu or selecting Share Output from the Context Menu of the Image node.
-  * Currently, it supports sharing via [https://comfyworkflows.com/](https://comfyworkflows.com/) and [https://openart.ai](https://openart.ai/workflows/dev), as well as through the Matrix channel.
+  * Currently, it supports sharing via [https://comfyworkflows.com/](https://comfyworkflows.com/),
+    [https://openart.ai](https://openart.ai/workflows/dev), [https://youml.com](https://youml.com) 
+    as well as through the Matrix channel.
 
   ![menu](misc/share-setting.jpg)
   
