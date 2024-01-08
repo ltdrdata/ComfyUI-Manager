@@ -1874,6 +1874,22 @@ def get_comfyworkflows_auth():
         return None
 
 
+def get_youml_settings():
+    if not os.path.exists(os.path.join(comfyui_manager_path, ".youml")):
+        return None
+    try:
+        with open(os.path.join(comfyui_manager_path, ".youml"), "r") as f:
+            youml_settings = f.read().strip()
+        return youml_settings if youml_settings else None
+    except:
+        return None
+
+
+def set_youml_settings(settings):
+    with open(os.path.join(comfyui_manager_path, ".youml"), "w") as f:
+        f.write(settings)
+
+
 @server.PromptServer.instance.routes.get("/manager/get_openart_auth")
 async def api_get_openart_auth(request):
     # print("Getting stored Matrix credentials...")
@@ -1899,6 +1915,21 @@ async def api_get_matrix_auth(request):
     if not matrix_auth:
         return web.Response(status=404)
     return web.json_response(matrix_auth)
+
+
+@server.PromptServer.instance.routes.get("/manager/youml/settings")
+async def api_get_youml_settings(request):
+    youml_settings = get_youml_settings()
+    if not youml_settings:
+        return web.Response(status=404)
+    return web.json_response(json.loads(youml_settings))
+
+
+@server.PromptServer.instance.routes.post("/manager/youml/settings")
+async def api_set_youml_settings(request):
+    json_data = await request.json()
+    set_youml_settings(json.dumps(json_data))
+    return web.Response(status=200)
 
 
 @server.PromptServer.instance.routes.get("/manager/get_comfyworkflows_auth")

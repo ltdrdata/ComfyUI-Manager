@@ -1,7 +1,15 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
-import { ShareDialog, SUPPORTED_OUTPUT_NODE_TYPES, getPotentialOutputsAndOutputNodes, ShareDialogChooser, showOpenArtShareDialog, showShareDialog } from "./comfyui-share-common.js";
+import {
+	ShareDialog,
+	SUPPORTED_OUTPUT_NODE_TYPES,
+	getPotentialOutputsAndOutputNodes,
+	ShareDialogChooser,
+	showOpenArtShareDialog,
+	showShareDialog,
+	showYouMLShareDialog
+} from "./comfyui-share-common.js";
 import { OpenArtShareDialog } from "./comfyui-share-openart.js";
 import { CustomNodesInstaller } from "./custom-nodes-downloader.js";
 import { AlternativesInstaller } from "./a1111-alter-downloader.js";
@@ -734,6 +742,7 @@ class ManagerMenuDialog extends ComfyDialog {
 		const share_options = [
 			['none', 'None'],
 			['openart', 'OpenArt AI'],
+			['youml', 'YouML'],
 			['matrix', 'Matrix Server'],
 			['comfyworkflows', 'ComfyWorkflows'],
 			['all', 'All'],
@@ -985,6 +994,9 @@ class ManagerMenuDialog extends ComfyDialog {
             } else if (share_option === 'matrix' || share_option === 'comfyworkflows') {
               showShareDialog(share_option);
               return;
+            } else if (share_option === 'youml') {
+              showYouMLShareDialog();
+              return;
             }
 
             if (!ShareDialogChooser.instance) {
@@ -1001,6 +1013,15 @@ class ManagerMenuDialog extends ComfyDialog {
 						window.open(url, "comfyui-workflow-gallery");
 						modifyButtonStyle(url);
 					},
+        },
+        {
+          title: "Open 'youml.com'",
+          callback: () => {
+            const url = "https://youml.com/?from=comfyui-share";
+            localStorage.setItem("wg_last_visited", url);
+            window.open(url, "comfyui-workflow-gallery");
+            modifyButtonStyle(url);
+          },
         },
         {
           title: "Open 'comfyworkflows.com'",
@@ -1066,6 +1087,9 @@ app.registerExtension({
 				return;
 			} else if (share_option === 'matrix' || share_option === 'comfyworkflows') {
 				showShareDialog(share_option);
+				return;
+			} else if (share_option === 'youml') {
+				showYouMLShareDialog();
 				return;
 			}
 
