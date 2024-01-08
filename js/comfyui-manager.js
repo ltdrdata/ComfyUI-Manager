@@ -64,13 +64,12 @@ docStyle.innerHTML = `
 }
 
 .cm-notice-board {
-	width: 310px;
-	padding: 0px !important;
+	width: 290px;
 	height: 230px;
 	overflow: auto;
 	color: var(--input-text);
 	border: 1px solid var(--descrip-text);
-	padding: 10px;
+	padding: 5px 10px;
 	overflow-x: hidden;
 }
 
