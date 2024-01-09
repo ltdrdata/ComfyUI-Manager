@@ -12,6 +12,27 @@
     },
 
     {
+      "name": "ip-adapter-faceid-plusv2_sd15.bin",
+      "type": "IP-Adapter",
+      "base": "SD1.5",
+      "save_path": "ipadapter",
+      "description": "IP-Adapter-FaceID-Plus V2 Model (SD1.5)",
+      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
+      "filename": "ip-adapter-faceid-plusv2_sd15.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sd15.bin"
+    },
+    {
+      "name": "ip-adapter-faceid-plus_sd15_lora.safetensors",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/ipadapter",
+      "description": "IP-Adapter-FaceID-Plus V2 LoRA Model (SD1.5)",
+      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
+      "filename": "ip-adapter-faceid-plus_sd15_lora.safetensors",
+      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plus_sd15_lora.safetensors"
+    },
+
+    {
       "name": "ControlNet-HandRefiner-pruned (inpaint-depth-hand; fp16)",
       "type": "controlnet",
       "base": "SD1.5",
@@ -676,47 +697,6 @@
       "reference": "https://huggingface.co/h94/IP-Adapter",
       "filename": "pytorch_model.bin",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/image_encoder/pytorch_model.bin"
-    },
-
-    {
-      "name": "stabilityai/control-lora-canny-rank128.safetensors",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "default",
-      "description": "Control-LoRA: canny rank128",
-      "reference": "https://huggingface.co/stabilityai/control-lora",
-      "filename": "control-lora-canny-rank128.safetensors",
-      "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-canny-rank128.safetensors"
-    },
-    {
-      "name": "stabilityai/control-lora-depth-rank128.safetensors",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "default",
-      "description": "Control-LoRA: depth rank128",
-      "reference": "https://huggingface.co/stabilityai/control-lora",
-      "filename": "control-lora-depth-rank128.safetensors",
-      "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-depth-rank128.safetensors"
-    },
-    {
-      "name": "stabilityai/control-lora-recolor-rank128.safetensors",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "default",
-      "description": "Control-LoRA: recolor rank128",
-      "reference": "https://huggingface.co/stabilityai/control-lora",
-      "filename": "control-lora-recolor-rank128.safetensors",
-      "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-recolor-rank128.safetensors"
-    },
-    {
-      "name": "stabilityai/control-lora-sketch-rank128-metadata.safetensors",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "default",
-      "description": "Control-LoRA: sketch rank128 metadata",
-      "reference": "https://huggingface.co/stabilityai/control-lora",
-      "filename": "control-lora-sketch-rank128-metadata.safetensors",
-      "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-sketch-rank128-metadata.safetensors"
     }
-  ]  
+  ]
 }
