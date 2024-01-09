@@ -70,6 +70,19 @@
             "title_aux": "ComfyUI-Static-Primitives"
         }
     ],
+    "https://github.com/AInseven/ComfyUI-fastblend": [
+        [
+            "FillDarkMask",
+            "InterpolateKeyFrame",
+            "MaskListcaptoBatch",
+            "MyOpenPoseNode",
+            "SmoothVideo",
+            "reBatchImage"
+        ],
+        {
+            "title_aux": "ComfyUI-fastblend"
+        }
+    ],
     "https://github.com/AIrjen/OneButtonPrompt": [
         [
             "AutoNegativePrompt",
@@ -1029,8 +1042,10 @@
         [
             "VHS_DuplicateImages",
             "VHS_DuplicateLatents",
+            "VHS_DuplicateMasks",
             "VHS_GetImageCount",
             "VHS_GetLatentCount",
+            "VHS_GetMaskCount",
             "VHS_LoadAudio",
             "VHS_LoadImages",
             "VHS_LoadImagesPath",
@@ -1038,10 +1053,13 @@
             "VHS_LoadVideoPath",
             "VHS_MergeImages",
             "VHS_MergeLatents",
+            "VHS_MergeMasks",
             "VHS_SelectEveryNthImage",
             "VHS_SelectEveryNthLatent",
+            "VHS_SelectEveryNthMask",
             "VHS_SplitImages",
             "VHS_SplitLatents",
+            "VHS_SplitMasks",
             "VHS_VAEDecodeBatched",
             "VHS_VAEEncodeBatched",
             "VHS_VideoCombine"
@@ -2058,6 +2076,7 @@
             "tri3d-extract-parts-batch2",
             "tri3d-extract-parts-mask-batch",
             "tri3d-face-recognise",
+            "tri3d-float-to-image",
             "tri3d-fuzzification",
             "tri3d-interaction-canny",
             "tri3d-load-pose-json",
@@ -3726,6 +3745,7 @@
             "BatchCount+",
             "CLIPTextEncodeSDXL+",
             "ConsoleDebug+",
+            "DebugTensorShape+",
             "ExtractKeyframes+",
             "GetImageSize+",
             "ImageCASharpening+",
@@ -3747,7 +3767,6 @@
             "ModelCompile+",
             "SDXLResolutionPicker+",
             "SimpleMath+",
-            "StableZero123_Increments",
             "TransitionMask+"
         ],
         {
@@ -4199,6 +4218,14 @@
         ],
         {
             "title_aux": "ComfyUI-GlifNodes"
+        }
+    ],
+    "https://github.com/glowcone/comfyui-base64-to-image": [
+        [
+            "LoadImageFromBase64"
+        ],
+        {
+            "title_aux": "Load Image From Base64 URI"
         }
     ],
     "https://github.com/guoyk93/yk-node-suite-comfyui": [
@@ -4961,11 +4988,13 @@
             "GlobalSampler //Inspire",
             "GlobalSeed //Inspire",
             "HEDPreprocessor_Provider_for_SEGS //Inspire",
+            "ImageBatchSplitter //Inspire",
             "InpaintPreprocessor_Provider_for_SEGS //Inspire",
             "KSampler //Inspire",
             "KSamplerAdvanced //Inspire",
             "KSamplerAdvancedProgress //Inspire",
             "KSamplerProgress //Inspire",
+            "LatentBatchSplitter //Inspire",
             "LeRes_DepthMap_Preprocessor_Provider_for_SEGS //Inspire",
             "LineArt_Preprocessor_Provider_for_SEGS //Inspire",
             "ListCounter //Inspire",
@@ -4985,6 +5014,7 @@
             "OpenPose_Preprocessor_Provider_for_SEGS //Inspire",
             "PromptBuilder //Inspire",
             "PromptExtractor //Inspire",
+            "RandomGeneratorForList //Inspire",
             "RegionalConditioningColorMask //Inspire",
             "RegionalConditioningSimple //Inspire",
             "RegionalIPAdapterColorMask //Inspire",
@@ -5681,6 +5711,7 @@
             "LoadImagesFromPath",
             "LoadImagesFromURL",
             "MergeLayers",
+            "MirroredImage",
             "MultiplicationNode",
             "NewLayer",
             "NoiseImage",
@@ -5698,6 +5729,7 @@
             "SplitLongMask",
             "SvgImage",
             "SwitchByIndex",
+            "TESTNODE_",
             "TextImage",
             "TextInput_",
             "TextToNumber",
