@@ -264,9 +264,10 @@ export class OpenArtShareDialog extends ComfyDialog {
     ]);
 
     // OpenArt Contest Section
+    /*
     this.joinContestCheckbox = $el("input", {
       type: 'checkbox',
-      id: "join_contest"
+      id: "join_contest"s
     }, [])
     this.joinContestDescription = $el("a", {
       style: {
@@ -290,6 +291,7 @@ export class OpenArtShareDialog extends ComfyDialog {
     const contestSection = $el("div", {style: sectionStyle}, [
       this.joinContestLabel,
     ]);
+    */
 
     // Message Section
     this.message = $el(
@@ -349,7 +351,7 @@ export class OpenArtShareDialog extends ComfyDialog {
       outputUploadSection,
       this.outputsSection,
       additionalInputsSection,
-      contestSection,
+      // contestSection,
       this.message,
       buttonsSection,
     ];
@@ -486,7 +488,7 @@ export class OpenArtShareDialog extends ComfyDialog {
       }
     }
 
-    const join_contest = this.joinContestCheckbox.checked;
+    // const join_contest = this.joinContestCheckbox.checked;
 
     try {
       const response = await this.fetchApi(
@@ -502,7 +504,7 @@ export class OpenArtShareDialog extends ComfyDialog {
               workflow_api_json: workflowAPIJSON,
               snapshot: current_snapshot,
             },
-            join_contest,
+            // join_contest,
           }),
         },
         "Uploading workflow..."
