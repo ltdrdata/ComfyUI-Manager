@@ -135,7 +135,7 @@ try:
     is_start_mode = True
     is_import_fail_mode = False
 
-    log_file = open(f"comfyui{postfix}.log", "w", encoding="utf-8")
+    log_file = open(f"comfyui{postfix}.log", "w", encoding="utf-8", errors="ignore")
     log_lock = threading.Lock()
 
     class ComfyUIManagerLogger:
@@ -338,7 +338,7 @@ if os.path.exists(restore_snapshot_path):
         cmd_str = [sys.executable, git_script_path, '--apply-snapshot', restore_snapshot_path]
         exit_code = process_wrap(cmd_str, custom_nodes_path, handler=msg_capture)
 
-        with open(restore_snapshot_path, 'r', encoding="UTF-8") as json_file:
+        with open(restore_snapshot_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
             info = json.load(json_file)
             for url in cloned_repos:
                 try:
@@ -352,7 +352,7 @@ if os.path.exists(restore_snapshot_path):
                     this_exit_code = 0
 
                     if os.path.exists(requirements_path):
-                        with open(requirements_path, 'r', encoding="UTF-8") as file:
+                        with open(requirements_path, 'r', encoding="UTF-8", errors="ignore") as file:
                             for line in file:
                                 package_name = line.strip()
                                 if package_name and not is_installed(package_name):
@@ -413,7 +413,7 @@ if os.path.exists(script_list_path):
 
     executed = set()
     # Read each line from the file and convert it to a list using eval
-    with open(script_list_path, 'r', encoding="UTF-8") as file:
+    with open(script_list_path, 'r', encoding="UTF-8", errors="ignore") as file:
         for line in file:
             if line in executed:
                 continue
