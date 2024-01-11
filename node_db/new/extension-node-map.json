@@ -272,20 +272,6 @@
             "title_aux": "ComfyUI Deploy"
         }
     ],
-    "https://github.com/Bikecicle/ComfyUI-Waveform-Extensions/raw/main/EXT_AudioManipulation.py": [
-        [
-            "BatchJoinAudio",
-            "CutAudio",
-            "DuplicateAudio",
-            "JoinAudio",
-            "ResampleAudio",
-            "ReverseAudio",
-            "StretchAudio"
-        ],
-        {
-            "title_aux": "Waveform Extensions"
-        }
-    ],
     "https://github.com/BlenderNeko/ComfyUI_ADV_CLIP_emb": [
         [
             "BNK_AddCLIPSDXLParams",
@@ -2090,6 +2076,7 @@
             "tri3d-pose-to-image",
             "tri3d-position-hands",
             "tri3d-position-parts-batch",
+            "tri3d-recolor",
             "tri3d-skin-feathered-padded-mask",
             "tri3d-swap-pixels"
         ],
@@ -2204,6 +2191,7 @@
             "0246.JunctionBatch",
             "0246.Loop",
             "0246.Merge",
+            "0246.Meta",
             "0246.Pick",
             "0246.RandomInt",
             "0246.Script",
@@ -2719,9 +2707,13 @@
     "https://github.com/aegis72/aegisflow_utility_nodes": [
         [
             "Aegisflow CLIP Pass",
+            "Aegisflow Conditioning Pass",
             "Aegisflow Image Pass",
             "Aegisflow Latent Pass",
+            "Aegisflow Mask Pass",
             "Aegisflow Model Pass",
+            "Aegisflow Pos/Neg Pass",
+            "Aegisflow SDXL Tuple Pass",
             "Aegisflow VAE Pass",
             "Aegisflow controlnet preprocessor bus",
             "Brightness & Contrast_Ally",
@@ -3384,6 +3376,15 @@
             "title_aux": "ComfyUI_MSSpeech_TTS"
         }
     ],
+    "https://github.com/chflame163/ComfyUI_WordCloud": [
+        [
+            "ComfyWordCloud",
+            "LoadTextFile"
+        ],
+        {
+            "title_aux": "ComfyUI_WordCloud"
+        }
+    ],
     "https://github.com/chibiace/ComfyUI-Chibi-Nodes": [
         [
             "ConditionText",
@@ -3598,6 +3599,7 @@
             "ImageSharpen",
             "ImageToMask",
             "ImageUpscaleWithModel",
+            "InpaintModelConditioning",
             "InvertMask",
             "JoinImageWithAlpha",
             "KSampler",
@@ -5569,6 +5571,13 @@
         [
             "Combine ZHGMasks",
             "Cover ZHGMasks",
+            "From ZHG pip",
+            "GroundingDinoModelLoader (zhihuige)",
+            "GroundingDinoPIPESegment (zhihuige)",
+            "GroundingDinoSAMSegment (zhihuige)",
+            "InvertMask (zhihuige)",
+            "SAMModelLoader (zhihuige)",
+            "To ZHG pip",
             "ZHG FaceIndex",
             "ZHG GetMaskArea",
             "ZHG Image Levels",
