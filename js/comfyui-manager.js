@@ -21,7 +21,7 @@ var docStyle = document.createElement('style');
 docStyle.innerHTML = `
 #cm-manager-dialog {
 	width: 1000px;
-	height: 465px;
+	height: 495px;
 	box-sizing: content-box;
 	z-index: 10000;
 }
@@ -74,7 +74,7 @@ docStyle.innerHTML = `
 .cm-notice-board {
 	width: 310px;
 	padding: 0px !important;
-	height: 230px;
+	height: 260px;
 	overflow: auto;
 	color: var(--input-text);
 	border: 1px solid var(--descrip-text);
@@ -685,7 +685,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		api.fetchApi('/manager/preview_method')
 			.then(response => response.text())
-			.then(data => { preview_combo.value = data; })
+			.then(data => { preview_combo.value = data; });
 
 		preview_combo.addEventListener('change', function (event) {
 			api.fetchApi(`/manager/preview_method?value=${event.target.value}`);
@@ -736,6 +736,21 @@ class ManagerMenuDialog extends ComfyDialog {
 				}
 			});
 
+		// default ui state
+		let default_ui_combo = document.createElement("select");
+		default_ui_combo.className = "cm-menu-combo";
+		default_ui_combo.appendChild($el('option', { value: 'none', text: 'Default UI: None' }, []));
+		default_ui_combo.appendChild($el('option', { value: 'history', text: 'Default UI: History' }, []));
+		default_ui_combo.appendChild($el('option', { value: 'queue', text: 'Default UI: Queue' }, []));
+		api.fetchApi('/manager/default_ui')
+			.then(response => response.text())
+			.then(data => { default_ui_combo.value = data; });
+
+		default_ui_combo.addEventListener('change', function (event) {
+			api.fetchApi(`/manager/default_ui?value=${event.target.value}`);
+		});
+
+
 		// share
 		let share_combo = document.createElement("select");
 		share_combo.className = "cm-menu-combo";
@@ -777,6 +792,7 @@ class ManagerMenuDialog extends ComfyDialog {
 			channel_combo,
 			preview_combo,
 			badge_combo,
+			default_ui_combo,
 			share_combo,
 			$el("br", {}, []),
 			$el("button.cm-button", {
@@ -1171,3 +1187,27 @@ app.registerExtension({
 		}
 	},
 });
+
+
+async function set_default_ui()
+{
+	let res = await api.fetchApi('/manager/default_ui');
+	if(res.status == 200) {
+		let mode = await res.text();
+		switch(mode) {
+		case 'history':
+			app.ui.queue.hide();
+			app.ui.history.show();
+			break;
+		case 'queue':
+			app.ui.queue.show();
+			app.ui.history.hide();
+			break;
+		default:
+			// do nothing
+			break;
+		}
+	}
+}
+
+set_default_ui();

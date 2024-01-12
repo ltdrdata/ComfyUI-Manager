@@ -28,7 +28,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [1, 25, 4]
+version = [1, 26]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -169,7 +169,8 @@ def write_config():
         'git_exe':  get_config()['git_exe'],
         'channel_url': get_config()['channel_url'],
         'share_option': get_config()['share_option'],
-        'bypass_ssl': get_config()['bypass_ssl']
+        'bypass_ssl': get_config()['bypass_ssl'],
+        'default_ui': get_config()['default_ui'],
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -188,6 +189,7 @@ def read_config():
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
                     'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else False,
+                    'default_ui': default_conf['default_ui'] if 'default_ui' in default_conf else 'none',
                }
 
     except Exception:
@@ -197,7 +199,8 @@ def read_config():
             'git_exe': '',
             'channel_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
             'share_option': 'all',
-            'bypass_ssl': False
+            'bypass_ssl': False,
+            'default_ui': 'none'
         }
 
 
@@ -234,11 +237,15 @@ def set_preview_method(method):
     get_config()['preview_method'] = args.preview_method
 
 
+set_preview_method(get_config()['preview_method'])
+
+
 def set_badge_mode(mode):
     get_config()['badge_mode'] = mode
 
 
-set_preview_method(get_config()['preview_method'])
+def set_default_ui_mode(mode):
+    get_config()['default_ui'] = mode
 
 
 def try_install_script(url, repo_path, install_cmd):
@@ -1748,6 +1755,16 @@ async def badge_mode(request):
 
     return web.Response(status=200)
 
+
+@server.PromptServer.instance.routes.get("/manager/default_ui")
+async def default_ui_mode(request):
+    if "value" in request.rel_url.query:
+        set_default_ui_mode(request.rel_url.query['value'])
+        write_config()
+    else:
+        return web.Response(text=get_config()['default_ui'], status=200)
+
+    return web.Response(status=200)
 
 @server.PromptServer.instance.routes.get("/manager/channel_url_list")
 async def channel_url_list(request):
