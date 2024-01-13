@@ -232,6 +232,7 @@ NODE_CLASS_MAPPINGS.update({
 * https://github.com/senshilabs/NINJA-plugin
 * https://github.com/MockbaTheBorg/Nodes
 * https://github.com/StartHua/Comfyui_GPT_Story
+* https://github.com/NielsGercama/comfyui_customsampling
 
 
 ## Roadmap
