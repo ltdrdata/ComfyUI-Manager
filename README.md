@@ -212,7 +212,7 @@ NODE_CLASS_MAPPINGS.update({
 * When pasting a component from the clipboard, it supports text in the following JSON format. (text/plain)
 ```
 {
-  "kind": "ComyUI Components",
+  "kind": "ComfyUI Components",
   "timestamp": <current timestamp>,
   "components": 
     {
