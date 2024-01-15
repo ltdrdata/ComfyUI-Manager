@@ -140,8 +140,8 @@ export async function save_as_component(node, app) {
 				});
 
 			if(res.status == 200) {
-				storeGroupNode(name, subgraph);
-				const config = new GroupNodeConfig(name, subgraph);
+				storeGroupNode(component_name, subgraph);
+				const config = new GroupNodeConfig(component_name, subgraph);
 				await config.registerType();
 
 				let path = await res.text();
@@ -183,6 +183,10 @@ export async function save_as_component(node, app) {
 		});
 
 	if(res.status == 200) {
+		storeGroupNode(component_name, subgraph);
+		const config = new GroupNodeConfig(component_name, subgraph);
+		await config.registerType();
+
 		let path = await res.text();
 		app.ui.dialog.show(`Component '${component_name}' is saved into:\n${path}`);
 	}
