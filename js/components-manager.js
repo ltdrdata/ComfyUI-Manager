@@ -127,11 +127,11 @@ export async function save_as_component(node, app) {
 
 		if(confirm(`Will you save/overwrite component '${component_name}'?`)) {
 			let subgraph = app.graph.extra?.groupNodes?.[component_name];
-				let body =
-					{
-						name: component_name,
-						workflow: subgraph
-					};
+			let body =
+				{
+					name: component_name,
+					workflow: subgraph
+				};
 
 			const res = await api.fetchApi('/manager/component/save', {
 				method: "POST",
@@ -193,3 +193,61 @@ export async function save_as_component(node, app) {
 	else
 		app.ui.dialog.show(`Failed to save component.`);
 }
+
+async function import_component(component_name, subgraph) {
+	if(confirm("Will you save component?\n(If canceled, the component won't be saved and can only be used within the current workflow.)")) {
+		let body =
+			{
+				name: component_name,
+				workflow: subgraph
+			};
+
+		const res = await api.fetchApi('/manager/component/save', {
+						method: "POST",
+						headers: { "Content-Type": "application/json", },
+						body: JSON.stringify(body)
+					});
+	}
+
+	storeGroupNode(component_name, subgraph);
+	const config = new GroupNodeConfig(component_name, subgraph);
+	await config.registerType();
+}
+
+// Using a timestamp prevents duplicate pastes and ensures the prevention of re-deletion of litegrapheditor_clipboard.
+let last_paste_timestamp = null;
+
+function handlePaste(e) {
+	let data = (e.clipboardData || window.clipboardData);
+	const items = data.items;
+	for(const item of items) {
+		if(item.kind == 'string' && item.type == 'text/plain') {
+			data = data.getData("text/plain");
+			try {
+				let json_data = JSON.parse(data);
+				if(json_data.kind == 'ComfyUI Components' && last_paste_timestamp != json_data.timestamp) {
+					last_paste_timestamp = json_data.timestamp;
+
+					let msg = 'Components are added:\n';
+					for(let name in json_data.components) {
+						let subgraph = json_data.components[name];
+						import_component(name, subgraph);
+						msg += ' - ' + name + '\n';
+					}
+					app.ui.dialog.show(msg);
+
+					// disable paste node
+					localStorage.removeItem("litegrapheditor_clipboard", null);
+				}
+				else {
+					console.log('This components are already pasted: ignored');
+				}
+			}
+			catch {
+				// nothing to do
+			}
+		}
+	}
+}
+
+document.addEventListener("paste", handlePaste);

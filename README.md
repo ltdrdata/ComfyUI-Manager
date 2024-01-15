@@ -208,6 +208,25 @@ NODE_CLASS_MAPPINGS.update({
   * **All scripts are executed from the root path of the corresponding custom node.**
 
 
+## Component Paste
+* When pasting a component from the clipboard, it supports text in the following JSON format. (text/plain)
+```
+{
+  "kind": "ComyUI Components",
+  "timestamp": <current timestamp>,
+  "components": 
+    {
+      <component name>: <component nodedata>
+    }
+}
+```
+* `<current timestamp>` Ensure that the timestamp is always unique.
+* "components" should have the same structure as the content of the file stored in ComfyUI-Manager/components.
+  * `<component name>`: The name should be in the format `<prefix>::<node name>`.
+  * `<compnent nodeata>`: In the nodedata of the group node.
+
+
+
 ## Support of missing nodes installation
 
 ![missing-menu](misc/missing-menu.png)
