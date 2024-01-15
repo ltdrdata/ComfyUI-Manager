@@ -16,7 +16,7 @@ import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
 import { ModelInstaller } from "./model-downloader.js";
 import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI, free_models } from  "./common.js";
-import { save_as_component } from "./components-manager.js";
+import { load_components, save_as_component } from "./components-manager.js";
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
@@ -1111,6 +1111,14 @@ app.registerExtension({
 		});
 	},
 	async setup() {
+		let orig_clear = app.graph.clear;
+		app.graph.clear = function () {
+			orig_clear.call(app.graph);
+			load_components();
+		};
+
+		load_components();
+
 		const menu = document.querySelector(".comfy-menu");
 		const separator = document.createElement("hr");
 

@@ -1,5 +1,5 @@
 import { app } from "../../scripts/app.js";
-import { api } from "../../scripts/api.js"
+import { api } from "../../scripts/api.js";
 
 export async function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));

@@ -28,7 +28,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [1, 26, 1]
+version = [2, 0]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -118,6 +118,7 @@ local_db_alter = os.path.join(comfyui_manager_path, "alter-list.json")
 local_db_custom_node_list = os.path.join(comfyui_manager_path, "custom-node-list.json")
 local_db_extension_node_mappings = os.path.join(comfyui_manager_path, "extension-node-map.json")
 git_script_path = os.path.join(os.path.dirname(__file__), "git_helper.py")
+components_path = os.path.join(comfyui_manager_path, 'components')
 
 startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
 config_path = os.path.join(os.path.dirname(__file__), "config.ini")
@@ -1836,6 +1837,59 @@ def restart(self):
         pass
 
     return os.execv(sys.executable, [sys.executable] + sys.argv)
+
+
+def sanitize_filename(input_string):
+    # 알파벳, 숫자, 및 밑줄 이외의 문자를 밑줄로 대체
+    result_string = re.sub(r'[^a-zA-Z0-9_]', '_', input_string)
+    return result_string
+
+
+@server.PromptServer.instance.routes.post("/manager/component/save")
+async def save_component(request):
+    try:
+        data = await request.json()
+        name = data['name']
+        workflow = data['workflow']
+
+        if not os.path.exists(components_path):
+            os.mkdir(components_path)
+
+        sanitized_name = sanitize_filename(name)
+
+        filepath = os.path.join(components_path, sanitized_name+'.json')
+        components = {}
+        if os.path.exists(filepath):
+            with open(filepath) as f:
+                components = json.load(f)
+
+        components[name] = workflow
+
+        with open(filepath, 'w') as f:
+            json.dump(components, f, indent=4, sort_keys=True)
+        return web.Response(text=filepath, status=200)
+    except:
+        return web.Response(status=400)
+
+
+@server.PromptServer.instance.routes.post("/manager/component/loads")
+async def load_components(request):
+    try:
+        json_files = [f for f in os.listdir(components_path) if f.endswith('.json')]
+
+        components = {}
+        for json_file in json_files:
+            file_path = os.path.join(components_path, json_file)
+            with open(file_path, 'r') as file:
+                try:
+                    components.update(json.load(file))
+                except json.JSONDecodeError as e:
+                    print(f"[ComfyUI-Manager] Error decoding component file in file {json_file}: {e}")
+
+        return web.json_response(components)
+    except Exception as e:
+        print(f"[ComfyUI-Manager] failed to load components\n{e}")
+        return web.Response(status=400)
 
 
 @server.PromptServer.instance.routes.get("/manager/share_option")
