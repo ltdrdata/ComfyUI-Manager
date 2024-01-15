@@ -71,6 +71,39 @@ docStyle.innerHTML = `
 	position: relative;
 }
 
+#custom-nodes-grid a {
+	color: #5555FF;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#custom-nodes-grid a:hover {
+	color: #7777FF;
+	text-decoration: underline;
+}
+
+#external-models-grid a {
+	color: #5555FF;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#external-models-grid a:hover {
+	color: #7777FF;
+	text-decoration: underline;
+}
+
+#alternatives-grid a {
+	color: #5555FF;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#alternatives-grid a:hover {
+	color: #7777FF;
+	text-decoration: underline;
+}
+
 .cm-notice-board {
 	width: 310px;
 	padding: 0px !important;
