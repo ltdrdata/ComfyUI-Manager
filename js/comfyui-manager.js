@@ -16,6 +16,7 @@ import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
 import { ModelInstaller } from "./model-downloader.js";
 import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI, free_models } from  "./common.js";
+import { save_as_component } from "./components-manager.js";
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
@@ -1184,6 +1185,14 @@ app.registerExtension({
 		const origGetExtraMenuOptions = node.prototype.getExtraMenuOptions;
 		node.prototype.getExtraMenuOptions = function (_, options) {
 			origGetExtraMenuOptions?.apply?.(this, arguments);
+
+			if (node.comfyClass.startsWith('workflow/')) {
+				options.push({
+					content: "Save As Component",
+					callback: (obj) => { save_as_component(node, app); }
+				}, null);
+			}
+
 			if (isOutputNode(node)) {
 				const { potential_outputs } = getPotentialOutputsAndOutputNodes([this]);
 				const hasOutput = potential_outputs.length > 0;
