@@ -120,6 +120,9 @@
             "FindThickLinesFromCanny-badger",
             "FloatToInt-badger",
             "FloatToString-badger",
+            "FrameToVideo-badger",
+            "GetDirName-badger",
+            "GetUUID-badger",
             "ImageNormalization-badger",
             "ImageOverlap-badger",
             "ImageScaleToSide-badger",
@@ -128,10 +131,10 @@
             "StringToFizz-badger",
             "TextListToString-badger",
             "TrimTransparentEdges-badger",
-            "VideoCut-badger",
+            "VideoCutFromDir-badger",
+            "VideoToFrame-badger",
             "deleteDir-badger",
             "findCenterOfMask-badger",
-            "frameToVideo-badger",
             "getImageSide-badger",
             "getParentDir-badger",
             "mkdir-badger"
@@ -266,6 +269,7 @@
             "ComfyUIDeployExternalImage",
             "ComfyUIDeployExternalImageAlpha",
             "ComfyUIDeployExternalNumber",
+            "ComfyUIDeployExternalNumberInt",
             "ComfyUIDeployExternalText"
         ],
         {
@@ -956,6 +960,44 @@
             "nickname": "JPS Custom Nodes",
             "title": "JPS Custom Nodes for ComfyUI",
             "title_aux": "JPS Custom Nodes for ComfyUI"
+        }
+    ],
+    "https://github.com/JaredTherriault/ComfyUI-JNodes": [
+        [
+            "JNodes_AddOrSetPngInfoKey",
+            "JNodes_AppendReversedFrames",
+            "JNodes_BooleanSelectorWithString",
+            "JNodes_CheckpointSelectorWithString",
+            "JNodes_GetOutputDirectory",
+            "JNodes_GetParameterFromList",
+            "JNodes_GetParameterGlobal",
+            "JNodes_GetTempDirectory",
+            "JNodes_ImageFormatSelector",
+            "JNodes_ImageSizeSelector",
+            "JNodes_LoadVideo",
+            "JNodes_LoraExtractor",
+            "JNodes_OutVideoInfo",
+            "JNodes_ParseDynamicPrompts",
+            "JNodes_ParseParametersToGlobalList",
+            "JNodes_ParseWildcards",
+            "JNodes_PromptBuilderSingleSubject",
+            "JNodes_PromptEditor",
+            "JNodes_RemoveParseableDataForInference",
+            "JNodes_RemovePngInfoKey",
+            "JNodes_SamplerSelectorWithString",
+            "JNodes_SaveImageWithOutput",
+            "JNodes_SaveVideo",
+            "JNodes_SchedulerSelectorWithString",
+            "JNodes_SetNegativePromptInMetaData",
+            "JNodes_SetPositivePromptInMetaData",
+            "JNodes_StringLiteral",
+            "JNodes_SyncedStringLiteral",
+            "JNodes_TokenCounter",
+            "JNodes_UploadVideo",
+            "JNodes_VaeSelectorWithString"
+        ],
+        {
+            "title_aux": "ComfyUI-JNodes"
         }
     ],
     "https://github.com/Jcd1230/rembg-comfyui-node": [
@@ -1946,6 +1988,8 @@
             "CR Seed to Int",
             "CR Select Font",
             "CR Select Model",
+            "CR Select Resize Method",
+            "CR Set Switch From String",
             "CR Set Value On Binary",
             "CR Set Value On Boolean",
             "CR Set Value on String",
@@ -3015,6 +3059,7 @@
             "ImageBridge",
             "LoadImageFromRequest",
             "LoadImageWithAlpha",
+            "LoadValueFromRequest",
             "SAM MultiLayer",
             "Save Image With Workflow"
         ],
@@ -3239,6 +3284,7 @@
             "RGB to HSV",
             "Rect Grab Cut",
             "Remap",
+            "RemapFromQuadrilateral (homography)",
             "RemapInsideParabolas",
             "RemapInsideParabolasAdvanced",
             "RemapToInnerCylinder",
@@ -3432,6 +3478,16 @@
         ],
         {
             "title_aux": "ComfyUI-MotionCtrl"
+        }
+    ],
+    "https://github.com/chaojie/ComfyUI-MotionCtrl-SVD": [
+        [
+            "Load Motionctrl-SVD Camera Preset",
+            "Load Motionctrl-SVD Checkpoint",
+            "Motionctrl-SVD Sample Simple"
+        ],
+        {
+            "title_aux": "ComfyUI-MotionCtrl-SVD"
         }
     ],
     "https://github.com/chflame163/ComfyUI_MSSpeech_TTS": [
@@ -5475,6 +5531,15 @@
             "title_aux": "comfyui-NDI"
         }
     ],
+    "https://github.com/nkchocoai/ComfyUI-SizeFromPresets": [
+        [
+            "SizeFromPresetsSD15",
+            "SizeFromPresetsSDXL"
+        ],
+        {
+            "title_aux": "ComfyUI-SizeFromPresets"
+        }
+    ],
     "https://github.com/noembryo/ComfyUI-noEmbryo": [
         [
             "PromptTermList1",
@@ -5883,6 +5948,7 @@
             "MultiplicationNode",
             "NewLayer",
             "NoiseImage",
+            "OutlineMask",
             "PromptImage",
             "PromptSimplification",
             "PromptSlide",
