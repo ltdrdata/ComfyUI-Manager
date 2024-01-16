@@ -16,7 +16,7 @@ import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
 import { ModelInstaller } from "./model-downloader.js";
 import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI, free_models } from "./common.js";
-import { load_components, save_as_component } from "./components-manager.js";
+import { ComponentBuilderDialog, load_components } from "./components-manager.js";
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
@@ -25,6 +25,35 @@ docStyle.innerHTML = `
 	height: 495px;
 	box-sizing: content-box;
 	z-index: 10000;
+}
+
+.cb-widget {
+	width: 400px;
+	height: 25px;
+	box-sizing: border-box;
+	z-index: 10000;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.cb-widget-input {
+	width: 305px;
+	height: 25px;
+	box-sizing: border-box;
+}
+.cb-widget-input:disabled {
+	background-color: #444444;
+	color: white;
+}
+
+.cb-widget-input-label {
+	width: 90px;
+	height: 25px;
+	box-sizing: border-box;
+	color: white;
+	text-align: right;
+	display: inline-block;
+	margin-right: 5px;
 }
 
 .cm-menu-container {
@@ -251,11 +280,31 @@ const style = `
 	box-sizing: border-box;
 }
 
+.cb-node-label {
+	width: 400px;
+	height:28px;
+	color: black;
+	background-color: #777777;
+	font-size: 18px;
+	text-align: center;
+	font-weight: bold;
+}
+
 #cm-close-button {
 	width: calc(100% - 65px);
 	bottom: 10px;
 	position: absolute;
 	overflow: hidden;
+}
+
+#cm-save-button {
+	width: calc(100% - 65px);
+	bottom:40px;
+	position: absolute;
+	overflow: hidden;
+}
+#cm-save-button:disabled {
+	background-color: #444444;
 }
 
 .pysssss-workflow-arrow-2 {
@@ -873,7 +922,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					})
 				]),
 		];
-}
+	}
 
 	createControlsRight() {
 		const elts = [
@@ -1197,7 +1246,13 @@ app.registerExtension({
 			if (node.comfyClass.startsWith('workflow/')) {
 				options.push({
 					content: "Save As Component",
-					callback: (obj) => { save_as_component(node, app); }
+					callback: (obj) => {
+						if (!ComponentBuilderDialog.instance) {
+							ComponentBuilderDialog.instance = new ComponentBuilderDialog();
+						}
+						ComponentBuilderDialog.instance.target_node = node;
+						ComponentBuilderDialog.instance.show();
+					}
 				}, null);
 			}
 

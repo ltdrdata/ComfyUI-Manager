@@ -1855,9 +1855,12 @@ async def save_component(request):
         if not os.path.exists(components_path):
             os.mkdir(components_path)
 
-        sanitized_name = sanitize_filename(name)
+        if 'packname' in workflow and workflow['packname'] != '':
+            sanitized_name = sanitize_filename(workflow['packname'])+'.pack'
+        else:
+            sanitized_name = sanitize_filename(name)+'.json'
 
-        filepath = os.path.join(components_path, sanitized_name+'.json')
+        filepath = os.path.join(components_path, sanitized_name)
         components = {}
         if os.path.exists(filepath):
             with open(filepath) as f:
@@ -1876,12 +1879,14 @@ async def save_component(request):
 async def load_components(request):
     try:
         json_files = [f for f in os.listdir(components_path) if f.endswith('.json')]
+        pack_files = [f for f in os.listdir(components_path) if f.endswith('.pack')]
 
         components = {}
-        for json_file in json_files:
+        for json_file in json_files + pack_files:
             file_path = os.path.join(components_path, json_file)
             with open(file_path, 'r') as file:
                 try:
+                    # When there is a conflict between the .pack and the .json, the pack takes precedence and overrides.
                     components.update(json.load(file))
                 except json.JSONDecodeError as e:
                     print(f"[ComfyUI-Manager] Error decoding component file in file {json_file}: {e}")

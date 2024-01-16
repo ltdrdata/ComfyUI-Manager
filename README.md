@@ -223,9 +223,17 @@ NODE_CLASS_MAPPINGS.update({
 * `<current timestamp>` Ensure that the timestamp is always unique.
 * "components" should have the same structure as the content of the file stored in ComfyUI-Manager/components.
   * `<component name>`: The name should be in the format `<prefix>::<node name>`.
-  * `<compnent nodeata>`: In the nodedata of the group node.
-
-
+    * `<compnent nodeata>`: In the nodedata of the group node.
+      * `<version>`: Only two formats are allowed: `major.minor.patch` or `major.minor`. (e.g. `1.0`, `2.2.1`)
+      * `<datetime>`: Saved time
+      * `<packname>`: If the packname is not empty, the category becomes packname/workflow, and it is saved in the <packname>.pack file in ComfyUI-Manager/components.
+      * `<category>`: If there is neither a category nor a packname, it is saved in the components category.
+      ```
+          "version":"1.0",
+          "datetime": 1705390656516,
+          "packname": "mypack",
+          "category": "util/pipe",
+      ```
 
 ## Support of missing nodes installation
 
