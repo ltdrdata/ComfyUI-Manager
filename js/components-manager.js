@@ -15,10 +15,6 @@ export async function load_components() {
 	let data = await api.fetchApi('/manager/component/loads', {method: "POST"});
 	let components = await data.json();
 
-//	while(!app.graph) {
-//		await sleep(100);
-//	}
-
 	let start_time = Date.now();
 	let failed = [];
 	let failed2 = [];
@@ -251,3 +247,5 @@ function handlePaste(e) {
 }
 
 document.addEventListener("paste", handlePaste);
+
+
