@@ -235,6 +235,11 @@ NODE_CLASS_MAPPINGS.update({
           "category": "util/pipe",
       ```
 
+* Drag & Drop support
+  * Dragging and dropping a `.pack` or `.json` file will add the corresponding components.
+  * Example pack: [Impact.pack](misc/Impact.pack)
+* Dragging and dropping or pasting a single component will add a node. However, when adding multiple components, nodes will not be added.
+
 ## Support of missing nodes installation
 
 ![missing-menu](misc/missing-menu.png)
