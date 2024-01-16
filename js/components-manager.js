@@ -594,7 +594,10 @@ export class ComponentBuilderDialog extends ComfyDialog {
 	createNodeLabel() {
 		let label = $el('p');
 		label.className = 'cb-node-label';
-		label.textContent = " _::" + this.target_node.comfyClass.substring(9);
+		if(this.target_node.comfyClass.includes('::'))
+			label.textContent = this.target_node.comfyClass.substring(9);
+		else
+			label.textContent = " _::" + this.target_node.comfyClass.substring(9);
 		return label;
 	}
 
