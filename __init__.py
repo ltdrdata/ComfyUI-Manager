@@ -28,7 +28,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 1]
+version = [2, 2]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -172,6 +172,7 @@ def write_config():
         'share_option': get_config()['share_option'],
         'bypass_ssl': get_config()['bypass_ssl'],
         'default_ui': get_config()['default_ui'],
+        'component_policy': get_config()['component_policy'],
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -191,6 +192,7 @@ def read_config():
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
                     'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else False,
                     'default_ui': default_conf['default_ui'] if 'default_ui' in default_conf else 'none',
+                    'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
                }
 
     except Exception:
@@ -201,7 +203,8 @@ def read_config():
             'channel_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
             'share_option': 'all',
             'bypass_ssl': False,
-            'default_ui': 'none'
+            'default_ui': 'none',
+            'component_policy': 'workflow'
         }
 
 
@@ -247,6 +250,10 @@ def set_badge_mode(mode):
 
 def set_default_ui_mode(mode):
     get_config()['default_ui'] = mode
+
+
+def set_component_policy(mode):
+    get_config()['component_policy'] = mode
 
 
 def try_install_script(url, repo_path, install_cmd):
@@ -1766,6 +1773,18 @@ async def default_ui_mode(request):
         return web.Response(text=get_config()['default_ui'], status=200)
 
     return web.Response(status=200)
+
+
+@server.PromptServer.instance.routes.get("/manager/component/policy")
+async def component_policy(request):
+    if "value" in request.rel_url.query:
+        set_component_policy(request.rel_url.query['value'])
+        write_config()
+    else:
+        return web.Response(text=get_config()['component_policy'], status=200)
+
+    return web.Response(status=200)
+
 
 @server.PromptServer.instance.routes.get("/manager/channel_url_list")
 async def channel_url_list(request):

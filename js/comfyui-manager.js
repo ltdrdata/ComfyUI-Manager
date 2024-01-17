@@ -16,7 +16,7 @@ import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
 import { ModelInstaller } from "./model-downloader.js";
 import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI, free_models } from "./common.js";
-import { ComponentBuilderDialog, load_components } from "./components-manager.js";
+import { ComponentBuilderDialog, load_components, set_component_policy } from "./components-manager.js";
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
@@ -721,6 +721,18 @@ class ManagerMenuDialog extends ComfyDialog {
 						}
 				}),
 
+				$el("button.cm-button", {
+					type: "button",
+					textContent: "Install via Git URL",
+					onclick: () => {
+						var url = prompt("Please enter the URL of the Git repository to install", "");
+
+						if (url !== null) {
+							install_via_git_url(url, self);
+						}
+					}
+				}),
+
 				$el("br", {}, []),
 				update_all_button,
 				update_comfyui_button,
@@ -753,6 +765,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// db mode
 		this.datasrc_combo = document.createElement("select");
+		this.datasrc_combo.setAttribute("title", "Configure where to retrieve node/model information. If set to 'local,' the channel is ignored, and if set to 'channel (remote),' it fetches the latest information each time the list is opened.");
 		this.datasrc_combo.className = "cm-menu-combo";
 		this.datasrc_combo.appendChild($el('option', { value: 'cache', text: 'DB: Channel (1day cache)' }, []));
 		this.datasrc_combo.appendChild($el('option', { value: 'local', text: 'DB: Local' }, []));
@@ -760,6 +773,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// preview method
 		let preview_combo = document.createElement("select");
+		preview_combo.setAttribute("title", "Configure how latent variables will be decoded during preview in the sampling process.");
 		preview_combo.className = "cm-menu-combo";
 		preview_combo.appendChild($el('option', { value: 'auto', text: 'Preview method: Auto' }, []));
 		preview_combo.appendChild($el('option', { value: 'taesd', text: 'Preview method: TAESD (slow)' }, []));
@@ -776,6 +790,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// nickname
 		let badge_combo = document.createElement("select");
+		badge_combo.setAttribute("title", "Configure the content to be displayed on the badge at the top right corner of the node. The ID is the identifier of the node. If 'hide built-in' is selected, both unknown nodes and built-in nodes will be omitted, making them indistinguishable");
 		badge_combo.className = "cm-menu-combo";
 		badge_combo.appendChild($el('option', { value: 'none', text: 'Badge: None' }, []));
 		badge_combo.appendChild($el('option', { value: 'nick', text: 'Badge: Nickname' }, []));
@@ -795,6 +810,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// channel
 		let channel_combo = document.createElement("select");
+		channel_combo.setAttribute("title", "Configure the channel for retrieving data from the Custom Node list (including missing nodes) or the Model list. Note that the badge utilizes local information.");
 		channel_combo.className = "cm-menu-combo";
 		api.fetchApi('/manager/channel_url_list')
 			.then(response => response.json())
@@ -821,6 +837,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// default ui state
 		let default_ui_combo = document.createElement("select");
+		default_ui_combo.setAttribute("title", "Set the default state to be displayed in the main menu when the browser starts.");
 		default_ui_combo.className = "cm-menu-combo";
 		default_ui_combo.appendChild($el('option', { value: 'none', text: 'Default UI: None' }, []));
 		default_ui_combo.appendChild($el('option', { value: 'history', text: 'Default UI: History' }, []));
@@ -836,6 +853,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		// share
 		let share_combo = document.createElement("select");
+		share_combo.setAttribute("title", "Hide the share button in the main menu or set the default action upon clicking it. Additionally, configure the default share site when sharing via the context menu's share button.");
 		share_combo.className = "cm-menu-combo";
 		const share_options = [
 			['none', 'None'],
@@ -848,6 +866,25 @@ class ManagerMenuDialog extends ComfyDialog {
 		for (const option of share_options) {
 			share_combo.appendChild($el('option', { value: option[0], text: `Share: ${option[1]}` }, []));
 		}
+
+		// default ui state
+		let component_policy_combo = document.createElement("select");
+		component_policy_combo.setAttribute("title", "When loading the workflow, configure which version of the component to use.");
+		component_policy_combo.className = "cm-menu-combo";
+		component_policy_combo.appendChild($el('option', { value: 'workflow', text: 'Component: Use workflow version' }, []));
+		component_policy_combo.appendChild($el('option', { value: 'higher', text: 'Component: Use higher version' }, []));
+		component_policy_combo.appendChild($el('option', { value: 'mine', text: 'Component: Use my version' }, []));
+		api.fetchApi('/manager/component/policy')
+			.then(response => response.text())
+			.then(data => {
+				component_policy_combo.value = data;
+				set_component_policy(data);
+			});
+
+		component_policy_combo.addEventListener('change', function (event) {
+			api.fetchApi(`/manager/component/policy?value=${event.target.value}`);
+			set_component_policy(event.target.value);
+		});
 
 		api.fetchApi('/manager/share_option')
 			.then(response => response.text())
@@ -877,18 +914,8 @@ class ManagerMenuDialog extends ComfyDialog {
 			badge_combo,
 			default_ui_combo,
 			share_combo,
+			component_policy_combo,
 			$el("br", {}, []),
-			$el("button.cm-button", {
-				type: "button",
-				textContent: "Install via Git URL",
-				onclick: () => {
-					var url = prompt("Please enter the URL of the Git repository to install", "");
-
-					if (url !== null) {
-						install_via_git_url(url, self);
-					}
-				}
-			}),
 
 			$el("br", {}, []),
 			$el("filedset.cm-experimental", {}, [
@@ -1220,6 +1247,7 @@ app.registerExtension({
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
 		this._addExtraNodeContextMenu(nodeType, app);
 	},
+
 	async nodeCreated(node, app) {
 		if(!node.badge_enabled) {
 			node.getNickname = function () { return getNickname(node, node.comfyClass.trim()) };
@@ -1230,6 +1258,7 @@ app.registerExtension({
 			node.badge_enabled = true;
 		}
 	},
+
 	async loadedGraphNode(node, app) {
 		if(!node.badge_enabled) {
 			const orig = node.onDrawForeground;
@@ -1240,10 +1269,11 @@ app.registerExtension({
 
 	_addExtraNodeContextMenu(node, app) {
 		const origGetExtraMenuOptions = node.prototype.getExtraMenuOptions;
+		node.prototype.cm_menu_added = true;
 		node.prototype.getExtraMenuOptions = function (_, options) {
 			origGetExtraMenuOptions?.apply?.(this, arguments);
 
-			if (node.comfyClass.startsWith('workflow/')) {
+			if (node.category.startsWith('group nodes/')) {
 				options.push({
 					content: "Save As Component",
 					callback: (obj) => {

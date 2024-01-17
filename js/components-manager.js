@@ -7,6 +7,13 @@ import { ComfyDialog, $el } from "../../scripts/ui.js";
 let pack_map = {};
 let rpack_map = {};
 
+function getPureName(node) {
+	// group nodes/
+	let category = node.category.substring(12);
+	let purename = node.comfyClass.substring(category.length+1);
+	return purename;
+}
+
 function isValidVersionString(version) {
 	const versionPattern = /^(\d+)\.(\d+)(\.(\d+))?$/;
 	
@@ -21,21 +28,23 @@ function isValidVersionString(version) {
 function register_pack_map(name, data) {
 	if(data.packname) {
 		pack_map[data.packname] = name;
-		rpack_map[name] = [data.packname, data.category, data.version, data.datetime];
+		rpack_map[name] = data;
 	}
 	else {
-		rpack_map[name] = [data.packname, data.category, data.version, data.datetime];
+		rpack_map[name] = data;
 	}
 }
 
-function storeGroupNode(name, data) {
+function storeGroupNode(name, data, register=true) {
 	let extra = app.graph.extra;
 	if (!extra) app.graph.extra = extra = {};
 	let groupNodes = extra.groupNodes;
 	if (!groupNodes) extra.groupNodes = groupNodes = {};
 	groupNodes[name] = data;
 
-	register_pack_map(name, data);
+	if(register) {
+		register_pack_map(name, data);
+	}
 }
 
 export async function load_components() {
@@ -179,7 +188,7 @@ async function save_as_component(node, version, prefix, nodename, packname, cate
 
 	let subgraph = app.graph.extra?.groupNodes?.[component_name];
 	if(!subgraph) {
-		subgraph = app.graph.extra?.groupNodes?.[node.comfyClass.substring(9)];
+		subgraph = app.graph.extra?.groupNodes?.[getPureName(node)];
 	}
 
 	subgraph.version = version;
@@ -194,7 +203,7 @@ async function save_as_component(node, version, prefix, nodename, packname, cate
 		};
 
 	pack_map[packname] = component_name;
-	rpack_map[component_name] = [body.pack_name, body.category, body.version, body.datetime];
+	rpack_map[component_name] = subgraph;
 
 	const res = await api.fetchApi('/manager/component/save', {
 			method: "POST",
@@ -253,6 +262,15 @@ async function import_component(component_name, component, mode) {
 	await config.registerType(category);
 }
 
+function restore_to_loaded_component(component_name) {
+	if(rpack_map[component_name]) {
+		let component = rpack_map[component_name];
+		storeGroupNode(component_name, component, false);
+		const config = new GroupNodeConfig(component_name, component);
+		config.registerType(component.category);
+	}
+}
+
 // Using a timestamp prevents duplicate pastes and ensures the prevention of re-deletion of litegrapheditor_clipboard.
 let last_paste_timestamp = null;
 
@@ -306,7 +324,7 @@ function versionCompare(v1, v2) {
 function checkVersion(name, component) {
 	let msg = '';
 	if(rpack_map[name]) {
-		let old_version = rpack_map[name][2];
+		let old_version = rpack_map[name].version;
 		if(!old_version || old_version == '') {
 			msg = `  '${name}' Upgrade (V0.0 -> V${component.version})`;
 		}
@@ -439,27 +457,21 @@ export class ComponentBuilderDialog extends ComfyDialog {
 							}
 					});
 
-		let default_nodename = this.target_node.comfyClass.substring(9).trim();
+		let default_nodename = getPureName(this.target_node).trim();
 
-		let default_packname = "";
-		if(rpack_map[default_nodename]) {
-			default_packname = rpack_map[default_nodename][0];
-		}
+		let groupNode = app.graph.extra.groupNodes[default_nodename];
+		let default_packname = groupNode.packname;
+
 		if(!default_packname) {
 			default_packname = '';
 		}
 
-		let default_category = "";
-		if(rpack_map[default_nodename]) {
-			default_category = rpack_map[default_nodename][1];
-		}
+		let default_category = groupNode.category;
 		if(!default_category) {
 			default_category = '';
 		}
 
-		if(rpack_map[default_nodename]) {
-			this.default_ver = rpack_map[default_nodename][2];
-		}
+		this.default_ver = groupNode.version;
 		if(!this.default_ver) {
 			this.default_ver = '0.0';
 		}
@@ -566,7 +578,7 @@ export class ComponentBuilderDialog extends ComfyDialog {
 			return this.manual_nodename.value.trim();
 		}
 
-		return this.target_node.comfyClass.substring(9);
+		return getPureName(this.target_node);
 	}
 
 	createAuthorModeCheck() {
@@ -595,9 +607,9 @@ export class ComponentBuilderDialog extends ComfyDialog {
 		let label = $el('p');
 		label.className = 'cb-node-label';
 		if(this.target_node.comfyClass.includes('::'))
-			label.textContent = this.target_node.comfyClass.substring(9);
+			label.textContent = getPureName(this.target_node);
 		else
-			label.textContent = " _::" + this.target_node.comfyClass.substring(9);
+			label.textContent = " _::" + getPureName(this.target_node);
 		return label;
 	}
 
@@ -668,3 +680,71 @@ function handleFile(file) {
 }
 
 app.handleFile = handleFile;
+
+let current_component_policy = 'workflow';
+try {
+	api.fetchApi('/manager/component/policy')
+		.then(response => response.text())
+		.then(data => { current_component_policy = data; });
+}
+catch {}
+
+function getChangedVersion(groupNodes) {
+	if(!Object.keys(pack_map).length || !groupNodes)
+		return null;
+
+	let res = {};
+	for(let component_name in groupNodes) {
+		let data = groupNodes[component_name];
+
+		if(rpack_map[component_name]) {
+			let v = versionCompare(data.version, rpack_map[component_name].version);
+			res[component_name] = v;
+		}
+	}
+
+	return res;
+}
+
+const loadGraphData = app.loadGraphData;
+app.loadGraphData = async function () {
+	const v = await loadGraphData.apply(this, arguments);
+
+	if(arguments.length == 0)
+		return v;
+
+	let groupNodes = arguments[0].extra?.groupNodes;
+	let res = getChangedVersion(groupNodes);
+
+	if(res) {
+		let target_components = null;
+		switch(current_component_policy) {
+		case 'higher':
+			target_components = Object.keys(res).filter(key => res[key] == 1);
+			break;
+
+		case 'mine':
+			target_components = Object.keys(res);
+			break;
+
+		default:
+			// do nothing
+		}
+
+		if(target_components) {
+			for(let i in target_components) {
+				let component_name = target_components[i];
+				restore_to_loaded_component(component_name);
+			}
+		}
+	}
+	else {
+		console.log('Empty components: policy ignored');
+	}
+
+	return v;
+};
+
+export function set_component_policy(v) {
+	current_component_policy = v;
+}
