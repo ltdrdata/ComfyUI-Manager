@@ -748,3 +748,36 @@ app.loadGraphData = async function () {
 export function set_component_policy(v) {
 	current_component_policy = v;
 }
+
+let graphToPrompt = app.graphToPrompt;
+app.graphToPrompt = async function () {
+	let p = await graphToPrompt.call(app);
+	try {
+		let groupNodes = p.workflow.extra?.groupNodes;
+		if(groupNodes) {
+			p.workflow.extra = { ... p.workflow.extra};
+
+			// get used group nodes
+			let used_group_nodes = new Set();
+			for(let node of p.workflow.nodes) {
+				if(node.type.startsWith('workflow/')) {
+					used_group_nodes.add(node.type.substring(9));
+				}
+			}
+
+			// remove unused group nodes
+			let new_groupNodes = {};
+			for (let key in p.workflow.extra.groupNodes) {
+				if (used_group_nodes.has(key)) {
+					new_groupNodes[key] = p.workflow.extra.groupNodes[key];
+				}
+			}
+			p.workflow.extra.groupNodes = new_groupNodes;
+		}
+	}
+	catch(e) {
+		console.log(`Failed to filtering group nodes: ${e}`);
+	}
+
+	return p;
+}
