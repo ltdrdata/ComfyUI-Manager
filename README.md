@@ -63,6 +63,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Support for automatically installing dependencies of custom nodes upon restarting Colab notebooks.
 
 ## Changes
+* **2.2.3** Support Components System
 * **0.29** Add `Update all` feature
 * **0.25** support db channel
   * You can directly modify the db channel settings in the `config.ini` file.
