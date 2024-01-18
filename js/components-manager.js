@@ -7,11 +7,25 @@ import { ComfyDialog, $el } from "../../scripts/ui.js";
 let pack_map = {};
 let rpack_map = {};
 
-function getPureName(node) {
+export function getPureName(node) {
 	// group nodes/
-	let category = node.category.substring(12);
-	let purename = node.comfyClass.substring(category.length+1);
-	return purename;
+	let category = null;
+	if(node.category) {
+		category = node.category.substring(12);
+	}
+	else {
+		category = node.constructor.category?.substring(12);
+	}
+	if(category) {
+		let purename = node.comfyClass.substring(category.length+1);
+		return purename;
+	}
+	else if(node.comfyClass.startsWith('workflow/')) {
+		return node.comfyClass.substring(9);
+	}
+	else {
+		return node.comfyClass;
+	}
 }
 
 function isValidVersionString(version) {
@@ -72,6 +86,7 @@ export async function load_components() {
 				await config.registerType(category);
 
 				register_pack_map(name, data);
+				break;
 			}
 			continue;
 		}
@@ -81,8 +96,8 @@ export async function load_components() {
 		storeGroupNode(name, nodeData);
 
 		const config = new GroupNodeConfig(name, nodeData);
-		while(!success) {
-			var success = false;
+
+		while(true) {
 			try {
 				let category = nodeData.packname;
 				if(nodeData.category) {
@@ -94,12 +109,13 @@ export async function load_components() {
 
 				await config.registerType(category);
 				register_pack_map(name, nodeData);
+				break;
 			}
 			catch {
 				let elapsed_time = Date.now() - start_time;
 				if (elapsed_time > 5000) {
 					failed.push(name);
-					success = true;
+					break;
 				} else {
 					await sleep(100);
 				}
@@ -120,8 +136,7 @@ export async function load_components() {
 		storeGroupNode(name, nodeData);
 
 		const config = new GroupNodeConfig(name, nodeData);
-		while(!success) {
-			var success = false;
+		while(true) {
 			try {
 				let category = nodeData.packname;
 				if(nodeData.workflow.category) {
@@ -133,12 +148,13 @@ export async function load_components() {
 
 				await config.registerType(category);
 				register_pack_map(name, nodeData);
+				break;
 			}
 			catch {
 				let elapsed_time = Date.now() - start_time;
 				if (elapsed_time > 10000) {
 					failed2.push(name);
-					success = true;
+					break;
 				} else {
 					await sleep(100);
 				}
@@ -155,9 +171,7 @@ export async function load_components() {
 		storeGroupNode(name, nodeData);
 
 		const config = new GroupNodeConfig(name, nodeData);
-		while(!success) {
-			var success = false;
-
+		while(true) {
 			try {
 				let category = nodeData.workflow.packname;
 				if(nodeData.workflow.category) {
@@ -169,12 +183,13 @@ export async function load_components() {
 
 				await config.registerType(category);
 				register_pack_map(name, nodeData);
+				break;
 			}
 			catch {
 				let elapsed_time = Date.now() - start_time;
 				if (elapsed_time > 30000) {
 					failed.push(name);
-					success = true;
+					break;
 				} else {
 					await sleep(100);
 				}
@@ -708,12 +723,11 @@ function getChangedVersion(groupNodes) {
 
 const loadGraphData = app.loadGraphData;
 app.loadGraphData = async function () {
-	const v = await loadGraphData.apply(this, arguments);
-
 	if(arguments.length == 0)
-		return v;
+		return await loadGraphData.apply(this, arguments);
 
-	let groupNodes = arguments[0].extra?.groupNodes;
+	let graphData = arguments[0];
+	let groupNodes = graphData.extra?.groupNodes;
 	let res = getChangedVersion(groupNodes);
 
 	if(res) {
@@ -734,7 +748,10 @@ app.loadGraphData = async function () {
 		if(target_components) {
 			for(let i in target_components) {
 				let component_name = target_components[i];
-				restore_to_loaded_component(component_name);
+				let component = rpack_map[component_name];
+				if(component && graphData.extra?.groupNodes) {
+					graphData.extra.groupNodes[component_name] = component;
+				}
 			}
 		}
 	}
@@ -742,7 +759,8 @@ app.loadGraphData = async function () {
 		console.log('Empty components: policy ignored');
 	}
 
-	return v;
+	arguments[0] = graphData;
+	return await loadGraphData.apply(this, arguments);
 };
 
 export function set_component_policy(v) {

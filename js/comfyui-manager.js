@@ -16,7 +16,7 @@ import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
 import { ModelInstaller } from "./model-downloader.js";
 import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI, free_models } from "./common.js";
-import { ComponentBuilderDialog, load_components, set_component_policy } from "./components-manager.js";
+import { ComponentBuilderDialog, load_components, set_component_policy, getPureName } from "./components-manager.js";
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
@@ -406,6 +406,15 @@ function getNickname(node, nodename) {
 	else {
 		if (nicknames[nodename]) {
 			node.nickname = nicknames[nodename];
+		}
+		else if(node.getInnerNodes) {
+			let pure_name = getPureName(node);
+			let groupNode = app.graph.extra?.groupNodes?.[pure_name];
+			if(groupNode) {
+				let packname = groupNode.packname;
+				node.nickname = packname;
+			}
+			return node.nickname;
 		}
 		else {
 			for(let i in nickname_patterns) {
