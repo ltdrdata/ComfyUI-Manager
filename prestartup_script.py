@@ -456,3 +456,12 @@ if os.path.exists(script_list_path):
 
 del processed_install
 del pip_list
+
+if platform.system() == 'Windows':
+    try:
+        import asyncio
+        import asyncio.windows_events
+        asyncio.set_event_loop_policy(asyncio.windows_events.WindowsSelectorEventLoopPolicy())
+        print(f"[ComfyUI-Manager] Windows event loop policy mode enabled")
+    except Exception as e:
+        print(f"[ComfyUI-Manager] WARN: Windows initialization fail: {e}")
