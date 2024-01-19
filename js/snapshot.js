@@ -6,7 +6,7 @@ import { manager_instance, rebootAPI } from  "./common.js";
 
 async function restore_snapshot(target) {
 	if(SnapshotManager.instance) {
-        try {
+		try {
 			const response = await api.fetchApi(`/snapshot/restore?target=${target}`, { cache: "no-store" });
 			if(response.status == 400) {
 				app.ui.dialog.show(`Restore snapshot failed: ${target.title} / ${exception}`);
@@ -30,7 +30,7 @@ async function restore_snapshot(target) {
 
 async function remove_snapshot(target) {
 	if(SnapshotManager.instance) {
-        try {
+		try {
 			const response = await api.fetchApi(`/snapshot/remove?target=${target}`, { cache: "no-store" });
 			if(response.status == 400) {
 				app.ui.dialog.show(`Remove snapshot failed: ${target.title} / ${exception}`);
@@ -52,20 +52,20 @@ async function remove_snapshot(target) {
 }
 
 async function save_current_snapshot() {
-    try {
-        const response = await api.fetchApi('/snapshot/save', { cache: "no-store" });
-        app.ui.dialog.close();
-        return true;
-    }
-    catch(exception) {
-        app.ui.dialog.show(`Backup snapshot failed: ${exception}`);
-        app.ui.dialog.element.style.zIndex = 10010;
-        return false;
-    }
-    finally {
-        await SnapshotManager.instance.invalidateControl();
-        SnapshotManager.instance.updateMessage("<BR>Current snapshot saved.");
-    }
+	try {
+		const response = await api.fetchApi('/snapshot/save', { cache: "no-store" });
+		app.ui.dialog.close();
+		return true;
+	}
+	catch(exception) {
+		app.ui.dialog.show(`Backup snapshot failed: ${exception}`);
+		app.ui.dialog.element.style.zIndex = 10010;
+		return false;
+	}
+	finally {
+		await SnapshotManager.instance.invalidateControl();
+		SnapshotManager.instance.updateMessage("<BR>Current snapshot saved.");
+	}
 }
 
 async function getSnapshotList() {
@@ -97,7 +97,7 @@ export class SnapshotManager extends ComfyDialog {
 	async remove_item() {
 		caller.disableButtons();
 
-        await caller.invalidateControl();
+		await caller.invalidateControl();
 	}
 
 	createControls() {
@@ -151,14 +151,14 @@ export class SnapshotManager extends ComfyDialog {
 		var grid = document.createElement('table');
 		grid.setAttribute('id', 'snapshot-list-grid');
 
-        var thead = document.createElement('thead');
-        var tbody = document.createElement('tbody');
+		var thead = document.createElement('thead');
+		var tbody = document.createElement('tbody');
 
 		var headerRow = document.createElement('tr');
 		thead.style.position = "sticky";
 		thead.style.top = "0px";
-        thead.style.borderCollapse = "collapse";
-        thead.style.tableLayout = "fixed";
+		thead.style.borderCollapse = "collapse";
+		thead.style.tableLayout = "fixed";
 
 		var header1 = document.createElement('th');
 		header1.innerHTML = '&nbsp;&nbsp;ID&nbsp;&nbsp;';
@@ -170,7 +170,7 @@ export class SnapshotManager extends ComfyDialog {
 		header_button.innerHTML = 'Action';
 		header_button.style.width = "100px";
 
-        thead.appendChild(headerRow);
+		thead.appendChild(headerRow);
 		headerRow.appendChild(header1);
 		headerRow.appendChild(header2);
 		headerRow.appendChild(header_button);
@@ -231,17 +231,17 @@ export class SnapshotManager extends ComfyDialog {
 				this.grid_rows[i] = {data:data, control:dataRow};
 			}
 
-        let self = this;
+		let self = this;
 		const panel = document.createElement('div');
-        panel.style.width = "100%";
+		panel.style.width = "100%";
 		panel.appendChild(grid);
 
-        function handleResize() {
-          const parentHeight = self.element.clientHeight;
-          const gridHeight = parentHeight - 200;
+		function handleResize() {
+		  const parentHeight = self.element.clientHeight;
+		  const gridHeight = parentHeight - 200;
 
-          grid.style.height = gridHeight + "px";
-        }
+		  grid.style.height = gridHeight + "px";
+		}
 		window.addEventListener("resize", handleResize);
 
 		grid.style.position = "relative";
@@ -253,7 +253,7 @@ export class SnapshotManager extends ComfyDialog {
 		this.element.style.width = "80%";
 		this.element.appendChild(panel);
 
-        handleResize();
+		handleResize();
 	}
 
 	async createBottomControls() {

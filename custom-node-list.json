@@ -2878,7 +2878,7 @@
                 "https://github.com/GTSuya-Studio/ComfyUI-Gtsuya-Nodes"
             ],
             "install_type": "git-clone",
-            "description": "ComfyUI-GTSuya-Nodes is a ComyUI extension designed to add several wildcards supports into ComfyUI. Wildcards allow you to use __name__ syntax in your prompt to get a random line from a file named name.txt in a wildcards directory."
+            "description": "ComfyUI-GTSuya-Nodes is a ComfyUI extension designed to add several wildcards supports into ComfyUI. Wildcards allow you to use __name__ syntax in your prompt to get a random line from a file named name.txt in a wildcards directory."
         },
         {
             "author": "oyvindg",
@@ -3539,7 +3539,7 @@
                 "https://github.com/vienteck/ComfyUI-Chat-GPT-Integration"
             ],
             "install_type": "git-clone",
-            
+
             "description": "This extension is a reimagined version based on the [a/ComfyUI-QualityOfLifeSuit_Omar92](https://github.com/omar92/ComfyUI-QualityOfLifeSuit_Omar92) extension, and it supports integration with ChatGPT through the new OpenAI API.\nNOTE: See detailed installation instructions on the [a/repository](https://github.com/vienteck/ComfyUI-Chat-GPT-Integration)."
         },
         {
@@ -4066,6 +4066,16 @@
         },
         {
             "author": "chaojie",
+            "title": "ComfyUI-MotionCtrl-SVD",
+            "reference": "https://github.com/chaojie/ComfyUI-MotionCtrl-SVD",
+            "files": [
+                "https://github.com/chaojie/ComfyUI-MotionCtrl-SVD"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: Download the weights of MotionCtrl-SVD [a/motionctrl_svd.ckpt](https://huggingface.co/TencentARC/MotionCtrl/blob/main/motionctrl_svd.ckpt) and put it to ComfyUI/models/checkpoints"
+        },
+        {
+            "author": "chaojie",
             "title": "ComfyUI-DragNUWA",
             "reference": "https://github.com/chaojie/ComfyUI-DragNUWA",
             "files": [
@@ -4073,6 +4083,26 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes: Download the weights of DragNUWA [a/drag_nuwa_svd.pth](https://drive.google.com/file/d/1Z4JOley0SJCb35kFF4PCc6N6P1ftfX4i/view) and put it to ComfyUI/models/checkpoints/drag_nuwa_svd.pth"
+        },
+        {
+            "author": "chaojie",
+            "title": "ComfyUI-Moore-AnimateAnyone",
+            "reference": "https://github.com/chaojie/ComfyUI-Moore-AnimateAnyone",
+            "files": [
+                "https://github.com/chaojie/ComfyUI-Moore-AnimateAnyone"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: Run python tools/download_weights.py first to download weights automatically"
+        },
+        {
+            "author": "chaojie",
+            "title": "ComfyUI-I2VGEN-XL",
+            "reference": "https://github.com/chaojie/ComfyUI-I2VGEN-XL",
+            "files": [
+                "https://github.com/chaojie/ComfyUI-I2VGEN-XL"
+            ],
+            "install_type": "git-clone",
+            "description": "This is an implementation of [a/i2vgen-xl](https://github.com/ali-vilab/i2vgen-xl)"
         },
         {
             "author": "alexopus",
@@ -4103,6 +4133,16 @@
             ],
             "install_type": "git-clone",
             "description": "An extensive node suite that enables ComfyUI to process 3D inputs (Mesh & UV Texture, etc) using cutting edge algorithms (3DGS, NeRF, etc.)"
+        },
+        {
+            "author": "MrForExample",
+            "title": "ComfyUI-AnimateAnyone-Evolved",
+            "reference": "https://github.com/MrForExample/ComfyUI-AnimateAnyone-Evolved",
+            "files": [
+                "https://github.com/MrForExample/ComfyUI-AnimateAnyone-Evolved"
+            ],
+            "install_type": "git-clone",
+            "description": "Improved [a/AnimateAnyone](https://github.com/HumanAIGC/AnimateAnyone) implementation that allows you to use the opse image sequence and reference image to generate stylized video."
         },
         {
             "author": "Hangover3832",
@@ -4234,6 +4274,128 @@
             "install_type": "git-clone",
             "description": "Instead of LoraLoader or HypernetworkLoader, it receives a prompt and loads and applies LoRA or HN based on the specifications within the prompt. The main purpose of this custom node is to allow changes without reconnecting the LoraLoader node when the prompt is randomly altered, etc."
         },
+        {
+            "author": "Taremin",
+            "title": "ComfyUI String Tools",
+            "reference": "https://github.com/Taremin/comfyui-string-tools",
+            "files": [
+                "https://github.com/Taremin/comfyui-string-tools"
+            ],
+            "install_type": "git-clone",
+            "description": " This extension provides the StringToolsConcat node, which concatenates multiple texts, and the StringToolsRandomChoice node, which selects one randomly from multiple texts."
+        },
+        {
+            "author": "foxtrot-roger",
+            "title": "RF Nodes",
+            "reference": "https://github.com/foxtrot-roger/comfyui-rf-nodes",
+            "files": [
+                "https://github.com/foxtrot-roger/comfyui-rf-nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "A bunch of nodes that can be useful to manipulate primitive types (numbers, text, ...) Also some helpers to generate text and timestamps."
+        },
+        {
+            "author": "abyz22",
+            "title": "image_control",
+            "reference": "https://github.com/abyz22/image_control",
+            "files": [
+                "https://github.com/abyz22/image_control"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:abyz22_Padding Image, abyz22_ImpactWildcardEncode, abyz22_setimageinfo, abyz22_SaveImage, abyz22_ImpactWildcardEncode_GetPrompt, abyz22_SetQueue, abyz22_drawmask, abyz22_FirstNonNull, abyz22_blendimages, abyz22_blend_onecolor"
+        },
+        {
+            "author": "HAL41",
+            "title": "ComfyUI aichemy nodes",
+            "reference": "https://github.com/HAL41/ComfyUI-aichemy-nodes",
+            "files": [
+                "https://github.com/HAL41/ComfyUI-aichemy-nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Simple node to handle scaling of YOLOv8 segmentation masks"
+        },
+        {
+            "author": "nkchocoai",
+            "title": "ComfyUI-SizeFromPresets",
+            "reference": "https://github.com/nkchocoai/ComfyUI-SizeFromPresets",
+            "files": [
+                "https://github.com/nkchocoai/ComfyUI-SizeFromPresets"
+            ],
+            "install_type": "git-clone",
+            "description": "Add a node that outputs width and height of the size selected from the preset (.csv)."
+        },
+        {
+            "author": "JaredTherriault",
+            "title": "ComfyUI-JNodes",
+            "reference": "https://github.com/JaredTherriault/ComfyUI-JNodes",
+            "files": [
+                "https://github.com/JaredTherriault/ComfyUI-JNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "python and web UX improvements for ComfyUI.\n[w/'DynamicPrompts.js' and 'EditAttention.js' from the core, along with 'ImageFeed.js' and 'favicon.js' from the custom scripts of pythongosssss, are not compatible. Therefore, manual deletion of these files is required to use this web extension.]"
+        },
+        {
+            "author": "prozacgod",
+            "title": "ComfyUI Multi-Workspace",
+            "reference": "https://github.com/prozacgod/comfyui-pzc-multiworkspace",
+            "files": [
+                "https://github.com/prozacgod/comfyui-pzc-multiworkspace"
+            ],
+            "install_type": "git-clone",
+            "description": "A simple, quick, and dirty implementation of multiple workspaces within ComfyUI."
+        },
+        {
+            "author": "Siberpone",
+            "title": "Lazy Pony Prompter",
+            "reference": "https://github.com/Siberpone/lazy-pony-prompter",
+            "files": [
+                "https://github.com/Siberpone/lazy-pony-prompter"
+            ],
+            "install_type": "git-clone",
+            "description": "A pony prompt helper extension for AUTOMATIC1111's Stable Diffusion Web UI and ComfyUI that utilizes the full power of your favorite booru query syntax. Currently supports [a/Derpibooru](https://derpibooru/org) and [a/E621](https://e621.net/)."
+        },
+        {
+            "author": "kijai",
+            "title": "ComfyUI-DDColor",
+            "reference": "https://github.com/kijai/ComfyUI-DDColor",
+            "files": [
+                "https://github.com/kijai/ComfyUI-DDColor"
+            ],
+            "install_type": "git-clone",
+            "description": "Node to use [a/DDColor](https://github.com/piddnad/DDColor) in ComfyUI."
+        },
+        {
+            "author": "chflame163",
+            "title": "ComfyUI Layer Style",
+            "reference": "https://github.com/chflame163/ComfyUI_LayerStyle",
+            "files": [
+                "https://github.com/chflame163/ComfyUI_LayerStyle"
+            ],
+            "install_type": "git-clone",
+            "description": "A set of nodes for ComfyUI it generate image like Adobe Photoshop's Layer Style. the Drop Shadow is first completed node, and follow-up work is in progress."
+        },
+        {
+            "author": "dave-palt",
+            "title": "comfyui_DSP_imagehelpers",
+            "reference": "https://github.com/dave-palt/comfyui_DSP_imagehelpers",
+            "files": [
+                "https://github.com/dave-palt/comfyui_DSP_imagehelpers"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: DSP Image Concat"
+        },
+        {
+            "author": "Inzaniak",
+            "title": "Ranbooru for ComfyUI",
+            "reference": "https://github.com/Inzaniak/comfyui-ranbooru",
+            "files": [
+                "https://github.com/Inzaniak/comfyui-ranbooru"
+            ],
+            "install_type": "git-clone",
+            "description": "Ranbooru is an extension for the comfyUI. The purpose of this extension is to add a node that gets a random set of tags from boorus pictures. This is mostly being used to help me test my checkpoints on a large variety of"
+        },
+
+
 
 
         {
