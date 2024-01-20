@@ -270,6 +270,7 @@
     ],
     "https://github.com/BennyKok/comfyui-deploy": [
         [
+            "ComfyUIDeployExternalCheckpoints",
             "ComfyUIDeployExternalImage",
             "ComfyUIDeployExternalImageAlpha",
             "ComfyUIDeployExternalLora",
@@ -1555,7 +1556,9 @@
             "Image Crop Fit",
             "Image Resize Fit",
             "OFF SEGS to Image",
+            "Paste Face Segment to Image",
             "Query Gender and Age",
+            "SEGS to Face Crop Data",
             "Safe Mask to Image",
             "VAE Encode For Inpaint V2",
             "Watermarking"
@@ -3410,7 +3413,8 @@
     "https://github.com/brianfitzgerald/style_aligned_comfy": [
         [
             "StyleAlignedBatchAlign",
-            "StyleAlignedReferenceSampler"
+            "StyleAlignedReferenceSampler",
+            "StyleAlignedSampleReferenceLatents"
         ],
         {
             "title_aux": "StyleAligned for ComfyUI"
@@ -4060,6 +4064,15 @@
         ],
         {
             "title_aux": "ComfyUI-Llama"
+        }
+    ],
+    "https://github.com/darkpixel/darkprompts": [
+        [
+            "DarkCombine",
+            "DarkPrompt"
+        ],
+        {
+            "title_aux": "DarkPrompt"
         }
     ],
     "https://github.com/dave-palt/comfyui_DSP_imagehelpers": [
@@ -6095,6 +6108,7 @@
             "GamePal",
             "GetImageSize_",
             "GradientImage",
+            "GridOutput",
             "ImageColorTransfer",
             "ImageCropByAlpha",
             "IntNumber",
@@ -6120,6 +6134,7 @@
             "SmoothMask",
             "SpeechRecognition",
             "SpeechSynthesis",
+            "SplitImage",
             "SplitLongMask",
             "SvgImage",
             "SwitchByIndex",
@@ -6586,8 +6601,10 @@
     ],
     "https://github.com/talesofai/comfyui-browser": [
         [
+            "DifyTextGenerator //Browser",
             "LoadImageByUrl //Browser",
             "SelectInputs //Browser",
+            "UploadToRemote //Browser",
             "XyzPlot //Browser"
         ],
         {
