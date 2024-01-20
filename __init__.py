@@ -28,7 +28,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 2, 3]
+version = [2, 2, 5]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -102,7 +102,7 @@ sys.path.append('../..')
 
 from torchvision.datasets.utils import download_url
 
-comfy_ui_required_revision = 1240
+comfy_ui_required_revision = 1917
 comfy_ui_revision = "Unknown"
 comfy_ui_commit_date = ""
 
@@ -354,9 +354,9 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
     output = output.decode('utf-8').strip()
 
     if 'detected dubious' in output:
+        # fix and try again
+        safedir_path = path.replace('\\', '/')
         try:
-            # fix and try again
-            safedir_path = path.replace('\\', '/')
             print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on '{safedir_path}' repo")
             process = subprocess.Popen(['git', 'config', '--global', '--add', 'safe.directory', safedir_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             output, _ = process.communicate()
@@ -892,7 +892,7 @@ async def fetch_customnode_list(request):
             except Exception:
                 return False
         else:
-            False
+            return False
 
 
     json_obj['custom_nodes'] = [record for record in json_obj['custom_nodes'] if not is_ignored_notice(record.get('author'))]
@@ -1833,7 +1833,7 @@ async def get_notice(request):
                 markdown_content += f"<BR>Manager: {version_str}"
 
                 try:
-                    if required_comfyui_revision > int(comfy_ui_revision):
+                    if comfy_ui_required_revision > int(comfy_ui_revision):
                         markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
                 except:
                     pass
@@ -2146,6 +2146,7 @@ async def share_art(request):
     # get the mime type of the asset
     assetFileType = mimetypes.guess_type(asset_filepath)[0]
 
+    share_website_host = "UNKNOWN"
     if "comfyworkflows" in share_destinations:
         share_website_host = "https://comfyworkflows.com"
         share_endpoint = f"{share_website_host}/api"

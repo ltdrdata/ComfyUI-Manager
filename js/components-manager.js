@@ -86,9 +86,8 @@ export async function load_components() {
 				await config.registerType(category);
 
 				register_pack_map(name, data);
-				break;
+				continue;
 			}
-			continue;
 		}
 
 		let nodeData = components[name];
@@ -198,7 +197,7 @@ export async function load_components() {
 	}
 }
 
-async function save_as_component(node, version, prefix, nodename, packname, category) {
+async function save_as_component(node, version, author, prefix, nodename, packname, category) {
 	let component_name = `${prefix}::${nodename}`;
 
 	let subgraph = app.graph.extra?.groupNodes?.[component_name];
@@ -207,6 +206,7 @@ async function save_as_component(node, version, prefix, nodename, packname, cate
 	}
 
 	subgraph.version = version;
+	subgraph.author = author;
 	subgraph.datetime = Date.now();
 	subgraph.packname = packname;
 	subgraph.category = category;
@@ -455,7 +455,7 @@ export class ComponentBuilderDialog extends ComfyDialog {
 		this.element.style.display = "block";
 		this.element.style.zIndex = 10001;
 		this.element.style.width = "500px";
-		this.element.style.height = "450px";
+		this.element.style.height = "480px";
 	}
 
 	invalidateControl() {
@@ -467,7 +467,7 @@ export class ComponentBuilderDialog extends ComfyDialog {
 		this.save_button = $el("button",
 					{ id: "cm-save-button", type: "button", textContent: "Save", onclick: () =>
 							{
-								save_as_component(self.target_node, self.version_string.value.trim(), self.node_prefix.value.trim(),
+								save_as_component(self.target_node, self.version_string.value.trim(), self.author.value.trim(), self.node_prefix.value.trim(),
 												  self.getNodeName(), self.getPackName(), self.category.value.trim());
 							}
 					});
@@ -476,7 +476,6 @@ export class ComponentBuilderDialog extends ComfyDialog {
 
 		let groupNode = app.graph.extra.groupNodes[default_nodename];
 		let default_packname = groupNode.packname;
-
 		if(!default_packname) {
 			default_packname = '';
 		}
@@ -489,6 +488,11 @@ export class ComponentBuilderDialog extends ComfyDialog {
 		this.default_ver = groupNode.version;
 		if(!this.default_ver) {
 			this.default_ver = '0.0';
+		}
+
+		let default_author = groupNode.author;
+		if(!default_author) {
+			default_author = '';
 		}
 
 		let delimiterIndex = default_nodename.indexOf('::');
@@ -507,6 +511,9 @@ export class ComponentBuilderDialog extends ComfyDialog {
 		let version_string = this.createLabeledInput('input version (e.g. 1.0)', '*Version : ',  this.default_ver);
 		this.version_string = version_string[1];
 		this.version_string.disabled = true;
+
+		let author = this.createLabeledInput('input author (e.g. Dr.Lt.Data)', 'Author : ',  default_author);
+		this.author = author[1];
 
 		let node_prefix = this.createLabeledInput('input node prefix (e.g. mypack)', '*Prefix : ',  default_prefix);
 		this.node_prefix = node_prefix[1];
@@ -537,6 +544,7 @@ export class ComponentBuilderDialog extends ComfyDialog {
 								author_mode[0],
 								author_mode[1],
 								category[0],
+								author[0],
 								node_prefix[0],
 								manual_nodename[0],
 								manual_packname[0],
