@@ -1,5 +1,5 @@
 import { app } from "../../scripts/app.js";
-import { api } from "../../scripts/api.js"
+import { api } from "../../scripts/api.js";
 
 export async function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
@@ -48,8 +48,7 @@ export async function install_checked_custom_node(grid_rows, target_i, caller, m
 													});
 
 				if(response.status == 400) {
-					app.ui.dialog.show(`${mode} failed: ${target.title}`);
-					app.ui.dialog.element.style.zIndex = 10010;
+					show_message(`${mode} failed: ${target.title}`);
 					continue;
 				}
 
@@ -64,8 +63,7 @@ export async function install_checked_custom_node(grid_rows, target_i, caller, m
 		}
 
 		if(failed != '') {
-			app.ui.dialog.show(`${mode} failed: ${failed}`);
-			app.ui.dialog.element.style.zIndex = 10010;
+			show_message(`${mode} failed: ${failed}`);
 		}
 
 		await caller.invalidateControl();
@@ -159,5 +157,10 @@ export async function free_models() {
 	else {
 		app.ui.dialog.show('Unloading of models failed.<BR><BR>Installed ComfyUI may be an outdated version.')
 	}
+	app.ui.dialog.element.style.zIndex = 10010;
+}
+
+export function show_message(msg) {
+	app.ui.dialog.show(msg);
 	app.ui.dialog.element.style.zIndex = 10010;
 }

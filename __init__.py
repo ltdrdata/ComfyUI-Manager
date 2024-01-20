@@ -28,12 +28,11 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [1, 25, 3]
+version = [2, 2, 3]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
 
-required_comfyui_revision = 1793
 comfy_ui_hash = "-"
 
 cache_lock = threading.Lock()
@@ -118,6 +117,7 @@ local_db_alter = os.path.join(comfyui_manager_path, "alter-list.json")
 local_db_custom_node_list = os.path.join(comfyui_manager_path, "custom-node-list.json")
 local_db_extension_node_mappings = os.path.join(comfyui_manager_path, "extension-node-map.json")
 git_script_path = os.path.join(os.path.dirname(__file__), "git_helper.py")
+components_path = os.path.join(comfyui_manager_path, 'components')
 
 startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
 config_path = os.path.join(os.path.dirname(__file__), "config.ini")
@@ -169,7 +169,9 @@ def write_config():
         'git_exe':  get_config()['git_exe'],
         'channel_url': get_config()['channel_url'],
         'share_option': get_config()['share_option'],
-        'bypass_ssl': get_config()['bypass_ssl']
+        'bypass_ssl': get_config()['bypass_ssl'],
+        'default_ui': get_config()['default_ui'],
+        'component_policy': get_config()['component_policy'],
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -188,6 +190,8 @@ def read_config():
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
                     'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else False,
+                    'default_ui': default_conf['default_ui'] if 'default_ui' in default_conf else 'none',
+                    'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
                }
 
     except Exception:
@@ -197,7 +201,9 @@ def read_config():
             'git_exe': '',
             'channel_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
             'share_option': 'all',
-            'bypass_ssl': False
+            'bypass_ssl': False,
+            'default_ui': 'none',
+            'component_policy': 'workflow'
         }
 
 
@@ -234,11 +240,19 @@ def set_preview_method(method):
     get_config()['preview_method'] = args.preview_method
 
 
+set_preview_method(get_config()['preview_method'])
+
+
 def set_badge_mode(mode):
     get_config()['badge_mode'] = mode
 
 
-set_preview_method(get_config()['preview_method'])
+def set_default_ui_mode(mode):
+    get_config()['default_ui'] = mode
+
+
+def set_component_policy(mode):
+    get_config()['component_policy'] = mode
 
 
 def try_install_script(url, repo_path, install_cmd):
@@ -1749,6 +1763,28 @@ async def badge_mode(request):
     return web.Response(status=200)
 
 
+@server.PromptServer.instance.routes.get("/manager/default_ui")
+async def default_ui_mode(request):
+    if "value" in request.rel_url.query:
+        set_default_ui_mode(request.rel_url.query['value'])
+        write_config()
+    else:
+        return web.Response(text=get_config()['default_ui'], status=200)
+
+    return web.Response(status=200)
+
+
+@server.PromptServer.instance.routes.get("/manager/component/policy")
+async def component_policy(request):
+    if "value" in request.rel_url.query:
+        set_component_policy(request.rel_url.query['value'])
+        write_config()
+    else:
+        return web.Response(text=get_config()['component_policy'], status=200)
+
+    return web.Response(status=200)
+
+
 @server.PromptServer.instance.routes.get("/manager/channel_url_list")
 async def channel_url_list(request):
     channels = get_channel_dict()
@@ -1821,6 +1857,64 @@ def restart(self):
     return os.execv(sys.executable, [sys.executable] + sys.argv)
 
 
+def sanitize_filename(input_string):
+    # 알파벳, 숫자, 및 밑줄 이외의 문자를 밑줄로 대체
+    result_string = re.sub(r'[^a-zA-Z0-9_]', '_', input_string)
+    return result_string
+
+
+@server.PromptServer.instance.routes.post("/manager/component/save")
+async def save_component(request):
+    try:
+        data = await request.json()
+        name = data['name']
+        workflow = data['workflow']
+
+        if not os.path.exists(components_path):
+            os.mkdir(components_path)
+
+        if 'packname' in workflow and workflow['packname'] != '':
+            sanitized_name = sanitize_filename(workflow['packname'])+'.pack'
+        else:
+            sanitized_name = sanitize_filename(name)+'.json'
+
+        filepath = os.path.join(components_path, sanitized_name)
+        components = {}
+        if os.path.exists(filepath):
+            with open(filepath) as f:
+                components = json.load(f)
+
+        components[name] = workflow
+
+        with open(filepath, 'w') as f:
+            json.dump(components, f, indent=4, sort_keys=True)
+        return web.Response(text=filepath, status=200)
+    except:
+        return web.Response(status=400)
+
+
+@server.PromptServer.instance.routes.post("/manager/component/loads")
+async def load_components(request):
+    try:
+        json_files = [f for f in os.listdir(components_path) if f.endswith('.json')]
+        pack_files = [f for f in os.listdir(components_path) if f.endswith('.pack')]
+
+        components = {}
+        for json_file in json_files + pack_files:
+            file_path = os.path.join(components_path, json_file)
+            with open(file_path, 'r') as file:
+                try:
+                    # When there is a conflict between the .pack and the .json, the pack takes precedence and overrides.
+                    components.update(json.load(file))
+                except json.JSONDecodeError as e:
+                    print(f"[ComfyUI-Manager] Error decoding component file in file {json_file}: {e}")
+
+        return web.json_response(components)
+    except Exception as e:
+        print(f"[ComfyUI-Manager] failed to load components\n{e}")
+        return web.Response(status=400)
+
+
 @server.PromptServer.instance.routes.get("/manager/share_option")
 async def share_option(request):
     if "value" in request.rel_url.query:
@@ -1874,6 +1968,22 @@ def get_comfyworkflows_auth():
         return None
 
 
+def get_youml_settings():
+    if not os.path.exists(os.path.join(comfyui_manager_path, ".youml")):
+        return None
+    try:
+        with open(os.path.join(comfyui_manager_path, ".youml"), "r") as f:
+            youml_settings = f.read().strip()
+        return youml_settings if youml_settings else None
+    except:
+        return None
+
+
+def set_youml_settings(settings):
+    with open(os.path.join(comfyui_manager_path, ".youml"), "w") as f:
+        f.write(settings)
+
+
 @server.PromptServer.instance.routes.get("/manager/get_openart_auth")
 async def api_get_openart_auth(request):
     # print("Getting stored Matrix credentials...")
@@ -1899,6 +2009,21 @@ async def api_get_matrix_auth(request):
     if not matrix_auth:
         return web.Response(status=404)
     return web.json_response(matrix_auth)
+
+
+@server.PromptServer.instance.routes.get("/manager/youml/settings")
+async def api_get_youml_settings(request):
+    youml_settings = get_youml_settings()
+    if not youml_settings:
+        return web.Response(status=404)
+    return web.json_response(json.loads(youml_settings))
+
+
+@server.PromptServer.instance.routes.post("/manager/youml/settings")
+async def api_set_youml_settings(request):
+    json_data = await request.json()
+    set_youml_settings(json.dumps(json_data))
+    return web.Response(status=200)
 
 
 @server.PromptServer.instance.routes.get("/manager/get_comfyworkflows_auth")

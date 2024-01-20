@@ -2,6 +2,7 @@ import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js";
 import { ComfyDialog, $el } from "../../scripts/ui.js";
 import { OpenArtShareDialog } from "./comfyui-share-openart.js";
+import { YouMLShareDialog } from "./comfyui-share-youml.js";
 
 export const SUPPORTED_OUTPUT_NODE_TYPES = [
 	"PreviewImage",
@@ -179,6 +180,23 @@ export const showOpenArtShareDialog = () => {
     })
 }
 
+
+export const showYouMLShareDialog = () => {
+  if (!YouMLShareDialog.instance) {
+    YouMLShareDialog.instance = new YouMLShareDialog();
+  }
+
+  return app.graphToPrompt()
+    .then(prompt => {
+      return app.graph._nodes;
+    })
+    .then(nodes => {
+        const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
+        YouMLShareDialog.instance.show(potential_outputs, potential_output_nodes);
+    })
+}
+
+
 export const showShareDialog = async (share_option) => {
   if (!ShareDialog.instance) {
     ShareDialog.instance = new ShareDialog(share_option);
@@ -234,6 +252,16 @@ export class ShareDialogChooser extends ComfyDialog {
 				}
 			},
 			{
+				key: "youml",
+				textContent: "YouML",
+				website: "https://youml.com",
+				description: "Share your workflow or transform it into an interactive app on YouML.com",
+				onclick: () => {
+					showYouMLShareDialog();
+				  this.close();
+				}
+			},
+			{
 				key: "matrix",
 				textContent: "Matrix Server",
 				website: "https://app.element.io/#/room/%23comfyui_space%3Amatrix.org",
@@ -264,7 +292,7 @@ export class ShareDialogChooser extends ComfyDialog {
 					display: "flex",
 					'flex-wrap': 'wrap',
 					'justify-content': 'space-around',
-					'padding': '20px',
+					'padding': '10px',
 				}
 			});
 
@@ -297,7 +325,7 @@ export class ShareDialogChooser extends ComfyDialog {
 						'text-align': 'left',
 						color: 'white',
 						'font-size': '14px',
-						'margin-bottom': '10px',
+						'margin-bottom': '0',
 					},
 				});
 
@@ -335,7 +363,7 @@ export class ShareDialogChooser extends ComfyDialog {
 					style: {
 						'flex-basis': '100%',
 						'margin': '10px',
-						'padding': '20px',
+						'padding': '10px 20px',
 						'border': '1px solid #ddd',
 						'border-radius': '5px',
 						'box-shadow': '0 2px 4px rgba(0, 0, 0, 0.1)',
