@@ -16,7 +16,8 @@ import { AlternativesInstaller } from "./a1111-alter-downloader.js";
 import { SnapshotManager } from "./snapshot.js";
 import { ModelInstaller } from "./model-downloader.js";
 import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI, free_models } from "./common.js";
-import { ComponentBuilderDialog, load_components, set_component_policy, getPureName } from "./components-manager.js";
+import { ComponentBuilderDialog, load_components, set_component_policy, getPureName } from "./component-builder.js";
+import { ComponentsManager } from "./components-manager.js";
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
@@ -171,6 +172,10 @@ docStyle.innerHTML = `
 	padding: 10px;
 	overflow-x: hidden;
 	overflow: auto;
+}
+
+#components-grid tr {
+	height: 50px;
 }
 `;
 
@@ -955,7 +960,17 @@ class ManagerMenuDialog extends ComfyDialog {
 						type: "button",
 						textContent: "Unload models",
 						onclick: () => { free_models(); }
-					})
+					}),
+					$el("button.cm-experimental-button", {
+						type: "button",
+						textContent: "Manage Components",
+						onclick:
+							() => {
+								if(!ComponentsManager.instance)
+								ComponentsManager.instance = new ComponentsManager(app, self);
+								ComponentsManager.instance.show();
+							}
+					}),
 				]),
 		];
 	}

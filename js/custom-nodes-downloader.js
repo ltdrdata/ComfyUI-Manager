@@ -1,7 +1,7 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
-import { install_checked_custom_node, manager_instance, rebootAPI } from  "./common.js";
+import { install_checked_custom_node, manager_instance, rebootAPI } from "./common.js";
 
 
 async function getCustomNodes() {
@@ -93,9 +93,9 @@ export class CustomNodesInstaller extends ComfyDialog {
 	data = null;
 
 	static ShowMode = {
-	  NORMAL: 0,
-	  MISSING_NODES: 1,
-	  UPDATE: 2,
+		NORMAL: 0,
+		MISSING_NODES: 1,
+		UPDATE: 2,
 	};
 
 	clear() {
@@ -651,10 +651,10 @@ export class CustomNodesInstaller extends ComfyDialog {
 		panel.appendChild(grid);
 
 		function handleResize() {
-		  const parentHeight = self.element.clientHeight;
-		  const gridHeight = parentHeight - 200;
+			const parentHeight = self.element.clientHeight;
+			const gridHeight = parentHeight - 200;
 
-		  grid.style.height = gridHeight + "px";
+			grid.style.height = gridHeight + "px";
 		}
 		window.addEventListener("resize", handleResize);
 
