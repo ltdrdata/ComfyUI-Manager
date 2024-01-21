@@ -979,7 +979,8 @@
     ],
     "https://github.com/JaredTherriault/ComfyUI-JNodes": [
         [
-            "JNodes_AddOrSetPngInfoKey",
+            "JNodes_AddOrSetMetaDataKey",
+            "JNodes_AnyToString",
             "JNodes_AppendReversedFrames",
             "JNodes_BooleanSelectorWithString",
             "JNodes_CheckpointSelectorWithString",
@@ -997,8 +998,8 @@
             "JNodes_ParseWildcards",
             "JNodes_PromptBuilderSingleSubject",
             "JNodes_PromptEditor",
+            "JNodes_RemoveMetaDataKey",
             "JNodes_RemoveParseableDataForInference",
-            "JNodes_RemovePngInfoKey",
             "JNodes_SamplerSelectorWithString",
             "JNodes_SaveImageWithOutput",
             "JNodes_SaveVideo",
@@ -3597,15 +3598,18 @@
     ],
     "https://github.com/chflame163/ComfyUI_LayerStyle": [
         [
-            "LayerStyle_ColorPicker",
-            "LayerStyle_DropShadow",
+            "LayerFilter: MotionBlur",
+            "LayerMask: MaskInvert",
+            "LayerMask: MaskPreview",
+            "LayerStyle: DropShadow",
+            "LayerStyle: InnerGlow",
+            "LayerStyle: InnerShadow",
+            "LayerStyle: OuterGlow",
+            "LayerStyle: Stroke",
             "LayerStyle_Illumine",
-            "LayerStyle_ImageBlend",
-            "LayerStyle_ImageOpacity",
-            "LayerStyle_MaskInvert",
-            "LayerStyle_MaskPreview",
-            "LayerStyle_OuterGlow",
-            "LayerStyle_Stroke"
+            "LayerUtility: ColorPicker",
+            "LayerUtility: ImageBlend",
+            "LayerUtility: ImageOpacity"
         ],
         {
             "title_aux": "ComfyUI Layer Style"
@@ -4047,11 +4051,11 @@
     "https://github.com/daniel-lewis-ab/ComfyUI-Llama": [
         [
             "Call LLM",
-            "LLM_Create_Embedding",
+            "Call LLM Advanced",
+            "LLM_Create_Completion",
             "LLM_Detokenize",
             "LLM_Embed",
             "LLM_Eval",
-            "LLM_Generate",
             "LLM_Load_State",
             "LLM_Reset",
             "LLM_Sample",
@@ -4072,7 +4076,7 @@
             "DarkPrompt"
         ],
         {
-            "title_aux": "DarkPrompt"
+            "title_aux": "DarkPrompts"
         }
     ],
     "https://github.com/dave-palt/comfyui_DSP_imagehelpers": [
