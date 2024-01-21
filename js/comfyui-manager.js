@@ -135,14 +135,24 @@ docStyle.innerHTML = `
 }
 
 .cm-notice-board {
-	width: 310px;
-	padding: 0px !important;
-	height: 260px;
+	width: 290px;
+	height: 230px;
 	overflow: auto;
 	color: var(--input-text);
 	border: 1px solid var(--descrip-text);
-	padding: 10px;
+	padding: 5px 10px;
 	overflow-x: hidden;
+	box-sizing: content-box;
+}
+
+.cm-notice-board > ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
 }
 
 .cm-conflicted-nodes-text {
@@ -246,6 +256,7 @@ const style = `
 	border-radius: 5px;
 	text-align: center;
 	transform: translateX(-50%);
+	display: block;
 }
 
 .cm-menu-combo {
