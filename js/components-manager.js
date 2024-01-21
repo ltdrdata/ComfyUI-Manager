@@ -2,7 +2,8 @@ import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { GroupNodeConfig, GroupNodeHandler } from "../../extensions/core/groupNode.js";
 import { ComfyDialog, $el } from "../../scripts/ui.js";
-import { isInstalled } from "./component-builder.js";
+import { isInstalled, uninstall_component, save_as_component } from "./component-builder.js";
+import { show_message } from "./common.js";
 
 export class ComponentsManager extends ComfyDialog {
 	static instance = null;
@@ -88,7 +89,7 @@ export class ComponentsManager extends ComfyDialog {
 
 	}
 
-	async invalidateControl() {
+	invalidateControl() {
 		this.clear();
 
 		// invalidate
@@ -98,21 +99,127 @@ export class ComponentsManager extends ComfyDialog {
 			this.element.removeChild(this.element.children[0]);
 		}
 
+		this.button_map = {};
+
 		this.createHeaderControls();
-		await this.createGrid();
+		this.createGrid();
 		this.apply_searchbox(this.data);
 		this.createBottomControls();
 	}
 
-	void uninstall_components(name) {
+	add_action_buttons(action_col, data) {
+		let self = this;
 
+		var installBtn = document.createElement('button');
+		installBtn.className = "cm-btn-install";
+		var installBtn2 = null;
+
+		this.install_buttons.push(installBtn);
+
+		switch(data.state) {
+		case 'HasUpdate':
+			installBtn2 = document.createElement('button');
+			installBtn2.innerHTML = 'Update';
+			installBtn2.className = "cm-btn-update";
+			installBtn2.style.backgroundColor = 'blue';
+			installBtn2.style.color = 'white';
+			this.install_buttons.push(installBtn2);
+
+			installBtn.innerHTML = 'Uninstall';
+			installBtn.style.backgroundColor = 'red';
+			action_col.appendChild(installBtn);
+			break;
+
+		case 'Installed':
+			installBtn.innerHTML = 'Uninstall';
+			installBtn.style.backgroundColor = 'red';
+			action_col.appendChild(installBtn);
+			break;
+
+		case 'NotInstalled':
+			installBtn.innerHTML = 'Install';
+			installBtn.style.backgroundColor = 'black';
+			installBtn.style.color = 'white';
+			action_col.appendChild(installBtn);
+			break;
+
+		case 'NotComponent':
+			break;
+
+		default:
+			break;
+		}
+
+		if(installBtn2 != null) {
+			installBtn2.style.width = "120px";
+			installBtn2.addEventListener('click', function() {
+				// todo
+			});
+
+			action_col.appendChild(installBtn2);
+		}
+
+		installBtn.style.width = "120px";
+		installBtn.addEventListener('click', async function() {
+			if(this.innerHTML == 'Uninstall') {
+				await self.uninstall_components(data);
+				self.invalidateButtons();
+			}
+			else {
+				await self.install_components(data);
+				self.invalidateButtons();
+			}
+		});
+
+		let buttons = [];
+		if(installBtn) {
+			buttons.push(installBtn);
+		}
+		if(installBtn2) {
+			buttons.push(installBtn2);
+		}
+
+		return buttons;
 	}
 
-	void install_components(data) {
-		save_as_component(data.node, )
+	invalidateButtons() {
+		let data = this.getNodes();
+
+		let m = {};
+		for(let i in data) {
+			let item = data[i];
+			m[item.name] = item;
+		}
+
+		for(let i in this.grid_rows) {
+			let row_controls = this.grid_rows[i].control;
+			let action_col = row_controls.children[5];
+
+			while (action_col.children.length) {
+				action_col.removeChild(action_col.children[0]);
+			}
+
+			let row_data = this.grid_rows[i].data;
+			let new_data = m[row_data.name];
+			if(new_data) {
+				this.grid_rows[i].data = new_data;
+				this.grid_rows[i].buttons = this.add_action_buttons(action_col, new_data);
+			}
+			else {
+
+			}
+		}
 	}
 
-	async createGrid() {
+	async uninstall_components(data) {
+		uninstall_component(data.name, data.packname);
+	}
+
+	install_components(data) {
+		save_as_component(data.node, data.version, data.author, null, data.name, data.packname, category);
+	}
+
+	createGrid() {
 		var grid = document.createElement('table');
 		grid.setAttribute('id', 'components-grid');
 
@@ -226,67 +333,8 @@ export class ComponentsManager extends ComfyDialog {
 				data5.style.wordWrap = "break-word";
 				data5.className = "cm-component-action";
 
-				var installBtn = document.createElement('button');
-				installBtn.className = "cm-btn-install";
-				var installBtn2 = null;
-				var installBtn3 = null;
-				var installBtn4 = null;
-
-				this.install_buttons.push(installBtn);
-
-				switch(data.state) {
-				case 'HasUpdate':
-					installBtn2 = document.createElement('button');
-					installBtn2.innerHTML = 'Update';
-					installBtn2.className = "cm-btn-update";
-					installBtn2.style.backgroundColor = 'blue';
-					installBtn2.style.color = 'white';
-					this.install_buttons.push(installBtn2);
-
-					installBtn.innerHTML = 'Uninstall';
-					installBtn.style.backgroundColor = 'red';
-					data5.appendChild(installBtn);
-					break;
-
-				case 'Installed':
-					installBtn.innerHTML = 'Uninstall';
-					installBtn.style.backgroundColor = 'red';
-					data5.appendChild(installBtn);
-					break;
-
-				case 'NotInstalled':
-					installBtn.innerHTML = 'Install';
-					installBtn.style.backgroundColor = 'black';
-					installBtn.style.color = 'white';
-					data5.appendChild(installBtn);
-					break;
-
-				case 'NotComponent':
-					break;
-
-				default:
-					break;
-				}
-
+				let buttons = this.add_action_buttons(data5, data);
 				let j = i;
-				if(installBtn2 != null) {
-					installBtn2.style.width = "120px";
-					installBtn2.addEventListener('click', function() {
-						// todo
-					});
-
-					data5.appendChild(installBtn2);
-				}
-
-				installBtn.style.width = "120px";
-				installBtn.addEventListener('click', function() {
-					if(this.innerHTML == 'Uninstall') {
-						this.uninstall_components(data.name);
-					}
-					else {
-						this.install_components(data.name);
-					}
-				});
 
 				if(data.state == 'Fail')
 					dataRow.style.backgroundColor = "#880000";
@@ -302,14 +350,6 @@ export class ComponentsManager extends ComfyDialog {
 				dataRow.appendChild(data4);
 				dataRow.appendChild(data5);
 				tbody.appendChild(dataRow);
-
-				let buttons = [];
-				if(installBtn) {
-					buttons.push(installBtn);
-				}
-				if(installBtn2) {
-					buttons.push(installBtn2);
-				}
 
 				this.grid_rows[i] = {data:data, buttons:buttons, checkbox:checkbox, control:dataRow};
 			}
@@ -441,7 +481,8 @@ export class ComponentsManager extends ComfyDialog {
 			this.element.style.zIndex = 10001;
 		}
 		catch(exception) {
-			app.ui.dialog.show(`Failed to get component list. / ${exception}`);
+			show_message(`Failed to get component list. / ${exception}`);
+			console.log(exception);
 		}
 	}
 }

@@ -201,8 +201,31 @@ export async function load_components() {
 	}
 }
 
-async function save_as_component(node, version, author, prefix, nodename, packname, category) {
-	let component_name = nodenam;
+export async function uninstall_component(nodename, packname) {
+	let body =
+		{
+			"name": nodename,
+			"packname": packname
+		};
+
+	const res = await api.fetchApi('/manager/component/remove', {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(body),
+		});
+
+	if(res.status == 200) {
+		delete rpack_map[nodename];
+	}
+	else {
+		console.log(`Failed to remove component: ${nodename}`);
+	}
+}
+
+export async function save_as_component(node, version, author, prefix, nodename, packname, category) {
+	let component_name = nodename;
 
 	if(prefix) {
 		component_name = `${prefix}::${nodename}`;

@@ -1863,6 +1863,43 @@ def sanitize_filename(input_string):
     return result_string
 
 
+def remove_component_from(filename, name):
+    filepath = os.path.join(components_path, filename)
+    if os.path.exists(filepath):
+        components = {}
+        if os.path.exists(filepath):
+            with open(filepath) as f:
+                components = json.load(f)
+
+        if name in components:
+            del components[name]
+
+            with open(filepath, 'w') as f:
+                json.dump(components, f, indent=4, sort_keys=True)
+
+
+@server.PromptServer.instance.routes.post("/manager/component/remove")
+async def remove_component(request):
+    try:
+        data = await request.json()
+        name = data['name']
+        packname = data['packname']
+
+        sanitized_name_cand1 = None
+        if packname != '':
+            sanitized_name_cand1 = sanitize_filename(packname)+'.pack'
+
+        sanitized_name_cand2 = sanitize_filename(name)+'.json'
+
+        if sanitized_name_cand1 is not None:
+            remove_component_from(sanitized_name_cand1, name)
+        remove_component_from(sanitized_name_cand2, name)
+
+        return web.Response(status=200)
+    except:
+        return web.Response(status=400)
+
+
 @server.PromptServer.instance.routes.post("/manager/component/save")
 async def save_component(request):
     try:
