@@ -714,6 +714,7 @@
             "LineartStandardPreprocessor",
             "M-LSDPreprocessor",
             "Manga2Anime_LineArt_Preprocessor",
+            "MaskOptFlow",
             "MediaPipe-FaceMeshPreprocessor",
             "MeshGraphormer-DepthMapPreprocessor",
             "MiDaS-DepthMapPreprocessor",
@@ -731,6 +732,7 @@
             "ShufflePreprocessor",
             "TilePreprocessor",
             "UniFormer-SemSegPreprocessor",
+            "Unimatch_OptFlowPreprocessor",
             "Zoe-DepthMapPreprocessor"
         ],
         {
@@ -2437,6 +2439,7 @@
             "BLIP Analyze Image",
             "BLIP Model Loader",
             "Blend Latents",
+            "Boolean To Text",
             "Bounded Image Blend",
             "Bounded Image Blend with Mask",
             "Bounded Image Crop",
@@ -2548,6 +2551,11 @@
             "Load Lora",
             "Load Text File",
             "Logic Boolean",
+            "Logic Boolean Primitive",
+            "Logic Comparison AND",
+            "Logic Comparison OR",
+            "Logic Comparison XOR",
+            "Logic NOT",
             "Lora Input Switch",
             "Lora Loader",
             "Mask Arbitrary Region",
@@ -2603,6 +2611,7 @@
             "Text Add Tokens",
             "Text Compare",
             "Text Concatenate",
+            "Text Contains",
             "Text Dictionary Convert",
             "Text Dictionary Get",
             "Text Dictionary Keys",
@@ -2842,6 +2851,7 @@
             "abyz22_blendimages",
             "abyz22_bypass",
             "abyz22_drawmask",
+            "abyz22_lamaPreprocessor",
             "abyz22_setimageinfo",
             "abyz22_smallhead"
         ],
@@ -3133,14 +3143,6 @@
             "title_aux": "avatar-graph-comfyui"
         }
     ],
-    "https://github.com/azazeal04/ComfyUI-Styles": [
-        [
-            "menus"
-        ],
-        {
-            "title_aux": "ComfyUI-Styles"
-        }
-    ],
     "https://github.com/badjeff/comfyui_lora_tag_loader": [
         [
             "LoraTagLoader"
@@ -3350,6 +3352,8 @@
             "RemapFromQuadrilateral (homography)",
             "RemapInsideParabolas",
             "RemapInsideParabolasAdvanced",
+            "RemapPinch",
+            "RemapStretch",
             "RemapToInnerCylinder",
             "RemapToOuterCylinder",
             "RemapToQuadrilateral",
@@ -3517,9 +3521,13 @@
     "https://github.com/chaojie/ComfyUI-DragNUWA": [
         [
             "DragNUWA Run",
+            "DragNUWA Run MotionBrush",
             "Get First Image",
             "Get Last Image",
             "Load CheckPoint DragNUWA",
+            "Load MotionBrush From Optical Flow",
+            "Load MotionBrush From Optical Flow Directory",
+            "Load MotionBrush From Tracking Points",
             "Load Pose KeyPoints",
             "Loop",
             "LoopEnd_IMAGE",
@@ -3601,7 +3609,9 @@
             "LayerFilter: MotionBlur",
             "LayerMask: MaskInvert",
             "LayerMask: MaskPreview",
+            "LayerStyle: ColorOverlay",
             "LayerStyle: DropShadow",
+            "LayerStyle: GradientOverlay",
             "LayerStyle: InnerGlow",
             "LayerStyle: InnerShadow",
             "LayerStyle: OuterGlow",
@@ -4022,6 +4032,7 @@
             "ImageFromBatch+",
             "ImagePosterize+",
             "ImageResize+",
+            "ImageSeamCarving+",
             "MaskBatch+",
             "MaskBlur+",
             "MaskExpandBatch+",
@@ -4050,9 +4061,9 @@
     ],
     "https://github.com/daniel-lewis-ab/ComfyUI-Llama": [
         [
-            "Call LLM",
             "Call LLM Advanced",
-            "LLM_Create_Completion",
+            "Call LLM Basic",
+            "LLM_Create_Completion Advanced",
             "LLM_Detokenize",
             "LLM_Embed",
             "LLM_Eval",
@@ -4063,8 +4074,8 @@
             "LLM_Token_BOS",
             "LLM_Token_EOS",
             "LLM_Tokenize",
-            "Load LLM Model",
-            "Load LLM Model Advanced"
+            "Load LLM Model Advanced",
+            "Load LLM Model Basic"
         ],
         {
             "title_aux": "ComfyUI-Llama"
@@ -5986,6 +5997,8 @@
     "https://github.com/receyuki/comfyui-prompt-reader-node": [
         [
             "SDBatchLoader",
+            "SDLoraLoader",
+            "SDLoraSelector",
             "SDParameterExtractor",
             "SDParameterGenerator",
             "SDPromptMerger",
@@ -6152,6 +6165,17 @@
         ],
         {
             "title_aux": "comfyui-mixlab-nodes"
+        }
+    ],
+    "https://github.com/shiimizu/ComfyUI-PhotoMaker": [
+        [
+            "PhotoMakerEncode",
+            "PhotoMakerLoader",
+            "PhotoMakerStyles",
+            "PrepImagesForClipVisionFromPath"
+        ],
+        {
+            "title_aux": "ComfyUI PhotoMaker"
         }
     ],
     "https://github.com/shiimizu/ComfyUI-TiledDiffusion": [
