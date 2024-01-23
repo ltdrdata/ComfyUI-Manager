@@ -51,9 +51,12 @@
     ],
     "https://github.com/54rt1n/ComfyUI-DareMerge": [
         [
-            "BlockModelMergerAdv",
-            "DareModelMerger",
-            "MagnitudeModelMerger"
+            "DM_DareClipMerger",
+            "DM_DareModelMerger",
+            "DM_DareModelMergerMBW",
+            "DM_MagnitudeMasker",
+            "DM_MaskedModelMerger",
+            "DM_NormalizeModel"
         ],
         {
             "title_aux": "ComfyUI-DareMerge"
@@ -270,7 +273,7 @@
     ],
     "https://github.com/BennyKok/comfyui-deploy": [
         [
-            "ComfyUIDeployExternalCheckpoints",
+            "ComfyUIDeployExternalCheckpoint",
             "ComfyUIDeployExternalImage",
             "ComfyUIDeployExternalImageAlpha",
             "ComfyUIDeployExternalLora",
@@ -1018,6 +1021,16 @@
         ],
         {
             "title_aux": "ComfyUI-JNodes"
+        }
+    ],
+    "https://github.com/JcandZero/ComfyUI_GLM4Node": [
+        [
+            "GLM3_turbo_CHAT",
+            "GLM4_CHAT",
+            "GLM4_Vsion_IMGURL"
+        ],
+        {
+            "title_aux": "ComfyUI_GLM4Node"
         }
     ],
     "https://github.com/Jcd1230/rembg-comfyui-node": [
@@ -1846,6 +1859,14 @@
         ],
         {
             "title_aux": "SDXL_sizing"
+        }
+    ],
+    "https://github.com/Shraknard/ComfyUI-Remover": [
+        [
+            "Remover"
+        ],
+        {
+            "title_aux": "ComfyUI-Remover"
         }
     ],
     "https://github.com/Siberpone/lazy-pony-prompter": [
@@ -2890,6 +2911,15 @@
             "title_aux": "DynamicPrompts Custom Nodes"
         }
     ],
+    "https://github.com/adriflex/ComfyUI_Blender_Texdiff": [
+        [
+            "ViewportColor",
+            "ViewportDepth"
+        ],
+        {
+            "title_aux": "ComfyUI_Blender_Texdiff"
+        }
+    ],
     "https://github.com/aegis72/aegisflow_utility_nodes": [
         [
             "Aegisflow CLIP Pass",
@@ -3630,9 +3660,19 @@
             "title_aux": "ComfyUI-MotionCtrl-SVD"
         }
     ],
+    "https://github.com/chaojie/ComfyUI-RAFT": [
+        [
+            "RAFT Run"
+        ],
+        {
+            "title_aux": "ComfyUI-RAFT"
+        }
+    ],
     "https://github.com/chflame163/ComfyUI_LayerStyle": [
         [
+            "LayerFilter: GaussianBlur",
             "LayerFilter: MotionBlur",
+            "LayerMask: MaskBoxDetect",
             "LayerMask: MaskInvert",
             "LayerMask: MaskPreview",
             "LayerStyle: ColorOverlay",
@@ -3645,10 +3685,12 @@
             "LayerStyle_Illumine",
             "LayerUtility: ColorPicker",
             "LayerUtility: ExtendCanvas",
+            "LayerUtility: GetImageSize",
             "LayerUtility: ImageBlend",
             "LayerUtility: ImageBlendAdvance",
             "LayerUtility: ImageOpacity",
-            "LayerUtility: PrintInfo"
+            "LayerUtility: PrintInfo",
+            "LayerUtility: XY to Percent"
         ],
         {
             "title_aux": "ComfyUI Layer Style"
@@ -5099,7 +5141,10 @@
     ],
     "https://github.com/komojini/komojini-comfyui-nodes": [
         [
+            "CachedGetter",
+            "DragNUWAImageCanvas",
             "FlowBuilder",
+            "FlowBuilderSetter",
             "Getter",
             "ImageGetter",
             "ImageMerger",
@@ -6148,6 +6193,7 @@
             "CLIPSeg_",
             "CharacterInText",
             "ChatGPTOpenAI",
+            "CkptNames_",
             "Color",
             "CombineMasks_",
             "CombineSegMasks",
@@ -6182,7 +6228,9 @@
             "PromptSlide",
             "RandomPrompt",
             "ResizeImageMixlab",
+            "SamplerNames_",
             "ScreenShare",
+            "Seed_",
             "ShowLayer",
             "ShowTextForGPT",
             "SmoothMask",
