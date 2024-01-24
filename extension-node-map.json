@@ -2244,7 +2244,9 @@
             "tri3d-pose-to-image",
             "tri3d-position-hands",
             "tri3d-position-parts-batch",
-            "tri3d-recolor",
+            "tri3d-recolor-mask",
+            "tri3d-recolor-mask-LAB_space",
+            "tri3d-recolor-mask-RGB_space",
             "tri3d-skin-feathered-padded-mask",
             "tri3d-swap-pixels"
         ],
@@ -2800,6 +2802,20 @@
         ],
         {
             "title_aux": "ComfyUI-Gemini"
+        }
+    ],
+    "https://github.com/ZHO-ZHO-ZHO/ComfyUI-InstantID": [
+        [
+            "IDBaseModelLoader_fromhub",
+            "IDBaseModelLoader_local",
+            "IDControlNetLoader",
+            "IDGenerationNode",
+            "ID_Prompt_Styler",
+            "InsightFaceLoader",
+            "Ipadapter_instantidLoader"
+        ],
+        {
+            "title_aux": "ComfyUI-InstantID"
         }
     ],
     "https://github.com/ZHO-ZHO-ZHO/ComfyUI-Q-Align": [
@@ -3428,6 +3444,7 @@
             "RGB to HSV",
             "Rect Grab Cut",
             "Remap",
+            "RemapBarrelDistortion",
             "RemapFromInsideParabolas",
             "RemapFromQuadrilateral (homography)",
             "RemapInsideParabolas",
@@ -5347,6 +5364,7 @@
             "ImpactCompare",
             "ImpactConcatConditionings",
             "ImpactConditionalBranch",
+            "ImpactConditionalBranchSelMode",
             "ImpactConditionalStopIteration",
             "ImpactControlBridge",
             "ImpactControlNetApplySEGS",
