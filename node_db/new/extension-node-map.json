@@ -150,6 +150,15 @@
             "title_aux": "ComfyUI_BadgerTools"
         }
     ],
+    "https://github.com/Acly/comfyui-inpaint-nodes": [
+        [
+            "INPAINT_ApplyFooocusInpaint",
+            "INPAINT_LoadFooocusInpaint"
+        ],
+        {
+            "title_aux": "ComfyUI Inpaint Nodes"
+        }
+    ],
     "https://github.com/Acly/comfyui-tooling-nodes": [
         [
             "ETN_ApplyMaskToImage",
@@ -734,6 +743,7 @@
             "Scribble_XDoG_Preprocessor",
             "SemSegPreprocessor",
             "ShufflePreprocessor",
+            "TEEDPreprocessor",
             "TilePreprocessor",
             "UniFormer-SemSegPreprocessor",
             "Unimatch_OptFlowPreprocessor",
@@ -1438,6 +1448,21 @@
             "title_aux": "ComfyUi-NoodleWebcam"
         }
     ],
+    "https://github.com/Nlar/ComfyUI_CartoonSegmentation": [
+        [
+            "AnimeSegmentation",
+            "KenBurnsConfigLoader",
+            "KenBurns_Processor",
+            "LoadImageFilename"
+        ],
+        {
+            "author": "Nels Larsen",
+            "description": "This extension offers a front end to the Cartoon Segmentation Project (https://github.com/CartoonSegmentation/CartoonSegmentation)",
+            "nickname": "CfyCS",
+            "title": "ComfyUI_CartoonSegmentation",
+            "title_aux": "ComfyUI_CartoonSegmentation"
+        }
+    ],
     "https://github.com/NotHarroweD/Harronode": [
         [
             "Harronode"
@@ -1962,6 +1987,7 @@
             "CR Color Gradient",
             "CR Color Panel",
             "CR Color Tint",
+            "CR Combine Prompt",
             "CR Combine Schedules",
             "CR Comic Panel Templates",
             "CR Composite Text",
@@ -1978,6 +2004,7 @@
             "CR Data Bus In",
             "CR Data Bus Out",
             "CR Debatch Frames",
+            "CR Diamond Panel",
             "CR Draw Perspective Text",
             "CR Draw Pie",
             "CR Draw Shape",
@@ -2811,11 +2838,27 @@
             "IDControlNetLoader",
             "IDGenerationNode",
             "ID_Prompt_Styler",
-            "InsightFaceLoader",
+            "InsightFaceLoader_Zho",
             "Ipadapter_instantidLoader"
         ],
         {
             "title_aux": "ComfyUI-InstantID"
+        }
+    ],
+    "https://github.com/ZHO-ZHO-ZHO/ComfyUI-PhotoMaker-ZHO": [
+        [
+            "BaseModel_Loader_fromhub",
+            "BaseModel_Loader_local",
+            "LoRALoader",
+            "NEW_PhotoMaker_Generation",
+            "PhotoMakerAdapter_Loader_fromhub",
+            "PhotoMakerAdapter_Loader_local",
+            "PhotoMaker_Generation",
+            "Prompt_Styler",
+            "Ref_Image_Preprocessing"
+        ],
+        {
+            "title_aux": "ComfyUI PhotoMaker (ZHO)"
         }
     ],
     "https://github.com/ZHO-ZHO-ZHO/ComfyUI-Q-Align": [
@@ -3714,6 +3757,8 @@
             "LayerFilter: GaussianBlur",
             "LayerFilter: MotionBlur",
             "LayerMask: MaskBoxDetect",
+            "LayerMask: MaskEdgeShrink",
+            "LayerMask: MaskGrow",
             "LayerMask: MaskInvert",
             "LayerMask: MaskPreview",
             "LayerStyle: ColorOverlay",
@@ -3724,9 +3769,12 @@
             "LayerStyle: OuterGlow",
             "LayerStyle: Stroke",
             "LayerStyle_Illumine",
+            "LayerUtility: ColorImage",
             "LayerUtility: ColorPicker",
             "LayerUtility: ExtendCanvas",
+            "LayerUtility: GetColorTone",
             "LayerUtility: GetImageSize",
+            "LayerUtility: GradientImage",
             "LayerUtility: ImageBlend",
             "LayerUtility: ImageBlendAdvance",
             "LayerUtility: ImageOpacity",
@@ -4009,6 +4057,8 @@
             "ModelSamplingDiscrete",
             "PatchModelAddDownscale",
             "PerpNeg",
+            "PhotoMakerEncode",
+            "PhotoMakerLoader",
             "PolyexponentialScheduler",
             "PorterDuffImageComposite",
             "PreviewImage",
@@ -5200,8 +5250,11 @@
             "FlowBuilderSetter",
             "FlowBuilderSetter (adv)",
             "Getter",
+            "ImageCropByRatio",
+            "ImageCropByRatioAndResize",
             "ImageGetter",
             "ImageMerger",
+            "ImagesCropByRatioAndResizeBatch",
             "KSamplerAdvancedCacheable",
             "KSamplerCacheable",
             "Setter",
@@ -5299,6 +5352,8 @@
     ],
     "https://github.com/longgui0318/comfyui-mask-util": [
         [
+            "Mask Region Info",
+            "Mask Selection Of Masks",
             "Split Masks"
         ],
         {
@@ -6272,6 +6327,7 @@
             "LimitNumber",
             "LoadImagesFromPath",
             "LoadImagesFromURL",
+            "LoraNames_",
             "MergeLayers",
             "MirroredImage",
             "MultiplicationNode",
