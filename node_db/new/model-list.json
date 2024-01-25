@@ -680,8 +680,8 @@
     {
       "name": "CLIPVision model (stabilityai/clip_vision_g)",
       "type": "clip_vision",
-      "base": "SDXL",
-      "save_path": "clip_vision/SDXL",
+      "base": "vit-g",
+      "save_path": "clip_vision",
       "description": "[3.69GB] clip_g vision model",
       "reference": "https://huggingface.co/stabilityai/control-lora",
       "filename": "clip_vision_g.safetensors",
@@ -689,24 +689,24 @@
     },
 
     {
-      "name": "CLIPVision model (IP-Adapter) 1.5",
+      "name": "CLIPVision model (IP-Adapter) CLIP-ViT-H-14-laion2B-s32B-b79K",
       "type": "clip_vision",
-      "base": "SD1.5",
-      "save_path": "clip_vision/SD1.5",
+      "base": "ViT-H",
+      "save_path": "clip_vision",
       "description": "[2.5GB] CLIPVision model (needed for IP-Adapter)",
       "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "pytorch_model.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/image_encoder/pytorch_model.bin"
+      "filename": "CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/image_encoder/model.safetensors"
     },
     {
-      "name": "CLIPVision model (IP-Adapter) XL",
+      "name": "CLIPVision model (IP-Adapter) CLIP-ViT-bigG-14-laion2B-39B-b160k",
       "type": "clip_vision",
-      "base": "SDXL",
-      "save_path": "clip_vision/SDXL",
+      "base": "ViT-G",
+      "save_path": "clip_vision",
       "description": "[3.69GB] CLIPVision model (needed for IP-Adapter)",
       "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "pytorch_model.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/image_encoder/pytorch_model.bin"
+      "filename": "CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors",
+      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/image_encoder/model.safetensors"
     }
   ]
 }
