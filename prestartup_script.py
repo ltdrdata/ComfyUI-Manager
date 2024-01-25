@@ -467,7 +467,7 @@ def check_windows_event_loop_policy():
         config.read(config_path)
         default_conf = config['default']
 
-        if 'bypass_ssl' in default_conf and default_conf['windows_selector_event_loop_policy'].lower() == 'true':
+        if 'windows_selector_event_loop_policy' in default_conf and default_conf['windows_selector_event_loop_policy'].lower() == 'true':
             try:
                 import asyncio
                 import asyncio.windows_events
