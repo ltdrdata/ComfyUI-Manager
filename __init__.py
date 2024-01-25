@@ -28,7 +28,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 2, 5]
+version = [2, 3]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -172,6 +172,7 @@ def write_config():
         'bypass_ssl': get_config()['bypass_ssl'],
         'default_ui': get_config()['default_ui'],
         'component_policy': get_config()['component_policy'],
+        "windows_selector_event_loop_policy": get_config()['windows_selector_event_loop_policy'],
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -192,6 +193,7 @@ def read_config():
                     'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else False,
                     'default_ui': default_conf['default_ui'] if 'default_ui' in default_conf else 'none',
                     'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
+                    "windows_selector_event_loop_policy": default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else False,
                }
 
     except Exception:
@@ -203,7 +205,8 @@ def read_config():
             'share_option': 'all',
             'bypass_ssl': False,
             'default_ui': 'none',
-            'component_policy': 'workflow'
+            'component_policy': 'workflow',
+            "windows_selector_event_loop_policy": False
         }
 
 
@@ -2332,7 +2335,13 @@ async def default_cache_update():
 
     await asyncio.gather(a, b, c, d)
 
+
 threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()
+
+
+if not os.path.exists(config_path):
+    get_config()
+    write_config()
 
 
 WEB_DIRECTORY = "js"

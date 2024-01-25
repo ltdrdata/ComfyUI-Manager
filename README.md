@@ -260,6 +260,8 @@ NODE_CLASS_MAPPINGS.update({
    For the portable version, use `..\..\..\python_embeded\python.exe update-fix.py`.
 * For cases where nodes like `PreviewTextNode` from `ComfyUI_Custom_Nodes_AlekPet` are only supported as front-end nodes, we currently do not provide missing nodes for them.
 * Currently, `vid2vid` is not being updated, causing compatibility issues.
+* If you encounter the error message `Overlapped Object has pending operation at deallocation on Comfyui Manager load` under Windows
+  * Edit `config.ini` file: add `windows_selector_event_loop_policy = False`
 
 
 ## TODO: Unconventional form of custom node list

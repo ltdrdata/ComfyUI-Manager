@@ -457,11 +457,27 @@ if os.path.exists(script_list_path):
 del processed_install
 del pip_list
 
-if platform.system() == 'Windows':
+
+def check_windows_event_loop_policy():
     try:
-        import asyncio
-        import asyncio.windows_events
-        asyncio.set_event_loop_policy(asyncio.windows_events.WindowsSelectorEventLoopPolicy())
-        print(f"[ComfyUI-Manager] Windows event loop policy mode enabled")
-    except Exception as e:
-        print(f"[ComfyUI-Manager] WARN: Windows initialization fail: {e}")
+        import configparser
+        import ssl
+        config_path = os.path.join(os.path.dirname(__file__), "config.ini")
+        config = configparser.ConfigParser()
+        config.read(config_path)
+        default_conf = config['default']
+
+        if 'bypass_ssl' in default_conf and default_conf['windows_selector_event_loop_policy'].lower() == 'true':
+            try:
+                import asyncio
+                import asyncio.windows_events
+                asyncio.set_event_loop_policy(asyncio.windows_events.WindowsSelectorEventLoopPolicy())
+                print(f"[ComfyUI-Manager] Windows event loop policy mode enabled")
+            except Exception as e:
+                print(f"[ComfyUI-Manager] WARN: Windows initialization fail: {e}")
+    except Exception:
+        pass
+
+
+if platform.system() == 'Windows':
+    check_windows_event_loop_policy()
