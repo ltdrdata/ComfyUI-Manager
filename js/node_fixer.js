@@ -27,7 +27,7 @@ function lookup_nearest_nodes(node) {
 			continue;
 
 		let dist = distance(node, other);
-		if (dist < nearest_distance) {
+		if (dist < nearest_distance && dist < 1000) {
 			nearest_distance = dist;
 			nearest_node = other;
 		}
@@ -94,9 +94,9 @@ app.registerExtension({
 			if(node.inputs && node.outputs && node.inputs.length == 0 && node.outputs.length == 0)
 				return;
 
-			console.log(arguments);
 			let src_node = lookup_nearest_nodes(node);
-			node_info_copy(src_node, node);
+			if(src_node)
+				node_info_copy(src_node, node);
 		}
 	},
 
