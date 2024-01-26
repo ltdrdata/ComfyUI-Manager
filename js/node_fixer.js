@@ -10,6 +10,41 @@ function addMenuHandler(nodeType, cb) {
 	};
 }
 
+function distance(node1, node2) {
+	let dx = node1.pos[0] - node2.pos[0];
+	let dy = node1.pos[1] - node2.pos[1];
+	return Math.sqrt(dx * dx + dy * dy);
+}
+
+function lookup_nearest_nodes(node) {
+	let x = node.pos[0] + node.size[0]/2;
+	let y = node.pos[1] + node.size[1]/2;
+
+	let nearest_distance = Infinity;
+	let nearest_node = null;
+	for(let other of app.graph._nodes) {
+		if(other === node)
+			continue;
+
+		let dist = distance(node, other);
+		if (dist < nearest_distance) {
+			nearest_distance = dist;
+			nearest_node = other;
+		}
+	}
+
+	return nearest_node;
+}
+
+function copy_connections(src, dest) {
+	if(src.inputs && dest.inputs) {
+
+	}
+
+	if(src.outputs && dest.outputs) {
+
+	}
+}
 
 function node_info_copy(src, dest) {
 	// copy input connections
@@ -51,6 +86,19 @@ function node_info_copy(src, dest) {
 
 app.registerExtension({
 	name: "Comfy.Manager.NodeFixer",
+
+	async nodeCreated(node, app) {
+		let orig_dblClick = node.onDblClick;
+		node.onDblClick = () => {
+			orig_dblClick?.apply?.(this, arguments);
+			if(node.inputs && node.outputs && node.inputs.length == 0 && node.outputs.length == 0)
+				return;
+
+			console.log(arguments);
+			let src_node = lookup_nearest_nodes(node);
+			node_info_copy(src_node, node);
+		}
+	},
 
 	beforeRegisterNodeDef(nodeType, nodeData, app) {
 		addMenuHandler(nodeType, function (_, options) {

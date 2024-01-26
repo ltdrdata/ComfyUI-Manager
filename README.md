@@ -63,6 +63,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Support for automatically installing dependencies of custom nodes upon restarting Colab notebooks.
 
 ## Changes
+* **2.4** Copy the connections of the nearest node by double-clicking.
 * **2.2.3** Support Components System
 * **0.29** Add `Update all` feature
 * **0.25** support db channel
@@ -252,6 +253,13 @@ NODE_CLASS_MAPPINGS.update({
 
 ![missing-list](misc/missing-list.png)
 
+
+## Additional Feature
+* Fix node(recreate): When right-clicking on a node and selecting `Fix node (recreate)`, you can recreate the node. The widget's values are reset, while the connections maintain those with the same names.
+  * It is used to correct errors in nodes of old workflows created before, which are incompatible with the version changes of custom nodes.
+* Connection copy: Double-clicking a node copies the connections of the nearest node.
+  * However, this action is only possible when there are no existing connections, and since duplicate connections are not allowed in the output, connections from the existing node's output will disappear.
+  * This feature copies only the input and output that match the names.
 
 ## Troubleshooting
 * If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the ComfyUI-Manager/config.ini file that is generated.
