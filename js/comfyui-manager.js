@@ -1271,7 +1271,10 @@ app.registerExtension({
 	async nodeCreated(node, app) {
 		if(!node.badge_enabled) {
 			node.getNickname = function () { return getNickname(node, node.comfyClass.trim()) };
-			const orig = node.__proto__.onDrawForeground;
+			let orig = node.onDrawForeground;
+			if(!orig)
+				orig = node.__proto__.onDrawForeground;
+
 			node.onDrawForeground = function (ctx) {
 				drawBadge(node, orig, arguments)
 			};
