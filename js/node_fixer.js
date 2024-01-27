@@ -36,16 +36,6 @@ function lookup_nearest_nodes(node) {
 	return nearest_node;
 }
 
-function copy_connections(src, dest) {
-	if(src.inputs && dest.inputs) {
-
-	}
-
-	if(src.outputs && dest.outputs) {
-
-	}
-}
-
 function node_info_copy(src, dest) {
 	// copy input connections
 	for(let i in src.inputs) {
@@ -91,7 +81,10 @@ app.registerExtension({
 		let orig_dblClick = node.onDblClick;
 		node.onDblClick = () => {
 			orig_dblClick?.apply?.(this, arguments);
-			if(node.inputs && node.outputs && node.inputs.length == 0 && node.outputs.length == 0)
+			if(node.inputs?.some(x => x.link != null) || node.outputs?.some(x => x.links != null && x.links.length > 0) )
+				return;
+
+			if(!node.inputs && !node.outputs)
 				return;
 
 			let src_node = lookup_nearest_nodes(node);
