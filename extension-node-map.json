@@ -164,7 +164,9 @@
             "INPAINT_InpaintWithModel",
             "INPAINT_LoadFooocusInpaint",
             "INPAINT_LoadInpaintModel",
-            "INPAINT_MaskedBlur"
+            "INPAINT_MaskedBlur",
+            "INPAINT_MaskedFill",
+            "INPAINT_VAEEncodeInpaintConditioning"
         ],
         {
             "title_aux": "ComfyUI Inpaint Nodes"
@@ -902,6 +904,7 @@
         [
             "Image Scale Bounding Box",
             "MS kosmos-2 Interrogator",
+            "Make Inpaint Model",
             "Save Image w/o Metadata"
         ],
         {
@@ -1158,8 +1161,13 @@
     ],
     "https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved": [
         [
+            "ADE_AdjustPEFullStretch",
+            "ADE_AdjustPEManual",
+            "ADE_AdjustPESweetspotStretch",
             "ADE_AnimateDiffCombine",
+            "ADE_AnimateDiffKeyframe",
             "ADE_AnimateDiffLoRALoader",
+            "ADE_AnimateDiffLoaderGen1",
             "ADE_AnimateDiffLoaderV1Advanced",
             "ADE_AnimateDiffLoaderWithContext",
             "ADE_AnimateDiffModelSettings",
@@ -1167,14 +1175,29 @@
             "ADE_AnimateDiffModelSettingsSimple",
             "ADE_AnimateDiffModelSettings_Release",
             "ADE_AnimateDiffSamplingSettings",
+            "ADE_AnimateDiffSettings",
             "ADE_AnimateDiffUniformContextOptions",
             "ADE_AnimateDiffUnload",
+            "ADE_ApplyAnimateDiffModel",
+            "ADE_ApplyAnimateDiffModelSimple",
+            "ADE_BatchedContextOptions",
             "ADE_EmptyLatentImageLarge",
             "ADE_IterationOptsDefault",
             "ADE_IterationOptsFreeInit",
+            "ADE_LoadAnimateDiffModel",
+            "ADE_LoopedUniformContextOptions",
+            "ADE_LoopedUniformViewOptions",
+            "ADE_MultivalDynamic",
+            "ADE_MultivalScaledMask",
             "ADE_NoiseLayerAdd",
             "ADE_NoiseLayerAddWeighted",
             "ADE_NoiseLayerReplace",
+            "ADE_StandardStaticContextOptions",
+            "ADE_StandardStaticViewOptions",
+            "ADE_StandardUniformContextOptions",
+            "ADE_StandardUniformViewOptions",
+            "ADE_UseEvolvedSampling",
+            "ADE_ViewsOnlyContextOptions",
             "AnimateDiffLoaderV1",
             "CheckpointLoaderSimpleWithNoiseSelect"
         ],
@@ -5993,6 +6016,8 @@
     ],
     "https://github.com/nkchocoai/ComfyUI-SizeFromPresets": [
         [
+            "EmptyLatentImageFromPresetsSD15",
+            "EmptyLatentImageFromPresetsSDXL",
             "SizeFromPresetsSD15",
             "SizeFromPresetsSDXL"
         ],
@@ -7351,21 +7376,32 @@
             "easy XYPlot",
             "easy XYPlotAdvanced",
             "easy a1111Loader",
+            "easy boolean",
             "easy comfyLoader",
+            "easy compare",
             "easy controlnetLoader",
             "easy controlnetLoaderADV",
+            "easy convertAnything",
             "easy detailerFix",
+            "easy float",
             "easy fullLoader",
             "easy fullkSampler",
             "easy globalSeed",
             "easy hiresFix",
+            "easy if",
             "easy imageInsetCrop",
             "easy imagePixelPerfect",
             "easy imageRemoveBG",
+            "easy imageSave",
+            "easy imageScaleDown",
+            "easy imageScaleDownBy",
+            "easy imageScaleDownToSize",
             "easy imageSize",
             "easy imageSizeByLongerSide",
             "easy imageSizeBySide",
             "easy imageToMask",
+            "easy int",
+            "easy joinImageBatch",
             "easy kSampler",
             "easy kSamplerDownscaleUnet",
             "easy kSamplerInpainting",
@@ -7386,14 +7422,19 @@
             "easy preSamplingAdvanced",
             "easy preSamplingDynamicCFG",
             "easy preSamplingSdTurbo",
+            "easy rangeFloat",
+            "easy rangeInt",
             "easy samLoaderPipe",
             "easy seed",
+            "easy showAnything",
             "easy showSpentTime",
+            "easy string",
             "easy stylesSelector",
             "easy svdLoader",
             "easy ultralyticsDetectorPipe",
             "easy unSampler",
             "easy wildcards",
+            "easy xyAny",
             "easy zero123Loader"
         ],
         {
@@ -7493,6 +7534,16 @@
         ],
         {
             "title_aux": "tdxh_node_comfyui"
+        }
+    ],
+    "https://github.com/yuvraj108c/ComfyUI-Whisper": [
+        [
+            "Add Subtitles To Background",
+            "Add Subtitles To Frames",
+            "Apply Whisper"
+        ],
+        {
+            "title_aux": "ComfyUI Whisper"
         }
     ],
     "https://github.com/zcfrank1st/Comfyui-Toolbox": [
