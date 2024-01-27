@@ -159,8 +159,10 @@
     "https://github.com/Acly/comfyui-inpaint-nodes": [
         [
             "INPAINT_ApplyFooocusInpaint",
-            "INPAINT_FillInpaintArea",
-            "INPAINT_LoadFooocusInpaint"
+            "INPAINT_InpaintWithModel",
+            "INPAINT_LoadFooocusInpaint",
+            "INPAINT_LoadInpaintModel",
+            "INPAINT_MaskedBlur"
         ],
         {
             "title_aux": "ComfyUI Inpaint Nodes"
@@ -4735,15 +4737,18 @@
             "LogString",
             "LogVec2",
             "LogVec3",
+            "RF_AtIndexString",
             "RF_BoolToString",
             "RF_FloatToString",
             "RF_IntToString",
             "RF_JsonStyleLoader",
             "RF_MergeLines",
             "RF_NumberToString",
+            "RF_OptionsString",
             "RF_RangeFloat",
             "RF_RangeInt",
             "RF_RangeNumber",
+            "RF_SavePromptInfo",
             "RF_SplitLines",
             "RF_TextConcatenate",
             "RF_TextInput",
@@ -5137,6 +5142,15 @@
         ],
         {
             "title_aux": "Knodes"
+        }
+    ],
+    "https://github.com/kijai/ComfyUI-CCSR": [
+        [
+            "CCSR_Model_Select",
+            "CCSR_Upscale"
+        ],
+        {
+            "title_aux": "ComfyUI-CCSR"
         }
     ],
     "https://github.com/kijai/ComfyUI-DDColor": [
