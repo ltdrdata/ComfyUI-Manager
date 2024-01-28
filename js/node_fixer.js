@@ -146,10 +146,10 @@ app.registerExtension({
 
 	async nodeCreated(node, app) {
 		let orig_dblClick = node.onDblClick;
-		node.onDblClick = () => {
+		node.onDblClick = function (e, pos, self) {
 			orig_dblClick?.apply?.(this, arguments);
 
-			if(!node.inputs && !node.outputs)
+			if((!node.inputs && !node.outputs) || pos[1] > 0)
 				return;
 
 			switch(double_click_policy) {

@@ -257,7 +257,7 @@ NODE_CLASS_MAPPINGS.update({
 ## Additional Feature
 * Fix node(recreate): When right-clicking on a node and selecting `Fix node (recreate)`, you can recreate the node. The widget's values are reset, while the connections maintain those with the same names.
   * It is used to correct errors in nodes of old workflows created before, which are incompatible with the version changes of custom nodes.
-* Double-Click: You can set the double click behavior of nodes in the ComfyUI-Manager menu.
+* Double-Click Node Title: You can set the double click behavior of nodes in the ComfyUI-Manager menu.
   * `Copy All Connections`, `Copy Input Connections`: Double-clicking a node copies the connections of the nearest node.
     * This action targets the nearest node within a straight-line distance of 1000 pixels from the center of the node.
     * In the case of `Copy All Connections`, it duplicates existing outputs, but since it does not allow duplicate connections, the existing output connections of the original node are disconnected.
