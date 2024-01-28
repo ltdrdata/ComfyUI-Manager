@@ -29,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 5, 1]
+version = [2, 5, 2]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -1833,37 +1833,32 @@ async def get_notice(request):
     url = "github.com"
     path = "/ltdrdata/ltdrdata.github.io/wiki/News"
 
-    conn = http.client.HTTPSConnection(url)
-    conn.request("GET", path)
+    async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+        async with session.get(f"https://{url}{path}") as response:
+            if response.status == 200:
+                # html_content = response.read().decode('utf-8')
+                html_content = await response.text()
 
-    response = conn.getresponse()
+                pattern = re.compile(r'<div class="markdown-body">([\s\S]*?)</div>')
+                match = pattern.search(html_content)
 
-    try:
-        if response.status == 200:
-            html_content = response.read().decode('utf-8')
+                if match:
+                    markdown_content = match.group(1)
+                    markdown_content += f"<HR>ComfyUI: {comfy_ui_revision}[{comfy_ui_hash[:6]}]({comfy_ui_commit_datetime.date()})"
+                    # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
+                    markdown_content += f"<BR>Manager: {version_str}"
 
-            pattern = re.compile(r'<div class="markdown-body">([\s\S]*?)</div>')
-            match = pattern.search(html_content)
+                    try:
+                        if comfy_ui_required_commit_datetime.date() > comfy_ui_commit_datetime.date():
+                            markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
+                    except:
+                        pass
 
-            if match:
-                markdown_content = match.group(1)
-                markdown_content += f"<HR>ComfyUI: {comfy_ui_revision}[{comfy_ui_hash[:6]}]({comfy_ui_commit_datetime.date()})"
-                # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
-                markdown_content += f"<BR>Manager: {version_str}"
-
-                try:
-                    if comfy_ui_required_commit_datetime.date() > comfy_ui_commit_datetime.date():
-                        markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
-                except:
-                    pass
-
-                return web.Response(text=markdown_content, status=200)
+                    return web.Response(text=markdown_content, status=200)
+                else:
+                    return web.Response(text="Unable to retrieve Notice", status=200)
             else:
                 return web.Response(text="Unable to retrieve Notice", status=200)
-        else:
-            return web.Response(text="Unable to retrieve Notice", status=200)
-    finally:
-        conn.close()
 
 
 @server.PromptServer.instance.routes.get("/manager/reboot")
