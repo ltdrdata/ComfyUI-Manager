@@ -16,7 +16,7 @@
 
 To install ComfyUI-Manager in addition to an existing installation of ComfyUI, you can follow the following steps:
 
-1. cd custom_nodes
+1. goto `ComfyUI/custom_nodes` dir in terminal(cmd)
 2. `git clone https://github.com/ltdrdata/ComfyUI-Manager.git`
 3. Restart ComfyUI
 
