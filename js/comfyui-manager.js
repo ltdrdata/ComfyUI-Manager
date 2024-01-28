@@ -17,12 +17,13 @@ import { SnapshotManager } from "./snapshot.js";
 import { ModelInstaller } from "./model-downloader.js";
 import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI, free_models } from "./common.js";
 import { ComponentBuilderDialog, load_components, set_component_policy, getPureName } from "./components-manager.js";
+import { set_double_click_policy } from "./node_fixer.js";
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
 #cm-manager-dialog {
 	width: 1000px;
-	height: 495px;
+	height: 520px;
 	box-sizing: content-box;
 	z-index: 10000;
 }
@@ -136,7 +137,7 @@ docStyle.innerHTML = `
 
 .cm-notice-board {
 	width: 290px;
-	height: 230px;
+	height: 270px;
 	overflow: auto;
 	color: var(--input-text);
 	border: 1px solid var(--descrip-text);
@@ -906,6 +907,26 @@ class ManagerMenuDialog extends ComfyDialog {
 			set_component_policy(event.target.value);
 		});
 
+		let dbl_click_policy_combo = document.createElement("select");
+		dbl_click_policy_combo.setAttribute("title", "When loading the workflow, configure which version of the component to use.");
+		dbl_click_policy_combo.className = "cm-menu-combo";
+		dbl_click_policy_combo.appendChild($el('option', { value: 'none', text: 'Double-Click: None' }, []));
+		dbl_click_policy_combo.appendChild($el('option', { value: 'copy-all', text: 'Double-Click: Copy All Connections' }, []));
+		dbl_click_policy_combo.appendChild($el('option', { value: 'copy-input', text: 'Double-Click: Copy Input Connections' }, []));
+		dbl_click_policy_combo.appendChild($el('option', { value: 'possible-input', text: 'Double-Click: Possible Input Connections' }, []));
+
+		api.fetchApi('/manager/dbl_click/policy')
+			.then(response => response.text())
+			.then(data => {
+				dbl_click_policy_combo.value = data;
+				set_double_click_policy(data);
+			});
+
+		dbl_click_policy_combo.addEventListener('change', function (event) {
+			api.fetchApi(`/manager/dbl_click/policy?value=${event.target.value}`);
+			set_double_click_policy(event.target.value);
+		});
+
 		api.fetchApi('/manager/share_option')
 			.then(response => response.text())
 			.then(data => {
@@ -935,6 +956,7 @@ class ManagerMenuDialog extends ComfyDialog {
 			default_ui_combo,
 			share_combo,
 			component_policy_combo,
+			dbl_click_policy_combo,
 			$el("br", {}, []),
 
 			$el("br", {}, []),

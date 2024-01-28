@@ -29,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 4, 2]
+version = [2, 5]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -175,7 +175,8 @@ def write_config():
         'bypass_ssl': get_config()['bypass_ssl'],
         'default_ui': get_config()['default_ui'],
         'component_policy': get_config()['component_policy'],
-        "windows_selector_event_loop_policy": get_config()['windows_selector_event_loop_policy'],
+        'double_click_policy': get_config()['double_click_policy'],
+        'windows_selector_event_loop_policy': get_config()['windows_selector_event_loop_policy'],
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -196,6 +197,7 @@ def read_config():
                     'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else False,
                     'default_ui': default_conf['default_ui'] if 'default_ui' in default_conf else 'none',
                     'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
+                    'double_click_policy': default_conf['double_click_policy'] if 'double_click_policy' in default_conf else 'copy-all',
                     "windows_selector_event_loop_policy": default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else False,
                }
 
@@ -209,7 +211,8 @@ def read_config():
             'bypass_ssl': False,
             'default_ui': 'none',
             'component_policy': 'workflow',
-            "windows_selector_event_loop_policy": False
+            'double_click_policy': 'copy-all',
+            'windows_selector_event_loop_policy': False
         }
 
 
@@ -259,6 +262,10 @@ def set_default_ui_mode(mode):
 
 def set_component_policy(mode):
     get_config()['component_policy'] = mode
+
+
+def set_double_click_policy(mode):
+    get_config()['double_click_policy'] = mode
 
 
 def try_install_script(url, repo_path, install_cmd):
@@ -1782,6 +1789,17 @@ async def component_policy(request):
         write_config()
     else:
         return web.Response(text=get_config()['component_policy'], status=200)
+
+    return web.Response(status=200)
+
+
+@server.PromptServer.instance.routes.get("/manager/dbl_click/policy")
+async def dbl_click_policy(request):
+    if "value" in request.rel_url.query:
+        set_double_click_policy(request.rel_url.query['value'])
+        write_config()
+    else:
+        return web.Response(text=get_config()['double_click_policy'], status=200)
 
     return web.Response(status=200)
 

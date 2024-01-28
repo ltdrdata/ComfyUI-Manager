@@ -1,6 +1,16 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js";
 
+let double_click_policy = "copy-all";
+
+api.fetchApi('/manager/dbl_click/policy')
+	.then(response => response.text())
+	.then(data => set_double_click_policy(data));
+
+export function set_double_click_policy(mode) {
+	double_click_policy = mode;
+}
+
 function addMenuHandler(nodeType, cb) {
 	const getOpts = nodeType.prototype.getExtraMenuOptions;
 	nodeType.prototype.getExtraMenuOptions = function () {
@@ -36,7 +46,59 @@ function lookup_nearest_nodes(node) {
 	return nearest_node;
 }
 
-function node_info_copy(src, dest) {
+function lookup_nearest_inputs(node) {
+	let input_map = {};
+
+	for(let i in node.inputs) {
+		let input = node.inputs[i];
+
+		if(input_map[input.type])
+			continue;
+
+		input_map[input.type] = {distance: Infinity, input_name: input.name, node: null, slot: null};
+	}
+
+	let x = node.pos[0] + node.size[0]/2;
+	let y = node.pos[1] + node.size[1]/2;
+
+	for(let other of app.graph._nodes) {
+		if(other === node || !other.outputs)
+			continue;
+
+		let dist = distance(node, other);
+
+		for(let input_type in input_map) {
+			for(let j in other.outputs) {
+				let output = other.outputs[j];
+				if(output.type == input_type) {
+					if(input_map[input_type].distance > dist) {
+						input_map[input_type].distance = dist;
+						input_map[input_type].node = other;
+						input_map[input_type].slot = parseInt(j);
+					}
+				}
+			}
+		}
+	}
+
+	let res = {};
+	for (let i in input_map) {
+		if (input_map[i].node) {
+			res[i] = input_map[i];
+		}
+	}
+
+	return res;
+}
+
+function connect_inputs(nearest_inputs, node) {
+	for(let i in nearest_inputs) {
+		let info = nearest_inputs[i];
+		info.node.connect(info.slot, node.id, info.input_name);
+	}
+}
+
+function node_info_copy(src, dest, connect_both) {
 	// copy input connections
 	for(let i in src.inputs) {
 		let input = src.inputs[i];
@@ -48,25 +110,27 @@ function node_info_copy(src, dest) {
 	}
 
 	// copy output connections
-	let output_links = {};
-	for(let i in src.outputs) {
-		let output = src.outputs[i];
-		if(output.links) {
-			let links = [];
-			for(let j in output.links) {
-				links.push(app.graph.links[output.links[j]]);
+	if(connect_both) {
+		let output_links = {};
+		for(let i in src.outputs) {
+			let output = src.outputs[i];
+			if(output.links) {
+				let links = [];
+				for(let j in output.links) {
+					links.push(app.graph.links[output.links[j]]);
+				}
+				output_links[output.name] = links;
 			}
-			output_links[output.name] = links;
 		}
-	}
 
-	for(let i in dest.outputs) {
-		let links = output_links[dest.outputs[i].name];
-		if(links) {
-			for(let j in links) {
-				let link = links[j];
-				let target_node = app.graph.getNodeById(link.target_id);
-				dest.connect(parseInt(i), target_node, link.target_slot);
+		for(let i in dest.outputs) {
+			let links = output_links[dest.outputs[i].name];
+			if(links) {
+				for(let j in links) {
+					let link = links[j];
+					let target_node = app.graph.getNodeById(link.target_id);
+					dest.connect(parseInt(i), target_node, link.target_slot);
+				}
 			}
 		}
 	}
@@ -81,15 +145,30 @@ app.registerExtension({
 		let orig_dblClick = node.onDblClick;
 		node.onDblClick = () => {
 			orig_dblClick?.apply?.(this, arguments);
+
 			if(node.inputs?.some(x => x.link != null) || node.outputs?.some(x => x.links != null && x.links.length > 0) )
 				return;
 
 			if(!node.inputs && !node.outputs)
 				return;
 
-			let src_node = lookup_nearest_nodes(node);
-			if(src_node)
-				node_info_copy(src_node, node);
+			switch(double_click_policy) {
+				case "copy-all":
+				case "copy-input":
+					{
+						let src_node = lookup_nearest_nodes(node);
+						if(src_node)
+							node_info_copy(src_node, node, double_click_policy == "copy-all");
+					}
+					break;
+				case "possible-input":
+					{
+						let nearest_inputs = lookup_nearest_inputs(node);
+						if(nearest_inputs)
+							connect_inputs(nearest_inputs, node);
+					}
+					break;
+			}
 		}
 	},
 
