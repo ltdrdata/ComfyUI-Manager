@@ -257,9 +257,14 @@ NODE_CLASS_MAPPINGS.update({
 ## Additional Feature
 * Fix node(recreate): When right-clicking on a node and selecting `Fix node (recreate)`, you can recreate the node. The widget's values are reset, while the connections maintain those with the same names.
   * It is used to correct errors in nodes of old workflows created before, which are incompatible with the version changes of custom nodes.
-* Connection copy: Double-clicking a node copies the connections of the nearest node.
-  * However, this action is only possible when there are no existing connections, and since duplicate connections are not allowed in the output, connections from the existing node's output will disappear.
-  * This feature copies only the input and output that match the names.
+* Double-Click: You can set the double click behavior of nodes in the ComfyUI-Manager menu.
+  * `Copy All Connections`, `Copy Input Connections`: Double-clicking a node copies the connections of the nearest node.
+    * This action targets the nearest node within a straight-line distance of 1000 pixels from the center of the node.
+    * In the case of `Copy All Connections`, it duplicates existing outputs, but since it does not allow duplicate connections, the existing output connections of the original node are disconnected.
+    * This feature copies only the input and output that match the names.
+  
+  * `Possible Input Connections`: It connects all outputs that match the closest type within the specified range.
+    * This connection links to the closest outputs among the nodes located on the left side of the target node.
 
 ## Troubleshooting
 * If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the ComfyUI-Manager/config.ini file that is generated.

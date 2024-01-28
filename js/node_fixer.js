@@ -21,15 +21,12 @@ function addMenuHandler(nodeType, cb) {
 }
 
 function distance(node1, node2) {
-	let dx = node1.pos[0] - node2.pos[0];
-	let dy = node1.pos[1] - node2.pos[1];
+	let dx = (node1.pos[0] + node1.size[0]/2) - (node2.pos[0] + node2.size[0]/2);
+	let dy = (node1.pos[1] + node1.size[1]/2) - (node2.pos[1] + node2.size[1]/2);
 	return Math.sqrt(dx * dx + dy * dy);
 }
 
 function lookup_nearest_nodes(node) {
-	let x = node.pos[0] + node.size[0]/2;
-	let y = node.pos[1] + node.size[1]/2;
-
 	let nearest_distance = Infinity;
 	let nearest_node = null;
 	for(let other of app.graph._nodes) {
@@ -52,20 +49,26 @@ function lookup_nearest_inputs(node) {
 	for(let i in node.inputs) {
 		let input = node.inputs[i];
 
-		if(input_map[input.type])
+		if(input.link || input_map[input.type])
 			continue;
 
 		input_map[input.type] = {distance: Infinity, input_name: input.name, node: null, slot: null};
 	}
 
-	let x = node.pos[0] + node.size[0]/2;
+	let x = node.pos[0];
 	let y = node.pos[1] + node.size[1]/2;
 
 	for(let other of app.graph._nodes) {
 		if(other === node || !other.outputs)
 			continue;
 
-		let dist = distance(node, other);
+		let dx = x - (other.pos[0] + other.size[0]);
+		let dy = y - (other.pos[1] + other.size[1]/2);
+
+		if(dx < 0)
+			continue;
+
+		let dist = Math.sqrt(dx * dx + dy * dy);
 
 		for(let input_type in input_map) {
 			for(let j in other.outputs) {
@@ -146,9 +149,6 @@ app.registerExtension({
 		node.onDblClick = () => {
 			orig_dblClick?.apply?.(this, arguments);
 
-			if(node.inputs?.some(x => x.link != null) || node.outputs?.some(x => x.links != null && x.links.length > 0) )
-				return;
-
 			if(!node.inputs && !node.outputs)
 				return;
 
@@ -156,6 +156,9 @@ app.registerExtension({
 				case "copy-all":
 				case "copy-input":
 					{
+						if(node.inputs?.some(x => x.link != null) || node.outputs?.some(x => x.links != null && x.links.length > 0) )
+							return;
+
 						let src_node = lookup_nearest_nodes(node);
 						if(src_node)
 							node_info_copy(src_node, node, double_click_policy == "copy-all");
