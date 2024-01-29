@@ -255,8 +255,12 @@ NODE_CLASS_MAPPINGS.update({
 
 
 ## Additional Feature
+* Logging to file feature
+  * This feature is enabled by default and can be disabled by setting `file_logging = False` in the `config.ini`.
+
 * Fix node(recreate): When right-clicking on a node and selecting `Fix node (recreate)`, you can recreate the node. The widget's values are reset, while the connections maintain those with the same names.
   * It is used to correct errors in nodes of old workflows created before, which are incompatible with the version changes of custom nodes.
+
 * Double-Click Node Title: You can set the double click behavior of nodes in the ComfyUI-Manager menu.
   * `Copy All Connections`, `Copy Input Connections`: Double-clicking a node copies the connections of the nearest node.
     * This action targets the nearest node within a straight-line distance of 1000 pixels from the center of the node.

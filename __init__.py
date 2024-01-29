@@ -29,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 5, 2]
+version = [2, 6]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -173,6 +173,7 @@ def write_config():
         'channel_url': get_config()['channel_url'],
         'share_option': get_config()['share_option'],
         'bypass_ssl': get_config()['bypass_ssl'],
+        "file_logging": get_config()['file_logging'],
         'default_ui': get_config()['default_ui'],
         'component_policy': get_config()['component_policy'],
         'double_click_policy': get_config()['double_click_policy'],
@@ -195,10 +196,11 @@ def read_config():
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
                     'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else False,
+                    'file_logging': default_conf['file_logging'] if 'file_logging' in default_conf else True,
                     'default_ui': default_conf['default_ui'] if 'default_ui' in default_conf else 'none',
                     'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
                     'double_click_policy': default_conf['double_click_policy'] if 'double_click_policy' in default_conf else 'copy-all',
-                    "windows_selector_event_loop_policy": default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else False,
+                    'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else False,
                }
 
     except Exception:
@@ -209,6 +211,7 @@ def read_config():
             'channel_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
             'share_option': 'all',
             'bypass_ssl': False,
+            'file_logging': True,
             'default_ui': 'none',
             'component_policy': 'workflow',
             'double_click_policy': 'copy-all',
