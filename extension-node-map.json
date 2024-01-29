@@ -3838,7 +3838,8 @@
         [
             "Load MotionBrush",
             "RAFT Run",
-            "Save MotionBrush"
+            "Save MotionBrush",
+            "VizMotionBrush"
         ],
         {
             "title_aux": "ComfyUI-RAFT"
@@ -4075,6 +4076,7 @@
             "ConditioningConcat",
             "ConditioningSetArea",
             "ConditioningSetAreaPercentage",
+            "ConditioningSetAreaStrength",
             "ConditioningSetMask",
             "ConditioningSetTimestepRange",
             "ConditioningZeroOut",
@@ -4278,6 +4280,7 @@
             "DebugTensorShape+",
             "ExtractKeyframes+",
             "GetImageSize+",
+            "ImageApplyLUT+",
             "ImageCASharpening+",
             "ImageCompositeFromMaskBatch+",
             "ImageCrop+",
@@ -4297,6 +4300,7 @@
             "MaskFromColor+",
             "MaskPreview+",
             "ModelCompile+",
+            "NoiseFromImage+",
             "SDXLResolutionPicker+",
             "SimpleMath+",
             "TransitionMask+"
@@ -5261,10 +5265,13 @@
             "ImageGrabPIL",
             "ImageGridComposite2x2",
             "ImageGridComposite3x3",
+            "ImageTransformByNormalizedAmplitude",
             "InjectNoiseToLatent",
             "InsertImageBatchByIndexes",
             "NormalizeLatent",
+            "NormalizedAmplitudeToMask",
             "OffsetMask",
+            "OffsetMaskByNormalizedAmplitude",
             "ReferenceOnlySimple3",
             "ReplaceImagesInBatch",
             "ResizeMask",
@@ -5807,6 +5814,7 @@
         {
             "author": "mape",
             "description": "Various QoL improvements like prompt tweaking, variable assignment, image preview, fuzzy search, error reporting, organizing and node navigation.",
+            "nickname": "\ud83d\udfe1 mape's helpers",
             "title": "mape's helpers",
             "title_aux": "mape's ComfyUI Helpers"
         }
@@ -6058,6 +6066,19 @@
             "title_aux": "comfyui-NDI"
         }
     ],
+    "https://github.com/nkchocoai/ComfyUI-PromptUtilities": [
+        [
+            "PromptUtilitiesConstString",
+            "PromptUtilitiesConstStringMultiLine",
+            "PromptUtilitiesFormatString",
+            "PromptUtilitiesJoinStringList",
+            "PromptUtilitiesLoadPreset",
+            "PromptUtilitiesLoadPresetAdvanced"
+        ],
+        {
+            "title_aux": "ComfyUI-PromptUtilities"
+        }
+    ],
     "https://github.com/nkchocoai/ComfyUI-SizeFromPresets": [
         [
             "EmptyLatentImageFromPresetsSD15",
@@ -6249,6 +6270,7 @@
             "AnyAspectRatio",
             "ConditioningMultiplier_PoP",
             "ConditioningNormalizer_PoP",
+            "DallE3_PoP",
             "LoadImageResizer_PoP",
             "LoraStackLoader10_PoP",
             "LoraStackLoader_PoP",
