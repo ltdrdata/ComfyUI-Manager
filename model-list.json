@@ -86,9 +86,9 @@
       "base": "upscale",
       "save_path": "default",
       "description": "4x-AnimeSharp upscaler model",
-      "reference": "https://huggingface.co/konohashinobi4/4xAnimesharp",
+      "reference": "https://huggingface.co/Kim2091/AnimeSharp/",
       "filename": "4x-AnimeSharp.pth",
-      "url": "https://huggingface.co/konohashinobi4/4xAnimesharp/resolve/main/4x-AnimeSharp.pth"
+      "url": "https://huggingface.co/Kim2091/AnimeSharp/resolve/main/4x-AnimeSharp.pth"
     },
     {
       "name": "4x-UltraSharp",
@@ -96,9 +96,9 @@
       "base": "upscale",
       "save_path": "default",
       "description": "4x-UltraSharp upscaler model",
-      "reference": "https://upscale.wiki/wiki/Model_Database",
+      "reference": "https://huggingface.co/Kim2091/UltraSharp/",
       "filename": "4x-UltraSharp.pth",
-      "url": "https://huggingface.co/datasets/Kizi-Art/Upscale/resolve/fa98e357882a23b8e7928957a39462fbfaee1af5/4x-UltraSharp.pth"
+      "url": "https://huggingface.co/Kim2091/UltraSharp/resolve/main/4x-UltraSharp.pth"
     },
     {
       "name": "4x_NMKD-Siax_200k",
@@ -145,7 +145,7 @@
       "type": "insightface",
       "base" : "inswapper",
       "save_path": "insightface",
-      "description": "[264MB] Checkpoint of the insightface swapper model<BR>(used by ComfyUI-FaceSwap, comfyui-reactor-node, CharacterFaceSwap,<BR>ComfyUI roop and comfy_mtb)",
+      "description": "[264MB] Checkpoint of the insightface swapper model\n(used by ComfyUI-FaceSwap, comfyui-reactor-node, CharacterFaceSwap,\nComfyUI roop and comfy_mtb)",
       "reference": "https://github.com/facefusion/facefusion-assets",
       "filename": "inswapper_128_fp16.onnx",
       "url": "https://github.com/facefusion/facefusion-assets/releases/download/models/inswapper_128_fp16.onnx"
@@ -155,7 +155,7 @@
       "type": "insightface",
       "base" : "inswapper",
       "save_path": "insightface",
-      "description": "[529MB] Checkpoint of the insightface swapper model<BR>(used by ComfyUI-FaceSwap, comfyui-reactor-node, CharacterFaceSwap,<BR>ComfyUI roop and comfy_mtb)",
+      "description": "[529MB] Checkpoint of the insightface swapper model\n(used by ComfyUI-FaceSwap, comfyui-reactor-node, CharacterFaceSwap,\nComfyUI roop and comfy_mtb)",
       "reference": "https://github.com/facefusion/facefusion-assets",
       "filename": "inswapper_128.onnx",
       "url": "https://github.com/facefusion/facefusion-assets/releases/download/models/inswapper_128.onnx"
@@ -205,7 +205,7 @@
       "type": "checkpoints",
       "base": "SVD",
       "save_path": "checkpoints/SVD",
-      "description": "Stable Video Diffusion (SVD) Image-to-Video is a diffusion model that takes in a still image as a conditioning frame, and generates a video from it.<BR>NOTE: 14 frames @ 576x1024",
+      "description": "Stable Video Diffusion (SVD) Image-to-Video is a diffusion model that takes in a still image as a conditioning frame, and generates a video from it.\nNOTE: 14 frames @ 576x1024",
       "reference": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid",
       "filename": "svd.safetensors",
       "url": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid/resolve/main/svd.safetensors"
@@ -225,7 +225,7 @@
       "type": "checkpoints",
       "base": "SVD",
       "save_path": "checkpoints/SVD",
-      "description": "Stable Video Diffusion (SVD) Image-to-Video is a diffusion model that takes in a still image as a conditioning frame, and generates a video from it.<BR>NOTE: 25 frames @ 576x1024 ",
+      "description": "Stable Video Diffusion (SVD) Image-to-Video is a diffusion model that takes in a still image as a conditioning frame, and generates a video from it.\nNOTE: 25 frames @ 576x1024 ",
       "reference": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt",
       "filename": "svd_xt.safetensors",
       "url": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt/resolve/main/svd_xt.safetensors"
@@ -673,8 +673,8 @@
     {
       "name": "CLIPVision model (stabilityai/clip_vision_g)",
       "type": "clip_vision",
-      "base": "SDXL",
-      "save_path": "clip_vision/SDXL",
+      "base": "vit-g",
+      "save_path": "clip_vision",
       "description": "[3.69GB] clip_g vision model",
       "reference": "https://huggingface.co/stabilityai/control-lora",
       "filename": "clip_vision_g.safetensors",
@@ -683,38 +683,18 @@
     {
       "name": "CLIPVision model (openai/clip-vit-large)",
       "type": "clip_vision",
-      "base": "SD1.5",
-      "save_path": "clip_vision/SD1.5",
+      "base": "ViT-L",
+      "save_path": "clip_vision",
       "description": "[1.7GB] CLIPVision model (needed for styles model)",
       "reference": "https://huggingface.co/openai/clip-vit-large-patch14",
-      "filename": "pytorch_model.bin",
-      "url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/main/pytorch_model.bin"
-    },
-    {
-      "name": "CLIPVision model (IP-Adapter) 1.5",
-      "type": "clip_vision",
-      "base": "SD1.5",
-      "save_path": "clip_vision/SD1.5",
-      "description": "[2.5GB] CLIPVision model (needed for IP-Adapter)",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "pytorch_model.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/image_encoder/pytorch_model.bin"
-    },
-    {
-      "name": "CLIPVision model (IP-Adapter) XL",
-      "type": "clip_vision",
-      "base": "SDXL",
-      "save_path": "clip_vision/SDXL",
-      "description": "[3.69GB] CLIPVision model (needed for IP-Adapter)",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "pytorch_model.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/image_encoder/pytorch_model.bin"
+      "filename": "clip-vit-large-patch14.bin",
+      "url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/main/model.safetensors"
     },
     {
       "name": "CLIPVision model (IP-Adapter) CLIP-ViT-H-14-laion2B-s32B-b79K",
       "type": "clip_vision",
-      "base": "SD1.5",
-      "save_path": "clip_vision/SD1.5",
+      "base": "ViT-H",
+      "save_path": "clip_vision",
       "description": "[2.5GB] CLIPVision model (needed for IP-Adapter)",
       "reference": "https://huggingface.co/h94/IP-Adapter",
       "filename": "CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors",
@@ -723,8 +703,8 @@
     {
       "name": "CLIPVision model (IP-Adapter) CLIP-ViT-bigG-14-laion2B-39B-b160k",
       "type": "clip_vision",
-      "base": "SDXL",
-      "save_path": "clip_vision/SDXL",
+      "base": "ViT-G",
+      "save_path": "clip_vision",
       "description": "[3.69GB] CLIPVision model (needed for IP-Adapter)",
       "reference": "https://huggingface.co/h94/IP-Adapter",
       "filename": "CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors",
@@ -998,7 +978,7 @@
       "type": "controlnet",
       "base": "SD1.5",
       "save_path": "default",
-      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (tile) / v11f1e<BR>You need to this model for <B>Tiled Resample</B>",
+      "description": "Safetensors/FP16 versions of the new ControlNet-v1-1 checkpoints (tile) / v11f1e\nYou need to this model for <B>Tiled Resample</B>",
       "reference": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors",
       "filename": "control_v11f1e_sd15_tile_fp16.safetensors",
       "url": "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11f1e_sd15_tile_fp16.safetensors"
@@ -1575,27 +1555,77 @@
       "type": "IP-Adapter",
       "base": "SD1.5",
       "save_path": "ipadapter",
-      "description": "IP-Adapter-FaceID Model (SD1.5)",
+      "description": "IP-Adapter-FaceID Model (SD1.5) [ipadapter]",
       "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
       "filename": "ip-adapter-faceid_sd15.bin",
       "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sd15.bin"
+    },
+    {
+      "name": "ip-adapter-faceid-plus_sd15.bin",
+      "type": "IP-Adapter",
+      "base": "SD1.5",
+      "save_path": "ipadapter",
+      "description": "IP-Adapter-FaceID Plus Model (SD1.5) [ipadapter]",
+      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
+      "filename": "ip-adapter-faceid-plus_sd15.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plus_sd15.bin"
+    },
+    {
+      "name": "ip-adapter-faceid-portrait_sd15.bin",
+      "type": "IP-Adapter",
+      "base": "SD1.5",
+      "save_path": "ipadapter",
+      "description": "IP-Adapter-FaceID Portrait Model (SD1.5) [ipadapter]",
+      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
+      "filename": "ip-adapter-faceid-portrait_sd15.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-portrait_sd15.bin"
+    },
+    {
+      "name": "ip-adapter-faceid_sdxl.bin",
+      "type": "IP-Adapter",
+      "base": "SD1.5",
+      "save_path": "ipadapter",
+      "description": "IP-Adapter-FaceID Model (SDXL) [ipadapter]",
+      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
+      "filename": "ip-adapter-faceid_sdxl.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sdxl.bin"
+    },
+    {
+      "name": "ip-adapter-faceid-plusv2_sdxl.bin",
+      "type": "IP-Adapter",
+      "base": "SD1.5",
+      "save_path": "ipadapter",
+      "description": "IP-Adapter-FaceID Plus Model (SDXL) [ipadapter]",
+      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
+      "filename": "ip-adapter-faceid-plusv2_sdxl.bin",
+      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sdxl.bin"
     },
     {
       "name": "ip-adapter-faceid_sd15_lora.safetensors",
       "type": "lora",
       "base": "SD1.5",
       "save_path": "loras/ipadapter",
-      "description": "IP-Adapter-FaceID LoRA Model (SD1.5)",
+      "description": "IP-Adapter-FaceID LoRA Model (SD1.5) [ipadapter]",
       "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
       "filename": "ip-adapter-faceid_sd15_lora.safetensors",
       "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sd15_lora.safetensors"
+    },
+    {
+      "name": "ip-adapter-faceid-plus_sd15_lora.safetensors",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/ipadapter",
+      "description": "IP-Adapter-FaceID Plus LoRA Model (SD1.5) [ipadapter]",
+      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
+      "filename": "ip-adapter-faceid-plus_sd15_lora.safetensors",
+      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plus_sd15_lora.safetensors"
     },
     {
       "name": "ip-adapter-faceid-plusv2_sd15.bin",
       "type": "IP-Adapter",
       "base": "SD1.5",
       "save_path": "ipadapter",
-      "description": "IP-Adapter-FaceID-Plus V2 Model (SD1.5)",
+      "description": "IP-Adapter-FaceID-Plus V2 Model (SD1.5) [ipadapter]",
       "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
       "filename": "ip-adapter-faceid-plusv2_sd15.bin",
       "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sd15.bin"
@@ -1605,10 +1635,30 @@
       "type": "lora",
       "base": "SD1.5",
       "save_path": "loras/ipadapter",
-      "description": "IP-Adapter-FaceID-Plus V2 LoRA Model (SD1.5)",
+      "description": "IP-Adapter-FaceID-Plus V2 LoRA Model (SD1.5) [ipadapter]",
       "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
       "filename": "ip-adapter-faceid-plusv2_sd15_lora.safetensors",
       "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sd15_lora.safetensors"
+    },
+    {
+      "name": "ip-adapter-faceid_sdxl_lora.safetensors",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/ipadapter",
+      "description": "IP-Adapter-FaceID LoRA Model (SDXL) [ipadapter]",
+      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
+      "filename": "ip-adapter-faceid_sdxl_lora.safetensors",
+      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sdxl_lora.safetensors"
+    },
+    {
+      "name": "ip-adapter-faceid-plusv2_sdxl_lora.safetensors",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/ipadapter",
+      "description": "IP-Adapter-FaceID-Plus V2 LoRA Model (SDXL) [ipadapter]",
+      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
+      "filename": "ip-adapter-faceid-plusv2_sdxl_lora.safetensors",
+      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sdxl_lora.safetensors"
     },
     {
       "name": "ip-adapter_sdxl.safetensors",
@@ -1625,7 +1675,7 @@
       "type": "IP-Adapter",
       "base": "SDXL",
       "save_path": "ipadapter",
-      "description": "This model requires the use of the SD1.5 encoder despite being for SDXL checkpoints",
+      "description": "This model requires the use of the SD1.5 encoder despite being for SDXL checkpoints [ipadapter]",
       "reference": "https://huggingface.co/h94/IP-Adapter",
       "filename": "ip-adapter_sdxl_vit-h.safetensors",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter_sdxl_vit-h.safetensors"
@@ -1635,7 +1685,7 @@
       "type": "IP-Adapter",
       "base": "SDXL",
       "save_path": "ipadapter",
-      "description": "This model requires the use of the SD1.5 encoder despite being for SDXL checkpoints",
+      "description": "This model requires the use of the SD1.5 encoder despite being for SDXL checkpoints [ipadapter]",
       "reference": "https://huggingface.co/h94/IP-Adapter",
       "filename": "ip-adapter-plus_sdxl_vit-h.safetensors",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter-plus_sdxl_vit-h.safetensors"
@@ -1645,7 +1695,7 @@
       "type": "IP-Adapter",
       "base": "SDXL",
       "save_path": "ipadapter",
-      "description": "This model requires the use of the SD1.5 encoder despite being for SDXL checkpoints",
+      "description": "This model requires the use of the SD1.5 encoder despite being for SDXL checkpoints [ipadapter]",
       "reference": "https://huggingface.co/h94/IP-Adapter",
       "filename": "ip-adapter-plus-face_sdxl_vit-h.safetensors",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter-plus-face_sdxl_vit-h.safetensors"
@@ -1740,6 +1790,16 @@
       "reference": "https://github.com/xinntao/facexlib",
       "filename": "yolov5n-face.pth",
       "url": "https://github.com/sczhou/CodeFormer/releases/download/v0.1.0/yolov5n-face.pth"
+    },
+    {
+      "name": "photomaker-v1.bin",
+      "type": "photomaker",
+      "base": "SDXL",
+      "save_path": "photomaker",
+      "description": "PhotoMaker model. This model is compatible with SDXL.",
+      "reference": "https://huggingface.co/TencentARC/PhotoMaker",
+      "filename": "photomaker-v1.bin",
+      "url": "https://huggingface.co/TencentARC/PhotoMaker/resolve/main/photomaker-v1.bin"
     }
   ]  
 }

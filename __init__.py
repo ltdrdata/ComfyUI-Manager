@@ -7,7 +7,6 @@ import folder_paths
 import os
 import sys
 import threading
-import datetime
 import locale
 import subprocess  # don't remove this
 from tqdm.auto import tqdm
@@ -17,6 +16,8 @@ import http.client
 import re
 import nodes
 import hashlib
+from datetime import datetime
+
 
 try:
     import cm_global
@@ -28,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 2, 5]
+version = [2, 7]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -102,9 +103,11 @@ sys.path.append('../..')
 
 from torchvision.datasets.utils import download_url
 
-comfy_ui_required_revision = 1917
+comfy_ui_required_revision = 1930
+comfy_ui_required_commit_datetime = datetime(2024, 1, 24, 0, 0, 0)
+
 comfy_ui_revision = "Unknown"
-comfy_ui_commit_date = ""
+comfy_ui_commit_datetime = datetime(1900, 1, 1, 0, 0, 0)
 
 comfy_path = os.path.dirname(folder_paths.__file__)
 custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
@@ -170,8 +173,11 @@ def write_config():
         'channel_url': get_config()['channel_url'],
         'share_option': get_config()['share_option'],
         'bypass_ssl': get_config()['bypass_ssl'],
+        "file_logging": get_config()['file_logging'],
         'default_ui': get_config()['default_ui'],
         'component_policy': get_config()['component_policy'],
+        'double_click_policy': get_config()['double_click_policy'],
+        'windows_selector_event_loop_policy': get_config()['windows_selector_event_loop_policy'],
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -190,8 +196,11 @@ def read_config():
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
                     'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else False,
+                    'file_logging': default_conf['file_logging'] if 'file_logging' in default_conf else True,
                     'default_ui': default_conf['default_ui'] if 'default_ui' in default_conf else 'none',
                     'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
+                    'double_click_policy': default_conf['double_click_policy'] if 'double_click_policy' in default_conf else 'copy-all',
+                    'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else False,
                }
 
     except Exception:
@@ -202,8 +211,11 @@ def read_config():
             'channel_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
             'share_option': 'all',
             'bypass_ssl': False,
+            'file_logging': True,
             'default_ui': 'none',
-            'component_policy': 'workflow'
+            'component_policy': 'workflow',
+            'double_click_policy': 'copy-all',
+            'windows_selector_event_loop_policy': False
         }
 
 
@@ -255,15 +267,12 @@ def set_component_policy(mode):
     get_config()['component_policy'] = mode
 
 
+def set_double_click_policy(mode):
+    get_config()['double_click_policy'] = mode
+
+
 def try_install_script(url, repo_path, install_cmd):
-    int_comfyui_revision = 0
-
-    if type(comfy_ui_revision) == int:
-        int_comfyui_revision = comfy_ui_revision
-    elif comfy_ui_revision.isdigit():
-        int_comfyui_revision = int(comfy_ui_revision)
-
-    if platform.system() == "Windows" and int_comfyui_revision >= comfy_ui_required_revision:
+    if platform.system() == "Windows" and comfy_ui_commit_datetime.date() >= comfy_ui_required_commit_datetime.date():
         if not os.path.exists(startup_script_path):
             os.makedirs(startup_script_path)
 
@@ -279,9 +288,9 @@ def try_install_script(url, repo_path, install_cmd):
 
         if platform.system() == "Windows":
             try:
-                if int(comfy_ui_revision) < comfy_ui_required_revision:
+                if comfy_ui_commit_datetime.date() < comfy_ui_required_commit_datetime.date():
                     print("\n\n###################################################################")
-                    print(f"[WARN] ComfyUI-Manager: Your ComfyUI version ({comfy_ui_revision}) is too old. Please update to the latest version.")
+                    print(f"[WARN] ComfyUI-Manager: Your ComfyUI version ({comfy_ui_revision})[{comfy_ui_commit_datetime.date()}] is too old. Please update to the latest version.")
                     print(f"[WARN] The extension installation feature may not work properly in the current installed ComfyUI version on Windows environment.")
                     print("###################################################################\n\n")
             except:
@@ -295,7 +304,7 @@ def try_install_script(url, repo_path, install_cmd):
 
 def print_comfyui_version():
     global comfy_ui_revision
-    global comfy_ui_commit_date
+    global comfy_ui_commit_datetime
     global comfy_ui_hash
 
     try:
@@ -307,13 +316,13 @@ def print_comfyui_version():
 
         cm_global.variables['comfyui.revision'] = comfy_ui_revision
 
+        comfy_ui_commit_datetime = repo.head.commit.committed_datetime
+
         try:
-            if int(comfy_ui_revision) < comfy_ui_required_revision:
-                print(f"\n\n## [WARN] ComfyUI-Manager: Your ComfyUI version ({comfy_ui_revision}) is too old. Please update to the latest version. ##\n\n")
+            if comfy_ui_commit_datetime.date() < comfy_ui_required_commit_datetime.date():
+                print(f"\n\n## [WARN] ComfyUI-Manager: Your ComfyUI version ({comfy_ui_revision})[{comfy_ui_commit_datetime.date()}] is too old. Please update to the latest version. ##\n\n")
         except:
             pass
-
-        comfy_ui_commit_date = repo.head.commit.committed_datetime.date()
 
         # process on_revision_detected -->
         if 'cm.on_revision_detected_handler' in cm_global.variables:
@@ -330,9 +339,9 @@ def print_comfyui_version():
         # <--
 
         if current_branch == "master":
-            print(f"### ComfyUI Revision: {comfy_ui_revision} [{comfy_ui_hash[:8]}] | Released on '{comfy_ui_commit_date}'")
+            print(f"### ComfyUI Revision: {comfy_ui_revision} [{comfy_ui_hash[:8]}] | Released on '{comfy_ui_commit_datetime.date()}'")
         else:
-            print(f"### ComfyUI Revision: {comfy_ui_revision} on '{current_branch}' [{comfy_ui_hash[:8]}] | Released on '{comfy_ui_commit_date}'")
+            print(f"### ComfyUI Revision: {comfy_ui_revision} on '{current_branch}' [{comfy_ui_hash[:8]}] | Released on '{comfy_ui_commit_datetime.date()}'")
     except:
         print("### ComfyUI Revision: UNKNOWN (The currently installed ComfyUI is not a Git repository)")
 
@@ -523,8 +532,10 @@ def git_pull(path):
     return True
 
 
-async def get_data(uri):
-    print(f"FETCH DATA from: {uri}")
+async def get_data(uri, silent=False):
+    if not silent:
+        print(f"FETCH DATA from: {uri}")
+
     if uri.startswith("http"):
         async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
             async with session.get(uri) as resp:
@@ -592,7 +603,7 @@ def is_file_created_within_one_day(file_path):
         return False
 
     file_creation_time = os.path.getctime(file_path)
-    current_time = datetime.datetime.now().timestamp()
+    current_time = datetime.now().timestamp()
     time_difference = current_time - file_creation_time
 
     return time_difference <= 86400
@@ -1074,14 +1085,14 @@ def get_current_snapshot():
 
 
 def save_snapshot_with_postfix(postfix):
-        now = datetime.datetime.now()
+    now = datetime.now()
 
-        date_time_format = now.strftime("%Y-%m-%d_%H-%M-%S")
-        file_name = f"{date_time_format}_{postfix}"
+    date_time_format = now.strftime("%Y-%m-%d_%H-%M-%S")
+    file_name = f"{date_time_format}_{postfix}"
 
-        path = os.path.join(os.path.dirname(__file__), 'snapshots', f"{file_name}.json")
-        with open(path, "w") as json_file:
-            json.dump(get_current_snapshot(), json_file, indent=4)
+    path = os.path.join(os.path.dirname(__file__), 'snapshots', f"{file_name}.json")
+    with open(path, "w") as json_file:
+        json.dump(get_current_snapshot(), json_file, indent=4)
 
 
 @server.PromptServer.instance.routes.get("/snapshot/get_current")
@@ -1785,6 +1796,17 @@ async def component_policy(request):
     return web.Response(status=200)
 
 
+@server.PromptServer.instance.routes.get("/manager/dbl_click/policy")
+async def dbl_click_policy(request):
+    if "value" in request.rel_url.query:
+        set_double_click_policy(request.rel_url.query['value'])
+        write_config()
+    else:
+        return web.Response(text=get_config()['double_click_policy'], status=200)
+
+    return web.Response(status=200)
+
+
 @server.PromptServer.instance.routes.get("/manager/channel_url_list")
 async def channel_url_list(request):
     channels = get_channel_dict()
@@ -1814,37 +1836,32 @@ async def get_notice(request):
     url = "github.com"
     path = "/ltdrdata/ltdrdata.github.io/wiki/News"
 
-    conn = http.client.HTTPSConnection(url)
-    conn.request("GET", path)
+    async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+        async with session.get(f"https://{url}{path}") as response:
+            if response.status == 200:
+                # html_content = response.read().decode('utf-8')
+                html_content = await response.text()
 
-    response = conn.getresponse()
+                pattern = re.compile(r'<div class="markdown-body">([\s\S]*?)</div>')
+                match = pattern.search(html_content)
 
-    try:
-        if response.status == 200:
-            html_content = response.read().decode('utf-8')
+                if match:
+                    markdown_content = match.group(1)
+                    markdown_content += f"<HR>ComfyUI: {comfy_ui_revision}[{comfy_ui_hash[:6]}]({comfy_ui_commit_datetime.date()})"
+                    # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
+                    markdown_content += f"<BR>Manager: {version_str}"
 
-            pattern = re.compile(r'<div class="markdown-body">([\s\S]*?)</div>')
-            match = pattern.search(html_content)
+                    try:
+                        if comfy_ui_required_commit_datetime.date() > comfy_ui_commit_datetime.date():
+                            markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
+                    except:
+                        pass
 
-            if match:
-                markdown_content = match.group(1)
-                markdown_content += f"<HR>ComfyUI: {comfy_ui_revision}[{comfy_ui_hash[:6]}]({comfy_ui_commit_date})"
-                # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
-                markdown_content += f"<BR>Manager: {version_str}"
-
-                try:
-                    if comfy_ui_required_revision > int(comfy_ui_revision):
-                        markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
-                except:
-                    pass
-
-                return web.Response(text=markdown_content, status=200)
+                    return web.Response(text=markdown_content, status=200)
+                else:
+                    return web.Response(text="Unable to retrieve Notice", status=200)
             else:
                 return web.Response(text="Unable to retrieve Notice", status=200)
-        else:
-            return web.Response(text="Unable to retrieve Notice", status=200)
-    finally:
-        conn.close()
 
 
 @server.PromptServer.instance.routes.get("/manager/reboot")
@@ -2318,7 +2335,7 @@ async def default_cache_update():
         cache_uri = str(simple_hash(uri)) + '_' + filename
         cache_uri = os.path.join(cache_dir, cache_uri)
 
-        json_obj = await get_data(uri)
+        json_obj = await get_data(uri, True)
 
         with cache_lock:
             with open(cache_uri, "w", encoding='utf-8') as file:
@@ -2332,7 +2349,13 @@ async def default_cache_update():
 
     await asyncio.gather(a, b, c, d)
 
+
 threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()
+
+
+if not os.path.exists(config_path):
+    get_config()
+    write_config()
 
 
 WEB_DIRECTORY = "js"
