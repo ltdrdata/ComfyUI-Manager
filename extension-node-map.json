@@ -51,19 +51,30 @@
     ],
     "https://github.com/54rt1n/ComfyUI-DareMerge": [
         [
+            "DM_AdvancedDareModelMerger",
+            "DM_AdvancedModelMerger",
+            "DM_AttentionGradient",
+            "DM_BlockGradient",
+            "DM_BlockModelMerger",
             "DM_DareClipMerger",
-            "DM_DareModelMerger",
+            "DM_DareModelMergerBlock",
+            "DM_DareModelMergerElement",
             "DM_DareModelMergerMBW",
+            "DM_GradientEdit",
+            "DM_GradientOperations",
+            "DM_GradientReporting",
+            "DM_InjectNoise",
             "DM_LoRALoaderTags",
             "DM_LoRAReporting",
+            "DM_MBWGradient",
             "DM_MagnitudeMasker",
             "DM_MaskEdit",
             "DM_MaskOperations",
             "DM_MaskReporting",
-            "DM_MaskedModelMerger",
             "DM_ModelReporting",
             "DM_NormalizeModel",
             "DM_QuadMasker",
+            "DM_ShellGradient",
             "DM_SimpleMasker"
         ],
         {
@@ -1328,6 +1339,14 @@
         ],
         {
             "title_aux": "ComfyUI-Diffusers"
+        }
+    ],
+    "https://github.com/Loewen-Hob/rembg-comfyui-node-better": [
+        [
+            "Image Remove Background (rembg)"
+        ],
+        {
+            "title_aux": "Rembg Background Removal Node for ComfyUI"
         }
     ],
     "https://github.com/LonicaMewinsky/ComfyUI-MakeFrame": [
@@ -3747,11 +3766,13 @@
         [
             "BrushMotion",
             "CompositeMotionBrush",
+            "CompositeMotionBrushWithoutModel",
             "DragNUWA Run",
             "DragNUWA Run MotionBrush",
             "Get First Image",
             "Get Last Image",
-            "InstantMotionBrush",
+            "InstantCameraMotionBrush",
+            "InstantObjectMotionBrush",
             "Load CheckPoint DragNUWA",
             "Load MotionBrush From Optical Flow",
             "Load MotionBrush From Optical Flow Directory",
@@ -3850,11 +3871,13 @@
             "LayerFilter: ChannelShake",
             "LayerFilter: GaussianBlur",
             "LayerFilter: MotionBlur",
+            "LayerFilter: SoftLight",
             "LayerMask: MaskBoxDetect",
             "LayerMask: MaskEdgeShrink",
             "LayerMask: MaskGradient",
             "LayerMask: MaskGrow",
             "LayerMask: MaskInvert",
+            "LayerMask: MaskMotionBlur",
             "LayerMask: MaskPreview",
             "LayerStyle: ColorOverlay",
             "LayerStyle: DropShadow",
@@ -4854,7 +4877,8 @@
     "https://github.com/glifxyz/ComfyUI-GlifNodes": [
         [
             "GlifConsistencyDecoder",
-            "GlifPatchConsistencyDecoderTiled"
+            "GlifPatchConsistencyDecoderTiled",
+            "SDXLAspectRatio"
         ],
         {
             "title_aux": "ComfyUI-GlifNodes"
@@ -5257,6 +5281,7 @@
             "GenerateNoise",
             "GetImageRangeFromBatch",
             "GetImagesFromBatchIndexed",
+            "GetLatentsFromBatchIndexed",
             "GrowMaskWithBlur",
             "INTConstant",
             "ImageBatchRepeatInterleaving",
@@ -5282,6 +5307,7 @@
             "SoundReactive",
             "SplitBboxes",
             "StableZero123_BatchSchedule",
+            "StringConstant",
             "VRAM_Debug",
             "WidgetToString"
         ],
@@ -7434,7 +7460,9 @@
             "easy XYInputs: Denoise",
             "easy XYInputs: ModelMergeBlocks",
             "easy XYInputs: NegativeCond",
+            "easy XYInputs: NegativeCondList",
             "easy XYInputs: PositiveCond",
+            "easy XYInputs: PositiveCondList",
             "easy XYInputs: PromptSR",
             "easy XYInputs: Sampler/Scheduler",
             "easy XYInputs: Seeds++ Batch",
@@ -7466,6 +7494,7 @@
             "easy imageSize",
             "easy imageSizeByLongerSide",
             "easy imageSizeBySide",
+            "easy imageSwitch",
             "easy imageToMask",
             "easy int",
             "easy joinImageBatch",
@@ -7489,6 +7518,7 @@
             "easy preSamplingAdvanced",
             "easy preSamplingDynamicCFG",
             "easy preSamplingSdTurbo",
+            "easy promptList",
             "easy rangeFloat",
             "easy rangeInt",
             "easy samLoaderPipe",
