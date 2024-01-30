@@ -269,6 +269,8 @@ NODE_CLASS_MAPPINGS.update({
   
   * `Possible Input Connections`: It connects all outputs that match the closest type within the specified range.
     * This connection links to the closest outputs among the nodes located on the left side of the target node.
+    
+  * `Possible(left) + Copy(right)`: When you Double-Click on the left half of the title, it operates as `Possible Input Connections`, and when you Double-Click on the right half, it operates as `Copy All Connections`.
 
 ## Troubleshooting
 * If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the ComfyUI-Manager/config.ini file that is generated.

@@ -171,6 +171,25 @@ app.registerExtension({
 							connect_inputs(nearest_inputs, node);
 					}
 					break;
+				case "dual":
+					{
+						if(pos[0] < node.size[0]/2) {
+							// left: possible-input
+							let nearest_inputs = lookup_nearest_inputs(node);
+							if(nearest_inputs)
+								connect_inputs(nearest_inputs, node);
+						}
+						else {
+							// right: copy-all
+							if(node.inputs?.some(x => x.link != null) || node.outputs?.some(x => x.links != null && x.links.length > 0) )
+								return;
+
+							let src_node = lookup_nearest_nodes(node);
+							if(src_node)
+								node_info_copy(src_node, node, true);
+						}
+					}
+					break;
 			}
 		}
 	},
