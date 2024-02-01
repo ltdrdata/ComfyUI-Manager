@@ -975,6 +975,7 @@
             "IG Float",
             "IG Folder",
             "IG Int",
+            "IG Load Image",
             "IG Load Images",
             "IG Multiply",
             "IG Path Join",
@@ -3957,6 +3958,7 @@
             "LayerUtility: ImageChannelMerge",
             "LayerUtility: ImageChannelSplit",
             "LayerUtility: ImageOpacity",
+            "LayerUtility: ImageScaleRestore",
             "LayerUtility: PrintInfo",
             "LayerUtility: RestoreCropBox",
             "LayerUtility: XY to Percent"
@@ -4014,7 +4016,8 @@
     "https://github.com/chrisgoringe/cg-image-picker": [
         [
             "Preview Chooser",
-            "Preview Chooser Fabric"
+            "Preview Chooser Fabric",
+            "Safe Save Image"
         ],
         {
             "author": "chrisgoringe",
@@ -5743,6 +5746,7 @@
             "PixelTiledKSampleUpscalerProviderPipe",
             "PreviewBridge",
             "PreviewBridgeLatent",
+            "PreviewDetailerHookProvider",
             "ReencodeLatent",
             "ReencodeLatentPipe",
             "RegionalPrompt",
@@ -6203,6 +6207,17 @@
             "title_aux": "noEmbryo nodes"
         }
     ],
+    "https://github.com/nosiu/comfyui-instantId-faceswap": [
+        [
+            "FaceEmbed",
+            "FaceSwapGenerationInpaint",
+            "FaceSwapSetupPipeline",
+            "LCMLora"
+        ],
+        {
+            "title_aux": "ComfyUI InstantID Faceswapper"
+        }
+    ],
     "https://github.com/noxinias/ComfyUI_NoxinNodes": [
         [
             "NoxinChime",
@@ -6495,6 +6510,30 @@
         ],
         {
             "title_aux": "Comfy-LFO"
+        }
+    ],
+    "https://github.com/ricklove/comfyui-ricklove": [
+        [
+            "RL_Crop_Resize",
+            "RL_Crop_Resize_Batch",
+            "RL_Depth16",
+            "RL_Finetune_Analyze",
+            "RL_Finetune_Analyze_Batch",
+            "RL_Finetune_Variable",
+            "RL_Image_Shadow",
+            "RL_Image_Threshold_Channels",
+            "RL_Internet_Search",
+            "RL_LoadImageSequence",
+            "RL_Optical_Flow_Dip",
+            "RL_SaveImageSequence",
+            "RL_Uncrop",
+            "RL_Warp_Image",
+            "RL_Zoe_Depth_Map_Preprocessor",
+            "RL_Zoe_Depth_Map_Preprocessor_Raw_Infer",
+            "RL_Zoe_Depth_Map_Preprocessor_Raw_Process"
+        ],
+        {
+            "title_aux": "comfyui-ricklove"
         }
     ],
     "https://github.com/rklaffehn/rk-comfy-nodes": [
@@ -7769,6 +7808,15 @@
         ],
         {
             "title_aux": "ComfyUI_zfkun"
+        }
+    ],
+    "https://github.com/zhongpei/ComfyUI-InstructIR": [
+        [
+            "InstructIRProcess",
+            "LoadInstructIRModel"
+        ],
+        {
+            "title_aux": "ComfyUI for InstructIR"
         }
     ],
     "https://github.com/zhongpei/Comfyui_image2prompt": [
