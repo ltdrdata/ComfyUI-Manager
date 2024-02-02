@@ -11,6 +11,46 @@
         
 
         {
+            "author": "shadowcz007",
+            "title": "Consistency Decoder",
+            "reference": "https://github.com/shadowcz007/comfyui-consistency-decoder",
+            "files": [
+                "https://github.com/shadowcz007/comfyui-consistency-decoder"
+            ],
+            "install_type": "git-clone",
+            "description": "[a/openai Consistency Decoder](https://github.com/openai/consistencydecoder). After downloading the [a/OpenAI VAE model](https://openaipublic.azureedge.net/diff-vae/c9cebd3132dd9c42936d803e33424145a748843c8f716c0814838bdc8a2fe7cb/decoder.pt), place it in the `model/vae` directory for use."
+        },
+        {
+            "author": "pkpk",
+            "title": "ComfyUI-TemporaryLoader",
+            "reference": "https://github.com/pkpkTech/ComfyUI-TemporaryLoader",
+            "files": [
+                "https://github.com/pkpkTech/ComfyUI-TemporaryLoader"
+            ],
+            "install_type": "git-clone",
+            "description": "This is a custom node of ComfyUI that downloads and loads models from the input URL. The model is temporarily downloaded into memory and not saved to storage.\nThis could be useful when trying out models or when using various models on machines with limited storage. Since the model is downloaded into memory, expect higher memory usage than usual."
+        },
+        {
+            "author": "TemryL",
+            "title": "ComfyS3: Amazon S3 Integration for ComfyUI",
+            "reference": "https://github.com/TemryL/ComfyS3",
+            "files": [
+                "https://github.com/TemryL/ComfyS3"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyS3 seamlessly integrates with [a/Amazon S3](https://aws.amazon.com/en/s3/) in ComfyUI. This open-source project provides custom nodes for effortless loading and saving of images, videos, and checkpoint models directly from S3 buckets within the ComfyUI graph interface."
+        },
+        {
+            "author": "trumanwong",
+            "title": "ComfyUI-NSFW-Detection",
+            "reference": "https://github.com/trumanwong/ComfyUI-NSFW-Detection",
+            "files": [
+                "https://github.com/trumanwong/ComfyUI-NSFW-Detection"
+            ],
+            "install_type": "git-clone",
+            "description": "An implementation of NSFW Detection for ComfyUI"
+        },
+        {
             "author": "AIGODLIKE",
             "title": "AIGODLIKE-ComfyUI-Studio",
             "reference": "https://github.com/AIGODLIKE/AIGODLIKE-ComfyUI-Studio",
@@ -649,76 +689,6 @@
             ],
             "install_type": "git-clone",
             "description": "This custom node lets you train LoRA directly in ComfyUI! By default, it saves directly in your ComfyUI lora folder. That means you just have to refresh after training (...and select the LoRA) to test it!"
-        },
-        {
-            "author": "Taremin",
-            "title": "ComfyUI Prompt ExtraNetworks",
-            "reference": "https://github.com/Taremin/comfyui-prompt-extranetworks",
-            "files": [
-                "https://github.com/Taremin/comfyui-prompt-extranetworks"
-            ],
-            "install_type": "git-clone",
-            "description": "Instead of LoraLoader or HypernetworkLoader, it receives a prompt and loads and applies LoRA or HN based on the specifications within the prompt. The main purpose of this custom node is to allow changes without reconnecting the LoraLoader node when the prompt is randomly altered, etc."
-        },
-        {
-            "author": "Layer-norm",
-            "title": "Comfyui lama remover",
-            "reference": "https://github.com/Layer-norm/comfyui-lama-remover",
-            "files": [
-                "https://github.com/Layer-norm/comfyui-lama-remover"
-            ],
-            "install_type": "git-clone",
-            "description": "A very simple ComfyUI node to remove item with mask."
-        },
-        {
-            "author": "komojini",
-            "title": "komojini-comfyui-nodes",
-            "reference": "https://github.com/komojini/komojini-comfyui-nodes",
-            "files": [
-                "https://github.com/komojini/komojini-comfyui-nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:YouTube Video Loader. Custom ComfyUI Nodes for video generation"
-        },
-        {
-            "author": "LarryJane491",
-            "title": "Image-Captioning-in-ComfyUI",
-            "reference": "https://github.com/LarryJane491/Image-Captioning-in-ComfyUI",
-            "files": [
-                "https://github.com/LarryJane491/Image-Captioning-in-ComfyUI"
-            ],
-            "install_type": "git-clone",
-            "description": "The LoRA Caption custom nodes, just like their name suggests, allow you to caption images so they are ready for LoRA training."
-        },
-        {
-            "author": "HebelHuber",
-            "title": "comfyui-enhanced-save-node",
-            "reference": "https://github.com/HebelHuber/comfyui-enhanced-save-node",
-            "files": [
-                "https://github.com/HebelHuber/comfyui-enhanced-save-node"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Enhanced Save Node"
-        },
-        {
-            "author": "chaojie",
-            "title": "ComfyUI-DragNUWA",
-            "reference": "https://github.com/chaojie/ComfyUI-DragNUWA",
-            "files": [
-                "https://github.com/chaojie/ComfyUI-DragNUWA"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: Download the weights of DragNUWA [a/drag_nuwa_svd.pth](https://drive.google.com/file/d/1Z4JOley0SJCb35kFF4PCc6N6P1ftfX4i/view) and put it to ComfyUI/models/checkpoints/drag_nuwa_svd.pth\n[w/Due to changes in the torch package and versions of many other packages, it may disrupt your installation environment.]"
-        },
-        {
-            "author": "chflame163",
-            "title": "ComfyUI_WordCloud",
-            "reference": "https://github.com/chflame163/ComfyUI_WordCloud",
-            "files": [
-                "https://github.com/chflame163/ComfyUI_WordCloud"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Word Cloud, Load Text File"
         }
     ]
 }

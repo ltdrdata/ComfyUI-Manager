@@ -471,6 +471,7 @@
             "PrimereLoraStackMerger",
             "PrimereLycorisKeywordMerger",
             "PrimereLycorisStackMerger",
+            "PrimereMetaCollector",
             "PrimereMetaRead",
             "PrimereMetaSave",
             "PrimereModelKeyword",
@@ -754,6 +755,8 @@
             "HintImageEnchance",
             "ImageGenResolutionFromImage",
             "ImageGenResolutionFromLatent",
+            "ImageIntensityDetector",
+            "ImageLuminanceDetector",
             "InpaintPreprocessor",
             "LeReS-DepthMapPreprocessor",
             "LineArtPreprocessor",
@@ -1016,18 +1019,31 @@
         [
             "Conditioning Switch (JPS)",
             "ControlNet Switch (JPS)",
+            "Crop Image Pipe (JPS)",
+            "Crop Image Settings (JPS)",
             "Crop Image Square (JPS)",
             "Crop Image TargetSize (JPS)",
+            "CtrlNet CannyEdge Pipe (JPS)",
+            "CtrlNet CannyEdge Settings (JPS)",
+            "CtrlNet MiDaS Pipe (JPS)",
+            "CtrlNet MiDaS Settings (JPS)",
+            "CtrlNet OpenPose Pipe (JPS)",
+            "CtrlNet OpenPose Settings (JPS)",
+            "CtrlNet ZoeDepth Pipe (JPS)",
+            "CtrlNet ZoeDepth Settings (JPS)",
             "Disable Enable Switch (JPS)",
             "Enable Disable Switch (JPS)",
-            "Generation Settings (JPS)",
-            "Generation Settings Pipe (JPS)",
             "Generation TXT IMG Settings (JPS)",
             "Get Date Time String (JPS)",
             "Get Image Size (JPS)",
             "IP Adapter Settings (JPS)",
             "IP Adapter Settings Pipe (JPS)",
+            "IP Adapter Single Settings (JPS)",
+            "IP Adapter Single Settings Pipe (JPS)",
+            "IPA Switch (JPS)",
             "Image Switch (JPS)",
+            "ImageToImage Pipe (JPS)",
+            "ImageToImage Settings (JPS)",
             "Images Masks MultiPipe (JPS)",
             "Integer Switch (JPS)",
             "Largest Int (JPS)",
@@ -1050,8 +1066,10 @@
             "SDXL Recommended Resolution Calc (JPS)",
             "SDXL Resolutions (JPS)",
             "Sampler Scheduler Settings (JPS)",
+            "Save Images Plus (JPS)",
             "Substract Int Int (JPS)",
             "Text Concatenate (JPS)",
+            "Text Prompt (JPS)",
             "VAE Switch (JPS)"
         ],
         {
@@ -2435,6 +2453,15 @@
             "title_aux": "ComfyUI-TeaNodes"
         }
     ],
+    "https://github.com/TemryL/ComfyS3": [
+        [
+            "LoadImageS3",
+            "SaveImageS3"
+        ],
+        {
+            "title_aux": "ComfyS3: Amazon S3 Integration for ComfyUI"
+        }
+    ],
     "https://github.com/TheBarret/ZSuite": [
         [
             "ZSuite: Prompter",
@@ -3535,6 +3562,8 @@
     ],
     "https://github.com/blepping/ComfyUI-bleh": [
         [
+            "BlehDeepShrink",
+            "BlehDiscardPenultimateSigma",
             "BlehHyperTile"
         ],
         {
@@ -3973,8 +4002,10 @@
             "LayerUtility: ImageBlendAdvance",
             "LayerUtility: ImageChannelMerge",
             "LayerUtility: ImageChannelSplit",
+            "LayerUtility: ImageMaskScaleAs",
             "LayerUtility: ImageOpacity",
             "LayerUtility: ImageScaleRestore",
+            "LayerUtility: ImageShift",
             "LayerUtility: PrintInfo",
             "LayerUtility: RestoreCropBox",
             "LayerUtility: XY to Percent"
@@ -4684,13 +4715,20 @@
     ],
     "https://github.com/edenartlab/eden_comfy_pipelines": [
         [
+            "Bool",
             "CLIP_Interrogator",
+            "Compare",
+            "DebugPrint",
             "Filepicker",
+            "Float",
             "IMG_padder",
             "IMG_scaler",
             "IMG_unpadder",
+            "If ANY execute A else B",
+            "Int",
             "LatentTypeConversion",
             "SaveImageAdvanced",
+            "String",
             "VAEDecode_to_folder"
         ],
         {
@@ -4810,6 +4848,7 @@
     ],
     "https://github.com/filliptm/ComfyUI_Fill-Nodes": [
         [
+            "FL_ImageCaptionSaver",
             "FL_ImageRandomizer"
         ],
         {
@@ -4986,6 +5025,7 @@
     "https://github.com/gokayfem/ComfyUI_VLM_nodes": [
         [
             "PromptGenerate",
+            "SimpleChat",
             "VisionTextQuestion"
         ],
         {
@@ -6151,6 +6191,8 @@
             "NegiTools_LatentProperties",
             "NegiTools_NoiseImageGenerator",
             "NegiTools_OpenAiDalle3",
+            "NegiTools_OpenAiGpt",
+            "NegiTools_OpenAiGpt4v",
             "NegiTools_OpenAiTranslate",
             "NegiTools_OpenPoseToPointList",
             "NegiTools_PointListToMask",
@@ -6415,6 +6457,15 @@
             "title_aux": "ComfyUI-SaveAVIF"
         }
     ],
+    "https://github.com/pkpkTech/ComfyUI-TemporaryLoader": [
+        [
+            "LoadTempCheckpoint",
+            "LoadTempLoRA"
+        ],
+        {
+            "title_aux": "ComfyUI-TemporaryLoader"
+        }
+    ],
     "https://github.com/pythongosssss/ComfyUI-Custom-Scripts": [
         [
             "CheckpointLoader|pysssss",
@@ -6614,6 +6665,15 @@
         ],
         {
             "title_aux": "ComfyUI_Nimbus-Pack"
+        }
+    ],
+    "https://github.com/shadowcz007/comfyui-consistency-decoder": [
+        [
+            "VAEDecodeConsistencyDecoder",
+            "VAELoaderConsistencyDecoder"
+        ],
+        {
+            "title_aux": "Consistency Decoder"
         }
     ],
     "https://github.com/shadowcz007/comfyui-mixlab-nodes": [
@@ -6932,6 +6992,9 @@
             "DilateErodeMask",
             "EnhanceDetail",
             "GuidedFilterAlpha",
+            "ImageConstant",
+            "LatentStats",
+            "OffsetLatentImage",
             "RemapRange"
         ],
         {
@@ -7249,6 +7312,14 @@
         ],
         {
             "title_aux": "trNodes"
+        }
+    ],
+    "https://github.com/trumanwong/ComfyUI-NSFW-Detection": [
+        [
+            "NSFWDetection"
+        ],
+        {
+            "title_aux": "ComfyUI-NSFW-Detection"
         }
     ],
     "https://github.com/ttulttul/ComfyUI-Iterative-Mixer": [

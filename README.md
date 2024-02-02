@@ -290,6 +290,7 @@ NODE_CLASS_MAPPINGS.update({
 * https://github.com/MockbaTheBorg/Nodes
 * https://github.com/StartHua/Comfyui_GPT_Story
 * https://github.com/NielsGercama/comfyui_customsampling
+* https://github.com/wrightdaniel2017/ComfyUI-VideoLipSync
 
 
 ## Roadmap

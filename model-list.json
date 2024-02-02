@@ -499,7 +499,17 @@
       "reference": "https://huggingface.co/hakurei/waifu-diffusion-v1-4",
       "filename": "kl-f8-anime2.ckpt",
       "url": "https://huggingface.co/hakurei/waifu-diffusion-v1-4/resolve/main/vae/kl-f8-anime2.ckpt"
-    },  
+    },
+    {
+      "name": "OpenAI Consistency Decoder",
+      "type": "VAE",
+      "base": "SD1.5 VAE",
+      "save_path": "vae/openai_consistency_decoder",
+      "description": "[2.3GB] OpenAI Consistency Decoder. Improved decoding for stable diffusion vaes.",
+      "reference": "https://github.com/openai/consistencydecoder",
+      "filename": "decoder.pt",
+      "url": "https://openaipublic.azureedge.net/diff-vae/c9cebd3132dd9c42936d803e33424145a748843c8f716c0814838bdc8a2fe7cb/decoder.pt"
+    },
     {
       "name": "LCM LoRA SD1.5",
       "type": "lora",
