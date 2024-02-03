@@ -109,6 +109,7 @@
         [
             "AutoNegativePrompt",
             "CreatePromptVariant",
+            "OneButtonPreset",
             "OneButtonPrompt",
             "SavePromptToFile"
         ],
@@ -439,6 +440,21 @@
         ],
         {
             "title_aux": "ComfyUI_Ib_CustomNodes"
+        }
+    ],
+    "https://github.com/Clybius/ComfyUI-Extra-Samplers": [
+        [
+            "SamplerCLYB_4M_SDE_Momentumized",
+            "SamplerCustomModelMixtureDuo",
+            "SamplerCustomNoise",
+            "SamplerCustomNoiseDuo",
+            "SamplerDPMPP_DualSDE_Momentumized",
+            "SamplerLCMCustom",
+            "SamplerRES_Momentumized",
+            "SamplerTTM"
+        ],
+        {
+            "title_aux": "ComfyUI Extra Samplers"
         }
     ],
     "https://github.com/Clybius/ComfyUI-Latent-Modifiers": [
@@ -982,6 +998,7 @@
     "https://github.com/IDGallagher/ComfyUI-IG-Nodes": [
         [
             "IG Analyze SSIM",
+            "IG Cross Fade Images",
             "IG Explorer",
             "IG Float",
             "IG Folder",
@@ -1100,18 +1117,23 @@
             "JNodes_ParseParametersToGlobalList",
             "JNodes_ParseWildcards",
             "JNodes_PromptBuilderSingleSubject",
-            "JNodes_PromptEditor",
+            "JNodes_RemoveCommentedText",
             "JNodes_RemoveMetaDataKey",
             "JNodes_RemoveParseableDataForInference",
             "JNodes_SamplerSelectorWithString",
             "JNodes_SaveImageWithOutput",
             "JNodes_SaveVideo",
             "JNodes_SchedulerSelectorWithString",
+            "JNodes_SearchAndReplace",
+            "JNodes_SearchAndReplaceFromFile",
+            "JNodes_SearchAndReplaceFromList",
             "JNodes_SetNegativePromptInMetaData",
             "JNodes_SetPositivePromptInMetaData",
+            "JNodes_SplitAndJoin",
             "JNodes_StringLiteral",
             "JNodes_SyncedStringLiteral",
             "JNodes_TokenCounter",
+            "JNodes_TrimAndStrip",
             "JNodes_UploadVideo",
             "JNodes_VaeSelectorWithString"
         ],
@@ -3678,6 +3700,7 @@
             "RemapInsideParabolas",
             "RemapInsideParabolasAdvanced",
             "RemapPinch",
+            "RemapReverseBarrelDistortion",
             "RemapStretch",
             "RemapToInnerCylinder",
             "RemapToOuterCylinder",
@@ -3936,6 +3959,22 @@
             "title_aux": "ComfyUI-MotionCtrl-SVD"
         }
     ],
+    "https://github.com/chaojie/ComfyUI-Panda3d": [
+        [
+            "Panda3dAmbientLight",
+            "Panda3dAttachNewNode",
+            "Panda3dBase",
+            "Panda3dDirectionalLight",
+            "Panda3dLoadModel",
+            "Panda3dLoadTexture",
+            "Panda3dModelMerge",
+            "Panda3dTest",
+            "Panda3dTextureMerge"
+        ],
+        {
+            "title_aux": "ComfyUI-Panda3d"
+        }
+    ],
     "https://github.com/chaojie/ComfyUI-Pymunk": [
         [
             "PygameRun",
@@ -3975,7 +4014,9 @@
             "LayerFilter: ChannelShake",
             "LayerFilter: GaussianBlur",
             "LayerFilter: MotionBlur",
+            "LayerFilter: SkinBeauty",
             "LayerFilter: SoftLight",
+            "LayerFilter: WaterColor",
             "LayerMask: MaskBoxDetect",
             "LayerMask: MaskEdgeShrink",
             "LayerMask: MaskGradient",
@@ -4390,6 +4431,7 @@
             "IPAdapterLoadEmbeds",
             "IPAdapterModelLoader",
             "IPAdapterSaveEmbeds",
+            "IPAdapterTilesMasked",
             "InsightFaceLoader",
             "PrepImageForClipVision",
             "PrepImageForInsightFace"
@@ -4488,11 +4530,20 @@
     "https://github.com/darkpixel/darkprompts": [
         [
             "DarkCombine",
+            "DarkFaceIndexShuffle",
             "DarkLoRALoader",
             "DarkPrompt"
         ],
         {
             "title_aux": "DarkPrompts"
+        }
+    ],
+    "https://github.com/davask/ComfyUI-MarasIT-Nodes": [
+        [
+            "MarasitBusNode"
+        ],
+        {
+            "title_aux": "ComfyUI-MarasIT-Nodes"
         }
     ],
     "https://github.com/dave-palt/comfyui_DSP_imagehelpers": [
@@ -4721,6 +4772,7 @@
             "DebugPrint",
             "Filepicker",
             "Float",
+            "IMG_blender",
             "IMG_padder",
             "IMG_scaler",
             "IMG_unpadder",
@@ -5024,8 +5076,9 @@
     ],
     "https://github.com/gokayfem/ComfyUI_VLM_nodes": [
         [
+            "Joytag",
             "PromptGenerate",
-            "SimpleChat",
+            "SimpleText",
             "VisionTextQuestion"
         ],
         {
@@ -5921,6 +5974,7 @@
             "RemoveBackendData //Inspire",
             "RemoveBackendDataNumberKey //Inspire",
             "RemoveControlNet //Inspire",
+            "RemoveControlNetFromRegionalPrompts //Inspire",
             "RetrieveBackendData //Inspire",
             "RetrieveBackendDataNumberKey //Inspire",
             "SeedExplorer //Inspire",
@@ -6240,6 +6294,10 @@
         [
             "EmptyLatentImageFromPresetsSD15",
             "EmptyLatentImageFromPresetsSDXL",
+            "RandomEmptyLatentImageFromPresetsSD15",
+            "RandomEmptyLatentImageFromPresetsSDXL",
+            "RandomSizeFromPresetsSD15",
+            "RandomSizeFromPresetsSDXL",
             "SizeFromPresetsSD15",
             "SizeFromPresetsSDXL"
         ],
@@ -7338,6 +7396,15 @@
             "title_aux": "ComfyUI Iterative Mixing Nodes"
         }
     ],
+    "https://github.com/ttulttul/ComfyUI-Tensor-Operations": [
+        [
+            "Image Match Normalize",
+            "Latent Match Normalize"
+        ],
+        {
+            "title_aux": "ComfyUI-Tensor-Operations"
+        }
+    ],
     "https://github.com/tudal/Hakkun-ComfyUI-nodes/raw/main/hakkun_nodes.py": [
         [
             "Any Converter",
@@ -7652,6 +7719,15 @@
         ],
         {
             "title_aux": "NodeGPT"
+        }
+    ],
+    "https://github.com/yffyhk/comfyui_auto_danbooru": [
+        [
+            "GetDanbooru",
+            "TagEncode"
+        ],
+        {
+            "title_aux": "comfyui_auto_danbooru"
         }
     ],
     "https://github.com/yolain/ComfyUI-Easy-Use": [
