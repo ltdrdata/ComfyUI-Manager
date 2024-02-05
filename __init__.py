@@ -29,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 7]
+version = [2, 7, 1]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -307,16 +307,19 @@ def print_comfyui_version():
     global comfy_ui_commit_datetime
     global comfy_ui_hash
 
+    is_detached = False
     try:
         repo = git.Repo(os.path.dirname(folder_paths.__file__))
-
         comfy_ui_revision = len(list(repo.iter_commits('HEAD')))
-        current_branch = repo.active_branch.name
-        comfy_ui_hash = repo.head.commit.hexsha
 
+        comfy_ui_hash = repo.head.commit.hexsha
         cm_global.variables['comfyui.revision'] = comfy_ui_revision
 
         comfy_ui_commit_datetime = repo.head.commit.committed_datetime
+        cm_global.variables['comfyui.commit_datetime'] = comfy_ui_commit_datetime
+
+        is_detached = repo.head.is_detached
+        current_branch = repo.active_branch.name
 
         try:
             if comfy_ui_commit_datetime.date() < comfy_ui_required_commit_datetime.date():
@@ -343,7 +346,10 @@ def print_comfyui_version():
         else:
             print(f"### ComfyUI Revision: {comfy_ui_revision} on '{current_branch}' [{comfy_ui_hash[:8]}] | Released on '{comfy_ui_commit_datetime.date()}'")
     except:
-        print("### ComfyUI Revision: UNKNOWN (The currently installed ComfyUI is not a Git repository)")
+        if is_detached:
+            print(f"### ComfyUI Revision: {comfy_ui_revision} [{comfy_ui_hash[:8]}] *DETACHED | Released on '{comfy_ui_commit_datetime.date()}'")
+        else:
+            print("### ComfyUI Revision: UNKNOWN (The currently installed ComfyUI is not a Git repository)")
 
 
 print_comfyui_version()

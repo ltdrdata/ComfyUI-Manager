@@ -490,6 +490,7 @@
             "PrimereMetaCollector",
             "PrimereMetaRead",
             "PrimereMetaSave",
+            "PrimereMidjourneyStyles",
             "PrimereModelKeyword",
             "PrimereNetworkTagLoader",
             "PrimerePrompt",
@@ -992,6 +993,10 @@
             "Post to Discord w/ Webhook"
         ],
         {
+            "author": "Hiero",
+            "description": "Just some nodes that I wanted/needed, so I made them.",
+            "nickname": "HNodes",
+            "title": "Hiero-Nodes",
             "title_aux": "ComfyUI-Hiero-Nodes"
         }
     ],
@@ -1007,7 +1012,8 @@
             "IG Load Images",
             "IG Multiply",
             "IG Path Join",
-            "IG String"
+            "IG String",
+            "IG ZFill"
         ],
         {
             "author": "IDGallagher",
@@ -1268,6 +1274,7 @@
             "ADE_LoadAnimateDiffModel",
             "ADE_LoopedUniformContextOptions",
             "ADE_LoopedUniformViewOptions",
+            "ADE_MaskedLoadLora",
             "ADE_MultivalDynamic",
             "ADE_MultivalScaledMask",
             "ADE_NoiseLayerAdd",
@@ -1542,6 +1549,14 @@
             "author": "ManglerFTW",
             "title": "ComfyI2I",
             "title_aux": "ComfyI2I"
+        }
+    ],
+    "https://github.com/MarkoCa1/ComfyUI_Segment_Mask": [
+        [
+            "AutomaticMask(segment anything)"
+        ],
+        {
+            "title_aux": "ComfyUI_Segment_Mask"
         }
     ],
     "https://github.com/Miosp/ComfyUI-FBCNN": [
@@ -3048,6 +3063,25 @@
             "title_aux": "ComfyUI-Qwen-VL-API"
         }
     ],
+    "https://github.com/ZHO-ZHO-ZHO/ComfyUI-SVD-ZHO": [
+        [
+            "SVD_Aspect_Ratio_Zho",
+            "SVD_Steps_MotionStrength_Seed_Zho",
+            "SVD_Styler_Zho"
+        ],
+        {
+            "title_aux": "ComfyUI-SVD-ZHO"
+        }
+    ],
+    "https://github.com/ZHO-ZHO-ZHO/ComfyUI-SegMoE": [
+        [
+            "SMoE_Generation_Zho",
+            "SMoE_ModelLoader_Zho"
+        ],
+        {
+            "title_aux": "ComfyUI SegMoE"
+        }
+    ],
     "https://github.com/ZHO-ZHO-ZHO/ComfyUI-Text_Image-Composite": [
         [
             "AlphaChanelAddByMask",
@@ -3135,6 +3169,8 @@
     ],
     "https://github.com/abyz22/image_control": [
         [
+            "abyz22_Convertpipe",
+            "abyz22_Editpipe",
             "abyz22_FirstNonNull",
             "abyz22_FromBasicPipe_v2",
             "abyz22_Frompipe",
@@ -3150,6 +3186,7 @@
             "abyz22_blendimages",
             "abyz22_bypass",
             "abyz22_drawmask",
+            "abyz22_lamaInpaint",
             "abyz22_lamaPreprocessor",
             "abyz22_makecircles",
             "abyz22_setimageinfo",
@@ -3183,6 +3220,7 @@
     ],
     "https://github.com/aegis72/aegisflow_utility_nodes": [
         [
+            "Add Text To Image",
             "Aegisflow CLIP Pass",
             "Aegisflow Conditioning Pass",
             "Aegisflow Image Pass",
@@ -3193,10 +3231,15 @@
             "Aegisflow SDXL Tuple Pass",
             "Aegisflow VAE Pass",
             "Aegisflow controlnet preprocessor bus",
+            "Apply Instagram Filter",
             "Brightness_Contrast_Ally",
+            "Flatten Colors",
             "Gaussian Blur_Ally",
+            "GlitchThis Effect",
+            "Hue Rotation",
             "Image Flip_ally",
             "Placeholder Tuple",
+            "Swap Color Mode",
             "aegisflow Multi_Pass",
             "aegisflow Multi_Pass XL",
             "af_pipe_in_15",
@@ -3389,6 +3432,14 @@
         ],
         {
             "title_aux": "CLIP Directional Prompt Attention"
+        }
+    ],
+    "https://github.com/antrobot1234/antrobots-comfyUI-nodepack": [
+        [
+            "sample"
+        ],
+        {
+            "title_aux": "antrobots-comfyUI-nodepack"
         }
     ],
     "https://github.com/asagi4/ComfyUI-CADS": [
@@ -4012,6 +4063,7 @@
             "LayerColor: RGB",
             "LayerColor: YUV",
             "LayerFilter: ChannelShake",
+            "LayerFilter: ColorMap",
             "LayerFilter: GaussianBlur",
             "LayerFilter: MotionBlur",
             "LayerFilter: SkinBeauty",
@@ -4455,6 +4507,7 @@
             "CLIPTextEncodeSDXL+",
             "ConsoleDebug+",
             "DebugTensorShape+",
+            "DrawText+",
             "ExtractKeyframes+",
             "GetImageSize+",
             "ImageApplyLUT+",
@@ -4469,6 +4522,8 @@
             "ImagePosterize+",
             "ImageResize+",
             "ImageSeamCarving+",
+            "KSamplerVariationsStochastic+",
+            "KSamplerVariationsWithNoise+",
             "MaskBatch+",
             "MaskBlur+",
             "MaskExpandBatch+",
@@ -4477,8 +4532,7 @@
             "MaskFromColor+",
             "MaskPreview+",
             "ModelCompile+",
-            "NoiseFromImage+",
-            "SDXLResolutionPicker+",
+            "SDXLEmptyLatentSizePicker+",
             "SimpleMath+",
             "TransitionMask+"
         ],
@@ -4543,7 +4597,7 @@
             "MarasitBusNode"
         ],
         {
-            "title_aux": "ComfyUI-MarasIT-Nodes"
+            "title_aux": "MarasIT Nodes"
         }
     ],
     "https://github.com/dave-palt/comfyui_DSP_imagehelpers": [
@@ -4590,6 +4644,19 @@
         ],
         {
             "title_aux": "demofusion-comfyui"
+        }
+    ],
+    "https://github.com/dfl/comfyui-clip-with-break": [
+        [
+            "AdvancedCLIPTextEncodeWithBreak",
+            "CLIPTextEncodeWithBreak"
+        ],
+        {
+            "author": "dfl",
+            "description": "CLIP text encoder that does BREAK prompting like A1111",
+            "nickname": "CLIP with BREAK",
+            "title": "CLIP with BREAK syntax",
+            "title_aux": "comfyui-clip-with-break"
         }
     ],
     "https://github.com/dimtoneff/ComfyUI-PixelArt-Detector": [
@@ -6284,7 +6351,9 @@
             "PromptUtilitiesFormatString",
             "PromptUtilitiesJoinStringList",
             "PromptUtilitiesLoadPreset",
-            "PromptUtilitiesLoadPresetAdvanced"
+            "PromptUtilitiesLoadPresetAdvanced",
+            "PromptUtilitiesRandomPreset",
+            "PromptUtilitiesRandomPresetAdvanced"
         ],
         {
             "title_aux": "ComfyUI-PromptUtilities"
@@ -7026,6 +7095,7 @@
     ],
     "https://github.com/spacepxl/ComfyUI-HQ-Image-Save": [
         [
+            "LoadEXR",
             "LoadLatentEXR",
             "SaveEXR",
             "SaveLatentEXR",
@@ -7049,11 +7119,14 @@
             "DifferenceChecker",
             "DilateErodeMask",
             "EnhanceDetail",
+            "ExposureAdjust",
             "GuidedFilterAlpha",
             "ImageConstant",
             "LatentStats",
             "OffsetLatentImage",
-            "RemapRange"
+            "RemapRange",
+            "Tonemap",
+            "UnTonemap"
         ],
         {
             "title_aux": "ComfyUI-Image-Filters"
