@@ -2428,6 +2428,7 @@
     ],
     "https://github.com/TRI3D-LC/tri3d-comfyui-nodes": [
         [
+            "tri3d-adjust-neck",
             "tri3d-atr-parse",
             "tri3d-atr-parse-batch",
             "tri3d-clipdrop-bgremove-api",
@@ -2482,7 +2483,6 @@
             "TC_EqualizeCLAHE",
             "TC_ImageResize",
             "TC_ImageScale",
-            "TC_MaskBG_DIS",
             "TC_RandomColorFill",
             "TC_SizeApproximation"
         ],
@@ -2492,8 +2492,11 @@
     ],
     "https://github.com/TemryL/ComfyS3": [
         [
+            "DownloadFileS3",
             "LoadImageS3",
-            "SaveImageS3"
+            "SaveImageS3",
+            "SaveVideoFilesS3",
+            "UploadFileS3"
         ],
         {
             "title_aux": "ComfyS3: Amazon S3 Integration for ComfyUI"
@@ -3633,6 +3636,14 @@
             "title_aux": "CLIPSeg"
         }
     ],
+    "https://github.com/bilal-arikan/ComfyUI_TextAssets": [
+        [
+            "LoadTextAsset"
+        ],
+        {
+            "title_aux": "ComfyUI_TextAssets"
+        }
+    ],
     "https://github.com/blepping/ComfyUI-bleh": [
         [
             "BlehDeepShrink",
@@ -3756,6 +3767,7 @@
             "RemapToInnerCylinder",
             "RemapToOuterCylinder",
             "RemapToQuadrilateral",
+            "RemapWarpPolar",
             "Repeat Into Grid (image)",
             "Repeat Into Grid (latent)",
             "RequestInputs",
@@ -4016,6 +4028,7 @@
             "Panda3dAttachNewNode",
             "Panda3dBase",
             "Panda3dDirectionalLight",
+            "Panda3dLoadDepthModel",
             "Panda3dLoadModel",
             "Panda3dLoadTexture",
             "Panda3dModelMerge",
@@ -5144,9 +5157,13 @@
     "https://github.com/gokayfem/ComfyUI_VLM_nodes": [
         [
             "Joytag",
+            "LLava Loader Simple",
+            "LLavaSamplerAdvanced",
+            "LLavaSamplerSimple",
+            "LlavaClipLoader",
+            "MoonDream",
             "PromptGenerate",
-            "SimpleText",
-            "VisionTextQuestion"
+            "SimpleText"
         ],
         {
             "title_aux": "VLM_nodes"
@@ -5536,6 +5553,7 @@
             "ImageGridComposite2x2",
             "ImageGridComposite3x3",
             "ImageTransformByNormalizedAmplitude",
+            "ImageUpscaleWithModelBatched",
             "InjectNoiseToLatent",
             "InsertImageBatchByIndexes",
             "NormalizeLatent",
