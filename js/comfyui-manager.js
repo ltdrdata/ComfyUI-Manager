@@ -1202,6 +1202,15 @@ class ManagerMenuDialog extends ComfyDialog {
 					},
 				},
 				{
+					title: "Open 'flowt.ai'",
+					callback: () => {
+						const url = "https://flowt.ai/";
+						localStorage.setItem("wg_last_visited", url);
+						window.open(url, "comfyui-workflow-gallery");
+						modifyButtonStyle(url);
+					},
+				},
+				{
 					title: "Close",
 					callback: () => {
 						LiteGraph.closeAllContextMenus();
