@@ -436,7 +436,10 @@
     ],
     "https://github.com/Chaoses-Ib/ComfyUI_Ib_CustomNodes": [
         [
-            "LoadImageFromPath"
+            "ImageToPIL",
+            "LoadImageFromPath",
+            "PILToImage",
+            "PILToMask"
         ],
         {
             "title_aux": "ComfyUI_Ib_CustomNodes"
@@ -618,6 +621,16 @@
         ],
         {
             "title_aux": "Derfuu_ComfyUI_ModdedNodes"
+        }
+    ],
+    "https://github.com/DonBaronFactory/ComfyUI-Cre8it-Nodes": [
+        [
+            "ApplySerialPrompter",
+            "ImageSizer",
+            "SerialPrompter"
+        ],
+        {
+            "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
     "https://github.com/Electrofried/ComfyUI-OpenAINode": [
@@ -939,6 +952,14 @@
         ],
         {
             "title_aux": "ComfyUI aichemy nodes"
+        }
+    ],
+    "https://github.com/Hangover3832/ComfyUI-Hangover-Moondream": [
+        [
+            "Moondream Interrogator (NO COMMERCIAL USE)"
+        ],
+        {
+            "title_aux": "ComfyUI-Hangover-Moondream"
         }
     ],
     "https://github.com/Hangover3832/ComfyUI-Hangover-Nodes": [
@@ -4128,6 +4149,7 @@
             "LayerUtility: ImageShift",
             "LayerUtility: PrintInfo",
             "LayerUtility: RestoreCropBox",
+            "LayerUtility: TextImage",
             "LayerUtility: XY to Percent"
         ],
         {
@@ -4862,21 +4884,21 @@
     ],
     "https://github.com/edenartlab/eden_comfy_pipelines": [
         [
-            "Bool",
             "CLIP_Interrogator",
-            "Compare",
-            "DebugPrint",
+            "Eden_Bool",
+            "Eden_Compare",
+            "Eden_DebugPrint",
+            "Eden_Float",
+            "Eden_Int",
+            "Eden_String",
             "Filepicker",
-            "Float",
             "IMG_blender",
             "IMG_padder",
             "IMG_scaler",
             "IMG_unpadder",
             "If ANY execute A else B",
-            "Int",
             "LatentTypeConversion",
             "SaveImageAdvanced",
-            "String",
             "VAEDecode_to_folder"
         ],
         {
@@ -5491,11 +5513,6 @@
     "https://github.com/kenjiqq/qq-nodes-comfyui": [
         [
             "Any List",
-            "Axis To Float",
-            "Axis To Int",
-            "Axis To Model",
-            "Axis To Number",
-            "Axis To String",
             "Image Accumulator End",
             "Image Accumulator Start",
             "Load Lines From Text File",
@@ -6853,15 +6870,11 @@
             "3DImage",
             "AppInfo",
             "AreaToMask",
-            "CLIPSeg",
-            "CLIPSeg_",
             "CenterImage",
             "CharacterInText",
             "ChatGPTOpenAI",
             "CkptNames_",
             "Color",
-            "CombineMasks_",
-            "CombineSegMasks",
             "DynamicDelayProcessor",
             "EmbeddingPrompt",
             "EnhanceImage",
