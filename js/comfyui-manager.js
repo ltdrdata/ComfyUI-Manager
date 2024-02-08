@@ -1052,7 +1052,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					onclick: (e) => {
 						const last_visited_site = localStorage.getItem("wg_last_visited")
 						if (!!last_visited_site) {
-							window.open(last_visited_site, "comfyui-workflow-gallery");
+							window.open(last_visited_site, last_visited_site);
 						} else {
 							this.handleWorkflowGalleryButtonClick(e)
 						}
@@ -1179,7 +1179,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					callback: () => {
 						const url = "https://openart.ai/workflows/dev";
 						localStorage.setItem("wg_last_visited", url);
-						window.open(url, "comfyui-workflow-gallery");
+						window.open(url, url);
 						modifyButtonStyle(url);
 					},
 				},
@@ -1188,7 +1188,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					callback: () => {
 						const url = "https://youml.com/?from=comfyui-share";
 						localStorage.setItem("wg_last_visited", url);
-						window.open(url, "comfyui-workflow-gallery");
+						window.open(url, url);
 						modifyButtonStyle(url);
 					},
 				},
@@ -1197,7 +1197,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					callback: () => {
 						const url = "https://comfyworkflows.com/";
 						localStorage.setItem("wg_last_visited", url);
-						window.open(url, "comfyui-workflow-gallery");
+						window.open(url, url);
 						modifyButtonStyle(url);
 					},
 				},
@@ -1206,7 +1206,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					callback: () => {
 						const url = "https://flowt.ai/";
 						localStorage.setItem("wg_last_visited", url);
-						window.open(url, "comfyui-workflow-gallery");
+						window.open(url, url);
 						modifyButtonStyle(url);
 					},
 				},
