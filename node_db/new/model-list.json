@@ -1,6 +1,57 @@
 {
   "models": [
     {
+      "name": "1k3d68.onnx",
+      "type": "insightface",
+      "base": "inswapper",
+      "save_path": "insightface/models/antelopev2",
+      "description": "Antelopev2 1k3d68.onnx model for InstantId. (InstantId needs all Antelopev2 models)",
+      "reference": "https://github.com/cubiq/ComfyUI_InstantID#installation",
+      "filename": "1k3d68.onnx",
+      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/1k3d68.onnx"
+    },
+    {
+      "name": "2d106det.onnx",
+      "type": "insightface",
+      "base": "inswapper",
+      "save_path": "insightface/models/antelopev2",
+      "description": "Antelopev2 2d106det.onnx model for InstantId. (InstantId needs all Antelopev2 models)",
+      "reference": "https://github.com/cubiq/ComfyUI_InstantID#installation",
+      "filename": "2d106det.onnx",
+      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/2d106det.onnx"
+    },
+    {
+      "name": "genderage.onnx",
+      "type": "insightface",
+      "base": "inswapper",
+      "save_path": "insightface/models/antelopev2",
+      "description": "Antelopev2 genderage.onnx model for InstantId. (InstantId needs all Antelopev2 models)",
+      "reference": "https://github.com/cubiq/ComfyUI_InstantID#installation",
+      "filename": "genderage.onnx",
+      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/genderage.onnx"
+    },
+    {
+      "name": "glintr100.onnx",
+      "type": "insightface",
+      "base": "inswapper",
+      "save_path": "insightface/models/antelopev2",
+      "description": "Antelopev2 glintr100.onnx model for InstantId. (InstantId needs all Antelopev2 models)",
+      "reference": "https://github.com/cubiq/ComfyUI_InstantID#installation",
+      "filename": "glintr100.onnx",
+      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/glintr100.onnx"
+    },
+    {
+      "name": "scrfd_10g_bnkps.onnx",
+      "type": "insightface",
+      "base": "inswapper",
+      "save_path": "insightface/models/antelopev2",
+      "description": "Antelopev2 scrfd_10g_bnkps.onnx model for InstantId. (InstantId needs all Antelopev2 models)",
+      "reference": "https://github.com/cubiq/ComfyUI_InstantID#installation",
+      "filename": "scrfd_10g_bnkps.onnx",
+      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/scrfd_10g_bnkps.onnx"
+    },
+
+    {
       "name": "photomaker-v1.bin",
       "type": "photomaker",
       "base": "SDXL",
@@ -652,131 +703,6 @@
       "reference": "https://huggingface.co/manshoety/AD_Stabilized_Motion",
       "filename": "mm-Stabilized_mid.pth",
       "url": "https://huggingface.co/manshoety/AD_Stabilized_Motion/resolve/main/mm-Stabilized_mid.pth"
-    },
-
-    {
-      "name": "GFPGANv1.4.pth",
-      "type": "GFPGAN",
-      "base": "GFPGAN",
-      "save_path": "facerestore_models",
-      "description": "Face Restoration Models. Download the model required for using the 'Facerestore CF (Code Former)' custom node.",
-      "reference": "https://github.com/TencentARC/GFPGAN/releases",
-      "filename": "GFPGANv1.4.pth",
-      "url": "https://github.com/TencentARC/GFPGAN/releases/download/v1.3.4/GFPGANv1.4.pth"
-    },
-    {
-      "name": "codeformer.pth",
-      "type": "CodeFormer",
-      "base": "CodeFormer",
-      "save_path": "facerestore_models",
-      "description": "Face Restoration Models. Download the model required for using the 'Facerestore CF (Code Former)' custom node.",
-      "reference": "https://github.com/sczhou/CodeFormer/releases",
-      "filename": "codeformer.pth",
-      "url": "https://github.com/sczhou/CodeFormer/releases/download/v0.1.0/codeformer.pth"
-    },
-    {
-      "name": "detection_Resnet50_Final.pth",
-      "type": "facexlib",
-      "base": "facexlib",
-      "save_path": "facerestore_models",
-      "description": "Face Detection Models. Download the model required for using the 'Facerestore CF (Code Former)' custom node.",
-      "reference": "https://github.com/xinntao/facexlib",
-      "filename": "detection_Resnet50_Final.pth",
-      "url": "https://github.com/xinntao/facexlib/releases/download/v0.1.0/detection_Resnet50_Final.pth"
-    },
-    {
-      "name": "detection_mobilenet0.25_Final.pth",
-      "type": "facexlib",
-      "base": "facexlib",
-      "save_path": "facerestore_models",
-      "description": "Face Detection Models. Download the model required for using the 'Facerestore CF (Code Former)' custom node.",
-      "reference": "https://github.com/xinntao/facexlib",
-      "filename": "detection_mobilenet0.25_Final.pth",
-      "url": "https://github.com/xinntao/facexlib/releases/download/v0.1.0/detection_mobilenet0.25_Final.pth"
-    },
-    {
-      "name": "yolov5l-face.pth",
-      "type": "facexlib",
-      "base": "facexlib",
-      "save_path": "facedetection",
-      "description": "Face Detection Models. Download the model required for using the 'Facerestore CF (Code Former)' custom node.",
-      "reference": "https://github.com/xinntao/facexlib",
-      "filename": "yolov5l-face.pth",
-      "url": "https://github.com/sczhou/CodeFormer/releases/download/v0.1.0/yolov5l-face.pth"
-    },
-    {
-      "name": "yolov5n-face.pth",
-      "type": "facexlib",
-      "base": "facexlib",
-      "save_path": "facedetection",
-      "description": "Face Detection Models. Download the model required for using the 'Facerestore CF (Code Former)' custom node.",
-      "reference": "https://github.com/xinntao/facexlib",
-      "filename": "yolov5n-face.pth",
-      "url": "https://github.com/sczhou/CodeFormer/releases/download/v0.1.0/yolov5n-face.pth"
-    },
-
-    {
-      "name": "diffusers/stable-diffusion-xl-1.0-inpainting-0.1 (UNET/fp16)",
-      "type": "unet",
-      "base": "SDXL",
-      "save_path": "unet/xl-inpaint-0.1",
-      "description": "[5.14GB] Stable Diffusion XL inpainting model 0.1. You need UNETLoader instead of CheckpointLoader.",
-      "reference": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1",
-      "filename": "diffusion_pytorch_model.fp16.safetensors",
-      "url": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1/resolve/main/unet/diffusion_pytorch_model.fp16.safetensors"
-    },
-    {
-      "name": "diffusers/stable-diffusion-xl-1.0-inpainting-0.1 (UNET)",
-      "type": "unet",
-      "base": "SDXL",
-      "save_path": "unet/xl-inpaint-0.1",
-      "description": "[10.3GB] Stable Diffusion XL inpainting model 0.1. You need UNETLoader instead of CheckpointLoader.",
-      "reference": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1/resolve/main/unet/diffusion_pytorch_model.safetensors"
-    },
-
-    {
-      "name": "Inswapper (face swap)",
-      "type": "insightface",
-      "base" : "inswapper",
-      "save_path": "insightface",
-      "description": "Checkpoint of the insightface swapper model (used by Comfy-Roop and comfy_mtb)",
-      "reference": "https://huggingface.co/deepinsight/inswapper/",
-      "filename": "inswapper_128.onnx",
-      "url": "https://huggingface.co/deepinsight/inswapper/resolve/main/inswapper_128.onnx"
-    },
-    
-    {
-      "name": "CLIPVision model (stabilityai/clip_vision_g)",
-      "type": "clip_vision",
-      "base": "vit-g",
-      "save_path": "clip_vision",
-      "description": "[3.69GB] clip_g vision model",
-      "reference": "https://huggingface.co/stabilityai/control-lora",
-      "filename": "clip_vision_g.safetensors",
-      "url": "https://huggingface.co/stabilityai/control-lora/resolve/main/revision/clip_vision_g.safetensors"
-    },
-
-    {
-      "name": "CLIPVision model (IP-Adapter) CLIP-ViT-H-14-laion2B-s32B-b79K",
-      "type": "clip_vision",
-      "base": "ViT-H",
-      "save_path": "clip_vision",
-      "description": "[2.5GB] CLIPVision model (needed for IP-Adapter)",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/image_encoder/model.safetensors"
-    },
-    {
-      "name": "CLIPVision model (IP-Adapter) CLIP-ViT-bigG-14-laion2B-39B-b160k",
-      "type": "clip_vision",
-      "base": "ViT-G",
-      "save_path": "clip_vision",
-      "description": "[3.69GB] CLIPVision model (needed for IP-Adapter)",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/image_encoder/model.safetensors"
     }
   ]
 }
