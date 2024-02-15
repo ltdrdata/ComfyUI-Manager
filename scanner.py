@@ -1,3 +1,4 @@
+import ast
 import re
 import os
 import json
@@ -22,6 +23,28 @@ if not os.path.exists(temp_dir):
 print(f"TEMP DIR: {temp_dir}")
 
 
+def extract_nodes(code_text):
+    try:
+        parsed_code = ast.parse(code_text)
+
+        assignments = (node for node in parsed_code.body if isinstance(node, ast.Assign))
+
+        for assignment in assignments:
+            if isinstance(assignment.targets[0], ast.Name) and assignment.targets[0].id == 'NODE_CLASS_MAPPINGS':
+                node_class_mappings = assignment.value
+                break
+        else:
+            node_class_mappings = None
+
+        if node_class_mappings:
+            s = set([key.s.strip() for key in node_class_mappings.keys if key is not None])
+            return s
+        else:
+            return set()
+    except:
+        return set()
+
+
 # scan
 def scan_in_file(filename, is_builtin=False):
     global builtin_nodes
@@ -38,6 +61,8 @@ def scan_in_file(filename, is_builtin=False):
 
     nodes = set()
     class_dict = {}
+
+    nodes |= extract_nodes(code)
 
     pattern2 = r'^[^=]*_CLASS_MAPPINGS\["(.*?)"\]'
     keys = re.findall(pattern2, code)

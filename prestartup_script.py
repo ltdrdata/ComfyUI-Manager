@@ -18,6 +18,7 @@ import cm_global
 message_collapses = []
 import_failed_extensions = set()
 cm_global.variables['cm.on_revision_detected_handler'] = []
+enable_file_logging = True
 
 
 def register_message_collapse(f):
@@ -28,6 +29,24 @@ def register_message_collapse(f):
 def is_import_failed_extension(name):
     global import_failed_extensions
     return name in import_failed_extensions
+
+
+def check_file_logging():
+    global enable_file_logging
+    try:
+        import configparser
+        config_path = os.path.join(os.path.dirname(__file__), "config.ini")
+        config = configparser.ConfigParser()
+        config.read(config_path)
+        default_conf = config['default']
+
+        if 'file_logging' in default_conf and default_conf['file_logging'].lower() == 'false':
+            enable_file_logging = False
+    except Exception:
+        pass
+
+
+check_file_logging()
 
 
 sys.__comfyui_manager_register_message_collapse = register_message_collapse
@@ -118,15 +137,33 @@ try:
         postfix = ""
 
     # Logger setup
-    if os.path.exists(f"comfyui{postfix}.log"):
-        if os.path.exists(f"comfyui{postfix}.prev.log"):
-            if os.path.exists(f"comfyui{postfix}.prev2.log"):
-                os.remove(f"comfyui{postfix}.prev2.log")
-            os.rename(f"comfyui{postfix}.prev.log", f"comfyui{postfix}.prev2.log")
-        os.rename(f"comfyui{postfix}.log", f"comfyui{postfix}.prev.log")
+    if enable_file_logging:
+        if os.path.exists(f"comfyui{postfix}.log"):
+            if os.path.exists(f"comfyui{postfix}.prev.log"):
+                if os.path.exists(f"comfyui{postfix}.prev2.log"):
+                    os.remove(f"comfyui{postfix}.prev2.log")
+                os.rename(f"comfyui{postfix}.prev.log", f"comfyui{postfix}.prev2.log")
+            os.rename(f"comfyui{postfix}.log", f"comfyui{postfix}.prev.log")
+
+        log_file = open(f"comfyui{postfix}.log", "w", encoding="utf-8", errors="ignore")
+
+    log_lock = threading.Lock()
 
     original_stdout = sys.stdout
     original_stderr = sys.stderr
+
+    if original_stdout.encoding.lower() == 'utf-8':
+        write_stdout = original_stdout.write
+        write_stderr = original_stderr.write
+    else:
+        def wrapper_stdout(msg):
+            original_stdout.write(msg.encode('utf-8').decode(original_stdout.encoding, errors="ignore"))
+            
+        def wrapper_stderr(msg):
+            original_stderr.write(msg.encode('utf-8').decode(original_stderr.encoding, errors="ignore"))
+
+        write_stdout = wrapper_stdout
+        write_stderr = wrapper_stderr
 
     pat_tqdm = r'\d+%.*\[(.*?)\]'
     pat_import_fail = r'seconds \(IMPORT FAILED\):'
@@ -134,9 +171,6 @@ try:
 
     is_start_mode = True
     is_import_fail_mode = False
-
-    log_file = open(f"comfyui{postfix}.log", "w", encoding="utf-8", errors="ignore")
-    log_lock = threading.Lock()
 
     class ComfyUIManagerLogger:
         def __init__(self, is_stdout):
@@ -185,7 +219,7 @@ try:
                     if '100%' in message:
                         self.sync_write(message)
                     else:
-                        original_stderr.write(message)
+                        write_stderr(message)
                         original_stderr.flush()
                 else:
                     self.sync_write(message)
@@ -204,11 +238,11 @@ try:
 
             with std_log_lock:
                 if self.is_stdout:
-                    original_stdout.write(message)
+                    write_stdout(message)
                     original_stdout.flush()
                     terminal_hook.write_stderr(message)
                 else:
-                    original_stderr.write(message)
+                    write_stderr(message)
                     original_stderr.flush()
                     terminal_hook.write_stdout(message)
 
@@ -237,11 +271,16 @@ try:
         sys.stderr = original_stderr
         sys.stdout = original_stdout
         log_file.close()
-        
-    sys.stdout = ComfyUIManagerLogger(True)
-    sys.stderr = ComfyUIManagerLogger(False)
 
-    atexit.register(close_log)
+
+    if enable_file_logging:
+        sys.stdout = ComfyUIManagerLogger(True)
+        sys.stderr = ComfyUIManagerLogger(False)
+
+        atexit.register(close_log)
+    else:
+        sys.stdout.close_log = lambda: None
+
 except Exception as e:
     print(f"[ComfyUI-Manager] Logging failed: {e}")
 
@@ -250,7 +289,11 @@ print("** ComfyUI startup time:", datetime.datetime.now())
 print("** Platform:", platform.system())
 print("** Python version:", sys.version)
 print("** Python executable:", sys.executable)
-print("** Log path:", os.path.abspath('comfyui.log'))
+
+if enable_file_logging:
+    print("** Log path:", os.path.abspath('comfyui.log'))
+else:
+    print("** Log path: file logging is disabled")
 
 
 def check_bypass_ssl():
@@ -457,11 +500,26 @@ if os.path.exists(script_list_path):
 del processed_install
 del pip_list
 
-if platform.system() == 'Windows':
+
+def check_windows_event_loop_policy():
     try:
-        import asyncio
-        import asyncio.windows_events
-        asyncio.set_event_loop_policy(asyncio.windows_events.WindowsSelectorEventLoopPolicy())
-        print(f"[ComfyUI-Manager] Windows event loop policy mode enabled")
-    except Exception as e:
-        print(f"[ComfyUI-Manager] WARN: Windows initialization fail: {e}")
+        import configparser
+        config_path = os.path.join(os.path.dirname(__file__), "config.ini")
+        config = configparser.ConfigParser()
+        config.read(config_path)
+        default_conf = config['default']
+
+        if 'windows_selector_event_loop_policy' in default_conf and default_conf['windows_selector_event_loop_policy'].lower() == 'true':
+            try:
+                import asyncio
+                import asyncio.windows_events
+                asyncio.set_event_loop_policy(asyncio.windows_events.WindowsSelectorEventLoopPolicy())
+                print(f"[ComfyUI-Manager] Windows event loop policy mode enabled")
+            except Exception as e:
+                print(f"[ComfyUI-Manager] WARN: Windows initialization fail: {e}")
+    except Exception:
+        pass
+
+
+if platform.system() == 'Windows':
+    check_windows_event_loop_policy()

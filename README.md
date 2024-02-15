@@ -16,7 +16,7 @@
 
 To install ComfyUI-Manager in addition to an existing installation of ComfyUI, you can follow the following steps:
 
-1. cd custom_nodes
+1. goto `ComfyUI/custom_nodes` dir in terminal(cmd)
 2. `git clone https://github.com/ltdrdata/ComfyUI-Manager.git`
 3. Restart ComfyUI
 
@@ -63,6 +63,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Support for automatically installing dependencies of custom nodes upon restarting Colab notebooks.
 
 ## Changes
+* **2.4** Copy the connections of the nearest node by double-clicking.
 * **2.2.3** Support Components System
 * **0.29** Add `Update all` feature
 * **0.25** support db channel
@@ -253,6 +254,24 @@ NODE_CLASS_MAPPINGS.update({
 ![missing-list](misc/missing-list.png)
 
 
+## Additional Feature
+* Logging to file feature
+  * This feature is enabled by default and can be disabled by setting `file_logging = False` in the `config.ini`.
+
+* Fix node(recreate): When right-clicking on a node and selecting `Fix node (recreate)`, you can recreate the node. The widget's values are reset, while the connections maintain those with the same names.
+  * It is used to correct errors in nodes of old workflows created before, which are incompatible with the version changes of custom nodes.
+
+* Double-Click Node Title: You can set the double click behavior of nodes in the ComfyUI-Manager menu.
+  * `Copy All Connections`, `Copy Input Connections`: Double-clicking a node copies the connections of the nearest node.
+    * This action targets the nearest node within a straight-line distance of 1000 pixels from the center of the node.
+    * In the case of `Copy All Connections`, it duplicates existing outputs, but since it does not allow duplicate connections, the existing output connections of the original node are disconnected.
+    * This feature copies only the input and output that match the names.
+  
+  * `Possible Input Connections`: It connects all outputs that match the closest type within the specified range.
+    * This connection links to the closest outputs among the nodes located on the left side of the target node.
+    
+  * `Possible(left) + Copy(right)`: When you Double-Click on the left half of the title, it operates as `Possible Input Connections`, and when you Double-Click on the right half, it operates as `Copy All Connections`.
+
 ## Troubleshooting
 * If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the ComfyUI-Manager/config.ini file that is generated.
 * If updating ComfyUI-Manager itself fails, please go to the **ComfyUI-Manager** directory and execute the command `git update-ref refs/remotes/origin/main a361cc1 && git fetch --all && git pull`.
@@ -260,6 +279,8 @@ NODE_CLASS_MAPPINGS.update({
    For the portable version, use `..\..\..\python_embeded\python.exe update-fix.py`.
 * For cases where nodes like `PreviewTextNode` from `ComfyUI_Custom_Nodes_AlekPet` are only supported as front-end nodes, we currently do not provide missing nodes for them.
 * Currently, `vid2vid` is not being updated, causing compatibility issues.
+* If you encounter the error message `Overlapped Object has pending operation at deallocation on Comfyui Manager load` under Windows
+  * Edit `config.ini` file: add `windows_selector_event_loop_policy = True`
 
 
 ## TODO: Unconventional form of custom node list
@@ -269,6 +290,7 @@ NODE_CLASS_MAPPINGS.update({
 * https://github.com/MockbaTheBorg/Nodes
 * https://github.com/StartHua/Comfyui_GPT_Story
 * https://github.com/NielsGercama/comfyui_customsampling
+* https://github.com/wrightdaniel2017/ComfyUI-VideoLipSync
 
 
 ## Roadmap
