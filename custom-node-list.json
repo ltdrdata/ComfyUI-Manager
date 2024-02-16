@@ -2319,7 +2319,7 @@
         },
         {
             "author": "kijai",
-            "title": "ComfyUI-DiffusersStableCascade",
+            "title": "ComfyUI StableCascade using diffusers",
             "reference": "https://github.com/kijai/ComfyUI-DiffusersStableCascade",
             "files": [
                 "https://github.com/kijai/ComfyUI-DiffusersStableCascade"
@@ -4381,6 +4381,7 @@
             "files": [
                 "https://github.com/MrForExample/ComfyUI-3D-Pack"
             ],
+            "nodename_pattern": "^[Comfy3D]",
             "install_type": "git-clone",
             "description": "An extensive node suite that enables ComfyUI to process 3D inputs (Mesh & UV Texture, etc) using cutting edge algorithms (3DGS, NeRF, etc.)\nNOTE: Pre-built python wheels can be download from [a/https://github.com/remsky/ComfyUI3D-Assorted-Wheels](https://github.com/remsky/ComfyUI3D-Assorted-Wheels)"
         },
@@ -4391,6 +4392,7 @@
             "files": [
                 "https://github.com/MrForExample/ComfyUI-AnimateAnyone-Evolved"
             ],
+            "nodename_pattern": "^[AnimateAnyone]",
             "install_type": "git-clone",
             "description": "Improved AnimateAnyone implementation that allows you to use the opse image sequence and reference image to generate stylized video.\nThe current goal of this project is to achieve desired pose2video result with 1+FPS on GPUs that are equal to or better than RTX 3080!🚀\n[w/The torch environment may be compromised due to version issues as some torch-related packages are being reinstalled.]"
         },
@@ -5214,8 +5216,26 @@
             "install_type": "git-clone",
             "description": "ComfyUI nodes wrapping the [a/deepface](https://github.com/serengil/deepface) library."
         },
-        
-        
+        {
+            "author": "yuvraj108c",
+            "title": "ComfyUI-Pronodes",
+            "reference": "https://github.com/yuvraj108c/ComfyUI-Pronodes",
+            "files": [
+                "https://github.com/yuvraj108c/ComfyUI-Pronodes"
+            ],
+            "install_type": "git-clone",
+            "description": "A collection of nice utility nodes for ComfyUI"
+        },
+        {
+            "author": "ccvv804",
+            "title": "ComfyUI StableCascade using diffusers for Low VRAM",
+            "reference": "https://github.com/ccvv804/ComfyUI-DiffusersStableCascade-LowVRAM",
+            "files": [
+                "https://github.com/ccvv804/ComfyUI-DiffusersStableCascade-LowVRAM"
+            ],
+            "install_type": "git-clone",
+            "description": "Works with RTX 4070ti 12GB.\nSimple quick wrapper for [a/https://huggingface.co/stabilityai/stable-cascade](https://huggingface.co/stabilityai/stable-cascade)\nComfy is going to implement this properly soon, this repo is just for quick testing for the impatient!"
+        },
         
         {
             "author": "Ser-Hilary",
