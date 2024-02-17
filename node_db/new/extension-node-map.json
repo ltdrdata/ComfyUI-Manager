@@ -467,6 +467,7 @@
             "SamplerCustomNoise",
             "SamplerCustomNoiseDuo",
             "SamplerDPMPP_DualSDE_Momentumized",
+            "SamplerEulerAncestralDancing_Experimental",
             "SamplerLCMCustom",
             "SamplerRES_Momentumized",
             "SamplerTTM"
@@ -652,7 +653,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8ImageSizer",
+            "title": "cr8SerialPrompter",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -1015,12 +1016,10 @@
     ],
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
-            "Hook Recenter",
-            "Hook Recenter XL",
             "Normalization",
             "NormalizationXL",
-            "Tensor Debug",
-            "Unhook Recenter"
+            "Recenter",
+            "Recenter XL"
         ],
         {
             "title_aux": "ComfyUI Diffusion Color Grading"
@@ -1658,14 +1657,14 @@
     "https://github.com/MrForExample/ComfyUI-3D-Pack": [
         [],
         {
-            "nodename_pattern": "^[Comfy3D]",
+            "nodename_pattern": "^\\[Comfy3D\\]",
             "title_aux": "ComfyUI-3D-Pack"
         }
     ],
     "https://github.com/MrForExample/ComfyUI-AnimateAnyone-Evolved": [
         [],
         {
-            "nodename_pattern": "^[AnimateAnyone]",
+            "nodename_pattern": "^\\[AnimateAnyone\\]",
             "title_aux": "ComfyUI-AnimateAnyone-Evolved"
         }
     ],
@@ -2561,6 +2560,7 @@
             "tri3d-position-parts-batch",
             "tri3d-recolor-mask",
             "tri3d-recolor-mask-LAB_space",
+            "tri3d-recolor-mask-LAB_space_manual",
             "tri3d-recolor-mask-RGB_space",
             "tri3d-skin-feathered-padded-mask",
             "tri3d-swap-pixels"
@@ -2579,6 +2579,7 @@
     ],
     "https://github.com/Taremin/comfyui-string-tools": [
         [
+            "StringToolsBalancedChoice",
             "StringToolsConcat",
             "StringToolsRandomChoice",
             "StringToolsString",
@@ -3775,7 +3776,8 @@
             "BlehDeepShrink",
             "BlehDiscardPenultimateSigma",
             "BlehHyperTile",
-            "BlehInsaneChainSampler"
+            "BlehInsaneChainSampler",
+            "BlehModelPatchConditional"
         ],
         {
             "title_aux": "ComfyUI-bleh"
@@ -4228,6 +4230,7 @@
             "LayerFilter: SkinBeauty",
             "LayerFilter: SoftLight",
             "LayerFilter: WaterColor",
+            "LayerMask: CreateGradientMask",
             "LayerMask: MaskBoxDetect",
             "LayerMask: MaskByDifferent",
             "LayerMask: MaskEdgeShrink",
@@ -4263,6 +4266,8 @@
             "LayerUtility: ImageOpacity",
             "LayerUtility: ImageScaleRestore",
             "LayerUtility: ImageShift",
+            "LayerUtility: LayerImageTransform",
+            "LayerUtility: LayerMaskTransform",
             "LayerUtility: PrintInfo",
             "LayerUtility: RestoreCropBox",
             "LayerUtility: TextImage",
@@ -4573,6 +4578,8 @@
             "SolidMask",
             "SplitImageWithAlpha",
             "SplitSigmas",
+            "StableCascade_EmptyLatentImage",
+            "StableCascade_StageB_Conditioning",
             "StableZero123_Conditioning",
             "StableZero123_Conditioning_Batched",
             "StyleModelApply",
@@ -7373,6 +7380,7 @@
             "AlphaClean",
             "AlphaMatte",
             "BatchAverageImage",
+            "BatchAverageUnJittered",
             "BatchNormalizeImage",
             "BatchNormalizeLatent",
             "BlurImageFast",
@@ -7386,12 +7394,14 @@
             "GuidedFilterAlpha",
             "ImageConstant",
             "ImageConstantHSV",
+            "JitterImage",
             "Keyer",
             "LatentStats",
             "NormalMapSimple",
             "OffsetLatentImage",
             "RemapRange",
             "Tonemap",
+            "UnJitterImage",
             "UnTonemap"
         ],
         {
@@ -8088,8 +8098,10 @@
             "dynamicThresholdingFull",
             "easy LLLiteLoader",
             "easy XYInputs: CFG Scale",
+            "easy XYInputs: Checkpoint",
             "easy XYInputs: ControlNet",
             "easy XYInputs: Denoise",
+            "easy XYInputs: Lora",
             "easy XYInputs: ModelMergeBlocks",
             "easy XYInputs: NegativeCond",
             "easy XYInputs: NegativeCondList",
@@ -8270,7 +8282,7 @@
     ],
     "https://github.com/yuvraj108c/ComfyUI-Pronodes": [
         [
-            "LoadYoutubeVideo"
+            "LoadYoutubeVideoNode"
         ],
         {
             "title_aux": "ComfyUI-Pronodes"
