@@ -1,6 +1,107 @@
 {
   "models": [
     {
+      "name": "stabilityai/Stable Cascade: stage_a.safetensors (VAE)",
+      "type": "VAE",
+      "base": "Stable Cascade",
+      "save_path": "vae/Stable-Cascade",
+      "description": "[73.7MB] Stable Cascade: stage_a",
+      "reference": "https://huggingface.co/stabilityai/stable-cascade",
+      "filename": "stage_a.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_a.safetensors"
+    },
+    {
+      "name": "stabilityai/Stable Cascade: stage_b.safetensors (UNET)",
+      "type": "unet",
+      "base": "Stable Cascade",
+      "save_path": "unet/Stable-Cascade",
+      "description": "[6.25GB] Stable Cascade: stage_b",
+      "reference": "https://huggingface.co/stabilityai/stable-cascade",
+      "filename": "stage_b.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_b.safetensors"
+    },
+    {
+      "name": "stabilityai/Stable Cascade: stage_b_bf16.safetensors (UNET)",
+      "type": "unet",
+      "base": "Stable Cascade",
+      "save_path": "unet/Stable-Cascade",
+      "description": "[3.13GB] Stable Cascade: stage_b/bf16",
+      "reference": "https://huggingface.co/stabilityai/stable-cascade",
+      "filename": "stage_b_bf16.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_b_bf16.safetensors"
+    },
+    {
+      "name": "stabilityai/Stable Cascade: stage_b_lite.safetensors (UNET)",
+      "type": "unet",
+      "base": "Stable Cascade",
+      "save_path": "unet/Stable-Cascade",
+      "description": "[2.8GB] Stable Cascade: stage_b/lite",
+      "reference": "https://huggingface.co/stabilityai/stable-cascade",
+      "filename": "stage_b_lite.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_b_lite.safetensors"
+    },
+    {
+      "name": "stabilityai/Stable Cascade: stage_b_lite.safetensors (UNET)",
+      "type": "unet",
+      "base": "Stable Cascade",
+      "save_path": "unet/Stable-Cascade",
+      "description": "[1.4GB] Stable Cascade: stage_b/bf16,lite",
+      "reference": "https://huggingface.co/stabilityai/stable-cascade",
+      "filename": "stage_b_lite_bf16.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_b_lite_bf16.safetensors"
+    },
+    {
+      "name": "stabilityai/Stable Cascade: stage_c.safetensors (UNET)",
+      "type": "unet",
+      "base": "Stable Cascade",
+      "save_path": "unet/Stable-Cascade",
+      "description": "[14.4GB] Stable Cascade: stage_c",
+      "reference": "https://huggingface.co/stabilityai/stable-cascade",
+      "filename": "stage_c.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_c.safetensors"
+    },
+    {
+      "name": "stabilityai/Stable Cascade: stage_c_bf16.safetensors (UNET)",
+      "type": "unet",
+      "base": "Stable Cascade",
+      "save_path": "unet/Stable-Cascade",
+      "description": "[7.18GB] Stable Cascade: stage_c/bf16",
+      "reference": "https://huggingface.co/stabilityai/stable-cascade",
+      "filename": "stage_c_bf16.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_c_bf16.safetensors"
+    },
+    {
+      "name": "stabilityai/Stable Cascade: stage_c_lite.safetensors (UNET)",
+      "type": "unet",
+      "base": "Stable Cascade",
+      "save_path": "unet/Stable-Cascade",
+      "description": "[4.12GB] Stable Cascade: stage_c/lite",
+      "reference": "https://huggingface.co/stabilityai/stable-cascade",
+      "filename": "stage_c_lite.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_c_lite.safetensors"
+    },
+    {
+      "name": "stabilityai/Stable Cascade: stage_c_lite.safetensors (UNET)",
+      "type": "unet",
+      "base": "Stable Cascade",
+      "save_path": "unet/Stable-Cascade",
+      "description": "[2.06GB] Stable Cascade: stage_c/bf16,lite",
+      "reference": "https://huggingface.co/stabilityai/stable-cascade",
+      "filename": "stage_c_lite_bf16.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_c_lite_bf16.safetensors"
+    },
+    {
+      "name": "stabilityai/Stable Cascade: text_encoder (CLIP)",
+      "type": "clip",
+      "base": "Stable Cascade",
+      "save_path": "clip/Stable-Cascade",
+      "description": "[1.39GB] Stable Cascade: text_encoder",
+      "reference": "https://huggingface.co/stabilityai/stable-cascade",
+      "filename": "model.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/text_encoder/model.safetensors"
+    },
+
+    {
       "name": "1k3d68.onnx",
       "type": "insightface",
       "base": "inswapper",
