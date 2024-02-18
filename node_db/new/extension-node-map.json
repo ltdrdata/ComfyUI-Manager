@@ -2243,6 +2243,14 @@
             "title_aux": "Comfyui_joytag"
         }
     ],
+    "https://github.com/StartHua/Comfyui_segformer_b2_clothes": [
+        [
+            "segformer_b2_clothes"
+        ],
+        {
+            "title_aux": "comfyui_segformer_b2_clothes"
+        }
+    ],
     "https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes": [
         [
             "CR 8 Channel In",
@@ -3293,6 +3301,7 @@
             "abyz22_ImpactWildcardEncode_GetPrompt",
             "abyz22_Ksampler",
             "abyz22_Padding Image",
+            "abyz22_RemoveControlnet",
             "abyz22_SaveImage",
             "abyz22_SetQueue",
             "abyz22_ToBasicPipe",
@@ -3783,6 +3792,19 @@
             "title_aux": "ComfyUI-bleh"
         }
     ],
+    "https://github.com/blepping/ComfyUI-sonar": [
+        [
+            "NoisyLatentLike",
+            "SamplerSonarDPMPPSDE",
+            "SamplerSonarEuler",
+            "SamplerSonarEulerA",
+            "SonarCustomNoise",
+            "SonarGuidanceConfig"
+        ],
+        {
+            "title_aux": "ComfyUI-sonar"
+        }
+    ],
     "https://github.com/bmad4ever/comfyui_ab_samplercustom": [
         [
             "AB SamplerCustom (experimental)"
@@ -4040,14 +4062,6 @@
         ],
         {
             "title_aux": "Image loader with subfolders"
-        }
-    ],
-    "https://github.com/ccvv804/ComfyUI-DiffusersStableCascade-LowVRAM": [
-        [
-            "DiffusersStableCascade"
-        ],
-        {
-            "title_aux": "ComfyUI StableCascade using diffusers for Low VRAM"
         }
     ],
     "https://github.com/celsojr2013/comfyui_simpletools/raw/main/google_translator.py": [
@@ -4551,6 +4565,7 @@
             "ModelMergeSubtract",
             "ModelSamplingContinuousEDM",
             "ModelSamplingDiscrete",
+            "ModelSamplingStableCascade",
             "PatchModelAddDownscale",
             "PerpNeg",
             "PhotoMakerEncode",
@@ -4718,7 +4733,9 @@
             "MaskFromColor+",
             "MaskPreview+",
             "ModelCompile+",
+            "NoiseFromImage~",
             "RemBGSession+",
+            "RemoveLatentMask+",
             "SDXLEmptyLatentSizePicker+",
             "SimpleMath+",
             "TransitionMask+"
@@ -5720,14 +5737,6 @@
             "title_aux": "ComfyUI-DDColor"
         }
     ],
-    "https://github.com/kijai/ComfyUI-DiffusersStableCascade": [
-        [
-            "DiffusersStableCascade"
-        ],
-        {
-            "title_aux": "ComfyUI StableCascade using diffusers"
-        }
-    ],
     "https://github.com/kijai/ComfyUI-KJNodes": [
         [
             "AddLabel",
@@ -5756,6 +5765,7 @@
             "CreateVoronoiMask",
             "CrossFadeImages",
             "DummyLatentOut",
+            "EffnetEncode",
             "EmptyLatentImagePresets",
             "FilterZeroMasksAndCorrespondingImages",
             "FlipSigmasAdjusted",
@@ -7379,6 +7389,7 @@
             "AdainLatent",
             "AlphaClean",
             "AlphaMatte",
+            "BatchAlign",
             "BatchAverageImage",
             "BatchAverageUnJittered",
             "BatchNormalizeImage",
@@ -8115,6 +8126,7 @@
             "easy XYPlotAdvanced",
             "easy a1111Loader",
             "easy boolean",
+            "easy cascadeLoader",
             "easy cleanGpuUsed",
             "easy comfyLoader",
             "easy compare",
@@ -8162,6 +8174,7 @@
             "easy preDetailerFix",
             "easy preSampling",
             "easy preSamplingAdvanced",
+            "easy preSamplingCascade",
             "easy preSamplingDynamicCFG",
             "easy preSamplingSdTurbo",
             "easy promptList",
