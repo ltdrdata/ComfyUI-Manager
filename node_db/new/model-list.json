@@ -1,6 +1,26 @@
 {
   "models": [
     {
+      "name": "stabilityai/comfyui_checkpoints/stable_cascade_stage_b.safetensors",
+      "type": "checkpoints",
+      "base": "Stable Cascade",
+      "save_path": "checkpoints/Stable-Cascade",
+      "description": "[4.55GB] Stable Cascade stage_b checkpoints",
+      "reference": "https://huggingface.co/stabilityai/stable-cascade",
+      "filename": "stable_cascade_stage_b.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/comfyui_checkpoints/stable_cascade_stage_b.safetensors"
+    },
+    {
+      "name": "stabilityai/comfyui_checkpoints/stable_cascade_stage_c.safetensors",
+      "type": "checkpoints",
+      "base": "Stable Cascade",
+      "save_path": "checkpoints/Stable-Cascade",
+      "description": "[9.22GB] Stable Cascade stage_c checkpoints",
+      "reference": "https://huggingface.co/stabilityai/stable-cascade",
+      "filename": "stable_cascade_stage_c.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/comfyui_checkpoints/stable_cascade_stage_c.safetensors"
+    },
+    {
       "name": "stabilityai/Stable Cascade: effnet_encoder.safetensors (VAE)",
       "type": "VAE",
       "base": "Stable Cascade",
@@ -670,150 +690,6 @@
       "reference": "https://huggingface.co/guoyww/animatediff",
       "filename": "v2_lora_ZoomOut.ckpt",
       "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v2_lora_ZoomOut.ckpt"
-    },
-
-    {
-      "name": "CiaraRowles/TemporalNet1XL (1.0)",
-      "type": "controlnet",
-      "base": "SD1.5",
-      "save_path": "controlnet/TemporalNet1XL",
-      "description": "This is TemporalNet1XL, it is a re-train of the controlnet TemporalNet1 with Stable Diffusion XL.",
-      "reference": "https://huggingface.co/CiaraRowles/controlnet-temporalnet-sdxl-1.0",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/CiaraRowles/controlnet-temporalnet-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors"
-    },
-
-    {
-      "name": "LCM LoRA SD1.5",
-      "type": "lora",
-      "base": "SD1.5",
-      "save_path": "loras/lcm/SD1.5",
-      "description": "Latent Consistency LoRA for SD1.5",
-      "reference": "https://huggingface.co/latent-consistency/lcm-lora-sdv1-5",
-      "filename": "pytorch_lora_weights.safetensors",
-      "url": "https://huggingface.co/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors"
-    },
-    {
-      "name": "LCM LoRA SSD-1B",
-      "type": "lora",
-      "base": "SSD-1B",
-      "save_path": "loras/lcm/SSD-1B",
-      "description": "Latent Consistency LoRA for SSD-1B",
-      "reference": "https://huggingface.co/latent-consistency/lcm-lora-ssd-1b",
-      "filename": "pytorch_lora_weights.safetensors",
-      "url": "https://huggingface.co/latent-consistency/lcm-lora-ssd-1b/resolve/main/pytorch_lora_weights.safetensors"
-    },
-    {
-      "name": "LCM LoRA SDXL",
-      "type": "lora",
-      "base": "SSD-1B",
-      "save_path": "loras/lcm/SDXL",
-      "description": "Latent Consistency LoRA for SDXL",
-      "reference": "https://huggingface.co/latent-consistency/lcm-lora-sdxl",
-      "filename": "pytorch_lora_weights.safetensors",
-      "url": "https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors"
-    },
-
-    {
-      "name": "face_yolov8m-seg_60.pt (segm)",
-      "type": "Ultralytics",
-      "base": "Ultralytics",
-      "save_path": "ultralytics/segm",
-      "description": "These are the available models in the UltralyticsDetectorProvider of Impact Pack.",
-      "reference": "https://github.com/hben35096/assets/releases/tag/yolo8",
-      "filename": "face_yolov8m-seg_60.pt",
-      "url": "https://github.com/hben35096/assets/releases/download/yolo8/face_yolov8m-seg_60.pt"
-    },
-    {
-      "name": "face_yolov8n-seg2_60.pt (segm)",
-      "type": "Ultralytics",
-      "base": "Ultralytics",
-      "save_path": "ultralytics/segm",
-      "description": "These are the available models in the UltralyticsDetectorProvider of Impact Pack.",
-      "reference": "https://github.com/hben35096/assets/releases/tag/yolo8",
-      "filename": "face_yolov8n-seg2_60.pt",
-      "url": "https://github.com/hben35096/assets/releases/download/yolo8/face_yolov8n-seg2_60.pt"
-    },
-    {
-      "name": "hair_yolov8n-seg_60.pt (segm)",
-      "type": "Ultralytics",
-      "base": "Ultralytics",
-      "save_path": "ultralytics/segm",
-      "description": "These are the available models in the UltralyticsDetectorProvider of Impact Pack.",
-      "reference": "https://github.com/hben35096/assets/releases/tag/yolo8",
-      "filename": "hair_yolov8n-seg_60.pt",
-      "url": "https://github.com/hben35096/assets/releases/download/yolo8/hair_yolov8n-seg_60.pt"
-    },
-    {
-      "name": "skin_yolov8m-seg_400.pt (segm)",
-      "type": "Ultralytics",
-      "base": "Ultralytics",
-      "save_path": "ultralytics/segm",
-      "description": "These are the available models in the UltralyticsDetectorProvider of Impact Pack.",
-      "reference": "https://github.com/hben35096/assets/releases/tag/yolo8",
-      "filename": "skin_yolov8m-seg_400.pt",
-      "url": "https://github.com/hben35096/assets/releases/download/yolo8/skin_yolov8m-seg_400.pt"
-    },
-    {
-      "name": "skin_yolov8n-seg_400.pt (segm)",
-      "type": "Ultralytics",
-      "base": "Ultralytics",
-      "save_path": "ultralytics/segm",
-      "description": "These are the available models in the UltralyticsDetectorProvider of Impact Pack.",
-      "reference": "https://github.com/hben35096/assets/releases/tag/yolo8",
-      "filename": "skin_yolov8n-seg_400.pt",
-      "url": "https://github.com/hben35096/assets/releases/download/yolo8/skin_yolov8n-seg_400.pt"
-    },
-    {
-      "name": "skin_yolov8n-seg_800.pt (segm)",
-      "type": "Ultralytics",
-      "base": "Ultralytics",
-      "save_path": "ultralytics/segm",
-      "description": "These are the available models in the UltralyticsDetectorProvider of Impact Pack.",
-      "reference": "https://github.com/hben35096/assets/releases/tag/yolo8",
-      "filename": "skin_yolov8n-seg_800.pt",
-      "url": "https://github.com/hben35096/assets/releases/download/yolo8/skin_yolov8n-seg_800.pt"
-    },
-
-    {
-      "name": "CiaraRowles/temporaldiff-v1-animatediff.ckpt (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "animatediff",
-      "base": "SD1.x",
-      "save_path": "animatediff_models",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/CiaraRowles/TemporalDiff",
-      "filename": "temporaldiff-v1-animatediff.ckpt",
-      "url": "https://huggingface.co/CiaraRowles/TemporalDiff/resolve/main/temporaldiff-v1-animatediff.ckpt"
-    },
-    {
-      "name": "animatediff/mm_sd_v15_v2.ckpt (ComfyUI-AnimateDiff-Evolved)",
-      "type": "animatediff",
-      "base": "SD1.x",
-      "save_path": "custom_nodes/ComfyUI-AnimateDiff-Evolved/models",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "mm_sd_v15_v2.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v15_v2.ckpt"
-    },
-    {
-      "name": "AD_Stabilized_Motion/mm-Stabilized_high.pth (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "animatediff",
-      "base": "SD1.x",
-      "save_path": "animatediff_models",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/manshoety/AD_Stabilized_Motion",
-      "filename": "mm-Stabilized_high.pth",
-      "url": "https://huggingface.co/manshoety/AD_Stabilized_Motion/resolve/main/mm-Stabilized_high.pth"
-    },
-    {
-      "name": "AD_Stabilized_Motion/mm-Stabilized_mid.pth (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "animatediff",
-      "base": "SD1.x",
-      "save_path": "animatediff_models",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/manshoety/AD_Stabilized_Motion",
-      "filename": "mm-Stabilized_mid.pth",
-      "url": "https://huggingface.co/manshoety/AD_Stabilized_Motion/resolve/main/mm-Stabilized_mid.pth"
     }
   ]
 }

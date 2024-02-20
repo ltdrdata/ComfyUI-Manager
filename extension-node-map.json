@@ -516,6 +516,7 @@
             "PrimereModelKeyword",
             "PrimereNetworkTagLoader",
             "PrimerePrompt",
+            "PrimerePromptOrganizer",
             "PrimerePromptSwitch",
             "PrimereRefinerPrompt",
             "PrimereResolution",
@@ -2026,8 +2027,10 @@
     ],
     "https://github.com/SOELexicon/ComfyUI-LexTools": [
         [
+            "AesthetlcScoreSorter",
             "AgeClassifierNode",
             "ArtOrHumanClassifierNode",
+            "CalculateAestheticScore",
             "DocumentClassificationNode",
             "FoodCategoryClassifierNode",
             "ImageAspectPadNode",
@@ -2037,6 +2040,7 @@
             "ImageQualityScoreNode",
             "ImageRankingNode",
             "ImageScaleToMin",
+            "LoadAesteticModel",
             "MD5ImageHashNode",
             "SamplerPropertiesNode",
             "ScoreConverterNode",
@@ -2555,6 +2559,7 @@
     ],
     "https://github.com/TRI3D-LC/tri3d-comfyui-nodes": [
         [
+            "tri3d-HistogramEqualization",
             "tri3d-adjust-neck",
             "tri3d-atr-parse",
             "tri3d-atr-parse-batch",
@@ -3228,6 +3233,16 @@
         ],
         {
             "title_aux": "ComfyUI-Text_Image-Composite [WIP]"
+        }
+    ],
+    "https://github.com/ZHO-ZHO-ZHO/ComfyUI-YoloWorld-EfficientSAM": [
+        [
+            "ESAM_ModelLoader_Zho",
+            "Yoloworld_ESAM_Zho",
+            "Yoloworld_ModelLoader_Zho"
+        ],
+        {
+            "title_aux": "ComfyUI YoloWorld-EfficientSAM"
         }
     ],
     "https://github.com/ZHO-ZHO-ZHO/comfyui-portrait-master-zh-cn": [
@@ -4288,6 +4303,7 @@
             "LayerUtility: ImageChannelSplit",
             "LayerUtility: ImageMaskScaleAs",
             "LayerUtility: ImageOpacity",
+            "LayerUtility: ImageScaleByAspectRatio",
             "LayerUtility: ImageScaleRestore",
             "LayerUtility: ImageShift",
             "LayerUtility: LayerImageTransform",
@@ -4605,6 +4621,7 @@
             "SplitSigmas",
             "StableCascade_EmptyLatentImage",
             "StableCascade_StageB_Conditioning",
+            "StableCascade_StageC_VAEEncode",
             "StableZero123_Conditioning",
             "StableZero123_Conditioning_Batched",
             "StyleModelApply",
@@ -4694,6 +4711,7 @@
     "https://github.com/cubiq/ComfyUI_InstantID": [
         [
             "ApplyInstantID",
+            "ApplyInstantIDAdvanced",
             "FaceKeypointsPreprocessor",
             "InstantIDFaceAnalysis",
             "InstantIDModelLoader"
@@ -5173,6 +5191,7 @@
             "FEImagePadForOutpaintByImage",
             "FEOperatorIf",
             "FEPythonStrOp",
+            "FERandomBool",
             "FERandomLoraSelect",
             "FERandomPrompt",
             "FERandomizedColor2Image",
@@ -5180,6 +5199,7 @@
             "FERerouteWithName",
             "FESaveEncryptImage",
             "FETextCombine",
+            "FETextCombine2Any",
             "FETextInput"
         ],
         {
@@ -5373,6 +5393,7 @@
     ],
     "https://github.com/gokayfem/ComfyUI_VLM_nodes": [
         [
+            "Internlm",
             "Joytag",
             "JsonToText",
             "KeywordExtraction",
@@ -5731,6 +5752,22 @@
         ],
         {
             "title_aux": "Knodes"
+        }
+    ],
+    "https://github.com/kijai/ComfyUI-ADMotionDirector": [
+        [
+            "ADMD_AdditionalModelSelect",
+            "ADMD_CheckpointLoader",
+            "ADMD_DiffusersLoader",
+            "ADMD_InitializeTraining",
+            "ADMD_LoadLora",
+            "ADMD_SaveLora",
+            "ADMD_TrainLora",
+            "ADMD_ValidationSampler",
+            "ADMD_ValidationSettings"
+        ],
+        {
+            "title_aux": "Animatediff MotionLoRA Trainer"
         }
     ],
     "https://github.com/kijai/ComfyUI-CCSR": [
@@ -6136,6 +6173,7 @@
             "ImpactRemoteInt",
             "ImpactSEGSClassify",
             "ImpactSEGSConcat",
+            "ImpactSEGSLabelAssign",
             "ImpactSEGSLabelFilter",
             "ImpactSEGSOrderedFilter",
             "ImpactSEGSPicker",
@@ -6310,6 +6348,7 @@
             "RetrieveBackendDataNumberKey //Inspire",
             "SeedExplorer //Inspire",
             "ShowCachedInfo //Inspire",
+            "StableCascade_CheckpointLoader //Inspire",
             "TilePreprocessor_Provider_for_SEGS //Inspire",
             "ToIPAdapterPipe //Inspire",
             "UnzipPrompt //Inspire",
@@ -6630,6 +6669,14 @@
         ],
         {
             "title_aux": "ComfyUI-PromptUtilities"
+        }
+    ],
+    "https://github.com/nkchocoai/ComfyUI-SaveImageWithMetaData": [
+        [
+            "SaveImageWithMetaData"
+        ],
+        {
+            "title_aux": "ComfyUI-SaveImageWithMetaData"
         }
     ],
     "https://github.com/nkchocoai/ComfyUI-SizeFromPresets": [
@@ -8150,6 +8197,7 @@
             "easy XYPlotAdvanced",
             "easy a1111Loader",
             "easy boolean",
+            "easy cascadeKSampler",
             "easy cascadeLoader",
             "easy cleanGpuUsed",
             "easy comfyLoader",
@@ -8160,6 +8208,7 @@
             "easy detailerFix",
             "easy float",
             "easy fooocusInpaintLoader",
+            "easy fullCascadeKSampler",
             "easy fullLoader",
             "easy fullkSampler",
             "easy globalSeed",
@@ -8323,6 +8372,14 @@
         ],
         {
             "title_aux": "ComfyUI-Pronodes"
+        }
+    ],
+    "https://github.com/yuvraj108c/ComfyUI-Vsgan": [
+        [
+            "UpscaleVideoTrtNode"
+        ],
+        {
+            "title_aux": "ComfyUI-Vsgan"
         }
     ],
     "https://github.com/yuvraj108c/ComfyUI-Whisper": [
