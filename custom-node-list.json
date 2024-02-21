@@ -915,6 +915,16 @@
             "description": "Native [a/InstantID](https://github.com/InstantID/InstantID) support for ComfyUI.\nThis extension differs from the many already available as it doesn't use diffusers but instead implements InstantID natively and it fully integrates with ComfyUI.\nPlease note this still could be considered beta stage, looking forward to your feedback."
         },
         {
+            "author": "cubiq",
+            "title": "Face Analysis for ComfyUI",
+            "reference": "https://github.com/cubiq/ComfyUI_FaceAnalysis",
+            "files": [
+                "https://github.com/cubiq/ComfyUI_FaceAnalysis"
+            ],
+            "install_type": "git-clone",
+            "description": "This extension uses [a/DLib](http://dlib.net/) to calculate the Euclidean and Cosine distance between two faces.\nNOTE: Install the Shape Predictor, Face Recognition model from the Install models menu."
+        },
+        {
             "author": "shockz0rz",
             "title": "InterpolateEverything",
             "reference": "https://github.com/shockz0rz/ComfyUI_InterpolateEverything",
@@ -3218,7 +3228,7 @@
                 "https://github.com/ZHO-ZHO-ZHO/ComfyUI-YoloWorld-EfficientSAM"
             ],
             "install_type": "git-clone",
-            "description": "Unofficial implementation of [a/YOLO-World + EfficientSAM](https://huggingface.co/spaces/SkalskiP/YOLO-World) & [a/YOLO-World](https://github.com/AILab-CVC/YOLO-World) for ComfyUI"
+            "description": "Unofficial implementation of [a/YOLO-World + EfficientSAM](https://huggingface.co/spaces/SkalskiP/YOLO-World) & [a/YOLO-World](https://github.com/AILab-CVC/YOLO-World) for ComfyUI\nNOTE: Install the efficient_sam model from the Install models menu."
         },
         {
             "author": "kenjiqq",
@@ -5286,8 +5296,37 @@
             "install_type": "git-clone",
             "description": "Nodes:Upscale Video Tensorrt"
         },
-
-
+        {
+            "author": "yytdfc",
+            "title": "Amazon Bedrock nodes for ComfyUI",
+            "reference": "https://github.com/yytdfc/ComfyUI-Bedrock",
+            "files": [
+                "https://github.com/yytdfc/ComfyUI-Bedrock"
+            ],
+            "pip": ["boto3"],
+            "install_type": "git-clone",
+            "description": "Amazon Bedrock is a fully managed service that offers a choice of high-performing foundation models (FMs) from leading AI companies. This repo is the ComfyUI nodes for Bedrock service. You could invoke the foundation model in your ComfyUI pipeline."
+        },
+        {
+            "author": "mirabarukaso",
+            "title": "ComfyUI_Mira",
+            "reference": "https://github.com/mirabarukaso/ComfyUI_Mira",
+            "files": [
+                "https://github.com/mirabarukaso/ComfyUI_Mira"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Integer Multiplier, Float Multiplier, Convert Numeral to String, Create Canvas Advanced, Create Canvas, Create PNG Mask, Color Mask to HEX String, Color Mask to INT RGB, Color Masks to List"
+        },
+        {
+            "author": "1038lab",
+            "title": "ComfyUI-GPT2P",
+            "reference": "https://github.com/1038lab/ComfyUI-GPT2P",
+            "files": [
+                "https://github.com/1038lab/ComfyUI-GPT2P"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI Node - Hugging Face repositories GTP2 Prompt"
+        },
         
         {
             "author": "Ser-Hilary",
