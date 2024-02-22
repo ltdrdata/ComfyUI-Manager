@@ -1,6 +1,37 @@
 {
   "models": [
     {
+      "name": "SDXL Lightning LoRA (2step)",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/SDXL-Lightning",
+      "description": "SDXL Lightning LoRA (2step)",
+      "reference": "https://huggingface.co/ByteDance/SDXL-Lightning",
+      "filename": "sdxl_lightning_2step_lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_2step_lora.safetensors"
+    },
+    {
+      "name": "SDXL Lightning LoRA (4step)",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/SDXL-Lightning",
+      "description": "SDXL Lightning LoRA (4step)",
+      "reference": "https://huggingface.co/ByteDance/SDXL-Lightning",
+      "filename": "sdxl_lightning_4step_lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_4step_lora.safetensors"
+    },
+    {
+      "name": "SDXL Lightning LoRA (8step)",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/SDXL-Lightning",
+      "description": "SDXL Lightning LoRA (8tep)",
+      "reference": "https://huggingface.co/ByteDance/SDXL-Lightning",
+      "filename": "sdxl_lightning_8step_lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_8step_lora.safetensors"
+    },
+
+    {
       "name": "shape_predictor_68_face_landmarks.dat [Face Analysis]",
       "type": "Shape Predictor",
       "base": "DLIB",
@@ -641,97 +672,6 @@
       "reference": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt",
       "filename": "svd_xt.safetensors",
       "url": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt/resolve/main/svd_xt.safetensors"
-    },
-    
-    {
-      "name": "animatediff/mm_sdxl_v10_beta.ckpt (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "animatediff",
-      "base": "SDXL",
-      "save_path": "animatediff_models",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "mm_sdxl_v10_beta.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/mm_sdxl_v10_beta.ckpt"
-    },
-    {
-      "name": "animatediff/v2_lora_PanLeft.ckpt (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "motion lora",
-      "base": "SD1.x",
-      "save_path": "animatediff_motion_lora",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "v2_lora_PanLeft.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v2_lora_PanLeft.ckpt"
-    },
-    {
-      "name": "animatediff/v2_lora_PanRight.ckpt (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "motion lora",
-      "base": "SD1.x",
-      "save_path": "animatediff_motion_lora",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "v2_lora_PanRight.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v2_lora_PanRight.ckpt"
-    },
-    {
-      "name": "animatediff/v2_lora_RollingAnticlockwise.ckpt (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "motion lora",
-      "base": "SD1.x",
-      "save_path": "animatediff_motion_lora",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "v2_lora_RollingAnticlockwise.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v2_lora_RollingAnticlockwise.ckpt"
-    },
-    {
-      "name": "animatediff/v2_lora_RollingClockwise.ckpt (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "motion lora",
-      "base": "SD1.x",
-      "save_path": "animatediff_motion_lora",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "v2_lora_RollingClockwise.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v2_lora_RollingClockwise.ckpt"
-    },
-    {
-      "name": "animatediff/v2_lora_TiltDown.ckpt (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "motion lora",
-      "base": "SD1.x",
-      "save_path": "animatediff_motion_lora",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "v2_lora_TiltDown.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v2_lora_TiltDown.ckpt"
-    },
-    {
-      "name": "animatediff/v2_lora_TiltUp.ckpt (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "motion lora",
-      "base": "SD1.x",
-      "save_path": "animatediff_motion_lora",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "v2_lora_TiltUp.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v2_lora_TiltUp.ckpt"
-    },
-    {
-      "name": "animatediff/v2_lora_ZoomIn.ckpt (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "motion lora",
-      "base": "SD1.x",
-      "save_path": "animatediff_motion_lora",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "v2_lora_ZoomIn.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v2_lora_ZoomIn.ckpt"
-    },
-    {
-      "name": "animatediff/v2_lora_ZoomOut.ckpt (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "motion lora",
-      "base": "SD1.x",
-      "save_path": "animatediff_motion_lora",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "v2_lora_ZoomOut.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v2_lora_ZoomOut.ckpt"
     }
   ]
 }
