@@ -664,7 +664,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8ImageSizer",
+            "title": "cr8SerialPrompter",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -1035,12 +1035,10 @@
     ],
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
-            "Hook Recenter",
-            "Hook Recenter XL",
             "Normalization",
             "NormalizationXL",
-            "Tensor Debug",
-            "Unhook Recenter"
+            "Recenter",
+            "Recenter XL"
         ],
         {
             "title_aux": "ComfyUI Diffusion Color Grading"
@@ -5426,6 +5424,7 @@
             "Joytag",
             "JsonToText",
             "KeywordExtraction",
+            "Kosmos2model",
             "LLMLoader",
             "LLMPromptGenerator",
             "LLMSampler",
@@ -5438,6 +5437,7 @@
             "PromptGenerateAPI",
             "SimpleText",
             "Suggester",
+            "UformGen2QwenNode",
             "ViewText"
         ],
         {
@@ -5946,6 +5946,14 @@
             "title_aux": "TiledIPAdapter"
         }
     ],
+    "https://github.com/klinter007/klinter_nodes": [
+        [
+            "concat_klinter"
+        ],
+        {
+            "title_aux": "Klinter_nodes"
+        }
+    ],
     "https://github.com/knuknX/ComfyUI-Image-Tools": [
         [
             "BatchImagePathLoader",
@@ -6180,6 +6188,7 @@
             "ImpactGaussianBlurMask",
             "ImpactGaussianBlurMaskInSEGS",
             "ImpactHFTransformersClassifierProvider",
+            "ImpactIPAdapterApplySEGS",
             "ImpactIfNone",
             "ImpactImageBatchToImageList",
             "ImpactImageInfo",
@@ -6615,14 +6624,25 @@
             "CanvasCreatorAdvanced",
             "CanvasCreatorBasic",
             "CanvasCreatorSimple",
-            "ColorMasksToMaskList",
-            "ColorMasksToRGB",
-            "ColorMasksToString",
-            "ColorMasksToStringList",
-            "CreateRegionalMask",
+            "CreateRegionalPNGMask",
             "FloatMultiplier",
+            "FourBooleanTrigger",
+            "FourFloats",
             "IntMultiplier",
-            "NumeralToString"
+            "NumeralToString",
+            "PngColorMasksToMaskList",
+            "PngColorMasksToRGB",
+            "PngColorMasksToString",
+            "PngColorMasksToStringList",
+            "PngRectanglesToMask",
+            "PngRectanglesToMaskList",
+            "SingleBooleanTrigger",
+            "SixBooleanTrigger",
+            "SixFloats",
+            "TextBox",
+            "TextWithBooleanSwitchAndCommonTextInput",
+            "TwoBooleanTrigger",
+            "TwoFloats"
         ],
         {
             "title_aux": "ComfyUI_Mira"
@@ -7513,6 +7533,7 @@
             "BatchAverageUnJittered",
             "BatchNormalizeImage",
             "BatchNormalizeLatent",
+            "BetterFilmGrain",
             "BlurImageFast",
             "BlurMaskFast",
             "ClampOutliers",
