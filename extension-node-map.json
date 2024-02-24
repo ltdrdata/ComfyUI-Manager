@@ -247,6 +247,15 @@
             "title_aux": "AnimateDiff"
         }
     ],
+    "https://github.com/AuroBit/ComfyUI-OOTDiffusion": [
+        [
+            "LoadOOTDPipeline",
+            "OOTDGenerate"
+        ],
+        {
+            "title_aux": "ComfyUI OOTDiffusion"
+        }
+    ],
     "https://github.com/AustinMroz/ComfyUI-SpliceTools": [
         [
             "LogSigmas",
@@ -316,6 +325,7 @@
     ],
     "https://github.com/BennyKok/comfyui-deploy": [
         [
+            "ComfyDeployWebscoketImageOutput",
             "ComfyUIDeployExternalCheckpoint",
             "ComfyUIDeployExternalImage",
             "ComfyUIDeployExternalImageAlpha",
@@ -672,7 +682,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8ImageSizer",
+            "title": "cr8SerialPrompter",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -718,8 +728,7 @@
     ],
     "https://github.com/Extraltodeus/ComfyUI-AutomaticCFG": [
         [
-            "Automatic CFG",
-            "Automatic CFG channels multipliers"
+            "Automatic CFG"
         ],
         {
             "title_aux": "ComfyUI-AutomaticCFG"
@@ -1051,12 +1060,10 @@
     ],
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
-            "Hook Recenter",
-            "Hook Recenter XL",
             "Normalization",
             "NormalizationXL",
-            "Tensor Debug",
-            "Unhook Recenter"
+            "Recenter",
+            "Recenter XL"
         ],
         {
             "title_aux": "ComfyUI Diffusion Color Grading"
@@ -4826,6 +4833,18 @@
             "title_aux": "ComfyUI Essentials"
         }
     ],
+    "https://github.com/czcz1024/Comfyui-FaceCompare": [
+        [
+            "FaceCompare"
+        ],
+        {
+            "author": "czcz1024",
+            "description": "Face Compare",
+            "nickname": "Face Compare",
+            "title": "Face Compare",
+            "title_aux": "Comfyui-FaceCompare"
+        }
+    ],
     "https://github.com/dagthomas/comfyui_dagthomas": [
         [
             "CSL",
@@ -5892,6 +5911,7 @@
             "ImageGrabPIL",
             "ImageGridComposite2x2",
             "ImageGridComposite3x3",
+            "ImageNormalize_Neg1_To_1",
             "ImageTransformByNormalizedAmplitude",
             "ImageUpscaleWithModelBatched",
             "InjectNoiseToLatent",
@@ -6138,7 +6158,15 @@
             "LoadInstanceScaleUNode"
         ],
         {
-            "title_aux": "ComfyUI-InstanceDiffusion"
+            "title_aux": "InstanceDiffusion Nodes"
+        }
+    ],
+    "https://github.com/logtd/ComfyUI-TrackingNodes": [
+        [
+            "YOLOTrackerNode"
+        ],
+        {
+            "title_aux": "Tracking Nodes for Videos"
         }
     ],
     "https://github.com/longgui0318/comfyui-mask-util": [
@@ -7592,6 +7620,7 @@
             "LatentStats",
             "NormalMapSimple",
             "OffsetLatentImage",
+            "RelightSimple",
             "RemapRange",
             "ShuffleChannels",
             "Tonemap",
@@ -8488,6 +8517,7 @@
     ],
     "https://github.com/yuvraj108c/ComfyUI-Vsgan": [
         [
+            "DepthAnythingTrtNode",
             "UpscaleVideoTrtNode"
         ],
         {
