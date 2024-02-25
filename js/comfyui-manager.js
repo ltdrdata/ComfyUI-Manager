@@ -624,12 +624,12 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 			}
 
 			app.ui.dialog.show(
-				"ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button class='cm-small-button' id='cm-reboot-button'>RESTART</button> ComfyUI. And refresh browser.<BR>"
+				"ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button class='cm-small-button' id='cm-reboot-button5'>RESTART</button> ComfyUI. And refresh browser.<BR>"
 				+failed_list
 				+updated_list
 				);
 
-			const rebootButton = document.getElementById('cm-reboot-button');
+			const rebootButton = document.getElementById('cm-reboot-button5');
 			rebootButton.addEventListener("click",
 				function() {
 					if(rebootAPI()) {
@@ -1052,7 +1052,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					onclick: (e) => {
 						const last_visited_site = localStorage.getItem("wg_last_visited")
 						if (!!last_visited_site) {
-							window.open(last_visited_site, "comfyui-workflow-gallery");
+							window.open(last_visited_site, last_visited_site);
 						} else {
 							this.handleWorkflowGalleryButtonClick(e)
 						}
@@ -1179,7 +1179,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					callback: () => {
 						const url = "https://openart.ai/workflows/dev";
 						localStorage.setItem("wg_last_visited", url);
-						window.open(url, "comfyui-workflow-gallery");
+						window.open(url, url);
 						modifyButtonStyle(url);
 					},
 				},
@@ -1188,7 +1188,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					callback: () => {
 						const url = "https://youml.com/?from=comfyui-share";
 						localStorage.setItem("wg_last_visited", url);
-						window.open(url, "comfyui-workflow-gallery");
+						window.open(url, url);
 						modifyButtonStyle(url);
 					},
 				},
@@ -1197,7 +1197,16 @@ class ManagerMenuDialog extends ComfyDialog {
 					callback: () => {
 						const url = "https://comfyworkflows.com/";
 						localStorage.setItem("wg_last_visited", url);
-						window.open(url, "comfyui-workflow-gallery");
+						window.open(url, url);
+						modifyButtonStyle(url);
+					},
+				},
+				{
+					title: "Open 'flowt.ai'",
+					callback: () => {
+						const url = "https://flowt.ai/";
+						localStorage.setItem("wg_last_visited", url);
+						window.open(url, url);
 						modifyButtonStyle(url);
 					},
 				},

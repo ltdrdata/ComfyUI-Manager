@@ -8,17 +8,86 @@
             "install_type": "git-clone",
             "description": "If you see this message, your ComfyUI-Manager is outdated.\nDev channel provides only the list of the developing nodes. If you want to find the complete node list, please go to the Default channel."
         },
-        
 
         {
-            "author": "LotzF",
-            "title": "ComfyUI simple ChatGPT completion [UNSAFE]",
-            "reference": "https://github.com/LotzF/ComfyUI-Simple-Chat-GPT-completion",
+            "author": "logtd",
+            "title": "ComfyUI-FLATTEN",
+            "reference": "https://github.com/logtd/ComfyUI-FLATTEN",
             "files": [
-                "https://github.com/LotzF/ComfyUI-Simple-Chat-GPT-completion"
+                "https://github.com/logtd/ComfyUI-FLATTEN"
             ],
             "install_type": "git-clone",
-            "description": "A simple node to request ChatGPT completions. [w/Do not share your workflows including the API key! I'll take no responsibility for your leaked keys.]"
+            "description": "Load Checkpoint with FLATTEN model, KSampler (Flatten), Unsampler (Flatten), Sample Trajectories"
+        },
+        {
+            "author": "shadowcz007",
+            "title": "comfyui-llamafile [WIP]",
+            "reference": "https://github.com/shadowcz007/comfyui-llamafile",
+            "files": [
+                "https://github.com/shadowcz007/comfyui-llamafile"
+            ],
+            "install_type": "git-clone",
+            "description": "This node is an experimental node aimed at exploring the collaborative way of human-machine creation."
+        },
+        {
+            "author": "gameltb",
+            "title": "ComfyUI paper playground",
+            "reference": "https://github.com/gameltb/ComfyUI_paper_playground",
+            "files": [
+                "https://github.com/gameltb/ComfyUI_paper_playground"
+            ],
+            "install_type": "git-clone",
+            "description": "Evaluate some papers in ComfyUI, just playground.\nNOTE: Various models need to be installed, so please visit the repository to check."
+        },
+        {
+            "author": "huizhang0110",
+            "title": "ComfyUI_Easy_Nodes_hui",
+            "reference": "https://github.com/huizhang0110/ComfyUI_Easy_Nodes_hui",
+            "files": [
+                "https://github.com/huizhang0110/ComfyUI_Easy_Nodes_hui"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:EasyEmptyLatentImage"
+        },
+        {
+            "author": "tuckerdarby",
+            "title": "ComfyUI-TDNodes [WIP]",
+            "reference": "https://github.com/tuckerdarby/ComfyUI-TDNodes",
+            "files": [
+                "https://github.com/tuckerdarby/ComfyUI-TDNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:KSampler (RAVE), KSampler (TF), Object Tracker, KSampler Batched, Video Tracker Prompt, TemporalNet Preprocessor, Instance Tracker Prompt, Instance Diffusion Loader, Hand Tracker Node"
+        },
+        {
+            "author": "shadowcz007",
+            "title": "comfyui-musicgen",
+            "reference": "https://github.com/shadowcz007/comfyui-musicgen",
+            "files": [
+                "https://github.com/shadowcz007/comfyui-musicgen"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Musicgen"
+        },
+        {
+            "author": "Extraltodeus",
+            "title": "ComfyUI-variableCFGandAntiBurn [WIP]",
+            "reference": "https://github.com/Extraltodeus/ComfyUI-variableCFGandAntiBurn",
+            "files": [
+                "https://github.com/Extraltodeus/ComfyUI-variableCFGandAntiBurn"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Continuous CFG rescaler (pre CFG), Intermediary latent merge (post CFG), Intensity/Brightness limiter (post CFG), Dynamic renoising (post CFG), Automatic CFG scale (pre/post CFG), CFG multiplier per channel (pre CFG), Self-Attention Guidance delayed activation mod (post CFG)"
+        },
+        {
+            "author": "shadowcz007",
+            "title": "comfyui-CLIPSeg",
+            "reference": "https://github.com/shadowcz007/comfyui-CLIPSeg",
+            "files": [
+                "https://github.com/shadowcz007/comfyui-CLIPSeg"
+            ],
+            "install_type": "git-clone",
+            "description": "Download [a/CLIPSeg](https://huggingface.co/CIDAS/clipseg-rd64-refined/tree/main), move to : models/clipseg"
         },
         {
             "author": "dezi-ai",
@@ -28,17 +97,47 @@
                 "https://github.com/dezi-ai/ComfyUI-AnimateLCM"
             ],
             "install_type": "git-clone",
-            "description": "Nodes: Configurator for AnimateLCM, Renderer for AnimateLCM to render the video."
+            "description": "ComfyUI implementation for [a/AnimateLCM](https://animatelcm.github.io/) [[a/paper](https://arxiv.org/abs/2402.00769)].\b[w/This extension includes a large number of nodes imported from the existing custom nodes, increasing the likelihood of conflicts.]"
         },
         {
-            "author": "blepping",
-            "title": "ComfyUI-sonar (WIP)",
-            "reference": "https://github.com/blepping/ComfyUI-sonar",
+            "author": "ZHO-ZHO-ZHO",
+            "title": "ComfyUI-BRIA_AI-RMBG",
+            "reference": "https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG",
             "files": [
-                "https://github.com/blepping/ComfyUI-sonar"
+                "https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG"
             ],
             "install_type": "git-clone",
-            "description": "Extremely WIP and untested implementation of Sonar sampling. Currently it may not be even close to working properly. Only supports Euler and Euler Ancestral sampling. See [a/stable-diffusion-webui-sonar](https://github.com/Kahsolt/stable-diffusion-webui-sonar) for a more in-depth explanation."
+            "description": "Unofficial [a/BRIA Background Removal v1.4](https://huggingface.co/briaai/RMBG-1.4) of BRIA RMBG Model for ComfyUI"
+        },
+        {
+            "author": "stutya",
+            "title": "ComfyUI-Terminal [UNSAFE]",
+            "reference": "https://github.com/stutya/ComfyUI-Terminal",
+            "files": [
+                "https://github.com/stutya/ComfyUI-Terminal"
+            ],
+            "install_type": "git-clone",
+            "description": "Run Terminal Commands from ComfyUI.\n[w/This extension poses a risk of executing arbitrary commands through workflow execution. Please be cautious.]"
+        },
+        {
+            "author": "marcueberall",
+            "title": "ComfyUI-BuildPath",
+            "reference": "https://github.com/marcueberall/ComfyUI-BuildPath",
+            "files": [
+                "https://github.com/marcueberall/ComfyUI-BuildPath"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: Build Path Adv."
+        },
+        {
+            "author": "LotzF",
+            "title": "ComfyUI simple ChatGPT completion [UNSAFE]",
+            "reference": "https://github.com/LotzF/ComfyUI-Simple-Chat-GPT-completion",
+            "files": [
+                "https://github.com/LotzF/ComfyUI-Simple-Chat-GPT-completion"
+            ],
+            "install_type": "git-clone",
+            "description": "A simple node to request ChatGPT completions. [w/Do not share your workflows including the API key! I'll take no responsibility for your leaked keys.]"
         },
         {
             "author": "kappa54m",
@@ -129,16 +228,6 @@
             ],
             "install_type": "git-clone",
             "description": "WIP"
-        },
-        {
-            "author": "kadirnar",
-            "title": "ComfyUI-Transformers",
-            "reference": "https://github.com/kadirnar/ComfyUI-Transformers",
-            "files": [
-                "https://github.com/kadirnar/ComfyUI-Transformers"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:DepthEstimation."
         },
         {
             "author": "MrAdamBlack",
