@@ -624,12 +624,12 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 			}
 
 			app.ui.dialog.show(
-				"ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button class='cm-small-button' id='cm-reboot-button'>RESTART</button> ComfyUI. And refresh browser.<BR>"
+				"ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button class='cm-small-button' id='cm-reboot-button5'>RESTART</button> ComfyUI. And refresh browser.<BR>"
 				+failed_list
 				+updated_list
 				);
 
-			const rebootButton = document.getElementById('cm-reboot-button');
+			const rebootButton = document.getElementById('cm-reboot-button5');
 			rebootButton.addEventListener("click",
 				function() {
 					if(rebootAPI()) {
