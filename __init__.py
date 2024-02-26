@@ -29,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 7, 2]
+version = [2, 8]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -777,9 +777,47 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
         print(f"\x1b[2K\rUpdate check done.")
 
 
+def nickname_filter(json_obj):
+    preemptions_map = {}
+
+    for k, x in json_obj.items():
+        if 'preemptions' in x[1]:
+            for y in x[1]['preemptions']:
+                preemptions_map[y] = k
+        elif k.endswith("/ComfyUI"):
+            for y in x[0]:
+                preemptions_map[y] = k
+
+    updates = {}
+    for k, x in json_obj.items():
+        removes = set()
+        for y in x[0]:
+            k2 = preemptions_map.get(y)
+            if k2 is not None and k != k2:
+                removes.add(y)
+
+        if len(removes) > 0:
+            updates[k] = [y for y in x[0] if y not in removes]
+
+    for k, v in updates.items():
+        json_obj[k][0] = v
+
+    return json_obj
+
+
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
 async def fetch_customnode_mappings(request):
-    json_obj = await get_data_by_mode(request.rel_url.query["mode"], 'extension-node-map.json')
+    mode = request.rel_url.query["mode"]
+
+    nickname_mode = False
+    if mode == "nickname":
+        mode = "local"
+        nickname_mode = True
+
+    json_obj = await get_data_by_mode(mode, 'extension-node-map.json')
+
+    if nickname_mode:
+        json_obj = nickname_filter(json_obj)
     
     all_nodes = set()
     patterns = []

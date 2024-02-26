@@ -247,15 +247,6 @@
             "title_aux": "AnimateDiff"
         }
     ],
-    "https://github.com/AuroBit/ComfyUI-OOTDiffusion": [
-        [
-            "LoadOOTDPipeline",
-            "OOTDGenerate"
-        ],
-        {
-            "title_aux": "ComfyUI OOTDiffusion"
-        }
-    ],
     "https://github.com/AustinMroz/ComfyUI-SpliceTools": [
         [
             "LogSigmas",
@@ -682,7 +673,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8SerialPrompter",
+            "title": "cr8ImageSizer",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -1060,10 +1051,12 @@
     ],
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
+            "Hook Recenter",
+            "Hook Recenter XL",
             "Normalization",
             "NormalizationXL",
-            "Recenter",
-            "Recenter XL"
+            "Tensor Debug",
+            "Unhook Recenter"
         ],
         {
             "title_aux": "ComfyUI Diffusion Color Grading"
@@ -2015,6 +2008,7 @@
     ],
     "https://github.com/RomanKuschanow/ComfyUI-Advanced-Latent-Control": [
         [
+            "KSamplerMirroring",
             "LatentMirror",
             "LatentShift"
         ],
@@ -2825,6 +2819,9 @@
             "NNLatentUpscale"
         ],
         {
+            "preemptions": [
+                "NNLatentUpscale"
+            ],
             "title_aux": "ComfyUI Neural Network Latent Upscale"
         }
     ],
@@ -4948,14 +4945,14 @@
     ],
     "https://github.com/davask/ComfyUI-MarasIT-Nodes": [
         [
-            "MarasitBusNode",
             "MarasitAnyBusNode",
+            "MarasitBusNode",
             "MarasitBusPipeNode",
             "MarasitPipeNodeBasic",
             "MarasitUniversalBusNode"
         ],
         {
-            "title_aux": "🐰 MarasIT Nodes"
+            "title_aux": "\ud83d\udc30 MarasIT Nodes"
         }
     ],
     "https://github.com/dave-palt/comfyui_DSP_imagehelpers": [
@@ -5516,6 +5513,7 @@
     ],
     "https://github.com/gokayfem/ComfyUI_VLM_nodes": [
         [
+            "AudioLDM2Node",
             "CreativeArtPromptGenerator",
             "Internlm",
             "Joytag",
@@ -5531,6 +5529,7 @@
             "LLavaSamplerSimple",
             "LlavaClipLoader",
             "MoonDream",
+            "PlayMusic",
             "PromptGenerateAPI",
             "SimpleText",
             "Suggester",

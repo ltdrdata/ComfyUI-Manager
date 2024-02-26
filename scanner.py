@@ -20,6 +20,8 @@ else:
 if not os.path.exists(temp_dir):
     os.makedirs(temp_dir)
 
+skip_update = '--skip-update' in sys.argv
+
 print(f"TEMP DIR: {temp_dir}")
 
 
@@ -159,9 +161,9 @@ def get_git_urls_from_json(json_file):
             if node.get('install_type') == 'git-clone':
                 files = node.get('files', [])
                 if files:
-                    git_clone_files.append((files[0], node.get('title'), node.get('nodename_pattern')))
+                    git_clone_files.append((files[0], node.get('title'), node.get('preemptions'), node.get('nodename_pattern')))
 
-    git_clone_files.append(("https://github.com/comfyanonymous/ComfyUI", "ComfyUI", None))
+    git_clone_files.append(("https://github.com/comfyanonymous/ComfyUI", "ComfyUI", None, None))
 
     return git_clone_files
 
@@ -176,7 +178,7 @@ def get_py_urls_from_json(json_file):
             if node.get('install_type') == 'copy':
                 files = node.get('files', [])
                 if files:
-                    py_files.append((files[0], node.get('title'), node.get('nodename_pattern')))
+                    py_files.append((files[0], node.get('title'), node.get('preemptions'), node.get('nodename_pattern')))
 
     return py_files
 
@@ -208,27 +210,31 @@ def update_custom_nodes():
 
     node_info = {}
 
-    git_url_titles = get_git_urls_from_json('custom-node-list.json')
+    git_url_titles_preemptions = get_git_urls_from_json('custom-node-list.json')
 
-    def process_git_url_title(url, title, node_pattern):
+    def process_git_url_title(url, title, preemptions, node_pattern):
+        if 'Jovimetrix' in title:
+            pass
+
         name = os.path.basename(url)
         if name.endswith(".git"):
             name = name[:-4]
         
-        node_info[name] = (url, title, node_pattern)
-        clone_or_pull_git_repository(url)
+        node_info[name] = (url, title, preemptions, node_pattern)
+        if not skip_update:
+            clone_or_pull_git_repository(url)
 
     with concurrent.futures.ThreadPoolExecutor(10) as executor:
-        for url, title, node_pattern in git_url_titles:
-            executor.submit(process_git_url_title, url, title, node_pattern)
+        for url, title, preemptions, node_pattern in git_url_titles_preemptions:
+            executor.submit(process_git_url_title, url, title, preemptions, node_pattern)
 
     py_url_titles_and_pattern = get_py_urls_from_json('custom-node-list.json')
 
-    def download_and_store_info(url_title_and_pattern):
-        url, title, node_pattern = url_title_and_pattern
+    def download_and_store_info(url_title_preemptions_and_pattern):
+        url, title, preemptions, node_pattern = url_title_preemptions_and_pattern
         name = os.path.basename(url)
         if name.endswith(".py"):
-            node_info[name] = (url, title, node_pattern)
+            node_info[name] = (url, title, preemptions, node_pattern)
 
         try:
             download_url(url, temp_dir)
@@ -262,15 +268,24 @@ def gen_json(node_info):
         
         dirname = os.path.basename(dirname)
 
-        if len(nodes) > 0 or (dirname in node_info and node_info[dirname][2] is not None):
+        if 'Jovimetrix' in dirname:
+            pass
+
+        if len(nodes) > 0 or (dirname in node_info and node_info[dirname][3] is not None):
             nodes = list(nodes)
             nodes.sort()
 
             if dirname in node_info:
-                git_url, title, node_pattern = node_info[dirname]
+                git_url, title, preemptions, node_pattern = node_info[dirname]
+
                 metadata['title_aux'] = title
+
+                if preemptions is not None:
+                    metadata['preemptions'] = preemptions
+
                 if node_pattern is not None:
                     metadata['nodename_pattern'] = node_pattern
+
                 data[git_url] = (nodes, metadata)
             else:
                 print(f"WARN: {dirname} is removed from custom-node-list.json")
@@ -278,17 +293,22 @@ def gen_json(node_info):
     for file in node_files:
         nodes, metadata = scan_in_file(file)
 
-        if len(nodes) > 0 or (dirname in node_info and node_info[dirname][2] is not None):
+        if len(nodes) > 0 or (dirname in node_info and node_info[dirname][3] is not None):
             nodes = list(nodes)
             nodes.sort()
 
             file = os.path.basename(file)
 
             if file in node_info:
-                url, title, node_pattern = node_info[file]
+                url, title, preemptions, node_pattern = node_info[file]
                 metadata['title_aux'] = title
+
+                if preemptions is not None:
+                    metadata['preemptions'] = preemptions
+                
                 if node_pattern is not None:
                     metadata['nodename_pattern'] = node_pattern
+
                 data[url] = (nodes, metadata)
             else:
                 print(f"Missing info: {file}")
@@ -299,7 +319,7 @@ def gen_json(node_info):
     for extension in extensions:
         node_list_json_path = os.path.join(temp_dir, extension, 'node_list.json')
         if os.path.exists(node_list_json_path):
-            git_url, title, node_pattern = node_info[extension]
+            git_url, title, preemptions, node_pattern = node_info[extension]
 
             with open(node_list_json_path, 'r', encoding='utf-8') as f:
                 node_list_json = json.load(f)
@@ -315,8 +335,13 @@ def gen_json(node_info):
                 nodes.add(x.strip())
 
             metadata_in_url['title_aux'] = title
+
+            if preemptions is not None:
+                metadata['preemptions'] = preemptions
+
             if node_pattern is not None:
                 metadata_in_url['nodename_pattern'] = node_pattern
+                
             nodes = list(nodes)
             nodes.sort()
             data[git_url] = (nodes, metadata_in_url)

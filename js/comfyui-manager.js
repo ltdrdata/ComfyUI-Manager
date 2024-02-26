@@ -147,13 +147,13 @@ docStyle.innerHTML = `
 }
 
 .cm-notice-board > ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px;
+	display: block;
+	list-style-type: disc;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	padding-inline-start: 40px;
 }
 
 .cm-conflicted-nodes-text {
@@ -378,7 +378,7 @@ await init_badge_mode();
 await init_share_option();
 
 async function fetchNicknames() {
-	const response1 = await api.fetchApi(`/customnode/getmappings?mode=local`);
+	const response1 = await api.fetchApi(`/customnode/getmappings?mode=nickname`);
 	const mappings = await response1.json();
 
 	let result = {};
