@@ -15,7 +15,11 @@ sys.path.append(glob_path)
 import cm_global
 
 
-message_collapses = []
+def skip_pip_spam(x):
+    return 'Requirement already satisfied:' in x
+
+
+message_collapses = [skip_pip_spam]
 import_failed_extensions = set()
 cm_global.variables['cm.on_revision_detected_handler'] = []
 enable_file_logging = True
