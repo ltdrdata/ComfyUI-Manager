@@ -510,6 +510,7 @@
             "PrimereCKPTLoader",
             "PrimereCLIPEncoder",
             "PrimereClearPrompt",
+            "PrimereConceptDataTuple",
             "PrimereDynamicParser",
             "PrimereEmbedding",
             "PrimereEmbeddingHandler",
@@ -673,7 +674,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8SerialPrompter",
+            "title": "cr8ImageSizer",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -1051,10 +1052,12 @@
     ],
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
+            "Hook Recenter",
+            "Hook Recenter XL",
             "Normalization",
             "NormalizationXL",
-            "Recenter",
-            "Recenter XL"
+            "Tensor Debug",
+            "Unhook Recenter"
         ],
         {
             "title_aux": "ComfyUI Diffusion Color Grading"
@@ -4380,6 +4383,7 @@
             "LayerFilter: ColorMap",
             "LayerFilter: Film",
             "LayerFilter: GaussianBlur",
+            "LayerFilter: LightLeak",
             "LayerFilter: MotionBlur",
             "LayerFilter: Sharp & Soft",
             "LayerFilter: SkinBeauty",
@@ -4838,7 +4842,9 @@
         [
             "ApplyInstantID",
             "ApplyInstantIDAdvanced",
+            "ApplyInstantIDControlNet",
             "FaceKeypointsPreprocessor",
+            "InstantIDAttentionPatch",
             "InstantIDFaceAnalysis",
             "InstantIDModelLoader"
         ],
@@ -6034,6 +6040,7 @@
             "OffsetMask",
             "OffsetMaskByNormalizedAmplitude",
             "ReferenceOnlySimple3",
+            "RemapMaskRange",
             "ReplaceImagesInBatch",
             "ResizeMask",
             "ReverseImageBatch",
@@ -7237,6 +7244,14 @@
         ],
         {
             "title_aux": "ComfyUI WD 1.4 Tagger"
+        }
+    ],
+    "https://github.com/qwixiwp/queuetools": [
+        [
+            "load images (queue tools)"
+        ],
+        {
+            "title_aux": "queuetools"
         }
     ],
     "https://github.com/ramyma/A8R8_ComfyUI_nodes": [
