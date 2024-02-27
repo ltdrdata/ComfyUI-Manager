@@ -29,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 8, 2]
+version = [2, 8, 3]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -447,6 +447,9 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
         # Fetch the latest commits from the remote repository
         repo = git.Repo(path)
 
+        current_branch = repo.active_branch
+        branch_name = current_branch.name
+
         remote_name = 'origin'
         remote = repo.remote(name=remote_name)
 
@@ -460,8 +463,6 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
             if repo.head.is_detached:
                 switch_to_default_branch(repo)
 
-            current_branch = repo.active_branch
-            branch_name = current_branch.name
             remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
 
             if commit_hash == remote_commit_hash:
@@ -1685,7 +1686,7 @@ async def update_comfyui(request):
         current_branch = repo.active_branch
         branch_name = current_branch.name
 
-        remote_name = 'origin'
+        remote_name = current_branch.tracking_branch().remote_name
         remote = repo.remote(name=remote_name)
 
         try:

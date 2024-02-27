@@ -52,7 +52,7 @@ def gitcheck(path, do_fetch=False):
         current_branch = repo.active_branch
         branch_name = current_branch.name
 
-        remote_name = 'origin'
+        remote_name = current_branch.tracking_branch().remote_name
         remote = repo.remote(name=remote_name)
 
         if do_fetch:
@@ -104,7 +104,7 @@ def gitpull(path):
         current_branch = repo.active_branch
         branch_name = current_branch.name
 
-        remote_name = 'origin'
+        remote_name = current_branch.tracking_branch().remote_name
         remote = repo.remote(name=remote_name)
 
         remote.fetch()
