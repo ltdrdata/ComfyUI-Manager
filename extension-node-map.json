@@ -216,8 +216,8 @@
     "https://github.com/Alysondao/Comfyui-Yolov8-JSON": [
         [
             "Apply Yolov8 Model",
-            "Apply Yolov8 Model One Label",
-            "Load Yolov8 Model"
+            "Load Yolov8 Model",
+            "Load Yolov8 Model From Path"
         ],
         {
             "title_aux": "Comfyui-Yolov8-JSON"
@@ -342,6 +342,7 @@
     ],
     "https://github.com/BennyKok/comfyui-deploy": [
         [
+            "ComfyDeployWebscoketImageInput",
             "ComfyDeployWebscoketImageOutput",
             "ComfyUIDeployExternalCheckpoint",
             "ComfyUIDeployExternalImage",
@@ -1603,9 +1604,58 @@
     ],
     "https://github.com/LykosAI/ComfyUI-Inference-Core-Nodes": [
         [
-            "Inference_Core_PromptExpansion"
+            "AIO_Preprocessor",
+            "AnimalPosePreprocessor",
+            "AnimeFace_SemSegPreprocessor",
+            "AnimeLineArtPreprocessor",
+            "BAE-NormalMapPreprocessor",
+            "BinaryPreprocessor",
+            "CannyEdgePreprocessor",
+            "ColorPreprocessor",
+            "DWPreprocessor",
+            "DensePosePreprocessor",
+            "DepthAnythingPreprocessor",
+            "DiffusionEdge_Preprocessor",
+            "FacialPartColoringFromPoseKps",
+            "FakeScribblePreprocessor",
+            "HEDPreprocessor",
+            "HintImageEnchance",
+            "ImageGenResolutionFromImage",
+            "ImageGenResolutionFromLatent",
+            "ImageIntensityDetector",
+            "ImageLuminanceDetector",
+            "InpaintPreprocessor",
+            "LeReS-DepthMapPreprocessor",
+            "LineArtPreprocessor",
+            "LineartStandardPreprocessor",
+            "M-LSDPreprocessor",
+            "Manga2Anime_LineArt_Preprocessor",
+            "MaskOptFlow",
+            "MediaPipe-FaceMeshPreprocessor",
+            "MeshGraphormer-DepthMapPreprocessor",
+            "MiDaS-DepthMapPreprocessor",
+            "MiDaS-NormalMapPreprocessor",
+            "OneFormer-ADE20K-SemSegPreprocessor",
+            "OneFormer-COCO-SemSegPreprocessor",
+            "OpenposePreprocessor",
+            "PiDiNetPreprocessor",
+            "PixelPerfectResolution",
+            "PromptExpansion",
+            "SAMPreprocessor",
+            "SavePoseKpsAsJsonFile",
+            "ScribblePreprocessor",
+            "Scribble_XDoG_Preprocessor",
+            "SemSegPreprocessor",
+            "ShufflePreprocessor",
+            "TEEDPreprocessor",
+            "TilePreprocessor",
+            "UniFormer-SemSegPreprocessor",
+            "Unimatch_OptFlowPreprocessor",
+            "Zoe-DepthMapPreprocessor",
+            "Zoe_DepthAnythingPreprocessor"
         ],
         {
+            "author": "tstandley",
             "title_aux": "ComfyUI Nodes for Inference.Core"
         }
     ],
@@ -1952,6 +2002,7 @@
             "Integer Variable [n-suite]",
             "Llava Clip Loader [n-suite]",
             "LoadFramesFromFolder [n-suite]",
+            "LoadImageFromFolder [n-suite]",
             "LoadVideo [n-suite]",
             "SaveVideo [n-suite]",
             "SetMetadataForSaveVideo [n-suite]",
@@ -2342,6 +2393,14 @@
         ],
         {
             "title_aux": "stability-ComfyUI-nodes"
+        }
+    ],
+    "https://github.com/StartHua/ComfyUI_OOTDiffusion_CXH": [
+        [
+            "Ood_hd_CXH"
+        ],
+        {
+            "title_aux": "ComfyUI_OOTDiffusion_CXH"
         }
     ],
     "https://github.com/StartHua/ComfyUI_Seg_VITON": [
@@ -6998,6 +7057,8 @@
             "StepsAndCfg",
             "StepsAndCfgAndWH",
             "TextBox",
+            "TextCombinerSix",
+            "TextCombinerTwo",
             "TextWithBooleanSwitchAndCommonTextInput",
             "TwoBooleanTrigger",
             "TwoFloats"
@@ -8688,6 +8749,7 @@
             "easy imageSizeBySide",
             "easy imageSwitch",
             "easy imageToMask",
+            "easy instantIDApply",
             "easy int",
             "easy isSDXL",
             "easy joinImageBatch",
