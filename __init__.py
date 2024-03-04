@@ -29,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 8, 3]
+version = [2, 9]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -178,6 +178,7 @@ def write_config():
         'component_policy': get_config()['component_policy'],
         'double_click_policy': get_config()['double_click_policy'],
         'windows_selector_event_loop_policy': get_config()['windows_selector_event_loop_policy'],
+        'model_download_by_agent': get_config()['model_download_by_agent']
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -201,6 +202,7 @@ def read_config():
                     'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
                     'double_click_policy': default_conf['double_click_policy'] if 'double_click_policy' in default_conf else 'copy-all',
                     'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else False,
+                    'model_download_by_agent': default_conf['model_download_by_agent'] if 'model_download_by_agent' in default_conf else False,
                }
 
     except Exception:
@@ -215,7 +217,8 @@ def read_config():
             'default_ui': 'none',
             'component_policy': 'workflow',
             'double_click_policy': 'copy-all',
-            'windows_selector_event_loop_policy': False
+            'windows_selector_event_loop_policy': False,
+            'model_download_by_agent': False,
         }
 
 
@@ -1755,8 +1758,7 @@ async def install_model(request):
             print(f"Install model '{json_data['name']}' into '{model_path}'")
 
             model_url = json_data['url']
-
-            if model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de'):
+            if not get_config()['model_download_by_agent'] and (model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de')):
                 model_dir = get_model_dir(json_data)
                 download_url(model_url, model_dir, filename=json_data['filename'])
                 
