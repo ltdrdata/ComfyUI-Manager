@@ -62,6 +62,7 @@
             "EG_TSCMB_GL",
             "EG_TX_CCHQ",
             "EG_TX_CJPJ",
+            "EG_TX_JZRY",
             "EG_TX_LJBC",
             "EG_WB_KSH",
             "EG_WXZ_QH",
@@ -101,7 +102,9 @@
     ],
     "https://github.com/438443467/ComfyUI-GPT4V-Image-Captioner": [
         [
-            "GPT4VCaptioner"
+            "GPT4VCaptioner",
+            "Samin Counter",
+            "Samin Load Image Batch"
         ],
         {
             "title_aux": "ComfyUI-GPT4V-Image-Captioner"
@@ -325,6 +328,18 @@
         ],
         {
             "title_aux": "SpliceTools"
+        }
+    ],
+    "https://github.com/BXYMartin/ComfyUI-InstantIDUtils": [
+        [
+            "ListOfImages",
+            "MultiControlNetConverter",
+            "NHWC2NCHWTensor",
+            "NHWCTensor2PIL",
+            "PIL2NHWCTensor"
+        ],
+        {
+            "title_aux": "Comfyui-ergouzi-Nodes"
         }
     ],
     "https://github.com/BadCafeCode/masquerade-nodes-comfyui": [
@@ -1228,6 +1243,14 @@
         ],
         {
             "title_aux": "Ranbooru for ComfyUI"
+        }
+    ],
+    "https://github.com/IsItDanOrAi/ComfyUI-Stereopsis/raw/main/Dan%20Frame%20Delay.py": [
+        [
+            "Dan_FrameDelay"
+        ],
+        {
+            "title_aux": "ComfyUI-Stereopsis"
         }
     ],
     "https://github.com/JPS-GER/ComfyUI_JPS-Nodes": [
@@ -2159,8 +2182,13 @@
     "https://github.com/RomanKuschanow/ComfyUI-Advanced-Latent-Control": [
         [
             "KSamplerMirroring",
+            "KSamplerMirroringApart",
             "LatentMirror",
-            "LatentShift"
+            "LatentShift",
+            "MirrorTransform",
+            "MultiplyTransform",
+            "ShiftTransform",
+            "TransformsCombine"
         ],
         {
             "title_aux": "Advanced Latent Control"
@@ -2198,16 +2226,17 @@
             "title_aux": "comfyui_face_parsing"
         }
     ],
-    "https://github.com/Ryuukeisyou/comfyui_image_io_helpers": [
+    "https://github.com/Ryuukeisyou/comfyui_io_helpers": [
         [
-            "ImageLoadAsMaskByPath(ImageIOHelpers)",
-            "ImageLoadByPath(ImageIOHelpers)",
-            "ImageLoadFromBase64(ImageIOHelpers)",
-            "ImageSaveAsBase64(ImageIOHelpers)",
-            "ImageSaveToPath(ImageIOHelpers)"
+            "ImageLoadAsMaskByPath(IOHelpers)",
+            "ImageLoadByPath(IOHelpers)",
+            "ImageLoadFromBase64(IOHelpers)",
+            "ImageSaveAsBase64(IOHelpers)",
+            "ImageSaveToPath(IOHelpers)",
+            "TypeConversion(IOHelpers)"
         ],
         {
-            "title_aux": "comfyui_image_io_helpers"
+            "title_aux": "comfyui_io_helpers"
         }
     ],
     "https://github.com/SLAPaper/ComfyUI-Image-Selector": [
@@ -2444,7 +2473,7 @@
     ],
     "https://github.com/StartHua/ComfyUI_OOTDiffusion_CXH": [
         [
-            "Ood_hd_CXH"
+            "Ood_CXH"
         ],
         {
             "title_aux": "ComfyUI_OOTDiffusion_CXH"
@@ -4653,6 +4682,7 @@
             "LayerUtility: PrintInfo",
             "LayerUtility: PromptTagger",
             "LayerUtility: RestoreCropBox",
+            "LayerUtility: SimpleTextImage",
             "LayerUtility: TextImage",
             "LayerUtility: XY to Percent"
         ],
@@ -4938,6 +4968,7 @@
             "ModelSamplingContinuousEDM",
             "ModelSamplingDiscrete",
             "ModelSamplingStableCascade",
+            "Morphology",
             "PatchModelAddDownscale",
             "PerpNeg",
             "PhotoMakerEncode",
@@ -5711,6 +5742,25 @@
             "title_aux": "ComfyUI_GMIC"
         }
     ],
+    "https://github.com/get-salt-AI/SaltAI": [
+        [
+            "OPAC",
+            "OPAC2Floats",
+            "OPACList2ExecList",
+            "OPACListVariance",
+            "OPACPerlinSettings",
+            "OPACTransformImages",
+            "OPCSLayerExtractor",
+            "OPCScheduler",
+            "ParallaxMotion",
+            "SaltAIStableVideoDiffusion",
+            "SaltInput",
+            "SaltOutput"
+        ],
+        {
+            "title_aux": "SaltAI-Open-Resources"
+        }
+    ],
     "https://github.com/giriss/comfy-image-saver": [
         [
             "Cfg Literal",
@@ -6386,7 +6436,9 @@
     ],
     "https://github.com/klinter007/klinter_nodes": [
         [
-            "concat_klinter"
+            "PresentString",
+            "concat_klinter",
+            "whitelist"
         ],
         {
             "title_aux": "Klinter_nodes"
@@ -6765,6 +6817,8 @@
             "SEGSRangeFilterDetailerHookProvider",
             "SEGSSwitch",
             "SEGSToImageList",
+            "SEGSUpscaler",
+            "SEGSUpscalerPipe",
             "SegmDetectorCombined",
             "SegmDetectorCombined_v2",
             "SegmDetectorForEach",
@@ -7774,6 +7828,7 @@
             "LoadImagesFromPath",
             "LoadImagesFromURL",
             "LoraNames_",
+            "LoraPrompt",
             "MergeLayers",
             "MirroredImage",
             "MultiplicationNode",
@@ -7802,6 +7857,7 @@
             "TESTNODE_TOKEN",
             "TextImage",
             "TextInput_",
+            "TextSplitByDelimiter",
             "TextToNumber",
             "TransparentImage",
             "VAEDecodeConsistencyDecoder",
@@ -8841,6 +8897,7 @@
             "easy latentNoisy",
             "easy loraStack",
             "easy negative",
+            "easy pipeEdit",
             "easy pipeIn",
             "easy pipeOut",
             "easy pipeToBasicPipe",
