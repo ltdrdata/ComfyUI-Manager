@@ -1,6 +1,36 @@
 {
   "models": [
     {
+      "name": "BLIP ImageCaption (COCO) w/ ViT-B and CapFilt-L",
+      "type": "BLIP_MODEL",
+      "base": "blip_model",
+      "save_path": "blip",
+      "description": "BLIP ImageCaption (COCO) w/ ViT-B and CapFilt-L",
+      "reference": "https://github.com/salesforce/BLIP",
+      "filename": "model_base_capfilt_large.pth",
+      "url": "https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base_capfilt_large.pth"
+    },
+    {
+      "name": "GroundingDINO SwinT OGC - Model",
+      "type": "GroundingDINO",
+      "base": "DINO",
+      "save_path": "groundingdino",
+      "description": "GroundingDINO SwinT OGC Model",
+      "reference": "https://huggingface.co/ShilongLiu/GroundingDINO",
+      "filename": "groundingdino_swint_ogc.pth",
+      "url": "https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth"
+    },
+    {
+      "name": "GroundingDINO SwinT OGC - CFG File",
+      "type": "GroundingDINO",
+      "base": "DINO",
+      "save_path": "groundingdino",
+      "description": "GroundingDINO SwinT OGC CFG File",
+      "reference": "https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py",
+      "filename": "GroundingDINO_SwinT_OGC.cfg.py",
+      "url": "https://huggingface.co/ShilongLiu/GroundingDINO/raw/main/GroundingDINO_SwinT_OGC.cfg.py"
+    },
+    {
       "name": "SDXL Lightning LoRA (2step)",
       "type": "lora",
       "base": "SDXL",
@@ -662,16 +692,6 @@
       "reference": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid",
       "filename": "svd.safetensors",
       "url": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid/resolve/main/svd.safetensors"
-    },
-    {
-      "name": "Stable Video Diffusion Image-to-Video (XT)",
-      "type": "checkpoints",
-      "base": "SVD",
-      "save_path": "checkpoints/SVD",
-      "description": "Stable Video Diffusion (SVD) Image-to-Video is a diffusion model that takes in a still image as a conditioning frame, and generates a video from it.\nNOTE: 25 frames @ 576x1024 ",
-      "reference": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt",
-      "filename": "svd_xt.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt/resolve/main/svd_xt.safetensors"
     }
   ]
 }
