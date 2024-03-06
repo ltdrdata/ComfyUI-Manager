@@ -43,13 +43,16 @@
             "EG-YSZT-ZT",
             "EG_CPSYTJ",
             "EG_FX_BDAPI",
+            "EG_HT_YSTZ",
             "EG_JF_ZZSC",
             "EG_JXFZ_node",
+            "EG_RY_HT",
             "EG_SCQY_BHDQY",
             "EG_SCQY_QBQY",
             "EG_SCQY_SXQY",
             "EG_SJ",
             "EG_SJPJ_Node",
+            "EG_SZ_JDYS",
             "EG_TC_Node",
             "EG_TSCDS_CJ",
             "EG_TSCDS_DG",
@@ -63,12 +66,15 @@
             "EG_TX_CCHQ",
             "EG_TX_CJPJ",
             "EG_TX_JZRY",
+            "EG_TX_LJ",
             "EG_TX_LJBC",
+            "EG_TX_WHLJ",
             "EG_WB_KSH",
             "EG_WXZ_QH",
             "EG_XZ_QH",
             "EG_YSQY_BBLLD",
             "EG_YSQY_BLLD",
+            "EG_ZZHBCJ",
             "EG_ZZKZ_HT_node",
             "EG_ZZ_BSYH",
             "EG_ZZ_BYYH",
@@ -779,7 +785,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8ImageSizer",
+            "title": "cr8SerialPrompter",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -1158,12 +1164,10 @@
     ],
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
-            "Hook Recenter",
-            "Hook Recenter XL",
             "Normalization",
             "NormalizationXL",
-            "Tensor Debug",
-            "Unhook Recenter"
+            "Recenter",
+            "Recenter XL"
         ],
         {
             "title_aux": "ComfyUI Diffusion Color Grading"
@@ -4023,6 +4027,7 @@
             "Batch Load Images",
             "Batch Resize Image for SDXL",
             "Checkpoint Loader Simple Mikey",
+            "CheckpointHash",
             "CinematicLook",
             "Empty Latent Ratio Custom SDXL",
             "Empty Latent Ratio Select SDXL",
@@ -4047,6 +4052,7 @@
             "Mikey Sampler Tiled Base Only",
             "MikeySamplerTiledAdvanced",
             "MikeySamplerTiledAdvancedBaseOnly",
+            "MosaicExpandImage",
             "OobaPrompt",
             "PresetRatioSelector",
             "Prompt With SDXL",
@@ -4430,6 +4436,14 @@
             "title_aux": "Image loader with subfolders"
         }
     ],
+    "https://github.com/cdb-boop/comfyui-image-round": [
+        [
+            "ImageRound"
+        ],
+        {
+            "title_aux": "comfyui-image-round"
+        }
+    ],
     "https://github.com/celsojr2013/comfyui_simpletools/raw/main/google_translator.py": [
         [
             "GoogleTranslator"
@@ -4608,6 +4622,15 @@
         ],
         {
             "title_aux": "ComfyUI-RAFT"
+        }
+    ],
+    "https://github.com/chaojie/ComfyUI-dust3r": [
+        [
+            "Dust3rLoader",
+            "Dust3rRun"
+        ],
+        {
+            "title_aux": "ComfyUI-dust3r"
         }
     ],
     "https://github.com/chflame163/ComfyUI_LayerStyle": [
@@ -5490,13 +5513,13 @@
             "Eden_Float",
             "Eden_Int",
             "Eden_String",
-            "Filepicker",
             "IMG_blender",
             "IMG_padder",
             "IMG_scaler",
             "IMG_unpadder",
             "If ANY execute A else B",
             "LatentTypeConversion",
+            "LoadRandomImage",
             "SaveImageAdvanced",
             "VAEDecode_to_folder"
         ],
@@ -5670,6 +5693,16 @@
             "title_aux": "ComfyUI-Flowty-LDSR"
         }
     ],
+    "https://github.com/flowtyone/ComfyUI-Flowty-TripoSR": [
+        [
+            "TripoSRModelLoader",
+            "TripoSRSampler",
+            "TripoSRViewer"
+        ],
+        {
+            "title_aux": "ComfyUI-Flowty-TripoSR"
+        }
+    ],
     "https://github.com/flyingshutter/As_ComfyUI_CustomNodes": [
         [
             "BatchIndex_AS",
@@ -5835,6 +5868,7 @@
             "LlavaClipLoader",
             "MCLLaVAModel",
             "MoonDream",
+            "Moondream2model",
             "PlayMusic",
             "PromptGenerateAPI",
             "SaveAudioNode",
@@ -6584,15 +6618,27 @@
         [
             "Base64ToImage",
             "Base64ToMask",
+            "ColorPicker",
+            "GetImageBatchSize",
             "ImageToBase64",
             "ImageToBase64Advanced",
+            "InsightFaceBBOXDetect",
+            "IntToList",
+            "IntToNumber",
+            "JoinList",
+            "ListMerge",
             "LoadImageFromURL",
             "LoadImageToBase64",
             "LoadMaskFromURL",
             "MaskImageToBase64",
             "MaskToBase64",
             "MaskToBase64Image",
-            "SamAutoMaskSEGS"
+            "SamAutoMaskSEGS",
+            "ShowFloat",
+            "ShowInt",
+            "ShowNumber",
+            "ShowString",
+            "StringToList"
         ],
         {
             "title_aux": "comfyui-easyapi-nodes"
@@ -9060,9 +9106,6 @@
             "Bedrock - Claude",
             "Bedrock - SDXL",
             "Bedrock - Titan Image",
-            "Image From S3",
-            "Image From URL",
-            "Image To S3",
             "Prompt Regex Remove",
             "Prompt Template"
         ],
