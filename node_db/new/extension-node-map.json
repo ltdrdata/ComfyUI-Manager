@@ -52,6 +52,7 @@
             "EG_SCQY_SXQY",
             "EG_SJ",
             "EG_SJPJ_Node",
+            "EG_SS_RYZH",
             "EG_SZ_JDYS",
             "EG_TC_Node",
             "EG_TSCDS_CJ",
@@ -63,6 +64,7 @@
             "EG_TSCDS_WP",
             "EG_TSCDS_ZL",
             "EG_TSCMB_GL",
+            "EG_TXZZ_ZH",
             "EG_TX_CCHQ",
             "EG_TX_CJPJ",
             "EG_TX_JZRY",
@@ -74,6 +76,7 @@
             "EG_XZ_QH",
             "EG_YSQY_BBLLD",
             "EG_YSQY_BLLD",
+            "EG_ZY_WBK",
             "EG_ZZHBCJ",
             "EG_ZZKZ_HT_node",
             "EG_ZZ_BSYH",
@@ -785,7 +788,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8SerialPrompter",
+            "title": "cr8ImageSizer",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -1164,10 +1167,12 @@
     ],
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
+            "Hook Recenter",
+            "Hook Recenter XL",
             "Normalization",
             "NormalizationXL",
-            "Recenter",
-            "Recenter XL"
+            "Tensor Debug",
+            "Unhook Recenter"
         ],
         {
             "title_aux": "ComfyUI Diffusion Color Grading"
@@ -2094,6 +2099,7 @@
             "Crop Center with SEGS",
             "Dilate Mask for Each Face",
             "GW Number Formatting",
+            "Grid Image from batch (OFF)",
             "Image Crop Fit",
             "Image Resize Fit",
             "OFF SEGS to Image",
@@ -4439,7 +4445,9 @@
     ],
     "https://github.com/cdb-boop/comfyui-image-round": [
         [
-            "ImageRound"
+            "ComfyUI_Image_Round__ImageCropAdvanced",
+            "ComfyUI_Image_Round__ImageRound",
+            "ComfyUI_Image_Round__ImageRoundAdvanced"
         ],
         {
             "title_aux": "comfyui-image-round"
@@ -4681,6 +4689,7 @@
             "LayerUtility: ColorImage V2",
             "LayerUtility: ColorPicker",
             "LayerUtility: CropByMask",
+            "LayerUtility: CropByMask V2",
             "LayerUtility: ExtendCanvas",
             "LayerUtility: GetColorTone",
             "LayerUtility: GetImageSize",
@@ -5023,6 +5032,7 @@
             "StableCascade_EmptyLatentImage",
             "StableCascade_StageB_Conditioning",
             "StableCascade_StageC_VAEEncode",
+            "StableCascade_SuperResolutionControlnet",
             "StableZero123_Conditioning",
             "StableZero123_Conditioning_Batched",
             "StyleModelApply",
@@ -5089,6 +5099,16 @@
         ],
         {
             "title_aux": "ComfyQR-scanning-nodes"
+        }
+    ],
+    "https://github.com/cozymantis/human-parser-comfyui-node": [
+        [
+            "Cozy Human Parser ATR",
+            "Cozy Human Parser LIP",
+            "Cozy Human Parser Pascal"
+        ],
+        {
+            "title_aux": "Cozy Human Parser"
         }
     ],
     "https://github.com/cubiq/ComfyUI_FaceAnalysis": [
@@ -5319,6 +5339,15 @@
             "nickname": "CLIP with BREAK",
             "title": "CLIP with BREAK syntax",
             "title_aux": "comfyui-clip-with-break"
+        }
+    ],
+    "https://github.com/dfl/comfyui-tcd-scheduler": [
+        [
+            "SamplerTCD",
+            "TCDScheduler"
+        ],
+        {
+            "title_aux": "ComfyUI-TCD-scheduler"
         }
     ],
     "https://github.com/digitaljohn/comfyui-propost": [
@@ -5813,6 +5842,7 @@
     ],
     "https://github.com/glibsonoran/Plush-for-ComfyUI": [
         [
+            "AdvPromptEnhancer",
             "DalleImage",
             "Enhancer",
             "ImgTextSwitch",
@@ -6472,6 +6502,9 @@
     "https://github.com/klinter007/klinter_nodes": [
         [
             "PresentString",
+            "SingleString",
+            "SizeSelector",
+            "concat",
             "concat_klinter",
             "whitelist"
         ],
@@ -6569,6 +6602,14 @@
             "title_aux": "LoRA-Merger-ComfyUI"
         }
     ],
+    "https://github.com/laksjdjf/LoRTnoC-ComfyUI": [
+        [
+            "LortnocLoader"
+        ],
+        {
+            "title_aux": "LoRTnoC-ComfyUI"
+        }
+    ],
     "https://github.com/laksjdjf/attention-couple-ComfyUI": [
         [
             "Attention couple"
@@ -6597,7 +6638,11 @@
     ],
     "https://github.com/leoleelxh/ComfyUI-LLMs": [
         [
-            "\ud83d\udc35 ComfyUI-LLMs"
+            "\ud83d\uddbc\ufe0f LLMs_Vison_Ali",
+            "\ud83d\uddbc\ufe0f LLMs_Vison_GLM4",
+            "\ud83d\uddbc\ufe0f LLMs_Vison_Gemini",
+            "\ud83d\ude00 LLMs_Chat",
+            "\ud83d\ude00 LLMs_Chat_GLM4_Only"
         ],
         {
             "title_aux": "ComfyUI-LLMs"
@@ -6613,6 +6658,17 @@
         ],
         {
             "title_aux": "simple wildcard for ComfyUI"
+        }
+    ],
+    "https://github.com/ljleb/comfy-mecha": [
+        [
+            "Blocks Mecha Hyper",
+            "Custom Code Mecha Recipe",
+            "Mecha Merger",
+            "Model Mecha Recipe"
+        ],
+        {
+            "title_aux": "comfy-mecha"
         }
     ],
     "https://github.com/lldacing/comfyui-easyapi-nodes": [
@@ -7185,6 +7241,27 @@
         {
             "nodename_pattern": "\\(mtb\\)$",
             "title_aux": "MTB Nodes"
+        }
+    ],
+    "https://github.com/meshmesh-io/mm-comfyui-loopback": [
+        [
+            "Loop",
+            "LoopEnd",
+            "LoopEnd_SEGIMAGE",
+            "LoopStart",
+            "LoopStart_SEGIMAGE"
+        ],
+        {
+            "title_aux": "mm-comfyui-loopback"
+        }
+    ],
+    "https://github.com/meshmesh-io/mm-comfyui-megamask": [
+        [
+            "ColorListMaskToImage",
+            "FlattenAndCombineMaskImages"
+        ],
+        {
+            "title_aux": "mm-comfyui-megamask"
         }
     ],
     "https://github.com/mihaiiancu/ComfyUI_Inpaint": [
@@ -8635,6 +8712,14 @@
             "title_aux": "Simple Wildcard"
         }
     ],
+    "https://github.com/victorchall/comfyui_webcamcapture": [
+        [
+            "WebcamCapture"
+        ],
+        {
+            "title_aux": "Comfyui Webcam capture node"
+        }
+    ],
     "https://github.com/vienteck/ComfyUI-Chat-GPT-Integration": [
         [
             "ChatGptPrompt"
@@ -8649,6 +8734,16 @@
         ],
         {
             "title_aux": "comfyui-psd2png"
+        }
+    ],
+    "https://github.com/vivax3794/ComfyUI-Vivax-Nodes": [
+        [
+            "Any String",
+            "Inspect",
+            "Model From URL"
+        ],
+        {
+            "title_aux": "ComfyUI-Vivax-Nodes"
         }
     ],
     "https://github.com/wallish77/wlsh_nodes": [
@@ -8966,6 +9061,7 @@
             "easy showAnything",
             "easy showLoaderSettingsNames",
             "easy showSpentTime",
+            "easy showTensorShape",
             "easy string",
             "easy stylesSelector",
             "easy svdLoader",
@@ -9107,6 +9203,9 @@
             "Bedrock - Claude",
             "Bedrock - SDXL",
             "Bedrock - Titan Image",
+            "Image From S3",
+            "Image From URL",
+            "Image To S3",
             "Prompt Regex Remove",
             "Prompt Template"
         ],

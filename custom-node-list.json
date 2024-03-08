@@ -1720,6 +1720,16 @@
             "description": "This extension node is intended for the use of LCM conversion for SSD-1B-anime. It does not guarantee operation with the original LCM (as it cannot load weights in the current version). To take advantage of fast generation with LCM, a node for using TAESD as a decoder is also provided. This is inspired by ComfyUI-OtherVAEs."
         },
         {
+            "author": "laksjdjf",
+            "title": "LoRTnoC-ComfyUI",
+            "reference": "https://github.com/laksjdjf/LoRTnoC-ComfyUI",
+            "files": [
+                "https://github.com/laksjdjf/LoRTnoC-ComfyUI"
+            ],
+            "install_type": "git-clone",
+            "description": "This is a repository for using LoRTnoC (LoRA with hint block of ControlNet) on ComfyUI.\nNOTE:Please place the model file in the same location as controlnet. (Is this too arbitrary?)"
+        },
+        {
             "author": "alsritter",
             "title": "asymmetric-tiling-comfyui",
             "reference": "https://github.com/alsritter/asymmetric-tiling-comfyui",
@@ -2568,6 +2578,16 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:Word Cloud, Load Text File"
+        },
+        {
+            "author": "chflame163",
+            "title": "ComfyUI Layer Style",
+            "reference": "https://github.com/chflame163/ComfyUI_LayerStyle",
+            "files": [
+                "https://github.com/chflame163/ComfyUI_LayerStyle"
+            ],
+            "install_type": "git-clone",
+            "description": "A set of nodes for ComfyUI it generate image like Adobe Photoshop's Layer Style. the Drop Shadow is first completed node, and follow-up work is in progress."
         },
         {
             "author": "drustan-hawk",
@@ -4769,16 +4789,6 @@
             "description": "A pony prompt helper extension for AUTOMATIC1111's Stable Diffusion Web UI and ComfyUI that utilizes the full power of your favorite booru query syntax. Currently supports [a/Derpibooru](https://derpibooru/org) and [a/E621](https://e621.net/)."
         },
         {
-            "author": "chflame163",
-            "title": "ComfyUI Layer Style",
-            "reference": "https://github.com/chflame163/ComfyUI_LayerStyle",
-            "files": [
-                "https://github.com/chflame163/ComfyUI_LayerStyle"
-            ],
-            "install_type": "git-clone",
-            "description": "A set of nodes for ComfyUI it generate image like Adobe Photoshop's Layer Style. the Drop Shadow is first completed node, and follow-up work is in progress."
-        },
-        {
             "author": "dave-palt",
             "title": "comfyui_DSP_imagehelpers",
             "reference": "https://github.com/dave-palt/comfyui_DSP_imagehelpers",
@@ -5207,6 +5217,16 @@
             ],
             "install_type": "git-clone",
             "description": "Clip text encoder with BREAK formatting like A1111 (uses conditioning concat)"
+        },
+        {
+            "author": "dfl",
+            "title": "ComfyUI-TCD-scheduler",
+            "reference": "https://github.com/dfl/comfyui-tcd-scheduler",
+            "files": [
+                "https://github.com/dfl/comfyui-tcd-scheduler"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI Custom Sampler nodes that implement Zheng et al.'s Trajectory Consistency Distillation based on [a/https://mhh0318.github.io/tcd](https://mhh0318.github.io/tcd)"
         },
         {
             "author": "MarkoCa1",
@@ -5778,6 +5798,66 @@
             "install_type": "git-clone",
             "description": "A version of ComfyUI-to-Python-Extension that works as a custom node. Adds a button in the UI that saves the current workflow as a Python file, a CLI for converting workflows, and slightly better custom node support."
         },
+        {
+            "author": "meshmesh-io",
+            "title": "mm-comfyui-megamask",
+            "reference": "https://github.com/meshmesh-io/mm-comfyui-megamask",
+            "files": [
+                "https://github.com/meshmesh-io/mm-comfyui-megamask"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:ColorListMaskToImage, FlattenAndCombineMaskImages"
+        },
+        {
+            "author": "meshmesh-io",
+            "title": "mm-comfyui-loopback",
+            "reference": "https://github.com/meshmesh-io/mm-comfyui-loopback",
+            "files": [
+                "https://github.com/meshmesh-io/mm-comfyui-loopback"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Loop, LoopStart, LoopEnd, LoopStart_SEGIMAGE, LoopEnd_SEGIMAGE"
+        },
+        {
+            "author": "cozymantis",
+            "title": "Cozy Human Parser",
+            "reference": "https://github.com/cozymantis/human-parser-comfyui-node",
+            "files": [
+                "https://github.com/cozymantis/human-parser-comfyui-node"
+            ],
+            "install_type": "git-clone",
+            "description": "Simple ComfyUI nodes to generate masks for specific body parts and clothes or fashion items. Runs on CPU and CUDA. Made with 💚 by the CozyMantis squad."
+        },
+        {
+            "author": "vivax3794",
+            "title": "ComfyUI-Vivax-Nodes",
+            "reference": "https://github.com/vivax3794/ComfyUI-Vivax-Nodes",
+            "files": [
+                "https://github.com/vivax3794/ComfyUI-Vivax-Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Inspect, Any String, Model From URL"
+        },
+        {
+            "author": "victorchall",
+            "title": "Comfyui Webcam capture node",
+            "reference": "https://github.com/victorchall/comfyui_webcamcapture",
+            "files": [
+                "https://github.com/victorchall/comfyui_webcamcapture"
+            ],
+            "install_type": "git-clone",
+            "description": "This node captures images one at a time from your webcam when you click generate.\nThis is particular useful for img2img or controlnet workflows.\nNOTE:This node will take over your webcam, so if you have another program using it, you may need to close that program first. Likewise, you may need to close Comfyui or close the workflow to release the webcam."
+        },
+        {
+            "author": "ljleb",
+            "title": "comfy-mecha",
+            "reference": "https://github.com/ljleb/comfy-mecha",
+            "files": [
+                "https://github.com/ljleb/comfy-mecha"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Blocks Mecha Hyper, Mecha Merger, Model Mecha Recipe, Custom Code Mecha Recipe"
+        },
         
         
         
@@ -6090,6 +6170,16 @@
             "install_type": "copy",
             "description": "Nodes:Side By Side, Frame Delay.\nThis initiative represents a solo venture dedicated to integrating a stereopsis effect within ComfyUI (Stable Diffusion). Presently, the project is focused on the refinement of node categorization within a unified framework, as it is in the early stages of development. However, it has achieved functionality in a fundamental capacity. By processing a video through the Side-by-Side (SBS) node and applying Frame Delay to one of the inputs, it facilitates the creation of a stereopsis effect. This effect is compatible with any Virtual Reality headset that supports SBS video playback, offering a practical application in immersive media experiences."
         },
+        {
+            "author": "jw782cn",
+            "title": "ComfyUI-Catcat",
+            "reference": "https://github.com/jw782cn/ComfyUI-Catcat",
+            "files": [
+                "https://github.com/jw782cn/ComfyUI-Catcat"
+            ],
+            "install_type": "copy",
+            "description": "Extension to show random cat GIFs while queueing prompt."
+        },
 
         {
             "author": "theally",
@@ -6134,16 +6224,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "jw782cn",
-            "title": "ComfyUI-Catcat",
-            "reference": "https://github.com/jw782cn/ComfyUI-Catcat",
-            "files": [
-                "https://github.com/jw782cn/ComfyUI-Catcat"
-            ],
-            "install_type": "copy",
-            "description": "Extension to show random cat GIFs while queueing prompt."
         }
     ]
 }

@@ -9,7 +9,107 @@
             "description": "If you see this message, your ComfyUI-Manager is outdated.\nRecent channel provides only the list of the latest nodes. If you want to find the complete node list, please go to the Default channel.\nMaking LoRA has never been easier!"
         },
         
-        
+
+        {
+            "author": "laksjdjf",
+            "title": "LoRTnoC-ComfyUI",
+            "reference": "https://github.com/laksjdjf/LoRTnoC-ComfyUI",
+            "files": [
+                "https://github.com/laksjdjf/LoRTnoC-ComfyUI"
+            ],
+            "install_type": "git-clone",
+            "description": "This is a repository for using LoRTnoC (LoRA with hint block of ControlNet) on ComfyUI.\nNOTE:Please place the model file in the same location as controlnet. (Is this too arbitrary?)"
+        },
+        {
+            "author": "victorchall",
+            "title": "Comfyui Webcam capture node",
+            "reference": "https://github.com/victorchall/comfyui_webcamcapture",
+            "files": [
+                "https://github.com/victorchall/comfyui_webcamcapture"
+            ],
+            "install_type": "git-clone",
+            "description": "This node captures images one at a time from your webcam when you click generate.\nThis is particular useful for img2img or controlnet workflows.\nNOTE:This node will take over your webcam, so if you have another program using it, you may need to close that program first. Likewise, you may need to close Comfyui or close the workflow to release the webcam."
+        },
+        {
+            "author": "dfl",
+            "title": "ComfyUI-TCD-scheduler",
+            "reference": "https://github.com/dfl/comfyui-tcd-scheduler",
+            "files": [
+                "https://github.com/dfl/comfyui-tcd-scheduler"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI Custom Sampler nodes that implement Zheng et al.'s Trajectory Consistency Distillation based on [a/https://mhh0318.github.io/tcd](https://mhh0318.github.io/tcd)"
+        },
+        {
+            "author": "cozymantis",
+            "title": "Cozy Human Parser",
+            "reference": "https://github.com/cozymantis/human-parser-comfyui-node",
+            "files": [
+                "https://github.com/cozymantis/human-parser-comfyui-node"
+            ],
+            "install_type": "git-clone",
+            "description": "Simple ComfyUI nodes to generate masks for specific body parts and clothes or fashion items. Runs on CPU and CUDA. Made with 💚 by the CozyMantis squad."
+        },
+        {
+            "author": "atmaranto",
+            "title": "SaveAsScript",
+            "reference": "https://github.com/atmaranto/ComfyUI-SaveAsScript",
+            "files": [
+                "https://github.com/atmaranto/ComfyUI-SaveAsScript"
+            ],
+            "install_type": "git-clone",
+            "description": "A version of ComfyUI-to-Python-Extension that works as a custom node. Adds a button in the UI that saves the current workflow as a Python file, a CLI for converting workflows, and slightly better custom node support."
+        },
+        {
+            "author": "jw782cn",
+            "title": "ComfyUI-Catcat",
+            "reference": "https://github.com/jw782cn/ComfyUI-Catcat",
+            "files": [
+                "https://github.com/jw782cn/ComfyUI-Catcat"
+            ],
+            "install_type": "copy",
+            "description": "Extension to show random cat GIFs while queueing prompt."
+        },
+        {
+            "author": "ljleb",
+            "title": "comfy-mecha",
+            "reference": "https://github.com/ljleb/comfy-mecha",
+            "files": [
+                "https://github.com/ljleb/comfy-mecha"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Blocks Mecha Hyper, Mecha Merger, Model Mecha Recipe, Custom Code Mecha Recipe"
+        },
+        {
+            "author": "vivax3794",
+            "title": "ComfyUI-Vivax-Nodes",
+            "reference": "https://github.com/vivax3794/ComfyUI-Vivax-Nodes",
+            "files": [
+                "https://github.com/vivax3794/ComfyUI-Vivax-Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Inspect, Any String, Model From URL"
+        },
+        {
+            "author": "meshmesh-io",
+            "title": "mm-comfyui-megamask",
+            "reference": "https://github.com/meshmesh-io/mm-comfyui-megamask",
+            "files": [
+                "https://github.com/meshmesh-io/mm-comfyui-megamask"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:ColorListMaskToImage, FlattenAndCombineMaskImages"
+        },
+        {
+            "author": "meshmesh-io",
+            "title": "mm-comfyui-loopback",
+            "reference": "https://github.com/meshmesh-io/mm-comfyui-loopback",
+            "files": [
+                "https://github.com/meshmesh-io/mm-comfyui-loopback"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Loop, LoopStart, LoopEnd, LoopStart_SEGIMAGE, LoopEnd_SEGIMAGE"
+        },
         {
             "author": "flowtyone",
             "title": "ComfyUI-Flowty-TripoSR",
@@ -592,106 +692,6 @@
             ],
             "install_type": "copy",
             "description": "A collection of ComfyUI directory automation utility nodes. Directory Get It Right adds a GUI directory browser, and smart directory loop/iteration node that supports regex and file extension filtering."
-        },
-        {
-            "author": "ccvv804",
-            "title": "ComfyUI StableCascade using diffusers for Low VRAM",
-            "reference": "https://github.com/ccvv804/ComfyUI-DiffusersStableCascade-LowVRAM",
-            "files": [
-                "https://github.com/ccvv804/ComfyUI-DiffusersStableCascade-LowVRAM"
-            ],
-            "install_type": "git-clone",
-            "description": "Works with RTX 4070ti 12GB.\nSimple quick wrapper for [a/https://huggingface.co/stabilityai/stable-cascade](https://huggingface.co/stabilityai/stable-cascade)\nComfy is going to implement this properly soon, this repo is just for quick testing for the impatient!"
-        },
-        {
-            "author": "yuvraj108c",
-            "title": "ComfyUI-Pronodes",
-            "reference": "https://github.com/yuvraj108c/ComfyUI-Pronodes",
-            "files": [
-                "https://github.com/yuvraj108c/ComfyUI-Pronodes"
-            ],
-            "install_type": "git-clone",
-            "description": "A collection of nice utility nodes for ComfyUI"
-        },
-        {
-            "author": "pkpkTech",
-            "title": "ComfyUI-SaveQueues",
-            "reference": "https://github.com/pkpkTech/ComfyUI-SaveQueues",
-            "files": [
-                "https://github.com/pkpkTech/ComfyUI-SaveQueues"
-            ],
-            "install_type": "git-clone",
-            "description": "Add a button to the menu to save and load the running queue and the pending queues.\nThis is intended to be used when you want to exit ComfyUI with queues still remaining."
-        },
-        {
-            "author": "jordoh",
-            "title": "ComfyUI Deepface",
-            "reference": "https://github.com/jordoh/ComfyUI-Deepface",
-            "files": [
-                "https://github.com/jordoh/ComfyUI-Deepface"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI nodes wrapping the [a/deepface](https://github.com/serengil/deepface) library."
-        },
-        {
-            "author": "kijai",
-            "title": "ComfyUI StableCascade using diffusers",
-            "reference": "https://github.com/kijai/ComfyUI-DiffusersStableCascade",
-            "files": [
-                "https://github.com/kijai/ComfyUI-DiffusersStableCascade"
-            ],
-            "install_type": "git-clone",
-            "description": "Simple quick wrapper for [a/https://huggingface.co/stabilityai/stable-cascade](https://huggingface.co/stabilityai/stable-cascade)\nComfy is going to implement this properly soon, this repo is just for quick testing for the impatient!"
-        },
-        {
-            "author": "Extraltodeus",
-            "title": "ComfyUI-AutomaticCFG",
-            "reference": "https://github.com/Extraltodeus/ComfyUI-AutomaticCFG",
-            "files": [
-                "https://github.com/Extraltodeus/ComfyUI-AutomaticCFG"
-            ],
-            "install_type": "git-clone",
-            "description": "My own version 'from scratch' of a self-rescaling CFG. It isn't much but it's honest work.\nTLDR: set your CFG at 8 to try it. No burned images and artifacts anymore. CFG is also a bit more sensitive because it's a proportion around 8. Low scale like 4 also gives really nice results since your CFG is not the CFG anymore. Also in general even with relatively low settings it seems to improve the quality."
-        },
-        {
-            "author": "Mamaaaamooooo",
-            "title": "Batch Rembg for ComfyUI",
-            "reference": "https://github.com/Mamaaaamooooo/batchImg-rembg-ComfyUI-nodes",
-            "files": [
-                "https://github.com/Mamaaaamooooo/batchImg-rembg-ComfyUI-nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Remove background of plural images."
-        },
-        {
-            "author": "ShmuelRonen",
-            "title": "ComfyUI-SVDResizer",
-            "reference": "https://github.com/ShmuelRonen/ComfyUI-SVDResizer",
-            "files": [
-                "https://github.com/ShmuelRonen/ComfyUI-SVDResizer"
-            ],
-            "install_type": "git-clone",
-            "description": "SVDResizer is a helper for resizing the source image, according to the sizes enabled in Stable Video Diffusion. The rationale behind the possibility of changing the size of the image in steps between the ranges of 576 and 1024, is the use of the greatest common denominator of these two numbers which is 64. SVD is lenient with resizing that adheres to this rule, so the chance of coherent video that is not the standard size of 576X1024 is greater. It is advisable to keep the value 1024 constant and play with the second size to maintain the stability of the result."
-        },
-        {
-            "author": "xiaoxiaodesha",
-            "title": "hd-nodes-comfyui",
-            "reference": "https://github.com/xiaoxiaodesha/hd_node",
-            "files": [
-                "https://github.com/xiaoxiaodesha/hd_node"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Combine HDMasks, Cover HDMasks, HD FaceIndex, HD SmoothEdge, HD GetMaskArea, HD Image Levels, HD Ultimate SD Upscale"
-        },
-        {
-            "author": "StartHua",
-            "title": "Comfyui_joytag",
-            "reference": "https://github.com/StartHua/Comfyui_joytag",
-            "files": [
-                "https://github.com/StartHua/Comfyui_joytag"
-            ],
-            "install_type": "git-clone",
-            "description": "JoyTag is a state of the art AI vision model for tagging images, with a focus on sex positivity and inclusivity. It uses the Danbooru tagging schema, but works across a wide range of images, from hand drawn to photographic.\nDownload the weight and put it under checkpoints: [a/https://huggingface.co/fancyfeast/joytag/tree/main](https://huggingface.co/fancyfeast/joytag/tree/main)"
         }
     ]
 }
