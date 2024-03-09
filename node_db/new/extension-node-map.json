@@ -112,6 +112,7 @@
     "https://github.com/438443467/ComfyUI-GPT4V-Image-Captioner": [
         [
             "GPT4VCaptioner",
+            "Image Load with Metadata",
             "Samin Counter",
             "Samin Load Image Batch"
         ],
@@ -788,7 +789,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8ImageSizer",
+            "title": "cr8SerialPrompter",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -830,6 +831,14 @@
         ],
         {
             "title_aux": "ComfyUI-post-processing-nodes"
+        }
+    ],
+    "https://github.com/ExponentialML/ComfyUI_ModelScopeT2V": [
+        [
+            "ModelScopeT2VLoader"
+        ],
+        {
+            "title_aux": "ComfyUI_ModelScopeT2V"
         }
     ],
     "https://github.com/Extraltodeus/ComfyUI-AutomaticCFG": [
@@ -1167,12 +1176,10 @@
     ],
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
-            "Hook Recenter",
-            "Hook Recenter XL",
             "Normalization",
             "NormalizationXL",
-            "Tensor Debug",
-            "Unhook Recenter"
+            "Recenter",
+            "Recenter XL"
         ],
         {
             "title_aux": "ComfyUI Diffusion Color Grading"
@@ -2105,6 +2112,7 @@
             "OFF SEGS to Image",
             "Paste Face Segment to Image",
             "Query Gender and Age",
+            "RandomSeedfromList",
             "SEGS to Face Crop Data",
             "Safe Mask to Image",
             "VAE Encode For Inpaint V2",
@@ -2162,6 +2170,38 @@
             "title_aux": "pfaeff-comfyui"
         }
     ],
+    "https://github.com/Pos13/comfyui-cyclist": [
+        [
+            "CyclistCompare",
+            "CyclistMathFloat",
+            "CyclistMathInt",
+            "CyclistTimer",
+            "CyclistTimerStop",
+            "CyclistTypeCast",
+            "Interrupt",
+            "MemorizeConditioning",
+            "MemorizeFloat",
+            "MemorizeInt",
+            "MemorizeString",
+            "OverrideImage",
+            "OverrideLatent",
+            "OverrideModel",
+            "RecallConditioning",
+            "RecallFloat",
+            "RecallInt",
+            "RecallString",
+            "ReloadImage",
+            "ReloadLatent",
+            "ReloadModel"
+        ],
+        {
+            "author": "Pos13",
+            "description": "This extension provides tools to iterate generation results between runs. In general, it's for cycles.",
+            "nickname": "comfyui-cyclist",
+            "title": "Cyclist",
+            "title_aux": "Cyclist"
+        }
+    ],
     "https://github.com/QaisMalkawi/ComfyUI-QaisHelper": [
         [
             "Bool Binary Operation",
@@ -2193,11 +2233,20 @@
         [
             "KSamplerMirroring",
             "KSamplerMirroringApart",
+            "LatentAddTransform",
+            "LatentInterpolateTransform",
             "LatentMirror",
             "LatentShift",
             "MirrorTransform",
             "MultiplyTransform",
+            "OffsetCombine",
+            "OneTimeLatentAddTransform",
+            "OneTimeLatentInterpolateTransform",
+            "OneTimeMirrorTransform",
+            "OneTimeMultiplyTransform",
+            "OneTimeShiftTransform",
             "ShiftTransform",
+            "TransformOffset",
             "TransformsCombine"
         ],
         {
@@ -3334,8 +3383,10 @@
     "https://github.com/XINZHANG-ops/comfyui-xin-nodes": [
         [
             "ImageSizeClassifer",
+            "PaintTiles",
             "RandomInt",
-            "ShowValue"
+            "ShowValue",
+            "Tiles"
         ],
         {
             "title_aux": "comfyui-xin-nodes"
@@ -3496,6 +3547,16 @@
         ],
         {
             "title_aux": "ComfyUI PhotoMaker (ZHO)"
+        }
+    ],
+    "https://github.com/ZHO-ZHO-ZHO/ComfyUI-PixArt-alpha-Diffusers": [
+        [
+            "PA_BaseModelLoader_fromhub_Zho",
+            "PA_Generation_Zho",
+            "PA_Styler_Zho"
+        ],
+        {
+            "title_aux": "ComfyUI-PixArt-alpha-Diffusers"
         }
     ],
     "https://github.com/ZHO-ZHO-ZHO/ComfyUI-Q-Align": [
@@ -3906,6 +3967,14 @@
         ],
         {
             "title_aux": "CLIP Directional Prompt Attention"
+        }
+    ],
+    "https://github.com/angeloshredder/StableCascadeResizer": [
+        [
+            "CascadeResize"
+        ],
+        {
+            "title_aux": "StableCascadeResizer"
         }
     ],
     "https://github.com/antrobot1234/antrobots-comfyUI-nodepack": [
@@ -4645,6 +4714,7 @@
     "https://github.com/chflame163/ComfyUI_LayerStyle": [
         [
             "LayerColor: Brightness & Contrast",
+            "LayerColor: Color of Shadow & Highlight",
             "LayerColor: ColorAdapter",
             "LayerColor: Exposure",
             "LayerColor: Gamma",
@@ -4678,6 +4748,7 @@
             "LayerMask: PixelSpread",
             "LayerMask: RemBgUltra",
             "LayerMask: SegmentAnythingUltra",
+            "LayerMask: Shadow & Highlight Mask",
             "LayerStyle: ColorOverlay",
             "LayerStyle: DropShadow",
             "LayerStyle: GradientOverlay",
@@ -5350,6 +5421,15 @@
             "title_aux": "ComfyUI-TCD-scheduler"
         }
     ],
+    "https://github.com/diStyApps/ComfyUI_FrameMaker": [
+        [
+            "FrameMaker",
+            "FrameMakerBatch"
+        ],
+        {
+            "title_aux": "ComfyUI Frame Maker"
+        }
+    ],
     "https://github.com/digitaljohn/comfyui-propost": [
         [
             "ProPostApplyLUT",
@@ -5930,6 +6010,16 @@
             "title_aux": "y.k.'s ComfyUI node suite"
         }
     ],
+    "https://github.com/hackkhai/ComfyUI-Image-Matting": [
+        [
+            "ApplyMatting",
+            "CreateTrimap",
+            "MattingModelLoader"
+        ],
+        {
+            "title_aux": "ComfyUI-Image-Matting"
+        }
+    ],
     "https://github.com/hhhzzyang/Comfyui_Lama": [
         [
             "LamaApply",
@@ -6456,7 +6546,8 @@
     ],
     "https://github.com/kijai/ComfyUI-moondream": [
         [
-            "MoondreamQuery"
+            "MoondreamQuery",
+            "MoondreamQueryCaptions"
         ],
         {
             "title_aux": "ComfyUI-moondream"
@@ -6501,6 +6592,7 @@
     ],
     "https://github.com/klinter007/klinter_nodes": [
         [
+            "Filter",
             "PresentString",
             "SingleString",
             "SizeSelector",
@@ -7241,6 +7333,15 @@
         {
             "nodename_pattern": "\\(mtb\\)$",
             "title_aux": "MTB Nodes"
+        }
+    ],
+    "https://github.com/meshmesh-io/ComfyUI-MeshMesh": [
+        [
+            "ColorPicker",
+            "MasksToColoredMasks"
+        ],
+        {
+            "title_aux": "ComfyUI-MeshMesh"
         }
     ],
     "https://github.com/meshmesh-io/mm-comfyui-loopback": [
@@ -8739,7 +8840,10 @@
     "https://github.com/vivax3794/ComfyUI-Vivax-Nodes": [
         [
             "Any String",
+            "Chunk Up",
+            "Get Chunk",
             "Inspect",
+            "Join Chunks",
             "Model From URL"
         ],
         {
@@ -9039,6 +9143,7 @@
             "easy latentNoisy",
             "easy loraStack",
             "easy negative",
+            "easy pipeBatchIndex",
             "easy pipeEdit",
             "easy pipeIn",
             "easy pipeOut",
@@ -9052,6 +9157,7 @@
             "easy preSamplingCascade",
             "easy preSamplingDynamicCFG",
             "easy preSamplingLayerDiffusion",
+            "easy preSamplingNoiseIn",
             "easy preSamplingSdTurbo",
             "easy promptList",
             "easy rangeFloat",
@@ -9172,7 +9278,9 @@
     ],
     "https://github.com/yuvraj108c/ComfyUI-Pronodes": [
         [
-            "LoadYoutubeVideoNode"
+            "LoadYoutubeVideoNode",
+            "PreviewVHSAudioNode",
+            "VHSFilenamesToPath"
         ],
         {
             "title_aux": "ComfyUI-Pronodes"
@@ -9181,6 +9289,7 @@
     "https://github.com/yuvraj108c/ComfyUI-Vsgan": [
         [
             "DepthAnythingTrtNode",
+            "TTSCapcutNode",
             "UpscaleVideoTrtNode"
         ],
         {
@@ -9203,9 +9312,6 @@
             "Bedrock - Claude",
             "Bedrock - SDXL",
             "Bedrock - Titan Image",
-            "Image From S3",
-            "Image From URL",
-            "Image To S3",
             "Prompt Regex Remove",
             "Prompt Template"
         ],
