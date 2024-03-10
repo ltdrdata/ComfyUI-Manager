@@ -83,6 +83,7 @@
             "EG_ZZ_BYYH",
             "EG_ZZ_HSYH",
             "EG_ZZ_SSKZ",
+            "ER_JBCH",
             "ER_TX_ZZCJ"
         ],
         {
@@ -597,11 +598,13 @@
             "SamplerCustomModelMixtureDuo",
             "SamplerCustomNoise",
             "SamplerCustomNoiseDuo",
+            "SamplerDPMPP_3M_SDE_DynETA",
             "SamplerDPMPP_DualSDE_Momentumized",
             "SamplerEulerAncestralDancing_Experimental",
             "SamplerLCMCustom",
             "SamplerRES_Momentumized",
-            "SamplerTTM"
+            "SamplerTTM",
+            "SimpleExponentialScheduler"
         ],
         {
             "title_aux": "ComfyUI Extra Samplers"
@@ -855,6 +858,15 @@
         ],
         {
             "title_aux": "LoadLoraWithTags"
+        }
+    ],
+    "https://github.com/Extraltodeus/PerpPrompt-for-ComfyUI": [
+        [
+            "Conditioning merge clip g/l",
+            "Conditioning perp prompt"
+        ],
+        {
+            "title_aux": "PerpPrompt-for-ComfyUI"
         }
     ],
     "https://github.com/Extraltodeus/noise_latent_perlinpinpin": [
@@ -1835,6 +1847,7 @@
     ],
     "https://github.com/MNeMoNiCuZ/ComfyUI-mnemic-nodes": [
         [
+            "Generate Negative Prompt_mne",
             "Save Text File_mne"
         ],
         {
@@ -3383,8 +3396,10 @@
     "https://github.com/XINZHANG-ops/comfyui-xin-nodes": [
         [
             "ImageSizeClassifer",
+            "ImageSizeCombiner",
             "PaintTiles",
             "RandomInt",
+            "SaveTensor",
             "ShowValue",
             "Tiles"
         ],
@@ -4139,6 +4154,9 @@
             "Range Integer",
             "Ratio Advanced",
             "Resize Image for SDXL",
+            "SRFloatPromptInput",
+            "SRIntPromptInput",
+            "SRStringPromptInput",
             "Save Image If True",
             "Save Image With Prompt Data",
             "Save Images Mikey",
@@ -4738,6 +4756,7 @@
             "LayerMask: MaskByDifferent",
             "LayerMask: MaskEdgeShrink",
             "LayerMask: MaskEdgeUltraDetail",
+            "LayerMask: MaskEdgeUltraDetail V2",
             "LayerMask: MaskGradient",
             "LayerMask: MaskGrow",
             "LayerMask: MaskInvert",
@@ -4745,9 +4764,12 @@
             "LayerMask: MaskPreview",
             "LayerMask: MaskStroke",
             "LayerMask: PersonMaskUltra",
+            "LayerMask: PersonMaskUltra V2",
             "LayerMask: PixelSpread",
             "LayerMask: RemBgUltra",
+            "LayerMask: RmBgUltra V2",
             "LayerMask: SegmentAnythingUltra",
+            "LayerMask: SegmentAnythingUltra V2",
             "LayerMask: Shadow & Highlight Mask",
             "LayerStyle: ColorOverlay",
             "LayerStyle: DropShadow",
@@ -4976,7 +4998,9 @@
         [
             "BasicScheduler",
             "CLIPLoader",
+            "CLIPMergeAdd",
             "CLIPMergeSimple",
+            "CLIPMergeSubtract",
             "CLIPSave",
             "CLIPSetLastLayer",
             "CLIPTextEncode",
@@ -5091,6 +5115,7 @@
             "SamplerCustom",
             "SamplerDPMPP_2M_SDE",
             "SamplerDPMPP_SDE",
+            "SamplerEulerAncestral",
             "SaveAnimatedPNG",
             "SaveAnimatedWEBP",
             "SaveImage",
@@ -5376,6 +5401,21 @@
         ],
         {
             "title_aux": "DZ-FaceDetailer"
+        }
+    ],
+    "https://github.com/dchatel/comfyui_facetools": [
+        [
+            "AlignFaces",
+            "CropFaces",
+            "DetectFaces",
+            "FaceDetails",
+            "GenderFaceFilter",
+            "MergeWarps",
+            "OrderedFaceFilter",
+            "WarpFacesBack"
+        ],
+        {
+            "title_aux": "comfyui_facetools"
         }
     ],
     "https://github.com/deroberon/StableZero123-comfyui": [
@@ -5904,6 +5944,18 @@
             "title_aux": "SaltAI-Open-Resources"
         }
     ],
+    "https://github.com/ggpid/idpark_custom_node": [
+        [
+            "CutByMaskFixed",
+            "FastSAMGenerator",
+            "LoadImageS3",
+            "SAMGenerator",
+            "SaveImageS3"
+        ],
+        {
+            "title_aux": "idpark_custom_node"
+        }
+    ],
     "https://github.com/giriss/comfy-image-saver": [
         [
             "Cfg Literal",
@@ -5957,6 +6009,14 @@
         ],
         {
             "title_aux": "ComfyUI Substring"
+        }
+    ],
+    "https://github.com/gokayfem/ComfyUI-Dream-Interpreter": [
+        [
+            "DreamViewer"
+        ],
+        {
+            "title_aux": "ComfyUI-Dream-Interpreter"
         }
     ],
     "https://github.com/gokayfem/ComfyUI_VLM_nodes": [
@@ -6076,9 +6136,12 @@
         [
             "LayeredDiffusionApply",
             "LayeredDiffusionCondApply",
+            "LayeredDiffusionCondJointApply",
             "LayeredDiffusionDecode",
             "LayeredDiffusionDecodeRGBA",
-            "LayeredDiffusionDiffApply"
+            "LayeredDiffusionDecodeSplit",
+            "LayeredDiffusionDiffApply",
+            "LayeredDiffusionJointApply"
         ],
         {
             "title_aux": "ComfyUI-layerdiffusion"
@@ -6672,6 +6735,16 @@
         ],
         {
             "title_aux": "abg-comfyui"
+        }
+    ],
+    "https://github.com/laksjdjf/Batch-Condition-ComfyUI": [
+        [
+            "Batch String",
+            "CLIP Text Encode (Batch)",
+            "String Input"
+        ],
+        {
+            "title_aux": "Batch-Condition-ComfyUI"
         }
     ],
     "https://github.com/laksjdjf/LCMSampler-ComfyUI": [
@@ -7785,6 +7858,16 @@
             "title_aux": "ComfyUI-TemporaryLoader"
         }
     ],
+    "https://github.com/prodogape/ComfyUI-Minio": [
+        [
+            "Load Image From Minio",
+            "Save Image To Minio",
+            "Set Minio Config"
+        ],
+        {
+            "title_aux": "Comfyui-Minio"
+        }
+    ],
     "https://github.com/pythongosssss/ComfyUI-Custom-Scripts": [
         [
             "CheckpointLoader|pysssss",
@@ -8441,6 +8524,15 @@
         ],
         {
             "title_aux": "ComfyUI roop"
+        }
+    ],
+    "https://github.com/stavsap/comfyui-ollama": [
+        [
+            "OllamaGenerate",
+            "OllamaVision"
+        ],
+        {
+            "title_aux": "ComfyUI Ollama"
         }
     ],
     "https://github.com/storyicon/comfyui_segment_anything": [
@@ -9126,6 +9218,7 @@
             "easy imageSize",
             "easy imageSizeByLongerSide",
             "easy imageSizeBySide",
+            "easy imageSplitList",
             "easy imageSwitch",
             "easy imageToMask",
             "easy instantIDApply",
@@ -9157,6 +9250,7 @@
             "easy preSamplingCascade",
             "easy preSamplingDynamicCFG",
             "easy preSamplingLayerDiffusion",
+            "easy preSamplingLayerDiffusionADDTL",
             "easy preSamplingNoiseIn",
             "easy preSamplingSdTurbo",
             "easy promptList",
@@ -9380,6 +9474,7 @@
     "https://github.com/zhongpei/Comfyui_image2prompt": [
         [
             "Image2Text",
+            "Image2TextWithTags",
             "LoadImage2TextModel"
         ],
         {
