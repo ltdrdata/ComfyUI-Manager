@@ -46,6 +46,7 @@
             "EG_HT_YSTZ",
             "EG_JF_ZZSC",
             "EG_JXFZ_node",
+            "EG_K_LATENT",
             "EG_RY_HT",
             "EG_SCQY_BHDQY",
             "EG_SCQY_QBQY",
@@ -70,6 +71,7 @@
             "EG_TX_JZRY",
             "EG_TX_LJ",
             "EG_TX_LJBC",
+            "EG_TX_SFBLS",
             "EG_TX_WHLJ",
             "EG_WB_KSH",
             "EG_WXZ_QH",
@@ -3395,6 +3397,9 @@
     ],
     "https://github.com/XINZHANG-ops/comfyui-xin-nodes": [
         [
+            "ImageFlipper",
+            "ImagePixelPalette",
+            "ImageRotator",
             "ImageSizeClassifer",
             "ImageSizeCombiner",
             "PaintTiles",
@@ -4034,6 +4039,7 @@
         [
             "MUForceCacheClear",
             "MUJinjaRender",
+            "MUReplaceModelWeights",
             "MUSimpleWildcard"
         ],
         {
@@ -5358,7 +5364,9 @@
     "https://github.com/darkpixel/darkprompts": [
         [
             "DarkCombine",
+            "DarkFaceIndexGenerator",
             "DarkFaceIndexShuffle",
+            "DarkFolders",
             "DarkLoRALoader",
             "DarkPrompt"
         ],
@@ -6009,6 +6017,14 @@
         ],
         {
             "title_aux": "ComfyUI Substring"
+        }
+    ],
+    "https://github.com/gokayfem/ComfyUI-Depth-Visualization": [
+        [
+            "DepthViewer"
+        ],
+        {
+            "title_aux": "ComfyUI-Depth-Visualization"
         }
     ],
     "https://github.com/gokayfem/ComfyUI-Dream-Interpreter": [
@@ -9475,7 +9491,10 @@
         [
             "Image2Text",
             "Image2TextWithTags",
-            "LoadImage2TextModel"
+            "LoadImage2TextModel",
+            "LoadText2PromptModel",
+            "Text2GPTPrompt",
+            "Text2Prompt"
         ],
         {
             "title_aux": "Comfyui_image2prompt"
