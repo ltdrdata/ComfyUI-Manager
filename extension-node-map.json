@@ -166,6 +166,16 @@
             "title_aux": "ComfyUI-Static-Primitives"
         }
     ],
+    "https://github.com/AIGCTeam/ComfyUI_kkTranslator_nodes": [
+        [
+            "LoadMarianMTCheckPoint",
+            "PromptBaiduFanyiToText",
+            "PromptTranslateToText"
+        ],
+        {
+            "title_aux": "ComfyUI_kkTranslator_nodes"
+        }
+    ],
     "https://github.com/AInseven/ComfyUI-fastblend": [
         [
             "FillDarkMask",
@@ -231,6 +241,7 @@
             "SegmentToMaskByPoint-badger",
             "StringToFizz-badger",
             "TextListToString-badger",
+            "ToPixel-badger",
             "TrimTransparentEdges-badger",
             "VideoCutFromDir-badger",
             "VideoToFrame-badger",
@@ -794,7 +805,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8SerialPrompter",
+            "title": "cr8ImageSizer",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -860,15 +871,6 @@
         ],
         {
             "title_aux": "LoadLoraWithTags"
-        }
-    ],
-    "https://github.com/Extraltodeus/PerpPrompt-for-ComfyUI": [
-        [
-            "Conditioning merge clip g/l",
-            "Conditioning perp prompt"
-        ],
-        {
-            "title_aux": "PerpPrompt-for-ComfyUI"
         }
     ],
     "https://github.com/Extraltodeus/noise_latent_perlinpinpin": [
@@ -1190,10 +1192,12 @@
     ],
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
+            "Hook Recenter",
+            "Hook Recenter XL",
             "Normalization",
             "NormalizationXL",
-            "Recenter",
-            "Recenter XL"
+            "Tensor Debug",
+            "Unhook Recenter"
         ],
         {
             "title_aux": "ComfyUI Diffusion Color Grading"
@@ -1735,12 +1739,19 @@
             "MeshGraphormer-DepthMapPreprocessor",
             "MiDaS-DepthMapPreprocessor",
             "MiDaS-NormalMapPreprocessor",
+            "ModelMergeBlockNumber",
+            "ModelMergeSDXL",
+            "ModelMergeSDXLDetailedTransformers",
+            "ModelMergeSDXLTransformers",
+            "ModelSamplerTonemapNoiseTest",
             "OneFormer-ADE20K-SemSegPreprocessor",
             "OneFormer-COCO-SemSegPreprocessor",
             "OpenposePreprocessor",
             "PiDiNetPreprocessor",
             "PixelPerfectResolution",
             "PromptExpansion",
+            "ReferenceOnlySimple",
+            "RescaleClassifierFreeGuidanceTest",
             "SAMPreprocessor",
             "SavePoseKpsAsJsonFile",
             "ScribblePreprocessor",
@@ -1749,6 +1760,7 @@
             "ShufflePreprocessor",
             "TEEDPreprocessor",
             "TilePreprocessor",
+            "TonemapNoiseWithRescaleCFG",
             "UniFormer-SemSegPreprocessor",
             "Unimatch_OptFlowPreprocessor",
             "Zoe-DepthMapPreprocessor",
@@ -2246,8 +2258,6 @@
     ],
     "https://github.com/RomanKuschanow/ComfyUI-Advanced-Latent-Control": [
         [
-            "KSamplerMirroring",
-            "KSamplerMirroringApart",
             "LatentAddTransform",
             "LatentInterpolateTransform",
             "LatentMirror",
@@ -2261,7 +2271,9 @@
             "OneTimeMultiplyTransform",
             "OneTimeShiftTransform",
             "ShiftTransform",
+            "TSamplerWithTransform",
             "TransformOffset",
+            "TransformSampler",
             "TransformsCombine"
         ],
         {
@@ -4534,6 +4546,24 @@
         ],
         {
             "title_aux": "Image loader with subfolders"
+        }
+    ],
+    "https://github.com/cdb-boop/ComfyUI-Bringing-Old-Photos-Back-to-Life": [
+        [
+            "BOPBTL_BlendFaces",
+            "BOPBTL_DetectEnhanceBlendFaces",
+            "BOPBTL_DetectFaces",
+            "BOPBTL_EnhanceFaces",
+            "BOPBTL_EnhanceFacesAdvanced",
+            "BOPBTL_LoadFaceDetectorModel",
+            "BOPBTL_LoadFaceEnhancerModel",
+            "BOPBTL_LoadRestoreOldPhotosModel",
+            "BOPBTL_LoadScratchMaskModel",
+            "BOPBTL_RestoreOldPhotos",
+            "BOPBTL_ScratchMask"
+        ],
+        {
+            "title_aux": "ComfyUI Bringing Old Photos Back to Life"
         }
     ],
     "https://github.com/cdb-boop/comfyui-image-round": [
@@ -7148,6 +7178,7 @@
             "CacheBackendDataNumberKeyList //Inspire",
             "Canny_Preprocessor_Provider_for_SEGS //Inspire",
             "ChangeImageBatchSize //Inspire",
+            "ChangeLatentBatchSize //Inspire",
             "CheckpointLoaderSimpleShared //Inspire",
             "Color_Preprocessor_Provider_for_SEGS //Inspire",
             "ConcatConditioningsWithMultiplier //Inspire",
@@ -9422,6 +9453,9 @@
             "Bedrock - Claude",
             "Bedrock - SDXL",
             "Bedrock - Titan Image",
+            "Image From S3",
+            "Image From URL",
+            "Image To S3",
             "Prompt Regex Remove",
             "Prompt Template"
         ],
