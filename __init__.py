@@ -29,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 9]
+version = [2, 10]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -37,6 +37,22 @@ print(f"### Loading: ComfyUI-Manager ({version_str})")
 comfy_ui_hash = "-"
 
 cache_lock = threading.Lock()
+
+
+def is_blacklisted(name):
+    name = name.strip()
+
+    pattern = r'([^<>!=]+)([<>!=]=?)'
+    match = re.search(pattern, name)
+
+    if match:
+        name = match.group(1)
+
+    if name in cm_global.pip_downgrade_blacklist:
+        if match is None or match.group(2) in ['<=', '==', '<']:
+            return True
+
+    return False
 
 
 def handle_stream(stream, prefix):
@@ -286,6 +302,12 @@ def try_install_script(url, repo_path, install_cmd):
 
         return True
     else:
+        if len(install_cmd) == 5 and install_cmd[2:4] == ['pip', 'install']:
+            if is_blacklisted(install_cmd[4]):
+                print(f"[ComfyUI-Manager] skip black listed pip installation: '{install_cmd[4]}'")
+                return True
+
+
         print(f"\n## ComfyUI-Manager: EXECUTE => {install_cmd}")
         code = run_script(install_cmd, cwd=repo_path)
 
@@ -525,16 +547,17 @@ def git_pull(path):
     else:
         repo = git.Repo(path)
 
-        print(f"path={path} / repo.is_dirty: {repo.is_dirty()}")
-
         if repo.is_dirty():
             repo.git.stash()
 
         if repo.head.is_detached:
             switch_to_default_branch(repo)
 
-        origin = repo.remote(name='origin')
-        origin.pull()
+        current_branch = repo.active_branch
+        remote_name = current_branch.tracking_branch().remote_name
+        remote = repo.remote(name=remote_name)
+
+        remote.pull()
         repo.git.submodule('update', '--init', '--recursive')
         
         repo.close()

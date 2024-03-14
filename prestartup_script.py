@@ -15,6 +15,9 @@ sys.path.append(glob_path)
 import cm_global
 
 
+cm_global.pip_downgrade_blacklist = ['torch', 'torchsde', 'torchvision', 'transformers', 'safetensors', 'kornia']
+
+
 def skip_pip_spam(x):
     return 'Requirement already satisfied:' in x
 
@@ -350,7 +353,12 @@ def is_installed(name):
     
     if match:
         name = match.group(1)
-        
+
+    if name in cm_global.pip_downgrade_blacklist:
+        if match is None or match.group(2) in ['<=', '==', '<']:
+            print(f"[ComfyUI-Manager] skip black listed pip installation: '{name}'")
+            return True
+
     return name.lower() in get_installed_packages()
 
 
