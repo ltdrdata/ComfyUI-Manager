@@ -173,11 +173,9 @@ try:
         write_stderr = wrapper_stderr
 
     pat_tqdm = r'\d+%.*\[(.*?)\]'
-    pat_import_fail = r'seconds \(IMPORT FAILED\):'
-    pat_custom_node = r'[/\\]custom_nodes[/\\](.*)$'
+    pat_import_fail = r'seconds \(IMPORT FAILED\):.*[/\\]custom_nodes[/\\](.*)$'
 
     is_start_mode = True
-    is_import_fail_mode = False
 
     class ComfyUIManagerLogger:
         def __init__(self, is_stdout):
@@ -197,26 +195,17 @@ try:
 
         def write(self, message):
             global is_start_mode
-            global is_import_fail_mode
 
             if any(f(message) for f in message_collapses):
                 return
 
             if is_start_mode:
-                if is_import_fail_mode:
-                    match = re.search(pat_custom_node, message)
-                    if match:
-                        import_failed_extensions.add(match.group(1))
-                        is_import_fail_mode = False
-                else:
-                    match = re.search(pat_import_fail, message)
-                    if match:
-                        is_import_fail_mode = True
-                    else:
-                        is_import_fail_mode = False
+                match = re.search(pat_import_fail, message)
+                if match:
+                    import_failed_extensions.add(match.group(1))
 
-                    if 'Starting server' in message:
-                        is_start_mode = False
+                if 'Starting server' in message:
+                    is_start_mode = False
 
             if not self.is_stdout:
                 match = re.search(pat_tqdm, message)
