@@ -29,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 7, 2]
+version = [2, 10, 1]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -37,6 +37,22 @@ print(f"### Loading: ComfyUI-Manager ({version_str})")
 comfy_ui_hash = "-"
 
 cache_lock = threading.Lock()
+
+
+def is_blacklisted(name):
+    name = name.strip()
+
+    pattern = r'([^<>!=]+)([<>!=]=?)'
+    match = re.search(pattern, name)
+
+    if match:
+        name = match.group(1)
+
+    if name in cm_global.pip_downgrade_blacklist:
+        if match is None or match.group(2) in ['<=', '==', '<']:
+            return True
+
+    return False
 
 
 def handle_stream(stream, prefix):
@@ -178,6 +194,7 @@ def write_config():
         'component_policy': get_config()['component_policy'],
         'double_click_policy': get_config()['double_click_policy'],
         'windows_selector_event_loop_policy': get_config()['windows_selector_event_loop_policy'],
+        'model_download_by_agent': get_config()['model_download_by_agent']
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -201,6 +218,7 @@ def read_config():
                     'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
                     'double_click_policy': default_conf['double_click_policy'] if 'double_click_policy' in default_conf else 'copy-all',
                     'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else False,
+                    'model_download_by_agent': default_conf['model_download_by_agent'] if 'model_download_by_agent' in default_conf else False,
                }
 
     except Exception:
@@ -215,7 +233,8 @@ def read_config():
             'default_ui': 'none',
             'component_policy': 'workflow',
             'double_click_policy': 'copy-all',
-            'windows_selector_event_loop_policy': False
+            'windows_selector_event_loop_policy': False,
+            'model_download_by_agent': False,
         }
 
 
@@ -272,7 +291,7 @@ def set_double_click_policy(mode):
 
 
 def try_install_script(url, repo_path, install_cmd):
-    if platform.system() == "Windows" and comfy_ui_commit_datetime.date() >= comfy_ui_required_commit_datetime.date():
+    if (len(install_cmd) > 0 and install_cmd[0].startswith('#')) or (platform.system() == "Windows" and comfy_ui_commit_datetime.date() >= comfy_ui_required_commit_datetime.date()):
         if not os.path.exists(startup_script_path):
             os.makedirs(startup_script_path)
 
@@ -283,6 +302,12 @@ def try_install_script(url, repo_path, install_cmd):
 
         return True
     else:
+        if len(install_cmd) == 5 and install_cmd[2:4] == ['pip', 'install']:
+            if is_blacklisted(install_cmd[4]):
+                print(f"[ComfyUI-Manager] skip black listed pip installation: '{install_cmd[4]}'")
+                return True
+
+
         print(f"\n## ComfyUI-Manager: EXECUTE => {install_cmd}")
         code = run_script(install_cmd, cwd=repo_path)
 
@@ -447,6 +472,9 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
         # Fetch the latest commits from the remote repository
         repo = git.Repo(path)
 
+        current_branch = repo.active_branch
+        branch_name = current_branch.name
+
         remote_name = 'origin'
         remote = repo.remote(name=remote_name)
 
@@ -460,8 +488,6 @@ def git_repo_has_updates(path, do_fetch=False, do_update=False):
             if repo.head.is_detached:
                 switch_to_default_branch(repo)
 
-            current_branch = repo.active_branch
-            branch_name = current_branch.name
             remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
 
             if commit_hash == remote_commit_hash:
@@ -521,16 +547,17 @@ def git_pull(path):
     else:
         repo = git.Repo(path)
 
-        print(f"path={path} / repo.is_dirty: {repo.is_dirty()}")
-
         if repo.is_dirty():
             repo.git.stash()
 
         if repo.head.is_detached:
             switch_to_default_branch(repo)
 
-        origin = repo.remote(name='origin')
-        origin.pull()
+        current_branch = repo.active_branch
+        remote_name = current_branch.tracking_branch().remote_name
+        remote = repo.remote(name=remote_name)
+
+        remote.pull()
         repo.git.submodule('update', '--init', '--recursive')
         
         repo.close()
@@ -777,9 +804,47 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
         print(f"\x1b[2K\rUpdate check done.")
 
 
+def nickname_filter(json_obj):
+    preemptions_map = {}
+
+    for k, x in json_obj.items():
+        if 'preemptions' in x[1]:
+            for y in x[1]['preemptions']:
+                preemptions_map[y] = k
+        elif k.endswith("/ComfyUI"):
+            for y in x[0]:
+                preemptions_map[y] = k
+
+    updates = {}
+    for k, x in json_obj.items():
+        removes = set()
+        for y in x[0]:
+            k2 = preemptions_map.get(y)
+            if k2 is not None and k != k2:
+                removes.add(y)
+
+        if len(removes) > 0:
+            updates[k] = [y for y in x[0] if y not in removes]
+
+    for k, v in updates.items():
+        json_obj[k][0] = v
+
+    return json_obj
+
+
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
 async def fetch_customnode_mappings(request):
-    json_obj = await get_data_by_mode(request.rel_url.query["mode"], 'extension-node-map.json')
+    mode = request.rel_url.query["mode"]
+
+    nickname_mode = False
+    if mode == "nickname":
+        mode = "local"
+        nickname_mode = True
+
+    json_obj = await get_data_by_mode(mode, 'extension-node-map.json')
+
+    if nickname_mode:
+        json_obj = nickname_filter(json_obj)
     
     all_nodes = set()
     patterns = []
@@ -1647,7 +1712,7 @@ async def update_comfyui(request):
         current_branch = repo.active_branch
         branch_name = current_branch.name
 
-        remote_name = 'origin'
+        remote_name = current_branch.tracking_branch().remote_name
         remote = repo.remote(name=remote_name)
 
         try:
@@ -1716,8 +1781,7 @@ async def install_model(request):
             print(f"Install model '{json_data['name']}' into '{model_path}'")
 
             model_url = json_data['url']
-
-            if model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de'):
+            if not get_config()['model_download_by_agent'] and (model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de')):
                 model_dir = get_model_dir(json_data)
                 download_url(model_url, model_dir, filename=json_data['filename'])
                 

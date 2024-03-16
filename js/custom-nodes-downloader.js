@@ -154,7 +154,6 @@ export class CustomNodesInstaller extends ComfyDialog {
 	async filter_missing_node(data) {
 		const mappings = await getCustomnodeMappings();
 
-
 		// build regex->url map
 		const regex_to_url = [];
 		for (let i in data) {
@@ -165,11 +164,17 @@ export class CustomNodesInstaller extends ComfyDialog {
 		}
 
 		// build name->url map
-		const name_to_url = {};
+		const name_to_urls = {};
 		for (const url in mappings) {
 			const names = mappings[url];
+
 			for(const name in names[0]) {
-				name_to_url[names[0][name]] = url;
+				let v = name_to_urls[names[0][name]];
+				if(v == undefined) {
+					v = [];
+					name_to_urls[names[0][name]] = v;
+				}
+				v.push(url);
 			}
 		}
 
@@ -194,9 +199,11 @@ export class CustomNodesInstaller extends ComfyDialog {
 				continue;
 
 			if (!registered_nodes.has(node_type)) {
-				const url = name_to_url[node_type.trim()];
-				if(url)
-					missing_nodes.add(url);
+				const urls = name_to_urls[node_type.trim()];
+				if(urls)
+					urls.forEach(url => {
+						missing_nodes.add(url);
+					});
 				else {
 					for(let j in regex_to_url) {
 						if(regex_to_url[j].regex.test(node_type)) {
@@ -210,7 +217,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 		let unresolved_nodes = await getUnresolvedNodesInComponent();
 		for (let i in unresolved_nodes) {
 			let node_type = unresolved_nodes[i];
-			const url = name_to_url[node_type];
+			const url = name_to_urls[node_type];
 			if(url)
 				missing_nodes.add(url);
 		}

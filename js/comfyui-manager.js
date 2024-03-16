@@ -148,13 +148,13 @@ docStyle.innerHTML = `
 }
 
 .cm-notice-board > ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px;
+	display: block;
+	list-style-type: disc;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	padding-inline-start: 40px;
 }
 
 .cm-conflicted-nodes-text {
@@ -383,7 +383,7 @@ await init_badge_mode();
 await init_share_option();
 
 async function fetchNicknames() {
-	const response1 = await api.fetchApi(`/customnode/getmappings?mode=local`);
+	const response1 = await api.fetchApi(`/customnode/getmappings?mode=nickname`);
 	const mappings = await response1.json();
 
 	let result = {};
@@ -629,12 +629,12 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 			}
 
 			app.ui.dialog.show(
-				"ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button class='cm-small-button' id='cm-reboot-button'>RESTART</button> ComfyUI. And refresh browser.<BR>"
+				"ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button class='cm-small-button' id='cm-reboot-button5'>RESTART</button> ComfyUI. And refresh browser.<BR>"
 				+failed_list
 				+updated_list
 				);
 
-			const rebootButton = document.getElementById('cm-reboot-button');
+			const rebootButton = document.getElementById('cm-reboot-button5');
 			rebootButton.addEventListener("click",
 				function() {
 					if(rebootAPI()) {
