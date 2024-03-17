@@ -29,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 10, 1]
+version = [2, 10, 2]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -1712,7 +1712,11 @@ async def update_comfyui(request):
         current_branch = repo.active_branch
         branch_name = current_branch.name
 
-        remote_name = current_branch.tracking_branch().remote_name
+        if current_branch.tracking_branch() is None:
+            print(f"[ComfyUI-Manager] There is no tracking branch ({current_branch})")
+            remote_name = 'origin'
+        else:
+            remote_name = current_branch.tracking_branch().remote_name
         remote = repo.remote(name=remote_name)
 
         try:
