@@ -240,6 +240,7 @@
             "ImageScaleToSide-badger",
             "IntToString-badger",
             "SegmentToMaskByPoint-badger",
+            "StringListToOneLine-badger",
             "StringToFizz-badger",
             "TextListToString-badger",
             "ToPixel-badger",
@@ -291,7 +292,7 @@
             "Save Images Pair"
         ],
         {
-            "title_aux": "ComfyUI-HfLoader"
+            "title_aux": "ComfyUI-Aimidi-nodes"
         }
     ],
     "https://github.com/Alysondao/Comfyui-Yolov8-JSON": [
@@ -686,6 +687,7 @@
             "PrimereModelConceptSelector",
             "PrimereModelKeyword",
             "PrimereNetworkTagLoader",
+            "PrimerePreviewImage",
             "PrimerePrompt",
             "PrimerePromptOrganizer",
             "PrimerePromptSwitch",
@@ -826,7 +828,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8ApplySerialPrompter",
+            "title": "cr8SerialPrompter",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -1122,6 +1124,19 @@
             "title_aux": "tiled_ksampler"
         }
     ],
+    "https://github.com/ForeignGods/ComfyUI-Mana-Nodes": [
+        [
+            "audio2video",
+            "font2img",
+            "speech2text",
+            "string2file",
+            "text2speech",
+            "video2audio"
+        ],
+        {
+            "title_aux": "ComfyUI-Mana-Nodes"
+        }
+    ],
     "https://github.com/Franck-Demongin/NX_PromptStyler": [
         [
             "NX_PromptStyler"
@@ -1221,12 +1236,10 @@
     ],
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
-            "Hook Recenter",
-            "Hook Recenter XL",
             "Normalization",
             "NormalizationXL",
-            "Tensor Debug",
-            "Unhook Recenter"
+            "Recenter",
+            "Recenter XL"
         ],
         {
             "title_aux": "ComfyUI Diffusion Color Grading"
@@ -1916,6 +1929,17 @@
             "author": "ManglerFTW",
             "title": "ComfyI2I",
             "title_aux": "ComfyI2I"
+        }
+    ],
+    "https://github.com/MarkoCa1/ComfyUI-Text": [
+        [
+            "CombinationText",
+            "PlaceholderText",
+            "ReplaceText",
+            "ShowText"
+        ],
+        {
+            "title_aux": "ComfyUI_Text"
         }
     ],
     "https://github.com/MarkoCa1/ComfyUI_Segment_Mask": [
@@ -4669,6 +4693,8 @@
     "https://github.com/chaojie/ComfyUI-DynamiCrafter": [
         [
             "DynamiCrafter Simple",
+            "DynamiCrafterInterp Simple",
+            "DynamiCrafterInterpLoader",
             "DynamiCrafterLoader"
         ],
         {
@@ -5198,6 +5224,7 @@
             "SD_4XUpscale_Conditioning",
             "SVD_img2vid_Conditioning",
             "SamplerCustom",
+            "SamplerDPMAdaptative",
             "SamplerDPMPP_2M_SDE",
             "SamplerDPMPP_3M_SDE",
             "SamplerDPMPP_SDE",
@@ -6140,6 +6167,7 @@
         [
             "GlifConsistencyDecoder",
             "GlifPatchConsistencyDecoderTiled",
+            "ImageToMultipleOf",
             "SDXLAspectRatio"
         ],
         {
@@ -6203,6 +6231,7 @@
             "PromptGenerateAPI",
             "SaveAudioNode",
             "SimpleText",
+            "StructuredOutput",
             "Suggester",
             "UformGen2QwenNode",
             "ViewText"
@@ -6711,7 +6740,6 @@
             "CreateVoronoiMask",
             "CrossFadeImages",
             "DummyLatentOut",
-            "EffnetEncode",
             "EmptyLatentImagePresets",
             "FilterZeroMasksAndCorrespondingImages",
             "FlipSigmasAdjusted",
@@ -6740,7 +6768,6 @@
             "NormalizedAmplitudeToMask",
             "OffsetMask",
             "OffsetMaskByNormalizedAmplitude",
-            "ReferenceOnlySimple3",
             "RemapMaskRange",
             "ReplaceImagesInBatch",
             "ResizeMask",
@@ -7656,6 +7683,7 @@
             "PngColorMasksToStringList",
             "PngRectanglesToMask",
             "PngRectanglesToMaskList",
+            "RandomLayouts",
             "SingleBooleanTrigger",
             "SixBooleanTrigger",
             "SixFloats",
@@ -8618,7 +8646,7 @@
             "BlurImageFast",
             "BlurMaskFast",
             "ClampOutliers",
-            "ColorMatch",
+            "ColorMatchImage",
             "ConvertNormals",
             "DifferenceChecker",
             "DilateErodeMask",
@@ -9427,6 +9455,7 @@
             "easy if",
             "easy imageInsetCrop",
             "easy imagePixelPerfect",
+            "easy imageRemBg",
             "easy imageRemoveBG",
             "easy imageSave",
             "easy imageScaleDown",
@@ -9623,9 +9652,6 @@
             "Bedrock - Claude",
             "Bedrock - SDXL",
             "Bedrock - Titan Image",
-            "Image From S3",
-            "Image From URL",
-            "Image To S3",
             "Prompt Regex Remove",
             "Prompt Template"
         ],
