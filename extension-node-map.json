@@ -828,7 +828,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8SerialPrompter",
+            "title": "cr8ApplySerialPrompter",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -1228,10 +1228,12 @@
     ],
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
+            "Hook Recenter",
+            "Hook Recenter XL",
             "Normalization",
             "NormalizationXL",
-            "Recenter",
-            "Recenter XL"
+            "Tensor Debug",
+            "Unhook Recenter"
         ],
         {
             "title_aux": "ComfyUI Diffusion Color Grading"
@@ -1550,13 +1552,16 @@
             "ADE_AnimateDiffUnload",
             "ADE_ApplyAnimateDiffModel",
             "ADE_ApplyAnimateDiffModelSimple",
+            "ADE_ApplyAnimateLCMI2VModel",
             "ADE_BatchedContextOptions",
             "ADE_CustomCFG",
             "ADE_CustomCFGKeyframe",
             "ADE_EmptyLatentImageLarge",
+            "ADE_InjectI2VIntoAnimateDiffModel",
             "ADE_IterationOptsDefault",
             "ADE_IterationOptsFreeInit",
             "ADE_LoadAnimateDiffModel",
+            "ADE_LoadAnimateLCMI2VModel",
             "ADE_LoopedUniformContextOptions",
             "ADE_LoopedUniformViewOptions",
             "ADE_MaskedLoadLora",
@@ -1574,6 +1579,7 @@
             "ADE_StandardStaticViewOptions",
             "ADE_StandardUniformContextOptions",
             "ADE_StandardUniformViewOptions",
+            "ADE_UpscaleAndVAEEncode",
             "ADE_UseEvolvedSampling",
             "ADE_ViewsOnlyContextOptions",
             "AnimateDiffLoaderV1",
@@ -2306,6 +2312,7 @@
             "LatentAddTransform",
             "LatentInterpolateTransform",
             "LatentMirror",
+            "LatentNormalize",
             "LatentShift",
             "MirrorTransform",
             "MultiplyTransform",
@@ -6724,6 +6731,16 @@
             "title_aux": "ComfyUI-DDColor"
         }
     ],
+    "https://github.com/kijai/ComfyUI-DynamiCrafterWrapper": [
+        [
+            "DynamiCrafterBatchInterpolation",
+            "DynamiCrafterI2V",
+            "DynamiCrafterModelLoader"
+        ],
+        {
+            "title_aux": "ComfyUI-DynamiCrafterWrapper"
+        }
+    ],
     "https://github.com/kijai/ComfyUI-KJNodes": [
         [
             "AddLabel",
@@ -7711,6 +7728,7 @@
             "PngRectanglesToMask",
             "PngRectanglesToMaskList",
             "RandomLayouts",
+            "SeedGenerator",
             "SingleBooleanTrigger",
             "SixBooleanTrigger",
             "SixFloats",
@@ -9679,6 +9697,9 @@
             "Bedrock - Claude",
             "Bedrock - SDXL",
             "Bedrock - Titan Image",
+            "Image From S3",
+            "Image From URL",
+            "Image To S3",
             "Prompt Regex Remove",
             "Prompt Template"
         ],
