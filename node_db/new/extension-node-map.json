@@ -460,7 +460,7 @@
             "Image Text Overlay"
         ],
         {
-            "title_aux": "ImageTextOverlay Node for ComfyUI"
+            "title_aux": "Image Text Overlay Node for ComfyUI"
         }
     ],
     "https://github.com/Bikecicle/ComfyUI-Waveform-Extensions/raw/main/EXT_AudioManipulation.py": [
@@ -1035,6 +1035,57 @@
         ],
         {
             "author": "tstandley",
+            "preemptions": [
+                "AIO_Preprocessor",
+                "AnimalPosePreprocessor",
+                "AnimeFace_SemSegPreprocessor",
+                "AnimeLineArtPreprocessor",
+                "BAE-NormalMapPreprocessor",
+                "BinaryPreprocessor",
+                "CannyEdgePreprocessor",
+                "ColorPreprocessor",
+                "DSINE-NormalMapPreprocessor",
+                "DWPreprocessor",
+                "DensePosePreprocessor",
+                "DepthAnythingPreprocessor",
+                "DiffusionEdge_Preprocessor",
+                "FacialPartColoringFromPoseKps",
+                "FakeScribblePreprocessor",
+                "HEDPreprocessor",
+                "HintImageEnchance",
+                "ImageGenResolutionFromImage",
+                "ImageGenResolutionFromLatent",
+                "ImageIntensityDetector",
+                "ImageLuminanceDetector",
+                "InpaintPreprocessor",
+                "LeReS-DepthMapPreprocessor",
+                "LineArtPreprocessor",
+                "LineartStandardPreprocessor",
+                "M-LSDPreprocessor",
+                "Manga2Anime_LineArt_Preprocessor",
+                "MaskOptFlow",
+                "MediaPipe-FaceMeshPreprocessor",
+                "MeshGraphormer-DepthMapPreprocessor",
+                "MiDaS-DepthMapPreprocessor",
+                "MiDaS-NormalMapPreprocessor",
+                "OneFormer-ADE20K-SemSegPreprocessor",
+                "OneFormer-COCO-SemSegPreprocessor",
+                "OpenposePreprocessor",
+                "PiDiNetPreprocessor",
+                "PixelPerfectResolution",
+                "SAMPreprocessor",
+                "SavePoseKpsAsJsonFile",
+                "ScribblePreprocessor",
+                "Scribble_XDoG_Preprocessor",
+                "SemSegPreprocessor",
+                "ShufflePreprocessor",
+                "TEEDPreprocessor",
+                "TilePreprocessor",
+                "UniFormer-SemSegPreprocessor",
+                "Unimatch_OptFlowPreprocessor",
+                "Zoe-DepthMapPreprocessor",
+                "Zoe_DepthAnythingPreprocessor"
+            ],
             "title_aux": "ComfyUI's ControlNet Auxiliary Preprocessors"
         }
     ],
@@ -1536,6 +1587,12 @@
             "ADE_AdjustPEFullStretch",
             "ADE_AdjustPEManual",
             "ADE_AdjustPESweetspotStretch",
+            "ADE_AdjustWeightAllAdd",
+            "ADE_AdjustWeightAllMult",
+            "ADE_AdjustWeightIndivAdd",
+            "ADE_AdjustWeightIndivAttnAdd",
+            "ADE_AdjustWeightIndivAttnMult",
+            "ADE_AdjustWeightIndivMult",
             "ADE_AnimateDiffCombine",
             "ADE_AnimateDiffKeyframe",
             "ADE_AnimateDiffLoRALoader",
@@ -3482,6 +3539,8 @@
             "ImageColorPalette",
             "ImageFlipper",
             "ImagePixelPalette",
+            "ImageRGBPicker",
+            "ImageRGBSwapper",
             "ImageRotator",
             "ImageSizeClassifer",
             "ImageSizeCombiner",
@@ -4675,7 +4734,11 @@
     ],
     "https://github.com/chaojie/ComfyUI-DragAnything": [
         [
-            "DragAnythingRun"
+            "DragAnythingRun",
+            "DragAnythingRunRandom",
+            "LoadText",
+            "SaveText",
+            "VHS_FILENAMES_STRING"
         ],
         {
             "title_aux": "ComfyUI-DragAnything"
@@ -5241,6 +5304,7 @@
             "RescaleCFG",
             "SDTurboScheduler",
             "SD_4XUpscale_Conditioning",
+            "SV3D_Conditioning",
             "SVD_img2vid_Conditioning",
             "SamplerCustom",
             "SamplerDPMAdaptative",
@@ -5279,6 +5343,7 @@
             "VAESave",
             "VPScheduler",
             "VideoLinearCFGGuidance",
+            "VideoTriangleCFGGuidance",
             "unCLIPCheckpointLoader",
             "unCLIPConditioning"
         ],
@@ -5818,6 +5883,7 @@
     "https://github.com/edenartlab/eden_comfy_pipelines": [
         [
             "CLIP_Interrogator",
+            "ConvertToGrayscale",
             "Eden_Bool",
             "Eden_Compare",
             "Eden_DebugPrint",
@@ -6802,6 +6868,7 @@
             "ResizeMask",
             "ReverseImageBatch",
             "RoundMask",
+            "SV3D_BatchSchedule",
             "SaveImageWithAlpha",
             "ScaleBatchPromptSchedule",
             "SomethingToString",
