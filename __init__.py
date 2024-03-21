@@ -29,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 10, 2]
+version = [2, 8, 3]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -37,22 +37,6 @@ print(f"### Loading: ComfyUI-Manager ({version_str})")
 comfy_ui_hash = "-"
 
 cache_lock = threading.Lock()
-
-
-def is_blacklisted(name):
-    name = name.strip()
-
-    pattern = r'([^<>!=]+)([<>!=]=?)'
-    match = re.search(pattern, name)
-
-    if match:
-        name = match.group(1)
-
-    if name in cm_global.pip_downgrade_blacklist:
-        if match is None or match.group(2) in ['<=', '==', '<']:
-            return True
-
-    return False
 
 
 def handle_stream(stream, prefix):
@@ -194,7 +178,6 @@ def write_config():
         'component_policy': get_config()['component_policy'],
         'double_click_policy': get_config()['double_click_policy'],
         'windows_selector_event_loop_policy': get_config()['windows_selector_event_loop_policy'],
-        'model_download_by_agent': get_config()['model_download_by_agent']
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -218,7 +201,6 @@ def read_config():
                     'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
                     'double_click_policy': default_conf['double_click_policy'] if 'double_click_policy' in default_conf else 'copy-all',
                     'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else False,
-                    'model_download_by_agent': default_conf['model_download_by_agent'] if 'model_download_by_agent' in default_conf else False,
                }
 
     except Exception:
@@ -233,8 +215,7 @@ def read_config():
             'default_ui': 'none',
             'component_policy': 'workflow',
             'double_click_policy': 'copy-all',
-            'windows_selector_event_loop_policy': False,
-            'model_download_by_agent': False,
+            'windows_selector_event_loop_policy': False
         }
 
 
@@ -302,12 +283,6 @@ def try_install_script(url, repo_path, install_cmd):
 
         return True
     else:
-        if len(install_cmd) == 5 and install_cmd[2:4] == ['pip', 'install']:
-            if is_blacklisted(install_cmd[4]):
-                print(f"[ComfyUI-Manager] skip black listed pip installation: '{install_cmd[4]}'")
-                return True
-
-
         print(f"\n## ComfyUI-Manager: EXECUTE => {install_cmd}")
         code = run_script(install_cmd, cwd=repo_path)
 
@@ -547,17 +522,16 @@ def git_pull(path):
     else:
         repo = git.Repo(path)
 
+        print(f"path={path} / repo.is_dirty: {repo.is_dirty()}")
+
         if repo.is_dirty():
             repo.git.stash()
 
         if repo.head.is_detached:
             switch_to_default_branch(repo)
 
-        current_branch = repo.active_branch
-        remote_name = current_branch.tracking_branch().remote_name
-        remote = repo.remote(name=remote_name)
-
-        remote.pull()
+        origin = repo.remote(name='origin')
+        origin.pull()
         repo.git.submodule('update', '--init', '--recursive')
         
         repo.close()
@@ -1712,11 +1686,7 @@ async def update_comfyui(request):
         current_branch = repo.active_branch
         branch_name = current_branch.name
 
-        if current_branch.tracking_branch() is None:
-            print(f"[ComfyUI-Manager] There is no tracking branch ({current_branch})")
-            remote_name = 'origin'
-        else:
-            remote_name = current_branch.tracking_branch().remote_name
+        remote_name = current_branch.tracking_branch().remote_name
         remote = repo.remote(name=remote_name)
 
         try:
@@ -1785,7 +1755,8 @@ async def install_model(request):
             print(f"Install model '{json_data['name']}' into '{model_path}'")
 
             model_url = json_data['url']
-            if not get_config()['model_download_by_agent'] and (model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de')):
+
+            if model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de'):
                 model_dir = get_model_dir(json_data)
                 download_url(model_url, model_dir, filename=json_data['filename'])
                 
