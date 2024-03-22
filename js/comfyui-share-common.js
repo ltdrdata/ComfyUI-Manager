@@ -164,6 +164,35 @@ export function parseURLPath(urlPath) {
 }
 
 
+export const shareToEsheep= () => {
+	// 1、获得workflow和图片信息
+	app.graphToPrompt()
+	.then(prompt => {
+		const nodes = app.graph._nodes
+		const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
+		const workflow = prompt['workflow']
+		// 2、把workflow和图片保存到本地
+		api.fetchApi(`/manager/set_esheep_workflow_and_images`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				workflow: workflow,
+				images: potential_outputs
+			})
+		}).then(response => {
+			// 获取域名（不包含子域）
+			var domain = window.location.hostname;
+			// 获取端口号
+			var port = window.location.port;
+			// 如果端口为空字符串，则可能是使用了标准端口（80 for http and 443 for https）
+			port = port || (window.location.protocol === 'http:' ? '80' : window.location.protocol === 'https:' ? '443' : '');
+			var full_domin = domain + ':' + port
+			// 打开新tab
+			window.open('https://www.esheep.com/app/workflow_upload?from_local='+ full_domin, '_blank');
+		});
+	})
+}
+
 export const showOpenArtShareDialog = () => {
   if (!OpenArtShareDialog.instance) {
     OpenArtShareDialog.instance = new OpenArtShareDialog();
@@ -241,6 +270,17 @@ export class ShareDialogChooser extends ComfyDialog {
 	}
 	createButtons() {
 		const buttons = [
+			{
+				key: "esheep",
+				textContent: "eSheep 电子羊",
+				website: "https://www.esheep.com",
+				description: "在电子羊社区体验工作流免费分享与下载 \n\
+							 Share & download thousands of ComfyUI workflows on <a style='color:white;' href='https://www.esheep.com' target='_blank'>esheep.com</a>",
+				onclick: () => {
+					shareToEsheep();
+				  	this.close();
+				}
+			},
 			{
 				key: "openart",
 				textContent: "OpenArt AI",
