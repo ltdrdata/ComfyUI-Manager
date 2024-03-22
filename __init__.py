@@ -2126,6 +2126,15 @@ async def api_get_comfyworkflows_auth(request):
         return web.Response(status=404)
     return web.json_response({"comfyworkflows_sharekey" : comfyworkflows_auth})
 
+# 跨域获得本地数据
+args.enable_cors_header = "*"  # 或者可以是 '*'
+if hasattr(server.PromptServer.instance, "app"):
+    # 获取应用实例
+    app = server.PromptServer.instance.app
+    # 创建并添加 CORS 中间件
+    cors_middleware = server.create_cors_middleware(args.enable_cors_header)
+    app.middlewares.append(cors_middleware)
+
 @server.PromptServer.instance.routes.post("/manager/set_esheep_workflow_and_images")
 async def set_esheep_workflow_and_images(request):
     json_data = await request.json()
