@@ -491,6 +491,14 @@
             "title_aux": "Image Text Overlay Node for ComfyUI"
         }
     ],
+    "https://github.com/Big-Idea-Technology/ComfyUI_T5_LLM_Node": [
+        [
+            "LLM_Node"
+        ],
+        {
+            "title_aux": "LLM_Node for ComfyUI"
+        }
+    ],
     "https://github.com/Bikecicle/ComfyUI-Waveform-Extensions/raw/main/EXT_AudioManipulation.py": [
         [
             "BatchJoinAudio",
@@ -4976,7 +4984,8 @@
         [
             "ImageDirIterator",
             "Modelscopet2v",
-            "Modelscopev2v"
+            "Modelscopev2v",
+            "VidDirIterator"
         ],
         {
             "title_aux": "cspnodes"
@@ -5718,18 +5727,24 @@
     ],
     "https://github.com/cubiq/ComfyUI_IPAdapter_plus": [
         [
-            "IPAdapterApply",
-            "IPAdapterApplyEncoded",
-            "IPAdapterApplyFaceID",
-            "IPAdapterBatchEmbeds",
+            "IPAAdapterFaceIDBatch",
+            "IPAdapter",
+            "IPAdapterAdvanced",
+            "IPAdapterBatch",
+            "IPAdapterCombineEmbeds",
+            "IPAdapterEmbeds",
             "IPAdapterEncoder",
+            "IPAdapterFaceID",
+            "IPAdapterInsightFaceLoader",
             "IPAdapterLoadEmbeds",
             "IPAdapterModelLoader",
+            "IPAdapterNoise",
             "IPAdapterSaveEmbeds",
-            "IPAdapterTilesMasked",
-            "InsightFaceLoader",
-            "PrepImageForClipVision",
-            "PrepImageForInsightFace"
+            "IPAdapterTiled",
+            "IPAdapterTiledBatch",
+            "IPAdapterUnifiedLoader",
+            "IPAdapterUnifiedLoaderFaceID",
+            "PrepImageForClipVision"
         ],
         {
             "title_aux": "ComfyUI_IPAdapter_plus"
@@ -5776,6 +5791,7 @@
             "ImageExpandBatch+",
             "ImageFlip+",
             "ImageFromBatch+",
+            "ImageListToBatch+",
             "ImagePosterize+",
             "ImageRemoveBackground+",
             "ImageResize+",
@@ -5904,6 +5920,7 @@
             "JDCN_BatchLatentLoadFromDir",
             "JDCN_BatchSaveLatent",
             "JDCN_FileMover",
+            "JDCN_ImageSaver",
             "JDCN_ListToString",
             "JDCN_ReBatch",
             "JDCN_SeamlessExperience",
@@ -8818,9 +8835,12 @@
             "FloatSlider",
             "FloatingVideo",
             "Font",
+            "GLIGENTextBoxApply_Advanced",
             "GamePal",
             "GetImageSize_",
             "GradientImage",
+            "GridDisplayAndSave",
+            "GridInput",
             "GridOutput",
             "ImageColorTransfer",
             "ImageCropByAlpha",
