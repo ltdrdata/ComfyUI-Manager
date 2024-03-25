@@ -866,7 +866,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8SerialPrompter",
+            "title": "cr8ApplySerialPrompter",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -1190,7 +1190,7 @@
             "CosWave",
             "FizzFrame",
             "FizzFrameConcatenate",
-            "ImageBatchFromValueSchedule",
+            "ImagesFromBatchSchedule",
             "Init FizzFrame",
             "InvCosWave",
             "InvSinWave",
@@ -1893,6 +1893,14 @@
             "ImageIntensityDetector",
             "ImageLuminanceDetector",
             "InpaintPreprocessor",
+            "LayeredDiffusionApply",
+            "LayeredDiffusionCondApply",
+            "LayeredDiffusionCondJointApply",
+            "LayeredDiffusionDecode",
+            "LayeredDiffusionDecodeRGBA",
+            "LayeredDiffusionDecodeSplit",
+            "LayeredDiffusionDiffApply",
+            "LayeredDiffusionJointApply",
             "LeReS-DepthMapPreprocessor",
             "LineArtPreprocessor",
             "LineartStandardPreprocessor",
@@ -3771,27 +3779,6 @@
             "title_aux": "WebDev9000-Nodes"
         }
     ],
-    "https://github.com/XINZHANG-ops/comfyui-xin-nodes": [
-        [
-            "ImageColorPalette",
-            "ImageFlipper",
-            "ImagePixelPalette",
-            "ImageRGBPicker",
-            "ImageRGBSwapper",
-            "ImageRotator",
-            "ImageSizeClassifer",
-            "ImageSizeCombiner",
-            "PaintTiles",
-            "PaintTilesV2",
-            "RandomInt",
-            "SaveTensor",
-            "ShowValue",
-            "Tiles"
-        ],
-        {
-            "title_aux": "comfyui-xin-nodes"
-        }
-    ],
     "https://github.com/XmYx/deforum-comfy-nodes": [
         [
             "DeforumAddNoiseNode",
@@ -4252,6 +4239,14 @@
         ],
         {
             "title_aux": "ComfyUI Image Saver"
+        }
+    ],
+    "https://github.com/alisson-anjos/ComfyUI-LLaVA-Describer": [
+        [
+            "LLaVaDescriber"
+        ],
+        {
+            "title_aux": "ComfyUI-LLaVA-Describer"
         }
     ],
     "https://github.com/alpertunga-bile/prompt-generator-comfyui": [
@@ -5199,6 +5194,75 @@
         ],
         {
             "title_aux": "ComfyUI-dust3r"
+        }
+    ],
+    "https://github.com/chaosaiart/Chaosaiart-Nodes": [
+        [
+            "chaosaiart_ADD_Prompt",
+            "chaosaiart_Any_Display",
+            "chaosaiart_Any_Switch",
+            "chaosaiart_Any_Switch_Big_Number",
+            "chaosaiart_Batch_Loader_Number_Override",
+            "chaosaiart_CheckpointLoader",
+            "chaosaiart_CheckpointPrompt",
+            "chaosaiart_CheckpointPrompt2",
+            "chaosaiart_CheckpointPrompt_Frame",
+            "chaosaiart_CheckpointPrompt_FrameMixer",
+            "chaosaiart_ControlNetApply",
+            "chaosaiart_ControlNetApply2",
+            "chaosaiart_Denoising_Switch",
+            "chaosaiart_EmptyLatentImage",
+            "chaosaiart_ImageHolder_loop",
+            "chaosaiart_KSampler",
+            "chaosaiart_KSampler1",
+            "chaosaiart_KSampler2",
+            "chaosaiart_KSampler3",
+            "chaosaiart_Load_Image_Batch",
+            "chaosaiart_Load_Image_Batch_2img",
+            "chaosaiart_Number",
+            "chaosaiart_Number_Counter",
+            "chaosaiart_Number_Switch",
+            "chaosaiart_Prompt",
+            "chaosaiart_Prompt_Frame",
+            "chaosaiart_Prompt_mixer",
+            "chaosaiart_Prompt_mixer_byFrame",
+            "chaosaiart_SaveImage",
+            "chaosaiart_ShowInput",
+            "chaosaiart_Show_Any",
+            "chaosaiart_Show_Info",
+            "chaosaiart_Simple_Prompt",
+            "chaosaiart_TextCLIPEncode",
+            "chaosaiart_TextCLIPEncode_simple",
+            "chaosaiart_adjust_color",
+            "chaosaiart_any_array2input_1Input",
+            "chaosaiart_any_array2input_all_big",
+            "chaosaiart_any_array2input_all_small",
+            "chaosaiart_any_input2array_big",
+            "chaosaiart_any_input2array_small",
+            "chaosaiart_cn_math",
+            "chaosaiart_controlnet_weidgth",
+            "chaosaiart_convert",
+            "chaosaiart_img2video",
+            "chaosaiart_imgHolder",
+            "chaosaiart_main_Prompt",
+            "chaosaiart_reloadAny_Load",
+            "chaosaiart_reloadAny_Save",
+            "chaosaiart_reloadIMG_Load",
+            "chaosaiart_reloadIMG_Load2",
+            "chaosaiart_reloadIMG_Save",
+            "chaosaiart_reloadLatent_Load",
+            "chaosaiart_reloadLatent_Load2",
+            "chaosaiart_reloadLatent_Save",
+            "chaosaiart_restarter",
+            "chaosaiart_restarter_advanced",
+            "chaosaiart_saveImagePrefix",
+            "chaosaiart_test",
+            "chaosaiart_test2",
+            "chaosaiart_video2img1",
+            "chaosaiart_video2img2"
+        ],
+        {
+            "title_aux": "Chaosaiart-Nodes"
         }
     ],
     "https://github.com/chflame163/ComfyUI_FaceSimilarity": [
@@ -10176,6 +10240,9 @@
             "Bedrock - Claude",
             "Bedrock - SDXL",
             "Bedrock - Titan Image",
+            "Image From S3",
+            "Image From URL",
+            "Image To S3",
             "Prompt Regex Remove",
             "Prompt Template"
         ],
