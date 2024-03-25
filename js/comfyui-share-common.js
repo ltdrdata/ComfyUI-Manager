@@ -272,10 +272,9 @@ export class ShareDialogChooser extends ComfyDialog {
 		const buttons = [
 			{
 				key: "esheep",
-				textContent: "eSheep 电子羊",
+				textContent: "eSheep",
 				website: "https://www.esheep.com",
-				description: "在电子羊社区体验工作流免费分享与下载 \n\
-							 Share & download thousands of ComfyUI workflows on <a style='color:white;' href='https://www.esheep.com' target='_blank'>esheep.com</a>",
+				description: "Share & download thousands of ComfyUI workflows on <a style='color:white;' href='https://www.esheep.com' target='_blank'>esheep.com</a>",
 				onclick: () => {
 					shareToEsheep();
 				  	this.close();
