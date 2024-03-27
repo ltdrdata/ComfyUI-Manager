@@ -503,12 +503,15 @@
             "title_aux": "Image Text Overlay Node for ComfyUI"
         }
     ],
-    "https://github.com/Big-Idea-Technology/ComfyUI_T5_LLM_Node": [
+    "https://github.com/Big-Idea-Technology/ComfyUI_LLM_Node": [
         [
-            "LLM_Node"
+            "AdvOptions_Node",
+            "LLM_Node",
+            "Output_Node",
+            "QuantizationConfig_Node"
         ],
         {
-            "title_aux": "LLM_Node for ComfyUI"
+            "title_aux": "LLM Node for ComfyUI"
         }
     ],
     "https://github.com/Bikecicle/ComfyUI-Waveform-Extensions/raw/main/EXT_AudioManipulation.py": [
@@ -878,7 +881,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8ApplySerialPrompter",
+            "title": "cr8SerialPrompter",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -949,7 +952,9 @@
     ],
     "https://github.com/Extraltodeus/ComfyUI-AutomaticCFG": [
         [
-            "Automatic CFG"
+            "Automatic CFG",
+            "Automatic CFG - Advanced settings",
+            "Automatic CFG - Negative"
         ],
         {
             "title_aux": "ComfyUI-AutomaticCFG"
@@ -961,6 +966,18 @@
         ],
         {
             "title_aux": "LoadLoraWithTags"
+        }
+    ],
+    "https://github.com/Extraltodeus/Vector_Sculptor_ComfyUI": [
+        [
+            "CLIP Vector Sculptor text encode",
+            "Conditioning (Average keep magnitude)",
+            "Conditioning (Slerp)",
+            "Conditioning SDXL merge clip_g / clip_l",
+            "Conditioning normalize magnitude to empty"
+        ],
+        {
+            "title_aux": "Vector_Sculptor_ComfyUI"
         }
     ],
     "https://github.com/Extraltodeus/noise_latent_perlinpinpin": [
@@ -1413,6 +1430,17 @@
             "nickname": "IG Interpolation Nodes",
             "title": "IG Interpolation Nodes",
             "title_aux": "IG Interpolation Nodes"
+        }
+    ],
+    "https://github.com/IKHOR/ComfyUI-IKHOR-Jam-Nodes": [
+        [
+            "LoadBatchFromS3",
+            "LoadFromS3",
+            "SaveBatchToS3",
+            "SaveToS3"
+        ],
+        {
+            "title_aux": "ikhor-nodes"
         }
     ],
     "https://github.com/Inzaniak/comfyui-ranbooru": [
@@ -2970,6 +2998,14 @@
         ],
         {
             "title_aux": "comfyui_segformer_b2_clothes"
+        }
+    ],
+    "https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts": [
+        [
+            "HDR Effects (SuperBeasts.AI)"
+        ],
+        {
+            "title_aux": "ComfyUI-SuperBeasts"
         }
     ],
     "https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes": [
@@ -5009,7 +5045,9 @@
     "https://github.com/chaojie/ComfyUI-Champ": [
         [
             "ChampLoader",
-            "ChampRun"
+            "ChampRun",
+            "ImageCombineOneColumn",
+            "ImageCombineOneRow"
         ],
         {
             "title_aux": "ComfyUI-Champ"
@@ -5084,6 +5122,17 @@
         ],
         {
             "title_aux": "ComfyUI-I2VGEN-XL"
+        }
+    ],
+    "https://github.com/chaojie/ComfyUI-Img2Img-Turbo": [
+        [
+            "Img2ImgTurboEdgeLoader",
+            "Img2ImgTurboEdgeRun",
+            "Img2ImgTurboSketchLoader",
+            "Img2ImgTurboSketchRun"
+        ],
+        {
+            "title_aux": "ComfyUI-Img2Img-Turbo"
         }
     ],
     "https://github.com/chaojie/ComfyUI-LightGlue": [
@@ -5233,6 +5282,7 @@
             "chaosaiart_ControlNetApply2",
             "chaosaiart_Denoising_Switch",
             "chaosaiart_EmptyLatentImage",
+            "chaosaiart_FramePromptCLIPEncode",
             "chaosaiart_ImageHolder_loop",
             "chaosaiart_KSampler",
             "chaosaiart_KSampler1",
@@ -5253,6 +5303,7 @@
             "chaosaiart_Show_Info",
             "chaosaiart_Simple_Prompt",
             "chaosaiart_TextCLIPEncode",
+            "chaosaiart_TextCLIPEncode_lora",
             "chaosaiart_TextCLIPEncode_simple",
             "chaosaiart_adjust_color",
             "chaosaiart_any_array2input_1Input",
@@ -5265,6 +5316,8 @@
             "chaosaiart_convert",
             "chaosaiart_img2video",
             "chaosaiart_imgHolder",
+            "chaosaiart_lora",
+            "chaosaiart_lora_advanced",
             "chaosaiart_main_Prompt",
             "chaosaiart_reloadAny_Load",
             "chaosaiart_reloadAny_Save",
@@ -7249,6 +7302,15 @@
             "title_aux": "ComfyUI-DynamiCrafterWrapper"
         }
     ],
+    "https://github.com/kijai/ComfyUI-Geowizard": [
+        [
+            "geowizard_model_loader",
+            "geowizard_sampler"
+        ],
+        {
+            "title_aux": "Geowizard depth and normal estimation in ComfyUI"
+        }
+    ],
     "https://github.com/kijai/ComfyUI-KJNodes": [
         [
             "AddLabel",
@@ -7406,14 +7468,6 @@
         ],
         {
             "title_aux": "SimpleTiles"
-        }
-    ],
-    "https://github.com/kinfolk0117/ComfyUI_TiledIPAdapter": [
-        [
-            "TiledIPAdapter"
-        ],
-        {
-            "title_aux": "TiledIPAdapter"
         }
     ],
     "https://github.com/klinter007/klinter_nodes": [
@@ -8920,6 +8974,7 @@
             "ChatGPTOpenAI",
             "CkptNames_",
             "Color",
+            "CompositeImages_",
             "DynamicDelayProcessor",
             "EmbeddingPrompt",
             "EnhanceImage",
@@ -8941,7 +8996,6 @@
             "ImagesPrompt_",
             "IntNumber",
             "JoinWithDelimiter",
-            "LaMaInpainting",
             "LimitNumber",
             "ListSplit_",
             "LoadImagesFromPath",
@@ -8987,7 +9041,9 @@
             "TextToNumber",
             "TransparentImage",
             "VAEDecodeConsistencyDecoder",
-            "VAELoaderConsistencyDecoder"
+            "VAEEncodeForInpaint_Frames",
+            "VAELoaderConsistencyDecoder",
+            "VideoCombine_Adv"
         ],
         {
             "title_aux": "comfyui-mixlab-nodes"
@@ -10269,9 +10325,6 @@
             "Bedrock - Claude",
             "Bedrock - SDXL",
             "Bedrock - Titan Image",
-            "Image From S3",
-            "Image From URL",
-            "Image To S3",
             "Prompt Regex Remove",
             "Prompt Template"
         ],
@@ -10332,7 +10385,8 @@
         [
             "ConcatText",
             "ImageBatchOneOrMore",
-            "LoadImageWithSwitch"
+            "LoadImageWithSwitch",
+            "ModifyTextGender"
         ],
         {
             "title_aux": "zhangp365/Some Utils for ComfyUI"
@@ -10357,8 +10411,11 @@
             "ImageRewardScore|fofo",
             "LoadImage2TextModel",
             "LoadImageRewardScoreModel|fofo",
+            "LoadT5Model|fofo",
             "LoadText2PromptModel",
             "ShowText|fofo",
+            "T5QuantizationConfig|fofo",
+            "T5Text2Prompt|fofo",
             "Text2GPTPrompt",
             "Text2Prompt",
             "TextBox|fofo",

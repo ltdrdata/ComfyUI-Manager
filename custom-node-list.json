@@ -1599,6 +1599,16 @@
             "description": "My own version 'from scratch' of a self-rescaling CFG. It isn't much but it's honest work.\nTLDR: set your CFG at 8 to try it. No burned images and artifacts anymore. CFG is also a bit more sensitive because it's a proportion around 8. Low scale like 4 also gives really nice results since your CFG is not the CFG anymore. Also in general even with relatively low settings it seems to improve the quality."
         },
         {
+            "author": "Extraltodeus",
+            "title": "Vector_Sculptor_ComfyUI",
+            "reference": "https://github.com/Extraltodeus/Vector_Sculptor_ComfyUI",
+            "files": [
+                "https://github.com/Extraltodeus/Vector_Sculptor_ComfyUI"
+            ],
+            "install_type": "git-clone",
+            "description": "The main node makes your conditioning go towards similar concepts so to enrich your composition or further away so to make it more precise. It gathers similar pre-cond vectors for as long as the cosine similarity score diminishes. If it climbs back it stops. This allows to set a relative direction to similar concepts.\nThere are examples at the end but [a/you can also check this imgur album](https://imgur.com/a/WvPd81Y) which demonstrates the capability of improving variety."
+        },
+        {
             "author": "JPS",
             "title": "JPS Custom Nodes for ComfyUI",
             "reference": "https://github.com/JPS-GER/ComfyUI_JPS-Nodes",
@@ -2849,16 +2859,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:GradientPatchModelAddDownscale (Kohya Deep Shrink)."
-        },
-        {
-            "author": "kinfolk0117",
-            "title": "TiledIPAdapter",
-            "reference": "https://github.com/kinfolk0117/ComfyUI_TiledIPAdapter",
-            "files": [
-                "https://github.com/kinfolk0117/ComfyUI_TiledIPAdapter"
-            ],
-            "install_type": "git-clone",
-            "description": "Proof of concent on how to use IPAdapter to control tiled upscaling. NOTE: You need to have 'ComfyUI_IPAdapter_plus' installed."
         },
         {
             "author": "kinfolk0117",
@@ -4544,7 +4544,7 @@
                 "https://github.com/chaojie/ComfyUI-Open-Sora"
             ],
             "install_type": "git-clone",
-            "description": "ComfyUI Open Sora"
+            "description": "ComfyUI Open Sora\nNOTE:only supports Linux now"
         },
         {
             "author": "chaojie",
@@ -5779,14 +5779,24 @@
             "description": "ImageTextOverlay is a customizable Node for ComfyUI that allows users to easily add text overlays to images within their ComfyUI projects. This Node leverages Python Imaging Library (PIL) and PyTorch to dynamically render text on images, supporting a wide range of customization options including font size, alignment, color, and padding."
         },
         {
-            "author": "Big-Idea-Technology",
-            "title": "LLM_Node for ComfyUI",
-            "reference": "https://github.com/Big-Idea-Technology/ComfyUI_T5_LLM_Node",
+            "author": "Big Idea Technology",
+            "title": "LLM Node for ComfyUI",
+            "reference": "https://github.com/Big-Idea-Technology/ComfyUI_LLM_Node",
             "files": [
-                "https://github.com/Big-Idea-Technology/ComfyUI_T5_LLM_Node"
+                "https://github.com/Big-Idea-Technology/ComfyUI_LLM_Node"
             ],
             "install_type": "git-clone",
-            "description": "LLM_Node enhances ComfyUI by integrating advanced language model capabilities, enabling tasks such as text generation, content summarization, and question answering. This flexibility is powered by the renowned T5 model architecture and other transformer models, depending on the specific deployment."
+            "description": "The LLM_Node enhances ComfyUI by integrating advanced language model capabilities, enabling a wide range of NLP tasks such as text generation, content summarization, question answering, and more. This flexibility is powered by various transformer model architectures from the transformers library, allowing for the deployment of models like T5, GPT-2, and others based on your project's needs."
+        },
+        {
+            "author": "Big Idea Technology",
+            "title": "Image Text Overlay Node for ComfyUI",
+            "reference": "https://github.com/Big-Idea-Technology/ComfyUI_Image_Text_Overlay",
+            "files": [
+                "https://github.com/Big-Idea-Technology/ComfyUI_Image_Text_Overlay"
+            ],
+            "install_type": "git-clone",
+            "description": "ImageTextOverlay is a customizable Node for ComfyUI that allows users to easily add text overlays to images within their ComfyUI projects. This Node leverages Python Imaging Library (PIL) and PyTorch to dynamically render text on images, supporting a wide range of customization options including font size, alignment, color, and padding."
         },
         {
             "author": "Guillaume-Fgt",
@@ -6409,16 +6419,6 @@
             "description": "Custom nodes for ComfyUI by Eagleshadow."
         },
         {
-            "author": "Big Idea Technology",
-            "title": "Image Text Overlay Node for ComfyUI",
-            "reference": "https://github.com/Big-Idea-Technology/ComfyUI_Image_Text_Overlay",
-            "files": [
-                "https://github.com/Big-Idea-Technology/ComfyUI_Image_Text_Overlay"
-            ],
-            "install_type": "git-clone",
-            "description": "ImageTextOverlay is a customizable Node for ComfyUI that allows users to easily add text overlays to images within their ComfyUI projects. This Node leverages Python Imaging Library (PIL) and PyTorch to dynamically render text on images, supporting a wide range of customization options including font size, alignment, color, and padding."
-        },
-        {
             "author": "ArdeniusAI",
             "title": "CPlus_Ardenius ComfyUI Control Box",
             "reference": "https://github.com/ArdeniusAI/CPlus_Ardenius",
@@ -6517,6 +6517,26 @@
             ],
             "install_type": "git-clone",
             "description": "Bilateral Reference Network achieves SOTA result in multi Salient Object Segmentation dataset, this repo pack BiRefNet as ComfyUI nodes, and make this SOTA model easier use for everyone."
+        },
+        {
+            "author": "SuperBeastsAI",
+            "title": "ComfyUI-SuperBeasts",
+            "reference": "https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts",
+            "files": [
+                "https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:HDR Effects (SuperBeasts.AI). This repository contains custom nodes for ComfyUI created and used by SuperBeasts.AI (@SuperBeasts.AI on Instagram)"
+        },
+        {
+            "author": "IKHOR",
+            "title": "ikhor-nodes",
+            "reference": "https://github.com/IKHOR/ComfyUI-IKHOR-Jam-Nodes",
+            "files": [
+                "https://github.com/IKHOR/ComfyUI-IKHOR-Jam-Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:LoadFromS3, LoadBatchFromS3, SaveToS3, SaveBatchToS3"
         },
         
         
@@ -6896,16 +6916,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "Big Idea Technology",
-            "title": "LLM Node for ComfyUI",
-            "reference": "https://github.com/Big-Idea-Technology/ComfyUI_LLM_Node",
-            "files": [
-                "https://github.com/Big-Idea-Technology/ComfyUI_LLM_Node"
-            ],
-            "install_type": "git-clone",
-            "description": "The LLM_Node enhances ComfyUI by integrating advanced language model capabilities, enabling a wide range of NLP tasks such as text generation, content summarization, question answering, and more. This flexibility is powered by various transformer model architectures from the transformers library, allowing for the deployment of models like T5, GPT-2, and others based on your project's needs."
         }
     ]
 }
