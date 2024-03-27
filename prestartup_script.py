@@ -19,7 +19,7 @@ cm_global.pip_downgrade_blacklist = ['torch', 'torchsde', 'torchvision', 'transf
 
 
 def skip_pip_spam(x):
-    return 'Requirement already satisfied:' in x
+    return ('Requirement already satisfied:' in x) or ("DEPRECATION: Loading egg at" in x)
 
 
 message_collapses = [skip_pip_spam]

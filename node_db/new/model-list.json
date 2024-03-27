@@ -1,6 +1,86 @@
 {
   "models": [
     {
+      "name": "SUPIR-v0F.ckpt",
+      "type": "checkpoints",
+      "base": "SUPIR",
+      "save_path": "checkpoints/SUPIR",
+      "description": "SUPIR checkpoint model",
+      "reference": "https://huggingface.co/camenduru/SUPIR/tree/main",
+      "filename": "SUPIR-v0F.ckpt",
+      "url": "https://huggingface.co/camenduru/SUPIR/resolve/main/SUPIR-v0F.ckpt"
+    },
+    {
+      "name": "SUPIR-v0Q.ckpt",
+      "type": "checkpoints",
+      "base": "SUPIR",
+      "save_path": "checkpoints/SUPIR",
+      "description": "SUPIR checkpoint model",
+      "reference": "https://huggingface.co/camenduru/SUPIR/tree/main",
+      "filename": "SUPIR-v0Q.ckpt",
+      "url": "https://huggingface.co/camenduru/SUPIR/resolve/main/SUPIR-v0Q.ckpt"
+    },{
+      "name": "Depth-FM-v1 fp16 safetensors",
+      "type": "checkpoints",
+      "base": "Depth-FM",
+      "save_path": "checkpoints/depthfm",
+      "description": "Depth-FM monocular depth estimation model", 
+      "reference": "https://huggingface.co/Kijai/depth-fm-pruned",
+      "filename": "depthfm-v1_fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/depth-fm-pruned/resolve/main/depthfm-v1_fp16.safetensors"
+    },
+    {
+      "name": "Depth-FM-v1 fp32 safetensors",
+      "type": "checkpoints",
+      "base": "Depth-FM",
+      "save_path": "checkpoints/depthfm",
+      "description": "Depth-FM monocular depth estimation model", 
+      "reference": "https://huggingface.co/Kijai/depth-fm-pruned",
+      "filename": "depthfm-v1_fp32.safetensors",
+      "url": "https://huggingface.co/Kijai/depth-fm-pruned/resolve/main/depthfm-v1_fp32.safetensors"
+    },
+    {
+      "name": "monster-labs - Controlnet QR Code Monster v1 For SDXL",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "default",
+      "description": "monster-labs - Controlnet QR Code Monster v1 For SDXL", 
+      "reference": "https://huggingface.co/monster-labs/control_v1p_sdxl_qrcode_monster",
+      "filename": "control_v1p_sdxl_qrcode_monster.safetensors",
+      "url": "https://huggingface.co/monster-labs/control_v1p_sdxl_qrcode_monster/resolve/main/diffusion_pytorch_model.safetensors"
+    },
+    {
+      "name": "DynamiCrafter 1024 bf16 safetensors",
+      "type": "checkpoints",
+      "base": "DynamiCrafter",
+      "save_path": "checkpoints/dynamicrafter",
+      "description": "DynamiCrafter image2video model 1024x575", 
+      "reference": "https://huggingface.co/Kijai/DynamiCrafter_pruned/",
+      "filename": "dynamicrafter_1024_v1_bf16.safetensors",
+      "url": "https://huggingface.co/Kijai/DynamiCrafter_pruned/resolve/main/dynamicrafter_1024_v1_bf16.safetensors"
+    },
+    {
+      "name": "DynamiCrafter 512 interpolation bf16 safetensors",
+      "type": "checkpoints",
+      "base": "DynamiCrafter",
+      "save_path": "checkpoints/dynamicrafter",
+      "description": "DynamiCrafter image2video interpolation model 512", 
+      "reference": "https://huggingface.co/Kijai/DynamiCrafter_pruned/",
+      "filename": "dynamicrafter_512_interp_v1_bf16.safetensors",
+      "url": "https://huggingface.co/Kijai/DynamiCrafter_pruned/resolve/main/dynamicrafter_512_interp_v1_bf16.safetensors"
+    },
+    {
+        "name": "MobileSAM",
+        "type": "sam",
+        "base": "SAM",
+        "save_path": "sams",
+        "description": "MobileSAM",
+        "reference": "https://github.com/ChaoningZhang/MobileSAM/",
+        "filename": "mobile_sam.pt",
+        "url": "https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt"
+    },
+
+    {
       "name": "BLIP ImageCaption (COCO) w/ ViT-B and CapFilt-L",
       "type": "BLIP_MODEL",
       "base": "blip_model",
@@ -641,57 +721,6 @@
       "reference": "https://huggingface.co/h94/IP-Adapter",
       "filename": "ip-adapter_sdxl_vit-h.safetensors",
       "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter_sdxl_vit-h.safetensors"
-    },
-    {
-      "name": "ip-adapter-plus_sdxl_vit-h.safetensors",
-      "type": "IP-Adapter",
-      "base": "SDXL",
-      "save_path": "ipadapter",
-      "description": "This model requires the use of the SD1.5 encoder despite being for SDXL checkpoints",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter-plus_sdxl_vit-h.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter-plus_sdxl_vit-h.safetensors"
-    },
-    {
-      "name": "ip-adapter-plus-face_sdxl_vit-h.safetensors",
-      "type": "IP-Adapter",
-      "base": "SDXL",
-      "save_path": "ipadapter",
-      "description": "This model requires the use of the SD1.5 encoder despite being for SDXL checkpoints",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter-plus-face_sdxl_vit-h.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter-plus-face_sdxl_vit-h.safetensors"
-    },
-
-    {
-      "name": "SDXL-Turbo 1.0 (fp16)",
-      "type": "checkpoints",
-      "base": "SDXL",
-      "save_path": "checkpoints/SDXL-TURBO",
-      "description": "[6.9GB] SDXL-Turbo 1.0 fp16",
-      "reference": "https://huggingface.co/stabilityai/sdxl-turbo",
-      "filename": "sd_xl_turbo_1.0_fp16.safetensors",
-      "url": "https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0_fp16.safetensors"
-    },
-    {
-      "name": "SDXL-Turbo 1.0",
-      "type": "checkpoints",
-      "base": "SDXL",
-      "save_path": "checkpoints/SDXL-TURBO",
-      "description": "[13.9GB] SDXL-Turbo 1.0",
-      "reference": "https://huggingface.co/stabilityai/sdxl-turbo",
-      "filename": "sd_xl_turbo_1.0.safetensors",
-      "url": "https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0.safetensors"
-    },
-    {
-      "name": "Stable Video Diffusion Image-to-Video",
-      "type": "checkpoints",
-      "base": "SVD",
-      "save_path": "checkpoints/SVD",
-      "description": "Stable Video Diffusion (SVD) Image-to-Video is a diffusion model that takes in a still image as a conditioning frame, and generates a video from it.\nNOTE: 14 frames @ 576x1024",
-      "reference": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid",
-      "filename": "svd.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid/resolve/main/svd.safetensors"
     }
   ]
 }
