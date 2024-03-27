@@ -1211,6 +1211,15 @@ class ManagerMenuDialog extends ComfyDialog {
 					},
 				},
 				{
+					title: "Open 'esheep'",
+					callback: () => {
+						const url = "https://www.esheep.com";
+						localStorage.setItem("wg_last_visited", url);
+						window.open(url, url);
+						modifyButtonStyle(url);
+					},
+				},
+				{
 					title: "Close",
 					callback: () => {
 						LiteGraph.closeAllContextMenus();

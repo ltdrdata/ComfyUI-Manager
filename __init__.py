@@ -29,7 +29,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 10, 3]
+version = [2, 11]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -830,7 +830,6 @@ def nickname_filter(json_obj):
         json_obj[k][0] = v
 
     return json_obj
-
 
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
 async def fetch_customnode_mappings(request):
@@ -2127,6 +2126,26 @@ async def api_get_comfyworkflows_auth(request):
         return web.Response(status=404)
     return web.json_response({"comfyworkflows_sharekey" : comfyworkflows_auth})
 
+args.enable_cors_header = "*" 
+if hasattr(server.PromptServer.instance, "app"):
+    app = server.PromptServer.instance.app
+    cors_middleware = server.create_cors_middleware(args.enable_cors_header)
+    app.middlewares.append(cors_middleware)
+
+@server.PromptServer.instance.routes.post("/manager/set_esheep_workflow_and_images")
+async def set_esheep_workflow_and_images(request):
+    json_data = await request.json()
+    current_workflow = json_data['workflow']
+    images = json_data['images']
+    with open(os.path.join(comfyui_manager_path, "esheep_share_message.json"), "w", encoding='utf-8') as file:
+        json.dump(json_data, file, indent=4)
+        return web.Response(status=200)
+
+@server.PromptServer.instance.routes.get("/manager/get_esheep_workflow_and_images")
+async def get_esheep_workflow_and_images(request):
+     with open(os.path.join(comfyui_manager_path, "esheep_share_message.json"), 'r', encoding='utf-8') as file:
+        data = json.load(file)
+        return web.Response(status=200, text=json.dumps(data))
 
 def set_matrix_auth(json_data):
     homeserver = json_data['homeserver']

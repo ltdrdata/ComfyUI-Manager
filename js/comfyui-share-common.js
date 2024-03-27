@@ -164,6 +164,29 @@ export function parseURLPath(urlPath) {
 }
 
 
+export const shareToEsheep= () => {
+	app.graphToPrompt()
+	.then(prompt => {
+		const nodes = app.graph._nodes
+		const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
+		const workflow = prompt['workflow']
+		api.fetchApi(`/manager/set_esheep_workflow_and_images`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				workflow: workflow,
+				images: potential_outputs
+			})
+		}).then(response => {
+			var domain = window.location.hostname;
+			var port = window.location.port;
+			port = port || (window.location.protocol === 'http:' ? '80' : window.location.protocol === 'https:' ? '443' : '');
+			var full_domin = domain + ':' + port
+			window.open('https://www.esheep.com/app/workflow_upload?from_local='+ full_domin, '_blank');
+		});
+	})
+}
+
 export const showOpenArtShareDialog = () => {
   if (!OpenArtShareDialog.instance) {
     OpenArtShareDialog.instance = new OpenArtShareDialog();
@@ -281,6 +304,16 @@ export class ShareDialogChooser extends ComfyDialog {
 				  showShareDialog('comfyworkflows').then((suc) => {
 				    suc && this.close();
 				  })
+				}
+			},
+			{
+				key: "esheep",
+				textContent: "eSheep",
+				website: "https://www.esheep.com",
+				description: "Share & download thousands of ComfyUI workflows on <a style='color:white;' href='https://www.esheep.com' target='_blank'>esheep.com</a>",
+				onclick: () => {
+					shareToEsheep();
+				  	this.close();
 				}
 			},
 		];
