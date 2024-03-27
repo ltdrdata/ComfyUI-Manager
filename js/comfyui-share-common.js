@@ -265,16 +265,6 @@ export class ShareDialogChooser extends ComfyDialog {
 	createButtons() {
 		const buttons = [
 			{
-				key: "esheep",
-				textContent: "eSheep",
-				website: "https://www.esheep.com",
-				description: "Share & download thousands of ComfyUI workflows on <a style='color:white;' href='https://www.esheep.com' target='_blank'>esheep.com</a>",
-				onclick: () => {
-					shareToEsheep();
-				  	this.close();
-				}
-			},
-			{
 				key: "openart",
 				textContent: "OpenArt AI",
 				website: "https://openart.ai/workflows/",
@@ -314,6 +304,16 @@ export class ShareDialogChooser extends ComfyDialog {
 				  showShareDialog('comfyworkflows').then((suc) => {
 				    suc && this.close();
 				  })
+				}
+			},
+			{
+				key: "esheep",
+				textContent: "eSheep",
+				website: "https://www.esheep.com",
+				description: "Share & download thousands of ComfyUI workflows on <a style='color:white;' href='https://www.esheep.com' target='_blank'>esheep.com</a>",
+				onclick: () => {
+					shareToEsheep();
+				  	this.close();
 				}
 			},
 		];
