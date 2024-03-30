@@ -92,6 +92,15 @@
             "title_aux": "Comfyui-ergouzi-Nodes"
         }
     ],
+    "https://github.com/1mckw/Comfyui-Gelbooru": [
+        [
+            "Gelbooru (ID)",
+            "Gelbooru (Random)"
+        ],
+        {
+            "title_aux": "Comfyui-Gelbooru"
+        }
+    ],
     "https://github.com/1shadow1/hayo_comfyui_nodes/raw/main/LZCNodes.py": [
         [
             "LoadPILImages",
@@ -116,8 +125,9 @@
         [
             "GPT4VCaptioner",
             "Image Load with Metadata",
-            "SAMIN SimpleWildcards",
             "SAMIN String Attribute Selector",
+            "SANMIN ClothingWildcards",
+            "SANMIN SimpleWildcards",
             "Samin Counter",
             "Samin Load Image Batch"
         ],
@@ -797,76 +807,44 @@
     ],
     "https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes": [
         [
-            "ABSNode_DF",
             "Absolute value",
             "Ceil",
-            "CeilNode_DF",
             "Conditioning area scale by ratio",
             "ConditioningSetArea with tuples",
-            "ConditioningSetAreaEXT_DF",
-            "ConditioningSetArea_DF",
-            "CosNode_DF",
             "Cosines",
             "Divide",
-            "DivideNode_DF",
-            "EmptyLatentImage_DF",
             "Float",
             "Float debug print",
-            "Float2Tuple_DF",
-            "FloatDebugPrint_DF",
-            "FloatNode_DF",
             "Floor",
-            "FloorNode_DF",
             "Get image size",
             "Get latent size",
-            "GetImageSize_DF",
-            "GetLatentSize_DF",
             "Image scale by ratio",
             "Image scale to side",
-            "ImageScale_Ratio_DF",
-            "ImageScale_Side_DF",
             "Int debug print",
             "Int to float",
             "Int to tuple",
-            "Int2Float_DF",
-            "IntDebugPrint_DF",
             "Integer",
-            "IntegerNode_DF",
             "Latent Scale by ratio",
             "Latent Scale to side",
             "LatentComposite with tuples",
-            "LatentScale_Ratio_DF",
-            "LatentScale_Side_DF",
-            "MultilineStringNode_DF",
             "Multiply",
-            "MultiplyNode_DF",
-            "PowNode_DF",
             "Power",
             "Random",
-            "RandomFloat_DF",
-            "SinNode_DF",
             "Sinus",
-            "SqrtNode_DF",
             "Square root",
             "String debug print",
-            "StringNode_DF",
             "Subtract",
-            "SubtractNode_DF",
             "Sum",
-            "SumNode_DF",
-            "TanNode_DF",
             "Tangent",
             "Text",
             "Text box",
+            "To text (Debug)",
             "Tuple",
             "Tuple debug print",
             "Tuple multiply",
             "Tuple swap",
             "Tuple to floats",
-            "Tuple to ints",
-            "Tuple2Float_DF",
-            "TupleDebugPrint_DF",
-            "TupleNode_DF"
+            "Tuple to ints"
         ],
         {
             "title_aux": "Derfuu_ComfyUI_ModdedNodes"
@@ -882,7 +860,7 @@
             "author": "CRE8IT GmbH",
             "description": "This extension offers various nodes.",
             "nickname": "cre8Nodes",
-            "title": "cr8ApplySerialPrompter",
+            "title": "cr8SerialPrompter",
             "title_aux": "ComfyUI-Cre8it-Nodes"
         }
     ],
@@ -1052,7 +1030,9 @@
             "SMPLLoader",
             "SMPLShapeParameters",
             "SaveSMPL",
-            "SmplifyMotionData"
+            "SmplifyMotionData",
+            "mgpt_model_loader",
+            "mgpt_t2m"
         ],
         {
             "title_aux": "ComfyUI MotionDiff"
@@ -1787,6 +1767,14 @@
             "title_aux": "ComfyUI-VideoHelperSuite"
         }
     ],
+    "https://github.com/KytraScript/ComfyUI_KytraWebhookHTTP": [
+        [
+            "SendToDiscordWebhook"
+        ],
+        {
+            "title_aux": "ComfyUI_KytraWebhookHTTP"
+        }
+    ],
     "https://github.com/LEv145/images-grid-comfy-plugin": [
         [
             "GridAnnotation",
@@ -2141,22 +2129,6 @@
             "title_aux": "ComfyUI Slothful Attention"
         }
     ],
-    "https://github.com/MokkaBoss1/LandscapeBackgrounds/raw/main/LandscapeBackgrounds.py": [
-        [
-            "LandscapeBackgrounds"
-        ],
-        {
-            "title_aux": "Backgrounds (Landscape,Indoor)"
-        }
-    ],
-    "https://github.com/MokkaBoss1/NatureColours/raw/main/NatureColours.py": [
-        [
-            "NatureColours"
-        ],
-        {
-            "title_aux": "NatureColours, UrbanColours"
-        }
-    ],
     "https://github.com/MrForExample/ComfyUI-3D-Pack": [
         [],
         {
@@ -2177,6 +2149,14 @@
         ],
         {
             "title_aux": "ComfyUI-TextOverlay"
+        }
+    ],
+    "https://github.com/NeuralSamurAI/Comfyui-Superprompt-Unofficial": [
+        [
+            "SuperPrompterNode"
+        ],
+        {
+            "title_aux": "SuperPrompter Node for ComfyUI"
         }
     ],
     "https://github.com/NicholasMcCarthy/ComfyUI_TravelSuite": [
@@ -4574,7 +4554,8 @@
     ],
     "https://github.com/banodoco/steerable-motion": [
         [
-            "BatchCreativeInterpolation"
+            "BatchCreativeInterpolation",
+            "IpaConfiguration"
         ],
         {
             "title_aux": "Steerable Motion"
@@ -5059,7 +5040,10 @@
     "https://github.com/chaojie/ComfyUI-AniPortrait": [
         [
             "AniPortraitLoader",
-            "AniPortraitRun"
+            "AniPortraitRun",
+            "Box2Video",
+            "CoverVideo",
+            "MaskList2Video"
         ],
         {
             "title_aux": "ComfyUI-AniPortrait"
@@ -5303,6 +5287,7 @@
             "chaosaiart_CheckpointPrompt_FrameMixer",
             "chaosaiart_ControlNetApply",
             "chaosaiart_ControlNetApply2",
+            "chaosaiart_ControlNetApply3",
             "chaosaiart_Denoising_Switch",
             "chaosaiart_EmptyLatentImage",
             "chaosaiart_FramePromptCLIPEncode",
@@ -5311,6 +5296,8 @@
             "chaosaiart_KSampler1",
             "chaosaiart_KSampler2",
             "chaosaiart_KSampler3",
+            "chaosaiart_KSampler4",
+            "chaosaiart_KSampler5",
             "chaosaiart_Load_Image_Batch",
             "chaosaiart_Load_Image_Batch_2img",
             "chaosaiart_MainPromptCLIPEncode",
@@ -7012,6 +6999,8 @@
     "https://github.com/if-ai/ComfyUI-IF_AI_tools": [
         [
             "IF_DisplayText",
+            "IF_HFDownload",
+            "IF_HFDownloadNode",
             "IF_ImagePrompt",
             "IF_PromptMkr",
             "IF_SaveText",
@@ -7611,17 +7600,6 @@
             "title_aux": "LCMSampler-ComfyUI"
         }
     ],
-    "https://github.com/laksjdjf/LoRA-Merger-ComfyUI": [
-        [
-            "LoraLoaderFromWeight",
-            "LoraLoaderWeightOnly",
-            "LoraMerge",
-            "LoraSave"
-        ],
-        {
-            "title_aux": "LoRA-Merger-ComfyUI"
-        }
-    ],
     "https://github.com/laksjdjf/LoRTnoC-ComfyUI": [
         [
             "LortnocLoader"
@@ -7746,8 +7724,7 @@
     "https://github.com/logtd/ComfyUI-RefSampling": [
         [
             "ApplyRefUNetNode",
-            "RefSamplerCustomNode",
-            "RefSamplerNode"
+            "RefApplyNode"
         ],
         {
             "title_aux": "ComfyUI-RefSampling"
@@ -10174,6 +10151,7 @@
             "easy controlnetLoaderADV",
             "easy convertAnything",
             "easy detailerFix",
+            "easy dynamiCrafterLoader",
             "easy float",
             "easy fooocusInpaintLoader",
             "easy fullCascadeKSampler",
@@ -10201,6 +10179,8 @@
             "easy int",
             "easy ipadapterApply",
             "easy ipadapterApplyADV",
+            "easy ipadapterApplyEmbeds",
+            "easy ipadapterApplyEncoder",
             "easy isSDXL",
             "easy joinImageBatch",
             "easy kSampler",
@@ -10394,9 +10374,6 @@
             "Bedrock - Claude",
             "Bedrock - SDXL",
             "Bedrock - Titan Image",
-            "Image From S3",
-            "Image From URL",
-            "Image To S3",
             "Prompt Regex Remove",
             "Prompt Template"
         ],
@@ -10505,6 +10482,15 @@
         ],
         {
             "title_aux": "EasyCaptureNode for ComfyUI"
+        }
+    ],
+    "https://github.com/zombieyang/sd-ppp": [
+        [
+            "Get Image From Photoshop Layer",
+            "Send Images To Photoshop"
+        ],
+        {
+            "title_aux": "SD-PPP"
         }
     ],
     "https://raw.githubusercontent.com/throttlekitty/SDXLCustomAspectRatio/main/SDXLAspectRatio.py": [
