@@ -1022,10 +1022,13 @@
         [
             "EmptyMotionData",
             "ExportSMPLTo3DSoftware",
+            "Human4D_Img2SMPL",
+            "Humans4DLoader",
             "MotionCLIPTextEncode",
             "MotionDataVisualizer",
             "MotionDiffLoader",
             "MotionDiffSimpleSampler",
+            "RenderMultipleSubjectsSMPLMesh",
             "RenderSMPLMesh",
             "SMPLLoader",
             "SMPLShapeParameters",
@@ -1442,6 +1445,15 @@
             "title_aux": "Ranbooru for ComfyUI"
         }
     ],
+    "https://github.com/IsItDanOrAi/ComfyUI-Stereopsis": [
+        [
+            "Dan_FrameDelay",
+            "Dan_Stereopsis"
+        ],
+        {
+            "title_aux": "ComfyUI-Stereopsis"
+        }
+    ],
     "https://github.com/JPS-GER/ComfyUI_JPS-Nodes": [
         [
             "Conditioning Switch (JPS)",
@@ -1644,6 +1656,8 @@
             "ACN_AdvancedControlNetApply",
             "ACN_ControlNetLoaderWithLoraAdvanced",
             "ACN_DefaultUniversalWeights",
+            "ACN_ReferenceControlNet",
+            "ACN_ReferencePreprocessor",
             "ACN_SparseCtrlIndexMethodNode",
             "ACN_SparseCtrlLoaderAdvanced",
             "ACN_SparseCtrlMergedLoaderAdvanced",
@@ -2129,6 +2143,28 @@
             "title_aux": "ComfyUI Slothful Attention"
         }
     ],
+    "https://github.com/MokkaBoss1/ComfyUI_Mokkaboss1": [
+        [
+            "AspectRatioCondition",
+            "DoubleClipTextEncode",
+            "HashText",
+            "IndoorBackgrounds",
+            "LandscapeBackgrounds",
+            "NatureColours",
+            "OptimalCrop",
+            "SDXLAspectRatioDec",
+            "UrbanColours",
+            "WrapText",
+            "X_In_a_Dress",
+            "X_In_a_Suit",
+            "X_In_a_Suit)",
+            "ZoomCrop",
+            "seveninabox"
+        ],
+        {
+            "title_aux": "Node Pack mostly for manipulating strings and integers"
+        }
+    ],
     "https://github.com/MrForExample/ComfyUI-3D-Pack": [
         [],
         {
@@ -2394,6 +2430,15 @@
         ],
         {
             "title_aux": "ComfyUI-CSV-Loader"
+        }
+    ],
+    "https://github.com/ParisNeo/lollms_nodes_suite": [
+        [
+            "Artbot",
+            "Lollms_Text_Gen"
+        ],
+        {
+            "title_aux": "lollms_nodes_suite"
         }
     ],
     "https://github.com/ParmanBabra/ComfyUI-Malefish-Custom-Scripts": [
@@ -5302,6 +5347,7 @@
             "chaosaiart_Load_Image_Batch_2img",
             "chaosaiart_MainPromptCLIPEncode",
             "chaosaiart_Number",
+            "chaosaiart_Number2",
             "chaosaiart_Number_Counter",
             "chaosaiart_Number_Switch",
             "chaosaiart_Prompt",
@@ -5326,11 +5372,13 @@
             "chaosaiart_cn_math",
             "chaosaiart_controlnet_weidgth",
             "chaosaiart_convert",
+            "chaosaiart_image_loop",
             "chaosaiart_img2video",
             "chaosaiart_imgHolder",
             "chaosaiart_lora",
             "chaosaiart_lora_advanced",
             "chaosaiart_main_Prompt",
+            "chaosaiart_oneNode",
             "chaosaiart_reloadAny_Load",
             "chaosaiart_reloadAny_Save",
             "chaosaiart_reloadIMG_Load",
@@ -5895,6 +5943,7 @@
             "IPAdapterTiled",
             "IPAdapterTiledBatch",
             "IPAdapterUnifiedLoader",
+            "IPAdapterUnifiedLoaderCommunity",
             "IPAdapterUnifiedLoaderFaceID",
             "PrepImageForClipVision"
         ],
@@ -5959,6 +6008,7 @@
             "MaskPreview+",
             "ModelCompile+",
             "NoiseFromImage~",
+            "PixelOEPixelize+",
             "RemBGSession+",
             "RemoveLatentMask+",
             "SDXLEmptyLatentSizePicker+",
@@ -6065,6 +6115,7 @@
     "https://github.com/daxcay/ComfyUI-JDCN": [
         [
             "JDCN_AnyFileList",
+            "JDCN_AnyFileListHelper",
             "JDCN_AnyFileSelector",
             "JDCN_BatchImageLoadFromList",
             "JDCN_BatchLatentLoadFromDir",
@@ -7172,6 +7223,14 @@
             "title_aux": "ComfyUI_StreamDiffusion"
         }
     ],
+    "https://github.com/jiaxiangc/ComfyUI-ResAdapter": [
+        [
+            "ResAdapterLoader"
+        ],
+        {
+            "title_aux": "ResAdapter for ComfyUI"
+        }
+    ],
     "https://github.com/jitcoder/lora-info": [
         [
             "ImageFromURL",
@@ -7195,6 +7254,7 @@
     "https://github.com/jkrauss82/ultools-comfyui": [
         [
             "CLIPTextEncodeWithStats",
+            "OpenPoseEditorAdv",
             "SaveImgAdv"
         ],
         {
@@ -7394,6 +7454,7 @@
             "NormalizedAmplitudeToMask",
             "OffsetMask",
             "OffsetMaskByNormalizedAmplitude",
+            "RemapImageRange",
             "RemapMaskRange",
             "ReplaceImagesInBatch",
             "ResizeMask",
@@ -7723,8 +7784,9 @@
     ],
     "https://github.com/logtd/ComfyUI-RefSampling": [
         [
-            "ApplyRefUNetNode",
-            "RefApplyNode"
+            "ApplyRefContentNode",
+            "ApplyRefStyleNode",
+            "ApplyRefUNetNode"
         ],
         {
             "title_aux": "ComfyUI-RefSampling"
@@ -8332,10 +8394,11 @@
             "CreateMaskWithCanvas",
             "CreateRegionalPNGMask",
             "EightFloats",
-            "FloatMultiplier",
+            "FloatMultiplication",
             "FourBooleanTrigger",
             "FourFloats",
-            "IntMultiplier",
+            "IntMultiplication",
+            "IntSubtraction",
             "LogicNot",
             "NumeralToString",
             "PngColorMasksToMaskList",
@@ -9029,6 +9092,7 @@
             "ImageCropByAlpha",
             "ImageListReplace_",
             "ImagesPrompt_",
+            "IncrementingListNode_",
             "IntNumber",
             "JoinWithDelimiter",
             "LimitNumber",
@@ -10222,6 +10286,7 @@
             "easy showTensorShape",
             "easy string",
             "easy stylesSelector",
+            "easy sv3dLoader",
             "easy svdLoader",
             "easy ultralyticsDetectorPipe",
             "easy unSampler",
