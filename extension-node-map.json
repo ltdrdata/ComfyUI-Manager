@@ -328,6 +328,7 @@
             "Load Images Pair Batch",
             "Merge Tag",
             "Move Tag To Top",
+            "Reserve Tag",
             "Save Images Pair"
         ],
         {
@@ -554,6 +555,22 @@
             "title_aux": "ComfyUI-Path-Helper"
         }
     ],
+    "https://github.com/BlakeOne/ComfyUI-FastImageListToImageBatch": [
+        [
+            "FastImageListToImageBatch"
+        ],
+        {
+            "title_aux": "ComfyUI FastImageListToImageBatch"
+        }
+    ],
+    "https://github.com/BlakeOne/ComfyUI-SchedulerMixer": [
+        [
+            "SchedulerMixer"
+        ],
+        {
+            "title_aux": "ComfyUI SchedulerMixer"
+        }
+    ],
     "https://github.com/BlenderNeko/ComfyUI_ADV_CLIP_emb": [
         [
             "BNK_AddCLIPSDXLParams",
@@ -766,6 +783,7 @@
             "PrimereStyleLoader",
             "PrimereStylePile",
             "PrimereTextOutput",
+            "PrimereUpscaleModel",
             "PrimereVAE",
             "PrimereVAELoader",
             "PrimereVAESelector",
@@ -1333,6 +1351,10 @@
             "Moondream Interrogator"
         ],
         {
+            "author": "AlexL",
+            "description": "An implementation of the moondream visual LLM",
+            "nickname": "Hangover-Moondream",
+            "title": "ComfyUI-Hangover-Moondream",
             "title_aux": "ComfyUI-Hangover-Moondream"
         }
     ],
@@ -1344,6 +1366,10 @@
             "Save Image w/o Metadata"
         ],
         {
+            "author": "AlexL",
+            "description": "Scales an input image into a given box size, whereby the aspect ratio keeps retained.",
+            "nickname": "Hangover-Image_Scale_Bouning_Box",
+            "title": "ComfyUI-Hangover-Image_Scale_Bouning_Box",
             "title_aux": "ComfyUI-Hangover-Nodes"
         }
     ],
@@ -1352,6 +1378,10 @@
             "Recognize Anything Model (RAM++)"
         ],
         {
+            "author": "AlexL",
+            "description": "An implementation of the Recognize Anything Model (RAM++) for ComfyUI. The counterpart of Segment Anything Model (SAM).",
+            "nickname": "Hangover-Recognize_Anything",
+            "title": "ComfyUI-Hangover-Recognize_Anything",
             "title_aux": "Recognize Anything Model (RAM++) for ComfyUI"
         }
     ],
@@ -2157,6 +2187,7 @@
             "DoubleClipTextEncode",
             "HashText",
             "IndoorBackgrounds",
+            "IntFloatDict",
             "LandscapeBackgrounds",
             "NatureColours",
             "OptimalCrop",
@@ -4013,6 +4044,15 @@
             "title_aux": "ComfyUI-BRIA_AI-RMBG"
         }
     ],
+    "https://github.com/ZHO-ZHO-ZHO/ComfyUI-BiRefNet-ZHO": [
+        [
+            "BiRefNet_ModelLoader_Zho",
+            "BiRefNet_Zho"
+        ],
+        {
+            "title_aux": "ComfyUI-BiRefNet-ZHO"
+        }
+    ],
     "https://github.com/ZHO-ZHO-ZHO/ComfyUI-DepthFM": [
         [
             "DepthFM_Literative_Zho",
@@ -4188,6 +4228,7 @@
             "AudioToFFTs",
             "BatchAmplitudeSchedule",
             "ClipAmplitude",
+            "FloatArrayToGraph",
             "GateNormalizedAmplitude",
             "LoadAudio",
             "NormalizeAmplitude",
@@ -6693,6 +6734,20 @@
             "title_aux": "RF Nodes"
         }
     ],
+    "https://github.com/frankchieng/ComfyUI_Aniportrait": [
+        [
+            "AniPortrait_Audio2Video",
+            "AniPortrait_Audio_Path",
+            "AniPortrait_Generate_Ref_Pose",
+            "AniPortrait_LoadVideoPath",
+            "AniPortrait_Pose_Gen_Video",
+            "AniPortrait_Ref_Image_Path",
+            "AniPortrait_Video_Gen_Pose"
+        ],
+        {
+            "title_aux": "ComfyUI_Aniportrait"
+        }
+    ],
     "https://github.com/gemell1/ComfyUI_GMIC": [
         [
             "GmicCliWrapper",
@@ -7322,6 +7377,60 @@
             "title_aux": "ComfyUI-Transformers"
         }
     ],
+    "https://github.com/kale4eat/ComfyUI-path-util": [
+        [
+            "path_util_PathAbspath",
+            "path_util_PathBasename",
+            "path_util_PathDirname",
+            "path_util_PathExists",
+            "path_util_PathIsdir",
+            "path_util_PathIsfile",
+            "path_util_PathJoin",
+            "path_util_PathRelpath",
+            "path_util_PathSplitext"
+        ],
+        {
+            "title_aux": "ComfyUI_demucus"
+        }
+    ],
+    "https://github.com/kale4eat/ComfyUI-string-util": [
+        [
+            "string_util_Str",
+            "string_util_StrConcat",
+            "string_util_StrCount",
+            "string_util_StrEndsWith",
+            "string_util_StrEqual",
+            "string_util_StrFind",
+            "string_util_StrFormat",
+            "string_util_StrJoin",
+            "string_util_StrLen",
+            "string_util_StrLower",
+            "string_util_StrLstrip",
+            "string_util_StrNotEqual",
+            "string_util_StrReplace",
+            "string_util_StrRstrip",
+            "string_util_StrSlice",
+            "string_util_StrSplit",
+            "string_util_StrStartsWith",
+            "string_util_StrStrip",
+            "string_util_StrUpper"
+        ],
+        {
+            "title_aux": "ComfyUI-string-util"
+        }
+    ],
+    "https://github.com/kale4eat/ComfyUI-text-file-util": [
+        [
+            "text_file_util_ReadAllLines",
+            "text_file_util_ReadAllText",
+            "text_file_util_WriteText",
+            "text_file_util_WriteTextLines",
+            "text_file_util_WriteTextWithSequentialNumbering"
+        ],
+        {
+            "title_aux": "ComfyUI-text-file-util"
+        }
+    ],
     "https://github.com/kenjiqq/qq-nodes-comfyui": [
         [
             "Any List",
@@ -7768,6 +7877,19 @@
             "title_aux": "comfyui-easyapi-nodes"
         }
     ],
+    "https://github.com/logtd/ComfyUI-FLATTEN": [
+        [
+            "ApplyFlattenAttentionNode",
+            "CreateFlowNoiseNode",
+            "FlattenCheckpointLoaderNode",
+            "KSamplerFlattenNode",
+            "TrajectoryNode",
+            "UnsamplerFlattenNode"
+        ],
+        {
+            "title_aux": "ComfyUI-FLATTEN"
+        }
+    ],
     "https://github.com/logtd/ComfyUI-InstanceDiffusion": [
         [
             "ApplyScaleUModelNode",
@@ -7835,8 +7957,7 @@
     ],
     "https://github.com/longgui0318/comfyui-oms-diffusion": [
         [
-            "Additional Features With Attention",
-            "Extract Features With Unet"
+            "Additional Features With Attention"
         ],
         {
             "title_aux": "comfyui-oms-diffusion"
@@ -8402,6 +8523,7 @@
             "CreateMaskWithCanvas",
             "CreateRegionalPNGMask",
             "EightFloats",
+            "EvenOrOdd",
             "FloatMultiplication",
             "FourBooleanTrigger",
             "FourFloats",
@@ -8490,6 +8612,14 @@
         ],
         {
             "title_aux": "ComfyUI-NegiTools"
+        }
+    ],
+    "https://github.com/nickve28/nich-comfy-utils": [
+        [
+            "Image from Dir Selector (Nich)"
+        ],
+        {
+            "title_aux": "Nich Comfy Utils"
         }
     ],
     "https://github.com/nicolai256/comfyUI_Nodes_nicolai256/raw/main/yugioh-presets.py": [
@@ -9743,6 +9873,7 @@
     "https://github.com/toyxyz/ComfyUI_toyxyz_test_nodes": [
         [
             "CaptureWebcam",
+            "ImageResize_Padding",
             "LatentDelay",
             "LoadWebcamImage",
             "SaveImagetoPath"
@@ -10234,6 +10365,7 @@
             "easy if",
             "easy imageInsetCrop",
             "easy imagePixelPerfect",
+            "easy imageRatio",
             "easy imageRemBg",
             "easy imageRemoveBG",
             "easy imageSave",
