@@ -272,6 +272,13 @@ NODE_CLASS_MAPPINGS.update({
     
   * `Possible(left) + Copy(right)`: When you Double-Click on the left half of the title, it operates as `Possible Input Connections`, and when you Double-Click on the right half, it operates as `Copy All Connections`.
 
+* Prevent downgrade of specific packages
+  * List the package names in the `downgrade_blacklist` section of the `config.ini` file, separating them with commas.
+    * e.g
+    ```
+      downgrade_blacklist = diffusers, kornia
+    ```
+
 ## Troubleshooting
 * If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the ComfyUI-Manager/config.ini file that is generated.
 * If updating ComfyUI-Manager itself fails, please go to the **ComfyUI-Manager** directory and execute the command `git update-ref refs/remotes/origin/main a361cc1 && git fetch --all && git pull`.

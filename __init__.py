@@ -17,6 +17,7 @@ import re
 import nodes
 import hashlib
 from datetime import datetime
+from distutils.version import StrictVersion
 
 
 try:
@@ -29,7 +30,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 11]
+version = [2, 12]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -38,19 +39,56 @@ comfy_ui_hash = "-"
 
 cache_lock = threading.Lock()
 
+pip_map = None
+
+
+def get_installed_packages():
+    global pip_map
+
+    if pip_map is None:
+        try:
+            result = subprocess.check_output([sys.executable, '-m', 'pip', 'list'], universal_newlines=True)
+
+            pip_map = {}
+            for line in result.split('\n'):
+                x = line.strip()
+                if x:
+                    y = line.split()
+                    if y[0] == 'Package' or y[0].startswith('-'):
+                        continue
+
+                    pip_map[y[0]] = y[1]
+        except subprocess.CalledProcessError as e:
+            print(f"[ComfyUI-Manager] Failed to retrieve the information of installed pip packages.")
+            return set()
+
+    return pip_map
+
+
+def clear_pip_cache():
+    global pip_map
+    pip_map = None
+
 
 def is_blacklisted(name):
     name = name.strip()
 
-    pattern = r'([^<>!=]+)([<>!=]=?)'
+    pattern = r'([^<>!=]+)([<>!=]=?)(.*)'
     match = re.search(pattern, name)
 
     if match:
         name = match.group(1)
 
     if name in cm_global.pip_downgrade_blacklist:
-        if match is None or match.group(2) in ['<=', '==', '<']:
-            return True
+        pips = get_installed_packages()
+
+        if match is None:
+            if name in pips:
+                return True
+        elif match.group(2) in ['<=', '==', '<']:
+            if name in pips:
+                if StrictVersion(pips[name]) >= StrictVersion(match.group(3)):
+                    return True
 
     return False
 
@@ -194,7 +232,8 @@ def write_config():
         'component_policy': get_config()['component_policy'],
         'double_click_policy': get_config()['double_click_policy'],
         'windows_selector_event_loop_policy': get_config()['windows_selector_event_loop_policy'],
-        'model_download_by_agent': get_config()['model_download_by_agent']
+        'model_download_by_agent': get_config()['model_download_by_agent'],
+        'downgrade_blacklist': get_config()['downgrade_blacklist']
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -219,6 +258,7 @@ def read_config():
                     'double_click_policy': default_conf['double_click_policy'] if 'double_click_policy' in default_conf else 'copy-all',
                     'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else False,
                     'model_download_by_agent': default_conf['model_download_by_agent'] if 'model_download_by_agent' in default_conf else False,
+                    'downgrade_blacklist': default_conf['downgrade_blacklist'] if 'downgrade_blacklist' in default_conf else '',
                }
 
     except Exception:
@@ -235,6 +275,7 @@ def read_config():
             'double_click_policy': 'copy-all',
             'windows_selector_event_loop_policy': False,
             'model_download_by_agent': False,
+            'downgrade_blacklist': ''
         }
 
 
@@ -306,7 +347,6 @@ def try_install_script(url, repo_path, install_cmd):
             if is_blacklisted(install_cmd[4]):
                 print(f"[ComfyUI-Manager] skip black listed pip installation: '{install_cmd[4]}'")
                 return True
-
 
         print(f"\n## ComfyUI-Manager: EXECUTE => {install_cmd}")
         code = run_script(install_cmd, cwd=repo_path)
@@ -831,6 +871,7 @@ def nickname_filter(json_obj):
 
     return json_obj
 
+
 @server.PromptServer.instance.routes.get("/customnode/getmappings")
 async def fetch_customnode_mappings(request):
     mode = request.rel_url.query["mode"]
@@ -903,6 +944,8 @@ async def update_all(request):
         return web.json_response(res, status=status, content_type='application/json')
     except:
         return web.Response(status=400)
+    finally:
+        clear_pip_cache()
 
 
 def convert_markdown_to_html(input_text):
@@ -1586,6 +1629,8 @@ async def install_custom_node(request):
             install_cmd = [sys.executable, "-m", "pip", "install", pname]
             try_install_script(json_data['files'][0], ".", install_cmd)
 
+    clear_pip_cache()
+
     if res:
         print(f"After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
@@ -1683,6 +1728,8 @@ async def update_custom_node(request):
 
     if install_type == "git-clone":
         res = gitclone_update(json_data['files'])
+
+    clear_pip_cache()
 
     if res:
         print(f"After restarting ComfyUI, please refresh the browser.")
@@ -2132,6 +2179,7 @@ if hasattr(server.PromptServer.instance, "app"):
     cors_middleware = server.create_cors_middleware(args.enable_cors_header)
     app.middlewares.append(cors_middleware)
 
+
 @server.PromptServer.instance.routes.post("/manager/set_esheep_workflow_and_images")
 async def set_esheep_workflow_and_images(request):
     json_data = await request.json()
@@ -2141,11 +2189,13 @@ async def set_esheep_workflow_and_images(request):
         json.dump(json_data, file, indent=4)
         return web.Response(status=200)
 
+
 @server.PromptServer.instance.routes.get("/manager/get_esheep_workflow_and_images")
 async def get_esheep_workflow_and_images(request):
      with open(os.path.join(comfyui_manager_path, "esheep_share_message.json"), 'r', encoding='utf-8') as file:
         data = json.load(file)
         return web.Response(status=200, text=json.dumps(data))
+
 
 def set_matrix_auth(json_data):
     homeserver = json_data['homeserver']
@@ -2188,6 +2238,7 @@ def extract_model_file_names(json_data):
     recursive_search(json_data)
     return [f for f in list(file_names) if os.path.splitext(f)[1] in model_filename_extensions]
 
+
 def find_file_paths(base_dir, file_names):
     """Find the paths of the files in the base directory."""
     file_paths = {}
@@ -2201,6 +2252,7 @@ def find_file_paths(base_dir, file_names):
                 file_paths[file] = os.path.join(root, file)
     return file_paths
 
+
 def compute_sha256_checksum(filepath):
     """Compute the SHA256 checksum of a file, in chunks"""
     sha256 = hashlib.sha256()
@@ -2208,6 +2260,7 @@ def compute_sha256_checksum(filepath):
         for chunk in iter(lambda: f.read(4096), b''):
             sha256.update(chunk)
     return sha256.hexdigest()
+
 
 @server.PromptServer.instance.routes.post("/manager/share")
 async def share_art(request):

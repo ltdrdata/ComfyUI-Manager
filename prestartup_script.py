@@ -7,6 +7,7 @@ import threading
 import re
 import locale
 import platform
+from distutils.version import StrictVersion
 
 
 glob_path = os.path.join(os.path.dirname(__file__), "glob")
@@ -292,6 +293,26 @@ else:
     print("** Log path: file logging is disabled")
 
 
+def read_downgrade_blacklist():
+    try:
+        import configparser
+        config_path = os.path.join(os.path.dirname(__file__), "config.ini")
+        config = configparser.ConfigParser()
+        config.read(config_path)
+        default_conf = config['default']
+
+        if 'downgrade_blacklist' in default_conf:
+            items = default_conf['downgrade_blacklist'].split(',')
+            items = [x.strip() for x in items if x != '']
+            cm_global.pip_downgrade_blacklist += items
+            cm_global.pip_downgrade_blacklist = list(set(cm_global.pip_downgrade_blacklist))
+    except:
+        pass
+
+
+read_downgrade_blacklist()
+
+
 def check_bypass_ssl():
     try:
         import configparser
@@ -314,21 +335,30 @@ check_bypass_ssl()
 # Perform install
 processed_install = set()
 script_list_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "startup-scripts", "install-scripts.txt")
-pip_list = None
+pip_map = None
 
 
 def get_installed_packages():
-    global pip_list
+    global pip_map
 
-    if pip_list is None:
+    if pip_map is None:
         try:
             result = subprocess.check_output([sys.executable, '-m', 'pip', 'list'], universal_newlines=True)
-            pip_list = set([line.split()[0].lower() for line in result.split('\n') if line.strip()])
+
+            pip_map = {}
+            for line in result.split('\n'):
+                x = line.strip()
+                if x:
+                    y = line.split()
+                    if y[0] == 'Package' or y[0].startswith('-'):
+                        continue
+
+                    pip_map[y[0]] = y[1]
         except subprocess.CalledProcessError as e:
             print(f"[ComfyUI-Manager] Failed to retrieve the information of installed pip packages.")
             return set()
-    
-    return pip_list
+
+    return pip_map
 
 
 def is_installed(name):
@@ -337,16 +367,23 @@ def is_installed(name):
     if name.startswith('#'):
         return True
 
-    pattern = r'([^<>!=]+)([<>!=]=?)'
+    pattern = r'([^<>!=]+)([<>!=]=?)(.*)'
     match = re.search(pattern, name)
-    
+
     if match:
         name = match.group(1)
 
     if name in cm_global.pip_downgrade_blacklist:
-        if match is None or match.group(2) in ['<=', '==', '<']:
-            print(f"[ComfyUI-Manager] skip black listed pip installation: '{name}'")
-            return True
+        pips = get_installed_packages()
+
+        if match is None:
+            if name in pips:
+                return True
+        elif match.group(2) in ['<=', '==', '<']:
+            if name in pips:
+                if StrictVersion(pips[name]) >= StrictVersion(match.group(3)):
+                    print(f"[ComfyUI-Manager] skip black listed pip installation: '{name}'")
+                    return True
 
     return name.lower() in get_installed_packages()
 
@@ -499,7 +536,7 @@ if os.path.exists(script_list_path):
     print("#######################################################################\n")
 
 del processed_install
-del pip_list
+del pip_map
 
 
 def check_windows_event_loop_policy():
