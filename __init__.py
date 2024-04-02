@@ -621,6 +621,20 @@ async def get_data(uri, silent=False):
     json_obj = json.loads(json_text)
     return json_obj
 
+async def populate_github_stats(json_obj, filename, silent=False):
+    uri = os.path.join(comfyui_manager_path, filename)
+    with open(uri, "r", encoding='utf-8') as f:
+        github_stats = json.load(f)
+    if 'custom_nodes' in json_obj:
+        for i, node in enumerate(json_obj['custom_nodes']):
+            url = node['reference']
+            if url in github_stats:
+                json_obj['custom_nodes'][i]['stars'] = github_stats[url]['stars']
+                json_obj['custom_nodes'][i]['last_update'] = github_stats[url]['last_update']
+            else:
+                json_obj['custom_nodes'][i]['stars'] = -1
+                json_obj['custom_nodes'][i]['last_update'] = -1
+        return json_obj
 
 def setup_js():
     import nodes
@@ -1005,6 +1019,7 @@ async def fetch_customnode_list(request):
         channel = get_config()['channel_url']
 
     json_obj = await get_data_by_mode(request.rel_url.query["mode"], 'custom-node-list.json')
+    json_obj = await populate_github_stats(json_obj, "github-stats.json")
 
     def is_ignored_notice(code):
         global version
