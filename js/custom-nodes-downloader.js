@@ -426,6 +426,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 	
 		// Refresh the grid to display sorted data
 		this.createGrid();
+		this.apply_searchbox(this.data);
 	}
 
 	async createGrid() {
