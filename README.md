@@ -153,7 +153,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Press the "Restore" button to revert to the installation status of the respective snapshot.
   * However, for custom nodes not managed by Git, snapshot support is incomplete.
 * When you press `Restore`, it will take effect on the next ComfyUI startup.
-
+  * The selected snapshot file is saved in `ComfyUI-Manager/startup-scripts/restore-snapshot.json`, and upon restarting ComfyUI, the snapshot is applied and then deleted.
 
 ![model-install-dialog](misc/snapshot.jpg)
 
@@ -271,6 +271,13 @@ NODE_CLASS_MAPPINGS.update({
     * This connection links to the closest outputs among the nodes located on the left side of the target node.
     
   * `Possible(left) + Copy(right)`: When you Double-Click on the left half of the title, it operates as `Possible Input Connections`, and when you Double-Click on the right half, it operates as `Copy All Connections`.
+
+* Prevent downgrade of specific packages
+  * List the package names in the `downgrade_blacklist` section of the `config.ini` file, separating them with commas.
+    * e.g
+    ```
+      downgrade_blacklist = diffusers, kornia
+    ```
 
 ## Troubleshooting
 * If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the ComfyUI-Manager/config.ini file that is generated.
