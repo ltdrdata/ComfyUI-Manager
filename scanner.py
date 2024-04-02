@@ -237,37 +237,62 @@ def update_custom_nodes():
         except FileNotFoundError:
             pass
 
-        if g.rate_limiting_resettime-datetime.datetime.now().timestamp() <= 0:
+        def is_rate_limit_exceeded():
+            return g.rate_limiting[0] == 0
+
+        if is_rate_limit_exceeded():
+            print(f"GitHub API Rate Limit Exceeded: remained - {(g.rate_limiting_resettime - datetime.datetime.now().timestamp())/60:.2f} min")
+        else:
+            def renew_stat(url):
+                if is_rate_limit_exceeded():
+                    return
+
+                # Parsing the URL
+                parsed_url = urlparse(url)
+                domain = parsed_url.netloc
+                path = parsed_url.path
+                path_parts = path.strip("/").split("/")
+                if len(path_parts) >= 2 and domain == "github.com":
+                    owner_repo = "/".join(path_parts[-2:])
+                    repo = g.get_repo(owner_repo)
+
+                    last_update = repo.pushed_at.strftime("%Y-%m-%d %H:%M:%S") if repo.pushed_at else 'N/A'
+                    github_stats[url] = {
+                        "stars": repo.stargazers_count,
+                        "last_update": last_update,
+                        "cached_time": datetime.datetime.now().timestamp(),
+                    }
+                    with open(GITHUB_STATS_CACHE_FILENAME, 'w', encoding='utf-8') as file:
+                        json.dump(github_stats, file, ensure_ascii=False, indent=4)
+                else:
+                    print(f"Invalid URL format for GitHub repository: {url}")
+
+            # resolve unresolved urls
             for url, title, preemptions, node_pattern in git_url_titles_preemptions:
                 if url not in github_stats:
-                    # Parsing the URL
-                    parsed_url = urlparse(url)
-                    domain = parsed_url.netloc
-                    path = parsed_url.path
-                    path_parts = path.strip("/").split("/")
-                    if len(path_parts) >= 2 and domain == "github.com":
-                        owner_repo = "/".join(path_parts[-2:])
-                        repo = g.get_repo(owner_repo)
+                    renew_stat(url)
 
-                        last_update = repo.pushed_at.strftime("%Y-%m-%d %H:%M:%S") if repo.pushed_at else 'N/A'
-                        github_stats[url] = {
-                            "stars": repo.stargazers_count,
-                            "last_update": last_update,
-                        }
-                        with open(GITHUB_STATS_CACHE_FILENAME, 'w', encoding='utf-8') as file:
-                            json.dump(github_stats, file, ensure_ascii=False, indent=4)
-                        # print(f"Title: {title}, Stars: {repo.stargazers_count}, Last Update: {last_update}")
-                    else:
-                        print(f"Invalid URL format for GitHub repository: {url}")
+            # renew outdated cache
+            outdated_urls = []
+            for k, v in github_stats.items():
+                if (datetime.datetime.now().timestamp() - v['cached_time']) > 60*60*3:  # 3 hours
+                    outdated_urls += k
+
+            for url in outdated_urls:
+                renew_stat(url)
 
         with open(GITHUB_STATS_FILENAME, 'w', encoding='utf-8') as file:
+            for v in github_stats.values():
+                if "cached_time" in v:
+                    del v["cached_time"]
+
             json.dump(github_stats, file, ensure_ascii=False, indent=4)
 
         print(f"Successfully written to {GITHUB_STATS_FILENAME}, removing {GITHUB_STATS_CACHE_FILENAME}.")
-        try:
-            os.remove(GITHUB_STATS_CACHE_FILENAME) # This cache file is just for avoiding failure of GitHub API fetch, so it is safe to remove.
-        except:
-            pass
+        # try:
+        #     os.remove(GITHUB_STATS_CACHE_FILENAME)  # This cache file is just for avoiding failure of GitHub API fetch, so it is safe to remove.
+        # except:
+        #     pass
 
     with concurrent.futures.ThreadPoolExecutor(11) as executor:
         executor.submit(process_git_stats, git_url_titles_preemptions) # One single thread for `process_git_stats()`. Runs concurrently with `process_git_url_title()`.
