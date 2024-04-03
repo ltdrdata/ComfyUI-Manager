@@ -275,8 +275,9 @@ def update_custom_nodes():
             # renew outdated cache
             outdated_urls = []
             for k, v in github_stats.items():
-                if (datetime.datetime.now().timestamp() - v['cached_time']) > 60*60*3:  # 3 hours
-                    outdated_urls += k
+                elapsed = (datetime.datetime.now().timestamp() - v['cached_time'])
+                if elapsed > 60*60*12:  # 12 hours
+                    outdated_urls.append(k)
 
             for url in outdated_urls:
                 renew_stat(url)
