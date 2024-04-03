@@ -312,7 +312,8 @@ NODE_CLASS_MAPPINGS.update({
 - [ ] List of currently used custom nodes.
 - [ ] Download support multiple model download.
 - [ ] Model download via url.
-- [ ] List sorting.
+- [x] List sorting (custom nodes).
+- [ ] List sorting (model).
 - [ ] Provides description of node.
 
 

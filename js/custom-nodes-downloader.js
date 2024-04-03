@@ -383,7 +383,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 	}
 
 	resetHeaderStyles() {
-		const headers = ['th_stars', 'th_last_update']; // Add the IDs of all your sortable headers here
+		const headers = ['th_author', 'th_title', 'th_stars', 'th_last_update']; // Add the IDs of all your sortable headers here
 		headers.forEach(headerId => {
 			const header = this.element.querySelector(`#${headerId}`);
 			if (header) {
@@ -410,6 +410,10 @@ export class CustomNodesInstaller extends ComfyDialog {
 			headerId = 'th_stars';
 		} else if (property === 'last_update') {
 			headerId = 'th_last_update';
+		} else if (property === 'author') {
+			headerId = 'th_author';
+		} else if (property === 'title') {
+			headerId = 'th_title';
 		}
 
 		// If we have a valid headerId, change its style to indicate it's the active sort column
@@ -462,28 +466,40 @@ export class CustomNodesInstaller extends ComfyDialog {
 			var header1 = document.createElement('th');
 			header1.innerHTML = '&nbsp;&nbsp;ID&nbsp;&nbsp;';
 			header1.style.width = "20px";
+
 			var header2 = document.createElement('th');
 			header2.innerHTML = 'Author';
 			header2.style.width = "150px";
+			header2.style.cursor = 'pointer';
+			header2.setAttribute('id', 'th_author');
+			header2.onclick = () => this.toggleSort('author');
+
 			var header3 = document.createElement('th');
 			header3.innerHTML = 'Name';
 			header3.style.width = "20%";
+			header3.style.cursor = 'pointer';
+			header3.setAttribute('id', 'th_title');
+			header3.onclick = () => this.toggleSort('title');
+
 			var header4 = document.createElement('th');
 			header4.innerHTML = 'Description';
 			header4.style.width = "60%";
 	//		header4.classList.add('expandable-column');
+
 			var header5 = document.createElement('th');
-			header5.innerHTML = 'GitHub Stars';
+			header5.innerHTML = '&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;';
 			header5.style.width = "130px";
 			header5.setAttribute('id', 'th_stars');
 			header5.style.cursor = 'pointer';
 			header5.onclick = () => this.toggleSort('stars');
+
 			var header6 = document.createElement('th');
 			header6.innerHTML = 'Last Update';
 			header6.style.width = "130px";
 			header6.setAttribute('id', 'th_last_update');
 			header6.style.cursor = 'pointer';
 			header6.onclick = () => this.toggleSort('last_update');
+
 			var header7 = document.createElement('th');
 			header7.innerHTML = 'Install';
 			header7.style.width = "130px";
@@ -593,7 +609,12 @@ export class CustomNodesInstaller extends ComfyDialog {
 				var data5 = document.createElement('td');
 				data5.style.maxWidth = "100px";
 				data5.className = "cm-node-stars"
-				data5.textContent = `${data.stars}`;
+				if(data.stars < 0) {
+					data5.textContent = 'N/A';
+				}
+				else {
+					data5.textContent = `${data.stars}`;
+				}
 				data5.style.whiteSpace = "nowrap";
 				data5.style.overflow = "hidden";
 				data5.style.textOverflow = "ellipsis";
@@ -602,8 +623,13 @@ export class CustomNodesInstaller extends ComfyDialog {
 				var lastUpdateDate = new Date();
 				var data6 = document.createElement('td');
 				data6.style.maxWidth = "100px";
-				data6.className = "cm-node-last-update"
-				data6.textContent = `${data.last_update}`.split(' ')[0];
+				data6.className = "cm-node-last-update";
+				if(data.last_update < 0) {
+					data6.textContent = 'N/A';
+				}
+				else {
+					data6.textContent = `${data.last_update}`.split(' ')[0];
+				}
 				data6.style.whiteSpace = "nowrap";
 				data6.style.overflow = "hidden";
 				data6.style.textOverflow = "ellipsis";
@@ -685,6 +711,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 					installBtn.style.backgroundColor = 'black';
 					installBtn.style.color = 'white';
 					break;
+
 				default:
 					installBtn.innerHTML = `Try Install`;
 					installBtn.style.backgroundColor = 'Gray';
