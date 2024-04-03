@@ -247,6 +247,8 @@ def update_custom_nodes():
                 if is_rate_limit_exceeded():
                     return
 
+                print('.', end="")
+
                 # Parsing the URL
                 parsed_url = urlparse(url)
                 domain = parsed_url.netloc
@@ -265,7 +267,7 @@ def update_custom_nodes():
                     with open(GITHUB_STATS_CACHE_FILENAME, 'w', encoding='utf-8') as file:
                         json.dump(github_stats, file, ensure_ascii=False, indent=4)
                 else:
-                    print(f"Invalid URL format for GitHub repository: {url}")
+                    print(f"\nInvalid URL format for GitHub repository: {url}\n")
 
             # resolve unresolved urls
             for url, title, preemptions, node_pattern in git_url_titles_preemptions:
