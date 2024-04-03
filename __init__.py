@@ -17,7 +17,7 @@ import re
 import nodes
 import hashlib
 from datetime import datetime
-from distutils.version import StrictVersion
+from .glob.manager_util import *
 
 
 try:
@@ -30,7 +30,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 13, 1]
+version = [2, 14]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 

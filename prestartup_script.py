@@ -9,15 +9,10 @@ import locale
 import platform
 
 
-try:
-    from distutils.version import StrictVersion
-except:
-    print(f"[ComfyUI-Manager] Missing `distutils`. Try install...")
-    subprocess.check_output([sys.executable, '-m', 'pip', 'install', 'distutils'])
-    from distutils.version import StrictVersion
-
 glob_path = os.path.join(os.path.dirname(__file__), "glob")
 sys.path.append(glob_path)
+
+from manager_util import *
 
 import cm_global
 
