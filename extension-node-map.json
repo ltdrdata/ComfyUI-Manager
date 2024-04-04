@@ -235,6 +235,7 @@
             "OneButtonFlufferize",
             "OneButtonPreset",
             "OneButtonPrompt",
+            "OneButtonSuperPrompt",
             "SavePromptToFile"
         ],
         {
@@ -1432,7 +1433,9 @@
     ],
     "https://github.com/Hiero207/ComfyUI-Hiero-Nodes": [
         [
-            "Post to Discord w/ Webhook"
+            "Load Prompt Travel file",
+            "Post to Discord w/ Webhook",
+            "Save Prompt Travel file"
         ],
         {
             "author": "Hiero",
@@ -5317,6 +5320,16 @@
             "title_aux": "ComfyUI-MotionCtrl-SVD"
         }
     ],
+    "https://github.com/chaojie/ComfyUI-MuseTalk": [
+        [
+            "MuseTalkCupAudio",
+            "MuseTalkRun",
+            "VHS_FILENAMES_STRING_MuseTalk"
+        ],
+        {
+            "title_aux": "ComfyUI-MuseTalk"
+        }
+    ],
     "https://github.com/chaojie/ComfyUI-MuseV": [
         [
             "MuseVRun",
@@ -5666,10 +5679,21 @@
     ],
     "https://github.com/city96/ComfyUI_ColorMod": [
         [
+            "CV2Tonemap",
+            "CV2TonemapDrago",
+            "CV2TonemapDurand",
+            "CV2TonemapMantiuk",
+            "CV2TonemapReinhard",
+            "ColorModCompress",
             "ColorModEdges",
+            "ColorModMove",
             "ColorModPivot",
+            "HDRCreate",
+            "HDRExposureFusion",
+            "LoadImageHDR",
             "LoadImageHighPrec",
             "PreviewImageHighPrec",
+            "SaveImageHDR",
             "SaveImageHighPrec"
         ],
         {
@@ -6861,18 +6885,6 @@
             "title_aux": "SaltAI-Open-Resources"
         }
     ],
-    "https://github.com/ggpid/idpark_custom_node": [
-        [
-            "CutByMaskFixed",
-            "FastSAMGenerator",
-            "LoadImageS3",
-            "SAMGenerator",
-            "SaveImageS3"
-        ],
-        {
-            "title_aux": "idpark_custom_node"
-        }
-    ],
     "https://github.com/giriss/comfy-image-saver": [
         [
             "Cfg Literal",
@@ -7580,6 +7592,7 @@
             "BatchUncrop",
             "BatchUncropAdvanced",
             "BboxToInt",
+            "CameraPoseVisualizer",
             "ColorMatch",
             "ColorToMask",
             "CondPassThrough",
@@ -10471,7 +10484,10 @@
             "easy preSamplingLayerDiffusionADDTL",
             "easy preSamplingNoiseIn",
             "easy preSamplingSdTurbo",
+            "easy promptConcat",
+            "easy promptLine",
             "easy promptList",
+            "easy promptReplace",
             "easy rangeFloat",
             "easy rangeInt",
             "easy samLoaderPipe",
