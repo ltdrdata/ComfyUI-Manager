@@ -1089,6 +1089,7 @@
             "BinaryPreprocessor",
             "CannyEdgePreprocessor",
             "ColorPreprocessor",
+            "ControlNetPreprocessorSelector",
             "DSINE-NormalMapPreprocessor",
             "DWPreprocessor",
             "DensePosePreprocessor",
@@ -3397,6 +3398,14 @@
             "title_aux": "ComfyUI-Portrait-Maker"
         }
     ],
+    "https://github.com/TJ16th/comfyUI_TJ_NormalLighting": [
+        [
+            "EulerLightingNode"
+        ],
+        {
+            "title_aux": "comfyUI_TJ_NormalLighting"
+        }
+    ],
     "https://github.com/TRI3D-LC/tri3d-comfyui-nodes": [
         [
             "main_scaled_paste",
@@ -4988,7 +4997,8 @@
     "https://github.com/bobmagicii/comfykit-custom-nodes": [
         [
             "LoraWithMeta",
-            "TypecasterImage"
+            "TypecasterImage",
+            "TypecasterLatent"
         ],
         {
             "title_aux": "ComfyKit Custom Nodes"
@@ -5094,6 +5104,19 @@
         ],
         {
             "title_aux": "ComfyUI_PerpWeight"
+        }
+    ],
+    "https://github.com/bvhari/ComfyUI_SUNoise": [
+        [
+            "SamplerDPM2Ancestral_SUN",
+            "SamplerDPMPP2SAncestral_SUN",
+            "SamplerDPMPP_2M_SDE_SUN",
+            "SamplerDPMPP_3M_SDE_SUN",
+            "SamplerDPMPP_SDE_SUN",
+            "SamplerEulerAncestral_SUN"
+        ],
+        {
+            "title_aux": "ComfyUI_SUNoise"
         }
     ],
     "https://github.com/catscandrive/comfyui-imagesubfolders/raw/main/loadImageWithSubfolders.py": [
@@ -5790,7 +5813,9 @@
     ],
     "https://github.com/comfyanonymous/ComfyUI": [
         [
+            "BasicGuider",
             "BasicScheduler",
+            "CFGGuider",
             "CLIPLoader",
             "CLIPMergeAdd",
             "CLIPMergeSimple",
@@ -5823,6 +5848,8 @@
             "DiffControlNetLoader",
             "DifferentialDiffusion",
             "DiffusersLoader",
+            "DisableNoise",
+            "DualCFGGuider",
             "DualCLIPLoader",
             "EmptyImage",
             "EmptyLatentImage",
@@ -5855,6 +5882,7 @@
             "ImageToMask",
             "ImageUpscaleWithModel",
             "InpaintModelConditioning",
+            "InstructPixToPixConditioning",
             "InvertMask",
             "JoinImageWithAlpha",
             "KSampler",
@@ -5898,6 +5926,7 @@
             "PolyexponentialScheduler",
             "PorterDuffImageComposite",
             "PreviewImage",
+            "RandomNoise",
             "RebatchImages",
             "RebatchLatents",
             "RepeatImageBatch",
@@ -5908,6 +5937,7 @@
             "SV3D_Conditioning",
             "SVD_img2vid_Conditioning",
             "SamplerCustom",
+            "SamplerCustomAdvanced",
             "SamplerDPMAdaptative",
             "SamplerDPMPP_2M_SDE",
             "SamplerDPMPP_3M_SDE",
@@ -6061,6 +6091,7 @@
             "IPAdapterModelLoader",
             "IPAdapterNoise",
             "IPAdapterSaveEmbeds",
+            "IPAdapterStyleComposition",
             "IPAdapterTiled",
             "IPAdapterTiledBatch",
             "IPAdapterUnifiedLoader",
@@ -9724,6 +9755,7 @@
     "https://github.com/stavsap/comfyui-ollama": [
         [
             "OllamaGenerate",
+            "OllamaGenerateAdvance",
             "OllamaVision"
         ],
         {
