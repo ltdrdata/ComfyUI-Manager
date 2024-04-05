@@ -4,7 +4,7 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager
 cd ..
 python -m venv venv
 call venv/Scripts/activate
-pythoh -m pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu121
+python -m pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu121
 python -m pip install -r requirements.txt
 python -m pip install -r custom_nodes/ComfyUI-Manager/requirements.txt
 cd ..
