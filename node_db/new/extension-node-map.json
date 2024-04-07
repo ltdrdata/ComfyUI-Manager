@@ -585,14 +585,6 @@
             "title_aux": "ComfyUI CustomScheduler"
         }
     ],
-    "https://github.com/BlakeOne/ComfyUI-FastImageListToImageBatch": [
-        [
-            "FastImageListToImageBatch"
-        ],
-        {
-            "title_aux": "ComfyUI FastImageListToImageBatch"
-        }
-    ],
     "https://github.com/BlakeOne/ComfyUI-SchedulerMixer": [
         [
             "SchedulerMixer"
@@ -738,6 +730,8 @@
     ],
     "https://github.com/Clybius/ComfyUI-Extra-Samplers": [
         [
+            "GeometricCFGGuider",
+            "ImageAssistedCFGGuider",
             "SamplerCLYB_4M_SDE_Momentumized",
             "SamplerCustomModelMixtureDuo",
             "SamplerCustomNoise",
@@ -749,6 +743,7 @@
             "SamplerRES_Momentumized",
             "SamplerSupreme",
             "SamplerTTM",
+            "ScaledCFGGuider",
             "SimpleExponentialScheduler"
         ],
         {
@@ -1339,14 +1334,6 @@
         ],
         {
             "title_aux": "ComfyUI-GTSuya-Nodes"
-        }
-    ],
-    "https://github.com/GavChap/ComfyUI-CascadeResolutions": [
-        [
-            "CascadeResolutions"
-        ],
-        {
-            "title_aux": "ComfyUI-CascadeResolutions"
         }
     ],
     "https://github.com/Gourieff/comfyui-reactor-node": [
@@ -3126,7 +3113,8 @@
     ],
     "https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts": [
         [
-            "HDR Effects (SuperBeasts.AI)"
+            "HDR Effects (SuperBeasts.AI)",
+            "Make Resized Mask Batch (SuperBeasts.AI)"
         ],
         {
             "title_aux": "ComfyUI-SuperBeasts"
@@ -4414,6 +4402,14 @@
             "title_aux": "Comfy UI FatLabels"
         }
     ],
+    "https://github.com/al-swaiti/ComfyUI-CascadeResolutions": [
+        [
+            "CascadeResolutions"
+        ],
+        {
+            "title_aux": "ComfyUI-CascadeResolutions"
+        }
+    ],
     "https://github.com/alexopus/ComfyUI-Image-Saver": [
         [
             "Cfg Literal (Image Saver)",
@@ -5614,6 +5610,7 @@
             "LayerUtility: CropByMask V2",
             "LayerUtility: ExtendCanvas",
             "LayerUtility: GetColorTone",
+            "LayerUtility: GetColorToneV2",
             "LayerUtility: GetImageSize",
             "LayerUtility: GradientImage",
             "LayerUtility: GradientImage V2",
@@ -5628,6 +5625,7 @@
             "LayerUtility: ImageMaskScaleAs",
             "LayerUtility: ImageOpacity",
             "LayerUtility: ImageRemoveAlpha",
+            "LayerUtility: ImageRewardFilter",
             "LayerUtility: ImageScaleByAspectRatio",
             "LayerUtility: ImageScaleByAspectRatio V2",
             "LayerUtility: ImageScaleRestore",
@@ -7651,6 +7649,7 @@
             "BatchUncrop",
             "BatchUncropAdvanced",
             "BboxToInt",
+            "BboxVisualize",
             "CameraPoseVisualizer",
             "ColorMatch",
             "ColorToMask",
@@ -7695,7 +7694,6 @@
             "InsertImageBatchByIndexes",
             "Intrinsic_lora_sampling",
             "LoadResAdapterNormalization",
-            "NormalizeLatent",
             "NormalizedAmplitudeToMask",
             "OffsetMask",
             "OffsetMaskByNormalizedAmplitude",
@@ -8649,7 +8647,8 @@
             "CanvasCreatorBasic",
             "CanvasCreatorSimple",
             "CreateMaskWithCanvas",
-            "CreateRegionalPNGMask",
+            "CreateNestedPNGMask",
+            "CreateTillingPNGMask",
             "CreateWatermarkRemovalMask",
             "EightFloats",
             "EvenOrOdd",
@@ -8658,6 +8657,7 @@
             "FourFloats",
             "IntMultiplication",
             "IntSubtraction",
+            "IntToFloatMultiplication",
             "LogicNot",
             "NumeralToString",
             "PngColorMasksToMaskList",
@@ -8666,7 +8666,8 @@
             "PngColorMasksToStringList",
             "PngRectanglesToMask",
             "PngRectanglesToMaskList",
-            "RandomLayouts",
+            "RandomNestedLayouts",
+            "RandomTillingLayouts",
             "SeedGenerator",
             "SingleBooleanTrigger",
             "SixBooleanTrigger",
@@ -9263,6 +9264,17 @@
             "title_aux": "ComfyUI PNG Metadata"
         }
     ],
+    "https://github.com/ronniebasak/ComfyUI-Tara-LLM-Integration": [
+        [
+            "TaraApiKeyLoader",
+            "TaraApiKeySaver",
+            "TaraDaisyChainNode",
+            "TaraPrompter"
+        ],
+        {
+            "title_aux": "ComfyUI-Tara-LLM-Integration"
+        }
+    ],
     "https://github.com/rui40000/RUI-Nodes": [
         [
             "ABCondition",
@@ -9303,8 +9315,11 @@
     ],
     "https://github.com/sergekatzmann/ComfyUI_Nimbus-Pack": [
         [
+            "AdjustAndRoundDimensions",
+            "AspectRatioMobileDevices",
             "ImageResizeAndCropNode",
-            "ImageSquareAdapterNode"
+            "ImageSquareAdapterNode",
+            "PopularScreenResolutions"
         ],
         {
             "title_aux": "ComfyUI_Nimbus-Pack"
