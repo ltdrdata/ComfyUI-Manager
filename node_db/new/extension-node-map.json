@@ -288,7 +288,7 @@
             "ImageScaleToSide-badger",
             "IntToString-badger",
             "SegmentToMaskByPoint-badger",
-            "StringListToOneLine-badger",
+            "SimpleBoolean-badger",
             "StringToFizz-badger",
             "TextListToString-badger",
             "ToPixel-badger",
@@ -2205,6 +2205,10 @@
     "https://github.com/MokkaBoss1/ComfyUI_Mokkaboss1": [
         [
             "AspectRatioCondition",
+            "ConnectFloat",
+            "ConnectImage",
+            "ConnectInteger",
+            "ConnectString",
             "DoubleClipTextEncode",
             "HashText",
             "IndoorBackgrounds",
@@ -2497,7 +2501,9 @@
     "https://github.com/ParisNeo/lollms_nodes_suite": [
         [
             "Artbot",
-            "Lollms_Text_Gen"
+            "Lollms_Text_Gen",
+            "Lollms_Text_Saver",
+            "RandomizeVideo"
         ],
         {
             "title_aux": "lollms_nodes_suite"
@@ -3113,8 +3119,10 @@
     ],
     "https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts": [
         [
+            "Deflicker (SuperBeasts.AI)",
             "HDR Effects (SuperBeasts.AI)",
-            "Make Resized Mask Batch (SuperBeasts.AI)"
+            "Make Resized Mask Batch (SuperBeasts.AI)",
+            "Pixel Deflicker (SuperBeasts.AI)"
         ],
         {
             "title_aux": "ComfyUI-SuperBeasts"
@@ -5769,7 +5777,6 @@
             "ExtraVAELoader",
             "PixArtCheckpointLoader",
             "PixArtControlNetCond",
-            "PixArtDPMSampler",
             "PixArtLoraLoader",
             "PixArtResolutionCond",
             "PixArtResolutionSelect",
@@ -6178,6 +6185,7 @@
             "KSamplerVariationsWithNoise+",
             "MaskBatch+",
             "MaskBlur+",
+            "MaskBoundingBox+",
             "MaskExpandBatch+",
             "MaskFlip+",
             "MaskFromBatch+",
@@ -6722,8 +6730,15 @@
     ],
     "https://github.com/filliptm/ComfyUI_Fill-Nodes": [
         [
+            "FL_AudioConverter",
+            "FL_AudioFrameCalculator",
+            "FL_AudioPreview",
+            "FL_CodeNode",
+            "FL_DirectoryCrawl",
             "FL_ImageCaptionSaver",
             "FL_ImageDimensionDisplay",
+            "FL_ImageDurationSync",
+            "FL_ImagePixelator",
             "FL_ImageRandomizer"
         ],
         {
@@ -7082,6 +7097,26 @@
         ],
         {
             "title_aux": "ComfyUI-Image-Matting"
+        }
+    ],
+    "https://github.com/hay86/ComfyUI_AceNodes": [
+        [
+            "ACE_Float",
+            "ACE_ImageConstrain",
+            "ACE_Integer",
+            "ACE_Seed",
+            "ACE_Text",
+            "ACE_TextConcatenate",
+            "ACE_TextInputSwitch2Way",
+            "ACE_TextInputSwitch4Way",
+            "ACE_TextInputSwitch8Way",
+            "ACE_TextList",
+            "ACE_TextPreview",
+            "ACE_TextSelector",
+            "ACE_TextToResolution"
+        ],
+        {
+            "title_aux": "ComfyUI_AceNodes"
         }
     ],
     "https://github.com/hay86/ComfyUI_Dreamtalk": [
@@ -7960,6 +7995,16 @@
         ],
         {
             "title_aux": "simple wildcard for ComfyUI"
+        }
+    ],
+    "https://github.com/liusida/ComfyUI-Debug": [
+        [
+            "DebugInspectorNode",
+            "DebugModelInspectorNode",
+            "DebugModelPrintOutNode"
+        ],
+        {
+            "title_aux": "ComfyUI-Debug"
         }
     ],
     "https://github.com/ljleb/comfy-mecha": [

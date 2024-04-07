@@ -5,6 +5,7 @@ files=(
     "model-list.json"
     "alter-list.json"
     "extension-node-map.json"
+    "github-stats.json"
     "node_db/new/custom-node-list.json"
     "node_db/new/model-list.json"
     "node_db/new/extension-node-map.json"
