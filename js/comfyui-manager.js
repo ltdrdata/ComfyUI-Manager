@@ -226,6 +226,16 @@ const style = `
 	font-size: 17px !important;
 }
 
+.cm-button-red {
+	width: 310px;
+	height: 30px;
+	position: relative;
+	overflow: hidden;
+	font-size: 17px !important;
+	background-color: #500000 !important;
+	color: white !important;
+}
+
 .cm-experimental-button {
 	width: 290px;
 	height: 30px;
@@ -769,7 +779,14 @@ class ManagerMenuDialog extends ComfyDialog {
 								AlternativesInstaller.instance = new AlternativesInstaller(app, self);
 							AlternativesInstaller.instance.show();
 						}
-				})
+				}),
+
+				$el("br", {}, []),
+				$el("button.cm-button-red", {
+					type: "button",
+					textContent: "Restart",
+					onclick: () => rebootAPI()
+				}),
 			];
 
 		return res;
