@@ -260,6 +260,27 @@
             "title_aux": "One Button Prompt"
         }
     ],
+    "https://github.com/ALatentPlace/ComfyUI_yanc": [
+        [
+            "> Clear Text",
+            "> Float to Int",
+            "> Int",
+            "> Int to Text",
+            "> Load Image",
+            "> Load Image From Folder",
+            "> Rotate Image",
+            "> Save Image",
+            "> Scale Image to Side",
+            "> Text",
+            "> Text Combine",
+            "> Text Pick Random Line",
+            "> Text Random Weights",
+            "> Text Replace"
+        ],
+        {
+            "title_aux": "ComfyUI_yanc"
+        }
+    ],
     "https://github.com/AbdullahAlfaraj/Comfy-Photoshop-SD": [
         [
             "APS_LatentBatch",
@@ -2228,6 +2249,7 @@
             "ConnectFloat",
             "ConnectImage",
             "ConnectInteger",
+            "ConnectLatent",
             "ConnectString",
             "DoubleClipTextEncode",
             "HashText",
@@ -2238,6 +2260,7 @@
             "NatureColours",
             "OptimalCrop",
             "SDXLAspectRatioDec",
+            "TimeStamp",
             "UrbanColours",
             "WorkflowSettings",
             "WrapText",
@@ -3461,8 +3484,12 @@
     ],
     "https://github.com/TRI3D-LC/tri3d-comfyui-nodes": [
         [
+            "get_histogram_limits",
             "main_scaled_paste",
+            "simple_rescale_histogram",
             "tri3d-HistogramEqualization",
+            "tri3d-LAB_2_RGB",
+            "tri3d-RGB_2_LAB",
             "tri3d-adjust-neck",
             "tri3d-atr-parse",
             "tri3d-atr-parse-batch",
@@ -3476,6 +3503,9 @@
             "tri3d-face-recognise",
             "tri3d-float-to-image",
             "tri3d-fuzzification",
+            "tri3d-get_histogram_limits",
+            "tri3d-get_mean_and_standard_deviation",
+            "tri3d-get_threshold_for_bg_swap",
             "tri3d-image-mask-2-box",
             "tri3d-image-mask-box-2-image",
             "tri3d-interaction-canny",
@@ -3490,7 +3520,10 @@
             "tri3d-recolor-mask-LAB_space",
             "tri3d-recolor-mask-LAB_space_manual",
             "tri3d-recolor-mask-RGB_space",
+            "tri3d-renormalize_array",
             "tri3d-scaled-paste",
+            "tri3d-simple_bg_swap",
+            "tri3d-simple_rescale_histogram",
             "tri3d-skin-feathered-padded-mask",
             "tri3d-swap-pixels"
         ],
@@ -5514,6 +5547,7 @@
             "StreamingT2VRunI2V",
             "StreamingT2VRunLongStep",
             "StreamingT2VRunLongStepVidXTendPipeline",
+            "StreamingT2VRunLongStepVidXTendPipelinePromptTravel",
             "StreamingT2VRunShortStepAnimateDiff",
             "StreamingT2VRunShortStepModelscopeT2V",
             "StreamingT2VRunShortStepSVD",
@@ -5542,6 +5576,7 @@
             "chaosaiart_Denoising_Switch",
             "chaosaiart_EmptyLatentImage",
             "chaosaiart_FramePromptCLIPEncode",
+            "chaosaiart_Frame_Switch",
             "chaosaiart_ImageHolder_loop",
             "chaosaiart_KSampler",
             "chaosaiart_KSampler1",
@@ -5549,6 +5584,12 @@
             "chaosaiart_KSampler3",
             "chaosaiart_KSampler4",
             "chaosaiart_KSampler5",
+            "chaosaiart_KSampler6",
+            "chaosaiart_KSampler7",
+            "chaosaiart_KSampler8",
+            "chaosaiart_KSampler_a1",
+            "chaosaiart_KSampler_a1a",
+            "chaosaiart_Ksampler_attribut",
             "chaosaiart_Load_Image_Batch",
             "chaosaiart_Load_Image_Batch_2img",
             "chaosaiart_MainPromptCLIPEncode",
@@ -5578,6 +5619,7 @@
             "chaosaiart_cn_math",
             "chaosaiart_controlnet_weidgth",
             "chaosaiart_convert",
+            "chaosaiart_forPreview",
             "chaosaiart_image_loop",
             "chaosaiart_img2video",
             "chaosaiart_imgHolder",
@@ -5599,7 +5641,8 @@
             "chaosaiart_test",
             "chaosaiart_test2",
             "chaosaiart_video2img1",
-            "chaosaiart_video2img2"
+            "chaosaiart_video2img2",
+            "chaosaiart_zoom_frame"
         ],
         {
             "title_aux": "Chaosaiart-Nodes"
@@ -8221,7 +8264,8 @@
     ],
     "https://github.com/longgui0318/comfyui-oms-diffusion": [
         [
-            "Additional Features With Attention"
+            "Additional Features With Attention",
+            "RUN OMS"
         ],
         {
             "title_aux": "comfyui-oms-diffusion"
@@ -8798,6 +8842,7 @@
             "IntToFloatMultiplication",
             "LogicNot",
             "NumeralToString",
+            "OneFloat",
             "PngColorMasksToMaskList",
             "PngColorMasksToRGB",
             "PngColorMasksToString",
