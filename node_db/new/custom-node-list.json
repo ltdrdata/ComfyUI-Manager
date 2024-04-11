@@ -9,6 +9,58 @@
             "description": "If you see this message, your ComfyUI-Manager is outdated.\nRecent channel provides only the list of the latest nodes. If you want to find the complete node list, please go to the Default channel.\nMaking LoRA has never been easier!"
         },
 
+
+
+        {
+            "author": "logtd",
+            "title": "ComfyUI-RAVE Attention",
+            "reference": "https://github.com/logtd/ComfyUI-RAVE_ATTN",
+            "files": [
+                "https://github.com/logtd/ComfyUI-RAVE_ATTN"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI nodes to use RAVE attention as a temporal attention mechanism.\nThis differs from other implementations in that it does not concatenate the images together, but within the UNet's Self-Attention mechanism performs the RAVE technique. By not altering the images/latents throughout the UNet, this method does not affect other temporal techniques, style mechanisms, or other UNet modifications.\nFor example, it can be combined with AnimateDiff, ModelScope/ZeroScope, or FLATTEN."
+        },
+        {
+            "author": "BlakeOne",
+            "title": "ComfyUI NodePresets",
+            "reference": "https://github.com/BlakeOne/ComfyUI-NodePresets",
+            "files": [
+                "https://github.com/BlakeOne/ComfyUI-NodePresets"
+            ],
+            "install_type": "git-clone",
+            "description": "An extension for ComyUI that enables saving and loading node presets using the node's context menu.\nRight click a node and choose 'Presets' from its context menu to access the node's presets."
+        },
+        {
+            "author": "Wicloz",
+            "title": "ComfyUI-Simply-Nodes",
+            "reference": "https://github.com/Wicloz/ComfyUI-Simply-Nodes",
+            "files": [
+                "https://github.com/Wicloz/ComfyUI-Simply-Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Conditional LoRA Loader, Multiline Text, Text Flow Controller, Select SDXL Resolution, Random Style Prompt."
+        },
+        {
+            "author": "AIFSH",
+            "title": "ComfyUI-IP_LAP",
+            "reference": "https://github.com/AIFSH/ComfyUI-IP_LAP",
+            "files": [
+                "https://github.com/AIFSH/ComfyUI-IP_LAP"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:IP_LAP Node, Video Loader, PreView Video, Combine Audio Video. the comfyui custom node of [a/IP_LAP](https://github.com/Weizhi-Zhong/IP_LAP) to make audio driven videos!"
+        },
+        {
+            "author": "kijai",
+            "title": "ComfyUI-LaVi-Bridge-Wrapper",
+            "reference": "https://github.com/kijai/ComfyUI-LaVi-Bridge-Wrapper",
+            "files": [
+                "https://github.com/kijai/ComfyUI-LaVi-Bridge-Wrapper"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI wrapper node to test LaVi-Bridge using Diffusers"
+        },
         {
             "author": "ALatentPlace",
             "title": "ComfyUI_yanc",
@@ -639,56 +691,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:HDR Effects (SuperBeasts.AI). This repository contains custom nodes for ComfyUI created and used by SuperBeasts.AI (@SuperBeasts.AI on Instagram)"
-        },
-        {
-            "author": "IKHOR",
-            "title": "ikhor-nodes",
-            "reference": "https://github.com/IKHOR/ComfyUI-IKHOR-Jam-Nodes",
-            "files": [
-                "https://github.com/IKHOR/ComfyUI-IKHOR-Jam-Nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:LoadFromS3, LoadBatchFromS3, SaveToS3, SaveBatchToS3"
-        },
-        {
-            "author": "viperyl",
-            "title": "ComfyUI-BiRefNet",
-            "reference": "https://github.com/viperyl/ComfyUI-BiRefNet",
-            "files": [
-                "https://github.com/viperyl/ComfyUI-BiRefNet"
-            ],
-            "install_type": "git-clone",
-            "description": "Bilateral Reference Network achieves SOTA result in multi Salient Object Segmentation dataset, this repo pack BiRefNet as ComfyUI nodes, and make this SOTA model easier use for everyone."
-        },
-        {
-            "author": "alisson-anjos",
-            "title": "ComfyUI-LLaVA-Describer",
-            "reference": "https://github.com/alisson-anjos/ComfyUI-LLaVA-Describer",
-            "files": [
-                "https://github.com/alisson-anjos/ComfyUI-LLaVA-Describer"
-            ],
-            "install_type": "git-clone",
-            "description": "This is an extension for ComfyUI to extract descriptions from your images using the multimodal model called LLaVa. The LLaVa model - Large Language and Vision Assistant, although trained on a relatively small dataset, demonstrates exceptional capabilities in understanding images and answering questions about them. This model shows behaviors similar to multimodal models like GPT-4, even when presented with unseen images and instructions."
-        },
-        {
-            "author": "chaosaiart",
-            "title": "Chaosaiart-Nodes",
-            "reference": "https://github.com/chaosaiart/Chaosaiart-Nodes",
-            "files": [
-                "https://github.com/chaosaiart/Chaosaiart-Nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "This extension provides various custom nodes to assist in configuring the workflow structure."
-        },
-        {
-            "author": "shadowcz007",
-            "title": "comfyui-Image-reward",
-            "reference": "https://github.com/shadowcz007/comfyui-Image-reward",
-            "files": [
-                "https://github.com/shadowcz007/comfyui-Image-reward"
-            ],
-            "install_type": "git-clone",
-            "description": "[a/ImageReward](https://github.com/THUDM/ImageReward): Human preference learning in text-to-image generation. This is a [a/paper](https://arxiv.org/abs/2304.05977) from NeurIPS 2023"
         }
     ]
 }
