@@ -30,7 +30,7 @@ except:
     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version is outdated. Please update to the latest version.")
 
 
-version = [2, 16, 1]
+version = [2, 17]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -40,6 +40,15 @@ comfy_ui_hash = "-"
 cache_lock = threading.Lock()
 
 pip_map = None
+
+
+def remap_pip_package(pkg):
+    if pkg in cm_global.pip_overrides:
+        res = cm_global.pip_overrides[pkg]
+        print(f"[ComfyUI-Manager] '{pkg}' is remapped to '{res}'")
+        return res
+    else:
+        return pkg
 
 
 def get_installed_packages():
@@ -1377,7 +1386,7 @@ def execute_install_script(url, repo_path, lazy_mode=False):
             print("Install: pip packages")
             with open(requirements_path, "r") as requirements_file:
                 for line in requirements_file:
-                    package_name = line.strip()
+                    package_name = remap_pip_package(line.strip())
                     if package_name:
                         install_cmd = [sys.executable, "-m", "pip", "install", package_name]
                         if package_name.strip() != "":
@@ -1641,7 +1650,8 @@ async def install_custom_node(request):
 
     if 'pip' in json_data:
         for pname in json_data['pip']:
-            install_cmd = [sys.executable, "-m", "pip", "install", pname]
+            pkg = remap_pip_package(pname)
+            install_cmd = [sys.executable, "-m", "pip", "install", pkg]
             try_install_script(json_data['files'][0], ".", install_cmd)
 
     clear_pip_cache()

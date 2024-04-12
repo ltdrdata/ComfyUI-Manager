@@ -7,6 +7,7 @@ import threading
 import re
 import locale
 import platform
+import json
 
 
 glob_path = os.path.join(os.path.dirname(__file__), "glob")
@@ -69,6 +70,23 @@ custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, ".."))
 startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
 restore_snapshot_path = os.path.join(startup_script_path, "restore-snapshot.json")
 git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
+pip_overrides_path = os.path.join(comfyui_manager_path, "pip_overrides.json")
+
+
+cm_global.pip_overrides = {}
+if os.path.exists(pip_overrides_path):
+    with open(pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
+        cm_global.pip_overrides = json.load(json_file)
+
+
+def remap_pip_package(pkg):
+    if pkg in cm_global.pip_overrides:
+        res = cm_global.pip_overrides[pkg]
+        print(f"[ComfyUI-Manager] '{pkg}' is remapped to '{res}'")
+        return res
+    else:
+        return pkg
+
 
 std_log_lock = threading.Lock()
 
@@ -391,8 +409,6 @@ def is_installed(name):
 
 if os.path.exists(restore_snapshot_path):
     try:
-        import json
-
         cloned_repos = []
 
         def msg_capture(stream, prefix):
@@ -436,7 +452,7 @@ if os.path.exists(restore_snapshot_path):
                     if os.path.exists(requirements_path):
                         with open(requirements_path, 'r', encoding="UTF-8", errors="ignore") as file:
                             for line in file:
-                                package_name = line.strip()
+                                package_name = remap_pip_package(line.strip())
                                 if package_name and not is_installed(package_name):
                                     install_cmd = [sys.executable, "-m", "pip", "install", package_name]
                                     this_exit_code += process_wrap(install_cmd, repo_path)
@@ -476,7 +492,7 @@ def execute_lazy_install_script(repo_path, executable):
         print(f"Install: pip packages for '{repo_path}'")
         with open(requirements_path, "r") as requirements_file:
             for line in requirements_file:
-                package_name = line.strip()
+                package_name = remap_pip_package(line.strip())
                 if package_name and not is_installed(package_name):
                     install_cmd = [executable, "-m", "pip", "install", package_name]
                     process_wrap(install_cmd, repo_path)
