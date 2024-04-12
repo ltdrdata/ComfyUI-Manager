@@ -279,6 +279,11 @@ NODE_CLASS_MAPPINGS.update({
       downgrade_blacklist = diffusers, kornia
     ```
 
+* Custom pip mapping
+  * When you create the `pip_overrides.json` file, it changes the installation of specific pip packages to installations defined by the user.
+    * Please refer to the `pip_overrides.json.template` file.
+    
+
 ## Scanner
 When you run the `scan.sh` script:
 
