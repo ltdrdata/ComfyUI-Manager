@@ -279,6 +279,21 @@ NODE_CLASS_MAPPINGS.update({
       downgrade_blacklist = diffusers, kornia
     ```
 
+## Scanner
+When you run the `scan.sh` script:
+
+* It updates the `extension-node-map.json`.
+  * To do this, it pulls or clones the custom nodes listed in `custom-node-list.json` into `~/.tmp/default`.
+  * To skip this step, add the `--skip-update` option.
+  * If you want to specify a different path instead of `~/.tmp/default`, run `python scanner.py [path]` directly instead of `scan.sh`.
+
+* It updates the `github-stats.json`.
+  * This uses the GitHub API, so set your token with `export GITHUB_TOKEN=your_token_here` to avoid quickly reaching the rate limit and malfunctioning.
+  * To skip this step, add the `--skip-update-stat` option.
+
+* The `--skip-all` option applies both `--skip-update` and `--skip-stat-update`.
+
+
 ## Troubleshooting
 * If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the ComfyUI-Manager/config.ini file that is generated.
 * If updating ComfyUI-Manager itself fails, please go to the **ComfyUI-Manager** directory and execute the command `git update-ref refs/remotes/origin/main a361cc1 && git fetch --all && git pull`.
