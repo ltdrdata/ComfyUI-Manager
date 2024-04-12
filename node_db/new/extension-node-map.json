@@ -4910,11 +4910,14 @@
     ],
     "https://github.com/blepping/ComfyUI-bleh": [
         [
+            "BlehBlockOps",
             "BlehDeepShrink",
             "BlehDiscardPenultimateSigma",
             "BlehForceSeedSampler",
             "BlehHyperTile",
             "BlehInsaneChainSampler",
+            "BlehLatentOps",
+            "BlehLatentScaleBy",
             "BlehModelPatchConditional",
             "BlehRefinerAfter"
         ],
@@ -5662,6 +5665,7 @@
             "chaosaiart_lora",
             "chaosaiart_lora_advanced",
             "chaosaiart_main_Prompt",
+            "chaosaiart_merge_Folders",
             "chaosaiart_oneNode",
             "chaosaiart_reloadAny_Load",
             "chaosaiart_reloadAny_Save",
@@ -7258,6 +7262,9 @@
     ],
     "https://github.com/hay86/ComfyUI_AceNodes": [
         [
+            "ACE_AudioLoad",
+            "ACE_AudioPlay",
+            "ACE_AudioSave",
             "ACE_Float",
             "ACE_ImageConstrain",
             "ACE_ImageRemoveBackground",
@@ -7281,8 +7288,7 @@
     ],
     "https://github.com/hay86/ComfyUI_Dreamtalk": [
         [
-            "D_DreamTalk",
-            "D_LoadAudio"
+            "D_DreamTalk"
         ],
         {
             "title_aux": "ComfyUI Dreamtalk"
@@ -7702,6 +7708,60 @@
         ],
         {
             "title_aux": "ComfyUI_demucus"
+        }
+    ],
+    "https://github.com/kale4eat/ComfyUI-speech-dataset-toolkit": [
+        [
+            "SDT_AudioProperty",
+            "SDT_ConcatAudio",
+            "SDT_CutAudio",
+            "SDT_DemucsApply",
+            "SDT_DemucsLoader",
+            "SDT_FasterWhisperListSegments",
+            "SDT_FasterWhisperLoader",
+            "SDT_FasterWhisperSegmentProperty",
+            "SDT_FasterWhisperTextFromSegments",
+            "SDT_FasterWhisperTranscribe",
+            "SDT_GriffinLim",
+            "SDT_JoinAudio",
+            "SDT_LFCC",
+            "SDT_LoadAudio",
+            "SDT_LoadAudios",
+            "SDT_MFCC",
+            "SDT_MakeSilenceAudio",
+            "SDT_MelSpectrogram",
+            "SDT_NemoAsrListSegments",
+            "SDT_NemoAsrListSubwords",
+            "SDT_NemoAsrLoader",
+            "SDT_NemoAsrSegmentProperty",
+            "SDT_NemoAsrSubwordProperty",
+            "SDT_NemoAsrTranscribe",
+            "SDT_NueAsrLoader",
+            "SDT_NueAsrTranscribe",
+            "SDT_PlayAudio",
+            "SDT_PlotMelFilterBank",
+            "SDT_PlotPitch",
+            "SDT_PlotSpecgram",
+            "SDT_PlotSpectrogram",
+            "SDT_PlotWaveForm",
+            "SDT_ResampleAudio",
+            "SDT_SaveAudio",
+            "SDT_SaveAudioWithSequentialNumbering",
+            "SDT_SilenceAudio",
+            "SDT_SileroVADApply",
+            "SDT_SileroVADCollectChunks",
+            "SDT_SileroVADListTimestamps",
+            "SDT_SileroVADLoader",
+            "SDT_SileroVADTimestampProperty",
+            "SDT_Spectrogram",
+            "SDT_SpeechMOSLoader",
+            "SDT_SpeechMOSScore",
+            "SDT_SplitAudio",
+            "SDT_TrimAudio",
+            "SDT_TrimAudioBySample"
+        ],
+        {
+            "title_aux": "ComfyUI-speech-dataset-toolkit"
         }
     ],
     "https://github.com/kale4eat/ComfyUI-string-util": [
@@ -9136,6 +9196,21 @@
             "title_aux": "ntdviet/comfyui-ext"
         }
     ],
+    "https://github.com/nullquant/ComfyUI-BrushNet": [
+        [
+            "BlendInpaint",
+            "BrushNetInpaint",
+            "BrushNetLoader",
+            "BrushNetPipeline"
+        ],
+        {
+            "author": "nullquant",
+            "description": "This repository contains an custom nodes for inpaint using BrushNet and PowerPaint models",
+            "nickname": "BrushName nodes",
+            "title": "BrushNet",
+            "title_aux": "ComfyUI-BrushNet"
+        }
+    ],
     "https://github.com/olduvai-jp/ComfyUI-HfLoader": [
         [
             "Lora Loader From HF"
@@ -9249,6 +9324,14 @@
         ],
         {
             "title_aux": "Image Resize for ComfyUI"
+        }
+    ],
+    "https://github.com/pamparamm/sd-perturbed-attention": [
+        [
+            "PerturbedAttention"
+        ],
+        {
+            "title_aux": "Perturbed-Attention Guidance"
         }
     ],
     "https://github.com/pants007/comfy-pants": [
