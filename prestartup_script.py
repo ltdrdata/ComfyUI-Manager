@@ -14,7 +14,6 @@ glob_path = os.path.join(os.path.dirname(__file__), "glob")
 sys.path.append(glob_path)
 
 from manager_util import *
-
 import cm_global
 
 
