@@ -292,6 +292,7 @@
             "> Int to Text",
             "> Load Image",
             "> Load Image From Folder",
+            "> Resolution by Aspect Ratio",
             "> Rotate Image",
             "> Save Image",
             "> Scale Image to Side",
@@ -815,6 +816,7 @@
     ],
     "https://github.com/CosmicLaca/ComfyUI_Primere_Nodes": [
         [
+            "PrimereAestheticCKPTScorer",
             "PrimereAnyDetailer",
             "PrimereAnyOutput",
             "PrimereCKPT",
@@ -896,42 +898,32 @@
             "Absolute value",
             "Ceil",
             "Conditioning area scale by ratio",
-            "ConditioningSetArea with tuples",
             "Cosines",
             "Divide",
             "Float",
-            "Float debug print",
             "Floor",
             "Get image size",
             "Get latent size",
             "Image scale by ratio",
             "Image scale to side",
-            "Int debug print",
             "Int to float",
-            "Int to tuple",
             "Integer",
             "Latent Scale by ratio",
             "Latent Scale to side",
-            "LatentComposite with tuples",
             "Logic node",
             "Multiply",
             "Power",
             "Random",
             "Sinus",
             "Square root",
-            "String debug print",
+            "String Concatenate",
+            "String Replace",
             "Subtract",
             "Sum",
             "Tangent",
             "Text",
             "Text box",
-            "To text (Debug)",
-            "Tuple",
-            "Tuple debug print",
-            "Tuple multiply",
-            "Tuple swap",
-            "Tuple to floats",
-            "Tuple to ints"
+            "To text (Debug)"
         ],
         {
             "title_aux": "Derfuu_ComfyUI_ModdedNodes"
@@ -1039,7 +1031,8 @@
         [
             "Automatic CFG",
             "Automatic CFG - Advanced settings",
-            "Automatic CFG - Negative"
+            "Automatic CFG - Negative",
+            "Automatic CFG - No uncond"
         ],
         {
             "title_aux": "ComfyUI-AutomaticCFG"
@@ -4389,18 +4382,10 @@
             "title_aux": "ComfyUI-AudioScheduler"
         }
     ],
-    "https://github.com/abdozmantar/ComfyUI-InstaSwap": [
-        [
-            "InstaSwapFaceSwap",
-            "InstaSwapLoadFaceModel",
-            "InstaSwapSaveFaceModel"
-        ],
-        {
-            "title_aux": "InstaSwap Face Swap Node for ComfyUI"
-        }
-    ],
     "https://github.com/aburahamu/ComfyUI-RequestsPoster": [
         [
+            "PostImage2Discord",
+            "PostImage2X",
             "PostText"
         ],
         {
@@ -5602,6 +5587,9 @@
     ],
     "https://github.com/chaojie/ComfyUI_StreamingT2V": [
         [
+            "LoadText_StreamingT2V",
+            "PromptTravelIndex",
+            "SaveText_StreamingT2V",
             "StreamingT2VLoaderAnimateDiff",
             "StreamingT2VLoaderAnimateDiffModel",
             "StreamingT2VLoaderEnhanceModel",
@@ -5616,6 +5604,7 @@
             "StreamingT2VRunLongStep",
             "StreamingT2VRunLongStepVidXTendPipeline",
             "StreamingT2VRunLongStepVidXTendPipelineCustomRef",
+            "StreamingT2VRunLongStepVidXTendPipelineCustomRefOutExtendOnly",
             "StreamingT2VRunLongStepVidXTendPipelinePromptTravel",
             "StreamingT2VRunShortStepAnimateDiff",
             "StreamingT2VRunShortStepModelscopeT2V",
@@ -5629,11 +5618,8 @@
     ],
     "https://github.com/chaosaiart/Chaosaiart-Nodes": [
         [
-            "chaosaiart_ADD_Prompt",
-            "chaosaiart_Any_Display",
             "chaosaiart_Any_Switch",
             "chaosaiart_Any_Switch_Big_Number",
-            "chaosaiart_Batch_Loader_Number_Override",
             "chaosaiart_CheckpointLoader",
             "chaosaiart_CheckpointPrompt",
             "chaosaiart_CheckpointPrompt2",
@@ -5646,8 +5632,6 @@
             "chaosaiart_EmptyLatentImage",
             "chaosaiart_FramePromptCLIPEncode",
             "chaosaiart_Frame_Switch",
-            "chaosaiart_ImageHolder_loop",
-            "chaosaiart_KSampler",
             "chaosaiart_KSampler1",
             "chaosaiart_KSampler2",
             "chaosaiart_KSampler3",
@@ -5668,50 +5652,38 @@
             "chaosaiart_Number_Switch",
             "chaosaiart_Prompt",
             "chaosaiart_Prompt_Frame",
-            "chaosaiart_Prompt_mixer",
             "chaosaiart_Prompt_mixer_byFrame",
             "chaosaiart_SaveImage",
-            "chaosaiart_ShowInput",
-            "chaosaiart_Show_Any",
             "chaosaiart_Show_Info",
             "chaosaiart_Simple_Prompt",
             "chaosaiart_Style_Node",
             "chaosaiart_TextCLIPEncode",
             "chaosaiart_TextCLIPEncode_lora",
-            "chaosaiart_TextCLIPEncode_simple",
             "chaosaiart_adjust_color",
             "chaosaiart_any_array2input_1Input",
             "chaosaiart_any_array2input_all_big",
             "chaosaiart_any_array2input_all_small",
             "chaosaiart_any_input2array_big",
             "chaosaiart_any_input2array_small",
-            "chaosaiart_cn_math",
             "chaosaiart_controlnet_weidgth",
             "chaosaiart_convert",
             "chaosaiart_forPreview",
             "chaosaiart_image_loop",
+            "chaosaiart_img2gif",
             "chaosaiart_img2video",
-            "chaosaiart_imgHolder",
             "chaosaiart_lora",
             "chaosaiart_lora_advanced",
-            "chaosaiart_main_Prompt",
             "chaosaiart_merge_Folders",
             "chaosaiart_oneNode",
             "chaosaiart_reloadAny_Load",
             "chaosaiart_reloadAny_Save",
             "chaosaiart_reloadIMG_Load",
-            "chaosaiart_reloadIMG_Load2",
             "chaosaiart_reloadIMG_Save",
             "chaosaiart_reloadLatent_Load",
-            "chaosaiart_reloadLatent_Load2",
             "chaosaiart_reloadLatent_Save",
             "chaosaiart_restarter",
             "chaosaiart_restarter_advanced",
-            "chaosaiart_saveImagePrefix",
-            "chaosaiart_test",
-            "chaosaiart_test2",
             "chaosaiart_video2img1",
-            "chaosaiart_video2img2",
             "chaosaiart_zoom_frame"
         ],
         {
@@ -6135,6 +6107,7 @@
             "Morphology",
             "PatchModelAddDownscale",
             "PerpNeg",
+            "PerturbedAttentionGuidance",
             "PhotoMakerEncode",
             "PhotoMakerLoader",
             "PolyexponentialScheduler",
@@ -7713,6 +7686,15 @@
             "title_aux": "ComfyUI-JaRue"
         }
     ],
+    "https://github.com/jtydhr88/ComfyUI-InstantMesh": [
+        [
+            "InstantMeshLoader",
+            "InstantMeshRun"
+        ],
+        {
+            "title_aux": "ComfyUI InstantMesh"
+        }
+    ],
     "https://github.com/ka-puna/comfyui-yanc": [
         [
             "YANC.ConcatStrings",
@@ -7843,6 +7825,15 @@
         ],
         {
             "title_aux": "ComfyUI-text-file-util"
+        }
+    ],
+    "https://github.com/kealiu/ComfyUI-S3-Tools": [
+        [
+            "Load Image From S3",
+            "Save Image To S3"
+        ],
+        {
+            "title_aux": "ComfyUI Load and Save file to S3"
         }
     ],
     "https://github.com/kenjiqq/qq-nodes-comfyui": [
@@ -8141,6 +8132,7 @@
         [
             "Filter",
             "PresentString",
+            "PrintFloats",
             "SingleString",
             "SizeSelector",
             "concat",
@@ -8211,6 +8203,28 @@
         ],
         {
             "title_aux": "komojini-comfyui-nodes"
+        }
+    ],
+    "https://github.com/kunieone/ComfyUI_alkaid": [
+        [
+            "A_EmptyLatentImageLongside",
+            "A_Face3DSwapper",
+            "A_FaceCrop",
+            "A_FacePaste",
+            "A_GetImageSize",
+            "A_OpenPosePreprocessor",
+            "AdapterFace",
+            "AdapterFaceLoader",
+            "AdapterStyle",
+            "AdapterStyleLoader",
+            "AlkaidLoader",
+            "ApplyAdapter",
+            "ApplyControlNet_KPS",
+            "CombineAdapterPatch",
+            "KSamplerHires"
+        ],
+        {
+            "title_aux": "ComfyUI_alkaid"
         }
     ],
     "https://github.com/kwaroran/abg-comfyui": [
@@ -8426,6 +8440,7 @@
     "https://github.com/longgui0318/comfyui-mask-util": [
         [
             "Image Adaptive Crop M&R",
+            "Image Adaptive Crop With Mask",
             "Image Change Device",
             "Image Resolution Adaptive With X",
             "Image Resolution Limit With 8K",
@@ -10972,6 +10987,7 @@
             "easy globalSeed",
             "easy hiresFix",
             "easy if",
+            "easy imageChooser",
             "easy imageInsetCrop",
             "easy imagePixelPerfect",
             "easy imageRatio",
