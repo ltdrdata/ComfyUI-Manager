@@ -24,9 +24,9 @@ from manager_util import *
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, '..'))
 channel_list_path = os.path.join(comfyui_manager_path, 'channels.list')
-config_path = os.path.join(custom_nodes_path, "config.ini")
+config_path = os.path.join(comfyui_manager_path, "config.ini")
 startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
-git_script_path = os.path.join(custom_nodes_path, "git_helper.py")
+git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
 cache_dir = os.path.join(comfyui_manager_path, '.cache')
 cached_config = None
 js_path = None
