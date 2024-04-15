@@ -300,6 +300,30 @@ except Exception as e:
     print(f"[ComfyUI-Manager] Logging failed: {e}")
 
 
+try:
+    import git
+except:
+    my_path = os.path.dirname(__file__)
+    requirements_path = os.path.join(my_path, "requirements.txt")
+
+    print(f"## ComfyUI-Manager: installing dependencies. (GitPython)")
+
+    result = subprocess.check_output([sys.executable, '-s', '-m', 'pip', 'install', '-r', requirements_path])
+
+    try:
+        import git
+    except:
+        print(f"## [ERROR] ComfyUI-Manager: Attempting to reinstall dependencies using an alternative method.")
+        result = subprocess.check_output([sys.executable, '-s', '-m', 'pip', 'install', '--user', '-r', requirements_path])
+
+        try:
+            import git
+        except:
+            print(f"## [ERROR] ComfyUI-Manager: Failed to install the GitPython package in the correct Python environment. Please install it manually in the appropriate environment. (You can seek help at https://app.element.io/#/room/%23comfyui_space%3Amatrix.org)")
+
+    print(f"## ComfyUI-Manager: installing dependencies done.")
+
+
 print("** ComfyUI startup time:", datetime.datetime.now())
 print("** Platform:", platform.system())
 print("** Python version:", sys.version)

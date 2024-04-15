@@ -18,7 +18,7 @@ from server import PromptServer
 from .glob import manager_core as core
 import cm_global
 
-version = [2, 18, 2]
+version = [2, 18, 3]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -78,33 +78,8 @@ class ManagerFuncsInComfyUI(core.ManagerFuncs):
 core.manager_funcs = ManagerFuncsInComfyUI()
 
 
-try:
-    import git
-except:
-    my_path = os.path.dirname(__file__)
-    requirements_path = os.path.join(my_path, "requirements.txt")
-
-    print(f"## ComfyUI-Manager: installing dependencies")
-
-    core.manager_funcs.run_script([sys.executable, '-s', '-m', 'pip', 'install', '-r', requirements_path])
-
-    try:
-        import git
-    except:
-        print(f"## [ERROR] ComfyUI-Manager: Attempting to reinstall dependencies using an alternative method.")
-        core.manager_funcs.run_script([sys.executable, '-s', '-m', 'pip', 'install', '--user', '-r', requirements_path])
-
-        try:
-            import git
-        except:
-            print(f"## [ERROR] ComfyUI-Manager: Failed to install the GitPython package in the correct Python environment. Please install it manually in the appropriate environment. (You can seek help at https://app.element.io/#/room/%23comfyui_space%3Amatrix.org)")
-
-    print(f"## ComfyUI-Manager: installing dependencies done.")
-
-
-
-
 sys.path.append('../..')
+
 
 from torchvision.datasets.utils import download_url
 
