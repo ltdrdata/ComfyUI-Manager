@@ -14,14 +14,11 @@ import re
 import shutil
 from datetime import datetime
 
-# glob_path = os.path.join(os.path.dirname(__file__), "glob")
-# sys.path.append(glob_path)
-
 from server import PromptServer
 from .glob import manager_core as core
 import cm_global
 
-version = [2, 18]
+version = [2, 18, 1]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 

@@ -15,7 +15,7 @@ import threading
 import json
 import time
 
-glob_path = os.path.join(os.path.dirname(__file__), "glob")
+glob_path = os.path.join(os.path.dirname(__file__))  # ComfyUI-Manager/glob
 sys.path.append(glob_path)
 
 import cm_global
