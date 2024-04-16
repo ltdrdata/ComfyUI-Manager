@@ -343,6 +343,8 @@
             "ImageOverlap-badger",
             "ImageScaleToSide-badger",
             "IntToString-badger",
+            "IntToStringAdvanced-badger",
+            "LoadImageAdvanced-badger",
             "SegmentToMaskByPoint-badger",
             "SimpleBoolean-badger",
             "StringToFizz-badger",
@@ -421,6 +423,14 @@
             "nodename_pattern": " \\(jov\\)$",
             "title": "Jovimetrix",
             "title_aux": "Jovimetrix Composition Nodes"
+        }
+    ],
+    "https://github.com/AonekoSS/ComfyUI-SimpleCounter": [
+        [
+            "Simple Counter"
+        ],
+        {
+            "title_aux": "ComfyUI-SimpleCounter"
         }
     ],
     "https://github.com/AppleBotzz/ComfyUI_LLMVISION": [
@@ -2267,12 +2277,14 @@
     "https://github.com/MokkaBoss1/ComfyUI_Mokkaboss1": [
         [
             "AspectRatioCondition",
+            "Colors",
             "ConnectFloat",
             "ConnectImage",
             "ConnectInteger",
             "ConnectLatent",
             "ConnectString",
             "DoubleClipTextEncode",
+            "HSL",
             "HashText",
             "IndoorBackgrounds",
             "IntFloatDict",
@@ -4728,6 +4740,7 @@
             "PCPromptFromSchedule",
             "PCScheduleSettings",
             "PCSplitSampling",
+            "PCWrapGuider",
             "PromptControlSimple",
             "PromptToSchedule",
             "ScheduleToCond",
@@ -5396,6 +5409,15 @@
         ],
         {
             "title_aux": "ComfyUI-DynamiCrafter"
+        }
+    ],
+    "https://github.com/chaojie/ComfyUI-EasyAnimate": [
+        [
+            "EasyAnimateLoader",
+            "EasyAnimateRun"
+        ],
+        {
+            "title_aux": "ComfyUI-EasyAnimate"
         }
     ],
     "https://github.com/chaojie/ComfyUI-Gemma": [
@@ -6112,6 +6134,7 @@
             "Morphology",
             "PatchModelAddDownscale",
             "PerpNeg",
+            "PerpNegGuider",
             "PerturbedAttentionGuidance",
             "PhotoMakerEncode",
             "PhotoMakerLoader",
@@ -7024,6 +7047,16 @@
             "title_aux": "As_ComfyUI_CustomNodes"
         }
     ],
+    "https://github.com/forever22777/comfyui-self-guidance": [
+        [
+            "CLIPConditioning",
+            "CheckpointLoaderMixWithDiffusers",
+            "SelfGuidanceSampler"
+        ],
+        {
+            "title_aux": "Self-Guidance nodes"
+        }
+    ],
     "https://github.com/foxtrot-roger/comfyui-rf-nodes": [
         [
             "LogBool",
@@ -7304,7 +7337,15 @@
             "ACE_TextTranslate"
         ],
         {
-            "title_aux": "ComfyUI_AceNodes"
+            "title_aux": "ComfyUI AceNodes"
+        }
+    ],
+    "https://github.com/hay86/ComfyUI_DDColor": [
+        [
+            "D_DDColor"
+        ],
+        {
+            "title_aux": "ComfyUI DDColor"
         }
     ],
     "https://github.com/hay86/ComfyUI_Dreamtalk": [
@@ -7313,6 +7354,15 @@
         ],
         {
             "title_aux": "ComfyUI Dreamtalk"
+        }
+    ],
+    "https://github.com/hay86/ComfyUI_OpenVoice": [
+        [
+            "D_OpenVoice_STS",
+            "D_OpenVoice_TTS"
+        ],
+        {
+            "title_aux": "ComfyUI OpenVoice"
         }
     ],
     "https://github.com/hhhzzyang/Comfyui_Lama": [
@@ -7697,7 +7747,7 @@
             "InstantMeshRun"
         ],
         {
-            "title_aux": "ComfyUI InstantMesh"
+            "title_aux": "ComfyUI-InstantMesh"
         }
     ],
     "https://github.com/ka-puna/comfyui-yanc": [
@@ -7997,6 +8047,7 @@
             "GetLatentsFromBatchIndexed",
             "GrowMaskWithBlur",
             "INTConstant",
+            "ImageAndMaskPreview",
             "ImageBatchRepeatInterleaving",
             "ImageBatchTestPattern",
             "ImageConcanate",
@@ -8028,6 +8079,7 @@
             "Sleep",
             "SomethingToString",
             "SoundReactive",
+            "SplineEditor",
             "SplitBboxes",
             "StableZero123_BatchSchedule",
             "StringConstant",
@@ -8459,8 +8511,9 @@
     ],
     "https://github.com/longgui0318/comfyui-oms-diffusion": [
         [
-            "Additional Features With Attention",
+            "Add Magic Clothing Attention",
             "LOAD OMS",
+            "Load Magic Clothing Model",
             "RUN OMS"
         ],
         {
@@ -9677,9 +9730,11 @@
             "TT-AudioSink",
             "TT-ConvertVhsAudioToAudio",
             "TT-LoadAudio",
+            "TT-LoadBatch",
             "TT-LoadVideoAudio",
             "TT-LoadWhisperModel",
-            "TT-WhisperTranscription"
+            "TT-WhisperTranscription",
+            "TT-WhisperTranscriptionBatch"
         ],
         {
             "title_aux": "ComfyUI-TranscriptionTools"
@@ -10069,6 +10124,15 @@
             "title_aux": "ComfyUI_ParlerTTS"
         }
     ],
+    "https://github.com/smthemex/ComfyUI_Pic2Story": [
+        [
+            "DownloadModel",
+            "Pic2Story"
+        ],
+        {
+            "title_aux": "ComfyUI_Pic2Story"
+        }
+    ],
     "https://github.com/space-nuko/ComfyUI-Disco-Diffusion": [
         [
             "DiscoDiffusion_DiscoDiffusion",
@@ -10134,8 +10198,10 @@
             "GuidedFilterAlpha",
             "ImageConstant",
             "ImageConstantHSV",
+            "InstructPixToPixConditioningAdvanced",
             "JitterImage",
             "Keyer",
+            "LatentNormalizeShuffle",
             "LatentStats",
             "NormalMapSimple",
             "OffsetLatentImage",
@@ -10639,7 +10705,10 @@
     ],
     "https://github.com/unwdef/unwdef-nodes-comfyui": [
         [
-            "RandomizeLoras"
+            "RandomTextFromMultiline",
+            "RandomizeLoras",
+            "RandomizeLorasStack",
+            "TextMultilineWithVariables"
         ],
         {
             "title_aux": "unwdef-nodes"
@@ -11282,6 +11351,7 @@
         [
             "ConcatText",
             "ImageBatchOneOrMore",
+            "IntAndIntAddOffsetLiteral",
             "LoadImageWithSwitch",
             "ModifyTextGender"
         ],
