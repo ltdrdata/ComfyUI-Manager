@@ -255,7 +255,7 @@ def try_install_script(url, repo_path, install_cmd, instant_execution=False):
         print(f"\n## ComfyUI-Manager: EXECUTE => {install_cmd}")
         code = manager_funcs.run_script(install_cmd, cwd=repo_path)
 
-        if platform.system() == "Windows":
+        if platform.system() != "Windows":
             try:
                 if comfy_ui_commit_datetime.date() < comfy_ui_required_commit_datetime.date():
                     print("\n\n###################################################################")
