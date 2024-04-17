@@ -19,7 +19,7 @@ from server import PromptServer
 from .glob import manager_core as core
 import cm_global
 
-version = [2, 18, 4]
+version = [2, 19]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 print(f"### Loading: ComfyUI-Manager ({version_str})")
 
@@ -538,6 +538,12 @@ async def fetch_externalmodel_list(request):
     for x in json_obj['models']:
         populate_markdown(x)
 
+    return web.json_response(json_obj, content_type='application/json')
+
+
+@PromptServer.instance.routes.get("/snapshot/get_current")
+async def get_snapshot_list(request):
+    json_obj = get_current_snapshot()
     return web.json_response(json_obj, content_type='application/json')
 
 
