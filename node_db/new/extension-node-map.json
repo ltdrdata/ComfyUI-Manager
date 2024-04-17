@@ -210,6 +210,17 @@
             "title_aux": "ComfyUI-IP_LAP"
         }
     ],
+    "https://github.com/AIFSH/ComfyUI-MuseTalk_FSH": [
+        [
+            "CombineAudioVideo",
+            "LoadVideo",
+            "MuseTalk",
+            "PreViewVideo"
+        ],
+        {
+            "title_aux": "ComfyUI-MuseTalk_FSH"
+        }
+    ],
     "https://github.com/AIFSH/ComfyUI-UVR5": [
         [
             "LoadAudio",
@@ -1040,9 +1051,11 @@
     "https://github.com/Extraltodeus/ComfyUI-AutomaticCFG": [
         [
             "Automatic CFG",
-            "Automatic CFG - Advanced settings",
+            "Automatic CFG - Advanced",
             "Automatic CFG - Negative",
-            "Automatic CFG - No uncond"
+            "Automatic CFG - No uncond",
+            "Automatic CFG - Post rescale only",
+            "SAG delayed activation"
         ],
         {
             "title_aux": "ComfyUI-AutomaticCFG"
@@ -1145,6 +1158,8 @@
             "SMPLShapeParameters",
             "SaveSMPL",
             "SmplifyMotionData",
+            "SpectreFaceReconLoader",
+            "SpectreImg2SMPL",
             "mgpt_model_loader",
             "mgpt_t2m"
         ],
@@ -1741,6 +1756,14 @@
             "title_aux": "Random Size"
         }
     ],
+    "https://github.com/JettHu/ComfyUI_TGate": [
+        [
+            "TGateApply"
+        ],
+        {
+            "title_aux": "ComfyUI_TGate"
+        }
+    ],
     "https://github.com/Jordach/comfy-plasma": [
         [
             "JDC_AutoContrast",
@@ -2284,8 +2307,9 @@
             "ConnectLatent",
             "ConnectString",
             "DoubleClipTextEncode",
-            "HSL",
+            "EmbeddingLoader",
             "HashText",
+            "HueSatLum",
             "IndoorBackgrounds",
             "IntFloatDict",
             "IntStringDict",
@@ -3768,6 +3792,16 @@
         ],
         {
             "title_aux": "select_folder_path_easy"
+        }
+    ],
+    "https://github.com/VAST-AI-Research/ComfyUI-Tripo": [
+        [
+            "TripoAPIImageToMeshNode",
+            "TripoAPITextToMeshNode",
+            "TripoGLBViewer"
+        ],
+        {
+            "title_aux": "Tripo for ComfyUI"
         }
     ],
     "https://github.com/WASasquatch/ASTERR": [
@@ -5266,7 +5300,9 @@
             "SamplerDPMPP_2M_SDE_SUN",
             "SamplerDPMPP_3M_SDE_SUN",
             "SamplerDPMPP_SDE_SUN",
-            "SamplerEulerAncestral_SUN"
+            "SamplerEulerAncestral_SUN",
+            "SamplersSUNoise",
+            "SamplersSUNoiseAdvanced"
         ],
         {
             "title_aux": "ComfyUI_SUNoise"
@@ -6376,6 +6412,7 @@
             "MaskFlip+",
             "MaskFromBatch+",
             "MaskFromColor+",
+            "MaskFromSegmentation+",
             "MaskPreview+",
             "ModelCompile+",
             "NoiseFromImage~",
@@ -6805,8 +6842,10 @@
             "Eden_Float",
             "Eden_Int",
             "Eden_String",
+            "HistogramMatching",
             "IMG_blender",
             "IMG_padder",
+            "IMG_resolution_multiple_of",
             "IMG_scaler",
             "IMG_unpadder",
             "If ANY execute A else B",
@@ -7106,6 +7145,14 @@
             "title_aux": "ComfyUI_Aniportrait"
         }
     ],
+    "https://github.com/frankchieng/ComfyUI_MagicClothing": [
+        [
+            "MagicClothing_Generate"
+        ],
+        {
+            "title_aux": "ComfyUI_MagicClothing"
+        }
+    ],
     "https://github.com/gemell1/ComfyUI_GMIC": [
         [
             "GmicCliWrapper",
@@ -7205,6 +7252,7 @@
         [
             "GlifConsistencyDecoder",
             "GlifPatchConsistencyDecoderTiled",
+            "HFHubLoraLoader",
             "ImageToMultipleOf",
             "SDXLAspectRatio"
         ],
@@ -7520,12 +7568,16 @@
     ],
     "https://github.com/if-ai/ComfyUI-IF_AI_tools": [
         [
+            "IF_BarkTTS",
+            "IF_ChatPrompt",
             "IF_DisplayText",
+            "IF_DreamTalk",
             "IF_HFDownload",
             "IF_HFDownloadNode",
             "IF_ImagePrompt",
             "IF_PromptMkr",
             "IF_SaveText",
+            "IF_WhisperSpeech",
             "IF_saveText"
         ],
         {
@@ -8532,9 +8584,11 @@
     "https://github.com/longgui0318/comfyui-oms-diffusion": [
         [
             "Add Magic Clothing Attention",
+            "InjectTensorHashLog",
             "LOAD OMS",
             "Load Magic Clothing Model",
-            "RUN OMS"
+            "RUN OMS",
+            "VAE Mode Choose"
         ],
         {
             "title_aux": "comfyui-oms-diffusion"
@@ -11028,6 +11082,14 @@
         ],
         {
             "title_aux": "hd-nodes-comfyui"
+        }
+    ],
+    "https://github.com/xliry/ComfyUI_SendDiscord/raw/main/SendDiscord.py": [
+        [
+            "SendDiscord"
+        ],
+        {
+            "title_aux": "ComfyUI_SendDiscord"
         }
     ],
     "https://github.com/yffyhk/comfyui_auto_danbooru": [
