@@ -126,7 +126,11 @@
             "GPT4VCaptioner",
             "Image Load with Metadata",
             "SAMIN String Attribute Selector",
+            "SANMIN ChineseToCharacter",
             "SANMIN ClothingWildcards",
+            "SANMIN ConvertToEnglish",
+            "SANMIN LoadPathImagesPreview",
+            "SANMIN SanmiSaveImageToLocal",
             "SANMIN SimpleWildcards",
             "Samin Counter",
             "Samin Load Image Batch"
@@ -809,6 +813,7 @@
         [
             "GeometricCFGGuider",
             "ImageAssistedCFGGuider",
+            "MegaCFGGuider",
             "SamplerCLYB_4M_SDE_Momentumized",
             "SamplerCustomModelMixtureDuo",
             "SamplerCustomNoise",
@@ -821,7 +826,8 @@
             "SamplerSupreme",
             "SamplerTTM",
             "ScaledCFGGuider",
-            "SimpleExponentialScheduler"
+            "SimpleExponentialScheduler",
+            "WarmupDecayCFGGuider"
         ],
         {
             "title_aux": "ComfyUI Extra Samplers"
@@ -1052,8 +1058,8 @@
         [
             "Automatic CFG",
             "Automatic CFG - Advanced",
+            "Automatic CFG - Fastest",
             "Automatic CFG - Negative",
-            "Automatic CFG - No uncond",
             "Automatic CFG - Post rescale only",
             "SAG delayed activation"
         ],
@@ -1675,6 +1681,7 @@
             "DiffusersPipeline",
             "DiffusersPrepareLatents",
             "DiffusersTextureInversionLoader",
+            "DiffusersXLPipeline",
             "GetAverageColorFromImage",
             "GetFilledColorImage"
         ],
@@ -2232,8 +2239,10 @@
     ],
     "https://github.com/MNeMoNiCuZ/ComfyUI-mnemic-nodes": [
         [
-            "Generate Negative Prompt_mne",
-            "Save Text File_mne"
+            "\u26d4 Generate Negative Prompt",
+            "\u2728 Groq LLM API",
+            "\ud83d\udcbe Save Text File With Path",
+            "\ud83d\uddbc\ufe0f Download Image from URL"
         ],
         {
             "title_aux": "ComfyUI-mnemic-nodes"
@@ -3198,6 +3207,20 @@
         ],
         {
             "title_aux": "Text to video for Stable Video Diffusion in ComfyUI"
+        }
+    ],
+    "https://github.com/Stability-AI/ComfyUI-SAI_API": [
+        [
+            "Stability Creative Upscale",
+            "Stability Image Core",
+            "Stability Inpainting",
+            "Stability Outpainting",
+            "Stability Remove Background",
+            "Stability SD3",
+            "Stability Search and Replace"
+        ],
+        {
+            "title_aux": "Stability API nodes for ComfyUI"
         }
     ],
     "https://github.com/Stability-AI/stability-ComfyUI-nodes": [
@@ -4436,6 +4459,7 @@
     ],
     "https://github.com/aburahamu/ComfyUI-RequestsPoster": [
         [
+            "GetImageFromSD3byT2I",
             "PostImage2Discord",
             "PostImage2X",
             "PostText"
@@ -5384,6 +5408,15 @@
             "title_aux": "ComfyUI-AniPortrait"
         }
     ],
+    "https://github.com/chaojie/ComfyUI-CameraCtrl": [
+        [
+            "CameraCtrlLoader",
+            "CameraCtrlRun"
+        ],
+        {
+            "title_aux": "ComfyUI-CameraCtrl"
+        }
+    ],
     "https://github.com/chaojie/ComfyUI-Champ": [
         [
             "ChampLoader",
@@ -5684,6 +5717,7 @@
         [
             "chaosaiart_Any_Switch",
             "chaosaiart_Any_Switch_Big_Number",
+            "chaosaiart_Any_Switch_small",
             "chaosaiart_CheckpointLoader",
             "chaosaiart_CheckpointPrompt",
             "chaosaiart_CheckpointPrompt2",
@@ -5701,11 +5735,12 @@
             "chaosaiart_KSampler3",
             "chaosaiart_KSampler4",
             "chaosaiart_KSampler5",
-            "chaosaiart_KSampler6",
             "chaosaiart_KSampler7",
-            "chaosaiart_KSampler8",
             "chaosaiart_KSampler_a1",
             "chaosaiart_KSampler_a1a",
+            "chaosaiart_KSampler_a2",
+            "chaosaiart_KSampler_expert_0",
+            "chaosaiart_KSampler_expert_1",
             "chaosaiart_Ksampler_attribut",
             "chaosaiart_Load_Image_Batch",
             "chaosaiart_Load_Image_Batch_2img",
@@ -5731,6 +5766,7 @@
             "chaosaiart_any_input2array_small",
             "chaosaiart_controlnet_weidgth",
             "chaosaiart_convert",
+            "chaosaiart_convert_Prompt",
             "chaosaiart_forPreview",
             "chaosaiart_image_loop",
             "chaosaiart_img2gif",
@@ -7371,6 +7407,7 @@
             "ACE_Float",
             "ACE_ImageColorFix",
             "ACE_ImageConstrain",
+            "ACE_ImageQA",
             "ACE_ImageRemoveBackground",
             "ACE_Integer",
             "ACE_Seed",
@@ -7570,7 +7607,6 @@
     ],
     "https://github.com/if-ai/ComfyUI-IF_AI_tools": [
         [
-            "IF_BarkTTS",
             "IF_ChatPrompt",
             "IF_DisplayText",
             "IF_DreamTalk",
@@ -7579,7 +7615,6 @@
             "IF_ImagePrompt",
             "IF_PromptMkr",
             "IF_SaveText",
-            "IF_WhisperSpeech",
             "IF_saveText"
         ],
         {
@@ -10421,6 +10456,14 @@
         ],
         {
             "title_aux": "ComfyUI-sudo-latent-upscale"
+        }
+    ],
+    "https://github.com/sugarkwork/comfyui_tag_fillter": [
+        [
+            "TagFilter"
+        ],
+        {
+            "title_aux": "comfyui_tag_filter"
         }
     ],
     "https://github.com/syllebra/bilbox-comfyui": [
