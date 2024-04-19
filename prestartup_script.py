@@ -459,39 +459,38 @@ if os.path.exists(restore_snapshot_path):
         cmd_str = [sys.executable, git_script_path, '--apply-snapshot', restore_snapshot_path]
         exit_code = process_wrap(cmd_str, custom_nodes_path, handler=msg_capture)
 
-        with open(restore_snapshot_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
-            info = json.load(json_file)
-            for url in cloned_repos:
-                try:
-                    repository_name = url.split("/")[-1].strip()
-                    repo_path = os.path.join(custom_nodes_path, repository_name)
-                    repo_path = os.path.abspath(repo_path)
+        repository_name = ''
+        for url in cloned_repos:
+            try:
+                repository_name = url.split("/")[-1].strip()
+                repo_path = os.path.join(custom_nodes_path, repository_name)
+                repo_path = os.path.abspath(repo_path)
 
-                    requirements_path = os.path.join(repo_path, 'requirements.txt')
-                    install_script_path = os.path.join(repo_path, 'install.py')
+                requirements_path = os.path.join(repo_path, 'requirements.txt')
+                install_script_path = os.path.join(repo_path, 'install.py')
 
-                    this_exit_code = 0
+                this_exit_code = 0
 
-                    if os.path.exists(requirements_path):
-                        with open(requirements_path, 'r', encoding="UTF-8", errors="ignore") as file:
-                            for line in file:
-                                package_name = remap_pip_package(line.strip())
-                                if package_name and not is_installed(package_name):
-                                    install_cmd = [sys.executable, "-m", "pip", "install", package_name]
-                                    this_exit_code += process_wrap(install_cmd, repo_path)
+                if os.path.exists(requirements_path):
+                    with open(requirements_path, 'r', encoding="UTF-8", errors="ignore") as file:
+                        for line in file:
+                            package_name = remap_pip_package(line.strip())
+                            if package_name and not is_installed(package_name):
+                                install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                                this_exit_code += process_wrap(install_cmd, repo_path)
 
-                    if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
-                        processed_install.add(f'{repo_path}/install.py')
-                        install_cmd = [sys.executable, install_script_path]
-                        print(f">>> {install_cmd} / {repo_path}")
-                        this_exit_code += process_wrap(install_cmd, repo_path)
+                if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
+                    processed_install.add(f'{repo_path}/install.py')
+                    install_cmd = [sys.executable, install_script_path]
+                    print(f">>> {install_cmd} / {repo_path}")
+                    this_exit_code += process_wrap(install_cmd, repo_path)
 
-                    if this_exit_code != 0:
-                        print(f"[ComfyUI-Manager] Restoring '{repository_name}' is failed.")
-
-                except Exception as e:
-                    print(e)
+                if this_exit_code != 0:
                     print(f"[ComfyUI-Manager] Restoring '{repository_name}' is failed.")
+
+            except Exception as e:
+                print(e)
+                print(f"[ComfyUI-Manager] Restoring '{repository_name}' is failed.")
 
         if exit_code != 0:
             print(f"[ComfyUI-Manager] Restore snapshot failed.")

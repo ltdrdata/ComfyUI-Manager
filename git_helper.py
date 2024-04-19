@@ -176,24 +176,32 @@ def checkout_custom_node_hash(git_custom_node_infos):
                 if repo_name.endswith('.disabled'):
                     repo_name = repo_name[:-9]
 
-                item = git_custom_node_infos[repo_name_to_url[repo_name]]
-                if item['disabled'] and is_disabled:
-                    pass
-                elif item['disabled'] and not is_disabled:
-                    # disable
-                    print(f"DISABLE: {repo_name}")
-                    new_path = fullpath + ".disabled"
-                    os.rename(fullpath, new_path)
-                    pass
-                elif not item['disabled'] and is_disabled:
-                    # enable
-                    print(f"ENABLE: {repo_name}")
-                    new_path = fullpath[:-9]
-                    os.rename(fullpath, new_path)
-                    fullpath = new_path
-                    need_checkout = True
+                if repo_name not in repo_name_to_url:
+                    if not is_disabled:
+                        # should be disabled
+                        print(f"DISABLE: {repo_name}")
+                        new_path = fullpath + ".disabled"
+                        os.rename(fullpath, new_path)
+                        need_checkout = False
                 else:
-                    need_checkout = True
+                    item = git_custom_node_infos[repo_name_to_url[repo_name]]
+                    if item['disabled'] and is_disabled:
+                        pass
+                    elif item['disabled'] and not is_disabled:
+                        # disable
+                        print(f"DISABLE: {repo_name}")
+                        new_path = fullpath + ".disabled"
+                        os.rename(fullpath, new_path)
+
+                    elif not item['disabled'] and is_disabled:
+                        # enable
+                        print(f"ENABLE: {repo_name}")
+                        new_path = fullpath[:-9]
+                        os.rename(fullpath, new_path)
+                        fullpath = new_path
+                        need_checkout = True
+                    else:
+                        need_checkout = True
 
                 if need_checkout:
                     repo = git.Repo(fullpath)
@@ -202,6 +210,7 @@ def checkout_custom_node_hash(git_custom_node_infos):
                     if commit_hash != item['hash']:
                         print(f"CHECKOUT: {repo_name} [{item['hash']}]")
                         repo.git.checkout(item['hash'])
+
             except Exception:
                 print(f"Failed to restore snapshots for the custom node '{path}'")
 

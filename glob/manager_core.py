@@ -21,8 +21,12 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
+version = [2, 20]
+version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
+
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, '..'))
+comfy_path = os.path.abspath(os.path.join(custom_nodes_path, '..'))
 channel_list_path = os.path.join(comfyui_manager_path, 'channels.list')
 config_path = os.path.join(comfyui_manager_path, "config.ini")
 startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
@@ -104,6 +108,33 @@ def is_blacklisted(name):
                     return True
 
     return False
+
+
+def is_installed(name):
+    name = name.strip()
+
+    if name.startswith('#'):
+        return True
+
+    pattern = r'([^<>!=]+)([<>!=]=?)(.*)'
+    match = re.search(pattern, name)
+
+    if match:
+        name = match.group(1)
+
+    if name in cm_global.pip_downgrade_blacklist:
+        pips = get_installed_packages()
+
+        if match is None:
+            if name in pips:
+                return True
+        elif match.group(2) in ['<=', '==', '<']:
+            if name in pips:
+                if StrictVersion(pips[name]) >= StrictVersion(match.group(3)):
+                    print(f"[ComfyUI-Manager] skip black listed pip installation: '{name}'")
+                    return True
+
+    return name.lower() in get_installed_packages()
 
 
 def get_channel_dict():
@@ -337,7 +368,7 @@ def __win_check_git_pull(path):
     process.wait()
 
 
-def execute_install_script(url, repo_path, lazy_mode=False):
+def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=False):
     install_script_path = os.path.join(repo_path, "install.py")
     requirements_path = os.path.join(repo_path, "requirements.txt")
 
@@ -353,12 +384,12 @@ def execute_install_script(url, repo_path, lazy_mode=False):
                     if package_name:
                         install_cmd = [sys.executable, "-m", "pip", "install", package_name]
                         if package_name.strip() != "":
-                            try_install_script(url, repo_path, install_cmd)
+                            try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
         if os.path.exists(install_script_path):
             print(f"Install: install script")
             install_cmd = [sys.executable, "install.py"]
-            try_install_script(url, repo_path, install_cmd)
+            try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
     return True
 
@@ -466,8 +497,8 @@ def is_valid_url(url):
         return False
 
 
-def gitclone_install(files):
-    print(f"install: {files}")
+def gitclone_install(files, instant_execution=False):
+    print(f"Install: {files}")
     for url in files:
         if not is_valid_url(url):
             print(f"Invalid git url: '{url}'")
@@ -481,7 +512,7 @@ def gitclone_install(files):
             repo_path = os.path.join(custom_nodes_path, repo_name)
 
             # Clone the repository from the remote URL
-            if platform.system() == 'Windows':
+            if not instant_execution and platform.system() == 'Windows':
                 res = manager_funcs.run_script([sys.executable, git_script_path, "--clone", custom_nodes_path, url])
                 if res != 0:
                     return False
@@ -490,7 +521,7 @@ def gitclone_install(files):
                 repo.git.clear_cache()
                 repo.close()
 
-            if not execute_install_script(url, repo_path):
+            if not execute_install_script(url, repo_path, instant_execution=instant_execution):
                 return False
 
         except Exception as e:
@@ -566,13 +597,17 @@ def is_file_created_within_one_day(file_path):
     return time_difference <= 86400
 
 
-async def get_data_by_mode(mode, filename):
+async def get_data_by_mode(mode, filename, channel_url=None):
     try:
         if mode == "local":
             uri = os.path.join(comfyui_manager_path, filename)
             json_obj = await get_data(uri)
         else:
-            uri = get_config()['channel_url'] + '/' + filename
+            if channel_url is None:
+                uri = get_config()['channel_url'] + '/' + filename
+            else:
+                uri = channel_url + '/' + filename
+
             cache_uri = str(simple_hash(uri))+'_'+filename
             cache_uri = os.path.join(cache_dir, cache_uri)
 
@@ -585,7 +620,6 @@ async def get_data_by_mode(mode, filename):
                         with open(cache_uri, "w", encoding='utf-8') as file:
                             json.dump(json_obj, file, indent=4, sort_keys=True)
             else:
-                uri = get_config()['channel_url'] + '/' + filename
                 json_obj = await get_data(uri)
                 with cache_lock:
                     with open(cache_uri, "w", encoding='utf-8') as file:
@@ -610,6 +644,9 @@ def gitclone_fix(files):
         try:
             repo_name = os.path.splitext(os.path.basename(url))[0]
             repo_path = os.path.join(custom_nodes_path, repo_name)
+
+            if os.path.exists(repo_path+'.disabled'):
+                repo_path = repo_path+'.disabled'
 
             if not execute_install_script(url, repo_path):
                 return False
@@ -653,7 +690,7 @@ def rmtree(path):
 def gitclone_uninstall(files):
     import os
 
-    print(f"uninstall: {files}")
+    print(f"Uninstall: {files}")
     for url in files:
         if url.endswith("/"):
             url = url[:-1]
@@ -708,7 +745,7 @@ def gitclone_set_active(files, is_disable):
             dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
             dir_path = os.path.join(custom_nodes_path, dir_name)
 
-            # safey check
+            # safety check
             if dir_path == '/' or dir_path[1:] == ":/" or dir_path == '':
                 print(f"{action_name}(git-clone) error: invalid path '{dir_path}' for '{url}'")
                 return False
@@ -739,7 +776,7 @@ def gitclone_set_active(files, is_disable):
     return True
 
 
-def gitclone_update(files):
+def gitclone_update(files, instant_execution=False, skip_script=False):
     import os
 
     print(f"Update: {files}")
@@ -749,16 +786,26 @@ def gitclone_update(files):
         try:
             repo_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
             repo_path = os.path.join(custom_nodes_path, repo_name)
+
+            if os.path.exists(repo_path+'.disabled'):
+                repo_path = repo_path+'.disabled'
+
             git_pull(repo_path)
 
-            if not execute_install_script(url, repo_path, lazy_mode=True):
-                return False
+            if not skip_script:
+                if instant_execution:
+                    if not execute_install_script(url, repo_path, lazy_mode=False, instant_execution=True):
+                        return False
+                else:
+                    if not execute_install_script(url, repo_path, lazy_mode=True):
+                        return False
 
         except Exception as e:
             print(f"Update(git-clone) error: {url} / {e}", file=sys.stderr)
             return False
 
-    print("Update was successful.")
+    if not skip_script:
+        print("Update was successful.")
     return True
 
 
@@ -832,3 +879,73 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
             item['installed'] = 'Disabled'
         else:
             item['installed'] = 'False'
+
+
+def get_current_snapshot():
+    # Get ComfyUI hash
+    repo_path = comfy_path
+
+    print(f"comfy_path: {comfy_path}")
+    if not os.path.exists(os.path.join(repo_path, '.git')):
+        print(f"ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
+        return {}
+
+    repo = git.Repo(repo_path)
+    comfyui_commit_hash = repo.head.commit.hexsha
+
+    git_custom_nodes = {}
+    file_custom_nodes = []
+
+    # Get custom nodes hash
+    for path in os.listdir(custom_nodes_path):
+        fullpath = os.path.join(custom_nodes_path, path)
+
+        if os.path.isdir(fullpath):
+            is_disabled = path.endswith(".disabled")
+
+            try:
+                git_dir = os.path.join(fullpath, '.git')
+
+                if not os.path.exists(git_dir):
+                    continue
+
+                repo = git.Repo(fullpath)
+                commit_hash = repo.head.commit.hexsha
+                url = repo.remotes.origin.url
+                git_custom_nodes[url] = {
+                    'hash': commit_hash,
+                    'disabled': is_disabled
+                }
+
+            except:
+                print(f"Failed to extract snapshots for the custom node '{path}'.")
+
+        elif path.endswith('.py'):
+            is_disabled = path.endswith(".py.disabled")
+            filename = os.path.basename(path)
+            item = {
+                'filename': filename,
+                'disabled': is_disabled
+            }
+
+            file_custom_nodes.append(item)
+
+    return {
+        'comfyui': comfyui_commit_hash,
+        'git_custom_nodes': git_custom_nodes,
+        'file_custom_nodes': file_custom_nodes,
+    }
+
+
+def save_snapshot_with_postfix(postfix):
+    now = datetime.now()
+
+    date_time_format = now.strftime("%Y-%m-%d_%H-%M-%S")
+    file_name = f"{date_time_format}_{postfix}"
+
+    path = os.path.join(comfyui_manager_path, 'snapshots', f"{file_name}.json")
+    with open(path, "w") as json_file:
+        json.dump(get_current_snapshot(), json_file, indent=4)
+
+    return file_name+'.json'
+
