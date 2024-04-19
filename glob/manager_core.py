@@ -21,7 +21,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 20]
+version = [2, 20, 1]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -632,7 +632,7 @@ async def get_data_by_mode(mode, filename, channel_url=None):
     return json_obj
 
 
-def gitclone_fix(files):
+def gitclone_fix(files, instant_execution=False):
     print(f"Try fixing: {files}")
     for url in files:
         if not is_valid_url(url):
@@ -648,7 +648,7 @@ def gitclone_fix(files):
             if os.path.exists(repo_path+'.disabled'):
                 repo_path = repo_path+'.disabled'
 
-            if not execute_install_script(url, repo_path):
+            if not execute_install_script(url, repo_path, instant_execution=instant_execution):
                 return False
 
         except Exception as e:

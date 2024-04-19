@@ -178,6 +178,7 @@ if not (len(sys.argv) == 2 and sys.argv[1] == 'save-snapshot') and len(sys.argv)
           f"    save-snapshot\n"
           f"    restore-snapshot <snapshot>\n"
           f"    cli-only-mode [enable|disable]\n"
+          f"    restore-dependencies -- NOT YET\n"
           f"    clear\n")
     exit(-1)
 
@@ -455,6 +456,9 @@ elif op == 'save-snapshot':
 
 elif op == 'restore-snapshot':
     restore_snapshot(sys.argv[2])
+
+elif op == 'restore-dependencies':
+    print(f"TODO: NOT YET IMPLEMENTED")
 
 elif op == 'clear':
     cancel()
