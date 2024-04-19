@@ -1103,6 +1103,7 @@
             "Merge sigmas by average",
             "Merge sigmas gradually",
             "Multiply sigmas",
+            "Output min/max sigmas",
             "Split and concatenate sigmas",
             "The Golden Scheduler"
         ],
@@ -1577,6 +1578,34 @@
         ],
         {
             "title_aux": "ikhor-nodes"
+        }
+    ],
+    "https://github.com/Intersection98/ComfyUI_MX_post_processing-nodes": [
+        [
+            "MX_AlphaBlend",
+            "MX_Blend",
+            "MX_Blur",
+            "MX_Canny",
+            "MX_ChromaticAberration",
+            "MX_ColorCorrect",
+            "MX_ColorMatch",
+            "MX_ColorTint",
+            "MX_Glow",
+            "MX_HSVThresholdMask",
+            "MX_KuwaharaBlur(Cartoon)",
+            "MX_LUT",
+            "MX_LensBokeh",
+            "MX_LensOpticAxis",
+            "MX_LensZoomBurst",
+            "MX_Mosaic",
+            "MX_Noise",
+            "MX_Posterize",
+            "MX_SineWave",
+            "MX_Solarize",
+            "MX_Vignette"
+        ],
+        {
+            "title_aux": "ComfyUI-MX-post-processing-nodes"
         }
     ],
     "https://github.com/Inzaniak/comfyui-ranbooru": [
@@ -2653,6 +2682,7 @@
             "CyclistTimerStop",
             "CyclistTypeCast",
             "Interrupt",
+            "LoopManager",
             "MemorizeConditioning",
             "MemorizeFloat",
             "MemorizeInt",
@@ -3673,6 +3703,19 @@
         ],
         {
             "title_aux": "ComfyS3"
+        }
+    ],
+    "https://github.com/TencentQQGYLab/ComfyUI-ELLA": [
+        [
+            "ConditionToEllaEmbeds",
+            "ELLALoader",
+            "EllaApply",
+            "EllaCombineEmbeds",
+            "T5TextEncode #ELLA",
+            "T5TextEncoderLoader #ELLA"
+        ],
+        {
+            "title_aux": "ComfyUI-ELLA"
         }
     ],
     "https://github.com/TheBarret/ZSuite": [
@@ -5408,13 +5451,17 @@
             "title_aux": "ComfyUI-AniPortrait"
         }
     ],
-    "https://github.com/chaojie/ComfyUI-CameraCtrl": [
+    "https://github.com/chaojie/ComfyUI-CameraCtrl-Wrapper": [
         [
+            "CameraBasic",
+            "CameraCombine",
             "CameraCtrlLoader",
-            "CameraCtrlRun"
+            "CameraCtrlRun",
+            "CameraJoin",
+            "CameraTrajectory"
         ],
         {
-            "title_aux": "ComfyUI-CameraCtrl"
+            "title_aux": "ComfyUI-CameraCtrl-Wrapper"
         }
     ],
     "https://github.com/chaojie/ComfyUI-Champ": [
@@ -6449,8 +6496,10 @@
             "MaskFlip+",
             "MaskFromBatch+",
             "MaskFromColor+",
+            "MaskFromRGBCMYBW+",
             "MaskFromSegmentation+",
             "MaskPreview+",
+            "MaskSmooth+",
             "ModelCompile+",
             "NoiseFromImage~",
             "PixelOEPixelize+",
@@ -6561,9 +6610,11 @@
         [
             "JDCN_AnyFileList",
             "JDCN_AnyFileListHelper",
+            "JDCN_AnyFileListRandom",
             "JDCN_AnyFileSelector",
             "JDCN_BatchImageLoadFromList",
             "JDCN_BatchLatentLoadFromDir",
+            "JDCN_BatchLatentLoadFromList",
             "JDCN_BatchSaveLatent",
             "JDCN_FileMover",
             "JDCN_ImageSaver",
@@ -7037,6 +7088,21 @@
             "title_aux": "fcSuite"
         }
     ],
+    "https://github.com/florestefano1975/ComfyUI-StabilityAI-Suite": [
+        [
+            "StabilityAI Suite - Creative Upscale",
+            "StabilityAI Suite - Creative Upscale Recover File",
+            "StabilityAI Suite - Image Core + Style Preset",
+            "StabilityAI Suite - Inpainting",
+            "StabilityAI Suite - Outpainting",
+            "StabilityAI Suite - Remove Background",
+            "StabilityAI Suite - SD3",
+            "StabilityAI Suite - Search and Replace"
+        ],
+        {
+            "title_aux": "ComfyUI StabilityAI Suite"
+        }
+    ],
     "https://github.com/florestefano1975/comfyui-portrait-master": [
         [
             "PortraitMaster"
@@ -7463,13 +7529,17 @@
     "https://github.com/heshengtao/comfyui_LLM_party": [
         [
             "LLM",
+            "LLM_local",
             "check_web_tool",
+            "classify_function",
+            "classify_persona",
             "end_dialog",
             "file_combine",
             "file_combine_plus",
             "google_tool",
             "interpreter_tool",
             "load_file",
+            "load_persona",
             "start_dialog",
             "time_tool",
             "tool_combine",
@@ -8182,6 +8252,7 @@
             "Intrinsic_lora_sampling",
             "JoinStrings",
             "LoadResAdapterNormalization",
+            "MaskOrImageToWeight",
             "NormalizedAmplitudeToMask",
             "OffsetMask",
             "OffsetMaskByNormalizedAmplitude",
@@ -10751,6 +10822,14 @@
             "title_aux": "Hakkun-ComfyUI-nodes"
         }
     ],
+    "https://github.com/turkyden/ComfyUI-Comic": [
+        [
+            "Image To Comic"
+        ],
+        {
+            "title_aux": "ComfyUI-Comic"
+        }
+    ],
     "https://github.com/turkyden/ComfyUI-Sticker": [
         [
             "Image To Sticker"
@@ -11203,7 +11282,6 @@
             "easy imagePixelPerfect",
             "easy imageRatio",
             "easy imageRemBg",
-            "easy imageRemoveBG",
             "easy imageSave",
             "easy imageScaleDown",
             "easy imageScaleDownBy",
@@ -11265,6 +11343,7 @@
             "easy showLoaderSettingsNames",
             "easy showSpentTime",
             "easy showTensorShape",
+            "easy stableDiffusion3API",
             "easy string",
             "easy stylesSelector",
             "easy sv3dLoader",
