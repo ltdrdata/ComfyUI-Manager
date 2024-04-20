@@ -6,13 +6,29 @@ import json
 import asyncio
 import subprocess
 
-sys.path.append("./glob")
+sys.path.append(os.path.dirname(__file__))
+sys.path.append(os.path.join(os.path.dirname(__file__), "glob"))
 import manager_core as core
 import cm_global
 import git
 
 
 print(f"\n-= ComfyUI-Manager CLI ({core.version_str}) =-\n")
+
+
+if not (len(sys.argv) == 2 and sys.argv[1] in ['save-snapshot', 'restore-dependencies', 'clear']) and len(sys.argv) < 3:
+    print(f"\npython cm-cli.py [OPTIONS]\n\n"
+          f"OPTIONS:\n"
+          f"    [install|uninstall|update|disable|enable|fix] node_name ... ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
+          f"    [update|disable|enable|fix] all ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
+          f"    [simple-show|show] [installed|enabled|not-installed|disabled|all|snapshot|snapshot-list] ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
+          f"    save-snapshot\n"
+          f"    restore-snapshot <snapshot>\n"
+          f"    cli-only-mode [enable|disable]\n"
+          f"    restore-dependencies\n"
+          f"    clear\n")
+    exit(-1)
+
 
 comfyui_manager_path = os.path.dirname(__file__)
 comfy_path = os.environ.get('COMFYUI_PATH')
@@ -73,6 +89,19 @@ def post_install(url):
 
     except Exception:
         print(f"ERROR: Restoring '{url}' is failed.")
+
+
+def restore_dependencies():
+    node_paths = [os.path.join(custom_nodes_path, name) for name in os.listdir(custom_nodes_path)
+                  if os.path.isdir(os.path.join(custom_nodes_path, name)) and not name.endswith('.disabled')]
+
+    total = len(node_paths)
+    i = 1
+    for x in node_paths:
+        print(f"----------------------------------------------------------------------------------------------------")
+        print(f"Restoring [{i}/{total}]: {x}")
+        post_install(x)
+        i += 1
 
 
 def restore_snapshot(snapshot_name):
@@ -167,21 +196,6 @@ def read_downgrade_blacklist():
 
 
 read_downgrade_blacklist()
-
-
-if not (len(sys.argv) == 2 and sys.argv[1] == 'save-snapshot') and len(sys.argv) < 3:
-    print(f"\npython cm-cli.py [OPTIONS]\n\n"
-          f"OPTIONS:\n"
-          f"    [install|uninstall|update|disable|enable|fix] node_name ... ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
-          f"    [update|disable|enable|fix] all ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
-          f"    [simple-show|show] [installed|enabled|not-installed|disabled|all|snapshot|snapshot-list] ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
-          f"    save-snapshot\n"
-          f"    restore-snapshot <snapshot>\n"
-          f"    cli-only-mode [enable|disable]\n"
-          f"    restore-dependencies -- NOT YET\n"
-          f"    clear\n")
-    exit(-1)
-
 
 channel = 'default'
 mode = 'remote'
@@ -458,7 +472,7 @@ elif op == 'restore-snapshot':
     restore_snapshot(sys.argv[2])
 
 elif op == 'restore-dependencies':
-    print(f"TODO: NOT YET IMPLEMENTED")
+    restore_dependencies()
 
 elif op == 'clear':
     cancel()
