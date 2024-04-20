@@ -1094,7 +1094,7 @@ async def get_notice(request):
                     markdown_content = match.group(1)
                     markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
                     # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
-                    markdown_content += f"<BR>Manager: {version_str}"
+                    markdown_content += f"<BR>Manager: {core.version_str}"
 
                     try:
                         if core.comfy_ui_required_commit_datetime.date() > core.comfy_ui_commit_datetime.date():
