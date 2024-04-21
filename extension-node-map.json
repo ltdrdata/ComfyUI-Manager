@@ -621,7 +621,7 @@
             "PromptSelector"
         ],
         {
-            "title_aux": "ComfyUI-Book-Tools"
+            "title_aux": "ComfyUI-Book-Tools Nodes for ComfyUI"
         }
     ],
     "https://github.com/Big-Idea-Technology/ComfyUI_LLM_Node": [
@@ -1650,6 +1650,7 @@
     ],
     "https://github.com/JPS-GER/ComfyUI_JPS-Nodes": [
         [
+            "CLIPTextEncode SDXL Plus (JPS)",
             "Conditioning Switch (JPS)",
             "ControlNet Switch (JPS)",
             "Crop Image Pipe (JPS)",
@@ -1671,13 +1672,23 @@
             "Get Image Size (JPS)",
             "IP Adapter Settings (JPS)",
             "IP Adapter Settings Pipe (JPS)",
-            "IP Adapter Single Settings (JPS)",
-            "IP Adapter Single Settings Pipe (JPS)",
+            "IP Adapter Tiled Settings (JPS)",
+            "IP Adapter Tiled Settings Pipe (JPS)",
             "IPA Switch (JPS)",
+            "Image Prepare Pipe (JPS)",
+            "Image Prepare Settings (JPS)",
             "Image Switch (JPS)",
             "ImageToImage Pipe (JPS)",
             "ImageToImage Settings (JPS)",
             "Images Masks MultiPipe (JPS)",
+            "InstantID Mask Prepare Pipe (JPS)",
+            "InstantID Mask Prepare Settings (JPS)",
+            "InstantID Pipe (JPS)",
+            "InstantID Pose Prepare Pipe (JPS)",
+            "InstantID Pose Prepare Settings (JPS)",
+            "InstantID Settings (JPS)",
+            "InstantID Source Prepare Pipe (JPS)",
+            "InstantID Source Prepare Settings (JPS)",
             "Integer Switch (JPS)",
             "Largest Int (JPS)",
             "Latent Switch (JPS)",
@@ -1687,6 +1698,9 @@
             "Multiply Float Float (JPS)",
             "Multiply Int Float (JPS)",
             "Multiply Int Int (JPS)",
+            "Prepare Image (JPS)",
+            "Prepare Image Plus (JPS)",
+            "Prepare Image Tiled IPA (JPS)",
             "Resolution Multiply (JPS)",
             "Revision Settings (JPS)",
             "Revision Settings Pipe (JPS)",
@@ -1698,11 +1712,15 @@
             "SDXL Prompt Styler (JPS)",
             "SDXL Recommended Resolution Calc (JPS)",
             "SDXL Resolutions (JPS)",
+            "SDXL Settings (JPS)",
+            "SDXL Settings Pipe (JPS)",
             "Sampler Scheduler Settings (JPS)",
             "Save Images Plus (JPS)",
             "Substract Int Int (JPS)",
             "Text Concatenate (JPS)",
             "Text Prompt (JPS)",
+            "Text Prompt Combo (JPS)",
+            "Time Seed (JPS)",
             "VAE Switch (JPS)"
         ],
         {
@@ -6433,14 +6451,17 @@
             "IPAdapterAdvanced",
             "IPAdapterBatch",
             "IPAdapterCombineEmbeds",
+            "IPAdapterCombineParams",
             "IPAdapterEmbeds",
             "IPAdapterEncoder",
             "IPAdapterFaceID",
+            "IPAdapterFromParams",
             "IPAdapterInsightFaceLoader",
             "IPAdapterLoadEmbeds",
             "IPAdapterMS",
             "IPAdapterModelLoader",
             "IPAdapterNoise",
+            "IPAdapterRegionalConditioning",
             "IPAdapterSaveEmbeds",
             "IPAdapterStyleComposition",
             "IPAdapterStyleCompositionBatch",
@@ -6483,12 +6504,14 @@
         [
             "BatchCount+",
             "CLIPTextEncodeSDXL+",
+            "ConditioningCombineMultiple+",
             "ConsoleDebug+",
             "DebugTensorShape+",
             "DrawText+",
             "ExtractKeyframes+",
             "GetImageSize+",
             "ImageApplyLUT+",
+            "ImageBatchMultiple+",
             "ImageCASharpening+",
             "ImageCompositeFromMaskBatch+",
             "ImageCrop+",
@@ -8734,6 +8757,7 @@
     "https://github.com/longgui0318/comfyui-oms-diffusion": [
         [
             "Add Magic Clothing Attention",
+            "Change Pixel Value Normalization",
             "InjectTensorHashLog",
             "LOAD OMS",
             "Load Magic Clothing Model",
@@ -10350,7 +10374,6 @@
     ],
     "https://github.com/smthemex/ComfyUI_Pic2Story": [
         [
-            "DownloadModel",
             "Pic2Story"
         ],
         {
