@@ -4,12 +4,12 @@
 
 
 ```
--= ComfyUI-Manager CLI (V2.21.1) =-
+-= ComfyUI-Manager CLI (V2.22) =-
 
 python cm-cli.py [OPTIONS]
 
 OPTIONS:
-    [install|uninstall|update|disable|enable|fix] node_name ... ?[--channel <channel name>] ?[--mode [remote|local|cache]]
+    [install|reinstall|uninstall|update|disable|enable|fix] node_name ... ?[--channel <channel name>] ?[--mode [remote|local|cache]]
     [update|disable|enable|fix] all ?[--channel <channel name>] ?[--mode [remote|local|cache]]
     [simple-show|show] [installed|enabled|not-installed|disabled|all|snapshot|snapshot-list] ?[--channel <channel name>] ?[--mode [remote|local|cache]]
     save-snapshot
@@ -93,7 +93,7 @@ ComfyUI-Loopchain
 
 ### 3. Managing Custom Nodes
 
-`[install|uninstall|update|disable|enable|fix] node_name ... ?[--channel <channel name>] ?[--mode [remote|local|cache]]`
+`[install|reinstall|uninstall|update|disable|enable|fix] node_name ... ?[--channel <channel name>] ?[--mode [remote|local|cache]]`
 
 * You can apply management functions by listing the names of custom nodes, such as `python cm-cli.py install ComfyUI-Impact-Pack ComfyUI-Inspire-Pack ComfyUI_experiments`.
 * The names of the custom nodes are as shown by `show` and are the names of the git repositories.
@@ -105,6 +105,7 @@ ComfyUI-Loopchain
 
 * Detailed Operations
     * `install`: Installs the specified custom nodes.
+    * `reinstall`: Removes and then reinstalls the specified custom nodes.
     * `uninstall`: Uninstalls the specified custom nodes.
     * `update`: Updates the specified custom nodes.
     * `disable`: Disables the specified custom nodes.

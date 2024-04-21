@@ -21,7 +21,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 21, 1]
+version = [2, 21, 2]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -381,7 +381,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
             with open(requirements_path, "r") as requirements_file:
                 for line in requirements_file:
                     package_name = remap_pip_package(line.strip())
-                    if package_name:
+                    if package_name and not package_name.startswith('#'):
                         install_cmd = [sys.executable, "-m", "pip", "install", package_name]
                         if package_name.strip() != "":
                             try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
@@ -497,8 +497,8 @@ def is_valid_url(url):
         return False
 
 
-def gitclone_install(files, instant_execution=False):
-    print(f"Install: {files}")
+def gitclone_install(files, instant_execution=False, msg_prefix=''):
+    print(f"{msg_prefix}Install: {files}")
     for url in files:
         if not is_valid_url(url):
             print(f"Invalid git url: '{url}'")
@@ -776,10 +776,10 @@ def gitclone_set_active(files, is_disable):
     return True
 
 
-def gitclone_update(files, instant_execution=False, skip_script=False):
+def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefix=""):
     import os
 
-    print(f"Update: {files}")
+    print(f"{msg_prefix}Update: {files}")
     for url in files:
         if url.endswith("/"):
             url = url[:-1]

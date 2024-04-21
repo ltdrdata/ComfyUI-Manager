@@ -9,7 +9,7 @@
 python cm-cli.py [OPTIONS]
 
 OPTIONS:
-    [install|uninstall|update|disable|enable|fix] node_name ... ?[--channel <channel name>] ?[--mode [remote|local|cache]]
+    [install|reinstall|uninstall|update|disable|enable|fix] node_name ... ?[--channel <channel name>] ?[--mode [remote|local|cache]]
     [update|disable|enable|fix] all ?[--channel <channel name>] ?[--mode [remote|local|cache]]
     [simple-show|show] [installed|enabled|not-installed|disabled|all|snapshot|snapshot-list] ?[--channel <channel name>] ?[--mode [remote|local|cache]]
     save-snapshot
@@ -94,7 +94,7 @@ ComfyUI-Loopchain
 
 ### 3. 커스텀 노드 관리 하기
 
-`[install|uninstall|update|disable|enable|fix] node_name ... ?[--channel <channel name>] ?[--mode [remote|local|cache]]`
+`[install|reinstall|uninstall|update|disable|enable|fix] node_name ... ?[--channel <channel name>] ?[--mode [remote|local|cache]]`
 
 * `python cm-cli.py install ComfyUI-Impact-Pack ComfyUI-Inspire-Pack ComfyUI_experiments` 와 같이 커스텀 노드의 이름을 나열해서 관리 기능을 적용할 수 있습니다.
 * 커스텀 노드의 이름은 `show`를 했을 때 보여주는 이름이며, git repository의 이름입니다. 
@@ -106,6 +106,7 @@ ComfyUI-Loopchain
 
 * 세부 동작
     * `install`: 지정된 커스텀 노드들을 설치합니다
+    * `reinstall`: 지정된 커스텀 노드를 삭제하고 재설치 합니다.
     * `uninstall`: 지정된 커스텀 노드들을 삭제합니다.
     * `update`: 지정된 커스텀 노드들을 업데이트합니다.
     * `disable`: 지정된 커스텀 노드들을 비활성화합니다.
