@@ -5,6 +5,7 @@
 ![menu](misc/menu.jpg)
 
 ## NOTICE
+* V2.21 [cm-cli](docs/en/cm-cli.md) tool is added.
 * V2.18 to V2.18.3 is not functioning due to a severe bug. Users on these versions are advised to promptly update to V2.18.4. Please navigate to the `ComfyUI/custom_nodes/ComfyUI-Manager` directory and execute `git pull` to update.
 * You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
 
@@ -33,7 +34,7 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 ### Installation[method3] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
 
 To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you can follow these steps:
-prerequisite: python-is-python3, python3-venv
+* **prerequisite: python-is-python3, python3-venv**
 
 1. Download [scripts/install-comfyui-venv-linux.sh](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-comfyui-venv-linux.sh) into empty install directory
 - ComfyUI will be installed in the subdirectory of the specified directory, and the directory will contain the generated executable script.
@@ -61,6 +62,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Support for automatically installing dependencies of custom nodes upon restarting Colab notebooks.
 
 ## Changes
+* **2.21** [cm-cli](docs/en/cm-cli.md) tool is added.
 * **2.4** Copy the connections of the nearest node by double-clicking.
 * **2.2.3** Support Components System
 * **0.29** Add `Update all` feature
@@ -154,6 +156,12 @@ This repository provides Colab notebooks that allow you to install and use Comfy
   * The selected snapshot file is saved in `ComfyUI-Manager/startup-scripts/restore-snapshot.json`, and upon restarting ComfyUI, the snapshot is applied and then deleted.
 
 ![model-install-dialog](misc/snapshot.jpg)
+
+
+## cm-cli: command line tools for power user
+* A tool is provided that allows you to use the features of ComfyUI-Manager without running ComfyUI.
+* For more details, please refer to the [cm-cli documentation](docs/en/cm-cli.md).
+
 
 ## How to register your custom node into ComfyUI-Manager
 
