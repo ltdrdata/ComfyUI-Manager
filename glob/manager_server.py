@@ -792,12 +792,10 @@ async def fix_custom_node(request):
     return web.Response(status=400)
 
 
-@PromptServer.instance.routes.get("/customnode/install/git_url")
+@PromptServer.instance.routes.post("/customnode/install/git_url")
 async def install_custom_node_git_url(request):
-    res = False
-    if "url" in request.rel_url.query:
-        url = request.rel_url.query['url']
-        res = core.gitclone_install([url])
+    url = await request.text()
+    res = core.gitclone_install([url])
 
     if res:
         print(f"After restarting ComfyUI, please refresh the browser.")
@@ -806,12 +804,10 @@ async def install_custom_node_git_url(request):
     return web.Response(status=400)
 
 
-@PromptServer.instance.routes.get("/customnode/install/pip")
+@PromptServer.instance.routes.post("/customnode/install/pip")
 async def install_custom_node_git_url(request):
-    res = False
-    if "packages" in request.rel_url.query:
-        packages = request.rel_url.query['packages']
-        core.pip_install(packages.split(' '))
+    packages = await request.text()
+    core.pip_install(packages.split(' '))
 
     return web.Response(status=200)
 
