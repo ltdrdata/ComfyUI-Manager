@@ -235,6 +235,16 @@
             "title_aux": "ComfyUI-UVR5"
         }
     ],
+    "https://github.com/AIFSH/ComfyUI-WhisperX": [
+        [
+            "LoadAudio",
+            "PreViewSRT",
+            "WhisperX"
+        ],
+        {
+            "title_aux": "ComfyUI-WhisperX"
+        }
+    ],
     "https://github.com/AIGCTeam/ComfyUI_kkTranslator_nodes": [
         [
             "LoadMarianMTCheckPoint",
@@ -1159,6 +1169,71 @@
         ],
         {
             "title_aux": "ComfyUI Loopchain"
+        }
+    ],
+    "https://github.com/Fannovel16/ComfyUI-MagickWand": [
+        [
+            "ImageMagick Blur",
+            "ImageMagick Canny",
+            "ImageMagick Charcoal",
+            "ImageMagick Chop",
+            "ImageMagick Clahe",
+            "ImageMagick Clamp",
+            "ImageMagick Combine",
+            "ImageMagick Concat",
+            "ImageMagick Contrast",
+            "ImageMagick Crop",
+            "ImageMagick Decipher",
+            "ImageMagick Deskew",
+            "ImageMagick Distort",
+            "ImageMagick Edge",
+            "ImageMagick Emboss",
+            "ImageMagick Encipher",
+            "ImageMagick Equalize",
+            "ImageMagick Evaluate",
+            "ImageMagick Extent",
+            "ImageMagick Function",
+            "ImageMagick Gamma",
+            "ImageMagick Implode",
+            "ImageMagick Kmeans",
+            "ImageMagick Kuwahara",
+            "ImageMagick Level",
+            "ImageMagick Levelize",
+            "ImageMagick Mode",
+            "ImageMagick Modulate",
+            "ImageMagick Morphology",
+            "ImageMagick Negate",
+            "ImageMagick Noise",
+            "ImageMagick Normalize",
+            "ImageMagick Polynomial",
+            "ImageMagick Posterize",
+            "ImageMagick Quantize",
+            "ImageMagick Resample",
+            "ImageMagick Resize",
+            "ImageMagick Roll",
+            "ImageMagick Sample",
+            "ImageMagick Scale",
+            "ImageMagick Shade",
+            "ImageMagick Shadow",
+            "ImageMagick Sharpen",
+            "ImageMagick Shave",
+            "ImageMagick Sketch",
+            "ImageMagick Smush",
+            "ImageMagick Solarize",
+            "ImageMagick Splice",
+            "ImageMagick Spread",
+            "ImageMagick Statistic",
+            "ImageMagick Swirl",
+            "ImageMagick Threshold",
+            "ImageMagick Thumbnail",
+            "ImageMagick Transform",
+            "ImageMagick Transparentize",
+            "ImageMagick Vignette",
+            "ImageMagick Wave",
+            "pseudo"
+        ],
+        {
+            "title_aux": "ComfyUI-MagickWand"
         }
     ],
     "https://github.com/Fannovel16/ComfyUI-MotionDiff": [
@@ -3738,8 +3813,10 @@
     ],
     "https://github.com/TencentQQGYLab/ComfyUI-ELLA": [
         [
+            "ConcatConditionEllaEmbeds",
             "ConditionToEllaEmbeds",
             "ELLALoader",
+            "EllaAdvancedApply",
             "EllaApply",
             "EllaCombineEmbeds",
             "T5TextEncode #ELLA",
@@ -5754,6 +5831,7 @@
     ],
     "https://github.com/chaojie/ComfyUI-dust3r": [
         [
+            "CameraPoseVideo",
             "Dust3rLoader",
             "Dust3rRun"
         ],
@@ -7512,8 +7590,10 @@
             "ACE_Float",
             "ACE_ImageColorFix",
             "ACE_ImageConstrain",
+            "ACE_ImageLoadFromCloud",
             "ACE_ImageQA",
             "ACE_ImageRemoveBackground",
+            "ACE_ImageSaveToCloud",
             "ACE_Integer",
             "ACE_Seed",
             "ACE_Text",
@@ -7572,6 +7652,7 @@
             "check_web_tool",
             "classify_function",
             "classify_persona",
+            "custom_persona",
             "ebd_tool",
             "end_dialog",
             "file_combine",
@@ -8331,6 +8412,7 @@
             "StringConstantMultiline",
             "Superprompt",
             "VRAM_Debug",
+            "WeightScheduleConvert",
             "WidgetToString"
         ],
         {
@@ -8433,13 +8515,12 @@
     "https://github.com/klinter007/klinter_nodes": [
         [
             "Filter",
+            "ListStringToFloatNode",
             "PresentString",
             "PrintFloats",
             "SingleString",
             "SizeSelector",
-            "concat",
-            "concat_klinter",
-            "whitelist"
+            "concat"
         ],
         {
             "title_aux": "Klinter_nodes"
