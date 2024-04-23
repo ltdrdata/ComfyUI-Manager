@@ -483,7 +483,8 @@ elif op == 'cli-only-mode':
             pass
         print(f"\ncli-only-mode: enabled\n")
     elif sys.argv[2] == 'disable':
-        os.remove(cli_mode_flag)
+        if os.path.exists(cli_mode_flag):
+            os.remove(cli_mode_flag)
         print(f"\ncli-only-mode: disabled\n")
     else:
         print(f"\ninvalid value for cli-only-mode: {sys.argv[2]}\n")
