@@ -637,6 +637,7 @@
     "https://github.com/Big-Idea-Technology/ComfyUI_LLM_Node": [
         [
             "AdvOptions_Node",
+            "CodingOptionsNode",
             "LLM_Node",
             "Output_Node",
             "QuantizationConfig_Node"
@@ -1872,6 +1873,7 @@
             "JNodes_AnyToString",
             "JNodes_AppendReversedFrames",
             "JNodes_BooleanSelectorWithString",
+            "JNodes_BreakMediaInfo",
             "JNodes_CheckpointSelectorWithString",
             "JNodes_GetOutputDirectory",
             "JNodes_GetParameterFromList",
@@ -1880,7 +1882,9 @@
             "JNodes_ImageFormatSelector",
             "JNodes_ImageSizeSelector",
             "JNodes_LoadVideo",
+            "JNodes_LoadVisualMediaFromPath",
             "JNodes_LoraExtractor",
+            "JNodes_MediaInfoToString",
             "JNodes_OutVideoInfo",
             "JNodes_ParseDynamicPrompts",
             "JNodes_ParseParametersToGlobalList",
@@ -1904,6 +1908,7 @@
             "JNodes_TokenCounter",
             "JNodes_TrimAndStrip",
             "JNodes_UploadVideo",
+            "JNodes_UploadVisualMedia",
             "JNodes_VaeSelectorWithString"
         ],
         {
@@ -2047,8 +2052,14 @@
             "ADE_AnimateDiffUnload",
             "ADE_ApplyAnimateDiffModel",
             "ADE_ApplyAnimateDiffModelSimple",
+            "ADE_ApplyAnimateDiffModelWithCameraCtrl",
             "ADE_ApplyAnimateLCMI2VModel",
             "ADE_BatchedContextOptions",
+            "ADE_CameraCtrlAnimateDiffKeyframe",
+            "ADE_CameraManualPoseAppend",
+            "ADE_CameraPoseAdvanced",
+            "ADE_CameraPoseBasic",
+            "ADE_CameraPoseCombo",
             "ADE_CustomCFG",
             "ADE_CustomCFGKeyframe",
             "ADE_EmptyLatentImageLarge",
@@ -2056,7 +2067,9 @@
             "ADE_IterationOptsDefault",
             "ADE_IterationOptsFreeInit",
             "ADE_LoadAnimateDiffModel",
+            "ADE_LoadAnimateDiffModelWithCameraCtrl",
             "ADE_LoadAnimateLCMI2VModel",
+            "ADE_LoadCameraPoses",
             "ADE_LoopedUniformContextOptions",
             "ADE_LoopedUniformViewOptions",
             "ADE_MaskedLoadLora",
@@ -2066,6 +2079,8 @@
             "ADE_NoiseLayerAddWeighted",
             "ADE_NoiseLayerReplace",
             "ADE_RawSigmaSchedule",
+            "ADE_ReplaceCameraParameters",
+            "ADE_ReplaceOriginalPoseAspectRatio",
             "ADE_SigmaSchedule",
             "ADE_SigmaScheduleSplitAndCombine",
             "ADE_SigmaScheduleWeightedAverage",
@@ -2486,6 +2501,7 @@
     ],
     "https://github.com/MokkaBoss1/ComfyUI_Mokkaboss1": [
         [
+            "AnimeCosplayDir",
             "AspectRatioCondition",
             "Colors",
             "ConnectFloat",
@@ -2493,19 +2509,27 @@
             "ConnectInteger",
             "ConnectLatent",
             "ConnectString",
+            "DirSelector",
             "DoubleClipTextEncode",
             "EmbeddingLoader",
+            "FilmCharDir",
             "HashText",
             "HueSatLum",
             "ImageDimensions",
+            "ImageResizeLong",
             "IndoorBackgrounds",
+            "IndoorDir",
+            "IntEvaluate",
             "IntFloatDict",
             "IntStringDict",
             "LandscapeBackgrounds",
+            "LandscapeDir",
+            "MakeupStylesDir",
             "OptimalCrop",
             "SDXLEmptyLatent",
             "SaveWithMetaData",
             "SimplePrompts",
+            "SpecificStylesDir",
             "TimeStamp",
             "TricolorComposition",
             "WorkflowSettings",
@@ -5726,6 +5750,19 @@
         ],
         {
             "title_aux": "ComfyUI-Img2Img-Turbo"
+        }
+    ],
+    "https://github.com/chaojie/ComfyUI-LaVIT": [
+        [
+            "VideoLaVITI2I",
+            "VideoLaVITI2V",
+            "VideoLaVITI2VLong",
+            "VideoLaVITLoader",
+            "VideoLaVITT2V",
+            "VideoLaVITT2VLong"
+        ],
+        {
+            "title_aux": "ComfyUI-LaVIT"
         }
     ],
     "https://github.com/chaojie/ComfyUI-LightGlue": [
@@ -10248,6 +10285,7 @@
             "NewLayer",
             "NoiseImage",
             "OutlineMask",
+            "PreviewMask_",
             "PromptImage",
             "PromptSimplification",
             "PromptSlide",
@@ -10512,6 +10550,14 @@
         ],
         {
             "title_aux": "ComfyUI_Pic2Story"
+        }
+    ],
+    "https://github.com/smthemex/ComfyUI_Pipeline_Tool": [
+        [
+            "Pipeline_Tool"
+        ],
+        {
+            "title_aux": "ComfyUI_Pipeline_Tool"
         }
     ],
     "https://github.com/space-nuko/ComfyUI-Disco-Diffusion": [
@@ -11467,9 +11513,11 @@
             "easy fullkSampler",
             "easy globalSeed",
             "easy hiresFix",
+            "easy humanParsing",
             "easy if",
             "easy imageChooser",
             "easy imageInsetCrop",
+            "easy imageInterrogator",
             "easy imagePixelPerfect",
             "easy imageRatio",
             "easy imageRemBg",
@@ -11483,6 +11531,7 @@
             "easy imageSplitList",
             "easy imageSwitch",
             "easy imageToMask",
+            "easy injectNoiseToLatent",
             "easy instantIDApply",
             "easy instantIDApplyADV",
             "easy int",
@@ -11490,6 +11539,8 @@
             "easy ipadapterApplyADV",
             "easy ipadapterApplyEmbeds",
             "easy ipadapterApplyEncoder",
+            "easy ipadapterApplyFromParams",
+            "easy ipadapterApplyRegional",
             "easy ipadapterStyleComposition",
             "easy isSDXL",
             "easy joinImageBatch",
