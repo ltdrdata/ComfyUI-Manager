@@ -154,7 +154,7 @@ export async function free_models() {
 	let res = await api.fetchApi(`/free`, {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
-						body: '{}'
+						body: '{"unload_models": true}'
 					});
 
 	if(res.status == 200) {
