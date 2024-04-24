@@ -14,7 +14,6 @@ import sys
 from urllib.parse import urlparse
 from github import Github
 
-g = Github(os.environ.get('GITHUB_TOKEN'))
 
 # prepare temp dir
 if len(sys.argv) > 1:
@@ -25,7 +24,15 @@ else:
 if not os.path.exists(temp_dir):
     os.makedirs(temp_dir)
 
-skip_update = '--skip-update' in sys.argv
+
+skip_update = '--skip-update' in sys.argv or '--skip-all' in sys.argv
+skip_stat_update = '--skip-stat-update' in sys.argv or '--skip-all' in sys.argv
+
+if not skip_stat_update:
+    g = Github(os.environ.get('GITHUB_TOKEN'))
+else:
+    g = None
+
 
 print(f"TEMP DIR: {temp_dir}")
 
@@ -301,7 +308,9 @@ def update_custom_nodes():
         #     pass
 
     with concurrent.futures.ThreadPoolExecutor(11) as executor:
-        executor.submit(process_git_stats, git_url_titles_preemptions)  # One single thread for `process_git_stats()`. Runs concurrently with `process_git_url_title()`.
+        if not skip_stat_update:
+            executor.submit(process_git_stats, git_url_titles_preemptions)  # One single thread for `process_git_stats()`. Runs concurrently with `process_git_url_title()`.
+
         for url, title, preemptions, node_pattern in git_url_titles_preemptions:
             executor.submit(process_git_url_title, url, title, preemptions, node_pattern)
 

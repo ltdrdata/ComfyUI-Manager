@@ -269,6 +269,7 @@ export class SnapshotManager extends ComfyDialog {
 		save_button.onclick = () => { save_current_snapshot(); }
 		save_button.style.display = "inline-block";
 		save_button.style.horizontalAlign = "right";
+		save_button.style.width = "170px";
 
 		this.message_box = $el('div', {id:'custom-download-message'}, [$el('br'), '']);
 		this.message_box.style.height = '60px';

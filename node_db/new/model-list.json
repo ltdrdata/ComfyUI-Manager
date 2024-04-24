@@ -1,6 +1,26 @@
 {
   "models": [
     {
+      "name": "Kijai/SUPIR-v0F_fp16.safetensors (pruned)",
+      "type": "checkpoints",
+      "base": "SUPIR",
+      "save_path": "checkpoints/SUPIR",
+      "description": "SUPIR checkpoint model",
+      "reference": "https://huggingface.co/Kijai/SUPIR_pruned/tree/main",
+      "filename": "SUPIR-v0F_fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/SUPIR_pruned/resolve/main/SUPIR-v0F_fp16.safetensors"
+    },
+    {
+      "name": "Kijai/SUPIR-v0Q_fp16.safetensors (pruned)",
+      "type": "checkpoints",
+      "base": "SUPIR",
+      "save_path": "checkpoints/SUPIR",
+      "description": "SUPIR checkpoint model",
+      "reference": "https://huggingface.co/Kijai/SUPIR_pruned/tree/main",
+      "filename": "SUPIR-v0Q_fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/SUPIR_pruned/resolve/main/SUPIR-v0Q_fp16.safetensors"
+    },
+    {
       "name": "SUPIR-v0F.ckpt",
       "type": "checkpoints",
       "base": "SUPIR",
@@ -641,86 +661,6 @@
       "reference": "https://huggingface.co/Lightricks/LongAnimateDiff",
       "filename": "lt_long_mm_16_64_frames.ckpt",
       "url": "https://huggingface.co/Lightricks/LongAnimateDiff/resolve/main/lt_long_mm_16_64_frames.ckpt"
-    },
-    {
-      "name": "ip-adapter_sd15.safetensors",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter_sd15.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15.safetensors"
-    },
-    {
-      "name": "ip-adapter_sd15_light.safetensors",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter_sd15_light.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15_light.safetensors"
-    },
-    {
-      "name": "ip-adapter_sd15_vit-G.safetensors",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter_sd15_vit-G.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15_vit-G.safetensors"
-    },
-    {
-      "name": "ip-adapter-plus_sd15.safetensors",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter-plus_sd15.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter-plus_sd15.safetensors"
-    },
-    {
-      "name": "ip-adapter-plus-face_sd15.safetensors",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter-plus-face_sd15.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter-plus-face_sd15.safetensors"
-    },
-    {
-      "name": "ip-adapter-full-face_sd15.safetensors",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter-full-face_sd15.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter-full-face_sd15.safetensors"
-    },
-    {
-      "name": "ip-adapter_sdxl.safetensors",
-      "type": "IP-Adapter",
-      "base": "SDXL",
-      "save_path": "ipadapter",
-      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter_sdxl.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter_sdxl.safetensors"
-    },
-    {
-      "name": "ip-adapter_sdxl_vit-h.safetensors",
-      "type": "IP-Adapter",
-      "base": "SDXL",
-      "save_path": "ipadapter",
-      "description": "This model requires the use of the SD1.5 encoder despite being for SDXL checkpoints",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter_sdxl_vit-h.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter_sdxl_vit-h.safetensors"
     }
   ]
 }

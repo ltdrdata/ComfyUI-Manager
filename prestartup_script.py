@@ -7,13 +7,13 @@ import threading
 import re
 import locale
 import platform
+import json
 
 
 glob_path = os.path.join(os.path.dirname(__file__), "glob")
 sys.path.append(glob_path)
 
 from manager_util import *
-
 import cm_global
 
 
@@ -69,6 +69,23 @@ custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, ".."))
 startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
 restore_snapshot_path = os.path.join(startup_script_path, "restore-snapshot.json")
 git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
+pip_overrides_path = os.path.join(comfyui_manager_path, "pip_overrides.json")
+
+
+cm_global.pip_overrides = {}
+if os.path.exists(pip_overrides_path):
+    with open(pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
+        cm_global.pip_overrides = json.load(json_file)
+
+
+def remap_pip_package(pkg):
+    if pkg in cm_global.pip_overrides:
+        res = cm_global.pip_overrides[pkg]
+        print(f"[ComfyUI-Manager] '{pkg}' is remapped to '{res}'")
+        return res
+    else:
+        return pkg
+
 
 std_log_lock = threading.Lock()
 
@@ -283,6 +300,30 @@ except Exception as e:
     print(f"[ComfyUI-Manager] Logging failed: {e}")
 
 
+try:
+    import git
+except:
+    my_path = os.path.dirname(__file__)
+    requirements_path = os.path.join(my_path, "requirements.txt")
+
+    print(f"## ComfyUI-Manager: installing dependencies. (GitPython)")
+
+    result = subprocess.check_output([sys.executable, '-s', '-m', 'pip', 'install', '-r', requirements_path])
+
+    try:
+        import git
+    except:
+        print(f"## [ERROR] ComfyUI-Manager: Attempting to reinstall dependencies using an alternative method.")
+        result = subprocess.check_output([sys.executable, '-s', '-m', 'pip', 'install', '--user', '-r', requirements_path])
+
+        try:
+            import git
+        except:
+            print(f"## [ERROR] ComfyUI-Manager: Failed to install the GitPython package in the correct Python environment. Please install it manually in the appropriate environment. (You can seek help at https://app.element.io/#/room/%23comfyui_space%3Amatrix.org)")
+
+    print(f"## ComfyUI-Manager: installing dependencies done.")
+
+
 print("** ComfyUI startup time:", datetime.datetime.now())
 print("** Platform:", platform.system())
 print("** Python version:", sys.version)
@@ -391,8 +432,6 @@ def is_installed(name):
 
 if os.path.exists(restore_snapshot_path):
     try:
-        import json
-
         cloned_repos = []
 
         def msg_capture(stream, prefix):
@@ -420,39 +459,38 @@ if os.path.exists(restore_snapshot_path):
         cmd_str = [sys.executable, git_script_path, '--apply-snapshot', restore_snapshot_path]
         exit_code = process_wrap(cmd_str, custom_nodes_path, handler=msg_capture)
 
-        with open(restore_snapshot_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
-            info = json.load(json_file)
-            for url in cloned_repos:
-                try:
-                    repository_name = url.split("/")[-1].strip()
-                    repo_path = os.path.join(custom_nodes_path, repository_name)
-                    repo_path = os.path.abspath(repo_path)
+        repository_name = ''
+        for url in cloned_repos:
+            try:
+                repository_name = url.split("/")[-1].strip()
+                repo_path = os.path.join(custom_nodes_path, repository_name)
+                repo_path = os.path.abspath(repo_path)
 
-                    requirements_path = os.path.join(repo_path, 'requirements.txt')
-                    install_script_path = os.path.join(repo_path, 'install.py')
+                requirements_path = os.path.join(repo_path, 'requirements.txt')
+                install_script_path = os.path.join(repo_path, 'install.py')
 
-                    this_exit_code = 0
+                this_exit_code = 0
 
-                    if os.path.exists(requirements_path):
-                        with open(requirements_path, 'r', encoding="UTF-8", errors="ignore") as file:
-                            for line in file:
-                                package_name = line.strip()
-                                if package_name and not is_installed(package_name):
-                                    install_cmd = [sys.executable, "-m", "pip", "install", package_name]
-                                    this_exit_code += process_wrap(install_cmd, repo_path)
+                if os.path.exists(requirements_path):
+                    with open(requirements_path, 'r', encoding="UTF-8", errors="ignore") as file:
+                        for line in file:
+                            package_name = remap_pip_package(line.strip())
+                            if package_name and not is_installed(package_name):
+                                install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                                this_exit_code += process_wrap(install_cmd, repo_path)
 
-                    if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
-                        processed_install.add(f'{repo_path}/install.py')
-                        install_cmd = [sys.executable, install_script_path]
-                        print(f">>> {install_cmd} / {repo_path}")
-                        this_exit_code += process_wrap(install_cmd, repo_path)
+                if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
+                    processed_install.add(f'{repo_path}/install.py')
+                    install_cmd = [sys.executable, install_script_path]
+                    print(f">>> {install_cmd} / {repo_path}")
+                    this_exit_code += process_wrap(install_cmd, repo_path)
 
-                    if this_exit_code != 0:
-                        print(f"[ComfyUI-Manager] Restoring '{repository_name}' is failed.")
-
-                except Exception as e:
-                    print(e)
+                if this_exit_code != 0:
                     print(f"[ComfyUI-Manager] Restoring '{repository_name}' is failed.")
+
+            except Exception as e:
+                print(e)
+                print(f"[ComfyUI-Manager] Restoring '{repository_name}' is failed.")
 
         if exit_code != 0:
             print(f"[ComfyUI-Manager] Restore snapshot failed.")
@@ -476,7 +514,7 @@ def execute_lazy_install_script(repo_path, executable):
         print(f"Install: pip packages for '{repo_path}'")
         with open(requirements_path, "r") as requirements_file:
             for line in requirements_file:
-                package_name = line.strip()
+                package_name = remap_pip_package(line.strip())
                 if package_name and not is_installed(package_name):
                     install_cmd = [executable, "-m", "pip", "install", package_name]
                     process_wrap(install_cmd, repo_path)

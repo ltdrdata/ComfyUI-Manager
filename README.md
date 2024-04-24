@@ -5,10 +5,9 @@
 ![menu](misc/menu.jpg)
 
 ## NOTICE
-* 🏆 Join us for the [ComfyUI Workflow Contest](https://contest.openart.ai/), hosted by OpenArt AI (11.27.2023 - 12.15.2023). Our esteemed judge panel includes Scott E. Detweiler, Olivio Sarikas, MERJIC麦橘, among others. We're also thrilled to have the authors of ComfyUI Manager and AnimateDiff as our special guests!
-* If you wish to hide the "Share" button, click "Manager" and choose "Share: None" option.
+* V2.21 [cm-cli](docs/en/cm-cli.md) tool is added.
+* V2.18 to V2.18.3 is not functioning due to a severe bug. Users on these versions are advised to promptly update to V2.18.4. Please navigate to the `ComfyUI/custom_nodes/ComfyUI-Manager` directory and execute `git pull` to update.
 * You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
-* Versions prior to V0.22.2 will no longer detect missing nodes unless using a local database. Please update ComfyUI-Manager to the latest version.
 
 ## Installation
 
@@ -35,7 +34,7 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 ### Installation[method3] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
 
 To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you can follow these steps:
-prerequisite: python-is-python3, python3-venv
+* **prerequisite: python-is-python3, python3-venv**
 
 1. Download [scripts/install-comfyui-venv-linux.sh](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-comfyui-venv-linux.sh) into empty install directory
 - ComfyUI will be installed in the subdirectory of the specified directory, and the directory will contain the generated executable script.
@@ -63,6 +62,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Support for automatically installing dependencies of custom nodes upon restarting Colab notebooks.
 
 ## Changes
+* **2.21** [cm-cli](docs/en/cm-cli.md) tool is added.
 * **2.4** Copy the connections of the nearest node by double-clicking.
 * **2.2.3** Support Components System
 * **0.29** Add `Update all` feature
@@ -156,6 +156,12 @@ This repository provides Colab notebooks that allow you to install and use Comfy
   * The selected snapshot file is saved in `ComfyUI-Manager/startup-scripts/restore-snapshot.json`, and upon restarting ComfyUI, the snapshot is applied and then deleted.
 
 ![model-install-dialog](misc/snapshot.jpg)
+
+
+## cm-cli: command line tools for power user
+* A tool is provided that allows you to use the features of ComfyUI-Manager without running ComfyUI.
+* For more details, please refer to the [cm-cli documentation](docs/en/cm-cli.md).
+
 
 ## How to register your custom node into ComfyUI-Manager
 
@@ -278,6 +284,26 @@ NODE_CLASS_MAPPINGS.update({
     ```
       downgrade_blacklist = diffusers, kornia
     ```
+
+* Custom pip mapping
+  * When you create the `pip_overrides.json` file, it changes the installation of specific pip packages to installations defined by the user.
+    * Please refer to the `pip_overrides.json.template` file.
+    
+
+## Scanner
+When you run the `scan.sh` script:
+
+* It updates the `extension-node-map.json`.
+  * To do this, it pulls or clones the custom nodes listed in `custom-node-list.json` into `~/.tmp/default`.
+  * To skip this step, add the `--skip-update` option.
+  * If you want to specify a different path instead of `~/.tmp/default`, run `python scanner.py [path]` directly instead of `scan.sh`.
+
+* It updates the `github-stats.json`.
+  * This uses the GitHub API, so set your token with `export GITHUB_TOKEN=your_token_here` to avoid quickly reaching the rate limit and malfunctioning.
+  * To skip this step, add the `--skip-update-stat` option.
+
+* The `--skip-all` option applies both `--skip-update` and `--skip-stat-update`.
+
 
 ## Troubleshooting
 * If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the ComfyUI-Manager/config.ini file that is generated.
