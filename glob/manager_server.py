@@ -442,12 +442,10 @@ async def fetch_customnode_list(request):
     json_obj = await populate_github_stats(json_obj, "github-stats.json")
 
     def is_ignored_notice(code):
-        global version
-
         if code is not None and code.startswith('#NOTICE_'):
             try:
                 notice_version = [int(x) for x in code[8:].split('.')]
-                return notice_version[0] < version[0] or (notice_version[0] == version[0] and notice_version[1] <= version[1])
+                return notice_version[0] < core.version[0] or (notice_version[0] == core.version[0] and notice_version[1] <= core.version[1])
             except Exception:
                 return False
         else:
