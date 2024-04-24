@@ -219,6 +219,7 @@
             "CombineAudioVideo",
             "LoadVideo",
             "MuseTalk",
+            "MuseTalkRealTime",
             "PreViewVideo"
         ],
         {
@@ -2526,6 +2527,7 @@
             "LandscapeDir",
             "MakeupStylesDir",
             "OptimalCrop",
+            "PhotomontageA",
             "SDXLEmptyLatent",
             "SaveWithMetaData",
             "SimplePrompts",
@@ -3878,12 +3880,14 @@
     ],
     "https://github.com/TencentQQGYLab/ComfyUI-ELLA": [
         [
+            "CombineClipEllaEmbeds",
             "ConcatConditionEllaEmbeds",
             "ConditionToEllaEmbeds",
             "ELLALoader",
-            "EllaAdvancedApply",
             "EllaApply",
             "EllaCombineEmbeds",
+            "EllaEncode",
+            "SetEllaTimesteps",
             "T5TextEncode #ELLA",
             "T5TextEncoderLoader #ELLA"
         ],
@@ -5221,6 +5225,7 @@
         [
             "BlehBlockOps",
             "BlehDeepShrink",
+            "BlehDisableNoise",
             "BlehDiscardPenultimateSigma",
             "BlehForceSeedSampler",
             "BlehHyperTile",
@@ -5228,6 +5233,7 @@
             "BlehLatentOps",
             "BlehLatentScaleBy",
             "BlehModelPatchConditional",
+            "BlehPlug",
             "BlehRefinerAfter"
         ],
         {
@@ -5754,12 +5760,18 @@
     ],
     "https://github.com/chaojie/ComfyUI-LaVIT": [
         [
+            "VHS_FILENAMES_STRING_LaVIT",
             "VideoLaVITI2I",
             "VideoLaVITI2V",
             "VideoLaVITI2VLong",
             "VideoLaVITLoader",
             "VideoLaVITT2V",
-            "VideoLaVITT2VLong"
+            "VideoLaVITT2VLong",
+            "VideoLaVITUnderstandingImage",
+            "VideoLaVITUnderstandingLoader",
+            "VideoLaVITUnderstandingVideo",
+            "VideoLaVITVideoDetokenizerLoader",
+            "VideoLaVITVideoReconstruction"
         ],
         {
             "title_aux": "ComfyUI-LaVIT"
@@ -7677,9 +7689,11 @@
             "ACE_AudioLoad",
             "ACE_AudioPlay",
             "ACE_AudioSave",
+            "ACE_Expression_Eval",
             "ACE_Float",
             "ACE_ImageColorFix",
             "ACE_ImageConstrain",
+            "ACE_ImageGetSize",
             "ACE_ImageLoadFromCloud",
             "ACE_ImageQA",
             "ACE_ImageRemoveBackground",
@@ -8401,6 +8415,8 @@
     ],
     "https://github.com/kijai/ComfyUI-ELLA-wrapper": [
         [
+            "diffusers_model_loader",
+            "diffusers_sampler",
             "ella_model_loader",
             "ella_sampler",
             "ella_t5_embeds"
@@ -8910,6 +8926,18 @@
             "title_aux": "comfyui-llm-assistant"
         }
     ],
+    "https://github.com/longgui0318/comfyui-magic-clothing": [
+        [
+            "Add Magic Clothing Attention",
+            "Change Pixel Value Normalization",
+            "LOAD OMS",
+            "Load Magic Clothing Model",
+            "RUN OMS"
+        ],
+        {
+            "title_aux": "comfyui-magic-clothing"
+        }
+    ],
     "https://github.com/longgui0318/comfyui-mask-util": [
         [
             "Image Adaptive Crop M&R",
@@ -8929,11 +8957,9 @@
         [
             "Add Magic Clothing Attention",
             "Change Pixel Value Normalization",
-            "InjectTensorHashLog",
             "LOAD OMS",
             "Load Magic Clothing Model",
-            "RUN OMS",
-            "VAE Mode Choose"
+            "RUN OMS"
         ],
         {
             "title_aux": "comfyui-oms-diffusion"
@@ -10444,15 +10470,20 @@
             "AV_CheckpointMerge",
             "AV_CheckpointModelsToParametersPipe",
             "AV_CheckpointSave",
+            "AV_ClaudeApi",
             "AV_ControlNetEfficientLoader",
             "AV_ControlNetEfficientLoaderAdvanced",
             "AV_ControlNetEfficientStacker",
             "AV_ControlNetEfficientStackerSimple",
             "AV_ControlNetLoader",
             "AV_ControlNetPreprocessor",
+            "AV_LLMApiConfig",
+            "AV_LLMChat",
+            "AV_LLMMessage",
             "AV_LoraListLoader",
             "AV_LoraListStacker",
             "AV_LoraLoader",
+            "AV_OpenAIApi",
             "AV_ParametersPipeToCheckpointModels",
             "AV_ParametersPipeToPrompts",
             "AV_PromptsToParametersPipe",
@@ -10537,7 +10568,6 @@
     ],
     "https://github.com/smthemex/ComfyUI_ParlerTTS": [
         [
-            "ModelDownload",
             "PromptToAudio"
         ],
         {
@@ -11129,6 +11159,16 @@
             "title_aux": "SDXL Prompt Styler"
         }
     ],
+    "https://github.com/ty0x2333/ComfyUI-Dev-Utils": [
+        [
+            "TY_ExecutionTime",
+            "TY_UploadAnything",
+            "TY_UrlDownload"
+        ],
+        {
+            "title_aux": "ComfyUI-Dev-Utils"
+        }
+    ],
     "https://github.com/uarefans/ComfyUI-Fans": [
         [
             "Fans Prompt Styler Negative",
@@ -11516,6 +11556,7 @@
             "easy humanParsing",
             "easy if",
             "easy imageChooser",
+            "easy imageColorMatch",
             "easy imageInsetCrop",
             "easy imageInterrogator",
             "easy imagePixelPerfect",
