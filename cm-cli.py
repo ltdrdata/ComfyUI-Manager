@@ -325,6 +325,16 @@ def update_node(node_name, is_all=False, cnt_msg=''):
         print(f"ERROR: An error occurred while uninstalling '{node_name}'.")
 
 
+def update_comfyui():
+    res = core.update_path(comfy_path, instant_execution=True)
+    if res == 'fail':
+        print("Updating ComfyUI has failed.")
+    elif res == 'updated':
+        print("ComfyUI is updated.")
+    else:
+        print("ComfyUI is already up to date.")
+
+
 def enable_node(node_name, is_all=False, cnt_msg=''):
     if node_name == 'ComfyUI-Manager':
         return
@@ -401,9 +411,9 @@ def show_snapshot(simple_mode=False):
 
 
 def show_snapshot_list(simple_mode=False):
-    path = os.path.join(comfyui_manager_path, 'snapshots')
+    snapshot_path = os.path.join(comfyui_manager_path, 'snapshots')
 
-    files = os.listdir(path)
+    files = os.listdir(snapshot_path)
     json_files = [x for x in files if x.endswith('.json')]
     for x in sorted(json_files):
         print(x)
@@ -423,7 +433,9 @@ def for_each_nodes(act, allow_all=True):
     is_all = False
     if allow_all and 'all' in nodes:
         is_all = True
-        nodes = [x for x in custom_node_map.keys() if os.path.exists(os.path.join(custom_nodes_path, x)) or os.path.exists(os.path.join(custom_nodes_path, x)+'.disabled')]
+        nodes = [x for x in custom_node_map.keys() if os.path.exists(os.path.join(custom_nodes_path, x)) or os.path.exists(os.path.join(custom_nodes_path, x) + '.disabled')]
+
+    nodes = [x for x in nodes if x.lower() not in ['comfy', 'comfyui', 'all']]
 
     total = len(nodes)
     i = 1
@@ -433,7 +445,7 @@ def for_each_nodes(act, allow_all=True):
         except Exception as e:
             print(f"ERROR: {e}")
             traceback.print_exc()
-        i+=1
+        i += 1
 
 
 op = sys.argv[1]
@@ -449,6 +461,11 @@ elif op == 'uninstall':
     for_each_nodes(uninstall_node)
 
 elif op == 'update':
+    for x in nodes:
+        if x.lower() in ['comfyui', 'comfy', 'all']:
+            update_comfyui()
+            break
+
     for_each_nodes(update_node, allow_all=True)
 
 elif op == 'disable':

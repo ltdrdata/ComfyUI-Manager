@@ -21,7 +21,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 22, 2]
+version = [2, 22, 3]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -808,6 +808,51 @@ def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefi
         print("Update was successful.")
     return True
 
+
+def update_path(repo_path, instant_execution=False):
+    if not os.path.exists(os.path.join(repo_path, '.git')):
+        return "fail"
+
+    # version check
+    repo = git.Repo(repo_path)
+
+    if repo.head.is_detached:
+        switch_to_default_branch(repo)
+
+    current_branch = repo.active_branch
+    branch_name = current_branch.name
+
+    if current_branch.tracking_branch() is None:
+        print(f"[ComfyUI-Manager] There is no tracking branch ({current_branch})")
+        remote_name = 'origin'
+    else:
+        remote_name = current_branch.tracking_branch().remote_name
+    remote = repo.remote(name=remote_name)
+
+    try:
+        remote.fetch()
+    except Exception as e:
+        if 'detected dubious' in str(e):
+            print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
+            safedir_path = comfy_path.replace('\\', '/')
+            subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', safedir_path])
+            try:
+                remote.fetch()
+            except Exception:
+                print(f"\n[ComfyUI-Manager] Failed to fixing repository setup. Please execute this command on cmd: \n"
+                      f"-----------------------------------------------------------------------------------------\n"
+                      f'git config --global --add safe.directory "{safedir_path}"\n'
+                      f"-----------------------------------------------------------------------------------------\n")
+
+    commit_hash = repo.head.commit.hexsha
+    remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+
+    if commit_hash != remote_commit_hash:
+        git_pull(repo_path)
+        execute_install_script("ComfyUI", repo_path, instant_execution=instant_execution)
+        return "updated"
+    else:
+        return "skipped"
 
 def lookup_customnode_by_url(data, target):
     for x in data['custom_nodes']:

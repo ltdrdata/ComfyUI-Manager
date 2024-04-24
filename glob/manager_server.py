@@ -862,50 +862,13 @@ async def update_comfyui(request):
 
     try:
         repo_path = os.path.dirname(folder_paths.__file__)
-
-        if not os.path.exists(os.path.join(repo_path, '.git')):
+        res = core.update_path(repo_path)
+        if res == "fail":
             print(f"ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
             return web.Response(status=400)
-
-        # version check
-        repo = git.Repo(repo_path)
-
-        if repo.head.is_detached:
-            core.switch_to_default_branch(repo)
-
-        current_branch = repo.active_branch
-        branch_name = current_branch.name
-
-        if current_branch.tracking_branch() is None:
-            print(f"[ComfyUI-Manager] There is no tracking branch ({current_branch})")
-            remote_name = 'origin'
-        else:
-            remote_name = current_branch.tracking_branch().remote_name
-        remote = repo.remote(name=remote_name)
-
-        try:
-            remote.fetch()
-        except Exception as e:
-            if 'detected dubious' in str(e):
-                print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
-                safedir_path = core.comfy_path.replace('\\', '/')
-                subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', safedir_path])
-                try:
-                    remote.fetch()
-                except Exception:
-                    print(f"\n[ComfyUI-Manager] Failed to fixing repository setup. Please execute this command on cmd: \n"
-                          f"-----------------------------------------------------------------------------------------\n"
-                          f'git config --global --add safe.directory "{safedir_path}"\n'
-                          f"-----------------------------------------------------------------------------------------\n")
-
-        commit_hash = repo.head.commit.hexsha
-        remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
-
-        if commit_hash != remote_commit_hash:
-            core.git_pull(repo_path)
-            core.execute_install_script("ComfyUI", repo_path)
+        elif res == "updated":
             return web.Response(status=201)
-        else:
+        else:  # skipped
             return web.Response(status=200)
     except Exception as e:
         print(f"ComfyUI update fail: {e}", file=sys.stderr)
