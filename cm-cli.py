@@ -108,10 +108,11 @@ def restore_dependencies():
 def restore_snapshot(snapshot_name):
     global processed_install
 
-    snapshot_path = os.path.join(core.comfyui_manager_path, 'snapshots', snapshot_name)
-    if not os.path.exists(snapshot_path):
-        print(f"ERROR: `{snapshot_path}` is not exists.")
-        exit(-1)
+    if not os.path.exists(snapshot_name):
+        snapshot_path = os.path.join(core.comfyui_manager_path, 'snapshots', snapshot_name)
+        if not os.path.exists(snapshot_path):
+            print(f"ERROR: `{snapshot_path}` is not exists.")
+            exit(-1)
 
     try:
         cloned_repos = []
@@ -419,6 +420,38 @@ def show_list(kind, simple=False):
                 print(f"{k:50}")
             else:
                 print(f"{prefix} {k:50}(author: {v['author']})")
+
+    # unregistered nodes
+    candidates = os.listdir(os.path.realpath(custom_nodes_path))
+
+    for k in candidates:
+        fullpath = os.path.join(custom_nodes_path, k)
+
+        if os.path.isfile(fullpath):
+            continue
+
+        if k in ['__pycache__']:
+            continue
+
+        states = set()
+        if k.endswith('.disabled'):
+            prefix = '[    DISABLED   ] '
+            states.add('installed')
+            states.add('disabled')
+            states.add('all')
+            k = k[:-9]
+        else:
+            prefix = '[    ENABLED    ] '
+            states.add('installed')
+            states.add('enabled')
+            states.add('all')
+
+        if k not in custom_node_map:
+            if kind in states:
+                if simple:
+                    print(f"{k:50}")
+                else:
+                    print(f"{prefix} {k:50}(author: N/A)")
 
 
 def show_snapshot(simple_mode=False):
