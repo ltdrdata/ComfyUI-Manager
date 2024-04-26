@@ -625,13 +625,13 @@
     ],
     "https://github.com/Big-Idea-Technology/ComfyUI-Book-Tools": [
         [
+            "BTPromptSchedule",
+            "BTPromptSelector",
             "EndQueue",
             "ImageTextOverlay",
             "Loop",
             "LoopEnd",
-            "LoopStart",
-            "PromptSchedule",
-            "PromptSelector"
+            "LoopStart"
         ],
         {
             "title_aux": "ComfyUI-Book-Tools Nodes for ComfyUI"
@@ -948,6 +948,17 @@
             "title_aux": "ComfyUI Checkpoint Automatic Config"
         }
     ],
+    "https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes": [
+        [],
+        {
+            "author": "Derfuu",
+            "description": "Pack of simple (or not) and modded nodes for scaling images/latents, editing numbers or text. Automate calculations depending on image sizes or any other thing you want. Or randomize any number in your workflow. Debug node included.",
+            "nickname": "Derfuu simple/modded Nodes",
+            "nodename_pattern": "^DF_",
+            "title": "Derfuu simple/modded Nodes",
+            "title_aux": "Derfuu_ComfyUI_ModdedNodes"
+        }
+    ],
     "https://github.com/DonBaronFactory/ComfyUI-Cre8it-Nodes": [
         [
             "ApplySerialPrompter",
@@ -1089,9 +1100,11 @@
     ],
     "https://github.com/Extraltodeus/sigmas_tools_and_the_golden_scheduler": [
         [
+            "Aligned Scheduler",
             "Get sigmas as float",
             "Graph sigmas",
             "Manual scheduler",
+            "Merge many sigmas by average",
             "Merge sigmas by average",
             "Merge sigmas gradually",
             "Multiply sigmas",
@@ -2496,6 +2509,7 @@
             "PhotomontageA",
             "PhotomontageB",
             "PhotomontageC",
+            "PostSamplerCrop",
             "SDXLEmptyLatent",
             "SaveWithMetaData",
             "SimplePrompts",
@@ -3803,6 +3817,22 @@
             "title_aux": "tri3d-comfyui-nodes"
         }
     ],
+    "https://github.com/TaiTair/comfyui-simswap": [
+        [
+            "Simswap",
+            "SimswapBuildFaceModel",
+            "SimswapFaceSwapOpt",
+            "SimswapImageDublicator",
+            "SimswapLoadFaceModel",
+            "SimswapMaskHelper",
+            "SimswapOptions",
+            "SimswapRestoreFace",
+            "SimswapSaveFaceModel"
+        ],
+        {
+            "title_aux": "Simswap Node for ComfyUI"
+        }
+    ],
     "https://github.com/Taremin/comfyui-prompt-extranetworks": [
         [
             "PromptExtraNetworks"
@@ -3826,9 +3856,11 @@
     "https://github.com/TeaCrab/ComfyUI-TeaNodes": [
         [
             "TC_ColorFill",
+            "TC_CropTo",
             "TC_EqualizeCLAHE",
             "TC_ImageResize",
             "TC_ImageScale",
+            "TC_KorniaGamma",
             "TC_RandomColorFill",
             "TC_SizeApproximation"
         ],
@@ -6824,10 +6856,12 @@
             "JDCN_AnyFileListRandom",
             "JDCN_AnyFileSelector",
             "JDCN_BatchCounter",
+            "JDCN_BatchImageLoadFromDir",
             "JDCN_BatchImageLoadFromList",
             "JDCN_BatchLatentLoadFromDir",
             "JDCN_BatchLatentLoadFromList",
             "JDCN_BatchSaveLatent",
+            "JDCN_CaptionVisualizer",
             "JDCN_FileMover",
             "JDCN_ImageSaver",
             "JDCN_ListToString",
@@ -7415,6 +7449,14 @@
             "title_aux": "As_ComfyUI_CustomNodes"
         }
     ],
+    "https://github.com/fofr/ComfyUI-HyperSDXL1StepUnetScheduler": [
+        [
+            "HyperSDXL1StepUnetScheduler"
+        ],
+        {
+            "title_aux": "Simswap Node for ComfyUI (ByteDance)"
+        }
+    ],
     "https://github.com/forever22777/comfyui-self-guidance": [
         [
             "CLIPConditioning",
@@ -7476,6 +7518,7 @@
     ],
     "https://github.com/frankchieng/ComfyUI_MagicClothing": [
         [
+            "MagicClothing_Animatediff",
             "MagicClothing_Generate"
         ],
         {
@@ -8170,6 +8213,20 @@
             "title_aux": "Various ComfyUI Nodes by Type"
         }
     ],
+    "https://github.com/jeffy5/comfyui-faceless-node": [
+        [
+            "FacelessFaceRestore",
+            "FacelessFaceSwap",
+            "FacelessLoadFrames",
+            "FacelessLoadVideo",
+            "FacelessSaveVideo",
+            "FacelessVideoFaceRestore",
+            "FacelessVideoFaceSwap"
+        ],
+        {
+            "title_aux": "comfyui-fb-utils"
+        }
+    ],
     "https://github.com/jesenzhang/ComfyUI_StreamDiffusion": [
         [
             "StreamDiffusion_Loader",
@@ -8400,6 +8457,14 @@
         ],
         {
             "title_aux": "ComfyUI Load and Save file to S3"
+        }
+    ],
+    "https://github.com/kealiu/ComfyUI-ZeroShot-MTrans": [
+        [
+            "ZeST: Grayout Subject"
+        ],
+        {
+            "title_aux": "ComfyUI-ZeroShot-MTrans"
         }
     ],
     "https://github.com/kenjiqq/qq-nodes-comfyui": [
@@ -10607,6 +10672,7 @@
             "BLIPCaption",
             "BLIPLoader",
             "BooleanPrimitive",
+            "CheckpointNameSelector",
             "ColorBlend",
             "ColorCorrect",
             "DeepDanbooruCaption",
@@ -10776,6 +10842,7 @@
             "LatentStats",
             "NormalMapSimple",
             "OffsetLatentImage",
+            "PrintSigmas",
             "RelightSimple",
             "RemapRange",
             "ShuffleChannels",
@@ -10919,7 +10986,8 @@
     ],
     "https://github.com/sugarkwork/comfyui_tag_fillter": [
         [
-            "TagFilter"
+            "TagFilter",
+            "TagRemover"
         ],
         {
             "title_aux": "comfyui_tag_filter"
@@ -11650,6 +11718,7 @@
             "easy boolean",
             "easy cascadeKSampler",
             "easy cascadeLoader",
+            "easy ckptNames",
             "easy cleanGpuUsed",
             "easy clearCacheAll",
             "easy clearCacheKey",
@@ -11657,6 +11726,7 @@
             "easy compare",
             "easy controlnetLoader",
             "easy controlnetLoaderADV",
+            "easy controlnetNames",
             "easy convertAnything",
             "easy detailerFix",
             "easy dynamiCrafterLoader",
@@ -11671,6 +11741,7 @@
             "easy if",
             "easy imageChooser",
             "easy imageColorMatch",
+            "easy imageCount",
             "easy imageInsetCrop",
             "easy imageInterrogator",
             "easy imagePixelPerfect",
@@ -11687,6 +11758,7 @@
             "easy imageSwitch",
             "easy imageToBase64",
             "easy imageToMask",
+            "easy imagesSplitImage",
             "easy injectNoiseToLatent",
             "easy instantIDApply",
             "easy instantIDApplyADV",
@@ -11744,9 +11816,11 @@
             "easy showTensorShape",
             "easy stableDiffusion3API",
             "easy string",
+            "easy styleAlignedBatchAlign",
             "easy stylesSelector",
             "easy sv3dLoader",
             "easy svdLoader",
+            "easy textSwitch",
             "easy ultralyticsDetectorPipe",
             "easy unSampler",
             "easy wildcards",
@@ -11966,6 +12040,7 @@
         [
             "ConcatText",
             "ImageBatchOneOrMore",
+            "ImageConcanate",
             "IntAndIntAddOffsetLiteral",
             "LoadImageWithSwitch",
             "ModifyTextGender"
