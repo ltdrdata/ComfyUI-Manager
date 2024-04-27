@@ -115,8 +115,8 @@ ComfyUI-Loopchain
 ### 4. Snapshot Management
 * `python cm-cli.py save-snapshot`: Saves the current snapshot.
 * `python cm-cli.py restore-snapshot <snapshot>`: Restores to the specified snapshot.
-    * It is assumed that the snapshot files are located in ComfyUI-Manager/snapshots.
-    (An update is planned to allow files from other paths in the future.)
+  * If a file exists at the snapshot path, it loads that snapshot.
+  * If no file exists at the snapshot path, it implicitly assumes the snapshot is located in ComfyUI-Manager/snapshots.
 
 ### 5. CLI Only Mode
 

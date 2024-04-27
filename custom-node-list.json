@@ -266,6 +266,7 @@
             "author": "Derfuu",
             "title": "Derfuu_ComfyUI_ModdedNodes",
             "reference": "https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes",
+            "nodename_pattern": "^DF_",
             "files": [
                 "https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes"
             ],
@@ -4868,6 +4869,16 @@
             "description": "Nodes:VideoLaVITLoader, VideoLaVITT2V, VideoLaVITI2V, VideoLaVITI2VLong, VideoLaVITT2VLong, VideoLaVITI2I"
         },
         {
+            "author": "chaojie",
+            "title": "ComfyUI-SimDA",
+            "reference": "https://github.com/chaojie/ComfyUI-SimDA",
+            "files": [
+                "https://github.com/chaojie/ComfyUI-SimDA"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:SimDATrain, SimDALoader, SimDARun, VHS_FILENAMES_STRING_SimDA"
+        },
+        {
             "author": "alexopus",
             "title": "ComfyUI Image Saver",
             "reference": "https://github.com/alexopus/ComfyUI-Image-Saver",
@@ -5298,6 +5309,16 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:Extract Features With Unet, Additional Features With Attention"
+        },
+        {
+            "author": "longgui0318",
+            "title": "comfyui-magic-clothing",
+            "reference": "https://github.com/longgui0318/comfyui-magic-clothing",
+            "files": [
+                "https://github.com/longgui0318/comfyui-magic-clothing"
+            ],
+            "install_type": "git-clone",
+            "description": "The comfyui supported version of the [a/Magic Clothing](https://github.com/ShineChen1024/MagicClothing) project, not the diffusers version, allows direct integration with modules such as ipadapter"
         },
         {
             "author": "DimaChaichan",
@@ -6690,6 +6711,16 @@
             "description": "Jerry Davos Custom Nodes for Saving Latents in Directory (BatchLatentSave) , Importing Latent from directory (BatchLatentLoadFromDir) , List to string, string to list, get any file list from directory which give filepath, filename, move any files from any directory to any other directory, VHS Video combine file mover, rebatch list of strings, batch image load from any dir, load image batch from any directory and other custom nodes."
         },
         {
+            "author": "daxcay",
+            "title": "ComfyUI-DRMN",
+            "reference": "https://github.com/daxcay/ComfyUI-DRMN",
+            "files": [
+                "https://github.com/daxcay/ComfyUI-DRMN"
+            ],
+            "install_type": "git-clone",
+            "description": "Data Research And Manipulators Nodes for Model Trainers, Artists, Designers and Animators. Captions, Visualizer, Text Manipulator"
+        },
+        {
             "author": "Seedsa",
             "title": "ComfyUI Fooocus Nodes",
             "reference": "https://github.com/Seedsa/Fooocus_Nodes",
@@ -6851,13 +6882,13 @@
         },
         {
             "author": "shinich39",
-            "title": "comfyui-text-pipe-39",
-            "reference": "https://github.com/shinich39/comfyui-text-pipe-39",
+            "title": "comfyui-local-db",
+            "reference": "https://github.com/shinich39/comfyui-local-db",
             "files": [
-                "https://github.com/shinich39/comfyui-text-pipe-39"
+                "https://github.com/shinich39/comfyui-local-db"
             ],
             "install_type": "git-clone",
-            "description": "Modify text by condition."
+            "description": "Store text to Key-Values pair json."
         },
         {
             "author": "wei30172",
@@ -7250,14 +7281,14 @@
             "description": "SDFXBridgeForComfyUI is a custom node designed for seamless integration between ComfyUI and SDFX. This custom node allows users to make ComfyUI compatible with SDFX when running the ComfyUI instance on their local machines."
         },
         {
-           "author": "smthemex",
-           "title": "ComfyUI_ChatGLM_API",
-           "reference": "https://github.com/smthemex/ComfyUI_ChatGLM_API",
-           "files": [
-               "https://github.com/smthemex/ComfyUI_ChatGLM_API"
-           ],
-           "install_type": "git-clone",
-           "description": "You can call Chatglm's API in comfyUI to translate and describe pictures, and the API similar to OpenAI."
+            "author": "smthemex",
+            "title": "ComfyUI_ChatGLM_API",
+            "reference": "https://github.com/smthemex/ComfyUI_ChatGLM_API",
+            "files": [
+                "https://github.com/smthemex/ComfyUI_ChatGLM_API"
+            ],
+            "install_type": "git-clone",
+            "description": "You can call Chatglm's API in comfyUI to translate and describe pictures, and the API similar to OpenAI."
         },
         {
             "author": "smthemex",
@@ -7267,17 +7298,7 @@
                 "https://github.com/smthemex/ComfyUI_ParlerTTS"
             ],
             "install_type": "git-clone",
-            "description": "This is a simple ComfyUI custom TTS node based on [a/Parler_tts](https://huggingface.co/parler-tts)."
-        },
-        {
-            "author": "smthemex",
-            "title": "ComfyUI_Pic2Story",
-            "reference": "https://github.com/smthemex/ComfyUI_Pic2Story",
-            "files": [
-                "https://github.com/smthemex/ComfyUI_Pic2Story"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI simple node based on BLIP method, with the function of 'Image to Txt'."
+            "description": "You can call the ParlerTTS tool in comfyUI, which currently only supports English."
         },
         {
             "author": "smthemex",
@@ -7297,7 +7318,7 @@
                 "https://github.com/smthemex/ComfyUI_Pipeline_Tool"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:Pipeline_Tool"
+            "description": "A tool for novice users in Chinese Mainland to call the huggingface hub and download the huggingface models."
         },
         {
            "author": "choey",
@@ -7490,6 +7511,16 @@
             "description": "Nodes:Load From S3, Save To S3."
         },
         {
+            "author": "kealiu",
+            "title": "ComfyUI-ZeroShot-MTrans",
+            "reference": "https://github.com/kealiu/ComfyUI-ZeroShot-MTrans",
+            "files": [
+                "https://github.com/kealiu/ComfyUI-ZeroShot-MTrans"
+            ],
+            "install_type": "git-clone",
+            "description": "An unofficial ComfyUI custom node for [a/Zero-Shot Material Transfer from a Single Image](https://ttchengab.github.io/zest), Given an input image (e.g., a photo of an apple) and a single material exemplar image (e.g., a golden bowl), ZeST can transfer the gold material from the exemplar onto the apple with accurate lighting cues while making everything else consistent."
+        },
+        {
             "author": "TashaSkyUp",
             "title": "ComfyUI_LiteLLM",
             "reference": "https://github.com/Hopping-Mad-Games/ComfyUI_LiteLLM",
@@ -7507,7 +7538,7 @@
                 "https://github.com/AonekoSS/ComfyUI-SimpleCounter"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:Simple Counter"
+            "description": "Node: utils/Simple Counter\nThis node is a simple counter, when pressing 'Queue Prompt' resets the count."
         },
         {
             "author": "heshengtao",
@@ -7619,6 +7650,77 @@
             "install_type": "git-clone",
             "description": "Execution Time Analysis, Reroute Enhancement, Node collection for developers."
         },
+        {
+            "author": "huchenlei",
+            "title": "ComfyUI-openpose-editor",
+            "reference": "https://github.com/huchenlei/ComfyUI-openpose-editor",
+            "files": [
+                "https://github.com/huchenlei/ComfyUI-openpose-editor"
+            ],
+            "install_type": "git-clone",
+            "description": "Port of [a/https://github.com/huchenlei/sd-webui-openpose-editor](https://github.com/huchenlei/sd-webui-openpose-editor) in ComfyUI"
+        },
+        {
+            "author": "lquesada",
+            "title": "ComfyUI-Prompt-Combinator",
+            "reference": "https://github.com/lquesada/ComfyUI-Prompt-Combinator",
+            "files": [
+                "https://github.com/lquesada/ComfyUI-Prompt-Combinator"
+            ],
+            "install_type": "git-clone",
+            "description": "'🔢 Prompt Combinator' is a node that generates all possible combinations of prompts from several lists of strings."
+        },
+        {
+            "author": "randjtw",
+            "title": "advance-aesthetic-score",
+            "reference": "https://github.com/randjtw/advance-aesthetic-score",
+            "files": [
+                "https://github.com/randjtw/advance-aesthetic-score"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Advance Aesthetic Score"
+        },
+        {
+            "author": "FredBill1",
+            "title": "comfyui-fb-utils",
+            "reference": "https://github.com/FredBill1/comfyui-fb-utils",
+            "files": [
+                "https://github.com/FredBill1/comfyui-fb-utils"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:FBStringJoin, FBStringSplit, FBMultilineStringList, FBMultilineString"
+        },
+        {
+            "author": "jeffy5",
+            "title": "comfyui-fb-utils",
+            "reference": "https://github.com/jeffy5/comfyui-faceless-node",
+            "files": [
+                "https://github.com/jeffy5/comfyui-faceless-node"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Load Video, Load Frames, Save Video, Face Swap, Face Restore, Face Swap (Video), Face Restore (Video)"
+        },
+        {
+            "author": "TaiTair",
+            "title": "Simswap Node for ComfyUI",
+            "reference": "https://github.com/TaiTair/comfyui-simswap",
+            "files": [
+                "https://github.com/TaiTair/comfyui-simswap"
+            ],
+            "install_type": "git-clone",
+            "description": "A hacky implementation of Simswap based on [a/Comfyui ReActor Node 0.5.1](https://github.com/Gourieff/comfyui-reactor-node) and [a/Simswap](https://github.com/neuralchen/SimSwap)."
+        },
+        {
+            "author": "fofr",
+            "title": "Simswap Node for ComfyUI (ByteDance)",
+            "reference": "https://github.com/fofr/ComfyUI-HyperSDXL1StepUnetScheduler",
+            "files": [
+                "https://github.com/fofr/ComfyUI-HyperSDXL1StepUnetScheduler"
+            ],
+            "install_type": "git-clone",
+            "description": "Original author is ByteDance.\nComfyUI sampler for HyperSDXL UNet\nPorted from: [a/https://huggingface.co/ByteDance/Hyper-SD](https://huggingface.co/ByteDance/Hyper-SD)"
+        },
+        
         
         
         

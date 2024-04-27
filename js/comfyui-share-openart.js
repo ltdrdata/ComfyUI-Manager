@@ -481,10 +481,6 @@ export class OpenArtShareDialog extends ComfyDialog {
         if (this.uploadImagesInput.files.length === 0) {
           throw new Error("No thumbnail uploaded");
         }
-
-        if (this.uploadImagesInput.files.length === 0) {
-          throw new Error("No thumbnail uploaded");
-        }
       }
     }
 

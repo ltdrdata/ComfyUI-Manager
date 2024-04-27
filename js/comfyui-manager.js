@@ -925,7 +925,7 @@ class ManagerMenuDialog extends ComfyDialog {
 		});
 
 		let dbl_click_policy_combo = document.createElement("select");
-		dbl_click_policy_combo.setAttribute("title", "When loading the workflow, configure which version of the component to use.");
+		dbl_click_policy_combo.setAttribute("title", "Sets the behavior when you double-click the title area of a node.");
 		dbl_click_policy_combo.className = "cm-menu-combo";
 		dbl_click_policy_combo.appendChild($el('option', { value: 'none', text: 'Double-Click: None' }, []));
 		dbl_click_policy_combo.appendChild($el('option', { value: 'copy-all', text: 'Double-Click: Copy All Connections' }, []));

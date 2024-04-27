@@ -88,6 +88,11 @@ def scan_in_file(filename, is_builtin=False):
     for key in keys:
         nodes.add(key.strip())
 
+    pattern4 = r'@register_node\("(.+)",\s*\".+"\)'
+    keys = re.findall(pattern4, code)
+    for key in keys:
+        nodes.add(key.strip())
+
     matches = regex.findall(code)
     for match in matches:
         dict_text = match

@@ -117,8 +117,8 @@ ComfyUI-Loopchain
 ### 4. 스냅샷 관리 기능
 * `python cm-cli.py save-snapshot`: 현재의 snapshot을 저장합니다.
 * `python cm-cli.py restore-snapshot <snapshot>`: 지정된 snapshot으로 복구합니다.
-    * snapshot 파일은 ComfyUI-Manager/snapshots 에 있다고 가정합니다.
-    (추후 다른 경로에 있는 파일을 허용 가능하도록 업데이트 예정입니다.)
+  * snapshot 경로에 파일이 존재하는 경우 해당 snapshot을 로드합니다.
+  * snapshot 경로에 파일이 존재하지 않는 경우 묵시적으로, ComfyUI-Manager/snapshots 에 있다고 가정합니다.
 
 
 ### 5. CLI only mode
