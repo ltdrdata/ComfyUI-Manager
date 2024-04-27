@@ -4,6 +4,7 @@ import git
 import configparser
 import re
 import json
+import yaml
 from torchvision.datasets.utils import download_url
 from tqdm.auto import tqdm
 from git.remote import RemoteProgress
@@ -278,8 +279,21 @@ def apply_snapshot(target):
     try:
         path = os.path.join(os.path.dirname(__file__), 'snapshots', f"{target}")
         if os.path.exists(path):
-            with open(path, 'r', encoding="UTF-8") as json_file:
-                info = json.load(json_file)
+            if not target.endswith('.json') and not target.endswith('.yaml'):
+                print(f"Snapshot file not found: `{path}`")
+                print("APPLY SNAPSHOT: False")
+                return
+
+            with open(path, 'r', encoding="UTF-8") as snapshot_file:
+                if target.endswith('.json'):
+                    info = json.load(snapshot_file)
+                elif target.endswith('.yaml'):
+                    info = yaml.load(snapshot_file, Loader=yaml.SafeLoader)
+                    info = info['custom_nodes']
+                else:
+                    # impossible case
+                    print("APPLY SNAPSHOT: False")
+                    return
 
                 comfyui_hash = info['comfyui']
                 git_custom_node_infos = info['git_custom_nodes']

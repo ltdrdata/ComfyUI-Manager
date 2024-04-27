@@ -14,6 +14,7 @@ import aiohttp
 import threading
 import json
 import time
+import yaml
 
 glob_path = os.path.join(os.path.dirname(__file__))  # ComfyUI-Manager/glob
 sys.path.append(glob_path)
@@ -21,7 +22,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 23, 1]
+version = [2, 24]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -982,15 +983,29 @@ def get_current_snapshot():
     }
 
 
-def save_snapshot_with_postfix(postfix):
-    now = datetime.now()
+def save_snapshot_with_postfix(postfix, path=None):
+    if path is None:
+        now = datetime.now()
 
-    date_time_format = now.strftime("%Y-%m-%d_%H-%M-%S")
-    file_name = f"{date_time_format}_{postfix}"
+        date_time_format = now.strftime("%Y-%m-%d_%H-%M-%S")
+        file_name = f"{date_time_format}_{postfix}"
 
-    path = os.path.join(comfyui_manager_path, 'snapshots', f"{file_name}.json")
-    with open(path, "w") as json_file:
-        json.dump(get_current_snapshot(), json_file, indent=4)
+        path = os.path.join(comfyui_manager_path, 'snapshots', f"{file_name}.json")
+    else:
+        file_name = path.replace('\\', '/').split('/')[-1]
+        file_name = file_name.split('.')[-2]
 
-    return file_name+'.json'
+    snapshot = get_current_snapshot()
+    if path.endswith('.json'):
+        with open(path, "w") as json_file:
+            json.dump(snapshot, json_file, indent=4)
+
+        return file_name + '.json'
+
+    elif path.endswith('.yaml'):
+        with open(path, "w") as yaml_file:
+            snapshot = {'custom_nodes': snapshot}
+            yaml.dump(snapshot, yaml_file, allow_unicode=True)
+
+        return path
 

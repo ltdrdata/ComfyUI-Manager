@@ -108,7 +108,9 @@ def restore_dependencies():
 def restore_snapshot(snapshot_name):
     global processed_install
 
-    if not os.path.exists(snapshot_name):
+    if os.path.exists(snapshot_name):
+        snapshot_path = os.path.abspath(snapshot_name)
+    else:
         snapshot_path = os.path.join(core.comfyui_manager_path, 'snapshots', snapshot_name)
         if not os.path.exists(snapshot_path):
             print(f"ERROR: `{snapshot_path}` is not exists.")
@@ -486,6 +488,15 @@ def cancel():
         os.remove(restore_snapshot_path)
 
 
+def save_snapshot():
+    output_path = None
+    for i in range(len(sys.argv)):
+        if sys.argv[i] == '--output':
+            if len(sys.argv) >= i:
+                output_path = sys.argv[i+1]
+
+    return core.save_snapshot_with_postfix('snapshot', output_path)
+
 def for_each_nodes(act, allow_all=True):
     global nodes
 
@@ -566,7 +577,7 @@ elif op == 'cli-only-mode':
         print(f"\ninvalid value for cli-only-mode: {sys.argv[2]}\n")
 
 elif op == 'save-snapshot':
-    path = core.save_snapshot_with_postfix('snapshot')
+    path = save_snapshot()
     print(f"Current snapshot is saved as `{path}`")
 
 elif op == 'restore-snapshot':
