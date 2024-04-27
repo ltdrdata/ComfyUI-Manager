@@ -23,8 +23,8 @@ if not (len(sys.argv) == 2 and sys.argv[1] in ['save-snapshot', 'restore-depende
           f"    [install|reinstall|uninstall|update|disable|enable|fix] node_name ... ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
           f"    [update|disable|enable|fix] all ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
           f"    [simple-show|show] [installed|enabled|not-installed|disabled|all|snapshot|snapshot-list] ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
-          f"    save-snapshot\n"
-          f"    restore-snapshot <snapshot>\n"
+          f"    save-snapshot ?[--output <snapshot .json/.yaml>]\n"
+          f"    restore-snapshot <snapshot .json/.yaml>\n"
           f"    cli-only-mode [enable|disable]\n"
           f"    restore-dependencies\n"
           f"    clear\n")
