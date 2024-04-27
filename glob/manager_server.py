@@ -1081,7 +1081,10 @@ def restart(self):
         exit(0)
 
     print(f"\nRestarting... [Legacy Mode]\n\n")
-    return os.execv(sys.executable, [sys.executable] + sys.argv)
+    if sys.platform.startswith('win32'):
+        return os.execv(sys.executable, ['"' + sys.executable + '"', '"' + sys.argv[0] + '"'] + sys.argv[1:])
+    else:
+        return os.execv(sys.executable, [sys.executable] + sys.argv)
 
 
 def sanitize_filename(input_string):
