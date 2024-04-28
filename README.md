@@ -324,7 +324,7 @@ When you run the `scan.sh` script:
 * https://github.com/StartHua/Comfyui_GPT_Story
 * https://github.com/NielsGercama/comfyui_customsampling
 * https://github.com/wrightdaniel2017/ComfyUI-VideoLipSync
-
+* https://github.com/bxdsjs/ComfyUI-Image-preprocessing
 
 ## Roadmap
 
