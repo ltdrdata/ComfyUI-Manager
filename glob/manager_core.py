@@ -22,7 +22,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 24]
+version = [2, 24, 1]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))

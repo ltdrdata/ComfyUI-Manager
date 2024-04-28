@@ -1074,7 +1074,7 @@ def restart(self):
         pass
 
     if '__COMFY_CLI_SESSION__' in os.environ:
-        with open(os.path.join(os.environ['__COMFY_CLI_SESSION__'], '.reboot'), 'w') as file:
+        with open(os.path.join(os.environ['__COMFY_CLI_SESSION__'] + '.reboot'), 'w') as file:
             pass
 
         print(f"\nRestarting...\n\n")
