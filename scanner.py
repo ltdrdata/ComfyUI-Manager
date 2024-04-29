@@ -306,12 +306,8 @@ def update_custom_nodes():
 
             json.dump(github_stats, file, ensure_ascii=False, indent=4)
 
-        print(f"Successfully written to {GITHUB_STATS_FILENAME}, removing {GITHUB_STATS_CACHE_FILENAME}.")
-        # try:
-        #     os.remove(GITHUB_STATS_CACHE_FILENAME)  # This cache file is just for avoiding failure of GitHub API fetch, so it is safe to remove.
-        # except:
-        #     pass
-
+        print(f"Successfully written to {GITHUB_STATS_FILENAME}.")
+        
     with concurrent.futures.ThreadPoolExecutor(11) as executor:
         if not skip_stat_update:
             executor.submit(process_git_stats, git_url_titles_preemptions)  # One single thread for `process_git_stats()`. Runs concurrently with `process_git_url_title()`.

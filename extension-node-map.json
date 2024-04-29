@@ -1540,6 +1540,7 @@
             "ReActorFaceSwapOpt",
             "ReActorImageDublicator",
             "ReActorLoadFaceModel",
+            "ReActorMakeFaceModelBatch",
             "ReActorMaskHelper",
             "ReActorOptions",
             "ReActorRestoreFace",
@@ -3936,6 +3937,7 @@
     ],
     "https://github.com/TinyTerra/ComfyUI_tinyterraNodes": [
         [
+            "ttN advanced xyPlot",
             "ttN busIN",
             "ttN busOUT",
             "ttN compareInput",
@@ -3954,9 +3956,14 @@
             "ttN pipeIN",
             "ttN pipeKSampler",
             "ttN pipeKSamplerAdvanced",
+            "ttN pipeKSamplerAdvanced_v2",
             "ttN pipeKSamplerSDXL",
+            "ttN pipeKSamplerSDXL_v2",
+            "ttN pipeKSampler_v2",
             "ttN pipeLoader",
             "ttN pipeLoaderSDXL",
+            "ttN pipeLoaderSDXL_v2",
+            "ttN pipeLoader_v2",
             "ttN pipeLoraStack",
             "ttN pipeOUT",
             "ttN seed",
@@ -6175,6 +6182,7 @@
             "LayerUtility: CropByMask",
             "LayerUtility: CropByMask V2",
             "LayerUtility: ExtendCanvas",
+            "LayerUtility: ExtendCanvasV2",
             "LayerUtility: GetColorTone",
             "LayerUtility: GetColorToneV2",
             "LayerUtility: GetImageSize",
@@ -6433,6 +6441,7 @@
             "BasicGuider",
             "BasicScheduler",
             "CFGGuider",
+            "CLIPAttentionMultiply",
             "CLIPLoader",
             "CLIPMergeAdd",
             "CLIPMergeSimple",
@@ -6587,6 +6596,9 @@
             "ThresholdMask",
             "TomePatchModel",
             "UNETLoader",
+            "UNetCrossAttentionMultiply",
+            "UNetSelfAttentionMultiply",
+            "UNetTemporalAttentionMultiply",
             "UpscaleModelLoader",
             "VAEDecode",
             "VAEDecodeTiled",
@@ -6901,7 +6913,7 @@
         [
             "MarasitAnyBusNode",
             "MarasitDisplayInfoNode",
-            "MarasitUpscalerGridNode"
+            "MarasitUpscalerRefinerNode"
         ],
         {
             "title_aux": "\ud83d\udc30 MarasIT Nodes"
@@ -7414,11 +7426,15 @@
             "FL_AudioPreview",
             "FL_CodeNode",
             "FL_DirectoryCrawl",
+            "FL_Glitch",
+            "FL_HexagonalPattern",
             "FL_ImageCaptionSaver",
             "FL_ImageDimensionDisplay",
             "FL_ImageDurationSync",
             "FL_ImagePixelator",
-            "FL_ImageRandomizer"
+            "FL_ImageRandomizer",
+            "FL_PixelSort",
+            "FL_Ripple"
         ],
         {
             "title_aux": "ComfyUI_Fill-Nodes"
@@ -8731,6 +8747,7 @@
             "FlipSigmasAdjusted",
             "FloatConstant",
             "FloatToMask",
+            "FloatToSigmas",
             "GLIGENTextBoxApplyBatch",
             "GenerateNoise",
             "GetImageRangeFromBatch",
@@ -9351,6 +9368,7 @@
             "ImpactSEGSToMaskBatch",
             "ImpactSEGSToMaskList",
             "ImpactScaleBy_BBOX_SEG_ELT",
+            "ImpactSchedulerAdapter",
             "ImpactSegsAndMask",
             "ImpactSegsAndMaskForEach",
             "ImpactSetWidgetValue",
@@ -9954,6 +9972,8 @@
         [
             "EmptyLatentImageFromPresetsSD15",
             "EmptyLatentImageFromPresetsSDXL",
+            "GetSimilarResolution",
+            "GetSimilarResolutionEmptyLatent",
             "RandomEmptyLatentImageFromPresetsSD15",
             "RandomEmptyLatentImageFromPresetsSDXL",
             "RandomSizeFromPresetsSD15",
@@ -10039,9 +10059,8 @@
     "https://github.com/nullquant/ComfyUI-BrushNet": [
         [
             "BlendInpaint",
-            "BrushNetInpaint",
-            "BrushNetLoader",
-            "BrushNetPipeline"
+            "BrushNet",
+            "BrushNetLoader"
         ],
         {
             "author": "nullquant",
@@ -10582,6 +10601,7 @@
             "LoadImagesFromPath",
             "LoadImagesFromURL",
             "LoadImagesToBatch",
+            "LoadTripoSRModel_",
             "LoadVideoAndSegment_",
             "LoraNames_",
             "LoraPrompt",
@@ -10602,6 +10622,7 @@
             "SamplerNames_",
             "SaveImageAndMetadata_",
             "SaveImageToLocal",
+            "SaveTripoSRMesh",
             "ScreenShare",
             "Seed_",
             "ShowLayer",
@@ -10623,6 +10644,7 @@
             "TextSplitByDelimiter",
             "TextToNumber",
             "TransparentImage",
+            "TripoSRSampler_",
             "VAEDecodeConsistencyDecoder",
             "VAEEncodeForInpaint_Frames",
             "VAELoaderConsistencyDecoder",
@@ -10698,14 +10720,6 @@
         ],
         {
             "title_aux": "ComfyUI-send-Eagle(slim)"
-        }
-    ],
-    "https://github.com/shirazdesigner/CLIPTextEncodeAndEnhancev4": [
-        [
-            "CLIPTextEncodeAndEnhance"
-        ],
-        {
-            "title_aux": "CLIPTextEncodeAndEnhancev4"
         }
     ],
     "https://github.com/shockz0rz/ComfyUI_InterpolateEverything": [
@@ -11616,6 +11630,14 @@
         ],
         {
             "title_aux": "wlsh_nodes"
+        }
+    ],
+    "https://github.com/web3nomad/ComfyUI_Invisible_Watermark": [
+        [
+            "InvisibleWatermarkEncode"
+        ],
+        {
+            "title_aux": "ComfyUI Invisible Watermark"
         }
     ],
     "https://github.com/whatbirdisthat/cyberdolphin": [
