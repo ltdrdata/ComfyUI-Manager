@@ -955,7 +955,8 @@
     ],
     "https://github.com/DarKDinDoN/comfyui-checkpoint-automatic-config": [
         [
-            "CheckpointAutomaticConfig"
+            "CheckpointAutomaticConfig",
+            "ConfigPipe"
         ],
         {
             "title_aux": "ComfyUI Checkpoint Automatic Config"
@@ -6209,6 +6210,8 @@
             "LayerStyle: InnerShadow",
             "LayerStyle: OuterGlow",
             "LayerStyle: Stroke",
+            "LayerUtility: Boolean",
+            "LayerUtility: BooleanOperator",
             "LayerUtility: ColorImage",
             "LayerUtility: ColorImage V2",
             "LayerUtility: ColorPicker",
@@ -6217,6 +6220,7 @@
             "LayerUtility: CropByMask V2",
             "LayerUtility: ExtendCanvas",
             "LayerUtility: ExtendCanvasV2",
+            "LayerUtility: Float",
             "LayerUtility: GetColorTone",
             "LayerUtility: GetColorToneV2",
             "LayerUtility: GetImageSize",
@@ -6239,14 +6243,18 @@
             "LayerUtility: ImageScaleRestore",
             "LayerUtility: ImageScaleRestore V2",
             "LayerUtility: ImageShift",
+            "LayerUtility: Integer",
             "LayerUtility: LaMa",
             "LayerUtility: LayerImageTransform",
             "LayerUtility: LayerMaskTransform",
+            "LayerUtility: NumberCalculator",
             "LayerUtility: PrintInfo",
             "LayerUtility: PromptEmbellish",
             "LayerUtility: PromptTagger",
+            "LayerUtility: QWenImage2Prompt",
             "LayerUtility: RestoreCropBox",
             "LayerUtility: SimpleTextImage",
+            "LayerUtility: TextBox",
             "LayerUtility: TextImage",
             "LayerUtility: TextJoin",
             "LayerUtility: XY to Percent"
@@ -6766,6 +6774,7 @@
             "IPAdapterMS",
             "IPAdapterModelLoader",
             "IPAdapterNoise",
+            "IPAdapterPromptScheduleFromWeightsStrategy",
             "IPAdapterRegionalConditioning",
             "IPAdapterSaveEmbeds",
             "IPAdapterStyleComposition",
@@ -6776,6 +6785,7 @@
             "IPAdapterUnifiedLoaderCommunity",
             "IPAdapterUnifiedLoaderFaceID",
             "IPAdapterWeights",
+            "IPAdapterWeightsFromStrategy",
             "PrepImageForClipVision"
         ],
         {
@@ -6977,6 +6987,7 @@
     "https://github.com/daxcay/ComfyUI-DRMN": [
         [
             "DRMN_CaptionVisualizer",
+            "DRMN_SearchAndReplace",
             "DRMN_TXTFileSaver",
             "DRMN_TagManipulatorByImageNames"
         ],
@@ -7974,8 +7985,10 @@
             "load_file",
             "load_persona",
             "new_interpreter_tool",
+            "show_text_party",
             "start_dialog",
             "start_workflow",
+            "string_logic",
             "time_tool",
             "tool_combine",
             "tool_combine_plus",
