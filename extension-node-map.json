@@ -228,6 +228,7 @@
     ],
     "https://github.com/AIFSH/ComfyUI-RVC": [
         [
+            "CombineAudio",
             "LoadAudio",
             "PreViewAudio",
             "RVC_Infer",
@@ -3497,7 +3498,9 @@
             "Cross Fade Image Batches (SuperBeasts.AI)",
             "Deflicker (SuperBeasts.AI)",
             "HDR Effects (SuperBeasts.AI)",
+            "Image Batch Manager (SuperBeasts.AI)",
             "Make Resized Mask Batch (SuperBeasts.AI)",
+            "Mask Batch Manager (SuperBeasts.AI)",
             "Pixel Deflicker (SuperBeasts.AI)"
         ],
         {
@@ -3917,6 +3920,15 @@
             "title_aux": "ComfyS3"
         }
     ],
+    "https://github.com/TemryL/ComfyUI-IDM-VTON": [
+        [
+            "IDM-VTON",
+            "PipelineLoader"
+        ],
+        {
+            "title_aux": "ComfyUI-IDM-VTON"
+        }
+    ],
     "https://github.com/TencentQQGYLab/ComfyUI-ELLA": [
         [
             "CombineClipEllaEmbeds",
@@ -3926,6 +3938,7 @@
             "EllaApply",
             "EllaCombineEmbeds",
             "EllaEncode",
+            "EllaTextEncode",
             "SetEllaTimesteps",
             "T5TextEncode #ELLA",
             "T5TextEncoderLoader #ELLA"
@@ -4001,7 +4014,7 @@
             "nickname": "ttNodes",
             "nodename_pattern": "^ttN ",
             "title": "tinyterraNodes",
-            "title_aux": "tinyterraNodes"
+            "title_aux": "ComfyUI_tinyterraNodes"
         }
     ],
     "https://github.com/TripleHeadedMonkey/ComfyUI_MileHighStyler": [
@@ -6300,16 +6313,19 @@
     ],
     "https://github.com/chrisfreilich/virtuoso-nodes": [
         [
+            "BlendIf",
             "BlendModes",
+            "ColorBalance",
+            "ColorBalanceAdvanced",
             "MergeRGB",
-            "SolidColor",
+            "SelectiveColor",
             "SplitRGB"
         ],
         {
             "author": "Chris Freilich",
-            "description": "This extension provides a blend modes node with 30 blend modes.",
-            "nickname": "Virtuoso Pack -Blend Nodes",
-            "title": "Virtuoso Pack - Blend Modes",
+            "description": "This extension provides a \"Blend If (BlendIf)\" node.",
+            "nickname": "Virtuoso Pack - Blend If",
+            "title": "Virtuoso Pack - Blend If",
             "title_aux": "Virtuoso Nodes for ComfyUI"
         }
     ],
@@ -6595,6 +6611,7 @@
             "SamplerDPMPP_3M_SDE",
             "SamplerDPMPP_SDE",
             "SamplerEulerAncestral",
+            "SamplerLCMUpscale",
             "SamplerLMS",
             "SaveAnimatedPNG",
             "SaveAnimatedWEBP",
@@ -7938,8 +7955,11 @@
     ],
     "https://github.com/heshengtao/comfyui_LLM_party": [
         [
+            "CLIPTextEncode_party",
+            "KSampler_party",
             "LLM",
             "LLM_local",
+            "VAEDecode_party",
             "check_web_tool",
             "classify_function",
             "classify_persona",
@@ -8351,6 +8371,14 @@
             "title_aux": "Various ComfyUI Nodes by Type"
         }
     ],
+    "https://github.com/jax-explorer/fast_video_comfyui": [
+        [
+            "FastImageListToImageBatch"
+        ],
+        {
+            "title_aux": "fast_video_comfyui"
+        }
+    ],
     "https://github.com/jeffy5/comfyui-faceless-node": [
         [
             "FacelessFaceRestore",
@@ -8595,6 +8623,14 @@
         ],
         {
             "title_aux": "ComfyUI Load and Save file to S3"
+        }
+    ],
+    "https://github.com/kealiu/ComfyUI-Zero123-Porting": [
+        [
+            "Zero123: Image Rotate in 3D"
+        ],
+        {
+            "title_aux": "ComfyUI-Zero123-Porting"
         }
     ],
     "https://github.com/kealiu/ComfyUI-ZeroShot-MTrans": [
@@ -10082,7 +10118,8 @@
         [
             "BlendInpaint",
             "BrushNet",
-            "BrushNetLoader"
+            "BrushNetLoader",
+            "TestNode"
         ],
         {
             "author": "nullquant",
@@ -11130,6 +11167,14 @@
         ],
         {
             "title_aux": "ComfyUI-sudo-latent-upscale"
+        }
+    ],
+    "https://github.com/sugarkwork/comfyui_cohere": [
+        [
+            "SimpleCohereNode"
+        ],
+        {
+            "title_aux": "comfyui_cohere"
         }
     ],
     "https://github.com/sugarkwork/comfyui_tag_fillter": [
