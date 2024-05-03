@@ -11,6 +11,26 @@
 
         
         {
+            "author": "curiousjp",
+            "title": "ComfyUI-MaskBatchPermutations",
+            "reference": "https://github.com/curiousjp/ComfyUI-MaskBatchPermutations",
+            "files": [
+                "https://github.com/curiousjp/ComfyUI-MaskBatchPermutations"
+            ],
+            "install_type": "git-clone",
+            "description": "Permutes a mask batch to present possible additive combinations. Passing a mask batch (e.g. out of [a/SEGS to Mask Batch](https://github.com/ltdrdata/ComfyUI-Impact-Pack)) will return a new mask batch representing all the possible combinations of the included masks. So, a mask batch with two mask sections, 'A' and 'B', will return a batch containing an empty mask, an empty mask & A, an empty mask & B, and an empty mask & A & B."
+        },
+        {
+            "author": "yuvraj108c",
+            "title": "ComfyUI Upscaler TensorRT",
+            "reference": "https://github.com/yuvraj108c/ComfyUI-Upscaler-Tensorrt",
+            "files": [
+                "https://github.com/yuvraj108c/ComfyUI-Upscaler-Tensorrt"
+            ],
+            "install_type": "git-clone",
+            "description": "This project provides a Tensorrt implementation for fast image upscaling inside ComfyUI (3-4x faster)"
+        },
+        {
             "author": "alessandrozonta",
             "title": "Bounding Box Crop Node for ComfyUI",
             "reference": "https://github.com/alessandrozonta/ComfyUI-CenterNode",
@@ -19,6 +39,16 @@
             ],
             "install_type": "git-clone",
             "description": "This extension contains a custom node for ComfyUI. The node, called 'Bounding Box Crop', is designed to compute the top-left coordinates of a cropped bounding box based on input coordinates and dimensions of the final cropped image. It does so computing the center of the cropping area and then computing where the top-left coordinates would be."
+        },
+        {
+            "author": "Gourieff",
+            "title": "ComfyUI-FutureWarningIgnore",
+            "reference": "https://github.com/Gourieff/ComfyUI-FutureWarningIgnore",
+            "files": [
+                "https://github.com/Gourieff/ComfyUI-FutureWarningIgnore/raw/main/0_FutureWarningIgnore.py"
+            ],
+            "install_type": "copy",
+            "description": "This extension collapses 'future warning'"
         },
         {
             "author": "kealiu",
@@ -659,36 +689,6 @@
             ],
             "install_type": "git-clone",
             "description": "ComfyUI InstantMesh is custom nodes that running TencentARC/InstantMesh into ComfyUI, this extension depends on ComfyUI-3D-Pack. Please refer to Readme carefully to install."
-        },
-        {
-            "author": "kunieone",
-            "title": "ComfyUI_alkaid",
-            "reference": "https://github.com/kunieone/ComfyUI_alkaid",
-            "files": [
-                "https://github.com/kunieone/ComfyUI_alkaid"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:A_Face3DSwapper, A_FaceCrop, A_FacePaste, A_OpenPosePreprocessor, A_EmptyLatentImageLongside, A_GetImageSize, AlkaidLoader, AdapterFaceLoader, AdapterStyleLoader, ..."
-        },
-        {
-            "author": "royceschultz",
-            "title": "ComfyUI-TranscriptionTools",
-            "reference": "https://github.com/royceschultz/ComfyUI-TranscriptionTools",
-            "files": [
-                "https://github.com/royceschultz/ComfyUI-TranscriptionTools"
-            ],
-            "install_type": "git-clone",
-            "description": "Transcribe audio and video files in ComfyUI."
-        },
-        {
-            "author": "turkyden",
-            "title": "ComfyUI-Sticker",
-            "reference": "https://github.com/turkyden/ComfyUI-Sticker",
-            "files": [
-                "https://github.com/turkyden/ComfyUI-Sticker"
-            ],
-            "install_type": "git-clone",
-            "description": "image to sticker"
         }
     ]
 }

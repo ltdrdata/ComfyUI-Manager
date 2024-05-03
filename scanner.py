@@ -44,7 +44,7 @@ def extract_nodes(code_text):
         assignments = (node for node in parsed_code.body if isinstance(node, ast.Assign))
 
         for assignment in assignments:
-            if isinstance(assignment.targets[0], ast.Name) and assignment.targets[0].id == 'NODE_CLASS_MAPPINGS':
+            if isinstance(assignment.targets[0], ast.Name) and assignment.targets[0].id in ['NODE_CONFIG', 'NODE_CLASS_MAPPINGS']:
                 node_class_mappings = assignment.value
                 break
         else:
@@ -208,7 +208,7 @@ def clone_or_pull_git_repository(git_url):
         try:
             repo = Repo(repo_dir)
             origin = repo.remote(name="origin")
-            origin.pull(rebase=True)
+            origin.pull()
             repo.git.submodule('update', '--init', '--recursive')
             print(f"Pulling {repo_name}...")
         except Exception as e:
