@@ -27,6 +27,7 @@ if not (len(sys.argv) == 2 and sys.argv[1] in ['save-snapshot', 'restore-depende
           f"    restore-snapshot <snapshot .json/.yaml>\n"
           f"    cli-only-mode [enable|disable]\n"
           f"    restore-dependencies\n"
+          f"    node-in-workflow <workflow .json/.png> <output name>\n"
           f"    clear\n")
     exit(-1)
 
@@ -497,6 +498,21 @@ def save_snapshot():
 
     return core.save_snapshot_with_postfix('snapshot', output_path)
 
+
+def node_in_workflow(input_path, output_path):
+    used_exts, unknown_nodes = asyncio.run(core.extract_nodes_from_workflow(input_path))
+
+    res = {
+            'custom_nodes': list(used_exts),
+            'unknown_nodes': list(unknown_nodes)
+    }
+
+    with open(output_path, "w", encoding='utf-8') as output_file:
+        json.dump(res, output_file, indent=4)
+
+    print(f"Workflow dependencies are being saved into {output_path}.")
+
+
 def for_each_nodes(act, allow_all=True):
     global nodes
 
@@ -575,6 +591,13 @@ elif op == 'cli-only-mode':
         print(f"\ncli-only-mode: disabled\n")
     else:
         print(f"\ninvalid value for cli-only-mode: {sys.argv[2]}\n")
+
+elif op == "nodes-in-workflow":
+    if len(sys.argv) < 4:
+        print(f"missing arguments: python cm-cli.py <workflow file> <output path>")
+        exit(-1)
+
+    node_in_workflow(sys.argv[2], sys.argv[3])
 
 elif op == 'save-snapshot':
     path = save_snapshot()
