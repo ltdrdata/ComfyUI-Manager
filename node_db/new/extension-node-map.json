@@ -6229,6 +6229,7 @@
             "LayerFilter: SoftLight",
             "LayerFilter: WaterColor",
             "LayerMask: BiRefNetUltra",
+            "LayerMask: BlendIf Mask",
             "LayerMask: CreateGradientMask",
             "LayerMask: MaskBoxDetect",
             "LayerMask: MaskByDifferent",
@@ -6698,6 +6699,7 @@
             "SolidMask",
             "SplitImageWithAlpha",
             "SplitSigmas",
+            "SplitSigmasDenoise",
             "StableCascade_EmptyLatentImage",
             "StableCascade_StageB_Conditioning",
             "StableCascade_StageC_VAEEncode",
@@ -8902,6 +8904,7 @@
             "CreateVoronoiMask",
             "CrossFadeImages",
             "CustomSigmas",
+            "DrawInstanceDiffusionTracking",
             "DummyLatentOut",
             "EmptyLatentImagePresets",
             "FilterZeroMasksAndCorrespondingImages",
@@ -9985,6 +9988,9 @@
     ],
     "https://github.com/mirabarukaso/ComfyUI_Mira": [
         [
+            "BooleanListInterpreter1",
+            "BooleanListInterpreter4",
+            "BooleanListInterpreter8",
             "CanvasCreatorAdvanced",
             "CanvasCreatorBasic",
             "CanvasCreatorSimple",
@@ -9992,8 +9998,13 @@
             "CreateNestedPNGMask",
             "CreateTillingPNGMask",
             "CreateWatermarkRemovalMask",
+            "EightBooleanTrigger",
             "EightFloats",
             "EvenOrOdd",
+            "EvenOrOddList",
+            "FloatListInterpreter1",
+            "FloatListInterpreter4",
+            "FloatListInterpreter8",
             "FloatMultiplication",
             "FourBooleanTrigger",
             "FourFloats",
@@ -10014,7 +10025,6 @@
             "SeedGenerator",
             "SingleBooleanTrigger",
             "SixBooleanTrigger",
-            "SixFloats",
             "StepsAndCfg",
             "StepsAndCfgAndWH",
             "TextBox",
@@ -10310,14 +10320,6 @@
         ],
         {
             "title_aux": "Quality of life Suit:V2"
-        }
-    ],
-    "https://github.com/osi1880vr/prompt_quill_comfyui": [
-        [
-            "PromptQuillGenerate"
-        ],
-        {
-            "title_aux": "ComfyUI Prompt Quill"
         }
     ],
     "https://github.com/ostris/ostris_nodes_comfyui": [
