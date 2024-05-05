@@ -598,6 +598,9 @@ def is_file_created_within_one_day(file_path):
 
 
 async def get_data_by_mode(mode, filename, channel_url=None):
+    if channel_url in get_channel_dict():
+        channel_url = get_channel_dict()[channel_url]
+
     try:
         if mode == "local":
             uri = os.path.join(comfyui_manager_path, filename)

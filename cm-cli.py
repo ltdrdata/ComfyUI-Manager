@@ -123,6 +123,8 @@ def install_deps():
                 else:  # disabled
                     core.gitclone_set_active([k], False)
 
+        print("Dependency installation and activation complete.")
+
 
 def restore_snapshot(snapshot_name):
     global processed_install
@@ -532,17 +534,14 @@ def deps_in_workflow():
         print(f"missing arguments: --workflow <path>")
         exit(-1)
     elif not os.path.exists(input_path):
-        print(f"File not founed: {input_path}")
+        print(f"File not found: {input_path}")
         exit(-1)
-
 
     if output_path is None:
         print(f"missing arguments: --output <path>")
         exit(-1)
 
-    print(f"{input_path}, {output_path}")
-
-    used_exts, unknown_nodes = asyncio.run(core.extract_nodes_from_workflow(input_path))
+    used_exts, unknown_nodes = asyncio.run(core.extract_nodes_from_workflow(input_path, mode=mode, channel_url=channel))
 
     custom_nodes = {}
     for x in used_exts:
