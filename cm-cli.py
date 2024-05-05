@@ -27,7 +27,8 @@ if not (len(sys.argv) == 2 and sys.argv[1] in ['save-snapshot', 'restore-depende
           f"    restore-snapshot <snapshot .json/.yaml>\n"
           f"    cli-only-mode [enable|disable]\n"
           f"    restore-dependencies\n"
-          f"    deps-in-workflow --workflow <workflow .json/.png> --output <output name>\n"
+          f"    deps-in-workflow --workflow <workflow .json/.png> --output <output .json>\n"
+          f"    install-deps <deps .json>\n"
           f"    clear\n")
     exit(-1)
 
@@ -104,6 +105,23 @@ def restore_dependencies():
         print(f"Restoring [{i}/{total}]: {x}")
         post_install(x)
         i += 1
+
+
+def install_deps():
+    if not os.path.exists(sys.argv[2]):
+        print(f"File not found: {sys.argv[2]}")
+        exit(-1)
+    else:
+        with open(sys.argv[2], 'r', encoding="UTF-8", errors="ignore") as json_file:
+            json_obj = json.load(json_file)
+            for k in json_obj['custom_nodes'].keys():
+                state = core.simple_check_custom_node(k)
+                if state == 'installed':
+                    continue
+                elif state == 'not-installed':
+                    core.gitclone_install([k], instant_execution=True)
+                else:  # disabled
+                    core.gitclone_set_active([k], False)
 
 
 def restore_snapshot(snapshot_name):
@@ -528,7 +546,9 @@ def deps_in_workflow():
 
     custom_nodes = {}
     for x in used_exts:
-        custom_nodes[x] = core.simple_check_custom_node(x)
+        custom_nodes[x] = { 'state': core.simple_check_custom_node(x),
+                            'hash': '-'
+                            }
 
     res = {
             'custom_nodes': custom_nodes,
@@ -621,10 +641,6 @@ elif op == 'cli-only-mode':
         print(f"\ninvalid value for cli-only-mode: {sys.argv[2]}\n")
 
 elif op == "deps-in-workflow":
-    if len(sys.argv) < 4:
-        print(f"missing arguments: python cm-cli.py --workflow <workflow file> --output <output path>")
-        exit(-1)
-
     deps_in_workflow()
 
 elif op == 'save-snapshot':
@@ -636,6 +652,9 @@ elif op == 'restore-snapshot':
 
 elif op == 'restore-dependencies':
     restore_dependencies()
+
+elif op == 'install-deps':
+    install_deps()
 
 elif op == 'clear':
     cancel()
