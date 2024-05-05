@@ -27,7 +27,7 @@ if not (len(sys.argv) == 2 and sys.argv[1] in ['save-snapshot', 'restore-depende
           f"    restore-snapshot <snapshot .json/.yaml>\n"
           f"    cli-only-mode [enable|disable]\n"
           f"    restore-dependencies\n"
-          f"    node-in-workflow <workflow .json/.png> <output name>\n"
+          f"    deps-in-workflow --workflow <workflow .json/.png> --output <output name>\n"
           f"    clear\n")
     exit(-1)
 
@@ -499,11 +499,39 @@ def save_snapshot():
     return core.save_snapshot_with_postfix('snapshot', output_path)
 
 
-def node_in_workflow(input_path, output_path):
+def deps_in_workflow():
+    input_path = None
+    output_path = None
+
+    for i in range(len(sys.argv)):
+        if sys.argv[i] == '--workflow' and len(sys.argv) > i and not sys.argv[i+1].startswith('-'):
+            input_path = sys.argv[i+1]
+
+        elif sys.argv[i] == '--output' and len(sys.argv) > i and not sys.argv[i+1].startswith('-'):
+            output_path = sys.argv[i+1]
+
+    if input_path is None:
+        print(f"missing arguments: --workflow <path>")
+        exit(-1)
+    elif not os.path.exists(input_path):
+        print(f"File not founed: {input_path}")
+        exit(-1)
+
+
+    if output_path is None:
+        print(f"missing arguments: --output <path>")
+        exit(-1)
+
+    print(f"{input_path}, {output_path}")
+
     used_exts, unknown_nodes = asyncio.run(core.extract_nodes_from_workflow(input_path))
 
+    custom_nodes = {}
+    for x in used_exts:
+        custom_nodes[x] = core.simple_check_custom_node(x)
+
     res = {
-            'custom_nodes': list(used_exts),
+            'custom_nodes': custom_nodes,
             'unknown_nodes': list(unknown_nodes)
     }
 
@@ -592,12 +620,12 @@ elif op == 'cli-only-mode':
     else:
         print(f"\ninvalid value for cli-only-mode: {sys.argv[2]}\n")
 
-elif op == "nodes-in-workflow":
+elif op == "deps-in-workflow":
     if len(sys.argv) < 4:
-        print(f"missing arguments: python cm-cli.py <workflow file> <output path>")
+        print(f"missing arguments: python cm-cli.py --workflow <workflow file> --output <output path>")
         exit(-1)
 
-    node_in_workflow(sys.argv[2], sys.argv[3])
+    deps_in_workflow()
 
 elif op == 'save-snapshot':
     path = save_snapshot()

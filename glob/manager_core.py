@@ -854,6 +854,7 @@ def update_path(repo_path, instant_execution=False):
     else:
         return "skipped"
 
+
 def lookup_customnode_by_url(data, target):
     for x in data['custom_nodes']:
         if target in x['files']:
@@ -866,6 +867,17 @@ def lookup_customnode_by_url(data, target):
             return x
 
     return None
+
+
+def simple_check_custom_node(url):
+    dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
+    dir_path = os.path.join(custom_nodes_path, dir_name)
+    if os.path.exists(dir_path):
+        return 'installed'
+    elif os.path.exists(dir_path+'.disabled'):
+        return 'disabled'
+
+    return 'not-installed'
 
 
 def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do_update=False):
@@ -1009,7 +1021,7 @@ def save_snapshot_with_postfix(postfix, path=None):
         return path
 
 
-async def extract_nodes_from_workflow(filepath):
+async def extract_nodes_from_workflow(filepath, mode='local', channel_url='default'):
     # prepare json data
     workflow = None
     if filepath.endswith('.json'):
@@ -1060,7 +1072,7 @@ async def extract_nodes_from_workflow(filepath):
                     extract_nodes(x)
 
     # lookup dependent custom nodes
-    ext_map = await get_data_by_mode('local', 'extension-node-map.json')
+    ext_map = await get_data_by_mode(mode, 'extension-node-map.json', channel_url)
 
     rext_map = {}
     preemption_map = {}
