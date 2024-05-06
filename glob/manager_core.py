@@ -22,7 +22,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 26]
+version = [2, 27]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -312,7 +312,7 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
     else:
         command = [sys.executable, git_script_path, "--check", path]
 
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=custom_nodes_path)
     output, _ = process.communicate()
     output = output.decode('utf-8').strip()
 
@@ -364,7 +364,7 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
 
 def __win_check_git_pull(path):
     command = [sys.executable, git_script_path, "--pull", path]
-    process = subprocess.Popen(command)
+    process = subprocess.Popen(command, cwd=custom_nodes_path)
     process.wait()
 
 
@@ -513,7 +513,7 @@ def gitclone_install(files, instant_execution=False, msg_prefix=''):
 
             # Clone the repository from the remote URL
             if not instant_execution and platform.system() == 'Windows':
-                res = manager_funcs.run_script([sys.executable, git_script_path, "--clone", custom_nodes_path, url])
+                res = manager_funcs.run_script([sys.executable, git_script_path, "--clone", custom_nodes_path, url], cwd=custom_nodes_path)
                 if res != 0:
                     return False
             else:
@@ -941,6 +941,24 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
             item['installed'] = 'False'
 
 
+def get_installed_pip_packages():
+    # extract pip package infos
+    pips = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'], text=True).split('\n')
+
+    res = {}
+    for x in pips:
+        if x.strip() == "":
+            continue
+
+        if ' @ ' in x:
+            spec_url = x.split(' @ ')
+            res[spec_url[0]] = spec_url[1]
+        else:
+            res[x] = ""
+
+    return res
+
+
 def get_current_snapshot():
     # Get ComfyUI hash
     repo_path = comfy_path
@@ -990,10 +1008,13 @@ def get_current_snapshot():
 
             file_custom_nodes.append(item)
 
+    pip_packages = get_installed_pip_packages()
+
     return {
         'comfyui': comfyui_commit_hash,
         'git_custom_nodes': git_custom_nodes,
         'file_custom_nodes': file_custom_nodes,
+        'pips': pip_packages,
     }
 
 
@@ -1132,7 +1153,6 @@ async def extract_nodes_from_workflow(filepath, mode='local', channel_url='defau
             used_exts.add(ext)
         else:
             unknown_nodes.add(node_name)
-
 
     return used_exts, unknown_nodes
 
