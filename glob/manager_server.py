@@ -872,7 +872,6 @@ async def update_comfyui(request):
             return web.Response(status=200)
     except Exception as e:
         print(f"ComfyUI update fail: {e}", file=sys.stderr)
-        pass
 
     return web.Response(status=400)
 

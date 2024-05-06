@@ -1,5 +1,8 @@
+import subprocess
 import sys
 import os
+import traceback
+
 import git
 import configparser
 import re
@@ -12,6 +15,10 @@ from git.remote import RemoteProgress
 config_path = os.path.join(os.path.dirname(__file__), "config.ini")
 nodelist_path = os.path.join(os.path.dirname(__file__), "custom-node-list.json")
 working_directory = os.getcwd()
+
+if os.path.basename(working_directory) != 'custom_nodes':
+    print(f"ERROR: This script should be executed in custom_nodes dir")
+    exit(-1)
 
 
 class GitProgress(RemoteProgress):
@@ -133,7 +140,7 @@ def gitpull(path):
 
 
 def checkout_comfyui_hash(target_hash):
-    repo_path = os.path.join(working_directory, '..')  # ComfyUI dir
+    repo_path = os.path.abspath(os.path.join(working_directory, '..'))  # ComfyUI dir
 
     repo = git.Repo(repo_path)
     commit_hash = repo.head.commit.hexsha
@@ -282,7 +289,7 @@ def apply_snapshot(target):
             if not target.endswith('.json') and not target.endswith('.yaml'):
                 print(f"Snapshot file not found: `{path}`")
                 print("APPLY SNAPSHOT: False")
-                return
+                return None
 
             with open(path, 'r', encoding="UTF-8") as snapshot_file:
                 if target.endswith('.json'):
@@ -293,7 +300,7 @@ def apply_snapshot(target):
                 else:
                     # impossible case
                     print("APPLY SNAPSHOT: False")
-                    return
+                    return None
 
                 comfyui_hash = info['comfyui']
                 git_custom_node_infos = info['git_custom_nodes']
@@ -304,13 +311,80 @@ def apply_snapshot(target):
                 invalidate_custom_node_file(file_custom_node_infos)
 
                 print("APPLY SNAPSHOT: True")
-                return
+                if 'pips' in info:
+                    return info['pips']
+                else:
+                    return None
 
         print(f"Snapshot file not found: `{path}`")
         print("APPLY SNAPSHOT: False")
+
+        return None
     except Exception as e:
         print(e)
+        traceback.print_exc()
         print("APPLY SNAPSHOT: False")
+
+        return None
+
+
+def restore_pip_snapshot(pips, options):
+    non_url = []
+    local_url = []
+    non_local_url = []
+    for k, v in pips.items():
+        if v == "":
+            non_url.append(v)
+        else:
+            if v.startswith('file:'):
+                local_url.append(v)
+            else:
+                non_local_url.append(v)
+
+    failed = []
+    if '--pip-non-url' in options:
+        # try all at once
+        res = 1
+        try:
+            res = subprocess.check_call([sys.executable, '-m', 'pip', 'install'] + non_url)
+        except:
+            pass
+
+        # fallback
+        if res != 0:
+            for x in non_url:
+                res = 1
+                try:
+                    res = subprocess.check_call([sys.executable, '-m', 'pip', 'install', x])
+                except:
+                    pass
+
+                if res != 0:
+                    failed.append(x)
+
+    if '--pip-non-local-url' in options:
+        for x in non_local_url:
+            res = 1
+            try:
+                res = subprocess.check_call([sys.executable, '-m', 'pip', 'install', x])
+            except:
+                pass
+
+            if res != 0:
+                failed.append(x)
+
+    if '--pip-local-url' in options:
+        for x in local_url:
+            res = 1
+            try:
+                res = subprocess.check_call([sys.executable, '-m', 'pip', 'install', x])
+            except:
+                pass
+
+            if res != 0:
+                failed.append(x)
+
+    print(f"Installation failed for pip packages: {failed}")
 
 
 def setup_environment():
@@ -333,7 +407,15 @@ try:
     elif sys.argv[1] == "--pull":
         gitpull(sys.argv[2])
     elif sys.argv[1] == "--apply-snapshot":
-        apply_snapshot(sys.argv[2])
+        options = set()
+        for x in sys.argv:
+            if x in ['--pip-non-url', '--pip-local-url', '--pip-non-local-url']:
+                options.add(x)
+
+        pips = apply_snapshot(sys.argv[2])
+
+        if pips and len(options) > 0:
+            restore_pip_snapshot(pips, options)
     sys.exit(0)
 except Exception as e:
     print(e)

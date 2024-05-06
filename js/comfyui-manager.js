@@ -615,7 +615,7 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 		const response1 = await api.fetchApi('/comfyui_manager/update_comfyui');
 		const response2 = await api.fetchApi(`/customnode/update_all?mode=${mode}`);
 
-		if (response1.status != 200 && response2.status != 201) {
+		if (response1.status == 400 || response2.status == 400) {
 			app.ui.dialog.show('Failed to update ComfyUI or several extensions.<BR><BR>See terminal log.<BR>');
 			app.ui.dialog.element.style.zIndex = 10010;
 			return false;

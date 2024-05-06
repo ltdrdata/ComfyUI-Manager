@@ -24,7 +24,7 @@ if not (len(sys.argv) == 2 and sys.argv[1] in ['save-snapshot', 'restore-depende
           f"    [update|disable|enable|fix] all ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
           f"    [simple-show|show] [installed|enabled|not-installed|disabled|all|snapshot|snapshot-list] ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
           f"    save-snapshot ?[--output <snapshot .json/.yaml>]\n"
-          f"    restore-snapshot <snapshot .json/.yaml>\n"
+          f"    restore-snapshot <snapshot .json/.yaml> ?[--pip-non-url] ?[--pip-non-local-url] ?[--pip-local-url]\n"
           f"    cli-only-mode [enable|disable]\n"
           f"    restore-dependencies\n"
           f"    deps-in-workflow --workflow <workflow .json/.png> --output <output .json>\n"
@@ -126,8 +126,13 @@ def install_deps():
         print("Dependency installation and activation complete.")
 
 
-def restore_snapshot(snapshot_name):
+def restore_snapshot():
     global processed_install
+
+    snapshot_name = sys.argv[2]
+    extras = [x for x in sys.argv if x in ['--pip-non-url', '--pip-local-url', '--pip-non-local-url']]
+
+    print(f"pips restore mode: {extras}")
 
     if os.path.exists(snapshot_name):
         snapshot_path = os.path.abspath(snapshot_name)
@@ -163,7 +168,7 @@ def restore_snapshot(snapshot_name):
                     is_failed = True
 
         print(f"Restore snapshot.")
-        cmd_str = [sys.executable, git_script_path, '--apply-snapshot', snapshot_path]
+        cmd_str = [sys.executable, git_script_path, '--apply-snapshot', snapshot_path] + extras
         output = subprocess.check_output(cmd_str, cwd=custom_nodes_path, text=True)
         msg_lines = output.split('\n')
         extract_infos(msg_lines)
@@ -647,7 +652,7 @@ elif op == 'save-snapshot':
     print(f"Current snapshot is saved as `{path}`")
 
 elif op == 'restore-snapshot':
-    restore_snapshot(sys.argv[2])
+    restore_snapshot()
 
 elif op == 'restore-dependencies':
     restore_dependencies()
