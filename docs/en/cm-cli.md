@@ -14,7 +14,7 @@ OPTIONS:
     [update|disable|enable|fix] all ?[--channel <channel name>] ?[--mode [remote|local|cache]]
     [simple-show|show] [installed|enabled|not-installed|disabled|all|snapshot|snapshot-list] ?[--channel <channel name>] ?[--mode [remote|local|cache]]
     save-snapshot ?[--output <snapshot .json/.yaml>]
-    restore-snapshot <snapshot .json/.yaml>
+    restore-snapshot <snapshot .json/.yaml> ?[--pip-non-url] ?[--pip-non-local-url] ?[--pip-local-url]
     cli-only-mode [enable|disable]
     restore-dependencies
     clear
@@ -112,12 +112,17 @@ ComfyUI-Loopchain
     * `enable`: Enables the specified custom nodes.
     * `fix`: Attempts to fix dependencies for the specified custom nodes.
 
+
 ### 4. Snapshot Management
 * `python cm-cli.py save-snapshot [--output <snapshot .json/.yaml>]`: Saves the current snapshot.
   * With `--output`, you can save a file in .yaml format to any specified path.
 * `python cm-cli.py restore-snapshot <snapshot .json/.yaml>`: Restores to the specified snapshot.
   * If a file exists at the snapshot path, that snapshot is loaded.
   * If no file exists at the snapshot path, it is implicitly assumed to be in ComfyUI-Manager/snapshots.
+  * `--pip-non-url`: Restore for pip packages registered on PyPI.
+  * `--pip-non-local-url`: Restore for pip packages registered at web URLs.
+  * `--pip-local-url`: Restore for pip packages specified by local paths. 
+
 
 ### 5. CLI Only Mode
 

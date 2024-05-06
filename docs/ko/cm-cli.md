@@ -14,7 +14,7 @@ OPTIONS:
     [update|disable|enable|fix] all ?[--channel <channel name>] ?[--mode [remote|local|cache]]
     [simple-show|show] [installed|enabled|not-installed|disabled|all|snapshot|snapshot-list] ?[--channel <channel name>] ?[--mode [remote|local|cache]]
     save-snapshot ?[--output <snapshot .json/.yaml>]
-    restore-snapshot <snapshot .json/.yaml>
+    restore-snapshot <snapshot .json/.yaml> ?[--pip-non-url] ?[--pip-non-local-url] ?[--pip-local-url]
     cli-only-mode [enable|disable]
     restore-dependencies
     clear
@@ -120,6 +120,9 @@ ComfyUI-Loopchain
 * `python cm-cli.py restore-snapshot <snapshot .json/.yaml>`: 지정된 snapshot으로 복구합니다.
   * snapshot 경로에 파일이 존재하는 경우 해당 snapshot을 로드합니다.
   * snapshot 경로에 파일이 존재하지 않는 경우 묵시적으로, ComfyUI-Manager/snapshots 에 있다고 가정합니다.
+  * `--pip-non-url`: PyPI 에 등록된 pip 패키지들에 대해서 복구를 수행
+  * `--pip-non-local-url`: web URL에 등록된 pip 패키지들에 대해서 복구를 수행
+  * `--pip-local-url`: local 경로를 지정하고 있는 pip 패키지들에 대해서 복구를 수행 
 
 
 ### 5. CLI only mode
