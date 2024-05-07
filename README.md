@@ -31,10 +31,32 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 ![portable-install](misc/portable-install.png)
 
 
-### Installation[method3] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
+### Installation[method3] (Installation through comfy-cli: install ComfyUI and ComfyUI-Manager at once.)  
+> RECOMMENDED: comfy-cli provides various features to manage ComfyUI from the CLI.
+
+* **prerequisite: python 3, git**
+
+Windows:
+```commandline
+python -m venv venv
+venv\Scripts\activate
+pip install comfy-cli
+comfy install
+```
+
+Linux/OSX:
+```commandline
+python -m venv venv
+. venv/bin/activate
+pip install comfy-cli
+comfy install
+```
+
+
+### Installation[method4] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
 
 To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you can follow these steps:
-* **prerequisite: python-is-python3, python3-venv**
+* **prerequisite: python-is-python3, python3-venv, git**
 
 1. Download [scripts/install-comfyui-venv-linux.sh](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-comfyui-venv-linux.sh) into empty install directory
 - ComfyUI will be installed in the subdirectory of the specified directory, and the directory will contain the generated executable script.
