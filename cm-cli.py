@@ -390,17 +390,14 @@ def enable_node(node_name, is_all=False, cnt_msg=''):
 
     node_path, node_item = lookup_node_path(node_name, robust=True)
 
-    files = node_item['files'] if node_item is not None else [node_path]
-
-    for x in files:
-        if os.path.exists(x+'.disabled'):
-            current_name = x+'.disabled'
-            os.rename(current_name, x)
-            print(f"{cnt_msg} [ENABLED] {node_name:50}")
-        elif os.path.exists(x):
-            print(f"{cnt_msg} [SKIPPED] {node_name:50} => Already enabled")
-        elif not is_all:
-            print(f"{cnt_msg} [SKIPPED] {node_name:50} => Not installed")
+    if os.path.exists(node_path+'.disabled'):
+        current_name = node_path+'.disabled'
+        os.rename(current_name, node_path)
+        print(f"{cnt_msg} [ENABLED] {node_name:50}")
+    elif os.path.exists(node_path):
+        print(f"{cnt_msg} [SKIPPED] {node_name:50} => Already enabled")
+    elif not is_all:
+        print(f"{cnt_msg} [SKIPPED] {node_name:50} => Not installed")
 
 
 def disable_node(node_name, is_all=False, cnt_msg=''):
@@ -409,18 +406,15 @@ def disable_node(node_name, is_all=False, cnt_msg=''):
     
     node_path, node_item = lookup_node_path(node_name, robust=True)
 
-    files = node_item['files'] if node_item is not None else [node_path]
-
-    for x in files:
-        if os.path.exists(x):
-            current_name = x
-            new_name = x+'.disabled'
-            os.rename(current_name, new_name)
-            print(f"{cnt_msg} [DISABLED] {node_name:50}")
-        elif os.path.exists(x+'.disabled'):
-            print(f"{cnt_msg} [ SKIPPED] {node_name:50} => Already disabled")
-        elif not is_all:
-            print(f"{cnt_msg} [ SKIPPED] {node_name:50} => Not installed")
+    if os.path.exists(node_path):
+        current_name = node_path
+        new_name = node_path+'.disabled'
+        os.rename(current_name, new_name)
+        print(f"{cnt_msg} [DISABLED] {node_name:50}")
+    elif os.path.exists(node_path+'.disabled'):
+        print(f"{cnt_msg} [ SKIPPED] {node_name:50} => Already disabled")
+    elif not is_all:
+        print(f"{cnt_msg} [ SKIPPED] {node_name:50} => Not installed")
 
 
 def show_list(kind, simple=False):
