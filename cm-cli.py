@@ -518,6 +518,10 @@ def save_snapshot():
     return core.save_snapshot_with_postfix('snapshot', output_path)
 
 
+def auto_save_snapshot():
+    return core.save_snapshot_with_postfix('cli-autosave')
+
+
 def deps_in_workflow():
     input_path = None
     output_path = None
@@ -593,6 +597,9 @@ elif op == 'uninstall':
     for_each_nodes(uninstall_node)
 
 elif op == 'update':
+    if 'all' in nodes:
+        auto_save_snapshot()
+
     for x in nodes:
         if x.lower() in ['comfyui', 'comfy', 'all']:
             update_comfyui()
@@ -601,12 +608,21 @@ elif op == 'update':
     for_each_nodes(update_node, allow_all=True)
 
 elif op == 'disable':
+    if 'all' in nodes:
+        auto_save_snapshot()
+
     for_each_nodes(disable_node, allow_all=True)
 
 elif op == 'enable':
+    if 'all' in nodes:
+        auto_save_snapshot()
+
     for_each_nodes(enable_node, allow_all=True)
 
 elif op == 'fix':
+    if 'all' in nodes:
+        auto_save_snapshot()
+
     for_each_nodes(fix_node, allow_all=True)
 
 elif op == 'show':
@@ -652,6 +668,7 @@ elif op == 'restore-dependencies':
     restore_dependencies()
 
 elif op == 'install-deps':
+    auto_save_snapshot()
     install_deps()
 
 elif op == 'clear':
