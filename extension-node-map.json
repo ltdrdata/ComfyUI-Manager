@@ -193,6 +193,7 @@
     "https://github.com/AIFSH/ComfyUI-FishSpeech": [
         [
             "FishSpeech_INFER",
+            "FishSpeech_INFER_SRT",
             "LoadAudio",
             "LoadSRT",
             "PreViewAudio"
@@ -1978,7 +1979,9 @@
     ],
     "https://github.com/JettHu/ComfyUI_TGate": [
         [
-            "TGateApply"
+            "TGateApply",
+            "TGateApplyAdvanced",
+            "TGateApplySimple"
         ],
         {
             "title_aux": "ComfyUI_TGate"
@@ -2022,6 +2025,15 @@
         ],
         {
             "title_aux": "ComfyUI-Paint-by-Example"
+        }
+    ],
+    "https://github.com/KoreTeknology/ComfyUI-Universal-Styler": [
+        [
+            "Load Nai Styles CSV",
+            "Universal_Styler_Node"
+        ],
+        {
+            "title_aux": "ComfyUI Universal Styler"
         }
     ],
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet": [
@@ -5412,7 +5424,8 @@
             "SamplerSonarEulerA",
             "SonarCustomNoise",
             "SonarGuidanceConfig",
-            "SonarPowerNoise"
+            "SonarModulatedNoise",
+            "SonarRepeatedNoise"
         ],
         {
             "title_aux": "ComfyUI-sonar"
@@ -5421,7 +5434,9 @@
     "https://github.com/blepping/comfyui_jankhidiffusion": [
         [
             "ApplyMSWMSAAttention",
-            "ApplyRAUNet"
+            "ApplyMSWMSAAttentionSimple",
+            "ApplyRAUNet",
+            "ApplyRAUNetSimple"
         ],
         {
             "title_aux": "ComfyUI jank HiDiffusion"
@@ -6114,6 +6129,17 @@
             "title_aux": "ComfyUI-Trajectory"
         }
     ],
+    "https://github.com/chaojie/ComfyUI-Video-Editing-X-Attention": [
+        [
+            "StringList",
+            "VEXAGuidance",
+            "VEXALoader",
+            "VEXARun"
+        ],
+        {
+            "title_aux": "ComfyUI-Video-Editing-X-Attention"
+        }
+    ],
     "https://github.com/chaojie/ComfyUI-dust3r": [
         [
             "CameraPoseVideo",
@@ -6253,6 +6279,7 @@
             "LayerColor: HSV",
             "LayerColor: LAB",
             "LayerColor: LUT Apply",
+            "LayerColor: Levels",
             "LayerColor: RGB",
             "LayerColor: YUV",
             "LayerFilter: ChannelShake",
@@ -7075,7 +7102,7 @@
             "title_aux": "DarkPrompts"
         }
     ],
-    "https://github.com/davask/ComfyUI-MarasIT-Nodes": [
+    "https://github.com/davask/ComfyUI_MaraScott_Nodes": [
         [
             "MarasitAnyBusNode",
             "MarasitDisplayInfoNode",
@@ -7083,7 +7110,7 @@
             "MarasitUpscalerRefinerNode_v2"
         ],
         {
-            "title_aux": "\ud83d\udc30 MarasIT Nodes"
+            "title_aux": "\ud83d\udc30 MaraScott Nodes"
         }
     ],
     "https://github.com/dave-palt/comfyui_DSP_imagehelpers": [
@@ -7120,6 +7147,7 @@
     ],
     "https://github.com/daxcay/ComfyUI-JDCN": [
         [
+            "JDCN_AnyCheckpointLoader",
             "JDCN_AnyFileList",
             "JDCN_AnyFileListHelper",
             "JDCN_AnyFileListRandom",
@@ -7137,6 +7165,7 @@
             "JDCN_ReBatch",
             "JDCN_SeamlessExperience",
             "JDCN_SplitString",
+            "JDCN_StringManipulator",
             "JDCN_StringToList",
             "JDCN_TXTFileSaver",
             "JDCN_VHSFileMover"
@@ -8769,6 +8798,7 @@
     ],
     "https://github.com/kealiu/ComfyUI-Zero123-Porting": [
         [
+            "Zero123: Image Preprocess",
             "Zero123: Image Rotate in 3D"
         ],
         {
@@ -8939,6 +8969,7 @@
             "CreateShapeMask",
             "CreateShapeMaskOnPath",
             "CreateTextMask",
+            "CreateTextOnPath",
             "CreateVoronoiMask",
             "CrossFadeImages",
             "CustomSigmas",
@@ -10287,7 +10318,8 @@
             "BlendInpaint",
             "BrushNet",
             "BrushNetLoader",
-            "TestNode"
+            "PowerPaint",
+            "PowerPaintCLIPLoader"
         ],
         {
             "author": "nullquant",
@@ -10448,6 +10480,14 @@
         ],
         {
             "title_aux": "comfy_clip_blip_node"
+        }
+    ],
+    "https://github.com/philz1337x/ComfyUI-ClarityAI": [
+        [
+            "Clarity AI Upscaler"
+        ],
+        {
+            "title_aux": "\u2728 Clarity AI - Creative Image Upscaler and Enhancer for ComfyUI"
         }
     ],
     "https://github.com/picturesonpictures/comfy_PoP": [
@@ -12429,9 +12469,10 @@
     ],
     "https://github.com/zhangp365/ComfyUI-utils-nodes": [
         [
-            "ConcatText",
+            "ColorCorrectOfUtils",
+            "ConcatTextOfUtils",
             "ImageBatchOneOrMore",
-            "ImageConcanate",
+            "ImageConcanateOfUtils",
             "IntAndIntAddOffsetLiteral",
             "LoadImageWithSwitch",
             "ModifyTextGender"
