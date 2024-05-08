@@ -252,6 +252,10 @@ def load_custom_nodes():
                 repo_name = y.split('/')[-1]
                 res[repo_name] = x
 
+        if 'id' in x:
+            if x['id'] not in res:
+                res[x['id']] = x
+
     return res
 
 
@@ -280,14 +284,14 @@ custom_node_map = load_custom_nodes()
 
 
 def lookup_node_path(node_name, robust=False):
-    # Currently, the node_name is used directly as the node_path, but in the future, I plan to allow nicknames.
-
     if '..' in node_name:
         print(f"ERROR: invalid node name '{node_name}'")
         exit(-1)
 
     if node_name in custom_node_map:
-        node_path = os.path.join(custom_nodes_path, node_name)
+        node_url = custom_node_map[node_name]['files'][0]
+        repo_name = node_url.split('/')[-1]
+        node_path = os.path.join(custom_nodes_path, repo_name)
         return node_path, custom_node_map[node_name]
     elif robust:
         node_path = os.path.join(custom_nodes_path, node_name)
@@ -441,7 +445,8 @@ def show_list(kind, simple=False):
             if simple:
                 print(f"{k:50}")
             else:
-                print(f"{prefix} {k:50}(author: {v['author']})")
+                short_id = v.get('id', "")
+                print(f"{prefix} {k:50} {short_id:20} (author: {v['author']})")
 
     # unregistered nodes
     candidates = os.listdir(os.path.realpath(custom_nodes_path))
@@ -473,7 +478,7 @@ def show_list(kind, simple=False):
                 if simple:
                     print(f"{k:50}")
                 else:
-                    print(f"{prefix} {k:50}(author: N/A)")
+                    print(f"{prefix} {k:50} {'':20} (author: N/A)")
 
 
 def show_snapshot(simple_mode=False):
