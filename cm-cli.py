@@ -6,6 +6,8 @@ import json
 import asyncio
 import subprocess
 import shutil
+import concurrent
+import threading
 
 sys.path.append(os.path.dirname(__file__))
 sys.path.append(os.path.join(os.path.dirname(__file__), "glob"))
@@ -373,9 +375,55 @@ def update_node(node_name, is_all=False, cnt_msg=''):
     files = node_item['files'] if node_item is not None else [node_path]
 
     res = core.gitclone_update(files, skip_script=True, msg_prefix=f"[{cnt_msg}] ")
-    post_install(node_path)
+
     if not res:
-        print(f"ERROR: An error occurred while uninstalling '{node_name}'.")
+        print(f"ERROR: An error occurred while updating '{node_name}'.")
+        return None
+
+    return node_path
+
+
+def update_parallel():
+    global nodes
+
+    is_all = False
+    if 'all' in nodes:
+        is_all = True
+        nodes = [x for x in custom_node_map.keys() if os.path.exists(os.path.join(custom_nodes_path, x)) or os.path.exists(os.path.join(custom_nodes_path, x) + '.disabled')]
+
+    nodes = [x for x in nodes if x.lower() not in ['comfy', 'comfyui', 'all']]
+
+    total = len(nodes)
+
+    lock = threading.Lock()
+    processed = []
+
+    i = 0
+
+    def process_custom_node(x):
+        nonlocal i
+        nonlocal processed
+
+        with lock:
+            i += 1
+
+        try:
+            node_path = update_node(x, is_all=is_all, cnt_msg=f'{i}/{total}')
+            with lock:
+                processed.append(node_path)
+        except Exception as e:
+            print(f"ERROR: {e}")
+            traceback.print_exc()
+
+    with concurrent.futures.ThreadPoolExecutor(4) as executor:
+        for item in nodes:
+            executor.submit(process_custom_node, item)
+
+    i = 1
+    for node_path in processed:
+        print(f"[{i}/{total}] Post update: {node_path}")
+        post_install(node_path)
+        i += 1
 
 
 def update_comfyui():
@@ -610,7 +658,7 @@ elif op == 'update':
             update_comfyui()
             break
 
-    for_each_nodes(update_node, allow_all=True)
+    update_parallel()
 
 elif op == 'disable':
     if 'all' in nodes:
