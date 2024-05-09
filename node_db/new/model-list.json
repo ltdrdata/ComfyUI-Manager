@@ -1,6 +1,26 @@
 {
   "models": [
     {
+      "name": "InstantID/ip-adapter",
+      "type": "instantid",
+      "base": "SDXL",
+      "save_path": "instantid/SDXL",
+      "description": "ip-adapter model for cubiq/InstantID",
+      "reference": "https://huggingface.co/InstantX/InstantID",
+      "filename": "ip-adapter.bin",
+      "url": "https://huggingface.co/InstantX/InstantID/resolve/main/ip-adapter.bin"
+    },
+    {
+      "name": "InstantID/ControlNet",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "controlnet/SDXL/instantid",
+      "description": "instantid controlnet model for cubiq/InstantID",
+      "reference": "https://huggingface.co/InstantX/InstantID",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/InstantX/InstantID/resolve/main/ControlNetModel/diffusion_pytorch_model.safetensors"
+    },
+    {
       "name": "ip_plus_composition_sd15.safetensors",
       "type": "IP-Adapter",
       "base": "SD1.5",
