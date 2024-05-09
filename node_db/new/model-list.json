@@ -1,6 +1,16 @@
 {
   "models": [
     {
+      "name": "MonsterMMORPG/insightface (for InstantID)",
+      "type": "insightface",
+      "base": "SDXL",
+      "save_path": "insightface/models",
+      "description": "MonsterMMORPG insightface model for cubiq/InstantID",
+      "reference": "https://huggingface.co/MonsterMMORPG/tools/tree/main",
+      "filename": "antelopev2.zip",
+      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/antelopev2.zip"
+    },
+    {
       "name": "InstantID/ip-adapter",
       "type": "instantid",
       "base": "SDXL",
@@ -691,27 +701,6 @@
       "reference": "https://huggingface.co/guoyww/animatediff",
       "filename": "v3_sd15_adapter.ckpt",
       "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_adapter.ckpt"
-    },
-
-    {
-      "name": "Segmind-Vega",
-      "type": "checkpoints",
-      "base": "segmind-vega",
-      "save_path": "checkpoints/segmind-vega",
-      "description": "The Segmind-Vega Model is a distilled version of the Stable Diffusion XL (SDXL), offering a remarkable 70% reduction in size and an impressive 100% speedup while retaining high-quality text-to-image generation capabilities.",
-      "reference": "https://huggingface.co/segmind/Segmind-Vega",
-      "filename": "segmind-vega.safetensors",
-      "url": "https://huggingface.co/segmind/Segmind-Vega/resolve/main/segmind-vega.safetensors"
-    },
-    {
-      "name": "Segmind-VegaRT - Latent Consistency Model (LCM) LoRA of Segmind-Vega",
-      "type": "lora",
-      "base": "segmind-vega",
-      "save_path": "loras/segmind-vega",
-      "description": "Segmind-VegaRT a distilled consistency adapter for Segmind-Vega that allows to reduce the number of inference steps to only between 2 - 8 steps.",
-      "reference": "https://huggingface.co/segmind/Segmind-VegaRT",
-      "filename": "pytorch_lora_weights.safetensors",
-      "url": "https://huggingface.co/segmind/Segmind-VegaRT/resolve/main/pytorch_lora_weights.safetensors"
     }
   ]
 }
