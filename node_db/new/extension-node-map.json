@@ -283,7 +283,8 @@
             "LoadAudio",
             "LoadSRT",
             "PreViewAudio",
-            "XTTS_INFER"
+            "XTTS_INFER",
+            "XTTS_INFER_SRT"
         ],
         {
             "title_aux": "ComfyUI-XTTS"
@@ -595,7 +596,7 @@
             "PIL2NHWCTensor"
         ],
         {
-            "title_aux": "Comfyui-ergouzi-Nodes"
+            "title_aux": "ComfyUI-InstantIDUtils"
         }
     ],
     "https://github.com/BadCafeCode/masquerade-nodes-comfyui": [
@@ -657,6 +658,7 @@
         [
             "ComfyDeployWebscoketImageInput",
             "ComfyDeployWebscoketImageOutput",
+            "ComfyUIDeployExternalBoolean",
             "ComfyUIDeployExternalCheckpoint",
             "ComfyUIDeployExternalImage",
             "ComfyUIDeployExternalImageAlpha",
@@ -1470,6 +1472,16 @@
             "title_aux": "ComfyUI Fictiverse Nodes"
         }
     ],
+    "https://github.com/Fihade/IC-Light-ComfyUI-Node": [
+        [
+            "LoadICLightUnetDiffusers",
+            "diffusers_model_loader",
+            "iclight_diffusers_sampler"
+        ],
+        {
+            "title_aux": "IC-Light-ComfyUI-Node"
+        }
+    ],
     "https://github.com/FizzleDorf/ComfyUI-AIT": [
         [
             "AIT_Unet_Loader",
@@ -2044,6 +2056,15 @@
         ],
         {
             "title_aux": "ComfyUI-Paint-by-Example"
+        }
+    ],
+    "https://github.com/KewkLW/ComfyUI-kewky_tools": [
+        [
+            "FormattedTextOutput",
+            "TensorDebugPlus"
+        ],
+        {
+            "title_aux": "ComfyUI-kewky_tools"
         }
     ],
     "https://github.com/KoreTeknology/ComfyUI-Universal-Styler": [
@@ -7549,6 +7570,8 @@
             "If ANY execute A else B",
             "LatentTypeConversion",
             "LoadRandomImage",
+            "MaskFromRGB",
+            "MaskFromRGB_KMeans",
             "SaveImageAdvanced",
             "VAEDecode_to_folder"
         ],
@@ -7819,7 +7842,7 @@
             "HyperSDXL1StepUnetScheduler"
         ],
         {
-            "title_aux": "Simswap Node for ComfyUI (ByteDance)"
+            "title_aux": "ComfyUI-HyperSDXL1StepUnetScheduler (ByteDance)"
         }
     ],
     "https://github.com/forever22777/comfyui-self-guidance": [
@@ -7971,6 +7994,14 @@
         ],
         {
             "title_aux": "Save Image with Generation Metadata"
+        }
+    ],
+    "https://github.com/githubYiheng/ComfyUI_GetFileNameFromURL": [
+        [
+            "GetFileNameFromURL"
+        ],
+        {
+            "title_aux": "ComfyUI_GetFileNameFromURL"
         }
     ],
     "https://github.com/glibsonoran/Plush-for-ComfyUI": [
@@ -12245,9 +12276,11 @@
             "easy globalSeed",
             "easy hiresFix",
             "easy humanSegmentation",
+            "easy icLightApply",
             "easy if",
             "easy imageChooser",
             "easy imageColorMatch",
+            "easy imageConcat",
             "easy imageCount",
             "easy imageCropFromMask",
             "easy imageInsetCrop",
@@ -12262,6 +12295,7 @@
             "easy imageSize",
             "easy imageSizeByLongerSide",
             "easy imageSizeBySide",
+            "easy imageSplitGrid",
             "easy imageSplitList",
             "easy imageSwitch",
             "easy imageToBase64",
@@ -12549,6 +12583,7 @@
             "ImageBatchOneOrMore",
             "ImageConcanateOfUtils",
             "IntAndIntAddOffsetLiteral",
+            "IntMultipleAddLiteral",
             "LoadImageWithSwitch",
             "ModifyTextGender"
         ],
