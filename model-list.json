@@ -2511,6 +2511,106 @@
       "reference": "https://huggingface.co/xinyu1205/recognize_anything_model",
       "filename": "tag2text_swin_14m.pth",
       "url": "https://huggingface.co/xinyu1205/recognize_anything_model/resolve/main/tag2text_swin_14m.pth"
+    },
+    {
+      "name": "Zero123 3D object Model",
+      "type": "Zero123",
+      "base": "Zero123",
+      "save_path": "checkpoints/zero123",
+      "description": "model that been trained on 10M+ 3D objects from Objaverse-XL, used for generated rotated CamView",
+      "reference": "https://objaverse.allenai.org/docs/zero123-xl/",
+      "filename": "zero123-xl.ckpt",
+      "url": "https://huggingface.co/kealiu/zero123-xl/resolve/main/zero123-xl.ckpt"
+    },
+    {
+      "name": "Zero123 3D object Model",
+      "type": "Zero123",
+      "base": "Zero123",
+      "save_path": "checkpoints/zero123",
+      "description": "Stable Zero123 is a model for view-conditioned image generation based on [a/Zero123](https://github.com/cvlab-columbia/zero123).",
+      "reference": "https://huggingface.co/stabilityai/stable-zero123",
+      "filename": "stable_zero123.ckpt",
+      "url": "https://huggingface.co/stabilityai/stable-zero123/resolve/main/stable_zero123.ckpt"
+    },
+    {
+      "name": "Zero123 3D object Model",
+      "type": "Zero123",
+      "base": "Zero123",
+      "save_path": "checkpoints/zero123",
+      "description": "Zero123 original checkpoints in 105000 steps.",
+      "reference": "https://huggingface.co/cvlab/zero123-weights",
+      "filename": "zero123-105000.ckpt",
+      "url": "https://huggingface.co/cvlab/zero123-weights/resolve/main/105000.ckpt"
+    },
+    {
+      "name": "Zero123 3D object Model",
+      "type": "Zero123",
+      "base": "Zero123",
+      "save_path": "checkpoints/zero123",
+      "description": "Zero123 original checkpoints in 165000 steps.",
+      "reference": "https://huggingface.co/cvlab/zero123-weights",
+      "filename": "zero123-165000.ckpt",
+      "url": "https://huggingface.co/cvlab/zero123-weights/resolve/main/165000.ckpt"
+    },
+    {
+      "name": "InstantID/ip-adapter",
+      "type": "instantid",
+      "base": "SDXL",
+      "save_path": "instantid/SDXL",
+      "description": "ip-adapter model for cubiq/InstantID",
+      "reference": "https://huggingface.co/InstantX/InstantID",
+      "filename": "ip-adapter.bin",
+      "url": "https://huggingface.co/InstantX/InstantID/resolve/main/ip-adapter.bin"
+    },
+    {
+      "name": "InstantID/ControlNet",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "controlnet/SDXL/instantid",
+      "description": "instantid controlnet model for cubiq/InstantID",
+      "reference": "https://huggingface.co/InstantX/InstantID",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/InstantX/InstantID/resolve/main/ControlNetModel/diffusion_pytorch_model.safetensors"
+    },
+    {
+      "name": "MonsterMMORPG/insightface (for InstantID)",
+      "type": "insightface",
+      "base": "SDXL",
+      "save_path": "insightface/models",
+      "description": "MonsterMMORPG insightface model for cubiq/InstantID",
+      "reference": "https://huggingface.co/MonsterMMORPG/tools/tree/main",
+      "filename": "antelopev2.zip",
+      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/antelopev2.zip"
+    },
+    {
+      "name": "IC-Light/fc",
+      "type": "IC-Light",
+      "base": "SD1.5",
+      "save_path": "unet/IC-Light",
+      "description": "The default relighting model, conditioned on text and foreground",
+      "reference": "https://huggingface.co/lllyasviel/ic-light",
+      "filename": "iclight_sd15_fc.safetensors",
+      "url": "https://huggingface.co/lllyasviel/ic-light/resolve/main/iclight_sd15_fc.safetensors"
+    },
+    {
+      "name": "IC-Light/fbc",
+      "type": "IC-Light",
+      "base": "SD1.5",
+      "save_path": "unet/IC-Light",
+      "description": "Relighting model conditioned with text, foreground, and background",
+      "reference": "https://huggingface.co/lllyasviel/ic-light",
+      "filename": "iclight_sd15_fbc.safetensors",
+      "url": "https://huggingface.co/lllyasviel/ic-light/resolve/main/iclight_sd15_fbc.safetensors"
+    },
+    {
+      "name": "IC-Light/fcon",
+      "type": "IC-Light",
+      "base": "SD1.5",
+      "save_path": "unet/IC-Light",
+      "description": "Same as iclight_sd15_fc.safetensors, but trained with offset noise",
+      "reference": "https://huggingface.co/lllyasviel/ic-light",
+      "filename": "iclight_sd15_fcon.safetensors",
+      "url": "https://huggingface.co/lllyasviel/ic-light/resolve/main/iclight_sd15_fcon.safetensors"
     }
   ]
 }

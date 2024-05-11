@@ -508,7 +508,12 @@ def check_model_installed(json_obj):
         item['installed'] = 'None'
 
         if model_path is not None:
-            if os.path.exists(model_path):
+            if model_path.endswith('.zip'):
+                if os.path.exists(model_path[:-4]):
+                    item['installed'] = 'True'
+                else:
+                    item['installed'] = 'False'
+            elif os.path.exists(model_path):
                 item['installed'] = 'True'
             else:
                 item['installed'] = 'False'
@@ -872,7 +877,6 @@ async def update_comfyui(request):
             return web.Response(status=200)
     except Exception as e:
         print(f"ComfyUI update fail: {e}", file=sys.stderr)
-        pass
 
     return web.Response(status=400)
 
@@ -916,10 +920,17 @@ async def install_model(request):
                     model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de')):
                 model_dir = get_model_dir(json_data)
                 download_url(model_url, model_dir, filename=json_data['filename'])
+                if model_path.endswith('.zip'):
+                    res = core.unzip(model_path)
+                else:
+                    res = True
 
-                return web.json_response({}, content_type='application/json')
+                if res:
+                    return web.json_response({}, content_type='application/json')
             else:
                 res = download_url_with_agent(model_url, model_path)
+                if res and model_path.endswith('.zip'):
+                    res = core.unzip(model_path)
         else:
             print(f"Model installation error: invalid model type - {json_data['type']}")
 
@@ -927,7 +938,6 @@ async def install_model(request):
             return web.json_response({}, content_type='application/json')
     except Exception as e:
         print(f"[ERROR] {e}", file=sys.stderr)
-        pass
 
     return web.Response(status=400)
 
@@ -1074,14 +1084,17 @@ def restart(self):
         pass
 
     if '__COMFY_CLI_SESSION__' in os.environ:
-        with open(os.path.join(os.environ['__COMFY_CLI_SESSION__'], '.reboot'), 'w') as file:
+        with open(os.path.join(os.environ['__COMFY_CLI_SESSION__'] + '.reboot'), 'w') as file:
             pass
 
         print(f"\nRestarting...\n\n")
         exit(0)
 
     print(f"\nRestarting... [Legacy Mode]\n\n")
-    return os.execv(sys.executable, [sys.executable] + sys.argv)
+    if sys.platform.startswith('win32'):
+        return os.execv(sys.executable, ['"' + sys.executable + '"', '"' + sys.argv[0] + '"'] + sys.argv[1:])
+    else:
+        return os.execv(sys.executable, [sys.executable] + sys.argv)
 
 
 def sanitize_filename(input_string):

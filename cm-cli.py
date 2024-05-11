@@ -6,6 +6,8 @@ import json
 import asyncio
 import subprocess
 import shutil
+import concurrent
+import threading
 
 sys.path.append(os.path.dirname(__file__))
 sys.path.append(os.path.join(os.path.dirname(__file__), "glob"))
@@ -23,10 +25,12 @@ if not (len(sys.argv) == 2 and sys.argv[1] in ['save-snapshot', 'restore-depende
           f"    [install|reinstall|uninstall|update|disable|enable|fix] node_name ... ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
           f"    [update|disable|enable|fix] all ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
           f"    [simple-show|show] [installed|enabled|not-installed|disabled|all|snapshot|snapshot-list] ?[--channel <channel name>] ?[--mode [remote|local|cache]]\n"
-          f"    save-snapshot\n"
-          f"    restore-snapshot <snapshot>\n"
+          f"    save-snapshot ?[--output <snapshot .json/.yaml>]\n"
+          f"    restore-snapshot <snapshot .json/.yaml> ?[--pip-non-url] ?[--pip-non-local-url] ?[--pip-local-url]\n"
           f"    cli-only-mode [enable|disable]\n"
           f"    restore-dependencies\n"
+          f"    deps-in-workflow --workflow <workflow .json/.png> --output <output .json>\n"
+          f"    install-deps <deps .json>\n"
           f"    clear\n")
     exit(-1)
 
@@ -105,10 +109,36 @@ def restore_dependencies():
         i += 1
 
 
-def restore_snapshot(snapshot_name):
+def install_deps():
+    if not os.path.exists(sys.argv[2]):
+        print(f"File not found: {sys.argv[2]}")
+        exit(-1)
+    else:
+        with open(sys.argv[2], 'r', encoding="UTF-8", errors="ignore") as json_file:
+            json_obj = json.load(json_file)
+            for k in json_obj['custom_nodes'].keys():
+                state = core.simple_check_custom_node(k)
+                if state == 'installed':
+                    continue
+                elif state == 'not-installed':
+                    core.gitclone_install([k], instant_execution=True)
+                else:  # disabled
+                    core.gitclone_set_active([k], False)
+
+        print("Dependency installation and activation complete.")
+
+
+def restore_snapshot():
     global processed_install
 
-    if not os.path.exists(snapshot_name):
+    snapshot_name = sys.argv[2]
+    extras = [x for x in sys.argv if x in ['--pip-non-url', '--pip-local-url', '--pip-non-local-url']]
+
+    print(f"pips restore mode: {extras}")
+
+    if os.path.exists(snapshot_name):
+        snapshot_path = os.path.abspath(snapshot_name)
+    else:
         snapshot_path = os.path.join(core.comfyui_manager_path, 'snapshots', snapshot_name)
         if not os.path.exists(snapshot_path):
             print(f"ERROR: `{snapshot_path}` is not exists.")
@@ -140,7 +170,7 @@ def restore_snapshot(snapshot_name):
                     is_failed = True
 
         print(f"Restore snapshot.")
-        cmd_str = [sys.executable, git_script_path, '--apply-snapshot', snapshot_path]
+        cmd_str = [sys.executable, git_script_path, '--apply-snapshot', snapshot_path] + extras
         output = subprocess.check_output(cmd_str, cwd=custom_nodes_path, text=True)
         msg_lines = output.split('\n')
         extract_infos(msg_lines)
@@ -224,6 +254,10 @@ def load_custom_nodes():
                 repo_name = y.split('/')[-1]
                 res[repo_name] = x
 
+        if 'id' in x:
+            if x['id'] not in res:
+                res[x['id']] = x
+
     return res
 
 
@@ -252,14 +286,14 @@ custom_node_map = load_custom_nodes()
 
 
 def lookup_node_path(node_name, robust=False):
-    # Currently, the node_name is used directly as the node_path, but in the future, I plan to allow nicknames.
-
     if '..' in node_name:
         print(f"ERROR: invalid node name '{node_name}'")
         exit(-1)
 
     if node_name in custom_node_map:
-        node_path = os.path.join(custom_nodes_path, node_name)
+        node_url = custom_node_map[node_name]['files'][0]
+        repo_name = node_url.split('/')[-1]
+        node_path = os.path.join(custom_nodes_path, repo_name)
         return node_path, custom_node_map[node_name]
     elif robust:
         node_path = os.path.join(custom_nodes_path, node_name)
@@ -341,9 +375,55 @@ def update_node(node_name, is_all=False, cnt_msg=''):
     files = node_item['files'] if node_item is not None else [node_path]
 
     res = core.gitclone_update(files, skip_script=True, msg_prefix=f"[{cnt_msg}] ")
-    post_install(node_path)
+
     if not res:
-        print(f"ERROR: An error occurred while uninstalling '{node_name}'.")
+        print(f"ERROR: An error occurred while updating '{node_name}'.")
+        return None
+
+    return node_path
+
+
+def update_parallel():
+    global nodes
+
+    is_all = False
+    if 'all' in nodes:
+        is_all = True
+        nodes = [x for x in custom_node_map.keys() if os.path.exists(os.path.join(custom_nodes_path, x)) or os.path.exists(os.path.join(custom_nodes_path, x) + '.disabled')]
+
+    nodes = [x for x in nodes if x.lower() not in ['comfy', 'comfyui', 'all']]
+
+    total = len(nodes)
+
+    lock = threading.Lock()
+    processed = []
+
+    i = 0
+
+    def process_custom_node(x):
+        nonlocal i
+        nonlocal processed
+
+        with lock:
+            i += 1
+
+        try:
+            node_path = update_node(x, is_all=is_all, cnt_msg=f'{i}/{total}')
+            with lock:
+                processed.append(node_path)
+        except Exception as e:
+            print(f"ERROR: {e}")
+            traceback.print_exc()
+
+    with concurrent.futures.ThreadPoolExecutor(4) as executor:
+        for item in nodes:
+            executor.submit(process_custom_node, item)
+
+    i = 1
+    for node_path in processed:
+        print(f"[{i}/{total}] Post update: {node_path}")
+        post_install(node_path)
+        i += 1
 
 
 def update_comfyui():
@@ -362,17 +442,14 @@ def enable_node(node_name, is_all=False, cnt_msg=''):
 
     node_path, node_item = lookup_node_path(node_name, robust=True)
 
-    files = node_item['files'] if node_item is not None else [node_path]
-
-    for x in files:
-        if os.path.exists(x+'.disabled'):
-            current_name = x+'.disabled'
-            os.rename(current_name, x)
-            print(f"{cnt_msg} [ENABLED] {node_name:50}")
-        elif os.path.exists(x):
-            print(f"{cnt_msg} [SKIPPED] {node_name:50} => Already enabled")
-        elif not is_all:
-            print(f"{cnt_msg} [SKIPPED] {node_name:50} => Not installed")
+    if os.path.exists(node_path+'.disabled'):
+        current_name = node_path+'.disabled'
+        os.rename(current_name, node_path)
+        print(f"{cnt_msg} [ENABLED] {node_name:50}")
+    elif os.path.exists(node_path):
+        print(f"{cnt_msg} [SKIPPED] {node_name:50} => Already enabled")
+    elif not is_all:
+        print(f"{cnt_msg} [SKIPPED] {node_name:50} => Not installed")
 
 
 def disable_node(node_name, is_all=False, cnt_msg=''):
@@ -381,18 +458,15 @@ def disable_node(node_name, is_all=False, cnt_msg=''):
     
     node_path, node_item = lookup_node_path(node_name, robust=True)
 
-    files = node_item['files'] if node_item is not None else [node_path]
-
-    for x in files:
-        if os.path.exists(x):
-            current_name = x
-            new_name = x+'.disabled'
-            os.rename(current_name, new_name)
-            print(f"{cnt_msg} [DISABLED] {node_name:50}")
-        elif os.path.exists(x+'.disabled'):
-            print(f"{cnt_msg} [ SKIPPED] {node_name:50} => Already disabled")
-        elif not is_all:
-            print(f"{cnt_msg} [ SKIPPED] {node_name:50} => Not installed")
+    if os.path.exists(node_path):
+        current_name = node_path
+        new_name = node_path+'.disabled'
+        os.rename(current_name, new_name)
+        print(f"{cnt_msg} [DISABLED] {node_name:50}")
+    elif os.path.exists(node_path+'.disabled'):
+        print(f"{cnt_msg} [ SKIPPED] {node_name:50} => Already disabled")
+    elif not is_all:
+        print(f"{cnt_msg} [ SKIPPED] {node_name:50} => Not installed")
 
 
 def show_list(kind, simple=False):
@@ -419,7 +493,8 @@ def show_list(kind, simple=False):
             if simple:
                 print(f"{k:50}")
             else:
-                print(f"{prefix} {k:50}(author: {v['author']})")
+                short_id = v.get('id', "")
+                print(f"{prefix} {k:50} {short_id:20} (author: {v['author']})")
 
     # unregistered nodes
     candidates = os.listdir(os.path.realpath(custom_nodes_path))
@@ -451,7 +526,7 @@ def show_list(kind, simple=False):
                 if simple:
                     print(f"{k:50}")
                 else:
-                    print(f"{prefix} {k:50}(author: N/A)")
+                    print(f"{prefix} {k:50} {'':20} (author: N/A)")
 
 
 def show_snapshot(simple_mode=False):
@@ -484,6 +559,61 @@ def cancel():
 
     if os.path.exists(restore_snapshot_path):
         os.remove(restore_snapshot_path)
+
+
+def save_snapshot():
+    output_path = None
+    for i in range(len(sys.argv)):
+        if sys.argv[i] == '--output':
+            if len(sys.argv) >= i:
+                output_path = sys.argv[i+1]
+
+    return core.save_snapshot_with_postfix('snapshot', output_path)
+
+
+def auto_save_snapshot():
+    return core.save_snapshot_with_postfix('cli-autosave')
+
+
+def deps_in_workflow():
+    input_path = None
+    output_path = None
+
+    for i in range(len(sys.argv)):
+        if sys.argv[i] == '--workflow' and len(sys.argv) > i and not sys.argv[i+1].startswith('-'):
+            input_path = sys.argv[i+1]
+
+        elif sys.argv[i] == '--output' and len(sys.argv) > i and not sys.argv[i+1].startswith('-'):
+            output_path = sys.argv[i+1]
+
+    if input_path is None:
+        print(f"missing arguments: --workflow <path>")
+        exit(-1)
+    elif not os.path.exists(input_path):
+        print(f"File not found: {input_path}")
+        exit(-1)
+
+    if output_path is None:
+        print(f"missing arguments: --output <path>")
+        exit(-1)
+
+    used_exts, unknown_nodes = asyncio.run(core.extract_nodes_from_workflow(input_path, mode=mode, channel_url=channel))
+
+    custom_nodes = {}
+    for x in used_exts:
+        custom_nodes[x] = { 'state': core.simple_check_custom_node(x),
+                            'hash': '-'
+                            }
+
+    res = {
+            'custom_nodes': custom_nodes,
+            'unknown_nodes': list(unknown_nodes)
+    }
+
+    with open(output_path, "w", encoding='utf-8') as output_file:
+        json.dump(res, output_file, indent=4)
+
+    print(f"Workflow dependencies are being saved into {output_path}.")
 
 
 def for_each_nodes(act, allow_all=True):
@@ -520,20 +650,32 @@ elif op == 'uninstall':
     for_each_nodes(uninstall_node)
 
 elif op == 'update':
+    if 'all' in nodes:
+        auto_save_snapshot()
+
     for x in nodes:
         if x.lower() in ['comfyui', 'comfy', 'all']:
             update_comfyui()
             break
 
-    for_each_nodes(update_node, allow_all=True)
+    update_parallel()
 
 elif op == 'disable':
+    if 'all' in nodes:
+        auto_save_snapshot()
+
     for_each_nodes(disable_node, allow_all=True)
 
 elif op == 'enable':
+    if 'all' in nodes:
+        auto_save_snapshot()
+
     for_each_nodes(enable_node, allow_all=True)
 
 elif op == 'fix':
+    if 'all' in nodes:
+        auto_save_snapshot()
+
     for_each_nodes(fix_node, allow_all=True)
 
 elif op == 'show':
@@ -565,15 +707,22 @@ elif op == 'cli-only-mode':
     else:
         print(f"\ninvalid value for cli-only-mode: {sys.argv[2]}\n")
 
+elif op == "deps-in-workflow":
+    deps_in_workflow()
+
 elif op == 'save-snapshot':
-    path = core.save_snapshot_with_postfix('snapshot')
+    path = save_snapshot()
     print(f"Current snapshot is saved as `{path}`")
 
 elif op == 'restore-snapshot':
-    restore_snapshot(sys.argv[2])
+    restore_snapshot()
 
 elif op == 'restore-dependencies':
     restore_dependencies()
+
+elif op == 'install-deps':
+    auto_save_snapshot()
+    install_deps()
 
 elif op == 'clear':
     cancel()

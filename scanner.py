@@ -37,21 +37,35 @@ else:
 print(f"TEMP DIR: {temp_dir}")
 
 
+parse_cnt = 0
+
 def extract_nodes(code_text):
+    global parse_cnt
+
     try:
+        if parse_cnt % 100 == 0:
+            print(f".", end="", flush=True)
+        parse_cnt += 1
+
+        code_text = re.sub(r'\\[^"\']', '', code_text)
         parsed_code = ast.parse(code_text)
 
         assignments = (node for node in parsed_code.body if isinstance(node, ast.Assign))
-
+        
         for assignment in assignments:
-            if isinstance(assignment.targets[0], ast.Name) and assignment.targets[0].id == 'NODE_CLASS_MAPPINGS':
+            if isinstance(assignment.targets[0], ast.Name) and assignment.targets[0].id in ['NODE_CONFIG', 'NODE_CLASS_MAPPINGS']:
                 node_class_mappings = assignment.value
                 break
         else:
             node_class_mappings = None
 
         if node_class_mappings:
-            s = set([key.s.strip() for key in node_class_mappings.keys if key is not None])
+            s = set()
+
+            for key in node_class_mappings.keys:
+                    if key is not None and isinstance(key.value, str):
+                        s.add(key.value.strip())
+                    
             return s
         else:
             return set()
@@ -78,20 +92,24 @@ def scan_in_file(filename, is_builtin=False):
 
     nodes |= extract_nodes(code)
 
-    pattern2 = r'^[^=]*_CLASS_MAPPINGS\["(.*?)"\]'
-    keys = re.findall(pattern2, code)
-    for key in keys:
-        nodes.add(key.strip())
+    def extract_keys(pattern, code):
+        keys = re.findall(pattern, code)
+        return {key.strip() for key in keys}
 
-    pattern3 = r'^[^=]*_CLASS_MAPPINGS\[\'(.*?)\'\]'
-    keys = re.findall(pattern3, code)
-    for key in keys:
-        nodes.add(key.strip())
+    def update_nodes(nodes, new_keys):
+        nodes |= new_keys
 
-    pattern4 = r'@register_node\("(.+)",\s*\".+"\)'
-    keys = re.findall(pattern4, code)
-    for key in keys:
-        nodes.add(key.strip())
+    patterns = [
+        r'^[^=]*_CLASS_MAPPINGS\["(.*?)"\]',
+        r'^[^=]*_CLASS_MAPPINGS\[\'(.*?)\'\]',
+        r'@register_node\("(.+)",\s*\".+"\)',
+        r'"(\w+)"\s*:\s*{"class":\s*\w+\s*'
+    ]
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = {executor.submit(extract_keys, pattern, code): pattern for pattern in patterns}
+        for future in concurrent.futures.as_completed(futures):
+            update_nodes(nodes, future.result())
 
     matches = regex.findall(code)
     for match in matches:
@@ -208,7 +226,7 @@ def clone_or_pull_git_repository(git_url):
         try:
             repo = Repo(repo_dir)
             origin = repo.remote(name="origin")
-            origin.pull(rebase=True)
+            origin.pull()
             repo.git.submodule('update', '--init', '--recursive')
             print(f"Pulling {repo_name}...")
         except Exception as e:
@@ -306,12 +324,8 @@ def update_custom_nodes():
 
             json.dump(github_stats, file, ensure_ascii=False, indent=4)
 
-        print(f"Successfully written to {GITHUB_STATS_FILENAME}, removing {GITHUB_STATS_CACHE_FILENAME}.")
-        # try:
-        #     os.remove(GITHUB_STATS_CACHE_FILENAME)  # This cache file is just for avoiding failure of GitHub API fetch, so it is safe to remove.
-        # except:
-        #     pass
-
+        print(f"Successfully written to {GITHUB_STATS_FILENAME}.")
+        
     with concurrent.futures.ThreadPoolExecutor(11) as executor:
         if not skip_stat_update:
             executor.submit(process_git_stats, git_url_titles_preemptions)  # One single thread for `process_git_stats()`. Runs concurrently with `process_git_url_title()`.
@@ -450,3 +464,4 @@ updated_node_info = update_custom_nodes()
 print("\n# 'extension-node-map.json' file is generated.\n")
 gen_json(updated_node_info)
 
+print("\nDONE.\n")
