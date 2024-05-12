@@ -191,6 +191,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * NOTE: Before submitting the PR after making changes, please check `Use local DB` and ensure that the extension list loads without any issues in the `Install custom nodes` dialog. Occasionally, missing or extra commas can lead to JSON syntax errors.
 * The remaining JSON will be updated through scripts in the future, so you don't need to worry about it.
 
+
 ## Custom node support guide
 
 * Currently, the system operates by cloning the git repository and sequentially installing the dependencies listed in requirements.txt using pip, followed by invoking the install.py script. In the future, we plan to discuss and determine the specifications for supporting custom nodes.
@@ -336,7 +337,12 @@ When you run the `scan.sh` script:
 * Currently, `vid2vid` is not being updated, causing compatibility issues.
 * If you encounter the error message `Overlapped Object has pending operation at deallocation on Comfyui Manager load` under Windows
   * Edit `config.ini` file: add `windows_selector_event_loop_policy = True`
-
+* How to disable unsecure features
+  * Edit `config.ini` file: add `disable_unsecure_features = True`
+  * If you disable unsecure features these features won't work
+    * install/uninstall/fix custom nodes
+    * restore/remove snapshot
+    * pip install
 
 ## TODO: Unconventional form of custom node list
 

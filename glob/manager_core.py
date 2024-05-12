@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 30, 1]
+version = [2, 31]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -204,7 +204,8 @@ def write_config():
         'double_click_policy': get_config()['double_click_policy'],
         'windows_selector_event_loop_policy': get_config()['windows_selector_event_loop_policy'],
         'model_download_by_agent': get_config()['model_download_by_agent'],
-        'downgrade_blacklist': get_config()['downgrade_blacklist']
+        'downgrade_blacklist': get_config()['downgrade_blacklist'],
+        'disable_unsecure_features': get_config()['disable_unsecure_features'],
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -230,6 +231,7 @@ def read_config():
                     'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else False,
                     'model_download_by_agent': default_conf['model_download_by_agent'] if 'model_download_by_agent' in default_conf else False,
                     'downgrade_blacklist': default_conf['downgrade_blacklist'] if 'downgrade_blacklist' in default_conf else '',
+                    'disable_unsecure_features': default_conf['disable_unsecure_features'] if 'disable_unsecure_features' in default_conf else False,
                }
 
     except Exception:
@@ -246,7 +248,8 @@ def read_config():
             'double_click_policy': 'copy-all',
             'windows_selector_event_loop_policy': False,
             'model_download_by_agent': False,
-            'downgrade_blacklist': ''
+            'downgrade_blacklist': '',
+            'disable_unsecure_features': False,
         }
 
 
@@ -1186,3 +1189,7 @@ def unzip(model_path):
 
     os.remove(model_path)
     return True
+
+
+def is_unsecure_features_disabled():
+    return get_config()['disable_unsecure_features']

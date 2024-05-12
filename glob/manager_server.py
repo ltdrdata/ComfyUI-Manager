@@ -551,6 +551,10 @@ async def get_snapshot_list(request):
 
 @PromptServer.instance.routes.get("/snapshot/remove")
 async def remove_snapshot(request):
+    if core.is_unsecure_features_disabled():
+        print(f"ERROR: The unsecure feature is disabled, restricting the remove feature. Please contact the administrator.")
+        return web.Response(status=400)
+    
     try:
         target = request.rel_url.query["target"]
 
@@ -565,6 +569,10 @@ async def remove_snapshot(request):
 
 @PromptServer.instance.routes.get("/snapshot/restore")
 async def remove_snapshot(request):
+    if core.is_unsecure_features_disabled():
+        print(f"ERROR: The unsecure feature is disabled, restricting the restore feature. Please contact the administrator.")
+        return web.Response(status=400)
+    
     try:
         target = request.rel_url.query["target"]
 
@@ -729,6 +737,10 @@ def copy_set_active(files, is_disable, js_path_name='.'):
 
 @PromptServer.instance.routes.post("/customnode/install")
 async def install_custom_node(request):
+    if core.is_unsecure_features_disabled():
+        print(f"ERROR: The unsecure feature is disabled, restricting the installation of custom nodes. Please contact the administrator.")
+        return web.Response(status=400)
+
     json_data = await request.json()
 
     install_type = json_data['install_type']
@@ -767,6 +779,10 @@ async def install_custom_node(request):
 
 @PromptServer.instance.routes.post("/customnode/fix")
 async def fix_custom_node(request):
+    if core.is_unsecure_features_disabled():
+        print(f"ERROR: The unsecure feature is disabled, restricting the fix feature. Please contact the administrator.")
+        return web.Response(status=400)
+
     json_data = await request.json()
 
     install_type = json_data['install_type']
@@ -797,6 +813,10 @@ async def fix_custom_node(request):
 
 @PromptServer.instance.routes.post("/customnode/install/git_url")
 async def install_custom_node_git_url(request):
+    if core.is_unsecure_features_disabled():
+        print(f"ERROR: The unsecure feature is disabled, restricting the installation of custom nodes. Please contact the administrator.")
+        return web.Response(status=400)
+
     url = await request.text()
     res = core.gitclone_install([url])
 
@@ -809,6 +829,10 @@ async def install_custom_node_git_url(request):
 
 @PromptServer.instance.routes.post("/customnode/install/pip")
 async def install_custom_node_git_url(request):
+    if core.is_unsecure_features_disabled():
+        print(f"ERROR: The unsecure feature is disabled, restricting the installation of pip package. Please contact the administrator.")
+        return web.Response(status=400)
+
     packages = await request.text()
     core.pip_install(packages.split(' '))
 
@@ -817,6 +841,10 @@ async def install_custom_node_git_url(request):
 
 @PromptServer.instance.routes.post("/customnode/uninstall")
 async def uninstall_custom_node(request):
+    if core.is_unsecure_features_disabled():
+        print(f"ERROR: The unsecure feature is disabled, restricting the uninstallation of custom nodes. Please contact the administrator.")
+        return web.Response(status=400)
+
     json_data = await request.json()
 
     install_type = json_data['install_type']
@@ -955,6 +983,10 @@ manager_terminal_hook = ManagerTerminalHook()
 
 @PromptServer.instance.routes.get("/manager/terminal")
 async def terminal_mode(request):
+    if core.is_unsecure_features_disabled():
+        print(f"ERROR: The unsecure feature is disabled, restricting the terminal feature. Please contact the administrator.")
+        return web.Response(status=400)
+
     if "mode" in request.rel_url.query:
         if request.rel_url.query['mode'] == 'true':
             sys.__comfyui_manager_terminal_hook.add_hook('cm', manager_terminal_hook)
@@ -1078,6 +1110,10 @@ async def get_notice(request):
 
 @PromptServer.instance.routes.get("/manager/reboot")
 def restart(self):
+    if core.is_unsecure_features_disabled():
+        print(f"ERROR: The unsecure feature is disabled, restricting the reboot feature. Please contact the administrator.")
+        return web.Response(status=400)
+
     try:
         sys.stdout.close_log()
     except Exception as e:
