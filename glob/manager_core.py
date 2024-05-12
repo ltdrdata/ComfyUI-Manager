@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 32]
+version = [2, 32, 1]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -1192,4 +1192,4 @@ def unzip(model_path):
 
 
 def is_unsecure_features_disabled():
-    return get_config()['disable_unsecure_features']
+    return not get_config()['disable_unsecure_features']
