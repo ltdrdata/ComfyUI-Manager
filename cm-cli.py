@@ -469,12 +469,18 @@ def disable_node(node_name, is_all=False, cnt_msg=''):
         print(f"{cnt_msg} [ SKIPPED] {node_name:50} => Not installed")
 
 
+def export_custom_node_ids():
+    with open(sys.argv[2], "w", encoding='utf-8') as output_file:
+        for x in custom_node_map.keys():
+            print(x, file=output_file)
+
+
 def show_list(kind, simple=False):
     for k, v in custom_node_map.items():
-        node_path = os.path.join(custom_nodes_path, k)
-
         if v[1]:
             continue
+
+        node_path = os.path.join(custom_nodes_path, k)
 
         states = set()
         if os.path.exists(node_path):
@@ -729,6 +735,9 @@ elif op == 'install-deps':
 
 elif op == 'clear':
     cancel()
+
+elif op == 'export-custom-node-ids':
+    export_custom_node_ids()
 
 else:
     print(f"\nInvalid command `{op}`")
