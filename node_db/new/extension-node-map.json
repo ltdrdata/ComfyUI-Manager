@@ -1652,7 +1652,7 @@
             "StableCascadeLatentRatio"
         ],
         {
-            "title_aux": "ComfyUI-ScenarioPrompt"
+            "title_aux": "ComfyUI_StableCascadeLatentRatio"
         }
     ],
     "https://github.com/HAL41/ComfyUI-aichemy-nodes": [
@@ -2645,6 +2645,8 @@
             "DoubleClipTextEncode",
             "EmbeddingLoader",
             "FilmCharDir",
+            "FuseImages",
+            "FuseImages2",
             "HashText",
             "HueSatLum",
             "HueShift",
@@ -2655,7 +2657,6 @@
             "IntEvaluate",
             "IntFloatDict",
             "IntStringDict",
-            "JoinImages",
             "LandscapeBackgrounds",
             "LandscapeDir",
             "MakeupStylesDir",
@@ -2671,6 +2672,7 @@
             "SaveWithMetaData2",
             "SimplePrompts",
             "SpecificStylesDir",
+            "StringJoin",
             "TimeStamp",
             "TricolorComposition",
             "WorkflowSettings",
@@ -4902,6 +4904,7 @@
     ],
     "https://github.com/abyz22/image_control": [
         [
+            "abyz22_AddPrompt",
             "abyz22_Convertpipe",
             "abyz22_Editpipe",
             "abyz22_FirstNonNull",
@@ -4911,6 +4914,7 @@
             "abyz22_ImpactWildcardEncode_GetPrompt",
             "abyz22_Ksampler",
             "abyz22_Padding Image",
+            "abyz22_RandomMask",
             "abyz22_RemoveControlnet",
             "abyz22_SaveImage",
             "abyz22_SetQueue",
@@ -7866,6 +7870,16 @@
             "title_aux": "As_ComfyUI_CustomNodes"
         }
     ],
+    "https://github.com/fmatray/ComfyUI_BattlemapGrid": [
+        [
+            "Battlemap Grid",
+            "Map Generator",
+            "Map Generator(Outdoors)"
+        ],
+        {
+            "title_aux": "ComfyUI_BattlemapGrid"
+        }
+    ],
     "https://github.com/fofr/ComfyUI-HyperSDXL1StepUnetScheduler": [
         [
             "HyperSDXL1StepUnetScheduler"
@@ -8441,6 +8455,15 @@
         ],
         {
             "title_aux": "Light Gradient for ComfyUI"
+        }
+    ],
+    "https://github.com/huchenlei/ComfyUI-IC-Light-Native": [
+        [
+            "ICLightAppply",
+            "VAEEncodeArgMax"
+        ],
+        {
+            "title_aux": "ComfyUI-IC-Light-Native"
         }
     ],
     "https://github.com/huchenlei/ComfyUI-layerdiffuse": [
@@ -9182,7 +9205,8 @@
             "CalculateNormalsFromImages",
             "ICLightConditioning",
             "LightSource",
-            "LoadAndApplyICLightUnet"
+            "LoadAndApplyICLightUnet",
+            "LoadHDRImage"
         ],
         {
             "title_aux": "ComfyUI-IC-Light"
@@ -9216,6 +9240,7 @@
             "CreateGradientMask",
             "CreateInstanceDiffusionTracking",
             "CreateMagicMask",
+            "CreateShapeImageOnPath",
             "CreateShapeMask",
             "CreateShapeMaskOnPath",
             "CreateTextMask",
@@ -9241,6 +9266,7 @@
             "GradientToFloat",
             "GrowMaskWithBlur",
             "INTConstant",
+            "ImageAddMulti",
             "ImageAndMaskPreview",
             "ImageBatchMulti",
             "ImageBatchRepeatInterleaving",
@@ -9251,6 +9277,7 @@
             "ImageGridComposite3x3",
             "ImageNormalize_Neg1_To_1",
             "ImagePadForOutpaintMasked",
+            "ImagePadForOutpaintTargetSize",
             "ImagePass",
             "ImageTransformByNormalizedAmplitude",
             "ImageUpscaleWithModelBatched",
@@ -9545,6 +9572,19 @@
             "title_aux": "cd-tuner_negpip-ComfyUI"
         }
     ],
+    "https://github.com/laksjdjf/cgem156-ComfyUI": [
+        [
+            "GradualLatentSampler",
+            "LCMSamplerRCFG",
+            "LoadAestheticShadow",
+            "PredictAesthetic",
+            "TCDSampler",
+            "TextScheduler"
+        ],
+        {
+            "title_aux": "cgem156-ComfyUI\ud83c\udf4c"
+        }
+    ],
     "https://github.com/laksjdjf/pfg-ComfyUI": [
         [
             "PFG"
@@ -9757,6 +9797,15 @@
         ],
         {
             "title_aux": "Wildcards"
+        }
+    ],
+    "https://github.com/lquesada/ComfyUI-Inpaint-CropAndStitch": [
+        [
+            "InpaintCrop",
+            "InpaintStitch"
+        ],
+        {
+            "title_aux": "ComfyUI-Inpaint-CropAndStitch"
         }
     ],
     "https://github.com/lquesada/ComfyUI-Prompt-Combinator": [
@@ -11066,6 +11115,37 @@
             "title_aux": "RUI-Nodes"
         }
     ],
+    "https://github.com/ruiqutech/ComfyUI-RuiquNodes": [
+        [
+            "EvaluateListMultiple1",
+            "EvaluateListMultiple3",
+            "EvaluateListMultiple6",
+            "EvaluateListMultiple9",
+            "EvaluateMultiple1",
+            "EvaluateMultiple3",
+            "EvaluateMultiple6",
+            "EvaluateMultiple9",
+            "ImageDilate",
+            "ImageErode",
+            "ListPath",
+            "MaskDilate",
+            "MaskErode",
+            "PreviewMask",
+            "RangeSplit",
+            "SaveMask",
+            "StringAsAny",
+            "StringConcat1",
+            "StringConcat3",
+            "StringConcat6",
+            "StringConcat9",
+            "StringPathStem",
+            "TermsToList",
+            "VAEDecodeSave"
+        ],
+        {
+            "title_aux": "RuiquNodes for ComfyUI"
+        }
+    ],
     "https://github.com/runtime44/comfyui_r44_nodes": [
         [
             "Runtime44ColorMatch",
@@ -11860,6 +11940,26 @@
         ],
         {
             "title_aux": "ComfyUI Browser"
+        }
+    ],
+    "https://github.com/teward/ComfyUI-Helper-Nodes": [
+        [
+            "HelperNodes_CfgScale",
+            "HelperNodes_CheckpointSelector",
+            "HelperNodes_MultilineStringLiteral",
+            "HelperNodes_Prompt",
+            "HelperNodes_SDXLCommonResolutions",
+            "HelperNodes_SamplerSelector",
+            "HelperNodes_SaveImage",
+            "HelperNodes_SchedulerSelector",
+            "HelperNodes_SeedSelector",
+            "HelperNodes_Steps",
+            "HelperNodes_StringLiteral",
+            "HelperNodes_VAESelector",
+            "HelperNodes_WidthHeight"
+        ],
+        {
+            "title_aux": "ComfyUI-Helper-Nodes"
         }
     ],
     "https://github.com/theUpsider/ComfyUI-Logic": [
