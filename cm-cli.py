@@ -252,11 +252,11 @@ def load_custom_nodes():
         for y in x['files']:
             if 'github.com' in y and not (y.endswith('.py') or y.endswith('.js')):
                 repo_name = y.split('/')[-1]
-                res[repo_name] = x
+                res[repo_name] = (x, False)
 
         if 'id' in x:
             if x['id'] not in res:
-                res[x['id']] = x
+                res[x['id']] = (x, True)
 
     return res
 
@@ -291,10 +291,10 @@ def lookup_node_path(node_name, robust=False):
         exit(-1)
 
     if node_name in custom_node_map:
-        node_url = custom_node_map[node_name]['files'][0]
+        node_url = custom_node_map[node_name][0]['files'][0]
         repo_name = node_url.split('/')[-1]
         node_path = os.path.join(custom_nodes_path, repo_name)
-        return node_path, custom_node_map[node_name]
+        return node_path, custom_node_map[node_name][0]
     elif robust:
         node_path = os.path.join(custom_nodes_path, node_name)
         return node_path, None
@@ -473,6 +473,9 @@ def show_list(kind, simple=False):
     for k, v in custom_node_map.items():
         node_path = os.path.join(custom_nodes_path, k)
 
+        if v[1]:
+            continue
+
         states = set()
         if os.path.exists(node_path):
             prefix = '[    ENABLED    ] '
@@ -493,8 +496,8 @@ def show_list(kind, simple=False):
             if simple:
                 print(f"{k:50}")
             else:
-                short_id = v.get('id', "")
-                print(f"{prefix} {k:50} {short_id:20} (author: {v['author']})")
+                short_id = v[0].get('id', "")
+                print(f"{prefix} {k:50} {short_id:20} (author: {v[0]['author']})")
 
     # unregistered nodes
     candidates = os.listdir(os.path.realpath(custom_nodes_path))
