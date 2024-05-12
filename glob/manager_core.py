@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 30]
+version = [2, 30, 1]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -564,7 +564,7 @@ def git_pull(path):
 
 async def get_data(uri, silent=False):
     if not silent:
-        print(f"FETCH DATA from: {uri}")
+        print(f"FETCH DATA from: {uri}", end="")
 
     if uri.startswith("http"):
         async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
@@ -576,6 +576,8 @@ async def get_data(uri, silent=False):
                 json_text = f.read()
 
     json_obj = json.loads(json_text)
+    if not silent:
+        print(f" [DONE]")
     return json_obj
 
 
