@@ -343,6 +343,7 @@ When you run the `scan.sh` script:
     * install/uninstall/fix custom nodes
     * restore/remove snapshot
     * pip install
+    * reboot
 
 ## TODO: Unconventional form of custom node list
 
