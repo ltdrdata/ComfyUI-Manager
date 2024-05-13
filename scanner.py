@@ -291,22 +291,34 @@ def update_custom_nodes():
                         repo = g.get_repo(owner_repo)
 
                         last_update = repo.pushed_at.strftime("%Y-%m-%d %H:%M:%S") if repo.pushed_at else 'N/A'
-                        github_stats[url] = {
+                        item = {
                             "stars": repo.stargazers_count,
                             "last_update": last_update,
                             "cached_time": datetime.datetime.now().timestamp(),
                         }
-                        with open(GITHUB_STATS_CACHE_FILENAME, 'w', encoding='utf-8') as file:
-                            json.dump(github_stats, file, ensure_ascii=False, indent=4)
+                        return url, item
                     else:
                         print(f"\nInvalid URL format for GitHub repository: {url}\n")
                 except Exception as e:
                     print(f"\nERROR on {url}\n{e}")
 
+                return None
+
             # resolve unresolved urls
-            for url, title, preemptions, node_pattern in git_url_titles_preemptions:
-                if url not in github_stats:
-                    renew_stat(url)
+            with concurrent.futures.ThreadPoolExecutor(11) as executor:
+                futures = []
+                for url, title, preemptions, node_pattern in git_url_titles_preemptions:
+                    if url not in github_stats:
+                        futures.append(executor.submit(renew_stat, url))
+
+                for future in concurrent.futures.as_completed(futures):
+                    url_item = future.result()
+                    if url_item is not None:
+                        url, item = url_item
+                        github_stats[url] = item
+
+            with open('github-stats-cache.json', 'w', encoding='utf-8') as file:
+                json.dump(github_stats, file, ensure_ascii=False, indent=4)
 
             # renew outdated cache
             outdated_urls = []
@@ -326,11 +338,11 @@ def update_custom_nodes():
             json.dump(github_stats, file, ensure_ascii=False, indent=4)
 
         print(f"Successfully written to {GITHUB_STATS_FILENAME}.")
-        
-    with concurrent.futures.ThreadPoolExecutor(11) as executor:
-        if not skip_stat_update:
-            executor.submit(process_git_stats, git_url_titles_preemptions)  # One single thread for `process_git_stats()`. Runs concurrently with `process_git_url_title()`.
 
+    if not skip_stat_update:
+        process_git_stats(git_url_titles_preemptions)
+
+    with concurrent.futures.ThreadPoolExecutor(11) as executor:
         for url, title, preemptions, node_pattern in git_url_titles_preemptions:
             executor.submit(process_git_url_title, url, title, preemptions, node_pattern)
 
