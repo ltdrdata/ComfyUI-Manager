@@ -416,6 +416,7 @@
             "IntToString-badger",
             "IntToStringAdvanced-badger",
             "LoadImageAdvanced-badger",
+            "LoadImagesFromDirListAdvanced-badger",
             "SegmentToMaskByPoint-badger",
             "SimpleBoolean-badger",
             "StringToFizz-badger",
@@ -3635,7 +3636,8 @@
             "Image Batch Manager (SuperBeasts.AI)",
             "Make Resized Mask Batch (SuperBeasts.AI)",
             "Mask Batch Manager (SuperBeasts.AI)",
-            "Pixel Deflicker (SuperBeasts.AI)"
+            "Pixel Deflicker (SuperBeasts.AI)",
+            "String List Manager (SuperBeasts.AI)"
         ],
         {
             "title_aux": "ComfyUI-SuperBeasts"
@@ -6462,7 +6464,9 @@
             "LayerUtility: PromptEmbellish",
             "LayerUtility: PromptTagger",
             "LayerUtility: QWenImage2Prompt",
+            "LayerUtility: RGB Value",
             "LayerUtility: RestoreCropBox",
+            "LayerUtility: Seed",
             "LayerUtility: SimpleTextImage",
             "LayerUtility: TextBox",
             "LayerUtility: TextImage",
@@ -6976,6 +6980,7 @@
     ],
     "https://github.com/cubiq/ComfyUI_FaceAnalysis": [
         [
+            "FaceAlign",
             "FaceAnalysisModels",
             "FaceBoundingBox",
             "FaceEmbedDistance"
@@ -7098,6 +7103,7 @@
     "https://github.com/cubiq/PuLID_ComfyUI": [
         [
             "ApplyPulid",
+            "ApplyPulidAdvanced",
             "PulidEvaClipLoader",
             "PulidInsightFaceLoader",
             "PulidModelLoader"
@@ -8457,6 +8463,7 @@
         [
             "ApplyICLight",
             "CalculateNormalMap",
+            "GrayScaler",
             "ICLightModelLoader",
             "LightSource"
         ],
@@ -8475,6 +8482,7 @@
     ],
     "https://github.com/huchenlei/ComfyUI-IC-Light-Native": [
         [
+            "ICLightApplyMaskGrey",
             "ICLightAppply",
             "VAEEncodeArgMax"
         ],
@@ -8832,10 +8840,12 @@
             "FacelessLoadImageUrl",
             "FacelessLoadVideo",
             "FacelessLoadVideoUrl",
+            "FacelessRemoveBackground",
             "FacelessSaveVideo",
             "FacelessUploadVideo",
             "FacelessVideoFaceRestore",
-            "FacelessVideoFaceSwap"
+            "FacelessVideoFaceSwap",
+            "FacelessVideoRemoveBackground"
         ],
         {
             "title_aux": "comfyui-fb-utils"
@@ -10338,12 +10348,14 @@
             "PettyPaintConvert",
             "PettyPaintExec",
             "PettyPaintImageCompositeMasked",
+            "PettyPaintImagePlacement",
             "PettyPaintImageSave",
             "PettyPaintImageStore",
             "PettyPaintImageToMask",
             "PettyPaintJsonMap",
             "PettyPaintJsonRead",
             "PettyPaintJsonReadArray",
+            "PettyPaintLoadImage",
             "PettyPaintLoadImages",
             "PettyPaintMap",
             "PettyPaintRemoveAddText",
@@ -10676,6 +10688,7 @@
             "BlendInpaint",
             "BrushNet",
             "BrushNetLoader",
+            "CutForInpaint",
             "PowerPaint",
             "PowerPaintCLIPLoader"
         ],
@@ -11011,12 +11024,17 @@
         [
             "AvoidErasePrediction",
             "CFGPrediction",
+            "CharacteristicGuidancePrediction",
             "CombinePredictions",
             "ConditionedPrediction",
+            "InterpolatePredictions",
+            "LogSigmas",
             "PerpNegPrediction",
             "SamplerCustomPrediction",
             "ScalePrediction",
             "ScaledGuidancePrediction",
+            "SelectSigmas",
+            "SplitAtSigma",
             "SwitchPredictions"
         ],
         {
