@@ -49,7 +49,7 @@ def check_file_logging():
         config.read(config_path)
         default_conf = config['default']
 
-        if 'file_logging' in default_conf and default_conf['file_logging'].lower() == 'false':
+        if 'file_logging' in default_conf and not default_conf['file_logging']:
             enable_file_logging = False
     except Exception:
         pass
@@ -364,7 +364,7 @@ def check_bypass_ssl():
         config.read(config_path)
         default_conf = config['default']
 
-        if 'bypass_ssl' in default_conf and default_conf['bypass_ssl'].lower() == 'true':
+        if 'bypass_ssl' in default_conf and default_conf['bypass_ssl']:
             print(f"[ComfyUI-Manager] WARN: Unsafe - SSL verification bypass option is Enabled. (see ComfyUI-Manager/config.ini)")
             ssl._create_default_https_context = ssl._create_unverified_context  # SSL certificate error fix.
     except Exception:
@@ -586,7 +586,7 @@ def check_windows_event_loop_policy():
         config.read(config_path)
         default_conf = config['default']
 
-        if 'windows_selector_event_loop_policy' in default_conf and default_conf['windows_selector_event_loop_policy'].lower() == 'true':
+        if 'windows_selector_event_loop_policy' in default_conf and default_conf['windows_selector_event_loop_policy']:
             try:
                 import asyncio
                 import asyncio.windows_events
