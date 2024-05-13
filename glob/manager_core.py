@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 32, 3]
+version = [2, 32, 4]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -223,15 +223,15 @@ def read_config():
                     'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
-                    'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else False,
-                    'file_logging': default_conf['file_logging'] if 'file_logging' in default_conf else True,
+                    'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else 'False',
+                    'file_logging': default_conf['file_logging'] if 'file_logging' in default_conf else 'True',
                     'default_ui': default_conf['default_ui'] if 'default_ui' in default_conf else 'none',
                     'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
                     'double_click_policy': default_conf['double_click_policy'] if 'double_click_policy' in default_conf else 'copy-all',
-                    'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else False,
-                    'model_download_by_agent': default_conf['model_download_by_agent'] if 'model_download_by_agent' in default_conf else False,
+                    'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else 'False',
+                    'model_download_by_agent': default_conf['model_download_by_agent'] if 'model_download_by_agent' in default_conf else 'False',
                     'downgrade_blacklist': default_conf['downgrade_blacklist'] if 'downgrade_blacklist' in default_conf else '',
-                    'disable_unsecure_features': default_conf['disable_unsecure_features'] if 'disable_unsecure_features' in default_conf else False,
+                    'disable_unsecure_features': default_conf['disable_unsecure_features'] if 'disable_unsecure_features' in default_conf else 'False',
                }
 
     except Exception:
