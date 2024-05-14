@@ -3964,6 +3964,7 @@
             "tri3d-atr-parse",
             "tri3d-atr-parse-batch",
             "tri3d-clipdrop-bgremove-api",
+            "tri3d-clipdrop-bgreplace-api",
             "tri3d-composite-image-splitter",
             "tri3d-dwpose",
             "tri3d-extract-hand",
@@ -7059,6 +7060,7 @@
     ],
     "https://github.com/cubiq/ComfyUI_essentials": [
         [
+            "ApplyCLIPSeg+",
             "BatchCount+",
             "CLIPTextEncodeSDXL+",
             "ConditioningCombineMultiple+",
@@ -7084,6 +7086,7 @@
             "ImageSeamCarving+",
             "KSamplerVariationsStochastic+",
             "KSamplerVariationsWithNoise+",
+            "LoadCLIPSegModels+",
             "MaskBatch+",
             "MaskBlur+",
             "MaskBoundingBox+",
@@ -8265,14 +8268,15 @@
             "hello_world",
             "image_histogram_node",
             "image_histograms_node",
+            "image_histograms_self_node",
             "meme_generator_node"
         ],
         {
             "author": "YFG",
-            "description": "This extension just outputs Hello World! as a string.",
-            "nickname": "YFG Hello World",
-            "title": "YFG Hello World",
-            "title_aux": "ComfyUI_YFG_Comical"
+            "description": "This extension calculates the histogram of an image and outputs the results as graph images for individual channels as well as RGB and Luminosity.",
+            "nickname": "YFG Histograms",
+            "title": "YFG Histograms",
+            "title_aux": "\ud83d\ude38 YFG Comical Nodes"
         }
     ],
     "https://github.com/guill/abracadabra-comfyui": [
@@ -8849,6 +8853,7 @@
             "FacelessLoadImageUrl",
             "FacelessLoadVideo",
             "FacelessLoadVideoUrl",
+            "FacelessMergeVideos",
             "FacelessRemoveBackground",
             "FacelessSaveVideo",
             "FacelessUploadVideo",
@@ -8857,7 +8862,7 @@
             "FacelessVideoRemoveBackground"
         ],
         {
-            "title_aux": "comfyui-fb-utils"
+            "title_aux": "Faceless Node for ComfyUI"
         }
     ],
     "https://github.com/jesenzhang/ComfyUI_StreamDiffusion": [
@@ -8943,6 +8948,17 @@
         ],
         {
             "title_aux": "ComfyUI-InstantMesh"
+        }
+    ],
+    "https://github.com/jtydhr88/ComfyUI-LayerDivider": [
+        [
+            "LayerDivider - Color Base",
+            "LayerDivider - Divide Layer",
+            "LayerDivider - Load SAM Mask Generator",
+            "LayerDivider - Segment Mask"
+        ],
+        {
+            "title_aux": "ComfyUI LayerDivider"
         }
     ],
     "https://github.com/ka-puna/comfyui-yanc": [
@@ -9283,6 +9299,7 @@
             "CreateVoronoiMask",
             "CrossFadeImages",
             "CustomSigmas",
+            "DownloadAndLoadCLIPSeg",
             "DrawInstanceDiffusionTracking",
             "DummyLatentOut",
             "EmptyLatentImagePresets",
@@ -9314,6 +9331,7 @@
             "ImagePadForOutpaintMasked",
             "ImagePadForOutpaintTargetSize",
             "ImagePass",
+            "ImageResizeKJ",
             "ImageTransformByNormalizedAmplitude",
             "ImageUpscaleWithModelBatched",
             "InjectNoiseToLatent",
@@ -10355,6 +10373,8 @@
             "PettyPaintComponent",
             "PettyPaintConditioningSetMaskAndCombine",
             "PettyPaintConvert",
+            "PettyPaintCountFiles",
+            "PettyPaintEnsureDirectory",
             "PettyPaintExec",
             "PettyPaintImageCompositeMasked",
             "PettyPaintImagePlacement",
@@ -10367,6 +10387,7 @@
             "PettyPaintLoadImage",
             "PettyPaintLoadImages",
             "PettyPaintMap",
+            "PettyPaintProcessor",
             "PettyPaintRemoveAddText",
             "PettyPaintSDTurboScheduler",
             "PettyPaintText",
@@ -11036,6 +11057,7 @@
             "CharacteristicGuidancePrediction",
             "CombinePredictions",
             "ConditionedPrediction",
+            "EarlyMiddleLatePrediction",
             "InterpolatePredictions",
             "LogSigmas",
             "PerpNegPrediction",
@@ -11217,7 +11239,8 @@
     "https://github.com/saftle/suplex_comfy_nodes": [
         [
             "ControlNet Selector",
-            "ControlNetOptionalLoader"
+            "ControlNetOptionalLoader",
+            "DiffusersSelector"
         ],
         {
             "title_aux": "Suplex Misc ComfyUI Nodes"
@@ -11867,7 +11890,8 @@
     "https://github.com/sugarkwork/comfyui_tag_fillter": [
         [
             "TagFilter",
-            "TagRemover"
+            "TagRemover",
+            "TagReplace"
         ],
         {
             "title_aux": "comfyui_tag_filter"
@@ -12957,7 +12981,8 @@
             "IntAndIntAddOffsetLiteral",
             "IntMultipleAddLiteral",
             "LoadImageWithSwitch",
-            "ModifyTextGender"
+            "ModifyTextGender",
+            "SplitMask"
         ],
         {
             "title_aux": "zhangp365/Some Utils for ComfyUI"
