@@ -1,7 +1,7 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
-import { install_checked_custom_node, manager_instance, rebootAPI } from  "./common.js";
+import { install_checked_custom_node, manager_instance, rebootAPI, show_message } from  "./common.js";
 
 async function install_model(target) {
 	if(ModelInstaller.instance) {
@@ -20,8 +20,7 @@ async function install_model(target) {
 			return true;
 		}
 		catch(exception) {
-			app.ui.dialog.show(`Install failed: ${target.title} / ${exception}`);
-			app.ui.dialog.element.style.zIndex = 10010;
+			show_message(`Install failed: ${target.title} / ${exception}`);
 			return false;
 		}
 		finally {

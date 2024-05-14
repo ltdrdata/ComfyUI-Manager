@@ -5,6 +5,7 @@
 ![menu](misc/menu.jpg)
 
 ## NOTICE
+* V2.33 Security policy is applied.
 * V2.21 [cm-cli](docs/en/cm-cli.md) tool is added.
 * V2.18 to V2.18.3 is not functioning due to a severe bug. Users on these versions are advised to promptly update to V2.18.4. Please navigate to the `ComfyUI/custom_nodes/ComfyUI-Manager` directory and execute `git pull` to update.
 * You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
@@ -337,13 +338,32 @@ When you run the `scan.sh` script:
 * Currently, `vid2vid` is not being updated, causing compatibility issues.
 * If you encounter the error message `Overlapped Object has pending operation at deallocation on Comfyui Manager load` under Windows
   * Edit `config.ini` file: add `windows_selector_event_loop_policy = True`
-* How to disable unsecure features
-  * Edit `config.ini` file: add `disable_unsecure_features = True`
-  * If you disable unsecure features these features won't work
-    * install/uninstall/fix custom nodes
-    * restore/remove snapshot
-    * pip install
-    * reboot
+
+
+## Security policy
+  * Edit `config.ini` file: add `security_level = <LEVEL>`
+    * `strong`
+      * doesn't allow `high` and `middle` level risky feature
+    * `normal`
+      * doesn't allow `high` level risky feature if `--listen` is specified and not starts with `127.`
+      * `middle` level risky feature is available
+    * `weak`
+      * all feature is available
+    
+  * `high` level risky features
+    * `Install via git url`, `pip install`
+    * Installation of custom nodes registered not in the `default channel`.
+    * Display terminal log
+  
+  * `middle` level risky features
+    * Uninstall/Update/Fix custom nodes
+    * Installation of custom nodes registered in the `default channel`.
+    * Restore/Remove Snapshot
+    * Restart
+  
+  * `low` level risky features
+    * Update ComfyUI
+
 
 ## TODO: Unconventional form of custom node list
 

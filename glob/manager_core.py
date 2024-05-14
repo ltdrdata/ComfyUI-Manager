@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 32, 7]
+version = [2, 33]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -205,7 +205,7 @@ def write_config():
         'windows_selector_event_loop_policy': get_config()['windows_selector_event_loop_policy'],
         'model_download_by_agent': get_config()['model_download_by_agent'],
         'downgrade_blacklist': get_config()['downgrade_blacklist'],
-        'disable_unsecure_features': get_config()['disable_unsecure_features'],
+        'security_level': get_config()['security_level'],
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -216,6 +216,15 @@ def read_config():
         config = configparser.ConfigParser()
         config.read(config_path)
         default_conf = config['default']
+
+        # policy migration: disable_unsecure_features -> security_level
+        if 'disable_unsecure_features' in default_conf:
+            if default_conf['disable_unsecure_features'].lower() == 'true':
+                security_level = 'strong'
+            else:
+                security_level = 'normal'
+        else:
+            security_level = default_conf['security_level'] if 'security_level' in default_conf else 'normal'
 
         return {
                     'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else manager_funcs.get_current_preview_method(),
@@ -231,7 +240,7 @@ def read_config():
                     'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'].lower() == 'true' if 'windows_selector_event_loop_policy' in default_conf else False,
                     'model_download_by_agent': default_conf['model_download_by_agent'].lower() == 'true' if 'model_download_by_agent' in default_conf else False,
                     'downgrade_blacklist': default_conf['downgrade_blacklist'] if 'downgrade_blacklist' in default_conf else '',
-                    'disable_unsecure_features': default_conf['disable_unsecure_features'].lower() == 'true' if 'disable_unsecure_features' in default_conf else False,
+                    'security_level': security_level
                }
 
     except Exception:
@@ -249,7 +258,7 @@ def read_config():
             'windows_selector_event_loop_policy': False,
             'model_download_by_agent': False,
             'downgrade_blacklist': '',
-            'disable_unsecure_features': False,
+            'security_level': 'normal',
         }
 
 
@@ -1190,6 +1199,3 @@ def unzip(model_path):
     os.remove(model_path)
     return True
 
-
-def is_unsecure_features_disabled():
-    return get_config()['disable_unsecure_features']

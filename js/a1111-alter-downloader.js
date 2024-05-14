@@ -56,7 +56,7 @@ export class AlternativesInstaller extends ComfyDialog {
 			let data2 = data1.custom_node;
 
 			if(!data2)
-			    continue;
+				continue;
 
 			let content = data1.tags.toLowerCase() + data1.description.toLowerCase() + data2.author.toLowerCase() + data2.description.toLowerCase() + data2.title.toLowerCase();
 
