@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 33]
+version = [2, 34]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -978,7 +978,6 @@ def get_current_snapshot():
     # Get ComfyUI hash
     repo_path = comfy_path
 
-    print(f"comfy_path: {comfy_path}")
     if not os.path.exists(os.path.join(repo_path, '.git')):
         print(f"ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
         return {}
