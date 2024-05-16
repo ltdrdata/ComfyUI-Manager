@@ -1419,6 +1419,7 @@
             "TilePreprocessor",
             "UniFormer-SemSegPreprocessor",
             "Unimatch_OptFlowPreprocessor",
+            "UpperBodyTrackingFromPoseKps",
             "Zoe-DepthMapPreprocessor",
             "Zoe_DepthAnythingPreprocessor"
         ],
@@ -1651,6 +1652,18 @@
         ],
         {
             "title_aux": "ReActor Node for ComfyUI"
+        }
+    ],
+    "https://github.com/GraftingRayman/ComfyUI_GraftingRayman": [
+        [
+            "GR Image Resize",
+            "GR Mask Create",
+            "GR Mask Resize",
+            "GR Multi Mask Create",
+            "GR Prompt Selector"
+        ],
+        {
+            "title_aux": "GR Prompt Selector"
         }
     ],
     "https://github.com/Guillaume-Fgt/ComfyUI_StableCascadeLatentRatio": [
@@ -2665,6 +2678,7 @@
             "IntEvaluate",
             "IntFloatDict",
             "IntStringDict",
+            "JsonSearch",
             "LandscapeBackgrounds",
             "LandscapeDir",
             "MakeupStylesDir",
@@ -2675,6 +2689,10 @@
             "PhotomontageB",
             "PhotomontageC",
             "PostSamplerCrop",
+            "PresetLoad",
+            "PresetRemove",
+            "PresetSave",
+            "RandomString",
             "SDXLEmptyLatent",
             "SavePrompt",
             "SaveWithMetaData",
@@ -4517,6 +4535,7 @@
             "Text Dictionary To Text",
             "Text Dictionary Update",
             "Text File History Loader",
+            "Text Find",
             "Text Find and Replace",
             "Text Find and Replace Input",
             "Text Find and Replace by Dictionary",
@@ -5077,12 +5096,13 @@
             "title_aux": "ComfyUI Image Saver"
         }
     ],
-    "https://github.com/alisson-anjos/ComfyUI-LLaVA-Describer": [
+    "https://github.com/alisson-anjos/ComfyUI-Ollama-Describer": [
         [
-            "LLaVaDescriber"
+            "LLaVaDescriber",
+            "OllamaDescriber"
         ],
         {
-            "title_aux": "ComfyUI-LLaVA-Describer"
+            "title_aux": "ComfyUI-Ollama-Describer"
         }
     ],
     "https://github.com/alpertunga-bile/prompt-generator-comfyui": [
@@ -5373,6 +5393,18 @@
         ],
         {
             "title_aux": "ComfyUI-ClipScore-Nodes"
+        }
+    ],
+    "https://github.com/badayvedat/ComfyUI-fal-Connector": [
+        [
+            "BooleanInput_fal",
+            "ComboInput_fal",
+            "FloatInput_fal",
+            "IntegerInput_fal",
+            "StringInput_fal"
+        ],
+        {
+            "title_aux": "ComfyUI-fal-Connector"
         }
     ],
     "https://github.com/badjeff/comfyui_lora_tag_loader": [
@@ -8984,6 +9016,14 @@
             "title_aux": "comfyui-yanc"
         }
     ],
+    "https://github.com/kaanyalova/ComfyUI_ExtendedImageFormats": [
+        [
+            "ExtendedSaveImage"
+        ],
+        {
+            "title_aux": "Extended Image Formats for ComfyUI"
+        }
+    ],
     "https://github.com/kadirnar/ComfyUI-Transformers": [
         [
             "DepthEstimationPipeline",
@@ -9107,6 +9147,14 @@
         ],
         {
             "title_aux": "ComfyUI-text-file-util"
+        }
+    ],
+    "https://github.com/katalist-ai/comfyUI-nsfw-detection": [
+        [
+            "NudenetDetector"
+        ],
+        {
+            "title_aux": "comfyUI-nsfw-detection"
         }
     ],
     "https://github.com/kealiu/ComfyUI-S3-Tools": [
@@ -9263,6 +9311,7 @@
     ],
     "https://github.com/kijai/ComfyUI-IC-Light": [
         [
+            "BackgroundScaler",
             "CalculateNormalsFromImages",
             "ICLightConditioning",
             "LightSource",
@@ -9352,7 +9401,6 @@
             "JoinStringMulti",
             "JoinStrings",
             "LoadAndResizeImage",
-            "LoadICLightUnet",
             "LoadResAdapterNormalization",
             "MaskBatchMulti",
             "MaskOrImageToWeight",
@@ -9701,8 +9749,7 @@
     ],
     "https://github.com/liusida/ComfyUI-Login": [
         [
-            "LoadImageWithPrivacy",
-            "RemoveImageForPrivacy"
+            "LoadImageIncognito"
         ],
         {
             "title_aux": "ComfyUI-Login"
@@ -10744,7 +10791,8 @@
             "BrushNetLoader",
             "CutForInpaint",
             "PowerPaint",
-            "PowerPaintCLIPLoader"
+            "PowerPaintCLIPLoader",
+            "RAUNet"
         ],
         {
             "author": "nullquant",
@@ -10864,7 +10912,7 @@
             "title_aux": "ComfyUI-TrollSuite"
         }
     ],
-    "https://github.com/oztrkoguz/ComfyUI_StoryCreater_and_Imager": [
+    "https://github.com/oztrkoguz/ComfyUI_StoryCreator": [
         [
             "Kosmos2SamplerSimple2",
             "KosmosLoader2",
@@ -10873,7 +10921,7 @@
             "Write2"
         ],
         {
-            "title_aux": "ComfyUI StoryCreater and Imager"
+            "title_aux": "ComfyUI StoryCreater"
         }
     ],
     "https://github.com/palant/extended-saveimage-comfyui": [
@@ -11080,7 +11128,7 @@
         ],
         {
             "author": "receyuki",
-            "description": "ComfyUI node version of the SD Prompt Reader",
+            "description": "The ultimate solution for managing image metadata and multi-tool compatibility. ComfyUI node version of the SD Prompt Reader",
             "nickname": "SD Prompt Reader",
             "title": "SD Prompt Reader",
             "title_aux": "SD Prompt Reader"
@@ -11190,6 +11238,15 @@
         ],
         {
             "title_aux": "ComfyUI-Tara-LLM-Integration"
+        }
+    ],
+    "https://github.com/royceschultz/ComfyUI-Notifications": [
+        [
+            "Notif-PlaySound",
+            "Notif-SystemNotification"
+        ],
+        {
+            "title_aux": "ComfyUI-Notifications"
         }
     ],
     "https://github.com/royceschultz/ComfyUI-TranscriptionTools": [
@@ -13016,6 +13073,7 @@
             "ImageConcanateOfUtils",
             "IntAndIntAddOffsetLiteral",
             "IntMultipleAddLiteral",
+            "LoadImageMaskWithSwitch",
             "LoadImageWithSwitch",
             "ModifyTextGender",
             "SplitMask"
