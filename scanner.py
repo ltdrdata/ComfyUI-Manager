@@ -278,6 +278,9 @@ def update_custom_nodes():
                 if is_rate_limit_exceeded():
                     return
 
+                if 'github.com' not in url:
+                    return None
+
                 print('.', end="")
                 sys.stdout.flush()
                 try:
@@ -341,6 +344,8 @@ def update_custom_nodes():
             for v in github_stats.values():
                 if "cached_time" in v:
                     del v["cached_time"]
+
+            github_stats = dict(sorted(github_stats.items()))
 
             json.dump(github_stats, file, ensure_ascii=False, indent=4)
 
