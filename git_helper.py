@@ -336,7 +336,7 @@ def restore_pip_snapshot(pips, options):
     non_local_url = []
     for k, v in pips.items():
         if v == "":
-            non_url.append(v)
+            non_url.append(k)
         else:
             if v.startswith('file:'):
                 local_url.append(v)
