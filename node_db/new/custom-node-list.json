@@ -10,7 +10,63 @@
         },
 
 
-        
+
+
+        {
+            "author": "TheMistoAI",
+            "title": "Anyline",
+            "id": "anyline",
+            "reference": "https://github.com/TheMistoAI/ComfyUI-Anyline",
+            "files": [
+                "https://github.com/TheMistoAI/ComfyUI-Anyline"
+            ],
+            "install_type": "git-clone",
+            "description": "A Fast, Accurate, and Detailed Line Detection Preprocessor.\nAnyline is a ControlNet line preprocessor that accurately extracts object edges, image details, and textual content from most images. Users can input any type of image to quickly obtain line drawings with clear edges, sufficient detail preservation, and high fidelity text, which are then used as input for conditional generation in Stable Diffusion."
+        },
+        {
+            "author": "ArcherFMY",
+            "title": "Diffusion360_ComfyUI",
+            "id": "diffusion360",
+            "reference": "https://github.com/ArcherFMY/Diffusion360_ComfyUI",
+            "files": [
+                "https://github.com/ArcherFMY/Diffusion360_ComfyUI"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI plugin of [a/SD-T2I-360PanoImage](https://github.com/ArcherFMY/SD-T2I-360PanoImage).\nbase t2i-pipeline for generating 512*1024 panorama image from text input"
+        },
+        {
+            "author": "smthemex",
+            "title": "ComfyUI_ID_Animator",
+            "id": "id-animator",
+            "reference": "https://github.com/smthemex/ComfyUI_ID_Animator",
+            "files": [
+                "https://github.com/smthemex/ComfyUI_ID_Animator"
+            ],
+            "install_type": "git-clone",
+            "description": "A node using [a/ID_Animator](https://github.com/ID-Animator/ID-Animator) in comfyUI"
+        },
+        {
+            "author": "mbrostami",
+            "title": "ComfyUI-TITrain",
+            "id": "titrain",
+            "reference": "https://github.com/mbrostami/ComfyUI-TITrain",
+            "files": [
+                "https://github.com/mbrostami/ComfyUI-TITrain"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:TextualInversionTrainingSDXL, TextualInversionTraining"
+        },
+        {
+            "author": "Makeezi",
+            "title": "ComfyUI-promptLAB",
+            "id": "promptlab",
+            "reference": "https://github.com/Makeezi/ComfyUI-promptLAB",
+            "files": [
+                "https://github.com/Makeezi/ComfyUI-promptLAB"
+            ],
+            "install_type": "git-clone",
+            "description": "connection nodes for api requests, fully supports promptLAB"
+        },
         {
             "author": "kaanyalova",
             "title": "Extended Image Formats for ComfyUI",
@@ -636,66 +692,6 @@
             ],
             "install_type": "git-clone",
             "description": "ComfyUI implementation for [a/TCD](https://github.com/jabir-zheng/TCD)."
-        },
-        {
-            "author": "florestefano1975",
-            "title": "ComfyUI HiDiffusion",
-            "reference": "https://github.com/florestefano1975/ComfyUI-HiDiffusion",
-            "files": [
-                "https://github.com/florestefano1975/ComfyUI-HiDiffusion"
-            ],
-            "install_type": "git-clone",
-            "description": "Simple custom nodes for testing and use HiDiffusion technology: https://github.com/megvii-research/HiDiffusion/"
-        },
-        {
-            "author": "nat-chan",
-            "title": "ComfyUI-Transceiver📡",
-            "reference": "https://github.com/nat-chan/comfyui-transceiver",
-            "files": [
-                "https://github.com/nat-chan/comfyui-transceiver"
-            ],
-            "install_type": "git-clone",
-            "description": "Transceiver is a python library that swiftly exchanges fundamental data structures, specifically numpy arrays, between processes, optimizing AI inference tasks that utilize ComfyUI."
-        },
-        {
-            "author": "blepping",
-            "title": "ComfyUI jank HiDiffusion",
-            "reference": "https://github.com/blepping/comfyui_jankhidiffusion",
-            "files": [
-                "https://github.com/blepping/comfyui_jankhidiffusion"
-            ],
-            "install_type": "git-clone",
-            "description": "Janky experimental attempt at implementing [a/HiDiffusion](https://github.com/megvii-research/HiDiffusion) for ComfyUI."
-        },
-        {
-            "author": "ZHO-ZHO-ZHO",
-            "title": "Phi-3-mini in ComfyUI",
-            "reference": "https://github.com/ZHO-ZHO-ZHO/ComfyUI-Phi-3-mini",
-            "files": [
-                "https://github.com/ZHO-ZHO-ZHO/ComfyUI-Phi-3-mini"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Phi3mini_4k_ModelLoader_Zho, Phi3mini_4k_Zho, Phi3mini_4k_Chat_Zho"
-        },
-        {
-            "author": "da2el-ai",
-            "title": "D2 Steps",
-            "reference": "https://github.com/da2el-ai/ComfyUI-d2-steps",
-            "files": [
-                "https://github.com/da2el-ai/ComfyUI-d2-steps"
-            ],
-            "install_type": "git-clone",
-            "description": "A handy custom node for using Refiner (switching to a different checkpoint midway) When you specify the end of the base checkpoint, you can extract refiner_start which is end + 1. The output is fixed as an INT, so it can be passed to the handy custom node, Anything Everywhere? Since it only outputs a numerical value, it can also be used for other purposes."
-        },
-        {
-            "author": "da2el-ai",
-            "title": "D2 Size Selector",
-            "reference": "https://github.com/da2el-ai/ComfyUI-d2-size-selector",
-            "files": [
-                "https://github.com/da2el-ai/ComfyUI-d2-size-selector"
-            ],
-            "install_type": "git-clone",
-            "description": "This is a custom node that allows you to easily call up and set image size presets. Settings can be made by editing the included config.yaml. It is almost identical to Comfyroll Studio's CR AspectRatio. I created it because I wanted to easily edit the presets."
         }
     ]
 }

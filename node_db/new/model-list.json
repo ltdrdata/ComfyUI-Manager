@@ -1,6 +1,37 @@
 {
   "models": [
     {
+      "name": "ID-Animator/animator.ckpt",
+      "type": "ID-Animator",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/ComfyUI_ID_Animator/models",
+      "description": "ID-Animator checkpoint",
+      "reference": "https://huggingface.co/spaces/ID-Animator/ID-Animator",
+      "filename": "animator.ckpt",
+      "url": "https://huggingface.co/spaces/ID-Animator/ID-Animator/resolve/main/animator.ckpt"
+    },
+    {
+      "name": "ID-Animator/mm_sd_v15_v2.ckpt",
+      "type": "ID-Animator",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/ComfyUI_ID_Animator/models/animatediff_models",
+      "description": "AnimateDiff checkpoint for ID-Animator",
+      "reference": "https://huggingface.co/spaces/ID-Animator/ID-Animator",
+      "filename": "mm_sd_v15_v2.ckpt",
+      "url": "https://huggingface.co/spaces/ID-Animator/ID-Animator/resolve/main/mm_sd_v15_v2.ckpt"
+    },
+    {
+      "name": "ID-Animator/image_encoder",
+      "type": "ID-Animator",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/ComfyUI_ID_Animator/models/image_encoder",
+      "description": "CLIP Image encoder for ID-Animator",
+      "reference": "https://huggingface.co/spaces/ID-Animator/ID-Animator",
+      "filename": "model.safetensors",
+      "url": "https://huggingface.co/spaces/ID-Animator/ID-Animator/resolve/main/image_encoder/model.safetensors"
+    },
+
+    {
       "name": "IC-Light/fc",
       "type": "IC-Light",
       "base": "SD1.5",
@@ -680,17 +711,6 @@
       "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
       "filename": "ip-adapter-faceid_sd15_lora.safetensors",
       "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sd15_lora.safetensors"
-    },
-
-    {
-      "name": "LongAnimatediff/lt_long_mm_16_64_frames_v1.1.ckpt (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "animatediff",
-      "base": "SD1.x",
-      "save_path": "animatediff_models",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/Lightricks/LongAnimateDiff",
-      "filename": "lt_long_mm_16_64_frames_v1.1.ckpt",
-      "url": "https://huggingface.co/Lightricks/LongAnimateDiff/resolve/main/lt_long_mm_16_64_frames_v1.1.ckpt"
     }
   ]
 }
