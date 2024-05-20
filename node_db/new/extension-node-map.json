@@ -537,7 +537,13 @@
     ],
     "https://github.com/ArcherFMY/Diffusion360_ComfyUI": [
         [
+            "Diffusion360LoaderImage2Pano",
+            "Diffusion360LoaderText2Pano",
             "Diffusion360Sampler",
+            "Diffusion360SamplerImage2Pano",
+            "Diffusion360SamplerText2Pano",
+            "InputImage",
+            "InputText",
             "VAEDecodeTiledBlended"
         ],
         {
@@ -4987,6 +4993,7 @@
             "abyz22_Padding Image",
             "abyz22_RandomMask",
             "abyz22_RemoveControlnet",
+            "abyz22_ResizeOpenpose",
             "abyz22_SaveImage",
             "abyz22_SetQueue",
             "abyz22_ToBasicPipe",
@@ -5989,6 +5996,14 @@
             "title_aux": "ComfyUI LLaVA Captioner"
         }
     ],
+    "https://github.com/chandlergis/ComfyUI-IMG_Query": [
+        [
+            "ImageRequestNode"
+        ],
+        {
+            "title_aux": "ComfyUI-IMG_Query"
+        }
+    ],
     "https://github.com/chaojie/ComfyUI-AniPortrait": [
         [
             "AniPortraitLoader",
@@ -6725,6 +6740,10 @@
             "DiTCondLabelSelect",
             "DitCheckpointLoader",
             "ExtraVAELoader",
+            "HYDiTCheckpointLoader",
+            "HYDiTTextEncode",
+            "HYDiTTextEncodeSimple",
+            "HYDiTTextEncoderLoader",
             "PixArtCheckpointLoader",
             "PixArtControlNetCond",
             "PixArtLoraLoader",
@@ -7002,6 +7021,18 @@
         ],
         {
             "title_aux": "ConCarneNode"
+        }
+    ],
+    "https://github.com/conquestace/ComfyUI-ImageUploader": [
+        [
+            "ImageUploader"
+        ],
+        {
+            "author": "ConquestAce",
+            "description": "Upload to temporary websites with API.",
+            "nickname": "Image Uploader",
+            "title": "Image Uploader",
+            "title_aux": "Image Uploader"
         }
     ],
     "https://github.com/coreyryanhanson/ComfyQR": [
@@ -8363,7 +8394,7 @@
             "DateTime",
             "ExpandAgent",
             "ImageQueryTask",
-            "MergeStrings",
+            "MergeTexts",
             "PromptImageGenerationTask",
             "PromptImageVariationTask",
             "PromptTask",
@@ -8499,7 +8530,9 @@
             "CLIPTextEncode_party",
             "KSampler_party",
             "LLM",
+            "LLM_api_loader",
             "LLM_local",
+            "LLM_local_loader",
             "VAEDecode_party",
             "accuweather_tool",
             "api_tool",
@@ -8683,6 +8716,14 @@
         ],
         {
             "title_aux": "Eagle PNGInfo"
+        }
+    ],
+    "https://github.com/icesun963/ComfyUI_HFDownLoad": [
+        [
+            "HFDownLoad_Tool"
+        ],
+        {
+            "title_aux": "HFDownLoad Node for ComfyUI"
         }
     ],
     "https://github.com/idrirap/ComfyUI-Lora-Auto-Trigger-Words": [
@@ -9551,6 +9592,7 @@
             "SUPIR_first_stage",
             "SUPIR_model_loader",
             "SUPIR_model_loader_v2",
+            "SUPIR_model_loader_v2_clip",
             "SUPIR_sample",
             "SUPIR_tiles"
         ],
@@ -10718,7 +10760,8 @@
     ],
     "https://github.com/nickve28/ComfyUI-Nich-Utils": [
         [
-            "Image from Dir Selector (Nich)"
+            "Image from Dir Selector (Nich)",
+            "Select Text with Regular Expression (Nich)"
         ],
         {
             "title_aux": "ComfyUI Nich Utils"
@@ -11100,17 +11143,25 @@
     "https://github.com/portu-sim/comfyui-bmab": [
         [
             "BMAB Alpha Composit",
+            "BMAB Basic",
             "BMAB Blend",
             "BMAB ControlNet",
+            "BMAB ControlNet IPAdapter",
             "BMAB ControlNet Openpose",
+            "BMAB Detail Anything",
             "BMAB Detect And Mask",
             "BMAB Detection Crop",
+            "BMAB Detector",
+            "BMAB Edge",
+            "BMAB Extractor",
             "BMAB Face Detailer",
             "BMAB Google Gemini Prompt",
+            "BMAB Integrator",
             "BMAB KSampler",
             "BMAB KSamplerHiresFix",
             "BMAB Lama Inpaint",
             "BMAB LoRA Loader",
+            "BMAB Masks To Images",
             "BMAB Person Detailer",
             "BMAB Prompt",
             "BMAB Remove Background",
@@ -11118,19 +11169,17 @@
             "BMAB Resize and Fill",
             "BMAB SD-WebUI API BMAB Extension",
             "BMAB SD-WebUI API ControlNet",
+            "BMAB SD-WebUI API I2I",
             "BMAB SD-WebUI API Server",
             "BMAB SD-WebUI API T2I",
             "BMAB SD-WebUI API T2I Hires.Fix",
             "BMAB Save Image",
+            "BMAB SeedGenerator",
+            "BMAB Segment Anything",
             "BMAB Simple Hand Detailer",
             "BMAB Subframe Hand Detailer",
             "BMAB Upscale With Model",
-            "BMAB Upscaler",
-            "Basic",
-            "Edge",
-            "Extractor",
-            "Integrator",
-            "SeedGenerator"
+            "BMAB Upscaler"
         ],
         {
             "title_aux": "comfyui-bmab"
@@ -12120,6 +12169,7 @@
     "https://github.com/sugarkwork/comfyui_tag_fillter": [
         [
             "TagFilter",
+            "TagMerger",
             "TagRemover",
             "TagReplace"
         ],
@@ -12688,6 +12738,16 @@
             "title_aux": "ComfyUI-Openpose-Editor-Plus"
         }
     ],
+    "https://github.com/wibur0620/comfyui-ollama-wibur": [
+        [
+            "OllamaGenerate",
+            "OllamaGenerateAdvance",
+            "OllamaVision"
+        ],
+        {
+            "title_aux": "ComfyUI Ollama (wibur)"
+        }
+    ],
     "https://github.com/wmatson/easy-comfy-nodes": [
         [
             "EZAssocDictNode",
@@ -13207,6 +13267,7 @@
             "ColorCorrectOfUtils",
             "ConcatTextOfUtils",
             "ImageBatchOneOrMore",
+            "ImageCompositeMaskedWithSwitch",
             "ImageConcanateOfUtils",
             "IntAndIntAddOffsetLiteral",
             "IntMultipleAddLiteral",
