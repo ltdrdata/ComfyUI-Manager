@@ -2951,6 +2951,17 @@
             "description": "Based on GroundingDino and SAM, use semantic strings to segment any element in an image. The comfyui version of sd-webui-segment-anything."
         },
         {
+            "author": "storyicon",
+            "title": "ComfyUI MuseV Evolved",
+            "id": "musev-evolved",
+            "reference": "https://github.com/storyicon/comfyui_musev_evolved",
+            "files": [
+                "https://github.com/storyicon/comfyui_musev_evolved"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:MuseVImg2Vid (comfyui_musev_evolved)\nNOTE: Download [a/MuseV](https://huggingface.co/TMElyralab/MuseV) to ComfyUI/models/diffusers"
+        },
+        {
             "author": "a1lazydog",
             "title": "ComfyUI-AudioScheduler",
             "id": "audioscheduler",
@@ -4800,15 +4811,15 @@
             "description": "This extension enables the use of the diffuser pipeline in ComfyUI."
         },
         {
-            "author": "edenartlab",
-            "title": "eden_comfy_pipelines",
-            "id": "eden-pipeline",
+            "author": "aiXander",
+            "title": "Various custom nodes by Eden.art",
+            "id": "Eden",
             "reference": "https://github.com/edenartlab/eden_comfy_pipelines",
             "files": [
                 "https://github.com/edenartlab/eden_comfy_pipelines"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:CLIP Interrogator, ..."
+            "description": "A set of custom nodes for various purposed, maintained by Eden.art"
         },
         {
             "author": "pkpk",
@@ -4924,14 +4935,25 @@
         },
         {
             "author": "ai-liam",
-            "title": "LiamUtil",
-            "id": "liam",
+            "title": "LiamUtil (single node)",
+            "id": "liam-util-single",
             "reference": "https://github.com/ai-liam/comfyui_liam_util",
             "files": [
                 "https://github.com/ai-liam/comfyui_liam_util"
             ],
             "install_type": "git-clone",
             "description": "Nodes: LiamLoadImage. This node provides the capability to load images from a URL."
+        },
+        {
+            "author": "ai-liam",
+            "title": "LiamUtil",
+            "id": "liam-util",
+            "reference": "https://github.com/ai-liam/comfyui-liam",
+            "files": [
+                "https://github.com/ai-liam/comfyui-liam"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: LiamLibLoadImage, LiamLibImageToGray, LiamLibSaveImg, LiamLibFillImage, PreviewReliefImage, GetBetterDepthImage, LiamLibSaveText"
         },
         {
             "author": "Ryuukeisyou",
@@ -8079,6 +8101,17 @@
             "description": "This node allows you to use ID_Animator, the zero shot video generation model"
         },
         {
+            "author": "smthemex",
+            "title": "ComfyUI_CustomNet",
+            "id": "customnet",
+            "reference": "https://github.com/smthemex/ComfyUI_CustomNet",
+            "files": [
+                "https://github.com/smthemex/ComfyUI_CustomNet"
+            ],
+            "install_type": "git-clone",
+            "description": "This node allows you to use customnet."
+        },
+        {
            "author": "choey",
            "title": "Comfy-Topaz",
            "id": "topaz",
@@ -8777,12 +8810,35 @@
         {
             "author": "githubYiheng",
             "title": "ComfyUI_GetFileNameFromURL",
+            "id": "getfilename-from-url",
             "reference": "https://github.com/githubYiheng/ComfyUI_GetFileNameFromURL",
             "files": [
                 "https://github.com/githubYiheng/ComfyUI_GetFileNameFromURL"
             ],
             "install_type": "git-clone",
             "description": "GetFileNameFromURL is a ComfyUI custom node that extracts the filename from a URL. It can handle various URLs and is capable of handling redirects."
+        },
+        {
+            "author": "githubYiheng",
+            "title": "comfyui_median_filter",
+            "id": "median-filter",
+            "reference": "https://github.com/githubYiheng/comfyui_median_filter",
+            "files": [
+                "https://github.com/githubYiheng/comfyui_median_filter"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Apply Median Filter"
+        },
+        {
+            "author": "githubYiheng",
+            "title": "ComfyUI_Change_IMAGE_BOREDER",
+            "id": "change-image-border",
+            "reference": "https://github.com/githubYiheng/ComfyUI_Change_IMAGE_BOREDER",
+            "files": [
+                "https://github.com/githubYiheng/ComfyUI_Change_IMAGE_BOREDER"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Change Image Border"
         },
         {
             "author": "Fihade",
