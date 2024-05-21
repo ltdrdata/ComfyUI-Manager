@@ -374,6 +374,7 @@ When you run the `scan.sh` script:
 * https://github.com/NielsGercama/comfyui_customsampling
 * https://github.com/wrightdaniel2017/ComfyUI-VideoLipSync
 * https://github.com/bxdsjs/ComfyUI-Image-preprocessing
+* https://github.com/SMUELDigital/ComfyUI-ONSET
 
 ## Roadmap
 

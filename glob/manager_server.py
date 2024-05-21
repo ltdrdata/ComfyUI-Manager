@@ -201,16 +201,13 @@ def print_comfyui_version():
 print_comfyui_version()
 
 
-async def populate_github_stats(json_obj, filename, silent=False):
-    uri = os.path.join(core.comfyui_manager_path, filename)
-    with open(uri, "r", encoding='utf-8') as f:
-        github_stats = json.load(f)
+async def populate_github_stats(json_obj, json_obj_github):
     if 'custom_nodes' in json_obj:
         for i, node in enumerate(json_obj['custom_nodes']):
             url = node['reference']
-            if url in github_stats:
-                json_obj['custom_nodes'][i]['stars'] = github_stats[url]['stars']
-                json_obj['custom_nodes'][i]['last_update'] = github_stats[url]['last_update']
+            if url in json_obj_github:
+                json_obj['custom_nodes'][i]['stars'] = json_obj_github[url]['stars']
+                json_obj['custom_nodes'][i]['last_update'] = json_obj_github[url]['last_update']
             else:
                 json_obj['custom_nodes'][i]['stars'] = -1
                 json_obj['custom_nodes'][i]['last_update'] = -1
@@ -473,7 +470,8 @@ async def fetch_customnode_list(request):
         channel = core.get_config()['channel_url']
 
     json_obj = await core.get_data_by_mode(request.rel_url.query["mode"], 'custom-node-list.json')
-    json_obj = await populate_github_stats(json_obj, "github-stats.json")
+    json_obj_github = await core.get_data_by_mode(request.rel_url.query["mode"], 'github-stats.json', 'default')
+    json_obj = await populate_github_stats(json_obj, json_obj_github)
 
     def is_ignored_notice(code):
         if code is not None and code.startswith('#NOTICE_'):
@@ -1661,8 +1659,9 @@ async def default_cache_update():
     b = get_cache("extension-node-map.json")
     c = get_cache("model-list.json")
     d = get_cache("alter-list.json")
+    e = get_cache("github-stats.json")
 
-    await asyncio.gather(a, b, c, d)
+    await asyncio.gather(a, b, c, d, e)
 
 
 threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()
