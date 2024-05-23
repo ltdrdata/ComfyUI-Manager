@@ -234,6 +234,15 @@
             "title_aux": "ComfyUI-IP_LAP"
         }
     ],
+    "https://github.com/AIFSH/ComfyUI-Live2DViewer": [
+        [
+            "Live2DViewer",
+            "LoadAudio"
+        ],
+        {
+            "title_aux": "ComfyUI-Live2DViewer"
+        }
+    ],
     "https://github.com/AIFSH/ComfyUI-MuseTalk_FSH": [
         [
             "CombineAudioVideo",
@@ -612,6 +621,14 @@
         ],
         {
             "title_aux": "SpliceTools"
+        }
+    ],
+    "https://github.com/Auttasak-L/ComfyUI-ImageCropper": [
+        [
+            "ImageCropper"
+        ],
+        {
+            "title_aux": "ComfyUI-ImageCropper"
         }
     ],
     "https://github.com/BAIS1C/ComfyUI_RSS_Feed_Reader": [
@@ -1153,6 +1170,7 @@
             "Automatic CFG - Unpatch function",
             "Automatic CFG - Warp Drive",
             "SAG delayed activation",
+            "Temperature settings CLIP",
             "Temperature settings SD 1.5",
             "Temperature settings SDXL"
         ],
@@ -1504,7 +1522,7 @@
     ],
     "https://github.com/Fantaxico/ComfyUI-GCP-Storage": [
         [
-            "GCPStorage"
+            "GCPStorageNode"
         ],
         {
             "title_aux": "ComfyUI-GCP-Storage"
@@ -2404,7 +2422,7 @@
             "Image Remove Background (rembg)"
         ],
         {
-            "title_aux": "Rembg Background Removal Node for ComfyUI"
+            "title_aux": "Rembg Background Removal Node for ComfyUI (Better)"
         }
     ],
     "https://github.com/LonicaMewinsky/ComfyUI-MakeFrame": [
@@ -3652,9 +3670,11 @@
     ],
     "https://github.com/Stability-AI/ComfyUI-SAI_API": [
         [
+            "Stability Conservative Upscale",
             "Stability Control Skech",
             "Stability Control Structure",
             "Stability Creative Upscale",
+            "Stability Erase",
             "Stability Image Core",
             "Stability Inpainting",
             "Stability Outpainting",
@@ -5890,11 +5910,8 @@
             "CLIPTextEncodeSDXL-Multi-IO",
             "CLIPTextEncodeSDXL-Pipe",
             "Empty Latent Image from Aspect-Ratio",
-            "Random Find and Replace",
-            "VAE Decode Pipe",
-            "VAE Decode Tiled Pipe",
-            "VAE Encode Pipe",
-            "VAE Encode Tiled Pipe"
+            "Interval Sampler",
+            "Random Find and Replace"
         ],
         {
             "title_aux": "braintacles-nodes"
@@ -6579,14 +6596,17 @@
             "LayerStyle: OuterGlow V2",
             "LayerStyle: Stroke",
             "LayerStyle: Stroke V2",
+            "LayerUtility: AddBlindWaterMark",
             "LayerUtility: Boolean",
             "LayerUtility: BooleanOperator",
             "LayerUtility: ColorImage",
             "LayerUtility: ColorImage V2",
             "LayerUtility: ColorPicker",
+            "LayerUtility: CreateQRCode",
             "LayerUtility: CropBoxResolve",
             "LayerUtility: CropByMask",
             "LayerUtility: CropByMask V2",
+            "LayerUtility: DecodeQRCode",
             "LayerUtility: ExtendCanvas",
             "LayerUtility: ExtendCanvasV2",
             "LayerUtility: Float",
@@ -6626,7 +6646,9 @@
             "LayerUtility: QWenImage2Prompt",
             "LayerUtility: RGB Value",
             "LayerUtility: RestoreCropBox",
+            "LayerUtility: SaveImagePlus",
             "LayerUtility: Seed",
+            "LayerUtility: ShowBlindWaterMark",
             "LayerUtility: SimpleTextImage",
             "LayerUtility: TextBox",
             "LayerUtility: TextImage",
@@ -7355,7 +7377,7 @@
             "ProPainterOutpaint"
         ],
         {
-            "title_aux": "ProPainter Nodes for ComfyUI"
+            "title_aux": "ComfyUI ProPainter Nodes"
         }
     ],
     "https://github.com/daniel-lewis-ab/ComfyUI-Llama": [
@@ -8223,16 +8245,26 @@
             "SAIStringRegexSearchMatch",
             "SAIStringRegexSearchReplace",
             "SaltAIStableVideoDiffusion",
+            "SaltBatchCropDataExtractor",
+            "SaltCLIPSegLoader",
+            "SaltCLIPSegMasking",
+            "SaltCropImageLocation",
+            "SaltDisplayAny",
+            "SaltImagePasteCrop",
             "SaltInfo",
             "SaltInput",
+            "SaltLoadImageZip",
+            "SaltMaskCropRegion",
+            "SaltMasksToImages",
             "SaltOutput",
+            "SaltRGBAFromMask",
             "ScheduledImageAdjust"
         ],
         {
             "title_aux": "SaltAI-Open-Resources"
         }
     ],
-    "https://github.com/get-salt-AI/SaltAI_LlamaIndex": [
+    "https://github.com/get-salt-AI/SaltAI_Language_Toolkit": [
         [
             "AddTool",
             "ChangeSystemMessage",
@@ -8242,6 +8274,7 @@
             "ConvertAgentAsTool",
             "ConvertAgentToLlamaindex",
             "CreateTavilySearchTool",
+            "Example",
             "GenerateReply",
             "GroupChat",
             "GroupChatAdvanced",
@@ -8254,6 +8287,7 @@
             "LLMChatMessages",
             "LLMChatMessagesAdv",
             "LLMComplete",
+            "LLMCustomNodeComposer",
             "LLMDirectoryReader",
             "LLMDocumentListAppend",
             "LLMDocxReader",
@@ -8272,16 +8306,20 @@
             "LLMInputToDocuments",
             "LLMJsonComposer",
             "LLMJsonRepair",
+            "LLMLLaVANextImageEvaluator",
+            "LLMLLaVANextModelLoader",
             "LLMMarkdownComposer",
             "LLMMarkdownReader",
             "LLMMarkdownRepair",
             "LLMMboxReader",
+            "LLMMultiModalImageEvaluation",
             "LLMNotionReader",
             "LLMOpenAIModel",
             "LLMOpenAIModelOpts",
             "LLMPDFReader",
             "LLMPagedCSVReader",
             "LLMPandasCSVReader",
+            "LLMParquetDatasetSearcher",
             "LLMPostProcessDocuments",
             "LLMPptxReader",
             "LLMPyMuPDFReader",
@@ -8293,6 +8331,7 @@
             "LLMRegexRepair",
             "LLMRssReaderNode",
             "LLMSaltWebCrawler",
+            "LLMScaleSERPSearch",
             "LLMSemanticSplitterNodeParser",
             "LLMSentenceSplitterNodeCreator",
             "LLMServiceContextAdv",
@@ -8306,6 +8345,101 @@
             "LLMTreeIndex",
             "LLMUnstructuredReader",
             "LLMVectorStoreIndex",
+            "LLMVectorStoreIndexAdv",
+            "LLMVideoAudioReader",
+            "LLMXMLReader",
+            "LLMYamlComposer",
+            "LLMYamlRepair",
+            "SaltJSONQueryEngine",
+            "SendMessage",
+            "SimpleChat"
+        ],
+        {
+            "title_aux": "SaltAI Language Toolkit"
+        }
+    ],
+    "https://github.com/get-salt-AI/SaltAI_LlamaIndex": [
+        [
+            "AddTool",
+            "ChangeSystemMessage",
+            "ClearMemory",
+            "ConversableAgentCreator",
+            "ConversableAgentCreatorAdvanced",
+            "ConvertAgentAsTool",
+            "ConvertAgentToLlamaindex",
+            "CreateTavilySearchTool",
+            "Example",
+            "GenerateReply",
+            "GroupChat",
+            "GroupChatAdvanced",
+            "GroupChatManagerCreator",
+            "LLMCSVReader",
+            "LLMChat",
+            "LLMChatBot",
+            "LLMChatEngine",
+            "LLMChatMessageConcat",
+            "LLMChatMessages",
+            "LLMChatMessagesAdv",
+            "LLMComplete",
+            "LLMCustomNodeComposer",
+            "LLMDirectoryReader",
+            "LLMDocumentListAppend",
+            "LLMDocxReader",
+            "LLMEpubReader",
+            "LLMFlatReader",
+            "LLMGoogleDocsReader",
+            "LLMHTMLTagReader",
+            "LLMHWPReader",
+            "LLMHtmlComposer",
+            "LLMHtmlRepair",
+            "LLMIPYNBReader",
+            "LLMImageCaptionReader",
+            "LLMImageTabularChartReader",
+            "LLMImageTextReader",
+            "LLMImageVisionLLMReader",
+            "LLMInputToDocuments",
+            "LLMJsonComposer",
+            "LLMJsonRepair",
+            "LLMLLaVANextImageEvaluator",
+            "LLMLLaVANextModelLoader",
+            "LLMMarkdownComposer",
+            "LLMMarkdownReader",
+            "LLMMarkdownRepair",
+            "LLMMboxReader",
+            "LLMMultiModalImageEvaluation",
+            "LLMNotionReader",
+            "LLMOpenAIModel",
+            "LLMOpenAIModelOpts",
+            "LLMPDFReader",
+            "LLMPagedCSVReader",
+            "LLMPandasCSVReader",
+            "LLMParquetDatasetSearcher",
+            "LLMPostProcessDocuments",
+            "LLMPptxReader",
+            "LLMPyMuPDFReader",
+            "LLMQueryEngine",
+            "LLMQueryEngineAdv",
+            "LLMQueryEngineAsTool",
+            "LLMRTFReader",
+            "LLMRegexCreator",
+            "LLMRegexRepair",
+            "LLMRssReaderNode",
+            "LLMSaltWebCrawler",
+            "LLMScaleSERPSearch",
+            "LLMSemanticSplitterNodeParser",
+            "LLMSentenceSplitterNodeCreator",
+            "LLMServiceContextAdv",
+            "LLMServiceContextDefault",
+            "LLMSimpleWebPageReader",
+            "LLMSimpleWebPageReaderAdv",
+            "LLMSummaryIndex",
+            "LLMTavilyResearch",
+            "LLMTrafilaturaWebReader",
+            "LLMTrafilaturaWebReaderAdv",
+            "LLMTreeIndex",
+            "LLMUnstructuredReader",
+            "LLMVectorStoreIndex",
+            "LLMVectorStoreIndexAdv",
             "LLMVideoAudioReader",
             "LLMXMLReader",
             "LLMYamlComposer",
@@ -8478,6 +8612,7 @@
             "Calculator",
             "CreateAgent",
             "DateTime",
+            "EnvironmentConfig",
             "ExpandAgent",
             "ImageQueryTask",
             "MergeTexts",
@@ -8499,6 +8634,7 @@
             "gtUIFileManager",
             "gtUIGoogleStructureConfig",
             "gtUIInputNode",
+            "gtUIKnowledgeBaseTool",
             "gtUILeonardoImageGenerationDriver",
             "gtUIOpenAiImageGenerationDriver",
             "gtUIOpenAiStructureConfig",
@@ -8804,6 +8940,16 @@
             "title_aux": "Eagle PNGInfo"
         }
     ],
+    "https://github.com/iFREEGROUP/comfyui-undistort": [
+        [
+            "IG_LoadCheckerboardImageForCalibrateCamera",
+            "IG_MatrixAndDistCoefToText",
+            "IG_Undistort"
+        ],
+        {
+            "title_aux": "comfyui-undistort"
+        }
+    ],
     "https://github.com/icesun963/ComfyUI_HFDownLoad": [
         [
             "HFDownLoad_Tool"
@@ -8842,6 +8988,15 @@
             "nickname": "Isaac's Nodes",
             "title": "Isaac's Nodes",
             "title_aux": "Isaac's Nodes"
+        }
+    ],
+    "https://github.com/if-ai/ComfyUI-IF_AI_HFDownloaderNode": [
+        [
+            "IF_HFDownload",
+            "IF_HFDownloadNode"
+        ],
+        {
+            "title_aux": "ComfyUI-IF_AI_HFDownloaderNode"
         }
     ],
     "https://github.com/if-ai/ComfyUI-IF_AI_WishperSpeechNode": [
@@ -10839,6 +10994,14 @@
             "title_aux": "SaveImgPrompt"
         }
     ],
+    "https://github.com/muzi12888/ComfyUI-PoseKeypoint-Mask": [
+        [
+            "Openpose Keypoint Mask"
+        ],
+        {
+            "title_aux": "PoseKeypoint Mask"
+        }
+    ],
     "https://github.com/nagolinc/ComfyUI_FastVAEDecorder_SDXL": [
         [
             "FastLatentToImage"
@@ -11271,15 +11434,18 @@
             "BMAB Extractor",
             "BMAB Face Detailer",
             "BMAB Google Gemini Prompt",
+            "BMAB Import Integrator",
             "BMAB Integrator",
             "BMAB KSampler",
             "BMAB KSamplerHiresFix",
             "BMAB KSamplerHiresFixWithUpscaler",
+            "BMAB KSamplerKohyaDeepShrink",
             "BMAB Lama Inpaint",
             "BMAB LoRA Loader",
             "BMAB Load Image",
             "BMAB Masks To Images",
             "BMAB Model To Bind",
+            "BMAB Openpose Hand Detailer",
             "BMAB Person Detailer",
             "BMAB Prompt",
             "BMAB Remove Background",
@@ -12036,8 +12202,10 @@
     ],
     "https://github.com/smthemex/ComfyUI_Llama3_8B": [
         [
-            "ChatQA_1p5_8B",
-            "Meta_Llama3_8B"
+            "ChatQA_1p5_8b",
+            "Local_Or_Repo_Choice",
+            "Meta_Llama3_8B",
+            "MiniCPM_Llama3_V25"
         ],
         {
             "title_aux": "ComfyUI_Llama3_8B"
