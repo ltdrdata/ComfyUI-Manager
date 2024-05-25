@@ -940,6 +940,17 @@ def restore_dependencies():
 
 
 @app.command(
+    "post-install", help="Install dependencies and execute installation script"
+)
+def post_install(
+        path: str = typer.Argument(
+            help="path to custom node",
+        )):
+    path = os.path.expanduser(path)
+    cm_ctx.post_install(path)
+
+
+@app.command(
     "install-deps",
     help="Install dependencies from dependencies file(.json) or workflow(.png/.json)",
 )
