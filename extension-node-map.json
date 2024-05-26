@@ -4116,6 +4116,23 @@
             "title_aux": "tri3d-comfyui-nodes"
         }
     ],
+    "https://github.com/TW-CUI/TW-CUI-Util": [
+        [
+            "TWCUI_Util_CommonSDXLResolutions",
+            "TWCUI_Util_FloatLiteral",
+            "TWCUI_Util_GenerationParameters",
+            "TWCUI_Util_GenerationPrompts",
+            "TWCUI_Util_IntLiteral",
+            "TWCUI_Util_ModelVAELoader",
+            "TWCUI_Util_MultilineStringLiteral",
+            "TWCUI_Util_SaveImage",
+            "TWCUI_Util_SaveImageAdvanced",
+            "TWCUI_Util_StringLiteral"
+        ],
+        {
+            "title_aux": "TW-CUI-Util"
+        }
+    ],
     "https://github.com/TaiTair/comfyui-simswap": [
         [
             "Simswap",
@@ -5555,7 +5572,8 @@
     "https://github.com/banodoco/steerable-motion": [
         [
             "BatchCreativeInterpolation",
-            "IpaConfiguration"
+            "IpaConfiguration",
+            "RemoveAndInterpolateFrames"
         ],
         {
             "title_aux": "Steerable Motion"
@@ -7979,6 +7997,14 @@
             "title_aux": "fexli-util-node-comfyui"
         }
     ],
+    "https://github.com/fexploit/ComfyUI-AutoLabel": [
+        [
+            "AutoLabel"
+        ],
+        {
+            "title_aux": "ComfyUI-AutoLabel"
+        }
+    ],
     "https://github.com/fexploit/ComfyUI-AutoTrimBG": [
         [
             "RonLayers/TrimBg: RonLayersTrimBgUltraV2"
@@ -8011,11 +8037,14 @@
             "FL_ImageDurationSync",
             "FL_ImagePixelator",
             "FL_ImageRandomizer",
+            "FL_InfiniteZoom",
             "FL_NFTGenerator",
+            "FL_PixelArtShader",
             "FL_PixelSort",
             "FL_PromptSelector",
             "FL_RandomNumber",
-            "FL_Ripple"
+            "FL_Ripple",
+            "FL_Shadertoy"
         ],
         {
             "title_aux": "ComfyUI_Fill-Nodes"
@@ -8649,6 +8678,7 @@
     ],
     "https://github.com/gonzalu/ComfyUI_YFG_Comical": [
         [
+            "Image3SwitcherNode",
             "image_halftone",
             "image_histograms_node",
             "image_histograms_node_compact",
@@ -8656,9 +8686,9 @@
         ],
         {
             "author": "YFG",
-            "description": "This extension calculates the histogram of an image and outputs the results as graph images for individual channels as well as RGB and Luminosity.",
-            "nickname": "\ud83d\udc2f YFG Histograms",
-            "title": "YFG Histograms",
+            "description": "This node allows the user to select between three images and outputs the selected image.",
+            "nickname": "\ud83d\udc2f YFG Image 3 Switcher",
+            "title": "YFG Image 3 Switcher",
             "title_aux": "\ud83d\ude38 YFG Comical Nodes"
         }
     ],
@@ -10209,6 +10239,18 @@
             "title_aux": "comfy-mecha"
         }
     ],
+    "https://github.com/lks-ai/anynode": [
+        [
+            "AnyNode"
+        ],
+        {
+            "author": "newsbubbles",
+            "description": "LLM based nodes",
+            "nickname": "anynode",
+            "title": "AnyNode",
+            "title_aux": "AnyNode"
+        }
+    ],
     "https://github.com/lldacing/comfyui-easyapi-nodes": [
         [
             "Base64ToImage",
@@ -11262,7 +11304,7 @@
         ],
         {
             "author": "nullquant",
-            "description": "This repository contains an custom nodes for inpaint using BrushNet and PowerPaint models",
+            "description": "These are custom nodes for ComfyUI native implementation of BrushNet, PowerPaint and RAUNet models",
             "nickname": "BrushName nodes",
             "title": "BrushNet",
             "title_aux": "BrushNet"
