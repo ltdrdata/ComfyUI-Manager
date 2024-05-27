@@ -84,7 +84,7 @@ export class ModelInstaller extends ComfyDialog {
 		let keyword = this.search_box.value.toLowerCase();
 		for(let i in this.grid_rows) {
 			let data = this.grid_rows[i].data;
-			let content = data.name.toLowerCase() + data.type.toLowerCase() + data.base.toLowerCase() + data.description.toLowerCase();
+			let content = data.name.toLowerCase() + data.type.toLowerCase() + data.base.toLowerCase() + data.filename.toLowerCase() + data.description.toLowerCase();
 
 			if(this.filter && this.filter != '*') {
 				if(this.filter != data.installed) {
