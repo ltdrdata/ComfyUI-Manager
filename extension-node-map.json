@@ -1706,6 +1706,7 @@
     "https://github.com/GraftingRayman/ComfyUI_GraftingRayman": [
         [
             "GR Image Resize",
+            "GR Image Resize Methods",
             "GR Image Size",
             "GR Mask Create",
             "GR Mask Create Random",
@@ -7405,9 +7406,12 @@
             "ImageListToBatch+",
             "ImagePosterize+",
             "ImageRandomTransform+",
+            "ImageRemoveAlpha+",
             "ImageRemoveBackground+",
             "ImageResize+",
             "ImageSeamCarving+",
+            "ImageTile+",
+            "ImageToDevice+",
             "KSamplerVariationsStochastic+",
             "KSamplerVariationsWithNoise+",
             "LoadCLIPSegModels+",
@@ -7415,6 +7419,7 @@
             "MaskBlur+",
             "MaskBoundingBox+",
             "MaskExpandBatch+",
+            "MaskFix+",
             "MaskFlip+",
             "MaskFromBatch+",
             "MaskFromColor+",
@@ -7424,7 +7429,6 @@
             "MaskPreview+",
             "MaskSmooth+",
             "ModelCompile+",
-            "NoiseFromImage~",
             "PixelOEPixelize+",
             "RemBGSession+",
             "RemoveLatentMask+",
@@ -7943,6 +7947,7 @@
             "Eden_DebugPrint",
             "Eden_Float",
             "Eden_Int",
+            "Eden_Lora_Loader",
             "Eden_String",
             "GetRandomFile",
             "HistogramMatching",
@@ -10015,6 +10020,7 @@
             "ColorizeDepthmap",
             "MarigoldDepthEstimation",
             "MarigoldDepthEstimationVideo",
+            "MarigoldDepthEstimation_v2",
             "RemapDepth",
             "SaveImageOpenEXR"
         ],
@@ -10342,7 +10348,7 @@
             "description": "This single node uses an LLM to generate a functionality based on your request. You can make the node do anything.",
             "nickname": "AnyNode",
             "title": "AnyNode v0.1",
-            "title_aux": "ComfyUI AnyNode: Any Node you ask for"
+            "title_aux": "ComfyUI AnyNode: Any Node you ask for [UNSAFE]"
         }
     ],
     "https://github.com/lldacing/comfyui-easyapi-nodes": [
@@ -11182,6 +11188,14 @@
             "title_aux": "Preset Dimensions"
         }
     ],
+    "https://github.com/moyi7712/ComfyUI_Seamless_Patten": [
+        [
+            "SeamlessApply"
+        ],
+        {
+            "title_aux": "ComfyUI_Seamless_Patten"
+        }
+    ],
     "https://github.com/mpiquero7164/ComfyUI-SaveImgPrompt": [
         [
             "Save IMG Prompt"
@@ -11192,6 +11206,7 @@
     ],
     "https://github.com/muzi12888/ComfyUI-PoseKeypoint-Mask": [
         [
+            "Image Brightness",
             "Openpose Keypoint Mask"
         ],
         {
@@ -11654,6 +11669,7 @@
             "BMAB Load Image",
             "BMAB Masks To Images",
             "BMAB Model To Bind",
+            "BMAB Noise Generator",
             "BMAB Openpose Hand Detailer",
             "BMAB Person Detailer",
             "BMAB Preview Text",
@@ -13427,7 +13443,7 @@
             "title_aux": "hd-nodes-comfyui"
         }
     ],
-    "https://github.com/xliry/ComfyUI_SendDiscord/raw/main/SendDiscord.py": [
+    "https://github.com/xliry/ComfyUI_SendDiscord": [
         [
             "SendDiscord"
         ],
