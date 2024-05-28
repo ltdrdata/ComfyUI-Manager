@@ -92,6 +92,7 @@ def scan_in_file(filename, is_builtin=False):
     class_dict = {}
 
     nodes |= extract_nodes(code)
+    code = re.sub(r'^#.*?$', '', code, flags=re.MULTILINE)
 
     def extract_keys(pattern, code):
         keys = re.findall(pattern, code)
