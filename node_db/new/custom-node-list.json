@@ -13,6 +13,72 @@
 
 
         {
+            "author": "LykosAI",
+            "title": "ComfyUI Nodes for Inference.Core",
+            "id": "inference-core",
+            "reference": "https://github.com/LykosAI/ComfyUI-Inference-Core-Nodes",
+            "files": [
+                "https://github.com/LykosAI/ComfyUI-Inference-Core-Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Primary Nodes for Inference.Core and Stability Matrix. With a focus on not impacting startup performance and using fully qualified Node names. [w/This custom node is likely to conflict with many other nodes.]"
+        },
+        {
+            "author": "SozeInc",
+            "title": "ComfyUI-Mobile",
+            "id": "comfyui-mobile",
+            "reference": "https://github.com/SozeInc/ComfyUI-Mobile",
+            "files": [
+                "https://github.com/SozeInc/ComfyUI-Mobile"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: Ultimate Concat (Mobile), Send Notification (Mobile), Settings Launcher (Mobile), Settings Launcher Outputs (Mobile)"
+        },
+        {
+            "author": "AIFSH",
+            "title": "ComfyUI_V-Express",
+            "id": "v-express",
+            "reference": "https://github.com/AIFSH/ComfyUI_V-Express",
+            "files": [
+                "https://github.com/AIFSH/ComfyUI_V-Express"
+            ],
+            "install_type": "git-clone",
+            "description": "the comfyui custom node of [a/V-Express](https://github.com/tencent-ailab/V-Express) to make audio driven videos!"
+        },
+        {
+            "author": "AonekoSS",
+            "title": "ComfyUI-LoRA-Tuner",
+            "id": "lora-tuner",
+            "reference": "https://github.com/AonekoSS/ComfyUI-LoRA-Tuner",
+            "files": [
+                "https://github.com/AonekoSS/ComfyUI-LoRA-Tuner"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: LoRA-Tuner. For using multiple LoRA easily."
+        },
+        {
+            "author": "nirex0",
+            "title": "ComfyUI_pytorch_openpose",
+            "id": "pytorch-openpose",
+            "reference": "https://github.com/nirex0/ComfyUI_pytorch_openpose",
+            "files": [
+                "https://github.com/nirex0/ComfyUI_pytorch_openpose"
+            ],
+            "install_type": "git-clone",
+            "description": "All Credits go to the original Repo: [a/Hzzone/pytorch-openpose](https://github.com/Hzzone/pytorch-openpose)."
+        },
+        {
+            "author": "Mason-McGough",
+            "title": "Mosaica",
+            "id": "mosaica",
+            "reference": "https://github.com/Mason-McGough/ComfyUI-Mosaica",
+            "files": [
+                "https://github.com/Mason-McGough/ComfyUI-Mosaica"
+            ],
+            "install_type": "git-clone",
+            "description": "Create colorful mosaic images in ComfyUI by computing label images and applying lookup tables."
+        },
+        {
             "author": "moyi7712",
             "title": "ComfyUI_Seamless_Patten",
             "id": "seamless-pattern",
@@ -156,14 +222,14 @@
         },
         {
             "author": "lks-ai",
-            "title": "ComfyUI AnyNode: Any Node you ask for [UNSAFE]",
+            "title": "ComfyUI AnyNode: Any Node you ask for",
             "id": "anynode",
             "reference": "https://github.com/lks-ai/anynode",
             "files": [
                 "https://github.com/lks-ai/anynode"
             ],
             "install_type": "git-clone",
-            "description": "Nodes: AnyNode. Nodes that can be anything you ask. Auto-Generate functional nodes using LLMs. Create impossible workflows. API Compatibility: (OpenAI, LocalLLMs, Gemini). [w/This node contains dangerous code that can execute arbitrary code.]"
+            "description": "Nodes: AnyNode. Nodes that can be anything you ask. Auto-Generate functional nodes using LLMs. Create impossible workflows. API Compatibility: (OpenAI, LocalLLMs, Gemini)."
         },
         {
             "author": "Thomas Ward",
@@ -635,61 +701,6 @@
             ],
             "install_type": "git-clone",
             "description": "Send notifications when a workflow completes."
-        },
-        {
-            "author": "GraftingRayman",
-            "title": "GR Prompt Selector",
-            "id": "gr-prompt-selector",
-            "reference": "https://github.com/GraftingRayman/ComfyUI_GraftingRayman",
-            "files": [
-                "https://github.com/GraftingRayman/ComfyUI_GraftingRayman"
-            ],
-            "install_type": "git-clone",
-            "description": "Prompt and Masking nodes."
-        },
-        {
-            "author": "nat-chan",
-            "title": "ComfyUI-graphToPrompt",
-            "id": "graph2prompt",
-            "reference": "https://github.com/nat-chan/ComfyUI-graphToPrompt",
-            "files": [
-                "https://github.com/nat-chan/ComfyUI-graphToPrompt"
-            ],
-            "install_type": "git-clone",
-            "description": "workflow.json -> workflow_api.json"
-        },
-        {
-            "author": "oztrkoguz",
-            "title": "ComfyUI StoryCreater",
-            "id": "storycreater",
-            "reference": "https://github.com/oztrkoguz/ComfyUI_StoryCreator",
-            "files": [
-                "https://github.com/oztrkoguz/ComfyUI_StoryCreator"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:story_sampler_simple, text2, kosmos2_sampler.\nI created a dataset for generating short stories [a/Short-Story](https://huggingface.co/datasets/oztrkoguz/Short-Story) and used it to fine-tune my own model using Phi-3."
-        },
-        {
-            "author": "jtydhr88",
-            "title": "ComfyUI LayerDivider",
-            "id": "layer-divider",
-            "reference": "https://github.com/jtydhr88/ComfyUI-LayerDivider",
-            "files": [
-                "https://github.com/jtydhr88/ComfyUI-LayerDivider"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI LayerDivider is custom nodes that generating layered psd files inside ComfyUI[w/This plugin depends on Python 3.10, which means we cannot use the default Python that comes with ComfyUI, as it is Python 3.11. For this reason, it is recommended to use conda to manage and create the ComfyUI runtime environment.]"
-        },
-        {
-            "author": "ShmuelRonen",
-            "title": "Wav2Lip Node for ComfyUI",
-            "id": "wav2lip",
-            "reference": "https://github.com/ShmuelRonen/ComfyUI_wav2lip",
-            "files": [
-                "https://github.com/ShmuelRonen/ComfyUI_wav2lip"
-            ],
-            "install_type": "git-clone",
-            "description": "The Wav2Lip node is a custom node for ComfyUI that allows you to perform lip-syncing on videos using the Wav2Lip model. It takes an input video and an audio file and generates a lip-synced output video."
         }
     ]
 }

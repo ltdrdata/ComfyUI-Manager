@@ -6552,17 +6552,6 @@
             "description": "ComfyUI Node - Hugging Face repositories GTP2 Prompt"
         },
         {
-            "author": "LykosAI",
-            "title": "ComfyUI Nodes for Inference.Core",
-            "id": "inference-core",
-            "reference": "https://github.com/LykosAI/ComfyUI-Inference-Core-Nodes",
-            "files": [
-                "https://github.com/LykosAI/ComfyUI-Inference-Core-Nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Primary Nodes for Inference.Core and Stability Matrix. With a focus on not impacting startup performance and using fully qualified Node names."
-        },
-        {
             "author": "Klinter",
             "title": "Klinter_nodes",
             "id": "klinter",
@@ -7571,13 +7560,14 @@
         },
         {
             "author": "shinich39",
-            "title": "comfyui-random-node-39",
-            "reference": "https://github.com/shinich39/comfyui-ramdom-node-39",
+            "title": "comfyui-random-node",
+            "id": "random-node",
+            "reference": "https://github.com/shinich39/comfyui-ramdom-node",
             "files": [
-                "https://github.com/shinich39/comfyui-ramdom-node-39"
+                "https://github.com/shinich39/comfyui-ramdom-node"
             ],
             "install_type": "git-clone",
-            "description": "Choose random node."
+            "description": "Shuffle nodes after queue added. [w/Repository name has been changed from comfyui-random-node-39 to comfyui-random-node. Please remove and reinstall it.]"
         },
         {
             "author": "shinich39",
@@ -8040,8 +8030,8 @@
         {
             "author": "AIFSH",
             "title": "ComfyUI-XTTS",
-            "reference": "https://github.com/AIFSH/ComfyUI-XTTS",
             "id": "xtts",
+            "reference": "https://github.com/AIFSH/ComfyUI-XTTS",
             "files": [
                 "https://github.com/AIFSH/ComfyUI-XTTS"
             ],
@@ -8051,13 +8041,35 @@
         {
             "author": "AIFSH",
             "title": "ComfyUI-Live2DViewer",
-            "reference": "https://github.com/AIFSH/ComfyUI-Live2DViewer",
             "id": "live2dviewer",
+            "reference": "https://github.com/AIFSH/ComfyUI-Live2DViewer",
             "files": [
                 "https://github.com/AIFSH/ComfyUI-Live2DViewer"
             ],
             "install_type": "git-clone",
             "description": "a comfyui node for viewing Live2D model"
+        },
+        {
+            "author": "AIFSH",
+            "title": "ComfyUI-FishSpeech",
+            "id": "fishspeech",
+            "reference": "https://github.com/AIFSH/ComfyUI-FishSpeech",
+            "files": [
+                "https://github.com/AIFSH/ComfyUI-FishSpeech"
+            ],
+            "install_type": "git-clone",
+            "description": "a custom comfyui node for [a/fish-speech](https://github.com/fishaudio/fish-speech.git)"
+        },
+        {
+            "author": "AIFSH",
+            "title": "ComfyUI_V-Express",
+            "id": "v-express",
+            "reference": "https://github.com/AIFSH/ComfyUI_V-Express",
+            "files": [
+                "https://github.com/AIFSH/ComfyUI_V-Express"
+            ],
+            "install_type": "git-clone",
+            "description": "the comfyui custom node of [a/V-Express](https://github.com/tencent-ailab/V-Express) to make audio driven videos!"
         },
         {
             "author": "Koishi-Star",
@@ -8426,6 +8438,17 @@
             ],
             "install_type": "git-clone",
             "description": "Node: utils/Simple Counter\nThis node is a simple counter, when pressing 'Queue Prompt' resets the count."
+        },
+        {
+            "author": "AonekoSS",
+            "title": "ComfyUI-LoRA-Tuner",
+            "id": "lora-tuner",
+            "reference": "https://github.com/AonekoSS/ComfyUI-LoRA-Tuner",
+            "files": [
+                "https://github.com/AonekoSS/ComfyUI-LoRA-Tuner"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: LoRA-Tuner. For using multiple LoRA easily."
         },
         {
             "author": "heshengtao",
@@ -8837,16 +8860,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:Use Prompt Quill in Comfyui"
-        },
-        {
-            "author": "AIFSH",
-            "title": "ComfyUI-FishSpeech",
-            "reference": "https://github.com/AIFSH/ComfyUI-FishSpeech",
-            "files": [
-                "https://github.com/AIFSH/ComfyUI-FishSpeech"
-            ],
-            "install_type": "git-clone",
-            "description": "a custom comfyui node for [a/fish-speech](https://github.com/fishaudio/fish-speech.git)"
         },
         {
             "author": "philz1337x",
@@ -9419,14 +9432,14 @@
         },
         {
             "author": "lks-ai",
-            "title": "ComfyUI AnyNode: Any Node you ask for [UNSAFE]",
+            "title": "ComfyUI AnyNode: Any Node you ask for",
             "id": "anynode",
             "reference": "https://github.com/lks-ai/anynode",
             "files": [
                 "https://github.com/lks-ai/anynode"
             ],
             "install_type": "git-clone",
-            "description": "Nodes: AnyNode. Nodes that can be anything you ask. Auto-Generate functional nodes using LLMs. Create impossible workflows. API Compatibility: (OpenAI, LocalLLMs, Gemini). [w/This node contains dangerous code that can execute arbitrary code.]"
+            "description": "Nodes: AnyNode. Nodes that can be anything you ask. Auto-Generate functional nodes using LLMs. Create impossible workflows. API Compatibility: (OpenAI, LocalLLMs, Gemini)."
         },
         {
             "author": "SayanoAI",
@@ -9463,7 +9476,7 @@
         },
         {
             "author": "Mason-McGough",
-            "title": "🎨 ComfyUI-Mosaica",
+            "title": "Mosaica",
             "id": "mosaica",
             "reference": "https://github.com/Mason-McGough/ComfyUI-Mosaica",
             "files": [
@@ -9525,14 +9538,39 @@
             "install_type": "git-clone",
             "description": "It make any text2image create seamless patten"
         },
-
-
-
-
-
-
-
-
+        {
+            "author": "nirex0",
+            "title": "ComfyUI_pytorch_openpose",
+            "id": "pytorch-openpose",
+            "reference": "https://github.com/nirex0/ComfyUI_pytorch_openpose",
+            "files": [
+                "https://github.com/nirex0/ComfyUI_pytorch_openpose"
+            ],
+            "install_type": "git-clone",
+            "description": "All Credits go to the original Repo: [a/Hzzone/pytorch-openpose](https://github.com/Hzzone/pytorch-openpose)."
+        },
+        {
+            "author": "AshMartian",
+            "title": "Dir Gir",
+            "id": "dir-gir",
+            "reference": "https://github.com/AshMartian/ComfyUI-DirGir",
+            "files": [
+                "https://github.com/AshMartian/ComfyUI-DirGir"
+            ],
+            "install_type": "git-clone",
+            "description": "A collection of ComfyUI directory automation utility nodes. Directory Get It Right adds a GUI directory browser, and smart directory loop/iteration node that supports regex and file extension filtering."
+        },
+        {
+            "author": "SozeInc",
+            "title": "ComfyUI-Mobile",
+            "id": "comfyui-mobile",
+            "reference": "https://github.com/SozeInc/ComfyUI-Mobile",
+            "files": [
+                "https://github.com/SozeInc/ComfyUI-Mobile"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: Ultimate Concat (Mobile), Send Notification (Mobile), Settings Launcher (Mobile), Settings Launcher Outputs (Mobile)"
+        },
 
 
 
@@ -9826,18 +9864,6 @@
             "description": "A node which takes in x, y, width, height, total width, and total height, in order to accurately represent the area of an image which is covered by area-based conditioning."
         },
         {
-            "author": "AshMartian",
-            "title": "Dir Gir",
-            "id": "dir-gir",
-            "reference": "https://github.com/AshMartian/ComfyUI-DirGir",
-            "files": [
-                "https://github.com/AshMartian/ComfyUI-DirGir/raw/main/dir_picker.py",
-                "https://github.com/AshMartian/ComfyUI-DirGir/raw/main/dir_loop.py"
-            ],
-            "install_type": "copy",
-            "description": "A collection of ComfyUI directory automation utility nodes. Directory Get It Right adds a GUI directory browser, and smart directory loop/iteration node that supports regex and file extension filtering."
-        },
-        {
             "author": "underclockeddev",
             "title": "BrevImage",
             "id": "brevimage",
@@ -9941,16 +9967,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "Mason-McGough",
-            "title": "Mosaica",
-            "reference": "https://github.com/Mason-McGough/ComfyUI-Mosaica",
-            "files": [
-                "https://github.com/Mason-McGough/ComfyUI-Mosaica"
-            ],
-            "install_type": "git-clone",
-            "description": "Create colorful mosaic images in ComfyUI by computing label images and applying lookup tables."
         }
     ]
 }
