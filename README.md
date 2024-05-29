@@ -376,6 +376,7 @@ When you run the `scan.sh` script:
 * https://github.com/bxdsjs/ComfyUI-Image-preprocessing
 * https://github.com/SMUELDigital/ComfyUI-ONSET
 * https://github.com/SimithWang/comfyui-renameImages
+* https://github.com/icefairy64/comfyui-model-tilt
 
 ## Roadmap
 
