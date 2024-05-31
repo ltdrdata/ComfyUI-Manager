@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 35, 1]
+version = [2, 36]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -396,7 +396,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
                     package_name = remap_pip_package(line.strip())
                     if package_name and not package_name.startswith('#'):
                         install_cmd = [sys.executable, "-m", "pip", "install", package_name]
-                        if package_name.strip() != "":
+                        if package_name.strip() != "" and not package_name.startswith('#'):
                             try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
         if os.path.exists(install_script_path):

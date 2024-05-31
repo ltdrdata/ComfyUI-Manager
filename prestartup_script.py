@@ -476,8 +476,9 @@ if os.path.exists(restore_snapshot_path):
                         for line in file:
                             package_name = remap_pip_package(line.strip())
                             if package_name and not is_installed(package_name):
-                                install_cmd = [sys.executable, "-m", "pip", "install", package_name]
-                                this_exit_code += process_wrap(install_cmd, repo_path)
+                                if not package_name.startswith('#'):
+                                    install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                                    this_exit_code += process_wrap(install_cmd, repo_path)
 
                 if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
                     processed_install.add(f'{repo_path}/install.py')
