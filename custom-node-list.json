@@ -1556,7 +1556,7 @@
                 "https://github.com/Gourieff/ComfyUI-FutureWarningIgnore/raw/main/0_FutureWarningIgnore.py"
             ],
             "install_type": "copy",
-            "description": "This extension collapses 'future warning'"
+            "description": "This extension collapses 'future warning' messages in your Console"
         },
         {
             "author": "imb101",
@@ -1571,8 +1571,7 @@
         },
         {
             "author": "Chaoses-Ib",
-            "title": "ComfyUI_Ib_CustomNodes",
-            "id": "ib-nodes",
+            "title": "ComfyUI_Ib_CustomNodes","id": "ib-nodes",
             "reference": "https://github.com/Chaoses-Ib/ComfyUI_Ib_CustomNodes",
             "files": [
                 "https://github.com/Chaoses-Ib/ComfyUI_Ib_CustomNodes"
@@ -2808,7 +2807,7 @@
                 "https://github.com/kijai/ComfyUI-ADMotionDirector"
             ],
             "install_type": "git-clone",
-            "description": "This is a trainer for AnimateDiff MotionLoRAs, based on the implementation of MotionDirector by ExponentialML."
+            "description": "This is a trainer for AnimateDiff MotionLoRAs, based on the implementation of MotionDirector by ExponentialML.\nNOTE:[a/ADMotionDirector](https://github.com/ExponentialML/AnimateDiff-MotionDirector)"
         },
         {
             "author": "kijai",
@@ -4245,12 +4244,24 @@
         {
             "author": "AustinMroz",
             "title": "SpliceTools",
+            "id": "splicetools",
             "reference": "https://github.com/AustinMroz/ComfyUI-SpliceTools",
             "files": [
                 "https://github.com/AustinMroz/ComfyUI-SpliceTools"
             ],
             "install_type": "git-clone",
             "description": "Experimental utility nodes with a focus on manipulation of noised latents"
+        },
+        {
+            "author": "AustinMroz",
+            "title": "DynamicOversampling",
+            "id": "dynamic-oversampling",
+            "reference": "https://github.com/AustinMroz/ComfyUI-DynamicOversampling",
+            "files": [
+                "https://github.com/AustinMroz/ComfyUI-DynamicOversampling"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:DynamicSampler"
         },
         {
             "author": "11cafe",
@@ -6836,16 +6847,6 @@
             "description": "A ComfyUI node to download models(Checkpoints and LoRA) from external links and act as an output standalone node."
         },
         {
-            "author": "Alysondao",
-            "title": "Comfyui-Yolov8-JSON",
-            "reference": "https://github.com/Alysondao/Comfyui-Yolov8-JSON",
-            "files": [
-                "https://github.com/Alysondao/Comfyui-Yolov8-JSON"
-            ],
-            "install_type": "git-clone",
-            "description": "This node is mainly based on the Yolov8 model for object detection, and it outputs related images, masks, and JSON information."
-        },
-        {
             "author": "CC-BryanOttho",
             "title": "ComfyUI_API_Manager",
             "reference": "https://github.com/CC-BryanOttho/ComfyUI_API_Manager",
@@ -7210,6 +7211,27 @@
             ],
             "install_type": "git-clone",
             "description": "This plugin is mainly based on Minio, implementing the ability to read images from Minio, save images, facilitating expansion and connection across multiple machines."
+        },
+        {
+            "author": "prodogape",
+            "title": "ComfyUI-EasyOCR",
+            "id": "easyocr",
+            "reference": "https://github.com/prodogape/ComfyUI-EasyOCR",
+            "files": [
+                "https://github.com/prodogape/ComfyUI-EasyOCR"
+            ],
+            "install_type": "git-clone",
+            "description": "This node is primarily based on Easy-OCR to implement OCR text recognition functionality."
+        },
+        {
+            "author": "Alysondao",
+            "title": "Comfyui-Yolov8-JSON",
+            "reference": "https://github.com/Alysondao/Comfyui-Yolov8-JSON",
+            "files": [
+                "https://github.com/Alysondao/Comfyui-Yolov8-JSON"
+            ],
+            "install_type": "git-clone",
+            "description": "This node is mainly based on the Yolov8 model for object detection, and it outputs related images, masks, and JSON information."
         },
         {
             "author": "kingzcheung",
@@ -9659,6 +9681,55 @@
             "install_type": "git-clone",
             "description": "Nodes:muse_pose_align, muse_pose, muse_pose_filenamestring.\nNOTE: You need to download weigths manually from: [a/https://huggingface.co/TMElyralab/MusePose](https://huggingface.co/TMElyralab/MusePose)"
         },
+        {
+            "author": "Jin Liu",
+            "title": "ComfyUI-Photopea",
+            "id": "photopea",
+            "reference": "https://github.com/coolzilj/ComfyUI-Photopea",
+            "files": [
+                "https://github.com/coolzilj/ComfyUI-Photopea"
+            ],
+            "install_type": "git-clone",
+            "description": "Edit images in the Photopea editor directly within ComfyUI."
+        },
+        {
+            "author": "bitaffinity",
+            "title": "ComfyUI_HF_Inference",
+            "id": "hf-inference",
+            "reference": "https://github.com/bitaffinity/ComfyUI_HF_Inference",
+            "files": [
+                "https://github.com/bitaffinity/ComfyUI_HF_Inference"
+            ],
+            "install_type": "git-clone",
+            "description": "Unofficial support for Hugging Face's hosted inference."
+        },
+        {
+            "author": "claussteinmassl",
+            "title": "CS Transform Node for ComfyUI",
+            "id": "cs-transform",
+            "reference": "https://github.com/claussteinmassl/ComfyUI-CS-CustomNodes",
+            "files": [
+                "https://github.com/claussteinmassl/ComfyUI-CS-CustomNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "The CS Transform node is a custom node for ComfyUI that applies a series of transformations to an input image and mask. The transformations include scaling, rotation, and translation, all centered around a specified pivot point. The node ensures that the transformed image is properly accommodated within a canvas, which can be expanded if needed."
+        },
+        {
+            "author": "MariusKM",
+            "title": "ComfyUI-BadmanNodes",
+            "id": "badman",
+            "reference": "https://github.com/MariusKM/ComfyUI-BadmanNodes",
+            "files": [
+                "https://github.com/MariusKM/ComfyUI-BadmanNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Badman_Blend, Badman_HexGenerator, Badman_String, Badman_Concat_String, Badman_Print, BadmanIO, BadmanIntUtil"
+        },
+
+
+
+
+
 
 
 
@@ -10051,15 +10122,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-          "author": "Jin Liu",
-          "title": "ComfyUI-Photopea",
-          "id": "ComfyUI-Photopea",
-          "reference": "https://github.com/coolzilj/ComfyUI-Photopea",
-          "files": ["https://github.com/coolzilj/ComfyUI-Photopea"],
-          "install_type": "git-clone",
-          "description": "Edit images in the Photopea editor directly within ComfyUI."
         }
     ]
 }

@@ -125,12 +125,16 @@
             "GPT4VCaptioner",
             "Image Load with Metadata",
             "SAMIN String Attribute Selector",
+            "SANMIN Adapt Coordinates",
+            "SANMIN AdjustTransparency",
             "SANMIN ChineseToCharacter",
             "SANMIN ClothingWildcards",
             "SANMIN ConvertToEnglish",
             "SANMIN LoadPathImagesPreview",
+            "SANMIN SCALE AND FILL BLACK",
             "SANMIN SanmiSaveImageToLocal",
             "SANMIN SimpleWildcards",
+            "SANMIN Upscale And Original Size",
             "Samin Counter",
             "Samin Load Image Batch"
         ],
@@ -642,6 +646,14 @@
         ],
         {
             "title_aux": "ComfyUI-AnimateAnyone-reproduction"
+        }
+    ],
+    "https://github.com/AustinMroz/ComfyUI-DynamicOversampling": [
+        [
+            "DynamicSampler"
+        ],
+        {
+            "title_aux": "DynamicOversampling"
         }
     ],
     "https://github.com/AustinMroz/ComfyUI-SpliceTools": [
@@ -2680,6 +2692,20 @@
             "title_aux": "m9-prompts-comfyui"
         }
     ],
+    "https://github.com/MariusKM/ComfyUI-BadmanNodes": [
+        [
+            "BadmanIO",
+            "BadmanIntUtil",
+            "Badman_Blend",
+            "Badman_Concat_String",
+            "Badman_HexGenerator",
+            "Badman_Print",
+            "Badman_String"
+        ],
+        {
+            "title_aux": "ComfyUI-BadmanNodes"
+        }
+    ],
     "https://github.com/MarkoCa1/ComfyUI-Text": [
         [
             "CombinationText",
@@ -3709,10 +3735,10 @@
     ],
     "https://github.com/SozeInc/ComfyUI-Mobile": [
         [
-            "Mobile_Send_Notification",
-            "Mobile_Settings_Launcher",
             "Mobile_Settings_Launcher_Data",
-            "Mobile_Ultimate_Concat"
+            "Send Notification (Mobile)",
+            "Settings Launcher (Mobile)",
+            "Ultimate Concat (Mobile)"
         ],
         {
             "title_aux": "ComfyUI-Mobile"
@@ -5760,6 +5786,16 @@
             "title_aux": "ComfyUI_TextAssets"
         }
     ],
+    "https://github.com/bitaffinity/ComfyUI_HF_Inference": [
+        [
+            "QuestionAnswering",
+            "TextFeatureExtraction",
+            "Translation"
+        ],
+        {
+            "title_aux": "ComfyUI_HF_Inference"
+        }
+    ],
     "https://github.com/bkunbargi/BrevImage/raw/main/BrevLoadImage.py": [
         [
             "BrevImage"
@@ -7048,6 +7084,14 @@
             "title_aux": "comfy-nodes"
         }
     ],
+    "https://github.com/claussteinmassl/ComfyUI-CS-CustomNodes": [
+        [
+            "CS Transform"
+        ],
+        {
+            "title_aux": "CS Transform Node for ComfyUI"
+        }
+    ],
     "https://github.com/comfyanonymous/ComfyUI": [
         [
             "AddNoise",
@@ -7969,6 +8013,7 @@
             "Eden_Int",
             "Eden_Lora_Loader",
             "Eden_String",
+            "FolderScanner",
             "GetRandomFile",
             "HistogramMatching",
             "IMG_blender",
@@ -7985,6 +8030,7 @@
             "MaskFromRGB_KMeans",
             "SaveExplorationState",
             "SaveImageAdvanced",
+            "SavePosEmbeds",
             "VAEDecode_to_folder",
             "VideoFrameSelector"
         ],
@@ -9873,10 +9919,12 @@
     ],
     "https://github.com/kijai/ComfyUI-DynamiCrafterWrapper": [
         [
+            "DownloadAndLoadDynamiCrafterModel",
             "DynamiCrafterBatchInterpolation",
             "DynamiCrafterI2V",
             "DynamiCrafterModelLoader",
-            "OpenCLIPVisionSelect"
+            "OpenCLIPVisionSelect",
+            "ToonCrafterI2V"
         ],
         {
             "title_aux": "ComfyUI-DynamiCrafterWrapper"
@@ -11472,7 +11520,8 @@
             "CutForInpaint",
             "PowerPaint",
             "PowerPaintCLIPLoader",
-            "RAUNet"
+            "RAUNet",
+            "Terminal"
         ],
         {
             "author": "nullquant",
@@ -11719,6 +11768,7 @@
             "BMAB Lama Inpaint",
             "BMAB LoRA Loader",
             "BMAB Load Image",
+            "BMAB Load Output Image",
             "BMAB Masks To Images",
             "BMAB Model To Bind",
             "BMAB Noise Generator",
@@ -11747,6 +11797,14 @@
         ],
         {
             "title_aux": "comfyui_bmab"
+        }
+    ],
+    "https://github.com/prodogape/ComfyUI-EasyOCR": [
+        [
+            "Apply EasyOCR"
+        ],
+        {
+            "title_aux": "ComfyUI-EasyOCR"
         }
     ],
     "https://github.com/prodogape/ComfyUI-Minio": [
@@ -12464,8 +12522,8 @@
     ],
     "https://github.com/smthemex/ComfyUI_HiDiffusion_Pro": [
         [
-            "Diffusers_Or_Repo_Choice",
-            "Hi_Control2Img",
+            "HI_Diffusers_Or_Repo",
+            "Hi_SDXL_Control2Img",
             "Hi_Text2Img"
         ],
         {
@@ -13063,6 +13121,7 @@
     ],
     "https://github.com/ttulttul/ComfyUI-Tensor-Operations": [
         [
+            "Fast Image to Noise",
             "Image Match Normalize",
             "Latent Match Normalize"
         ],
@@ -13913,6 +13972,7 @@
             "IntMultipleAddLiteral",
             "LoadImageMaskWithSwitch",
             "LoadImageWithSwitch",
+            "MaskFastGrow",
             "ModifyTextGender",
             "SplitMask"
         ],
