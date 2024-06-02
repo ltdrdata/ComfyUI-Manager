@@ -5,6 +5,7 @@
 ![menu](misc/menu.jpg)
 
 ## NOTICE
+* V2.33 Security policy is applied.
 * V2.21 [cm-cli](docs/en/cm-cli.md) tool is added.
 * V2.18 to V2.18.3 is not functioning due to a severe bug. Users on these versions are advised to promptly update to V2.18.4. Please navigate to the `ComfyUI/custom_nodes/ComfyUI-Manager` directory and execute `git pull` to update.
 * You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
@@ -31,10 +32,32 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 ![portable-install](misc/portable-install.png)
 
 
-### Installation[method3] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
+### Installation[method3] (Installation through comfy-cli: install ComfyUI and ComfyUI-Manager at once.)  
+> RECOMMENDED: comfy-cli provides various features to manage ComfyUI from the CLI.
+
+* **prerequisite: python 3, git**
+
+Windows:
+```commandline
+python -m venv venv
+venv\Scripts\activate
+pip install comfy-cli
+comfy install
+```
+
+Linux/OSX:
+```commandline
+python -m venv venv
+. venv/bin/activate
+pip install comfy-cli
+comfy install
+```
+
+
+### Installation[method4] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
 
 To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you can follow these steps:
-* **prerequisite: python-is-python3, python3-venv**
+* **prerequisite: python-is-python3, python3-venv, git**
 
 1. Download [scripts/install-comfyui-venv-linux.sh](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-comfyui-venv-linux.sh) into empty install directory
 - ComfyUI will be installed in the subdirectory of the specified directory, and the directory will contain the generated executable script.
@@ -168,6 +191,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Add an entry to `custom-node-list.json` located in the root of ComfyUI-Manager and submit a Pull Request.
 * NOTE: Before submitting the PR after making changes, please check `Use local DB` and ensure that the extension list loads without any issues in the `Install custom nodes` dialog. Occasionally, missing or extra commas can lead to JSON syntax errors.
 * The remaining JSON will be updated through scripts in the future, so you don't need to worry about it.
+
 
 ## Custom node support guide
 
@@ -316,6 +340,31 @@ When you run the `scan.sh` script:
   * Edit `config.ini` file: add `windows_selector_event_loop_policy = True`
 
 
+## Security policy
+  * Edit `config.ini` file: add `security_level = <LEVEL>`
+    * `strong`
+      * doesn't allow `high` and `middle` level risky feature
+    * `normal`
+      * doesn't allow `high` level risky feature if `--listen` is specified and not starts with `127.`
+      * `middle` level risky feature is available
+    * `weak`
+      * all feature is available
+    
+  * `high` level risky features
+    * `Install via git url`, `pip install`
+    * Installation of custom nodes registered not in the `default channel`.
+    * Display terminal log
+  
+  * `middle` level risky features
+    * Uninstall/Update/Fix custom nodes
+    * Installation of custom nodes registered in the `default channel`.
+    * Restore/Remove Snapshot
+    * Restart
+  
+  * `low` level risky features
+    * Update ComfyUI
+
+
 ## TODO: Unconventional form of custom node list
 
 * https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
@@ -324,7 +373,11 @@ When you run the `scan.sh` script:
 * https://github.com/StartHua/Comfyui_GPT_Story
 * https://github.com/NielsGercama/comfyui_customsampling
 * https://github.com/wrightdaniel2017/ComfyUI-VideoLipSync
-
+* https://github.com/bxdsjs/ComfyUI-Image-preprocessing
+* https://github.com/SMUELDigital/ComfyUI-ONSET
+* https://github.com/SimithWang/comfyui-renameImages
+* https://github.com/icefairy64/comfyui-model-tilt
+* https://github.com/andrewharp/ComfyUI-EasyNodes
 
 ## Roadmap
 

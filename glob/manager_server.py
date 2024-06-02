@@ -42,6 +42,36 @@ from comfy.cli_args import args
 import latent_preview
 
 
+is_local_mode = args.listen.startswith('127.')
+
+
+def is_allowed_security_level(level):
+    if level == 'high':
+        if is_local_mode:
+            return core.get_config()['security_level'].lower() in ['weak', 'normal']
+        else:
+            return core.get_config()['security_level'].lower() == 'weak'
+    elif level == 'middle':
+        return core.get_config()['security_level'].lower() in ['weak', 'normal']
+    else:
+        return True
+
+
+async def get_risky_level(files):
+    json_data1 = await core.get_data_by_mode('local', 'custom-node-list.json')
+    json_data2 = await core.get_data_by_mode('cache', 'custom-node-list.json', channel_url='https://github.com/ltdrdata/ComfyUI-Manager/raw/main/custom-node-list.json')
+
+    all_urls = set()
+    for x in json_data1['custom_nodes'] + json_data2['custom_nodes']:
+        all_urls.update(x['files'])
+
+    for x in files:
+        if x not in all_urls:
+            return "high"
+
+    return "middle"
+
+
 class ManagerFuncsInComfyUI(core.ManagerFuncs):
     def get_current_preview_method(self):
         if args.preview_method == latent_preview.LatentPreviewMethod.Auto:
@@ -171,16 +201,13 @@ def print_comfyui_version():
 print_comfyui_version()
 
 
-async def populate_github_stats(json_obj, filename, silent=False):
-    uri = os.path.join(core.comfyui_manager_path, filename)
-    with open(uri, "r", encoding='utf-8') as f:
-        github_stats = json.load(f)
+async def populate_github_stats(json_obj, json_obj_github):
     if 'custom_nodes' in json_obj:
         for i, node in enumerate(json_obj['custom_nodes']):
             url = node['reference']
-            if url in github_stats:
-                json_obj['custom_nodes'][i]['stars'] = github_stats[url]['stars']
-                json_obj['custom_nodes'][i]['last_update'] = github_stats[url]['last_update']
+            if url in json_obj_github:
+                json_obj['custom_nodes'][i]['stars'] = json_obj_github[url]['stars']
+                json_obj['custom_nodes'][i]['last_update'] = json_obj_github[url]['last_update']
             else:
                 json_obj['custom_nodes'][i]['stars'] = -1
                 json_obj['custom_nodes'][i]['last_update'] = -1
@@ -358,6 +385,10 @@ async def fetch_updates(request):
 
 @PromptServer.instance.routes.get("/customnode/update_all")
 async def update_all(request):
+    if not is_allowed_security_level('middle'):
+        print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
+        return web.Response(status=403)
+
     try:
         core.save_snapshot_with_postfix('autosave')
 
@@ -439,7 +470,8 @@ async def fetch_customnode_list(request):
         channel = core.get_config()['channel_url']
 
     json_obj = await core.get_data_by_mode(request.rel_url.query["mode"], 'custom-node-list.json')
-    json_obj = await populate_github_stats(json_obj, "github-stats.json")
+    json_obj_github = await core.get_data_by_mode(request.rel_url.query["mode"], 'github-stats.json', 'default')
+    json_obj = await populate_github_stats(json_obj, json_obj_github)
 
     def is_ignored_notice(code):
         if code is not None and code.startswith('#NOTICE_'):
@@ -508,7 +540,12 @@ def check_model_installed(json_obj):
         item['installed'] = 'None'
 
         if model_path is not None:
-            if os.path.exists(model_path):
+            if model_path.endswith('.zip'):
+                if os.path.exists(model_path[:-4]):
+                    item['installed'] = 'True'
+                else:
+                    item['installed'] = 'False'
+            elif os.path.exists(model_path):
                 item['installed'] = 'True'
             else:
                 item['installed'] = 'False'
@@ -546,6 +583,10 @@ async def get_snapshot_list(request):
 
 @PromptServer.instance.routes.get("/snapshot/remove")
 async def remove_snapshot(request):
+    if not is_allowed_security_level('middle'):
+        print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
+        return web.Response(status=403)
+    
     try:
         target = request.rel_url.query["target"]
 
@@ -560,6 +601,10 @@ async def remove_snapshot(request):
 
 @PromptServer.instance.routes.get("/snapshot/restore")
 async def remove_snapshot(request):
+    if not is_allowed_security_level('middle'):
+        print(f"ERROR: To use this action, a security_level of `middle or below` is required.  Please contact the administrator.")
+        return web.Response(status=403)
+    
     try:
         target = request.rel_url.query["target"]
 
@@ -724,7 +769,16 @@ def copy_set_active(files, is_disable, js_path_name='.'):
 
 @PromptServer.instance.routes.post("/customnode/install")
 async def install_custom_node(request):
+    if not is_allowed_security_level('middle'):
+        print(f"ERROR: To use this action, a security_level of `middle or below` is required.  Please contact the administrator.")
+        return web.Response(status=403)
+
     json_data = await request.json()
+
+    risky_level = await get_risky_level(json_data['files'])
+    if not is_allowed_security_level(risky_level):
+        print(f"ERROR: This installation is not allowed in this security_level.  Please contact the administrator.")
+        return web.Response(status=404)
 
     install_type = json_data['install_type']
 
@@ -762,6 +816,10 @@ async def install_custom_node(request):
 
 @PromptServer.instance.routes.post("/customnode/fix")
 async def fix_custom_node(request):
+    if not is_allowed_security_level('middle'):
+        print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
+        return web.Response(status=403)
+
     json_data = await request.json()
 
     install_type = json_data['install_type']
@@ -792,6 +850,10 @@ async def fix_custom_node(request):
 
 @PromptServer.instance.routes.post("/customnode/install/git_url")
 async def install_custom_node_git_url(request):
+    if not is_allowed_security_level('high'):
+        print(f"ERROR: To use this feature, you must set '--listen' to a local IP and set the security level to 'middle' or 'weak'. Please contact the administrator.")
+        return web.Response(status=403)
+
     url = await request.text()
     res = core.gitclone_install([url])
 
@@ -804,6 +866,10 @@ async def install_custom_node_git_url(request):
 
 @PromptServer.instance.routes.post("/customnode/install/pip")
 async def install_custom_node_git_url(request):
+    if not is_allowed_security_level('high'):
+        print(f"ERROR: To use this feature, you must set '--listen' to a local IP and set the security level to 'middle' or 'weak'. Please contact the administrator.")
+        return web.Response(status=403)
+
     packages = await request.text()
     core.pip_install(packages.split(' '))
 
@@ -812,6 +878,10 @@ async def install_custom_node_git_url(request):
 
 @PromptServer.instance.routes.post("/customnode/uninstall")
 async def uninstall_custom_node(request):
+    if not is_allowed_security_level('middle'):
+        print(f"ERROR: To use this action, a security_level of `middle or below` is required.  Please contact the administrator.")
+        return web.Response(status=403)
+
     json_data = await request.json()
 
     install_type = json_data['install_type']
@@ -836,6 +906,10 @@ async def uninstall_custom_node(request):
 
 @PromptServer.instance.routes.post("/customnode/update")
 async def update_custom_node(request):
+    if not is_allowed_security_level('middle'):
+        print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
+        return web.Response(status=403)
+
     json_data = await request.json()
 
     install_type = json_data['install_type']
@@ -872,7 +946,6 @@ async def update_comfyui(request):
             return web.Response(status=200)
     except Exception as e:
         print(f"ComfyUI update fail: {e}", file=sys.stderr)
-        pass
 
     return web.Response(status=400)
 
@@ -916,10 +989,17 @@ async def install_model(request):
                     model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de')):
                 model_dir = get_model_dir(json_data)
                 download_url(model_url, model_dir, filename=json_data['filename'])
+                if model_path.endswith('.zip'):
+                    res = core.unzip(model_path)
+                else:
+                    res = True
 
-                return web.json_response({}, content_type='application/json')
+                if res:
+                    return web.json_response({}, content_type='application/json')
             else:
                 res = download_url_with_agent(model_url, model_path)
+                if res and model_path.endswith('.zip'):
+                    res = core.unzip(model_path)
         else:
             print(f"Model installation error: invalid model type - {json_data['type']}")
 
@@ -927,7 +1007,6 @@ async def install_model(request):
             return web.json_response({}, content_type='application/json')
     except Exception as e:
         print(f"[ERROR] {e}", file=sys.stderr)
-        pass
 
     return web.Response(status=400)
 
@@ -945,6 +1024,10 @@ manager_terminal_hook = ManagerTerminalHook()
 
 @PromptServer.instance.routes.get("/manager/terminal")
 async def terminal_mode(request):
+    if not is_allowed_security_level('high'):
+        print(f"ERROR: To use this action, a security_level of `weak` is required. Please contact the administrator.")
+        return web.Response(status=403)
+
     if "mode" in request.rel_url.query:
         if request.rel_url.query['mode'] == 'true':
             sys.__comfyui_manager_terminal_hook.add_hook('cm', manager_terminal_hook)
@@ -1068,20 +1151,27 @@ async def get_notice(request):
 
 @PromptServer.instance.routes.get("/manager/reboot")
 def restart(self):
+    if not is_allowed_security_level('middle'):
+        print(f"ERROR: To use this action, a security_level of `middle or below` is required.  Please contact the administrator.")
+        return web.Response(status=403)
+
     try:
         sys.stdout.close_log()
     except Exception as e:
         pass
 
     if '__COMFY_CLI_SESSION__' in os.environ:
-        with open(os.path.join(os.environ['__COMFY_CLI_SESSION__'], '.reboot'), 'w') as file:
+        with open(os.path.join(os.environ['__COMFY_CLI_SESSION__'] + '.reboot'), 'w') as file:
             pass
 
         print(f"\nRestarting...\n\n")
         exit(0)
 
     print(f"\nRestarting... [Legacy Mode]\n\n")
-    return os.execv(sys.executable, [sys.executable] + sys.argv)
+    if sys.platform.startswith('win32'):
+        return os.execv(sys.executable, ['"' + sys.executable + '"', '"' + sys.argv[0] + '"'] + sys.argv[1:])
+    else:
+        return os.execv(sys.executable, [sys.executable] + sys.argv)
 
 
 def sanitize_filename(input_string):
@@ -1569,8 +1659,9 @@ async def default_cache_update():
     b = get_cache("extension-node-map.json")
     c = get_cache("model-list.json")
     d = get_cache("alter-list.json")
+    e = get_cache("github-stats.json")
 
-    await asyncio.gather(a, b, c, d)
+    await asyncio.gather(a, b, c, d, e)
 
 
 threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()

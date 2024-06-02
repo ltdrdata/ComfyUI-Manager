@@ -1,6 +1,224 @@
 {
   "models": [
     {
+      "name": "Kijai/ToonCrafter model checkpoint (interpolation fp16)",
+      "type": "checkpoint",
+      "base": "ToonCrafter",
+      "save_path": "checkpoints/ToonCrafter",
+      "description": "[5.25GB] ToonCrafter checkpoint model for ComfyUI-DynamiCrafterWrapper",
+      "reference": "https://huggingface.co/Kijai/DynamiCrafter_pruned",
+      "filename": "tooncrafter_512_interp-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/DynamiCrafter_pruned/resolve/main/tooncrafter_512_interp-fp16.safetensors"
+    },
+
+    {
+      "name": "xinsir/Controlnet-Scribble-Sdxl-1.0",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "controlnet/SDXL/controlnet-scribble-sdxl-1.0",
+      "description": "[2.5GB] Controlnet SDXL Scribble model.",
+      "reference": "https://huggingface.co/xinsir/controlnet-scribble-sdxl-1.0",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/xinsir/controlnet-scribble-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors"
+    },
+    {
+      "name": "xinsir/Controlnet-Canny-Sdxl-1.0 (V2)",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "controlnet/SDXL/controlnet-canny-sdxl-1.0",
+      "description": "[2.5GB] Controlnet SDXL Canny model.",
+      "reference": "https://huggingface.co/xinsir/controlnet-canny-sdxl-1.0",
+      "filename": "diffusion_pytorch_model_V2.safetensors",
+      "url": "https://huggingface.co/xinsir/controlnet-canny-sdxl-1.0/resolve/main/diffusion_pytorch_model_V2.safetensors"
+    },
+    {
+      "name": "xinsir/Controlnet-Openpose-Sdxl-1.0",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "controlnet/SDXL/controlnet-openpose-sdxl-1.0",
+      "description": "[2.5GB] Controlnet SDXL Openpose model.",
+      "reference": "https://huggingface.co/xinsir/controlnet-openpose-sdxl-1.0",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/xinsir/controlnet-openpose-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors"
+    },
+    {
+      "name": "xinsir/Controlnet-Openpose-Sdxl-1.0 (Ver. twins)",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "controlnet/SDXL/controlnet-openpose-sdxl-1.0",
+      "description": "[2.5GB] Controlnet SDXL Openpose model. (Ver. twins)",
+      "reference": "https://huggingface.co/xinsir/controlnet-openpose-sdxl-1.0",
+      "filename": "diffusion_pytorch_model_twins.safetensors",
+      "url": "https://huggingface.co/xinsir/controlnet-openpose-sdxl-1.0/resolve/main/diffusion_pytorch_model_twins.safetensors"
+    },
+    {
+      "name": "xinsir/CControlnet-Scribble-Sdxl-1.0-Anime",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "controlnet/SDXL/controlnet-scribble-sdxl-1.0-anime",
+      "description": "[2.5GB] Controlnet SDXL Scribble model. (Ver. anime)",
+      "reference": "https://huggingface.co/xinsir/anime-painter",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/xinsir/anime-painter/resolve/main/diffusion_pytorch_model.safetensors"
+    },
+
+    {
+      "name": "Doubiiu/ToonCrafter model checkpoint",
+      "type": "checkpoint",
+      "base": "ToonCrafter",
+      "save_path": "custom_nodes/ComfyUI-ToonCrafter/ToonCrafter/checkpoints/tooncrafter_512_interp_v1",
+      "description": "[10.5GB] ToonCrafter checkpoint model for ComfyUI-ToonCrafter",
+      "reference": "https://huggingface.co/Doubiiu/ToonCrafter/tree/main",
+      "filename": "model.ckpt",
+      "url": "https://huggingface.co/Doubiiu/ToonCrafter/resolve/main/model.ckpt"
+    },
+
+    {
+      "name": "ViperYX/RGT_S_x2.pth",
+      "type": "RGT",
+      "base": "RGT",
+      "save_path": "RGT/RGT_S",
+      "description": "[135MB] RGT_S x2 upscale model for ComfyUI-RGT",
+      "reference": "https://huggingface.co/ViperYX/RGT/tree/main",
+      "filename": "RGT_S_x2.pth",
+      "url": "https://huggingface.co/ViperYX/RGT/resolve/main/RGT_S/RGT_S_x2.pth"
+    },
+    {
+      "name": "ViperYX/RGT_S_x3.pth",
+      "type": "RGT",
+      "base": "RGT",
+      "save_path": "RGT/RGT_S",
+      "description": "[136MB] RGT_S x3 upscale model for ComfyUI-RGT",
+      "reference": "https://huggingface.co/ViperYX/RGT/tree/main",
+      "filename": "RGT_S_x3.pth",
+      "url": "https://huggingface.co/ViperYX/RGT/resolve/main/RGT_S/RGT_S_x3.pth"
+    },
+    {
+      "name": "ViperYX/RGT_S_x4.pth",
+      "type": "RGT",
+      "base": "RGT",
+      "save_path": "RGT/RGT_S",
+      "description": "[136MB] RGT_S x4 upscale model for ComfyUI-RGT",
+      "reference": "https://huggingface.co/ViperYX/RGT/tree/main",
+      "filename": "RGT_S_x4.pth",
+      "url": "https://huggingface.co/ViperYX/RGT/resolve/main/RGT_S/RGT_S_x4.pth"
+    },
+
+    {
+      "name": "TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic v2 (fp16)",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "controlnet/SDXL",
+      "description": "[2.5GB] Controlnet SDXL Tile model realistic version.",
+      "reference": "https://huggingface.co/TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic",
+      "filename": "TTPLANET_Controlnet_Tile_realistic_v2_fp16.safetensors",
+      "url": "https://huggingface.co/TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic/resolve/main/TTPLANET_Controlnet_Tile_realistic_v2_fp16.safetensors"
+    },
+
+    {
+      "name": "TencentARC/CustomNet",
+      "type": "CustomNet",
+      "base": "CustomNet",
+      "save_path": "custom_nodes/ComfyUI_CustomNet/pretrain",
+      "description": "CustomNet pretrained model for ComfyUI_CustomNet",
+      "reference": "https://huggingface.co/TencentARC/CustomNet/tree/main",
+      "filename": "customnet_v1.pt",
+      "url": "https://huggingface.co/TencentARC/CustomNet/resolve/main/customnet_v1.pt"
+    },
+
+    {
+      "name": "ID-Animator/animator.ckpt",
+      "type": "ID-Animator",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/ComfyUI_ID_Animator/models",
+      "description": "ID-Animator checkpoint",
+      "reference": "https://huggingface.co/spaces/ID-Animator/ID-Animator",
+      "filename": "animator.ckpt",
+      "url": "https://huggingface.co/spaces/ID-Animator/ID-Animator/resolve/main/animator.ckpt"
+    },
+    {
+      "name": "ID-Animator/mm_sd_v15_v2.ckpt",
+      "type": "ID-Animator",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/ComfyUI_ID_Animator/models/animatediff_models",
+      "description": "AnimateDiff checkpoint for ID-Animator",
+      "reference": "https://huggingface.co/spaces/ID-Animator/ID-Animator",
+      "filename": "mm_sd_v15_v2.ckpt",
+      "url": "https://huggingface.co/spaces/ID-Animator/ID-Animator/resolve/main/mm_sd_v15_v2.ckpt"
+    },
+    {
+      "name": "ID-Animator/image_encoder",
+      "type": "ID-Animator",
+      "base": "SD1.5",
+      "save_path": "custom_nodes/ComfyUI_ID_Animator/models/image_encoder",
+      "description": "CLIP Image encoder for ID-Animator",
+      "reference": "https://huggingface.co/spaces/ID-Animator/ID-Animator",
+      "filename": "model.safetensors",
+      "url": "https://huggingface.co/spaces/ID-Animator/ID-Animator/resolve/main/image_encoder/model.safetensors"
+    },
+
+    {
+      "name": "IC-Light/fc",
+      "type": "IC-Light",
+      "base": "SD1.5",
+      "save_path": "unet/IC-Light",
+      "description": "The default relighting model, conditioned on text and foreground",
+      "reference": "https://huggingface.co/lllyasviel/ic-light",
+      "filename": "iclight_sd15_fc.safetensors",
+      "url": "https://huggingface.co/lllyasviel/ic-light/resolve/main/iclight_sd15_fc.safetensors"
+    },
+    {
+      "name": "IC-Light/fbc",
+      "type": "IC-Light",
+      "base": "SD1.5",
+      "save_path": "unet/IC-Light",
+      "description": "Relighting model conditioned with text, foreground, and background",
+      "reference": "https://huggingface.co/lllyasviel/ic-light",
+      "filename": "iclight_sd15_fbc.safetensors",
+      "url": "https://huggingface.co/lllyasviel/ic-light/resolve/main/iclight_sd15_fbc.safetensors"
+    },
+    {
+      "name": "IC-Light/fcon",
+      "type": "IC-Light",
+      "base": "SD1.5",
+      "save_path": "unet/IC-Light",
+      "description": "Same as iclight_sd15_fc.safetensors, but trained with offset noise",
+      "reference": "https://huggingface.co/lllyasviel/ic-light",
+      "filename": "iclight_sd15_fcon.safetensors",
+      "url": "https://huggingface.co/lllyasviel/ic-light/resolve/main/iclight_sd15_fcon.safetensors"
+    },
+
+    {
+      "name": "MonsterMMORPG/insightface (for InstantID)",
+      "type": "insightface",
+      "base": "SDXL",
+      "save_path": "insightface/models",
+      "description": "MonsterMMORPG insightface model for cubiq/InstantID",
+      "reference": "https://huggingface.co/MonsterMMORPG/tools/tree/main",
+      "filename": "antelopev2.zip",
+      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/antelopev2.zip"
+    },
+    {
+      "name": "InstantID/ip-adapter",
+      "type": "instantid",
+      "base": "SDXL",
+      "save_path": "instantid/SDXL",
+      "description": "ip-adapter model for cubiq/InstantID",
+      "reference": "https://huggingface.co/InstantX/InstantID",
+      "filename": "ip-adapter.bin",
+      "url": "https://huggingface.co/InstantX/InstantID/resolve/main/ip-adapter.bin"
+    },
+    {
+      "name": "InstantID/ControlNet",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "controlnet/SDXL/instantid",
+      "description": "instantid controlnet model for cubiq/InstantID",
+      "reference": "https://huggingface.co/InstantX/InstantID",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/InstantX/InstantID/resolve/main/ControlNetModel/diffusion_pytorch_model.safetensors"
+    },
+    {
       "name": "ip_plus_composition_sd15.safetensors",
       "type": "IP-Adapter",
       "base": "SD1.5",
@@ -537,161 +755,6 @@
       "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
       "filename": "ip-adapter-faceid-plus_sd15_lora.safetensors",
       "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plus_sd15_lora.safetensors"
-    },
-
-    {
-      "name": "ControlNet-HandRefiner-pruned (inpaint-depth-hand; fp16)",
-      "type": "controlnet",
-      "base": "SD1.5",
-      "save_path": "default",
-      "description": "This inpaint-depth controlnet model is specialized for the hand refiner.",
-      "reference": "https://huggingface.co/hr16/ControlNet-HandRefiner-pruned",
-      "filename": "control_sd15_inpaint_depth_hand_fp16.safetensors",
-      "url": "https://huggingface.co/hr16/ControlNet-HandRefiner-pruned/resolve/main/control_sd15_inpaint_depth_hand_fp16.safetensors"
-    },
-    {
-      "name": "stabilityai/stable-diffusion-x4-upscaler",
-      "type": "checkpoints",
-      "base": "upscale",
-      "save_path": "checkpoints/upscale",
-      "description": "[3.53GB] This upscaling model is a latent text-guided diffusion model and should be used with SD_4XUpscale_Conditioning and KSampler.",
-      "reference": "https://huggingface.co/stabilityai/stable-diffusion-x4-upscaler",
-      "filename": "x4-upscaler-ema.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-diffusion-x4-upscaler/resolve/main/x4-upscaler-ema.safetensors"
-    },
-    {
-      "name": "LDSR(Latent Diffusion Super Resolution)",
-      "type": "upscale",
-      "base": "upscale",
-      "save_path": "upscale_models/ldsr",
-      "description": "LDSR upscale model. Through the [a/ComfyUI-Flowty-LDSR](https://github.com/flowtyone/ComfyUI-Flowty-LDSR) extension, the upscale model can be utilized.",
-      "reference": "https://github.com/CompVis/latent-diffusion",
-      "filename": "last.ckpt",
-      "url": "https://heibox.uni-heidelberg.de/f/578df07c8fc04ffbadf3/?dl=1"
-    },
-    {
-      "name": "control_boxdepth_LooseControlfp16 (fp16)",
-      "type": "controlnet",
-      "base": "SD1.5",
-      "save_path": "default",
-      "description": "Loose ControlNet model",
-      "reference": "https://huggingface.co/ioclab/LooseControl_WebUICombine",
-      "filename": "control_boxdepth_LooseControlfp16.safetensors",
-      "url": "https://huggingface.co/ioclab/LooseControl_WebUICombine/resolve/main/control_boxdepth_LooseControlfp16.safetensors"
-    },
-
-    {
-      "name": "ip-adapter-faceid-portrait_sd15.bin",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "IP-Adapter-FaceID Portrait Model (SD1.5) [ipadapter]",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid-portrait_sd15.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-portrait_sd15.bin"
-    },
-    {
-      "name": "ip-adapter-faceid-plus_sd15.bin",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "IP-Adapter-FaceID Plus Model (SD1.5) [ipadapter]",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid-plus_sd15.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plus_sd15.bin"
-    },
-    {
-      "name": "ip-adapter-faceid_sd15.bin",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "IP-Adapter-FaceID Model (SD1.5)",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid_sd15.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sd15.bin"
-    },
-    {
-      "name": "ip-adapter-faceid_sd15_lora.safetensors",
-      "type": "lora",
-      "base": "SD1.5",
-      "save_path": "loras/ipadapter",
-      "description": "IP-Adapter-FaceID LoRA Model (SD1.5)",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid_sd15_lora.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sd15_lora.safetensors"
-    },
-
-    {
-      "name": "LongAnimatediff/lt_long_mm_16_64_frames_v1.1.ckpt (ComfyUI-AnimateDiff-Evolved) (Updated path)",
-      "type": "animatediff",
-      "base": "SD1.x",
-      "save_path": "animatediff_models",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node.",
-      "reference": "https://huggingface.co/Lightricks/LongAnimateDiff",
-      "filename": "lt_long_mm_16_64_frames_v1.1.ckpt",
-      "url": "https://huggingface.co/Lightricks/LongAnimateDiff/resolve/main/lt_long_mm_16_64_frames_v1.1.ckpt"
-    },
-    
-    {
-      "name": "animatediff/v3_sd15_sparsectrl_rgb.ckpt (ComfyUI-AnimateDiff-Evolved)",
-      "type": "controlnet",
-      "base": "SD1.x",
-      "save_path": "controlnet/SD1.5/animatediff",
-      "description": "AnimateDiff SparseCtrl RGB ControlNet model",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "v3_sd15_sparsectrl_rgb.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_sparsectrl_rgb.ckpt"
-    },
-    {
-      "name": "animatediff/v3_sd15_sparsectrl_scribble.ckpt",
-      "type": "controlnet",
-      "base": "SD1.x",
-      "save_path": "controlnet/SD1.5/animatediff",
-      "description": "AnimateDiff SparseCtrl Scribble ControlNet model",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "v3_sd15_sparsectrl_scribble.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_sparsectrl_scribble.ckpt"
-    },
-    {
-      "name": "animatediff/v3_sd15_mm.ckpt (ComfyUI-AnimateDiff-Evolved)",
-      "type": "animatediff",
-      "base": "SD1.x",
-      "save_path": "custom_nodes/ComfyUI-AnimateDiff-Evolved/models",
-      "description": "Pressing 'install' directly downloads the model from the Kosinkadink/ComfyUI-AnimateDiff-Evolved extension node. (Note: Requires ComfyUI-Manager V0.24 or above)",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "v3_sd15_mm.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_mm.ckpt"
-    },
-    {
-      "name": "animatediff/v3_sd15_adapter.ckpt",
-      "type": "lora",
-      "base": "SD1.x",
-      "save_path": "loras/SD1.5/animatediff",
-      "description": "AnimateDiff Adapter LoRA (SD1.5)",
-      "reference": "https://huggingface.co/guoyww/animatediff",
-      "filename": "v3_sd15_adapter.ckpt",
-      "url": "https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_adapter.ckpt"
-    },
-
-    {
-      "name": "Segmind-Vega",
-      "type": "checkpoints",
-      "base": "segmind-vega",
-      "save_path": "checkpoints/segmind-vega",
-      "description": "The Segmind-Vega Model is a distilled version of the Stable Diffusion XL (SDXL), offering a remarkable 70% reduction in size and an impressive 100% speedup while retaining high-quality text-to-image generation capabilities.",
-      "reference": "https://huggingface.co/segmind/Segmind-Vega",
-      "filename": "segmind-vega.safetensors",
-      "url": "https://huggingface.co/segmind/Segmind-Vega/resolve/main/segmind-vega.safetensors"
-    },
-    {
-      "name": "Segmind-VegaRT - Latent Consistency Model (LCM) LoRA of Segmind-Vega",
-      "type": "lora",
-      "base": "segmind-vega",
-      "save_path": "loras/segmind-vega",
-      "description": "Segmind-VegaRT a distilled consistency adapter for Segmind-Vega that allows to reduce the number of inference steps to only between 2 - 8 steps.",
-      "reference": "https://huggingface.co/segmind/Segmind-VegaRT",
-      "filename": "pytorch_lora_weights.safetensors",
-      "url": "https://huggingface.co/segmind/Segmind-VegaRT/resolve/main/pytorch_lora_weights.safetensors"
     }
   ]
 }
