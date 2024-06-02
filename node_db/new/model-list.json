@@ -1,6 +1,17 @@
 {
   "models": [
     {
+      "name": "Kijai/ToonCrafter model checkpoint (interpolation fp16)",
+      "type": "checkpoint",
+      "base": "ToonCrafter",
+      "save_path": "checkpoints/ToonCrafter",
+      "description": "[5.25GB] ToonCrafter checkpoint model for ComfyUI-DynamiCrafterWrapper",
+      "reference": "https://huggingface.co/Kijai/DynamiCrafter_pruned",
+      "filename": "tooncrafter_512_interp-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/DynamiCrafter_pruned/resolve/main/tooncrafter_512_interp-fp16.safetensors"
+    },
+
+    {
       "name": "xinsir/Controlnet-Scribble-Sdxl-1.0",
       "type": "controlnet",
       "base": "SDXL",
