@@ -12,6 +12,29 @@
 
 
 
+
+        {
+            "author": "tiankuan93",
+            "title": "V-Express: Conditional Dropout for Progressive Training of Portrait Video Generation",
+            "id": "v-express",
+            "reference": "https://github.com/tiankuan93/ComfyUI-V-Express",
+            "files": [
+                "https://github.com/tiankuan93/ComfyUI-V-Express"
+            ],
+            "install_type": "git-clone",
+            "description": "[Original] In the field of portrait video generation, the use of single images to generate portrait videos has become increasingly prevalent. A common approach involves leveraging generative models to enhance adapters for controlled generation. However, control signals can vary in strength, including text, audio, image reference, pose, depth map, etc. Among these, weaker conditions often struggle to be effective due to interference from stronger conditions, posing a challenge in balancing these conditions. In our work on portrait video generation, we identified audio signals as particularly weak, often overshadowed by stronger signals such as pose and original image. However, direct training with weak signals often leads to difficulties in convergence. To address this, we propose V-Express, a simple method that balances different control signals through a series of progressive drop operations. Our method gradually enables effective control by weak conditions, thereby achieving generation capabilities that simultaneously take into account pose, input image, and audio.\nNOTE: You need to downdload [a/model_ckpts](https://huggingface.co/tk93/V-Express/tree/main) manually."
+        },
+        {
+            "author": "CMonk",
+            "title": "Stable Projectorz Bridge",
+            "id": "projectorz",
+            "reference": "https://github.com/tianlang0704/ComfyUI-StableProjectorzBridge",
+            "files": [
+                "https://github.com/tianlang0704/ComfyUI-StableProjectorzBridge"
+            ],
+            "install_type": "git-clone",
+            "description": "This custom nodes enables Stable Projectorz to work with ComfyUI Directly."
+        },
         {
             "author": "comfyanonymous",
             "title": "TensorRT Node for ComfyUI",
@@ -669,28 +692,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:Image cropping tool"
-        },
-        {
-            "author": "AIFSH",
-            "title": "ComfyUI-Live2DViewer",
-            "reference": "https://github.com/AIFSH/ComfyUI-Live2DViewer",
-            "id": "live2dviewer",
-            "files": [
-                "https://github.com/AIFSH/ComfyUI-Live2DViewer"
-            ],
-            "install_type": "git-clone",
-            "description": "a comfyui node for viewing Live2D model"
-        },
-        {
-            "author": "daniabib",
-            "title": "ComfyUI ProPainter Nodes",
-            "id": "propainter",
-            "reference": "https://github.com/daniabib/ComfyUI_ProPainter_Nodes",
-            "files": [
-                "https://github.com/daniabib/ComfyUI_ProPainter_Nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI custom node implementation of [a/ProPainter](https://github.com/sczhou/ProPainter) framework for video inpainting."
         }
     ]
 }
