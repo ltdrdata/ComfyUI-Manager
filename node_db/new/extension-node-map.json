@@ -2108,6 +2108,7 @@
             "JNodes_BooleanSelectorWithString",
             "JNodes_BreakMediaInfo",
             "JNodes_CheckpointSelectorWithString",
+            "JNodes_CreateStereoscopicImageFromDepth",
             "JNodes_GetOutputDirectory",
             "JNodes_GetParameterFromList",
             "JNodes_GetParameterGlobal",
@@ -2822,6 +2823,7 @@
             "SearchReplace",
             "SimplePrompts",
             "SpecificStylesDir",
+            "SplitImages",
             "StringJoin",
             "TimeStamp",
             "TricolorComposition",
@@ -4193,6 +4195,7 @@
             "tri3d-adjust-neck",
             "tri3d-atr-parse",
             "tri3d-atr-parse-batch",
+            "tri3d-clear-memory",
             "tri3d-clipdrop-bgremove-api",
             "tri3d-clipdrop-bgreplace-api",
             "tri3d-composite-image-splitter",
@@ -7319,6 +7322,16 @@
             "title_aux": "ComfyUI"
         }
     ],
+    "https://github.com/comfyanonymous/ComfyUI_TensorRT": [
+        [
+            "DYNAMIC_TRT_MODEL_CONVERSION",
+            "STATIC_TRT_MODEL_CONVERSION",
+            "TensorRTLoader"
+        ],
+        {
+            "title_aux": "TensorRT Node for ComfyUI"
+        }
+    ],
     "https://github.com/comfyanonymous/ComfyUI_experiments": [
         [
             "ModelMergeBlockNumber",
@@ -8212,6 +8225,14 @@
             "title_aux": "ComfyUI-AutoTrimBG"
         }
     ],
+    "https://github.com/fexploit/ComfyUI-Classifier": [
+        [
+            "ClassifierNode"
+        ],
+        {
+            "title_aux": "ComfyUI-Classifier"
+        }
+    ],
     "https://github.com/filipemeneses/comfy_pixelization": [
         [
             "Pixelization"
@@ -9050,6 +9071,16 @@
         ],
         {
             "title_aux": "ComfyUI OpenVoice"
+        }
+    ],
+    "https://github.com/hben35096/ComfyUI-ToolBox": [
+        [
+            "AutoDLDownload",
+            "FolderDeleter",
+            "FolderViewe"
+        ],
+        {
+            "title_aux": "ComfyUI-ToolBox"
         }
     ],
     "https://github.com/heshengtao/comfyui_LLM_party": [
@@ -10352,14 +10383,6 @@
             "title_aux": "LoRTnoC-ComfyUI"
         }
     ],
-    "https://github.com/laksjdjf/attention-couple-ComfyUI": [
-        [
-            "Attention couple"
-        ],
-        {
-            "title_aux": "attention-couple-ComfyUI"
-        }
-    ],
     "https://github.com/laksjdjf/cd-tuner_negpip-ComfyUI": [
         [
             "CDTuner",
@@ -10919,6 +10942,7 @@
             "PromptExtractor //Inspire",
             "RandomGeneratorForList //Inspire",
             "RandomNoise //Inspire",
+            "RegionalCFG //Inspire",
             "RegionalConditioningColorMask //Inspire",
             "RegionalConditioningSimple //Inspire",
             "RegionalIPAdapterColorMask //Inspire",
@@ -12613,6 +12637,8 @@
     ],
     "https://github.com/smthemex/ComfyUI_StoryDiffusion": [
         [
+            "Character_Batch",
+            "Comic_Type",
             "Storydiffusion_Img2Img",
             "Storydiffusion_Text2Img"
         ],
@@ -12676,6 +12702,7 @@
             "BatchNormalizeImage",
             "BatchNormalizeLatent",
             "BetterFilmGrain",
+            "BilateralFilterImage",
             "BlurImageFast",
             "BlurMaskFast",
             "ClampOutliers",
@@ -12685,7 +12712,10 @@
             "DilateErodeMask",
             "EnhanceDetail",
             "ExposureAdjust",
+            "FrequencyCombine",
+            "FrequencySeparate",
             "GuidedFilterAlpha",
+            "GuidedFilterImage",
             "ImageConstant",
             "ImageConstantHSV",
             "InstructPixToPixConditioningAdvanced",
@@ -12693,6 +12723,7 @@
             "Keyer",
             "LatentNormalizeShuffle",
             "LatentStats",
+            "MedianFilterImage",
             "NormalMapSimple",
             "OffsetLatentImage",
             "PrintSigmas",
@@ -13297,6 +13328,19 @@
         ],
         {
             "title_aux": "unwdef-nodes"
+        }
+    ],
+    "https://github.com/vanche1212/ComfyUI-fq393": [
+        [
+            "APIRequestNode",
+            "JsonParserNode",
+            "LoadVideoPath",
+            "LoadVideoUpload",
+            "OldPhotoColorizationNode",
+            "OllamaRequestNode"
+        ],
+        {
+            "title_aux": "ZMG PLUGIN"
         }
     ],
     "https://github.com/vanillacode314/SimpleWildcardsComfyUI": [

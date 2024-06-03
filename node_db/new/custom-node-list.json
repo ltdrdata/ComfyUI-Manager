@@ -11,6 +11,7 @@
 
 
 
+
         {
             "author": "comfyanonymous",
             "title": "TensorRT Node for ComfyUI",
@@ -21,6 +22,49 @@
             ],
             "install_type": "git-clone",
             "description": "This node enables the best performance on NVIDIA RTX™ Graphics Cards  (GPUs) for Stable Diffusion by leveraging NVIDIA TensorRT."
+        },
+        {
+            "author": "fexploit",
+            "title": "ComfyUI-Classifier",
+            "id": "classifier",
+            "reference": "https://github.com/fexploit/ComfyUI-Classifier",
+            "files": [
+                "https://github.com/fexploit/ComfyUI-Classifier"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI-Classifier is a custom node for ComfyUI that uses a zero-shot classification model to classify text inputs based on a set of candidate labels. This node leverages the power of Hugging Face Transformers to provide accurate and flexible text classification."
+        },
+        {
+            "author": "humgate",
+            "title": "simplecomfy",
+            "reference": "https://github.com/humgate/simplecomfy",
+            "files": [
+                "https://github.com/humgate/simplecomfy"
+            ],
+            "install_type": "git-clone",
+            "description": "Simple JS application based on ComfyUI which takes prompt and style picture from user and runs hardcoded workflow inference returning generated image to user."
+        },
+        {
+            "author": "hben35096",
+            "title": "ComfyUI-ToolBox",
+            "id": "hben-toolbox",
+            "reference": "https://github.com/hben35096/ComfyUI-ToolBox",
+            "files": [
+                "https://github.com/hben35096/ComfyUI-ToolBox"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:commonly_node."
+        },
+        {
+            "author": "vanche1212",
+            "title": "ZMG PLUGIN",
+            "id": "zmg",
+            "reference": "https://github.com/vanche1212/ComfyUI-fq393",
+            "files": [
+                "https://github.com/vanche1212/ComfyUI-fq393"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:ApiRequestNode, LoadVideoNode, JsonParserNode, OllamaRequestNode, OldPhotoColorizationNode."
         },
         {
             "author": "daxcay",
@@ -647,116 +691,6 @@
             ],
             "install_type": "git-clone",
             "description": "ComfyUI custom node implementation of [a/ProPainter](https://github.com/sczhou/ProPainter) framework for video inpainting."
-        },
-        {
-            "author": "fexploit",
-            "title": "ComfyUI-AutoTrimBG",
-            "id": "autotrimbg",
-            "reference": "https://github.com/fexploit/ComfyUI-AutoTrimBG",
-            "files": [
-                "https://github.com/fexploit/ComfyUI-AutoTrimBG"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI-AutoCropBgTrim is a powerful tool designed to automatically clean up the background of your images. This tool trims unnecessary spaces and pixels, leaving only the main subject of the image. It generates both a mask and an image output, making it easy to focus on the essential elements. Perfect for enhancing your photos and preparing them for professional use."
-        },
-        {
-            "author": "StartHua",
-            "title": "ComfyUI_PCDMs",
-            "id": "pcdms",
-            "reference": "https://github.com/StartHua/ComfyUI_PCDMs",
-            "files": [
-                "https://github.com/StartHua/ComfyUI_PCDMs"
-            ],
-            "install_type": "git-clone",
-            "description": "Original project: [a/link](https://github.com/tencent-ailab/PCDMs)\nBased on testing, the author's original images work very well, but using my own images generally requires some luck!"
-        },
-        {
-            "author": "linshier",
-            "title": "comfyui-remote-tools",
-            "id": "remote-tools",
-            "reference": "https://github.com/linshier/comfyui-remote-tools",
-            "files": [
-                "https://github.com/linshier/comfyui-remote-tools"
-            ],
-            "install_type": "git-clone",
-            "description": "Node:SendBase64ToRemote. To connect to another ComfyUI server."
-        },
-        {
-            "author": "Fantaxico",
-            "title": "ComfyUI-GCP-Storage",
-            "id": "gcp-storage",
-            "reference": "https://github.com/Fantaxico/ComfyUI-GCP-Storage",
-            "files": [
-                "https://github.com/Fantaxico/ComfyUI-GCP-Storage"
-            ],
-            "install_type": "git-clone",
-            "description": "Node:GCP Storage Node. Support google-cloud-storage."
-        },
-        {
-            "author": "storyicon",
-            "title": "ComfyUI MuseV Evolved",
-            "id": "musev-evolved",
-            "reference": "https://github.com/storyicon/comfyui_musev_evolved",
-            "files": [
-                "https://github.com/storyicon/comfyui_musev_evolved"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:MuseVImg2Vid (comfyui_musev_evolved)\nNOTE: Download [a/MuseV](https://huggingface.co/TMElyralab/MuseV) to ComfyUI/models/diffusers"
-        },
-        {
-            "author": "smthemex",
-            "title": "ComfyUI_CustomNet",
-            "id": "customnet",
-            "reference": "https://github.com/smthemex/ComfyUI_CustomNet",
-            "files": [
-                "https://github.com/smthemex/ComfyUI_CustomNet"
-            ],
-            "install_type": "git-clone",
-            "description": "This node allows you to use customnet."
-        },
-        {
-            "author": "githubYiheng",
-            "title": "comfyui_median_filter",
-            "id": "median-filter",
-            "reference": "https://github.com/githubYiheng/comfyui_median_filter",
-            "files": [
-                "https://github.com/githubYiheng/comfyui_median_filter"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Apply Median Filter"
-        },
-        {
-            "author": "githubYiheng",
-            "title": "ComfyUI_Change_IMAGE_BOREDER",
-            "id": "change-image-border",
-            "reference": "https://github.com/githubYiheng/ComfyUI_Change_IMAGE_BOREDER",
-            "files": [
-                "https://github.com/githubYiheng/ComfyUI_Change_IMAGE_BOREDER"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Change Image Border"
-        },
-        {
-            "author": "ai-liam",
-            "title": "LiamUtil",
-            "id": "liam-util",
-            "reference": "https://github.com/ai-liam/comfyui-liam",
-            "files": [
-                "https://github.com/ai-liam/comfyui-liam"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: LiamLibLoadImage, LiamLibImageToGray, LiamLibSaveImg, LiamLibFillImage, PreviewReliefImage, GetBetterDepthImage, LiamLibSaveText"
-        },
-        {
-            "author": "Isaac Emesowum",
-            "title": "Isaac's Nodes",
-            "id": "isaac",
-            "reference": "https://github.com/iemesowum/ComfyUI_IsaacNodes",
-            "files": [
-                "https://github.com/iemesowum/ComfyUI_IsaacNodes"
-            ],
-            "install_type": "git-clone",
-            "description": "This extension offers automatic drums extraction from audio files, as well as a few helper nodes to support my audio synchronization AnimateDiff workflows."
         }
     ]
 }
