@@ -430,7 +430,7 @@ export class CustomNodesManager {
 		const installGroups = {
 			"Disabled": ["enable", "uninstall"],
 			"Update": ["update", "disable", "uninstall"],
-			"Fail": ["try-fix"],
+			"Fail": ["try-fix", "uninstall"],
 			"True": ["try-update", "disable", "uninstall"],
 			"False": ["install"],
 			'None': ["try-install"]
@@ -982,6 +982,14 @@ export class CustomNodesManager {
 		const res = await api.fetchApi(route, options).catch(e => {
 			err = e;
 		});
+
+		if (!res) {
+			return {
+				status: 400,
+				error: new Error("Unknown Error")
+			}
+		}
+
 		const { status, statusText } = res;
 		if (err) {
 			return {
@@ -993,7 +1001,7 @@ export class CustomNodesManager {
 		if (status !== 200) {
 			return {
 				status,
-				error: new Error(statusText)
+				error: new Error(statusText || "Unknown Error")
 			}
 		}
 
@@ -1340,9 +1348,13 @@ export class CustomNodesManager {
 				$elem.setAttribute("disabled", "disabled");
 			} else {
 				$elem.removeAttribute("disabled");
-				$elem.classList.remove("cn-btn-loading");
 			}
 		});
+
+		Array.from(this.element.querySelectorAll(".cn-btn-loading")).forEach($elem => {
+			$elem.classList.remove("cn-btn-loading");
+		});
+
 	}
 
 	showRestart() {
