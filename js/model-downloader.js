@@ -1,7 +1,7 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js"
 import { ComfyDialog, $el } from "../../scripts/ui.js";
-import { install_checked_custom_node, manager_instance, rebootAPI, show_message } from  "./common.js";
+import { manager_instance, rebootAPI, show_message } from  "./common.js";
 
 async function install_model(target) {
 	if(ModelInstaller.instance) {
