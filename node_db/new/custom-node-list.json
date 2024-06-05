@@ -13,6 +13,7 @@
 
 
 
+
         {
             "author": "luandev",
             "title": "ComfyUI CrewAI",
@@ -38,13 +39,68 @@
         {
             "author": "11dogzi",
             "title": "Comfyui-ergouzi-samplers",
-            "id": "crewai",
+            "id": "ergouzi-samplers",
             "reference": "https://github.com/11dogzi/Comfyui-ergouzi-samplers",
             "files": [
                 "https://github.com/11dogzi/Comfyui-ergouzi-samplers"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:2🐕Mutant seed sampler, 2🐕Local sampler, 2🐕Local Image"
+            "description": "Partial redraw sampler and variant seed sampler"
+        },
+        {
+            "author": "prodogape",
+            "title": "ComfyUI-OmDet",
+            "id": "omdet",
+            "reference": "https://github.com/prodogape/ComfyUI-OmDet",
+            "files": [
+                "https://github.com/prodogape/ComfyUI-OmDet"
+            ],
+            "install_type": "git-clone",
+            "description": "This node is mainly based on [a/OmDet](https://github.com/om-ai-lab/OmDet) for object detection, and it outputs related images, masks, and Labelme JSON information."
+        },
+        {
+            "author": "risunobushi",
+            "title": "comfyUI_FrequencySeparation_RGB-HSV",
+            "id": "freq-sep",
+            "reference": "https://github.com/risunobushi/comfyUI_FrequencySeparation_RGB-HSV",
+            "files": [
+                "https://github.com/risunobushi/comfyUI_FrequencySeparation_RGB-HSV"
+            ],
+            "install_type": "git-clone",
+            "description": "A collection of simple nodes for Frequency Separation / Frequency Recombine with RGB and HSV methods"
+        },
+        {
+            "author": "chandlergis",
+            "title": "ComfyUI_EmojiOverlay",
+            "id": "emoji-overlay",
+            "reference": "https://github.com/chandlergis/ComfyUI_EmojiOverlay",
+            "files": [
+                "https://github.com/chandlergis/ComfyUI_EmojiOverlay"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Image Emoji Overlay"
+        },
+        {
+            "author": "JayLyu",
+            "title": "ComfyUI_BaiKong_Node",
+            "id": "baikong",
+            "reference": "https://github.com/JayLyu/ComfyUI_BaiKong_Node",
+            "files": [
+                "https://github.com/JayLyu/ComfyUI_BaiKong_Node"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:BK Img To Color, BK Color Selector"
+        },
+        {
+            "author": "zohac",
+            "title": "ComfyUI_ZC_DrawShape",
+            "id": "drawshape",
+            "reference": "https://github.com/zohac/ComfyUI_ZC_DrawShape",
+            "files": [
+                "https://github.com/zohac/ComfyUI_ZC_DrawShape"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:ZC DrawShape Node"
         },
         {
             "author": "ThereforeGames",
@@ -148,9 +204,9 @@
             "author": "vanche1212",
             "title": "ZMG PLUGIN",
             "id": "zmg",
-            "reference": "https://github.com/vanche1212/ComfyUI-fq393",
+            "reference": "https://github.com/vanche1212/ComfyUI-ZMG-Nodes",
             "files": [
-                "https://github.com/vanche1212/ComfyUI-fq393"
+                "https://github.com/vanche1212/ComfyUI-ZMG-Nodes"
             ],
             "install_type": "git-clone",
             "description": "Nodes:ApiRequestNode, LoadVideoNode, JsonParserNode, OllamaRequestNode, OldPhotoColorizationNode."
@@ -637,83 +693,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:Img2Color - Color Palette Extractor"
-        },
-        {
-            "author": "xuhongming251",
-            "title": "ComfyUI-MuseTalkUtils",
-            "id": "musetalk-utils",
-            "reference": "https://github.com/xuhongming251/ComfyUI-MuseTalkUtils",
-            "files": [
-                "https://github.com/xuhongming251/ComfyUI-MuseTalkUtils"
-            ],
-            "install_type": "git-clone",
-            "description": "MuseTalk ComfyUI Preprocess and Postprocess Nodes"
-        },
-        {
-            "author": "xuhongming251",
-            "title": "ComfyUI-GPEN",
-            "id": "gpen",
-            "reference": "https://github.com/xuhongming251/ComfyUI-GPEN",
-            "files": [
-                "https://github.com/xuhongming251/ComfyUI-GPEN"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:FaceEnhancement. Based on modelscope pipeline."
-        },
-        {
-            "author": "exdysa",
-            "title": "comfyui-selector",
-            "reference": "https://github.com/exdysa/comfyui-selector",
-            "files": [
-                "https://github.com/exdysa/comfyui-selector/raw/main/selector.py"
-            ],
-            "install_type": "copy",
-            "description": "Nodes:Selector. Quick and dirty parameter generator node for ComfyUI."
-        },
-        {
-            "author": "barckley75",
-            "title": "comfyUI_DaVinciResolve",
-            "reference": "https://github.com/barckley75/comfyUI_DaVinciResolve",
-            "files": [
-                "https://github.com/barckley75/comfyUI_DaVinciResolve/raw/main/custom_nodes/node_text_to_speech.py",
-                "https://github.com/barckley75/comfyUI_DaVinciResolve/raw/main/custom_nodes/nodes_phy_3_contitioning.py",
-                "https://github.com/barckley75/comfyUI_DaVinciResolve/raw/main/custom_nodes/save_audio_to_davinci.py",
-                "https://github.com/barckley75/comfyUI_DaVinciResolve/raw/main/custom_nodes/save_image_to_davinci.py"
-            ],
-            "install_type": "copy",
-            "description": "Nodes:TextToSpeech, phy_3_conditioning, SaveAudioToDaVinci, SaveImageToDaVinci.\nNOTE:In order to use DaVinci node you must have DaVinci Resolve Studio connected to the API. For more information check the help seciton in DaVinci Resolve Studio HELP>DOCUMENTATION>DEVELOPER. It will open a folder, search for scripting and the for README.txt file, the API documentation."
-        },
-        {
-            "author": "archifancy",
-            "title": "Image-vector-for-ComfyUI",
-            "reference": "https://github.com/archifancy/Image-vector-for-ComfyUI",
-            "files": [
-                "https://github.com/archifancy/Image-vector-for-ComfyUI/raw/main/AIvector.py"
-            ],
-            "install_type": "copy",
-            "description": "Nodes:AIvector. A wrapped comfyui node for converting pixels to vectors using Vtracer. Check it out here: [a/https://github.com/visioncortex/vtracer](https://github.com/visioncortex/vtracer)."
-        },
-        {
-            "author": "muzi12888",
-            "title": "m9-prompts-comfyui",
-            "id": "m9-prompts",
-            "reference": "https://github.com/MarcusNyne/m9-prompts-comfyui",
-            "files": [
-                "https://github.com/MarcusNyne/m9-prompts-comfyui"
-            ],
-            "install_type": "git-clone",
-            "description": "Two custom nodes are included for modifying a prompt to create prompt variations.\nScramblePrompts [m9]: Reorder prompts, remove prompts, modify weights\nTweakWeights [m9]: Modify the weights of prompts matching keywords"
-        },
-        {
-            "author": "SaltAI",
-            "title": "SaltAI Language Toolkit",
-            "id": "saltai-langtool",
-            "reference": "https://github.com/get-salt-AI/SaltAI_Language_Toolkit",
-            "files": [
-                "https://github.com/get-salt-AI/SaltAI_Language_Toolkit"
-            ],
-            "install_type": "git-clone",
-            "description": "The project integrates the Retrieval Augmented Generation (RAG) tool [a/Llama-Index](https://www.llamaindex.ai/), [a/Microsoft's AutoGen](https://microsoft.github.io/autogen/), and [a/LlaVA-Next](https://github.com/LLaVA-VL/LLaVA-NeXT) with ComfyUI's adaptable node interface, enhancing the functionality and user experience of the platform."
         }
     ]
 }
