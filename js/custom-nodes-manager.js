@@ -1261,6 +1261,9 @@ export class CustomNodesManager {
 					const hashData = hashMap[nodeItem.hash]
 					if (hashData) {
 						filterTypes.add(value);
+						if (value === ShowMode.UPDATE) {
+							nodeItem.installed = "Update";
+						}
 						if (typeof hashData === "object") {
 							Object.assign(nodeItem, hashData);
 						}
