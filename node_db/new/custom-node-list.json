@@ -15,6 +15,39 @@
 
 
         {
+            "author": "DataCTE",
+            "title": "Prompt Injection Node for ComfyUI",
+            "id": "prompt-injection",
+            "reference": "https://github.com/DataCTE/prompt_injection",
+            "files": [
+                "https://github.com/DataCTE/prompt_injection"
+            ],
+            "install_type": "git-clone",
+            "description": "This custom node for ComfyUI allows you to inject specific prompts at specific blocks of the Stable Diffusion UNet, providing fine-grained control over the generated image. It is based on the concept that the content/subject understanding of the model is primarily contained within the MID0 and MID1 blocks, as demonstrated in the B-Lora (Content Style implicit separation) paper. Features.\nInject different prompts into specific UNet blocks Three different node variations for flexible workflow integration Customize the learning rate of specific blocks to focus on content, lighting, style, or other aspects Potential for developing a 'Mix of Experts' approach by swapping blocks on-the-fly based on prompt content"
+        },
+        {
+            "author": "lks-ai",
+            "title": "ComfyUI Stable Audio Open 1.0 Sampler",
+            "id": "stableaudiosampler",
+            "reference": "https://github.com/lks-ai/ComfyUI-StableAudioSampler",
+            "files": [
+                "https://github.com/lks-ai/ComfyUI-StableAudioSampler"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: StableAudioSampler. Wraps the new Stable Audio Open Model in the sampler that dropped Jun 5th. See Github for Features"
+        },
+        {
+            "author": "seghier",
+            "title": "ComfyUI_Email_Notification",
+            "reference": "https://github.com/seghier/ComfyUI_Email_Notification",
+            "files": [
+                "https://github.com/seghier/ComfyUI_Email_Notification/raw/main/email_node.py"
+            ],
+            "pip": ["secure-smtplib==0.1.0"],
+            "install_type": "copy",
+            "description": "Nodes:Email Notification"
+        },
+        {
             "author": "luandev",
             "title": "ComfyUI CrewAI",
             "id": "crewai",
@@ -671,28 +704,6 @@
             ],
             "install_type": "git-clone",
             "description": "A collection of custom nodes to help with saving images, providing generation parameters, static literal nodes, and other useful nodes."
-        },
-        {
-            "author": "fexploit",
-            "title": "ComfyUI-AutoLabel",
-            "id": "autolabel",
-            "reference": "https://github.com/fexploit/ComfyUI-AutoLabel",
-            "files": [
-                "https://github.com/fexploit/ComfyUI-AutoLabel"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI-AutoLabel is a custom node for ComfyUI that uses BLIP (Bootstrapping Language-Image Pre-training) to generate detailed descriptions of the main object in an image. This node leverages the power of BLIP to provide accurate and context-aware captions for images."
-        },
-        {
-            "author": "christian-byrne",
-            "title": "img2colors-comfyui-node",
-            "id": "img2colors-nodes",
-            "reference": "https://github.com/christian-byrne/img2colors-comfyui-node",
-            "files": [
-                "https://github.com/christian-byrne/img2colors-comfyui-node"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Img2Color - Color Palette Extractor"
         }
     ]
 }

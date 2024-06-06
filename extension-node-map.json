@@ -1130,6 +1130,16 @@
             "title_aux": "ComfyUI Checkpoint Automatic Config"
         }
     ],
+    "https://github.com/DataCTE/prompt_injection": [
+        [
+            "AdvancedPromptInjection",
+            "PromptInjection",
+            "SimplePromptInjection"
+        ],
+        {
+            "title_aux": "Prompt Injection Node for ComfyUI"
+        }
+    ],
     "https://github.com/Derfuu/Derfuu_ComfyUI_ModdedNodes": [
         [],
         {
@@ -1263,12 +1273,7 @@
     "https://github.com/Extraltodeus/Stable-Diffusion-temperature-settings": [
         [
             "CLIP Temperature",
-            "Dynamic scale as float",
-            "Unet Temperature SD1",
-            "Unet Temperature SD1 per layer",
-            "Unet Temperature SDXL",
-            "Unet Temperature SDXL per layer",
-            "Unet Temperature any model"
+            "Unet Temperature"
         ],
         {
             "title_aux": "Stable-Diffusion-temperature-settings"
@@ -8145,12 +8150,11 @@
             "ImageDescriptionNode",
             "LatentTypeConversion",
             "LoadImagesByFilename",
-            "LoadPosEmbeds",
             "LoadRandomImage",
             "MaskFromRGB",
             "MaskFromRGB_KMeans",
+            "Mix_IP_Embeddings",
             "SaveExplorationState",
-            "SaveImageAdvanced",
             "SavePosEmbeds",
             "VAEDecode_to_folder",
             "VideoFrameSelector"
@@ -8465,6 +8469,7 @@
     "https://github.com/fmatray/ComfyUI_BattlemapGrid": [
         [
             "Battlemap Grid",
+            "Compass",
             "Map Generator",
             "Map Generator(Outdoors)"
         ],
@@ -10562,6 +10567,18 @@
             "title_aux": "comfy-mecha"
         }
     ],
+    "https://github.com/lks-ai/ComfyUI-StableAudioSampler": [
+        [
+            "StableAudioSampler"
+        ],
+        {
+            "author": "lks-ai",
+            "description": "A Simple integration of Stable Audio Diffusion with knobs and stuff!",
+            "nickname": "stableaudio",
+            "title": "StableAudioSampler",
+            "title_aux": "ComfyUI Stable Audio Open 1.0 Sampler"
+        }
+    ],
     "https://github.com/lks-ai/anynode": [
         [
             "AnyNode",
@@ -12339,6 +12356,14 @@
             "title_aux": "SRL's nodes"
         }
     ],
+    "https://github.com/seghier/ComfyUI_Email_Notification/raw/main/email_node.py": [
+        [
+            "EmailNode"
+        ],
+        {
+            "title_aux": "ComfyUI_Email_Notification"
+        }
+    ],
     "https://github.com/sergekatzmann/ComfyUI_Nimbus-Pack": [
         [
             "AdjustAndRoundDimensions",
@@ -13483,7 +13508,8 @@
             "LoadVideoPath",
             "LoadVideoUpload",
             "OldPhotoColorizationNode",
-            "OllamaRequestNode"
+            "OllamaRequestNode",
+            "Waveform2Audio"
         ],
         {
             "title_aux": "ZMG PLUGIN"

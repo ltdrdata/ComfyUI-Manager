@@ -9553,6 +9553,17 @@
             "description": "Nodes: AnyNode. Nodes that can be anything you ask. Auto-Generate functional nodes using LLMs. Create impossible workflows. API Compatibility: (OpenAI, LocalLLMs, Gemini)."
         },
         {
+            "author": "lks-ai",
+            "title": "ComfyUI Stable Audio Open 1.0 Sampler",
+            "id": "stableaudiosampler",
+            "reference": "https://github.com/lks-ai/ComfyUI-StableAudioSampler",
+            "files": [
+                "https://github.com/lks-ai/ComfyUI-StableAudioSampler"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: StableAudioSampler. Wraps the new Stable Audio Open Model in the sampler that dropped Jun 5th. See Github for Features"
+        },
+        {
             "author": "SayanoAI",
             "title": "Comfy-RVC",
             "id": "sayano-rvc",
@@ -9989,6 +10000,17 @@
             "install_type": "git-clone",
             "description": "Nodes:ZC DrawShape Node"
         },
+        {
+            "author": "DataCTE",
+            "title": "Prompt Injection Node for ComfyUI",
+            "id": "prompt-injection",
+            "reference": "https://github.com/DataCTE/prompt_injection",
+            "files": [
+                "https://github.com/DataCTE/prompt_injection"
+            ],
+            "install_type": "git-clone",
+            "description": "This custom node for ComfyUI allows you to inject specific prompts at specific blocks of the Stable Diffusion UNet, providing fine-grained control over the generated image. It is based on the concept that the content/subject understanding of the model is primarily contained within the MID0 and MID1 blocks, as demonstrated in the B-Lora (Content Style implicit separation) paper. Features.\nInject different prompts into specific UNet blocks Three different node variations for flexible workflow integration Customize the learning rate of specific blocks to focus on content, lighting, style, or other aspects Potential for developing a 'Mix of Experts' approach by swapping blocks on-the-fly based on prompt content"
+        },
         
         
         
@@ -10335,6 +10357,17 @@
             "install_type": "copy",
             "description": "Nodes:Selector. Quick and dirty parameter generator node for ComfyUI."
         },
+        {
+            "author": "seghier",
+            "title": "ComfyUI_Email_Notification",
+            "reference": "https://github.com/seghier/ComfyUI_Email_Notification",
+            "files": [
+                "https://github.com/seghier/ComfyUI_Email_Notification/raw/main/email_node.py"
+            ],
+            "pip": ["secure-smtplib==0.1.0"],
+            "install_type": "copy",
+            "description": "Nodes:Email Notification"
+        },
 
 
 
@@ -10384,17 +10417,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "lks-ai",
-            "title": "ComfyUI Stable Audio Open 1.0 Sampler",
-            "id": "anynode",
-            "reference": "https://github.com/lks-ai/ComfyUI-StableAudioSampler",
-            "files": [
-                "https://github.com/lks-ai/ComfyUI-StableAudioSampler"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: StableAudioSampler. Wraps the new Stable Audio Open Model in the sampler that dropped Jun 5th. See Github for Features"
         }
     ]
 }
