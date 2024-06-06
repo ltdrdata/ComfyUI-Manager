@@ -321,6 +321,7 @@ export class CustomNodesManager {
 
 		this.filter = '';
 		this.keywords = '';
+		this.restartMap = {};
 
 		this.init();
 	}
@@ -959,6 +960,7 @@ export class CustomNodesManager {
 
 			this.grid.setRowSelected(item, false);
 			item.restart = true;
+			this.restartMap[item.hash] = true;
 			this.grid.updateCell(item, "installed");
 
 			//console.log(res.data);
@@ -1254,6 +1256,9 @@ export class CustomNodesManager {
 		}
 
 		custom_nodes.forEach(nodeItem => {
+			if (this.restartMap[nodeItem.hash]) {
+				nodeItem.restart = true;
+			}
 			const filterTypes = new Set();
 			this.filterList.forEach(filterItem => {
 				const { value, hashMap } = filterItem;
