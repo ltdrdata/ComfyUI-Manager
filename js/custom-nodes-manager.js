@@ -94,10 +94,6 @@ const pageCss = `
 	overflow: hidden;
 }
 
-.cn-manager-grid .tg-cell a:hover {
-	text-decoration: underline;
-}
-
 .cn-manager-selection {
 	display: flex;
 	flex-wrap: wrap;
@@ -121,9 +117,19 @@ const pageCss = `
 	font-size: 15px;
 }
 
-.cn-manager-grid .tg-cell a {
+.cn-manager-grid .cn-node-name a {
 	color: skyblue;
 	text-decoration: none;
+}
+
+.cn-manager-grid .cn-node-desc a {
+	color: #5555FF;
+    font-weight: bold;
+	text-decoration: none;
+}
+
+.cn-manager-grid .tg-cell a:hover {
+	text-decoration: underline;
 }
 
 .cn-manager-grid .cn-conflicts-button {
@@ -1395,7 +1401,7 @@ export class CustomNodesManager {
 async function calculateHash(item) {
 	const message = item.title + item.files[0];
 	return md5(message);
-  }
+}
   
 function md5(inputString) {
 	const hc = '0123456789abcdef';
