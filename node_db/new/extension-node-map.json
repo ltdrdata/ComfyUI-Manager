@@ -137,9 +137,12 @@
             "SAMIN String Attribute Selector",
             "SANMIN Adapt Coordinates",
             "SANMIN AdjustTransparency",
+            "SANMIN BlurMaskArea",
             "SANMIN ChineseToCharacter",
             "SANMIN ClothingWildcards",
             "SANMIN ConvertToEnglish",
+            "SANMIN EditWildcards",
+            "SANMIN Float",
             "SANMIN LoadPathImagesPreview",
             "SANMIN SCALE AND FILL BLACK",
             "SANMIN SanmiSaveImageToLocal",
@@ -593,17 +596,6 @@
         ],
         {
             "title_aux": "ComfyUI-SimpleCounter"
-        }
-    ],
-    "https://github.com/AppleBotzz/ComfyUI_LLMVISION": [
-        [
-            "CLAUDE_CHAT",
-            "CLAUDE_VISION",
-            "GPT4_CHAT",
-            "GPT4_VISION"
-        ],
-        {
-            "title_aux": "ComfyUI_LLMVISION"
         }
     ],
     "https://github.com/ArcherFMY/Diffusion360_ComfyUI": [
@@ -3734,6 +3726,8 @@
             "Clip Text Encode SDXL (Shinsplat)",
             "Green Box (Shinsplat)",
             "Lora Loader (Shinsplat)",
+            "Python (Shinsplat)",
+            "Python - More Inputs (Shinsplat)",
             "Sum Wrap (Shinsplat)"
         ],
         {
@@ -5393,7 +5387,9 @@
             "LiamLibLoadImage",
             "LiamLibSaveImg",
             "LiamLibSaveText",
-            "PreviewReliefImage"
+            "PreviewReliefImage",
+            "SpeechRecognitionLiam",
+            "SpeechSynthesisLiam"
         ],
         {
             "title_aux": "LiamUtil"
@@ -8299,10 +8295,10 @@
             "Selector"
         ],
         {
-            "author": "\u02f6\ud835\udfa2\u292c\u2ad2\u2d56s\u143c\u02f6",
-            "description": "Preset aspect ratios and inference parameters.",
-            "nickname": "Selector",
-            "title": "Selector",
+            "author": "\"\u02f6\ud835\udfa2\u292c\u2ad2\u2d56s\u143c\u02f6\"",
+            "description": "\"Selector and Recourse for exdysa workflow. Preset aspect ratios, general settings, fallback switches.\"",
+            "nickname": "\"Selector\"",
+            "title": "\"Selector\"",
             "title_aux": "comfyui-selector"
         }
     ],
@@ -9071,17 +9067,25 @@
             "Image20SwitcherNode",
             "Image3SwitcherNode",
             "Image5SwitcherNode",
+            "MonoClip_node",
+            "PixelArt_node",
+            "VAEDecodePreview_node",
+            "image2contrastMask_node",
+            "image2imbgg_node",
             "image_halftone",
             "image_histograms_node",
             "image_histograms_node_compact",
+            "image_to_base64_node",
             "images_side_by_side",
-            "smart_checkpoint_loader"
+            "imgbbLoader_node",
+            "smart_checkpoint_loader",
+            "storeURL_node"
         ],
         {
             "author": "YFG",
-            "description": "This extension calculates the histogram of an image and outputs the results as graph images for individual channels as well as RGB and Luminosity.",
-            "nickname": "\ud83d\udc2f YFG Histograms",
-            "title": "YFG Histograms",
+            "description": "This extension loads a model checkpoint file and extracts the model state dictionary or the entire model, treating all checkpoints as if they are in the root directory.",
+            "nickname": "\ud83e\udde0 YFG Smart Checkpoint Loader",
+            "title": "YFG Smart Checkpoint Loader",
             "title_aux": "\ud83d\ude38 YFG Comical Nodes"
         }
     ],
@@ -10846,6 +10850,7 @@
     "https://github.com/lquesada/ComfyUI-Inpaint-CropAndStitch": [
         [
             "InpaintCrop",
+            "InpaintExtendOutpaint",
             "InpaintStitch"
         ],
         {
