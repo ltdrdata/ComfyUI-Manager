@@ -20,7 +20,7 @@ const pageCss = `
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	color: #eee;
+	color: var(--fg-color);
 	font-family: arial, sans-serif;
 }
 
@@ -53,6 +53,7 @@ const pageCss = `
 .cn-manager .cn-manager-restart {
 	display: none;
 	background-color: #500000;
+	color: white;
 }
 
 .cn-manager-header {
@@ -90,7 +91,7 @@ const pageCss = `
 
 .cn-manager-grid {
 	flex: auto;
-	border: 1px solid #1E1E1E;
+	border: 1px solid var(--border-color);
 	overflow: hidden;
 }
 
@@ -172,7 +173,7 @@ const pageCss = `
 }
 
 .cn-tag-list > div {
-	background-color: #3f3f3f;
+	background-color: var(--border-color);
 	border-radius: 5px;
     padding: 0 5px;
 }
@@ -692,6 +693,13 @@ export class CustomNodesManager {
 
 	renderGrid() {
 
+		const colorPalette = this.app.ui.settings.settingsValues['Comfy.ColorPalette'];
+		// console.log(colorPalette)
+
+		const options = {
+			theme: colorPalette === "light" ? "" : "dark"
+		};
+
 		const rows = this.custom_nodes || [];
 		rows.forEach((item, i) => {
 			item.id = i + 1;
@@ -834,6 +842,7 @@ export class CustomNodesManager {
 		}];
 
 		this.grid.setData({
+			options,
 			rows,
 			columns
 		});
