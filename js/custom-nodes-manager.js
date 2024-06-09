@@ -799,6 +799,9 @@ export class CustomNodesManager {
 			width: 100,
 			classMap: "cn-node-author", 
 			formatter: (author, rowItem, columnItem) => {
+				if (rowItem.trust) {
+					return `<span title="This author has been active for more than six months in GitHub">✅ ${author}</span>`;
+				}
 				return author;
 			}
 		}, {
