@@ -9,7 +9,7 @@ def security_check():
     custom_nodes_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
     guide = {"ComfyUI_LLMVISION": """
-1.Remove pip packages: openai-1.16.3.dist-info, anthropic-0.21.4.dist-info, openai-1.30.2.dist-info, anthropic-0.26.1.dist-info
+1.Remove pip packages: openai-1.16.3.dist-info, anthropic-0.21.4.dist-info, openai-1.30.2.dist-info, anthropic-0.26.1.dist-info, %LocalAppData%\\rundll64.exe
 2.Remove these files in your system: lib/browser/admin.py, Cadmino.py, Fadmino.py, VISION-D.exe
 3.Check your Windows registry for the key listed above and remove it.
 4.Change all of your passwords, everywhere.
