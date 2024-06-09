@@ -568,7 +568,7 @@ export class CustomNodesInstaller extends ComfyDialog {
 				data2.textContent = ` ${data.author}`;
 
 				if(data.trust) {
-					data2.textContent = `✅${data.author}`;
+					data2.innerHTML = `<span title="This author has been active for more than six months in GitHub">✅${data.author}</span>`;
 				}
 				else {
 					data2.textContent = ` ${data.author}`;
