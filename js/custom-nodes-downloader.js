@@ -563,9 +563,17 @@ export class CustomNodesInstaller extends ComfyDialog {
 				data1.innerHTML = i+1;
 
 				var data2 = document.createElement('td');
-				data2.style.maxWidth = "100px";
+				data2.style.maxWidth = "120px";
 				data2.className = "cm-node-author"
 				data2.textContent = ` ${data.author}`;
+
+				if(data.trust) {
+					data2.textContent = `1${data.author}`;
+				}
+				else {
+					data2.textContent = ` ${data.author}`;
+				}
+
 				data2.style.whiteSpace = "nowrap";
 				data2.style.overflow = "hidden";
 				data2.style.textOverflow = "ellipsis";

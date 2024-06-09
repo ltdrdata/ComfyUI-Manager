@@ -208,9 +208,11 @@ async def populate_github_stats(json_obj, json_obj_github):
             if url in json_obj_github:
                 json_obj['custom_nodes'][i]['stars'] = json_obj_github[url]['stars']
                 json_obj['custom_nodes'][i]['last_update'] = json_obj_github[url]['last_update']
+                json_obj['custom_nodes'][i]['trust'] = json_obj_github[url]['author_account_age_days'] > 180
             else:
                 json_obj['custom_nodes'][i]['stars'] = -1
                 json_obj['custom_nodes'][i]['last_update'] = -1
+                json_obj['custom_nodes'][i]['trust'] = False
         return json_obj
 
 
