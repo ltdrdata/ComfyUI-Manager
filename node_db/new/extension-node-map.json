@@ -412,6 +412,7 @@
         [
             "> Clear Text",
             "> Float to Int",
+            "> Get Mean Color",
             "> Int",
             "> Int to Text",
             "> Light Source Mask",
@@ -420,6 +421,8 @@
             "> Mask Curves",
             "> NIKSampler",
             "> Noise From Image",
+            "> Normal Map Lighting",
+            "> RGB Color",
             "> Resolution by Aspect Ratio",
             "> Rotate Image",
             "> Save Image",
@@ -778,6 +781,19 @@
         ],
         {
             "title_aux": "bsz-cui-extras"
+        }
+    ],
+    "https://github.com/BenNarum/SigmaWaveFormNode": [
+        [
+            "AttenuatorNode",
+            "FourierFilterNode",
+            "PhaseLockedLoopNode",
+            "SigmaWaveFormNode",
+            "SigmaWaveFormNodeAdvanced",
+            "SigmaWaveFormNodeSimple"
+        ],
+        {
+            "title_aux": "SigmaWaveFormNodes"
         }
     ],
     "https://github.com/BennyKok/comfyui-deploy": [
@@ -1311,6 +1327,7 @@
     "https://github.com/Extraltodeus/sigmas_tools_and_the_golden_scheduler": [
         [
             "Aligned Scheduler",
+            "Gaussian Tail Scheduler",
             "Get sigmas as float",
             "Graph sigmas",
             "Manual scheduler",
@@ -1775,6 +1792,14 @@
         ],
         {
             "title_aux": "ComfyUI-GTSuya-Nodes"
+        }
+    ],
+    "https://github.com/GavChap/ComfyUI-SD3LatentSelectRes": [
+        [
+            "SD3LatentSelectRes"
+        ],
+        {
+            "title_aux": "ComfyUI-SD3LatentSelectRes"
         }
     ],
     "https://github.com/GentlemanHu/ComfyUI-SunoAI": [
@@ -5367,12 +5392,14 @@
     ],
     "https://github.com/ai-liam/comfyui-liam": [
         [
+            "AiStoreAzureGPTLiam",
             "GetBetterDepthImage",
             "LiamLibFillImage",
             "LiamLibImageToGray",
             "LiamLibLoadImage",
             "LiamLibSaveImg",
             "LiamLibSaveText",
+            "OllamaApiTNodeLiam",
             "PreviewReliefImage",
             "SpeechRecognitionLiam",
             "SpeechSynthesisLiam"
@@ -5419,6 +5446,15 @@
         ],
         {
             "title_aux": "Save Layers Node for ComfyUI"
+        }
+    ],
+    "https://github.com/alessandrozonta/ComfyUI-OpenPose": [
+        [
+            "OpenPose - Get poses"
+        ],
+        {
+            "author": "joe",
+            "title_aux": "OpenPose Node"
         }
     ],
     "https://github.com/alexopus/ComfyUI-Image-Saver": [
@@ -6853,6 +6889,7 @@
             "LayerMask: BiRefNetUltra",
             "LayerMask: BlendIf Mask",
             "LayerMask: CreateGradientMask",
+            "LayerMask: ImageToMask",
             "LayerMask: MaskBoxDetect",
             "LayerMask: MaskByColor",
             "LayerMask: MaskByDifferent",
@@ -7240,6 +7277,7 @@
             "CLIPSetLastLayer",
             "CLIPTextEncode",
             "CLIPTextEncodeControlnet",
+            "CLIPTextEncodeSD3",
             "CLIPTextEncodeSDXL",
             "CLIPTextEncodeSDXLRefiner",
             "CLIPVisionEncode",
@@ -7269,6 +7307,7 @@
             "DualCLIPLoader",
             "EmptyImage",
             "EmptyLatentImage",
+            "EmptySD3LatentImage",
             "ExponentialScheduler",
             "FeatherMask",
             "FlipSigmas",
@@ -7336,6 +7375,7 @@
             "ModelMergeSubtract",
             "ModelSamplingContinuousEDM",
             "ModelSamplingDiscrete",
+            "ModelSamplingSD3",
             "ModelSamplingStableCascade",
             "Morphology",
             "PatchModelAddDownscale",
@@ -7387,6 +7427,7 @@
             "StyleModelLoader",
             "ThresholdMask",
             "TomePatchModel",
+            "TripleCLIPLoader",
             "UNETLoader",
             "UNetCrossAttentionMultiply",
             "UNetSelfAttentionMultiply",
@@ -7602,6 +7643,7 @@
             "ImageApplyLUT+",
             "ImageBatchMultiple+",
             "ImageCASharpening+",
+            "ImageColorMatch+",
             "ImageCompositeFromMaskBatch+",
             "ImageCrop+",
             "ImageDesaturate+",
@@ -7609,6 +7651,7 @@
             "ImageExpandBatch+",
             "ImageFlip+",
             "ImageFromBatch+",
+            "ImageHistogramMatch+",
             "ImageListToBatch+",
             "ImagePosterize+",
             "ImageRandomTransform+",
@@ -7825,14 +7868,18 @@
             "JDCN_BatchLatentLoadFromDir",
             "JDCN_BatchLatentLoadFromList",
             "JDCN_BatchSaveLatent",
+            "JDCN_BoolInt",
+            "JDCN_EnableDisable",
             "JDCN_FileMover",
             "JDCN_ImageSaver",
             "JDCN_ListToString",
             "JDCN_ReBatch",
             "JDCN_SeamlessExperience",
+            "JDCN_ShowAny",
             "JDCN_SplitString",
             "JDCN_StringManipulator",
             "JDCN_StringToList",
+            "JDCN_SwapInputs",
             "JDCN_TXTFileSaver",
             "JDCN_VHSFileMover"
         ],
@@ -7872,6 +7919,7 @@
             "Den_BatchIndex_AS",
             "Den_CropImage_AS",
             "Den_Eval_AS",
+            "Den_FaceRestoreCFWithModel",
             "Den_GPTLoaderSimple_llama",
             "Den_GPTSampler_llama",
             "Den_ImageMixMasked_As",
@@ -8275,7 +8323,7 @@
             "title_aux": "ComfyMath"
         }
     ],
-    "https://github.com/exdysa/comfyui-selector/raw/main/selector.py": [
+    "https://github.com/exdysa/comfyui-selector": [
         [
             "Recourse",
             "Selector"
@@ -8379,6 +8427,7 @@
             "FL_HalftonePattern",
             "FL_HexagonalPattern",
             "FL_ImageCaptionSaver",
+            "FL_ImageCollage",
             "FL_ImageDimensionDisplay",
             "FL_ImageDurationSync",
             "FL_ImageNotes",
@@ -9279,6 +9328,7 @@
             "start_dialog",
             "start_workflow",
             "string_logic",
+            "substring",
             "time_tool",
             "tool_combine",
             "tool_combine_plus",
@@ -9406,6 +9456,22 @@
         ],
         {
             "title_aux": "ComfyUI DenseDiffusion"
+        }
+    ],
+    "https://github.com/huchenlei/ComfyUI_omost": [
+        [
+            "OmostDenseDiffusionLayoutNode",
+            "OmostGreedyBagsTextEmbeddingNode",
+            "OmostLLMChatNode",
+            "OmostLLMHTTPServerNode",
+            "OmostLLMLoaderNode",
+            "OmostLayoutCondNode",
+            "OmostLoadCanvasConditioningNode",
+            "OmostLoadCanvasPythonCodeNode",
+            "OmostRenderCanvasConditioningNode"
+        ],
+        {
+            "title_aux": "ComfyUI_omost"
         }
     ],
     "https://github.com/hughescr/ComfyUI-OpenPose-Keypoint-Extractor": [
@@ -10659,6 +10725,9 @@
     ],
     "https://github.com/lks-ai/ComfyUI-StableAudioSampler": [
         [
+            "StableAudioConditioning",
+            "StableAudioLoadModel",
+            "StableAudioPrompt",
             "StableAudioSampler"
         ],
         {
@@ -10796,10 +10865,15 @@
     "https://github.com/longgui0318/comfyui-magic-clothing": [
         [
             "Add Magic Clothing Attention",
+            "Change Pipeline Dtype And Device",
             "Change Pixel Value Normalization",
-            "LOAD OMS",
+            "Diffusers Model Makeup &MC",
+            "Diffusers Scheduler Loader &MC",
+            "Load Magic Clothing Adapter",
             "Load Magic Clothing Model",
-            "RUN OMS"
+            "Load Magic Clothing Pipeline",
+            "Load Magic Clothing Pipeline With Path",
+            "RUN Magic Clothing Diffusers Model"
         ],
         {
             "title_aux": "comfyui-magic-clothing"
@@ -10809,9 +10883,11 @@
         [
             "Image Adaptive Crop M&R",
             "Image Adaptive Crop With Mask",
+            "Image Change DType",
             "Image Change Device",
             "Image Resolution Adaptive With X",
             "Image Resolution Limit With 8K",
+            "Mask Change DType",
             "Mask Change Device",
             "Mask Selection Of Masks",
             "Split Masks"
@@ -10823,10 +10899,15 @@
     "https://github.com/longgui0318/comfyui-oms-diffusion": [
         [
             "Add Magic Clothing Attention",
+            "Change Pipeline Dtype And Device",
             "Change Pixel Value Normalization",
-            "LOAD OMS",
+            "Diffusers Model Makeup &MC",
+            "Diffusers Scheduler Loader &MC",
+            "Load Magic Clothing Adapter",
             "Load Magic Clothing Model",
-            "RUN OMS"
+            "Load Magic Clothing Pipeline",
+            "Load Magic Clothing Pipeline With Path",
+            "RUN Magic Clothing Diffusers Model"
         ],
         {
             "title_aux": "comfyui-oms-diffusion"
@@ -10844,6 +10925,7 @@
         [
             "InpaintCrop",
             "InpaintExtendOutpaint",
+            "InpaintResize",
             "InpaintStitch"
         ],
         {
@@ -12409,6 +12491,7 @@
         [
             "Runtime44ColorMatch",
             "Runtime44DynamicKSampler",
+            "Runtime44FilmGrain",
             "Runtime44ImageEnhance",
             "Runtime44ImageOverlay",
             "Runtime44ImageResizer",
@@ -13386,8 +13469,12 @@
     "https://github.com/tianlang0704/ComfyUI-StableProjectorzBridge": [
         [
             "ProjectorzControlnetInput",
+            "ProjectorzControlnetParameter",
             "ProjectorzInitInput",
-            "ProjectorzOutput"
+            "ProjectorzOutput",
+            "ProjectorzParameter",
+            "ProjectorzStringToFloat",
+            "ProjectorzStringToInt"
         ],
         {
             "title_aux": "Stable Projectorz Bridge"
@@ -13452,6 +13539,12 @@
             "quadmoonINTConditionalOperation",
             "quadmoonKSampler",
             "quadmoonKSamplerAdvanced",
+            "quadmoonLoadConfigs",
+            "quadmoonModelLoader",
+            "quadmoonSaveNeg",
+            "quadmoonSavePrompt",
+            "quadmoonSmartNeg",
+            "quadmoonSmartPrompt",
             "quadmoonThebutton"
         ],
         {
@@ -13535,7 +13628,7 @@
     ],
     "https://github.com/turkyden/ComfyUI-Comic": [
         [
-            "Image To Comic"
+            "ImageToComic"
         ],
         {
             "title_aux": "ComfyUI-Comic"
@@ -13543,7 +13636,7 @@
     ],
     "https://github.com/turkyden/ComfyUI-Sticker": [
         [
-            "Image To Sticker"
+            "ImageToSticker"
         ],
         {
             "title_aux": "ComfyUI-Sticker"
@@ -13640,13 +13733,14 @@
     ],
     "https://github.com/vanche1212/ComfyUI-ZMG-Nodes": [
         [
-            "APIRequestNode",
-            "JsonParserNode",
-            "LoadVideoPath",
-            "LoadVideoUpload",
-            "OldPhotoColorizationNode",
-            "OllamaRequestNode",
-            "Waveform2Audio"
+            "Waveform2Audio",
+            "\ud83d\ude0bAPI Request Node",
+            "\ud83d\ude0bJSON Parser Node",
+            "\ud83d\ude0bLoad Video Path Unified Output",
+            "\ud83d\ude0bOld Photo Colorization Node",
+            "\ud83d\ude0bOllama Request Node",
+            "\ud83d\ude0bSave Image Unified Output",
+            "\ud83d\ude0bVideo Combine Unified Output"
         ],
         {
             "title_aux": "ZMG PLUGIN"
