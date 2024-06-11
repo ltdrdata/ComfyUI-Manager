@@ -12,7 +12,7 @@ def security_check():
 0.Remove ComfyUI\\custom_nodes\\ComfyUI_LLMVISION.
 1.Remove pip packages: openai-1.16.3.dist-info, anthropic-0.21.4.dist-info, openai-1.30.2.dist-info, anthropic-0.26.1.dist-info, %LocalAppData%\\rundll64.exe
   (For portable versions, it is recommended to reinstall. If you are using a venv, it is advised to recreate the venv.)
-2.Remove these files in your system: lib/browser/admin.py, Cadmino.py, Fadmino.py, VISION-D.exe
+2.Remove these files in your system: lib/browser/admin.py, Cadmino.py, Fadmino.py, VISION-D.exe, BeamNG.UI.exe
 3.Check your Windows registry for the key listed above and remove it.
   (HKEY_CURRENT_USER\Software\OpenAICLI)
 4.Run a malware scanner.
