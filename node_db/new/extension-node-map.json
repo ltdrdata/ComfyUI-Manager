@@ -412,6 +412,7 @@
         [
             "> Clear Text",
             "> Float to Int",
+            "> Get Mean Color",
             "> Int",
             "> Int to Text",
             "> Light Source Mask",
@@ -420,6 +421,8 @@
             "> Mask Curves",
             "> NIKSampler",
             "> Noise From Image",
+            "> Normal Map Lighting",
+            "> RGB Color",
             "> Resolution by Aspect Ratio",
             "> Rotate Image",
             "> Save Image",
@@ -1775,6 +1778,14 @@
         ],
         {
             "title_aux": "ComfyUI-GTSuya-Nodes"
+        }
+    ],
+    "https://github.com/GavChap/ComfyUI-SD3LatentSelectRes": [
+        [
+            "SD3LatentSelectRes"
+        ],
+        {
+            "title_aux": "ComfyUI-SD3LatentSelectRes"
         }
     ],
     "https://github.com/GentlemanHu/ComfyUI-SunoAI": [
@@ -6853,6 +6864,7 @@
             "LayerMask: BiRefNetUltra",
             "LayerMask: BlendIf Mask",
             "LayerMask: CreateGradientMask",
+            "LayerMask: ImageToMask",
             "LayerMask: MaskBoxDetect",
             "LayerMask: MaskByColor",
             "LayerMask: MaskByDifferent",
@@ -7240,6 +7252,7 @@
             "CLIPSetLastLayer",
             "CLIPTextEncode",
             "CLIPTextEncodeControlnet",
+            "CLIPTextEncodeSD3",
             "CLIPTextEncodeSDXL",
             "CLIPTextEncodeSDXLRefiner",
             "CLIPVisionEncode",
@@ -7269,6 +7282,7 @@
             "DualCLIPLoader",
             "EmptyImage",
             "EmptyLatentImage",
+            "EmptySD3LatentImage",
             "ExponentialScheduler",
             "FeatherMask",
             "FlipSigmas",
@@ -7336,6 +7350,7 @@
             "ModelMergeSubtract",
             "ModelSamplingContinuousEDM",
             "ModelSamplingDiscrete",
+            "ModelSamplingSD3",
             "ModelSamplingStableCascade",
             "Morphology",
             "PatchModelAddDownscale",
@@ -7387,6 +7402,7 @@
             "StyleModelLoader",
             "ThresholdMask",
             "TomePatchModel",
+            "TripleCLIPLoader",
             "UNETLoader",
             "UNetCrossAttentionMultiply",
             "UNetSelfAttentionMultiply",
@@ -7602,6 +7618,7 @@
             "ImageApplyLUT+",
             "ImageBatchMultiple+",
             "ImageCASharpening+",
+            "ImageColorMatch+",
             "ImageCompositeFromMaskBatch+",
             "ImageCrop+",
             "ImageDesaturate+",
@@ -7609,6 +7626,7 @@
             "ImageExpandBatch+",
             "ImageFlip+",
             "ImageFromBatch+",
+            "ImageHistogramMatch+",
             "ImageListToBatch+",
             "ImagePosterize+",
             "ImageRandomTransform+",
@@ -9528,6 +9546,7 @@
             "IF_DisplayText",
             "IF_ImagePrompt",
             "IF_PromptMkr",
+            "IF_SaveText",
             "IF_saveText"
         ],
         {
@@ -10807,9 +10826,12 @@
             "Add Magic Clothing Attention",
             "Change Pipeline Dtype And Device",
             "Change Pixel Value Normalization",
+            "Diffusers Model Makeup &MC",
+            "Diffusers Scheduler Loader &MC",
             "Load Magic Clothing Adapter",
             "Load Magic Clothing Model",
             "Load Magic Clothing Pipeline",
+            "Load Magic Clothing Pipeline With Path",
             "RUN Magic Clothing Diffusers Model"
         ],
         {
@@ -10838,9 +10860,12 @@
             "Add Magic Clothing Attention",
             "Change Pipeline Dtype And Device",
             "Change Pixel Value Normalization",
+            "Diffusers Model Makeup &MC",
+            "Diffusers Scheduler Loader &MC",
             "Load Magic Clothing Adapter",
             "Load Magic Clothing Model",
             "Load Magic Clothing Pipeline",
+            "Load Magic Clothing Pipeline With Path",
             "RUN Magic Clothing Diffusers Model"
         ],
         {
@@ -10859,6 +10884,7 @@
         [
             "InpaintCrop",
             "InpaintExtendOutpaint",
+            "InpaintResize",
             "InpaintStitch"
         ],
         {
@@ -13472,6 +13498,12 @@
             "quadmoonINTConditionalOperation",
             "quadmoonKSampler",
             "quadmoonKSamplerAdvanced",
+            "quadmoonLoadConfigs",
+            "quadmoonModelLoader",
+            "quadmoonSaveNeg",
+            "quadmoonSavePrompt",
+            "quadmoonSmartNeg",
+            "quadmoonSmartPrompt",
             "quadmoonThebutton"
         ],
         {
