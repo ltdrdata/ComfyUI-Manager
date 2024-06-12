@@ -7,8 +7,9 @@ import { manager_instance, rebootAPI, install_via_git_url } from  "./common.js";
 import TG from "./turbogrid.esm.js";
 
 const icons = {
-	conflicts: '<svg viewBox="0 0 400 400" width="100%" height="100%" pointer-events="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="m397.2 350.4.2-.2-180-320-.2.2C213.8 24.2 207.4 20 200 20s-13.8 4.2-17.2 10.4l-.2-.2-180 320 .2.2c-1.6 2.8-2.8 6-2.8 9.6 0 11 9 20 20 20h360c11 0 20-9 20-20 0-3.6-1.2-6.8-2.8-9.6M220 340h-40v-40h40zm0-60h-40V120h40z"/></svg>',
-	search: '<svg viewBox="0 0 24 24" width="100%" height="100%" pointer-events="none" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.486-4.494M19 10.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0"/></svg>'
+	search: '<svg viewBox="0 0 24 24" width="100%" height="100%" pointer-events="none" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.486-4.494M19 10.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0"/></svg>',
+	extensions: '<svg viewBox="64 64 896 896" width="100%" height="100%" pointer-events="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M843.5 737.4c-12.4-75.2-79.2-129.1-155.3-125.4S550.9 676 546 752c-153.5-4.8-208-40.7-199.1-113.7 3.3-27.3 19.8-41.9 50.1-49 18.4-4.3 38.8-4.9 57.3-3.2 1.7.2 3.5.3 5.2.5 11.3 2.7 22.8 5 34.3 6.8 34.1 5.6 68.8 8.4 101.8 6.6 92.8-5 156-45.9 159.2-132.7 3.1-84.1-54.7-143.7-147.9-183.6-29.9-12.8-61.6-22.7-93.3-30.2-14.3-3.4-26.3-5.7-35.2-7.2-7.9-75.9-71.5-133.8-147.8-134.4S189.7 168 180.5 243.8s40 146.3 114.2 163.9 149.9-23.3 175.7-95.1c9.4 1.7 18.7 3.6 28 5.8 28.2 6.6 56.4 15.4 82.4 26.6 70.7 30.2 109.3 70.1 107.5 119.9-1.6 44.6-33.6 65.2-96.2 68.6-27.5 1.5-57.6-.9-87.3-5.8-8.3-1.4-15.9-2.8-22.6-4.3-3.9-.8-6.6-1.5-7.8-1.8l-3.1-.6c-2.2-.3-5.9-.8-10.7-1.3-25-2.3-52.1-1.5-78.5 4.6-55.2 12.9-93.9 47.2-101.1 105.8-15.7 126.2 78.6 184.7 276 188.9 29.1 70.4 106.4 107.9 179.6 87 73.3-20.9 119.3-93.4 106.9-168.6M329.1 345.2a83.3 83.3 0 1 1 .01-166.61 83.3 83.3 0 0 1-.01 166.61M695.6 845a83.3 83.3 0 1 1 .01-166.61A83.3 83.3 0 0 1 695.6 845"/></svg>',
+	conflicts: '<svg viewBox="0 0 400 400" width="100%" height="100%" pointer-events="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="m397.2 350.4.2-.2-180-320-.2.2C213.8 24.2 207.4 20 200 20s-13.8 4.2-17.2 10.4l-.2-.2-180 320 .2.2c-1.6 2.8-2.8 6-2.8 9.6 0 11 9 20 20 20h360c11 0 20-9 20-20 0-3.6-1.2-6.8-2.8-9.6M220 340h-40v-40h40zm0-60h-40V120h40z"/></svg>'
 }
 
 const pageCss = `
@@ -134,11 +135,12 @@ const pageCss = `
 	text-decoration: underline;
 }
 
+.cn-manager-grid .cn-extensions-button,
 .cn-manager-grid .cn-conflicts-button {
 	display: inline-block;
 	width: 20px;
 	height: 20px;
-	color: orange;
+	color: green;
 	border: none;
 	padding: 0;
 	margin: 0;
@@ -146,19 +148,33 @@ const pageCss = `
 	min-width: 20px;
 }
 
+.cn-manager-grid .cn-conflicts-button {
+	color: orange;
+}
+
+.cn-manager-grid .cn-extensions-list,
 .cn-manager-grid .cn-conflicts-list {
 	line-height: normal;
 	text-align: left;
 	max-height: 80%;
-	min-height: 100px;
+	min-height: 200px;
+	min-width: 300px;
 	overflow-y: auto;
-	background-color: #CCCC55;
-	color: #AA3333;
-	font-size: 11px;
+	font-size: 12px;
 	border-radius: 5px;
 	padding: 10px;
 }
 
+.cn-manager-grid .cn-extensions-list {
+	border-color: var(--bg-color);
+}
+
+.cn-manager-grid .cn-conflicts-list {
+	background-color: #CCCC55;
+	color: #AA3333;
+}
+
+.cn-manager-grid .cn-extensions-list h3,
 .cn-manager-grid .cn-conflicts-list h3 {
 	margin: 0;
 	padding: 5px 0;
@@ -722,16 +738,19 @@ export class CustomNodesManager {
 		const rows = this.custom_nodes || [];
 		rows.forEach((item, i) => {
 			item.id = i + 1;
-
-			const conflicts = this.conflict_mappings[item.files[0]];
-			if(conflicts) {
-				item.conflictsCount = conflicts.length;
-				item.conflictsList = conflicts;
-			} else {
-				item.conflictsCount = 0;
-				item.conflictsList = [];
+			const nodeKey = item.files[0];
+			const extensionInfo = this.extension_mappings[nodeKey];
+			if(extensionInfo) {
+				const { extensions, conflicts } = extensionInfo;
+				if (extensions.length) {
+					item.extensions = extensions.length;
+					item.extensionsList = extensions;
+				}
+				if (conflicts) {
+					item.conflicts = conflicts.length;
+					item.conflictsList = conflicts;
+				}
 			}
-
 		});
 
 		const columns = [{
@@ -787,38 +806,51 @@ export class CustomNodesManager {
 				return `<div class="tg-multiline-fixing">${description}</div>`;
 			}
 		}, {
-			id: "conflictsCount",
+			id: "extensions",
+			name: "Extensions",
+			width: 80,
+			align: 'center',
+			formatter: (extensions, rowItem, columnItem) => {
+				const extensionsList = rowItem.extensionsList;
+				if (!extensionsList) {
+					return;
+				}
+				const list = [];
+				const eId = `popover_extensions_${columnItem.id}_${rowItem.tg_index}`; 
+				list.push(`<button popovertarget="${eId}" title="${extensionsList.length} Extension Nodes" class="cn-extensions-button">${icons.extensions}</button>`)
+				list.push(`<div popover id="${eId}" class="cn-extensions-list">`)
+				list.push(`<h3>【${rowItem.title}】Extension Nodes:</h3>`);
+				extensionsList.forEach(en => {
+					list.push(`<li>${en}</li>`);
+				})
+				list.push("</div>");
+				return list.join("");
+			}
+		}, {
+			id: "conflicts",
 			name: "Conflicts",
 			width: 80,
 			align: 'center',
-			formatter: (conflictsCount, rowItem, columnItem) => {
-				if(!conflictsCount) {
-					return
+			formatter: (conflicts, rowItem, columnItem) => {
+				const conflictsList = rowItem.conflictsList;
+				if (!conflictsList) {
+					return;
 				}
-				const popoverId = `popover_${columnItem.id}_${rowItem.tg_index}`; 
-				let buf = `<button popovertarget="${popoverId}" class="cn-conflicts-button">`;
-				buf += icons.conflicts;
-				buf += '</button>';
-
-				buf += `<div popover id="${popoverId}" class="cn-conflicts-list">`;
-				buf += `<h3>【${rowItem.title}】 Conflicted Nodes:</h3>`
-				
-				rowItem.conflictsList.forEach(conflict => {
-					let node_name = conflict[0];
-
-					let extension_name = conflict[1].split('/').pop();
-					if(extension_name.endsWith('/')) {
-						extension_name = extension_name.slice(0, -1);
-					}
-					if(node_name.endsWith('.git')) {
+				const list = [];
+				const cId = `popover_conflicts_${columnItem.id}_${rowItem.tg_index}`; 
+				list.push(`<button popovertarget="${cId}" title="${conflictsList.length} Conflicted Nodes" class="cn-conflicts-button">${icons.conflicts}</button>`)
+				list.push(`<div popover id="${cId}" class="cn-conflicts-list">`)
+				list.push(`<h3>【${rowItem.title}】Conflicted Nodes:</h3>`);
+				conflictsList.forEach(en => {
+					let [node_name, extension_name] = en;
+					extension_name = extension_name.split('/').filter(it => it).pop();
+					if(extension_name.endsWith('.git')) {
 						extension_name = extension_name.slice(0, -4);
 					}
-
-					buf += `<li><B>${node_name}</B> [${extension_name}]</li>`;
-				});
-
-				buf += "</div>";
-				return buf;
+					list.push(`<li><B>${node_name}</B> [${extension_name}]</li>`);
+				})
+				list.push("</div>");
+				return list.join("");
 			}
 		}, {
 			id: 'author',
@@ -1059,9 +1091,9 @@ export class CustomNodesManager {
 
 	// ===========================================================================================
 
-	async getConflictMappings() {
+	async getExtensionMappings() {
 		const mode = manager_instance.datasrc_combo.value;
-		this.showStatus(`Loading conflict mappings (${mode}) ...`);
+		this.showStatus(`Loading extension mappings (${mode}) ...`);
 		const res = await this.fetchData(`/customnode/getmappings?mode=${mode}`);
 		if (res.error) {
 			console.log(res.error);
@@ -1069,43 +1101,45 @@ export class CustomNodesManager {
 		}
 	
 		const data = res.data;
-	
-		let node_to_extensions_map = {};
-	
-		for(let k in data) {
-			for(let i in data[k][0]) {
-				let node = data[k][0][i];
-				let l = node_to_extensions_map[node];
+
+		const extension_mappings = {};
+		const conflicts_map = {};
+		Object.keys(data).forEach(k => {
+			const [extensions, metadata] = data[k];
+			extension_mappings[k] = {
+				extensions,
+				metadata
+			}
+			extensions.forEach(node => {
+				let l = conflicts_map[node];
 				if(!l) {
 					l = [];
-					node_to_extensions_map[node] = l;
+					conflicts_map[node] = l;
 				}
 				l.push(k);
-			}
-		}
-	
-		let conflict_map = {};
-		for(let node in node_to_extensions_map) {
-			if(node_to_extensions_map[node].length > 1) {
-				for(let i in node_to_extensions_map[node]) {
-					let extension = node_to_extensions_map[node][i];
-					let l = conflict_map[extension];
-	
-					if(!l) {
-						l = [];
-						conflict_map[extension] = l;
+			})
+		})
+
+		Object.keys(conflicts_map).forEach(node => {
+			const list = conflicts_map[node];
+			if(list.length > 1) {
+				list.forEach(k => {
+					const item = extension_mappings[k];
+					if(!item) {
+						console.log(`not found ${k}`)
+						return;
 					}
-	
-					for(let j in node_to_extensions_map[node]) {
-						let extension2 = node_to_extensions_map[node][j];
-						if(extension != extension2)
-							l.push([node, extension2]);
-					}
-				}
+					item.conflicts = [];
+					list.forEach(key => {
+						if(k !== key) {
+							item.conflicts.push([node, key])
+						}
+					})
+				})
 			}
-		}
+		})
 	
-		return conflict_map;
+		return extension_mappings;
 	}
 
 	async getMissingNodes() {
@@ -1241,7 +1275,7 @@ export class CustomNodesManager {
 
 		this.showLoading();
 
-		this.conflict_mappings = await this.getConflictMappings();
+		this.extension_mappings = await this.getExtensionMappings();
 
 		const mode = manager_instance.datasrc_combo.value;
 		this.showStatus(`Loading custom nodes (${mode}) ...`);
