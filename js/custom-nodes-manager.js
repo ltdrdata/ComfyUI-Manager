@@ -116,6 +116,7 @@ const pageCss = `
 .cn-manager-grid .tg-turbogrid {
 	font-family: var(--grid-font);
 	font-size: 15px;
+	background: var(--bg-color);
 }
 
 .cn-manager-grid .cn-node-name a {
@@ -266,6 +267,18 @@ const pageCss = `
         transparent 15px
     );
     animation: cn-btn-loading-bg 3s linear infinite;
+}
+
+.cn-manager-light .cn-node-name a {
+	color: blue;
+}
+
+.cn-manager-light .cm-warn-note {
+	background-color: #ccc !important;
+}
+
+.cn-manager-light .cn-btn-install {
+	background-color: #333;
 }
 
 `;
@@ -693,8 +706,14 @@ export class CustomNodesManager {
 
 	renderGrid() {
 
+		// update theme
 		const colorPalette = this.app.ui.settings.settingsValues['Comfy.ColorPalette'];
-		// console.log(colorPalette)
+		Array.from(this.element.classList).forEach(cn => {
+			if (cn.startsWith("cn-manager-")) {
+				this.element.classList.remove(cn);
+			}
+		});
+		this.element.classList.add(`cn-manager-${colorPalette}`);
 
 		const options = {
 			theme: colorPalette === "light" ? "" : "dark"
