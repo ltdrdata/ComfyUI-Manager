@@ -163,6 +163,7 @@ const pageCss = `
 	font-size: 12px;
 	border-radius: 5px;
 	padding: 10px;
+	filter: drop-shadow(2px 5px 5px rgb(0 0 0 / 30%));
 }
 
 .cn-manager-grid .cn-extensions-list {
@@ -819,7 +820,7 @@ export class CustomNodesManager {
 				const eId = `popover_extensions_${columnItem.id}_${rowItem.tg_index}`; 
 				list.push(`<button popovertarget="${eId}" title="${extensionsList.length} Extension Nodes" class="cn-extensions-button">${icons.extensions}</button>`)
 				list.push(`<div popover id="${eId}" class="cn-extensions-list">`)
-				list.push(`<h3>【${rowItem.title}】Extension Nodes:</h3>`);
+				list.push(`<h3>【${rowItem.title}】Extension Nodes (${extensionsList.length})</h3>`);
 				extensionsList.forEach(en => {
 					list.push(`<li>${en}</li>`);
 				})
@@ -840,7 +841,7 @@ export class CustomNodesManager {
 				const cId = `popover_conflicts_${columnItem.id}_${rowItem.tg_index}`; 
 				list.push(`<button popovertarget="${cId}" title="${conflictsList.length} Conflicted Nodes" class="cn-conflicts-button">${icons.conflicts}</button>`)
 				list.push(`<div popover id="${cId}" class="cn-conflicts-list">`)
-				list.push(`<h3>【${rowItem.title}】Conflicted Nodes:</h3>`);
+				list.push(`<h3>【${rowItem.title}】Conflicted Nodes (${conflictsList.length})</h3>`);
 				conflictsList.forEach(en => {
 					let [node_name, extension_name] = en;
 					extension_name = extension_name.split('/').filter(it => it).pop();
@@ -1129,7 +1130,10 @@ export class CustomNodesManager {
 						console.log(`not found ${k}`)
 						return;
 					}
-					item.conflicts = [];
+
+					if (!item.conflicts) {
+						item.conflicts = [];
+					}
 					list.forEach(key => {
 						if(k !== key) {
 							item.conflicts.push([node, key])
