@@ -507,6 +507,16 @@ async def fetch_customnode_list(request):
     return web.json_response(json_obj, content_type='application/json')
 
 
+@PromptServer.instance.routes.get("/customnode/alternatives")
+async def fetch_customnode_alternatives(request):
+    alter_json = await core.get_data_by_mode(request.rel_url.query["mode"], 'alter-list.json')
+
+    for item in alter_json['items']:
+        populate_markdown(item)
+        
+    return web.json_response(alter_json, content_type='application/json')
+
+
 @PromptServer.instance.routes.get("/alternatives/getlist")
 async def fetch_alternatives_list(request):
     if "skip_update" in request.rel_url.query and request.rel_url.query["skip_update"] == "true":
