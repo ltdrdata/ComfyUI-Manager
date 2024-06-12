@@ -1163,9 +1163,9 @@ export class CustomNodesManager {
 		}
 
 		const resUnresolved = await this.fetchData(`/component/get_unresolved`);
-		const unresolved_nodes = resUnresolved.data;
-		if (unresolved_nodes) {
-			unresolved_nodes.forEach(node_type => {
+		const unresolved = resUnresolved.data;
+		if (unresolved && unresolved.nodes) {
+			unresolved.nodes.forEach(node_type => {
 				const url = name_to_urls[node_type];
 				if(url) {
 					missing_nodes.add(url);
