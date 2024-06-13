@@ -9,13 +9,14 @@ import locale
 import platform
 import json
 
-
 glob_path = os.path.join(os.path.dirname(__file__), "glob")
 sys.path.append(glob_path)
 
+import security_check
 from manager_util import *
 import cm_global
 
+security_check.security_check()
 
 cm_global.pip_downgrade_blacklist = ['torch', 'torchsde', 'torchvision', 'transformers', 'safetensors', 'kornia']
 

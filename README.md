@@ -5,6 +5,7 @@
 ![menu](misc/menu.jpg)
 
 ## NOTICE
+* V2.37 Show a ✅ mark to accounts that have been active on GitHub for more than six months.
 * V2.33 Security policy is applied.
 * V2.21 [cm-cli](docs/en/cm-cli.md) tool is added.
 * V2.18 to V2.18.3 is not functioning due to a severe bug. Users on these versions are advised to promptly update to V2.18.4. Please navigate to the `ComfyUI/custom_nodes/ComfyUI-Manager` directory and execute `git pull` to update.
@@ -85,6 +86,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Support for automatically installing dependencies of custom nodes upon restarting Colab notebooks.
 
 ## Changes
+* **2.38** `Install Custom Nodes` menu is changed to `Custom Nodes Manager`.
 * **2.21** [cm-cli](docs/en/cm-cli.md) tool is added.
 * **2.4** Copy the connections of the nearest node by double-clicking.
 * **2.2.3** Support Components System
@@ -277,11 +279,11 @@ NODE_CLASS_MAPPINGS.update({
 
 ## Support of missing nodes installation
 
-![missing-menu](misc/missing-menu.png)
+![missing-menu](misc/missing-menu.jpg)
 
 * When you click on the ```Install Missing Custom Nodes``` button in the menu, it displays a list of extension nodes that contain nodes not currently present in the workflow.
 
-![missing-list](misc/missing-list.png)
+![missing-list](misc/missing-list.jpg)
 
 
 ## Additional Feature

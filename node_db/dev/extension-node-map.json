@@ -504,8 +504,13 @@
     ],
     "https://github.com/Quasimondo/ComfyUI-QuasimondoNodes": [
         [
+            "Color Match",
             "Custom Shader",
             "Folder Queue Manager",
+            "Image Blend by Mask (Batch)",
+            "Image Noise Generator",
+            "Perlin Noise Generator",
+            "Random Image Generator",
             "Spring Mesh",
             "Video Queue Manager"
         ],
@@ -539,14 +544,38 @@
             "title_aux": "ComfyUI-MS-Nodes [WIP]"
         }
     ],
+    "https://github.com/Scorpinaus/ComfyUI-DiffusersLoader": [
+        [
+            "CombinedDiffusersSD15Loader",
+            "CombinedDiffusersSDXLLoader",
+            "SD15CLIPLoader",
+            "SD15UNETLoader",
+            "SD15VAELoader",
+            "SDXLCLIPLoader",
+            "SDXLUNETLoader",
+            "SDXLVAELoader"
+        ],
+        {
+            "title_aux": "ComfyUI-DiffusersLoader"
+        }
+    ],
     "https://github.com/SeedV/ComfyUI-SeedV-Nodes": [
         [
             "CheckpointLoaderSimpleShared //SeedV",
+            "ControlNetLoaderAdvancedShared",
             "LoraLoader //SeedV",
             "Script"
         ],
         {
             "title_aux": "ComfyUI-SeedV-Nodes [UNSAFE]"
+        }
+    ],
+    "https://github.com/StartHua/Comfyui_CXH_CRM": [
+        [
+            "CRM"
+        ],
+        {
+            "title_aux": "Comfyui_CXH_CRM"
         }
     ],
     "https://github.com/TSFSean/ComfyUI-TSFNodes": [
@@ -712,8 +741,21 @@
             "title_aux": "comfyui-cleaner"
         }
     ],
+    "https://github.com/bruce007lee/comfyui-tiny-utils": [
+        [
+            "CropImageByMask",
+            "FaceAlign",
+            "FaceAlignImageProcess",
+            "FaceAlignMaskProcess",
+            "ImageFillColorByMask"
+        ],
+        {
+            "title_aux": "comfyui-tiny-utils"
+        }
+    ],
     "https://github.com/brycegoh/comfyui-custom-nodes": [
         [
+            "CombineTwoImageIntoOne",
             "FillMaskedArea",
             "MaskAreaComparisonSegment",
             "OCRAndMask"
@@ -955,51 +997,38 @@
             "title_aux": "ComfyUI"
         }
     ],
-    "https://github.com/dezi-ai/ComfyUI-AnimateLCM": [
+    "https://github.com/comfypod/ComfyUI-Comflow": [
         [
-            "ADE_AdjustPEFullStretch",
-            "ADE_AdjustPEManual",
-            "ADE_AdjustPESweetspotStretch",
-            "ADE_AnimateDiffCombine",
-            "ADE_AnimateDiffKeyframe",
-            "ADE_AnimateDiffLoRALoader",
-            "ADE_AnimateDiffLoaderGen1",
-            "ADE_AnimateDiffLoaderV1Advanced",
-            "ADE_AnimateDiffLoaderWithContext",
-            "ADE_AnimateDiffModelSettings",
-            "ADE_AnimateDiffModelSettingsAdvancedAttnStrengths",
-            "ADE_AnimateDiffModelSettingsSimple",
-            "ADE_AnimateDiffModelSettings_Release",
-            "ADE_AnimateDiffSamplingSettings",
-            "ADE_AnimateDiffSettings",
-            "ADE_AnimateDiffUniformContextOptions",
-            "ADE_AnimateDiffUnload",
-            "ADE_ApplyAnimateDiffModel",
-            "ADE_ApplyAnimateDiffModelSimple",
-            "ADE_BatchedContextOptions",
-            "ADE_EmptyLatentImageLarge",
-            "ADE_IterationOptsDefault",
-            "ADE_IterationOptsFreeInit",
-            "ADE_LoadAnimateDiffModel",
-            "ADE_LoopedUniformContextOptions",
-            "ADE_LoopedUniformViewOptions",
-            "ADE_MaskedLoadLora",
-            "ADE_MultivalDynamic",
-            "ADE_MultivalScaledMask",
-            "ADE_NoiseLayerAdd",
-            "ADE_NoiseLayerAddWeighted",
-            "ADE_NoiseLayerReplace",
-            "ADE_StandardStaticContextOptions",
-            "ADE_StandardStaticViewOptions",
-            "ADE_StandardUniformContextOptions",
-            "ADE_StandardUniformViewOptions",
-            "ADE_UseEvolvedSampling",
-            "ADE_ViewsOnlyContextOptions",
-            "AnimateDiffLoaderV1",
-            "CheckpointLoaderSimpleWithNoiseSelect"
+            "ComflowInputBoolean",
+            "ComflowInputCheckpoint",
+            "ComflowInputImage",
+            "ComflowInputImageAlpha",
+            "ComflowInputImageBatch",
+            "ComflowInputLora",
+            "ComflowInputNumber",
+            "ComflowInputNumberInt",
+            "ComflowInputNumberSlider",
+            "ComflowInputText",
+            "ComflowInputVid",
+            "ComflowInputVideo",
+            "ComflowWebsocketImageInput",
+            "ComflowWebsocketImageOutput"
         ],
         {
-            "title_aux": "ComfyUI Animate LCM"
+            "description": "",
+            "nickname": "Comflow",
+            "title": "comflow",
+            "title_aux": "ComfyUI-Comflow"
+        }
+    ],
+    "https://github.com/corbin-hayden13/ComfyUI-Better-Dimensions": [
+        [
+            "BetterImageDimensions",
+            "PureRatio",
+            "SDXLDimensions"
+        ],
+        {
+            "title_aux": "ComfyUI-Better-Dimensions"
         }
     ],
     "https://github.com/dfl/comfyui-stylegan": [
@@ -1087,6 +1116,15 @@
         ],
         {
             "title_aux": "ComfyUI-Ty"
+        }
+    ],
+    "https://github.com/endman100/ComfyUI-SaveAndLoadPromptCondition": [
+        [
+            "LoadContditioning",
+            "SaveConditioning"
+        ],
+        {
+            "title_aux": "ComfyUI Nodes: SaveConditioning and LoadConditioning"
         }
     ],
     "https://github.com/ericbeyer/guidance_interval": [
@@ -1190,6 +1228,27 @@
             "title_aux": "comfy-magick [WIP]"
         }
     ],
+    "https://github.com/huchenlei/ComfyUI_densediffusion": [
+        [
+            "DenseDiffusionAddCondNode",
+            "DenseDiffusionApplyNode"
+        ],
+        {
+            "title_aux": "ComfyUI DenseDiffusion [WIP]"
+        }
+    ],
+    "https://github.com/huchenlei/ComfyUI_omost": [
+        [
+            "OmostLLMChatNode",
+            "OmostLLMLoaderNode",
+            "OmostLayoutCondNode",
+            "OmostLoadCanvasConditioningNode",
+            "OmostRenderCanvasConditioningNode"
+        ],
+        {
+            "title_aux": "ComfyUI_omost [WIP]"
+        }
+    ],
     "https://github.com/huizhang0110/ComfyUI_Easy_Nodes_hui": [
         [
             "EasyBgRemover",
@@ -1241,10 +1300,21 @@
     "https://github.com/immersiveexperience/ie-comfyui-color-nodes": [
         [
             "Average Color",
-            "Complementary Color"
+            "Complementary Color",
+            "Hex to Color Name"
         ],
         {
             "title_aux": "ie-comfyui-color-nodes"
+        }
+    ],
+    "https://github.com/jh-leon-kim/ComfyUI-JHK-utils": [
+        [
+            "JHK_Utils_ImageRemoveBackground",
+            "JHK_Utils_LoadEmbed",
+            "JHK_Utils_string_merge"
+        ],
+        {
+            "title_aux": "ComfyUI-JHK-utils"
         }
     ],
     "https://github.com/jn-jairo/jn_node_suite_comfyui": [
@@ -1391,6 +1461,16 @@
             "title_aux": "ComfyUI_Usability (WIP)"
         }
     ],
+    "https://github.com/kijai/ComfyUI-CV-VAE": [
+        [
+            "CV_VAE_Decode",
+            "CV_VAE_Encode",
+            "CV_VAE_Load"
+        ],
+        {
+            "title_aux": "ComfyUI-CV-VAE"
+        }
+    ],
     "https://github.com/kijai/ComfyUI-DeepSeek-VL": [
         [
             "deepseek_vl_inference",
@@ -1460,6 +1540,18 @@
         ],
         {
             "title_aux": "ComfyUI-BuildPath"
+        }
+    ],
+    "https://github.com/marduk191/comfyui-marnodes": [
+        [
+            "marduk191_workflow_settings"
+        ],
+        {
+            "author": "\u02f6marduk191",
+            "description": "A node to set workflow settings.",
+            "nickname": "marduk191 workflow settings",
+            "title": "marduk191 workflow settings",
+            "title_aux": "comfyui-marnodes"
         }
     ],
     "https://github.com/mut-ex/comfyui-gligengui-node": [
@@ -1533,18 +1625,19 @@
             "title_aux": "Kosmos2_BBox_Cutter Models"
         }
     ],
-    "https://github.com/phineas-pta/comfy-trt-test": [
+    "https://github.com/pamparamm/ComfyUI-ppm": [
         [
-            "TRT_Lora_Loader",
-            "TRT_Torch_Compile",
-            "TRT_Unet_Loader"
+            "CLIPMicroConditioning",
+            "CLIPNegPip",
+            "CLIPSetLastLayerFloat",
+            "CLIPTextEncodeBREAK",
+            "EmptyLatentImageAR",
+            "RandomPromptGenerator",
+            "StableCascade_AutoCompLatent",
+            "TokenCounter"
         ],
         {
-            "author": "PTA",
-            "description": "attempt to use TensorRT with ComfyUI, not yet compatible with ComfyUI-Manager, see README for instructions",
-            "nickname": "comfy trt test",
-            "title": "TensorRT with ComfyUI (work-in-progress)",
-            "title_aux": "comfy-trt-test [WIP]"
+            "title_aux": "ComfyUI-ppm"
         }
     ],
     "https://github.com/poisenbery/NudeNet-Detector-Provider": [
@@ -1715,6 +1808,14 @@
         ],
         {
             "title_aux": "ComfyUI-TDNodes [WIP]"
+        }
+    ],
+    "https://github.com/udi0510/comfyui-slicer": [
+        [
+            "SlicerNode"
+        ],
+        {
+            "title_aux": "comfyui-slicer"
         }
     ],
     "https://github.com/umisetokikaze/comfyui_mergekit": [

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo
+echo CHECK1
+
 files=(
     "custom-node-list.json"
     "model-list.json"
@@ -26,3 +29,14 @@ files=(
 for file in "${files[@]}"; do
     python json-checker.py "$file"
 done
+
+echo
+echo CHECK2
+find ~/.tmp/default -name "*.py" -print0 | xargs -0 grep "crypto"
+
+echo
+echo CHECK3
+find ~/.tmp/default -name "requirements.txt" | xargs grep "^\s*https\\?:"
+find ~/.tmp/default -name "requirements.txt" | xargs grep "\.whl"
+
+echo

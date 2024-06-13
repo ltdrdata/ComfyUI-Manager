@@ -293,12 +293,16 @@ def update_custom_nodes():
                     if len(path_parts) >= 2 and domain == "github.com":
                         owner_repo = "/".join(path_parts[-2:])
                         repo = g.get_repo(owner_repo)
-
+                        owner = repo.owner
+                        now = datetime.datetime.now(datetime.timezone.utc)
+                        author_time_diff = now - owner.created_at
+                        
                         last_update = repo.pushed_at.strftime("%Y-%m-%d %H:%M:%S") if repo.pushed_at else 'N/A'
                         item = {
                             "stars": repo.stargazers_count,
                             "last_update": last_update,
-                            "cached_time": datetime.datetime.now().timestamp(),
+                            "cached_time": now.timestamp(),
+                            "author_account_age_days": author_time_diff.days,
                         }
                         return url, item
                     else:
@@ -453,7 +457,13 @@ def gen_json(node_info):
             git_url, title, preemptions, node_pattern = node_info[extension]
 
             with open(node_list_json_path, 'r', encoding='utf-8') as f:
-                node_list_json = json.load(f)
+                try:
+                    node_list_json = json.load(f)
+                except Exception as e:
+                    print(f"\nERROR: Invalid json format '{node_list_json_path}'")
+                    print("------------------------------------------------------")
+                    print(e)
+                    print("------------------------------------------------------")
 
             metadata_in_url = {}
             if git_url not in data:
