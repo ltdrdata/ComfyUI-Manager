@@ -2842,6 +2842,7 @@
             "AnimeCosplayDir",
             "AspectRatioCondition",
             "Colors",
+            "CombinedCrop",
             "ConnectFloat",
             "ConnectImage",
             "ConnectInteger",
@@ -5030,6 +5031,15 @@
             "title_aux": "ComfyUI-TacoNodes"
         }
     ],
+    "https://github.com/Yanick112/ComfyUI-ToSVG": [
+        [
+            "ConvertRasterToVector",
+            "SaveSVG"
+        ],
+        {
+            "title_aux": "ComfyUI-ToSVG"
+        }
+    ],
     "https://github.com/YinBailiang/MergeBlockWeighted_fo_ComfyUI": [
         [
             "MergeBlockWeighted"
@@ -5466,7 +5476,8 @@
     ],
     "https://github.com/alessandrozonta/ComfyUI-Layers": [
         [
-            "LayersSaver - Save Layer"
+            "LayersSaver - Save Layer",
+            "LayersSaver - Save Layer From Images"
         ],
         {
             "title_aux": "Save Layers Node for ComfyUI"
@@ -7870,20 +7881,20 @@
             "title_aux": "KSampler GPU"
         }
     ],
-    "https://github.com/daxcay/ComfyUI-DRMN": [
+    "https://github.com/daxcay/ComfyUI-DataSet": [
         [
-            "DRMN_CaptionVisualizer",
-            "DRMN_SearchAndReplace",
-            "DRMN_TXTFileSaver",
-            "DRMN_TagManipulatorByImageNames",
-            "DRMN_xCopy"
+            "DATASET_CaptionVisualizer",
+            "DATASET_SearchAndReplace",
+            "DATASET_TXTFileSaver",
+            "DATASET_TagManipulatorByImageNames",
+            "DATASET_xCopy"
         ],
         {
             "author": "Daxton Caylor",
             "description": "Data Research And Manipulators Nodes for Model Trainers, Artists, Designers and Animators.",
-            "nickname": "ComfyUI-DRMN",
-            "title": "ComfyUI-DRMN",
-            "title_aux": "ComfyUI-DRMN"
+            "nickname": "ComfyUI-DataSet",
+            "title": "ComfyUI-DataSet",
+            "title_aux": "ComfyUI-DataSet"
         }
     ],
     "https://github.com/daxcay/ComfyUI-JDCN": [
@@ -10360,6 +10371,7 @@
             "ImageBatchRepeatInterleaving",
             "ImageBatchTestPattern",
             "ImageConcanate",
+            "ImageConcatMulti",
             "ImageGrabPIL",
             "ImageGridComposite2x2",
             "ImageGridComposite3x3",
@@ -10755,6 +10767,15 @@
             "title_aux": "ComfyUI-Login"
         }
     ],
+    "https://github.com/liusida/ComfyUI-SD3-nodes": [
+        [
+            "SD3CombineClips",
+            "SD3LoadCheckpoint"
+        ],
+        {
+            "title_aux": "ComfyUI-SD3-nodes"
+        }
+    ],
     "https://github.com/ljleb/comfy-mecha": [
         [
             "Blocks Mecha Hyper",
@@ -10836,11 +10857,20 @@
     "https://github.com/logtd/ComfyUI-FLATTEN": [
         [
             "ApplyFlattenAttentionNode",
+            "ApplyFlattenAttentionSD3MNode",
             "CreateFlowNoiseNode",
             "FlattenCheckpointLoaderNode",
             "KSamplerFlattenNode",
             "TrajectoryNode",
             "UnsamplerFlattenNode"
+        ],
+        {
+            "title_aux": "ComfyUI-FLATTEN"
+        }
+    ],
+    "https://github.com/logtd/ComfyUI-FlattenFlow": [
+        [
+            "SampleFlowTrajectoriesNode"
         ],
         {
             "title_aux": "ComfyUI-FLATTEN"
@@ -11532,24 +11562,32 @@
     ],
     "https://github.com/mephisto83/petty-paint-comfyui-node": [
         [
+            "PettyImageImageColorToMask",
             "PettyPaintAppend",
+            "PettyPaintApplyLoRAStack",
+            "PettyPaintBlurs",
             "PettyPaintComponent",
             "PettyPaintConditioningSetMaskAndCombine",
             "PettyPaintConvert",
             "PettyPaintCountFiles",
             "PettyPaintEnsureDirectory",
             "PettyPaintExec",
+            "PettyPaintFakeConvert",
+            "PettyPaintImageColorsToMasks",
             "PettyPaintImageCompositeMasked",
             "PettyPaintImagePlacement",
             "PettyPaintImageSave",
             "PettyPaintImageStore",
             "PettyPaintImageToMask",
+            "PettyPaintImagesToMasks",
             "PettyPaintJsonMap",
             "PettyPaintJsonRead",
             "PettyPaintJsonReadArray",
+            "PettyPaintLoRAStack",
             "PettyPaintLoadImage",
             "PettyPaintLoadImages",
             "PettyPaintMap",
+            "PettyPaintMasksToImages",
             "PettyPaintProcessor",
             "PettyPaintRemoveAddText",
             "PettyPaintSDTurboScheduler",
@@ -12653,7 +12691,6 @@
             "ChatGPTOpenAI",
             "CkptNames_",
             "Color",
-            "CombineAudioVideo",
             "ComparingTwoFrames_",
             "CompositeImages_",
             "DynamicDelayProcessor",
@@ -12665,8 +12702,6 @@
             "FloatingVideo",
             "Font",
             "GLIGENTextBoxApply_Advanced",
-            "GamePal",
-            "GenerateFramesByCount",
             "GetImageSize_",
             "GradientImage",
             "GridDisplayAndSave",
@@ -12674,7 +12709,6 @@
             "GridOutput",
             "ImageColorTransfer",
             "ImageCropByAlpha",
-            "ImageListReplace_",
             "ImageListToBatch_",
             "ImagesPrompt_",
             "IncrementingListNode_",
@@ -12682,12 +12716,10 @@
             "JoinWithDelimiter",
             "LimitNumber",
             "ListSplit_",
-            "LoadAndCombinedAudio_",
             "LoadImagesFromPath",
             "LoadImagesFromURL",
             "LoadImagesToBatch",
             "LoadTripoSRModel_",
-            "LoadVideoAndSegment_",
             "LoraNames_",
             "LoraPrompt",
             "MaskListMerge_",
@@ -12708,7 +12740,6 @@
             "SaveImageAndMetadata_",
             "SaveImageToLocal",
             "SaveTripoSRMesh",
-            "ScenesNode_",
             "ScreenShare",
             "Seed_",
             "ShowLayer",
@@ -12732,9 +12763,7 @@
             "TransparentImage",
             "TripoSRSampler_",
             "VAEDecodeConsistencyDecoder",
-            "VAEEncodeForInpaint_Frames",
-            "VAELoaderConsistencyDecoder",
-            "VideoCombine_Adv"
+            "VAELoaderConsistencyDecoder"
         ],
         {
             "title_aux": "comfyui-mixlab-nodes"
@@ -13592,6 +13621,16 @@
         ],
         {
             "title_aux": "Easy automatic (square) image cropper using Yolo"
+        }
+    ],
+    "https://github.com/toxicwind/ComfyUI-TTools": [
+        [
+            "TTools Extract JSON",
+            "TTools Randomize And Format String",
+            "TTools SD3 Resolution Solver"
+        ],
+        {
+            "title_aux": "TTools for ComfyUI"
         }
     ],
     "https://github.com/toyxyz/ComfyUI_toyxyz_test_nodes": [
