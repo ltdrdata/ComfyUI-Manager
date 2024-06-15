@@ -15,6 +15,93 @@
 
 
         {
+            "author": "AIFSH",
+            "title": "ComfyUI-MimicBrush",
+            "id": "mimicbrush",
+            "reference": "https://github.com/AIFSH/ComfyUI-MimicBrush",
+            "files": [
+                "https://github.com/AIFSH/ComfyUI-MimicBrush"
+            ],
+            "install_type": "git-clone",
+            "description": "a comfyui custom node for [a/MimicBrush](https://github.com/ali-vilab/MimicBrush),then inpainting with reference image."
+        },
+        {
+            "author": "dicksondickson",
+            "title": "Dickson's ComfyUI Custom Nodes Collection",
+            "id": "dickson",
+            "reference": "https://github.com/dicksondickson/ComfyUI-Dickson-Nodes",
+            "files": [
+                "https://github.com/dicksondickson/ComfyUI-Dickson-Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Dickson Color Match, TTPlanet Tile Preprocessor GF, TTPlanet Tile Preprocessor Simple, TTPlanet Tile Preprocessor cufoff. This is a set of custom nodes that I've either written myself or adapted from other authors for my own convenience."
+        },
+        {
+            "author": "redhottensors",
+            "title": "ComfyUI-ODE",
+            "id": "ode",
+            "reference": "https://github.com/redhottensors/ComfyUI-ODE",
+            "files": [
+                "https://github.com/redhottensors/ComfyUI-ODE"
+            ],
+            "install_type": "git-clone",
+            "description": "ODE Solvers for ComfyUI\nThis node enables use of torchdiffeq ODE solvers with models.  Intended for use with Stable Diffusion 3 and similar flow models."
+        },
+        {
+            "author": "G-370",
+            "title": "ComfyUI-SD3-Powerlab",
+            "id": "sd3-powerlab",
+            "reference": "https://github.com/G-370/ComfyUI-SD3-Powerlab",
+            "files": [
+                "https://github.com/G-370/ComfyUI-SD3-Powerlab"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Render SD3 Attention, SD3 Attention To Image, SD3 Image Into Attention."
+        },
+        {
+            "author": "TylerZoro",
+            "title": "SD3-Scaling",
+            "id": "sd3-scaling",
+            "reference": "https://github.com/TylerZoro/SD3-Scaling",
+            "files": [
+                "https://github.com/TylerZoro/SD3-Scaling"
+            ],
+            "install_type": "git-clone",
+            "description": "Tools for scaling images and latents appropriate to SD3 in ComfyUI."
+        },
+        {
+            "author": "ShmuelRonen",
+            "title": "ComfyUI_Gemini_Flash",
+            "id": "gemini-flash",
+            "reference": "https://github.com/ShmuelRonen/ComfyUI_Gemini_Flash",
+            "files": [
+                "https://github.com/ShmuelRonen/ComfyUI_Gemini_Flash"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI_Gemini_Flash is a custom node for ComfyUI, integrating the capabilities of the Gemini 1.5 Flash model. This node supports text and vision-based prompts, allowing users to analyze and adapt images to text prompts for text2image tasks."
+        },
+        {
+            "author": "nagolinc",
+            "title": "comfyui_openai_node",
+            "reference": "https://github.com/nagolinc/comfyui_openai_node",
+            "files": [
+                "https://github.com/nagolinc/comfyui_openai_node"
+            ],
+            "install_type": "git-clone",
+            "description": "This provides a single node openai > Open AI query node\nthat takes a system prompt and user message and sends them to chatGPT 3.5\nNote, you MUST have an OPEN AI API key stored in the environment variable OPENAI_API_KEY in order for this to work."
+        },
+        {
+            "author": "juehackr",
+            "title": "comfyui_fk_server",
+            "id": "fk-server",
+            "reference": "https://github.com/juehackr/comfyui_fk_server",
+            "files": [
+                "https://github.com/juehackr/comfyui_fk_server"
+            ],
+            "install_type": "git-clone",
+            "description": "🤗🤗🤗Comfyui Universal Translation Plugin (no longer requires adding various nodes, directly add translation function on the existing nodes), allowing Comfyui to support Chinese input and automatic translation for any long text input box, while adding error translation function (calling Baidu Translate), achieving translation freedom!"
+        },
+        {
             "author": "Yanick112",
             "title": "ComfyUI-ToSVG",
             "id": "tosvg",
@@ -606,149 +693,6 @@
             ],
             "install_type": "git-clone",
             "description": "[a/MusePose](https://github.com/TMElyralab/MusePose) is an image-to-video generation framework for virtual human under control signal such as pose.\nNOTE: You need to download weigths manually from: [a/https://huggingface.co/TMElyralab/MusePose](https://huggingface.co/TMElyralab/MusePose).[w/The repository name has changed. If you are not receiving updates, please delete the existing node and reinstall it.]"
-        },
-        {
-            "author": "claussteinmassl",
-            "title": "CS Transform Node for ComfyUI",
-            "id": "cs-transform",
-            "reference": "https://github.com/claussteinmassl/ComfyUI-CS-CustomNodes",
-            "files": [
-                "https://github.com/claussteinmassl/ComfyUI-CS-CustomNodes"
-            ],
-            "install_type": "git-clone",
-            "description": "The CS Transform node is a custom node for ComfyUI that applies a series of transformations to an input image and mask. The transformations include scaling, rotation, and translation, all centered around a specified pivot point. The node ensures that the transformed image is properly accommodated within a canvas, which can be expanded if needed."
-        },
-        {
-            "author": "bitaffinity",
-            "title": "ComfyUI_HF_Inference",
-            "id": "hf-inference",
-            "reference": "https://github.com/bitaffinity/ComfyUI_HF_Inference",
-            "files": [
-              "https://github.com/bitaffinity/ComfyUI_HF_Inference"
-            ],
-            "install_type": "git-clone",
-            "description": "Unofficial support for Hugging Face's hosted inference."
-        },
-        {
-            "author": "Jin Liu",
-            "title": "ComfyUI-Photopea",
-            "id": "photopea",
-            "reference": "https://github.com/coolzilj/ComfyUI-Photopea",
-            "files": [
-              "https://github.com/coolzilj/ComfyUI-Photopea"
-            ],
-            "install_type": "git-clone",
-            "description": "Edit images in the Photopea editor directly within ComfyUI."
-        },
-        {
-            "author": "AustinMroz",
-            "title": "DynamicOversampling",
-            "id": "dynamic-oversampling",
-            "reference": "https://github.com/AustinMroz/ComfyUI-DynamicOversampling",
-            "files": [
-                "https://github.com/AustinMroz/ComfyUI-DynamicOversampling"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:DynamicSampler, MeasuredSampler, ResolveMaskPromise"
-        },
-        {
-            "author": "prodogape",
-            "title": "ComfyUI-EasyOCR",
-            "id": "easyocr",
-            "reference": "https://github.com/prodogape/ComfyUI-EasyOCR",
-            "files": [
-                "https://github.com/prodogape/ComfyUI-EasyOCR"
-            ],
-            "install_type": "git-clone",
-            "description": "This node is primarily based on Easy-OCR to implement OCR text recognition functionality."
-        },
-        {
-            "author": "MariusKM",
-            "title": "ComfyUI-BadmanNodes",
-            "id": "badman",
-            "reference": "https://github.com/MariusKM/ComfyUI-BadmanNodes",
-            "files": [
-                "https://github.com/MariusKM/ComfyUI-BadmanNodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Badman_Blend, Badman_HexGenerator, Badman_String, Badman_Concat_String, Badman_Print, BadmanIO, BadmanIntUtil"
-        },
-        {
-            "author": "chesnokovivan",
-            "title": "ComfyUI-Novakid",
-            "id": "novakid",
-            "reference": "https://github.com/chesnokovivan/ComfyUI-Novakid",
-            "files": [
-                "https://github.com/chesnokovivan/ComfyUI-Novakid"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI: Novakid. A node."
-        },
-        {
-            "author": "Extraltodeus",
-            "title": "Stable-Diffusion-temperature-settings",
-            "id": "sd-temperature",
-            "reference": "https://github.com/Extraltodeus/Stable-Diffusion-temperature-settings",
-            "files": [
-                "https://github.com/Extraltodeus/Stable-Diffusion-temperature-settings"
-            ],
-            "install_type": "git-clone",
-            "description": "Provides the ability to set the temperature for both UNET and CLIP. For ComfyUI."
-        },
-        {
-            "author": "tmagara",
-            "title": "ComfyUI-Prediction-Boost",
-            "id": "prediction-boost",
-            "reference": "https://github.com/tmagara/ComfyUI-Prediction-Boost",
-            "files": [
-                  "https://github.com/tmagara/ComfyUI-Prediction-Boost"
-            ],
-            "install_type": "git-clone",
-            "description": "prediction boost custom node for ComfyUI"
-        },
-        {
-            "author": "wujm424606",
-            "title": "ComfyUi-Ollama-YN",
-            "id": "ollama-YN",
-            "reference": "https://github.com/wujm424606/ComfyUi-Ollama-YN",
-            "files": [
-                "https://github.com/wujm424606/ComfyUi-Ollama-YN"
-            ],
-            "install_type": "git-clone",
-            "description": "Custom ComfyUI Nodes for interacting with [a/Ollama](https://ollama.com/) using the [a/ollama python client](https://github.com/ollama/ollama-python).\n Meanwhile it will provide better prompt descriptor for stable diffusion."
-        },
-        {
-          "author": "goktug",
-          "title": "Save Image Plus for ComfyUI",
-          "id": "saveimage-plus",
-          "reference": "https://github.com/Goktug/comfyui-saveimage-plus",
-          "files": [
-                "https://github.com/Goktug/comfyui-saveimage-plus"
-          ],
-          "install_type": "git-clone",
-          "description": "Save Image Plus is a custom node for ComfyUI that allows you to save images in JPEG and WEBP formats with optional metadata embedding."
-        },
-        {
-            "author": "audioscavenger",
-            "title": "ComfyUI Thumbnails",
-            "id": "thumbnails",
-            "reference": "https://github.com/audioscavenger/ComfyUI-Thumbnails",
-            "files": [
-                "https://github.com/audioscavenger/ComfyUI-Thumbnails"
-            ],
-            "install_type": "git-clone",
-            "description": "Load Image thumbnails for ComfyUI"
-        },
-        {
-            "author": "githubYiheng",
-            "title": "comfyui_private_postprocessor",
-            "id": "githubyiheng-private-postprocessor",
-            "reference": "https://github.com/githubYiheng/comfyui_private_postprocessor",
-            "files": [
-                "https://github.com/githubYiheng/comfyui_private_postprocessor"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Private ImageCPostprocessor"
         }
     ]
 }

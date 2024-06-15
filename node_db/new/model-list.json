@@ -1,6 +1,67 @@
 {
   "models": [
     {
+      "name": "kijai/DepthAnythingV2 (vitb/fp16)",
+      "type": "depthanything",
+      "base": "depthanything",
+      "save_path": "depthanything",
+      "description": "[195MB] DepthAnythingV2 model",
+      "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
+      "filename": "depth_anything_v2_vitb_fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vitb_fp16.safetensors"
+    },
+    {
+      "name": "kijai/DepthAnythingV2 (vitb/fp32)",
+      "type": "depthanything",
+      "base": "depthanything",
+      "save_path": "depthanything",
+      "description": "[390MB] DepthAnythingV2 model",
+      "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
+      "filename": "depth_anything_v2_vitb_fp32.safetensors",
+      "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vitb_fp32.safetensors"
+    },
+    {
+      "name": "kijai/DepthAnythingV2 (vitl/fp16)",
+      "type": "depthanything",
+      "base": "depthanything",
+      "save_path": "depthanything",
+      "description": "[671MB] DepthAnythingV2 model",
+      "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
+      "filename": "depth_anything_v2_vitl_fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vitl_fp16.safetensors"
+    },
+    {
+      "name": "kijai/DepthAnythingV2 (vitl/fp32)",
+      "type": "depthanything",
+      "base": "depthanything",
+      "save_path": "depthanything",
+      "description": "[195MB] DepthAnythingV2 model",
+      "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
+      "filename": "depth_anything_v2_vitl_fp32.safetensors",
+      "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vitl_fp32.safetensors"
+    },
+    {
+      "name": "kijai/DepthAnythingV2 (vits/fp16)",
+      "type": "depthanything",
+      "base": "depthanything",
+      "save_path": "depthanything",
+      "description": "[49.6MB] DepthAnythingV2 model",
+      "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
+      "filename": "depth_anything_v2_vits_fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vits_fp16.safetensors"
+    },
+    {
+      "name": "kijai/DepthAnythingV2 (vitb/fp32)",
+      "type": "depthanything",
+      "base": "depthanything",
+      "save_path": "depthanything",
+      "description": "[99.2MB] DepthAnythingV2 model",
+      "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
+      "filename": "depth_anything_v2_vits_fp32.safetensors",
+      "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vits_fp32.safetensors"
+    },
+
+    {
       "name": "CN-anytest_v4-marged.safetensors",
       "type": "controlnet",
       "base": "SDXL",
@@ -583,280 +644,6 @@
       "reference": "https://huggingface.co/camenduru/YoloWorld-EfficientSAM/tree/main",
       "filename": "efficient_sam_s_gpu.jit",
       "url": "https://huggingface.co/camenduru/YoloWorld-EfficientSAM/resolve/main/efficient_sam_s_gpu.jit"
-    },
-
-    {
-      "name": "stabilityai/comfyui_checkpoints/stable_cascade_stage_b.safetensors",
-      "type": "checkpoints",
-      "base": "Stable Cascade",
-      "save_path": "checkpoints/Stable-Cascade",
-      "description": "[4.55GB] Stable Cascade stage_b checkpoints",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "stable_cascade_stage_b.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/comfyui_checkpoints/stable_cascade_stage_b.safetensors"
-    },
-    {
-      "name": "stabilityai/comfyui_checkpoints/stable_cascade_stage_c.safetensors",
-      "type": "checkpoints",
-      "base": "Stable Cascade",
-      "save_path": "checkpoints/Stable-Cascade",
-      "description": "[9.22GB] Stable Cascade stage_c checkpoints",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "stable_cascade_stage_c.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/comfyui_checkpoints/stable_cascade_stage_c.safetensors"
-    },
-    {
-      "name": "stabilityai/Stable Cascade: effnet_encoder.safetensors (VAE)",
-      "type": "VAE",
-      "base": "Stable Cascade",
-      "save_path": "vae/Stable-Cascade",
-      "description": "[81.5MB] Stable Cascade: effnet_encoder.\nVAE encoder for stage_c latent.",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "effnet_encoder.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/effnet_encoder.safetensors"
-    },
-    {
-      "name": "stabilityai/Stable Cascade: stage_a.safetensors (VAE)",
-      "type": "VAE",
-      "base": "Stable Cascade",
-      "save_path": "vae/Stable-Cascade",
-      "description": "[73.7MB] Stable Cascade: stage_a",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "stage_a.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_a.safetensors"
-    },
-    {
-      "name": "stabilityai/Stable Cascade: stage_b.safetensors (UNET)",
-      "type": "unet",
-      "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
-      "description": "[6.25GB] Stable Cascade: stage_b",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "stage_b.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_b.safetensors"
-    },
-    {
-      "name": "stabilityai/Stable Cascade: stage_b_bf16.safetensors (UNET)",
-      "type": "unet",
-      "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
-      "description": "[3.13GB] Stable Cascade: stage_b/bf16",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "stage_b_bf16.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_b_bf16.safetensors"
-    },
-    {
-      "name": "stabilityai/Stable Cascade: stage_b_lite.safetensors (UNET)",
-      "type": "unet",
-      "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
-      "description": "[2.8GB] Stable Cascade: stage_b/lite",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "stage_b_lite.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_b_lite.safetensors"
-    },
-    {
-      "name": "stabilityai/Stable Cascade: stage_b_lite.safetensors (UNET)",
-      "type": "unet",
-      "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
-      "description": "[1.4GB] Stable Cascade: stage_b/bf16,lite",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "stage_b_lite_bf16.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_b_lite_bf16.safetensors"
-    },
-    {
-      "name": "stabilityai/Stable Cascade: stage_c.safetensors (UNET)",
-      "type": "unet",
-      "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
-      "description": "[14.4GB] Stable Cascade: stage_c",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "stage_c.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_c.safetensors"
-    },
-    {
-      "name": "stabilityai/Stable Cascade: stage_c_bf16.safetensors (UNET)",
-      "type": "unet",
-      "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
-      "description": "[7.18GB] Stable Cascade: stage_c/bf16",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "stage_c_bf16.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_c_bf16.safetensors"
-    },
-    {
-      "name": "stabilityai/Stable Cascade: stage_c_lite.safetensors (UNET)",
-      "type": "unet",
-      "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
-      "description": "[4.12GB] Stable Cascade: stage_c/lite",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "stage_c_lite.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_c_lite.safetensors"
-    },
-    {
-      "name": "stabilityai/Stable Cascade: stage_c_lite.safetensors (UNET)",
-      "type": "unet",
-      "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
-      "description": "[2.06GB] Stable Cascade: stage_c/bf16,lite",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "stage_c_lite_bf16.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/stage_c_lite_bf16.safetensors"
-    },
-    {
-      "name": "stabilityai/Stable Cascade: text_encoder (CLIP)",
-      "type": "clip",
-      "base": "Stable Cascade",
-      "save_path": "clip/Stable-Cascade",
-      "description": "[1.39GB] Stable Cascade: text_encoder",
-      "reference": "https://huggingface.co/stabilityai/stable-cascade",
-      "filename": "model.safetensors",
-      "url": "https://huggingface.co/stabilityai/stable-cascade/resolve/main/text_encoder/model.safetensors"
-    },
-
-    {
-      "name": "1k3d68.onnx",
-      "type": "insightface",
-      "base": "inswapper",
-      "save_path": "insightface/models/antelopev2",
-      "description": "Antelopev2 1k3d68.onnx model for InstantId. (InstantId needs all Antelopev2 models)",
-      "reference": "https://github.com/cubiq/ComfyUI_InstantID#installation",
-      "filename": "1k3d68.onnx",
-      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/1k3d68.onnx"
-    },
-    {
-      "name": "2d106det.onnx",
-      "type": "insightface",
-      "base": "inswapper",
-      "save_path": "insightface/models/antelopev2",
-      "description": "Antelopev2 2d106det.onnx model for InstantId. (InstantId needs all Antelopev2 models)",
-      "reference": "https://github.com/cubiq/ComfyUI_InstantID#installation",
-      "filename": "2d106det.onnx",
-      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/2d106det.onnx"
-    },
-    {
-      "name": "genderage.onnx",
-      "type": "insightface",
-      "base": "inswapper",
-      "save_path": "insightface/models/antelopev2",
-      "description": "Antelopev2 genderage.onnx model for InstantId. (InstantId needs all Antelopev2 models)",
-      "reference": "https://github.com/cubiq/ComfyUI_InstantID#installation",
-      "filename": "genderage.onnx",
-      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/genderage.onnx"
-    },
-    {
-      "name": "glintr100.onnx",
-      "type": "insightface",
-      "base": "inswapper",
-      "save_path": "insightface/models/antelopev2",
-      "description": "Antelopev2 glintr100.onnx model for InstantId. (InstantId needs all Antelopev2 models)",
-      "reference": "https://github.com/cubiq/ComfyUI_InstantID#installation",
-      "filename": "glintr100.onnx",
-      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/glintr100.onnx"
-    },
-    {
-      "name": "scrfd_10g_bnkps.onnx",
-      "type": "insightface",
-      "base": "inswapper",
-      "save_path": "insightface/models/antelopev2",
-      "description": "Antelopev2 scrfd_10g_bnkps.onnx model for InstantId. (InstantId needs all Antelopev2 models)",
-      "reference": "https://github.com/cubiq/ComfyUI_InstantID#installation",
-      "filename": "scrfd_10g_bnkps.onnx",
-      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/scrfd_10g_bnkps.onnx"
-    },
-
-    {
-      "name": "photomaker-v1.bin",
-      "type": "photomaker",
-      "base": "SDXL",
-      "save_path": "photomaker",
-      "description": "PhotoMaker model. This model is compatible with SDXL.",
-      "reference": "https://huggingface.co/TencentARC/PhotoMaker",
-      "filename": "photomaker-v1.bin",
-      "url": "https://huggingface.co/TencentARC/PhotoMaker/resolve/main/photomaker-v1.bin"
-    },
-    {
-      "name": "ip-adapter-faceid_sdxl.bin",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "IP-Adapter-FaceID Model (SDXL) [ipadapter]",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid_sdxl.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sdxl.bin"
-    },
-    {
-      "name": "ip-adapter-faceid-plusv2_sdxl.bin",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "IP-Adapter-FaceID Plus Model (SDXL) [ipadapter]",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid-plusv2_sdxl.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sdxl.bin"
-    },
-    {
-      "name": "ip-adapter-faceid_sdxl_lora.safetensors",
-      "type": "lora",
-      "base": "SDXL",
-      "save_path": "loras/ipadapter",
-      "description": "IP-Adapter-FaceID LoRA Model (SDXL) [ipadapter]",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid_sdxl_lora.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sdxl_lora.safetensors"
-    },
-    {
-      "name": "ip-adapter-faceid-plusv2_sdxl_lora.safetensors",
-      "type": "lora",
-      "base": "SDXL",
-      "save_path": "loras/ipadapter",
-      "description": "IP-Adapter-FaceID-Plus V2 LoRA Model (SDXL) [ipadapter]",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid-plusv2_sdxl_lora.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sdxl_lora.safetensors"
-    },
-
-    {
-      "name": "TencentARC/motionctrl.pth",
-      "type": "checkpoints",
-      "base": "MotionCtrl",
-      "save_path": "checkpoints/motionctrl",
-      "description": "To use the ComfyUI-MotionCtrl extension, downloading this model is required.",
-      "reference": "https://huggingface.co/TencentARC/MotionCtrl",
-      "filename": "motionctrl.pth",
-      "url": "https://huggingface.co/TencentARC/MotionCtrl/resolve/main/motionctrl.pth"
-    },
-    {
-      "name": "ip-adapter-faceid-plusv2_sd15.bin",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "IP-Adapter-FaceID-Plus V2 Model (SD1.5)",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid-plusv2_sd15.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sd15.bin"
-    },
-    {
-      "name": "ip-adapter-faceid-plusv2_sd15_lora.safetensors",
-      "type": "lora",
-      "base": "SD1.5",
-      "save_path": "loras/ipadapter",
-      "description": "IP-Adapter-FaceID-Plus V2 LoRA Model (SD1.5)",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid-plusv2_sd15_lora.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sd15_lora.safetensors"
-    },
-    {
-      "name": "ip-adapter-faceid-plus_sd15_lora.safetensors",
-      "type": "lora",
-      "base": "SD1.5",
-      "save_path": "loras/ipadapter",
-      "description": "IP-Adapter-FaceID Plus LoRA Model (SD1.5) [ipadapter]",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid-plus_sd15_lora.safetensors",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plus_sd15_lora.safetensors"
     }
   ]
 }
