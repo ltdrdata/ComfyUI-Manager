@@ -3,9 +3,10 @@ import re
 import os
 import json
 from git import Repo
-from torchvision.datasets.utils import download_url
 import concurrent
 import datetime
+import concurrent.futures
+import requests
 
 builtin_nodes = set()
 
@@ -13,6 +14,29 @@ import sys
 
 from urllib.parse import urlparse
 from github import Github
+
+
+def download_url(url, dest_folder, filename=None):
+    # Ensure the destination folder exists
+    if not os.path.exists(dest_folder):
+        os.makedirs(dest_folder)
+
+    # Extract filename from URL if not provided
+    if filename is None:
+        filename = os.path.basename(url)
+
+    # Full path to save the file
+    dest_path = os.path.join(dest_folder, filename)
+
+    # Download the file
+    response = requests.get(url, stream=True)
+    if response.status_code == 200:
+        with open(dest_path, 'wb') as file:
+            for chunk in response.iter_content(chunk_size=1024):
+                if chunk:
+                    file.write(chunk)
+    else:
+        raise Exception(f"Failed to download file from {url}")
 
 
 # prepare temp dir
