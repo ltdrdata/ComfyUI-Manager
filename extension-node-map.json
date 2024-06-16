@@ -1167,6 +1167,7 @@
         [
             "AdvancedPromptInjection",
             "PromptInjection",
+            "SVDPromptInjection",
             "SimplePromptInjection"
         ],
         {
@@ -2877,6 +2878,7 @@
             "HueSatLum",
             "HueShift",
             "ImageDimensions",
+            "ImageOverlayResized",
             "ImageResizeLong",
             "ImageZigzag",
             "IndoorBackgrounds",
@@ -5882,6 +5884,18 @@
             "title_aux": "LoRA Tag Loader for ComfyUI"
         }
     ],
+    "https://github.com/baicai99/ComfyUI-FrameSkipping": [
+        [
+            "FrameSkipping",
+            "FrameTruncating",
+            "IntOperationsNode",
+            "MaskFrameSkipping",
+            "WhiteMaskGenerator"
+        ],
+        {
+            "title_aux": "ComfyUI-FrameSkipping"
+        }
+    ],
     "https://github.com/banodoco/steerable-motion": [
         [
             "BatchCreativeInterpolation",
@@ -7010,6 +7024,7 @@
             "LayerUtility: BatchSelector",
             "LayerUtility: Boolean",
             "LayerUtility: BooleanOperator",
+            "LayerUtility: BooleanOperatorV2",
             "LayerUtility: ColorImage",
             "LayerUtility: ColorImage V2",
             "LayerUtility: ColorPicker",
@@ -7027,6 +7042,7 @@
             "LayerUtility: GradientImage",
             "LayerUtility: GradientImage V2",
             "LayerUtility: HLFrequencyDetailRestore",
+            "LayerUtility: If",
             "LayerUtility: ImageAutoCrop",
             "LayerUtility: ImageAutoCrop V2",
             "LayerUtility: ImageBlend",
@@ -7052,6 +7068,7 @@
             "LayerUtility: LayerMaskTransform",
             "LayerUtility: LoadPSD",
             "LayerUtility: NumberCalculator",
+            "LayerUtility: NumberCalculatorV2",
             "LayerUtility: PrintInfo",
             "LayerUtility: PromptEmbellish",
             "LayerUtility: PromptTagger",
@@ -7064,6 +7081,7 @@
             "LayerUtility: Seed",
             "LayerUtility: ShowBlindWaterMark",
             "LayerUtility: SimpleTextImage",
+            "LayerUtility: StringCondition",
             "LayerUtility: TextBox",
             "LayerUtility: TextImage",
             "LayerUtility: TextJoin",
@@ -7388,6 +7406,7 @@
             "DualCFGGuider",
             "DualCLIPLoader",
             "EmptyImage",
+            "EmptyLatentAudio",
             "EmptyLatentImage",
             "EmptySD3LatentImage",
             "ExponentialScheduler",
@@ -7441,6 +7460,7 @@
             "LatentSubtract",
             "LatentUpscale",
             "LatentUpscaleBy",
+            "LoadAudio",
             "LoadImage",
             "LoadImageMask",
             "LoadLatent",
@@ -7456,6 +7476,7 @@
             "ModelMergeSimple",
             "ModelMergeSubtract",
             "ModelSamplingContinuousEDM",
+            "ModelSamplingContinuousV",
             "ModelSamplingDiscrete",
             "ModelSamplingSD3",
             "ModelSamplingStableCascade",
@@ -7490,6 +7511,7 @@
             "SamplerLMS",
             "SaveAnimatedPNG",
             "SaveAnimatedWEBP",
+            "SaveAudio",
             "SaveImage",
             "SaveImageWebsocket",
             "SaveLatent",
@@ -7516,8 +7538,10 @@
             "UNetTemporalAttentionMultiply",
             "UpscaleModelLoader",
             "VAEDecode",
+            "VAEDecodeAudio",
             "VAEDecodeTiled",
             "VAEEncode",
+            "VAEEncodeAudio",
             "VAEEncodeForInpaint",
             "VAEEncodeTiled",
             "VAELoader",
@@ -11635,6 +11659,7 @@
             "PettyPaintEnsureDirectory",
             "PettyPaintExec",
             "PettyPaintFakeConvert",
+            "PettyPaintFileExists",
             "PettyPaintImageColorsToMasks",
             "PettyPaintImageCompositeMasked",
             "PettyPaintImagePlacement",
@@ -11650,6 +11675,8 @@
             "PettyPaintLoadImages",
             "PettyPaintMap",
             "PettyPaintMasksToImages",
+            "PettyPaintNot",
+            "PettyPaintPassThroughNode",
             "PettyPaintProcessor",
             "PettyPaintRemoveAddText",
             "PettyPaintSDTurboScheduler",
@@ -13264,7 +13291,8 @@
             "ShuffleChannels",
             "Tonemap",
             "UnJitterImage",
-            "UnTonemap"
+            "UnTonemap",
+            "VisualizeLatents"
         ],
         {
             "title_aux": "ComfyUI-Image-Filters"
@@ -14350,6 +14378,7 @@
             "easy humanSegmentation",
             "easy icLightApply",
             "easy if",
+            "easy imageBatchToImageList",
             "easy imageChooser",
             "easy imageColorMatch",
             "easy imageConcat",
@@ -14358,6 +14387,7 @@
             "easy imageDetailTransfer",
             "easy imageInsetCrop",
             "easy imageInterrogator",
+            "easy imageListToImageBatch",
             "easy imagePixelPerfect",
             "easy imageRatio",
             "easy imageRemBg",
