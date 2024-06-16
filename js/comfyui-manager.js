@@ -25,6 +25,7 @@ docStyle.innerHTML = `
 	height: 520px;
 	box-sizing: content-box;
 	z-index: 10000;
+	overflow-y: auto;
 }
 
 .cb-widget {
