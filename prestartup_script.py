@@ -8,6 +8,7 @@ import re
 import locale
 import platform
 import json
+import ast
 
 glob_path = os.path.join(os.path.dirname(__file__), "glob")
 sys.path.append(glob_path)
@@ -543,7 +544,7 @@ if os.path.exists(script_list_path):
             executed.add(line)
 
             try:
-                script = eval(line)
+                script = ast.literal_eval(line)
 
                 if script[1].startswith('#') and script[1] != '#FORCE':
                     if script[1] == "#LAZY-INSTALL-SCRIPT":

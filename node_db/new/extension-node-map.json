@@ -247,6 +247,17 @@
             "title_aux": "ComfyUI-GPT_SoVITS"
         }
     ],
+    "https://github.com/AIFSH/ComfyUI-Hallo": [
+        [
+            "HalloNode",
+            "LoadAudioPath",
+            "LoadImagePath",
+            "PreViewVideo"
+        ],
+        {
+            "title_aux": "ComfyUI-Hallo"
+        }
+    ],
     "https://github.com/AIFSH/ComfyUI-IP_LAP": [
         [
             "CombineAudioVideo",
@@ -307,6 +318,18 @@
         ],
         {
             "title_aux": "ComfyUI-UVR5"
+        }
+    ],
+    "https://github.com/AIFSH/ComfyUI-UniAnimate": [
+        [
+            "LoadImagePath",
+            "LoadVideo",
+            "PoseAlignNode",
+            "PreViewVideo",
+            "UniAnimateNode"
+        ],
+        {
+            "title_aux": "ComfyUI-UniAnimate"
         }
     ],
     "https://github.com/AIFSH/ComfyUI-WhisperX": [
@@ -2408,6 +2431,7 @@
             "ADE_ApplyAnimateDiffModel",
             "ADE_ApplyAnimateDiffModelSimple",
             "ADE_ApplyAnimateDiffModelWithCameraCtrl",
+            "ADE_ApplyAnimateDiffModelWithPIA",
             "ADE_ApplyAnimateLCMI2VModel",
             "ADE_AttachLoraHookToCLIP",
             "ADE_AttachLoraHookToConditioning",
@@ -2427,6 +2451,9 @@
             "ADE_CustomCFGKeyframe",
             "ADE_EmptyLatentImageLarge",
             "ADE_InjectI2VIntoAnimateDiffModel",
+            "ADE_InjectPIAIntoAnimateDiffModel",
+            "ADE_InputPIA_Multival",
+            "ADE_InputPIA_PaperPresets",
             "ADE_IterationOptsDefault",
             "ADE_IterationOptsFreeInit",
             "ADE_LoadAnimateDiffModel",
@@ -2438,12 +2465,16 @@
             "ADE_LoraHookKeyframe",
             "ADE_LoraHookKeyframeFromStrengthList",
             "ADE_LoraHookKeyframeInterpolation",
-            "ADE_MaskedLoadLora",
+            "ADE_MultivalConvertToMask",
             "ADE_MultivalDynamic",
+            "ADE_MultivalDynamicFloatInput",
             "ADE_MultivalScaledMask",
             "ADE_NoiseLayerAdd",
             "ADE_NoiseLayerAddWeighted",
             "ADE_NoiseLayerReplace",
+            "ADE_NoisedImageInjectOptions",
+            "ADE_NoisedImageInjection",
+            "ADE_PIA_AnimateDiffKeyframe",
             "ADE_PairedConditioningSetMask",
             "ADE_PairedConditioningSetMaskAndCombine",
             "ADE_PairedConditioningSetUnmaskedAndCombine",
@@ -3437,6 +3468,19 @@
         ],
         {
             "title_aux": "ComfyUI A1111-like Prompt Custom Node Solution"
+        }
+    ],
+    "https://github.com/SamKhoze/ComfyUI-DeepFuze": [
+        [
+            "DeepFuzeAdavance",
+            "DeepFuzeFaceSwap",
+            "DeepfuzePreview",
+            "LLM_node",
+            "PlayBackAudio",
+            "TTS_generation"
+        ],
+        {
+            "title_aux": "DeepFuze"
         }
     ],
     "https://github.com/SayanoAI/Comfy-RVC": [
@@ -4527,6 +4571,7 @@
         [
             "ttN KSampler_v2",
             "ttN advPlot range",
+            "ttN advPlot string",
             "ttN advanced xyPlot",
             "ttN compareInput",
             "ttN concat",
@@ -7096,7 +7141,9 @@
             "LayerUtility: Seed",
             "LayerUtility: ShowBlindWaterMark",
             "LayerUtility: SimpleTextImage",
+            "LayerUtility: String",
             "LayerUtility: StringCondition",
+            "LayerUtility: SwitchCase",
             "LayerUtility: TextBox",
             "LayerUtility: TextImage",
             "LayerUtility: TextJoin",
@@ -12079,6 +12126,19 @@
             "title_aux": "ntdviet/comfyui-ext"
         }
     ],
+    "https://github.com/nuanarchy/ComfyUI-NuA-BIRD": [
+        [
+            "Bird_Deblurring_NuA",
+            "Bird_Denoising_NuA",
+            "Bird_Inpainting_NuA",
+            "Bird_Loader_NuA",
+            "Bird_Non_Uniform_Deblurring_NuA",
+            "Bird_Super_Resolution_NuA"
+        ],
+        {
+            "title_aux": "ComfyUI-NuA-BIRD"
+        }
+    ],
     "https://github.com/nuanarchy/ComfyUI-NuA-FlashFace": [
         [
             "FlashFace_Loader_NuA",
@@ -13509,6 +13569,15 @@
         ],
         {
             "title_aux": "comfyui_tag_filter"
+        }
+    ],
+    "https://github.com/superyoman/comfyui_lumaAPI": [
+        [
+            "LUMA_API_YoC",
+            "LUMA_API_result_YoC"
+        ],
+        {
+            "title_aux": "comfyui_lumaAPI"
         }
     ],
     "https://github.com/syllebra/bilbox-comfyui": [
