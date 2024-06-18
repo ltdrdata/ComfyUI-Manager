@@ -214,6 +214,9 @@ try:
                 # Handle error
                 raise ValueError("The object does not have a fileno method")
 
+        def isatty(self):
+            return False
+
         def write(self, message):
             global is_start_mode
 
