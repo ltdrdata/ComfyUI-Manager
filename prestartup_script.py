@@ -429,7 +429,20 @@ def is_installed(name):
                     print(f"[ComfyUI-Manager] skip black listed pip installation: '{name}'")
                     return True
 
-    return name.lower() in get_installed_packages()
+    pkg = get_installed_packages().get(name.lower())
+    if pkg is None:
+        return False  # update if not installed
+
+    if match is None:
+        return True   # don't update if version is not specified
+
+    if match.group(2) in ['>', '>=']:
+        if StrictVersion(pkg) < StrictVersion(match.group(3)):
+            return False
+        elif StrictVersion(pkg) > StrictVersion(match.group(3)):
+            print(f"[SKIP] Downgrading pip package isn't allowed: {name.lower()} (cur={pkg})")
+
+    return True       # prevent downgrade
 
 
 if os.path.exists(restore_snapshot_path):
