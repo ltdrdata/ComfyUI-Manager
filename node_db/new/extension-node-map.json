@@ -4359,6 +4359,14 @@
             "title_aux": "Comfyui-MusePose"
         }
     ],
+    "https://github.com/TRI3D-LC/ComfyUI-MiroBoard": [
+        [
+            "add-image-miro-board"
+        ],
+        {
+            "title_aux": "ComfyUI-MiroBoard"
+        }
+    ],
     "https://github.com/TRI3D-LC/tri3d-comfyui-nodes": [
         [
             "get_histogram_limits",
@@ -5946,11 +5954,13 @@
     ],
     "https://github.com/baicai99/ComfyUI-FrameSkipping": [
         [
+            "FrameSelector",
             "FrameSkipping",
             "FrameTruncating",
             "IntOperationsNode",
             "MaskFrameSkipping",
-            "WhiteMaskGenerator"
+            "MaskGenerator",
+            "MaskSelector"
         ],
         {
             "title_aux": "ComfyUI-FrameSkipping"
@@ -9318,6 +9328,7 @@
             "ExpandAgent",
             "ImageQueryTask",
             "MergeTexts",
+            "ParallelImageQueryTask",
             "PromptImageGenerationTask",
             "PromptImageVariationTask",
             "PromptTask",
@@ -9503,10 +9514,12 @@
             "github_tool",
             "google_tool",
             "interpreter_tool",
+            "keyword_tool",
             "load_embeddings",
             "load_excel",
             "load_file",
             "load_file_folder",
+            "load_keyword",
             "load_name",
             "load_persona",
             "load_url",
@@ -12880,8 +12893,6 @@
             "AreaToMask",
             "AudioPlay",
             "CenterImage",
-            "CharacterInText",
-            "ChatGPTOpenAI",
             "CkptNames_",
             "Color",
             "ComparingTwoFrames_",
@@ -12934,7 +12945,6 @@
             "ScreenShare",
             "Seed_",
             "ShowLayer",
-            "ShowTextForGPT",
             "SmoothMask",
             "SpeechRecognition",
             "SpeechSynthesis",
@@ -12949,7 +12959,6 @@
             "TESTNODE_TOKEN",
             "TextImage",
             "TextInput_",
-            "TextSplitByDelimiter",
             "TextToNumber",
             "TransparentImage",
             "VAEDecodeConsistencyDecoder",
@@ -13211,9 +13220,8 @@
     ],
     "https://github.com/smthemex/ComfyUI_HiDiffusion_Pro": [
         [
-            "HI_Diffusers_Or_Repo",
-            "Hi_SDXL_Control2Img",
-            "Hi_Text2Img"
+            "HI_Diffusers_Model_Loader",
+            "Hi_Sampler"
         ],
         {
             "title_aux": "ComfyUI_HiDiffusion_Pro"
