@@ -145,6 +145,8 @@ def set_default_ui_mode(mode):
 def set_component_policy(mode):
     core.get_config()['component_policy'] = mode
 
+def set_reverse_proxy_policy(policy):
+    core.get_config()['reverse_proxy_policy'] = policy
 
 def set_double_click_policy(mode):
     core.get_config()['double_click_policy'] = mode
@@ -653,7 +655,6 @@ async def save_snapshot(request):
     except:
         return web.Response(status=400)
 
-
 def unzip_install(files):
     temp_filename = 'manager-temp.zip'
     for url in files:
@@ -777,7 +778,6 @@ def copy_set_active(files, is_disable, js_path_name='.'):
 
     print(f"{action_name} was successful.")
     return True
-
 
 @PromptServer.instance.routes.post("/customnode/install")
 async def install_custom_node(request):
@@ -999,6 +999,8 @@ async def install_model(request):
             model_url = json_data['url']
             if not core.get_config()['model_download_by_agent'] and (
                     model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de')):
+                model_url = core.try_to_use_reverse_proxy(model_url)
+                    
                 model_dir = get_model_dir(json_data)
                 download_url(model_url, model_dir, filename=json_data['filename'])
                 if model_path.endswith('.zip'):
@@ -1090,6 +1092,16 @@ async def component_policy(request):
     else:
         return web.Response(text=core.get_config()['component_policy'], status=200)
 
+    return web.Response(status=200)
+
+@PromptServer.instance.routes.get("/manager/reverse_proxy/policy")
+async def reverse_proxy_policy(request):
+    if "value" in request.rel_url.query:
+        set_reverse_proxy_policy(request.rel_url.query['value'])
+        core.write_config()
+    else:
+        return web.Response(text=core.get_config()['reverse_proxy_policy'], status=200)
+    
     return web.Response(status=200)
 
 

@@ -65,6 +65,17 @@ export async function install_pip(packages) {
 	}
 }
 
+let reverse_proxy_policy = "none"
+try {
+	api.fetchApi('/manager/reverse_proxy/policy')
+		.then(response => response.text())
+		.then(data => { reverse_proxy_policy = data; });
+}
+catch {}
+export function set_reverse_proxy_policy(v) {
+	reverse_proxy_policy = v;
+}
+
 export async function install_via_git_url(url, manager_dialog) {
 	if(!url) {
 		return;

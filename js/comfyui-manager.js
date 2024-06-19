@@ -14,7 +14,7 @@ import { OpenArtShareDialog } from "./comfyui-share-openart.js";
 import { CustomNodesManager } from "./custom-nodes-manager.js";
 import { SnapshotManager } from "./snapshot.js";
 import { ModelInstaller } from "./model-downloader.js";
-import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI, free_models, show_message } from "./common.js";
+import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI, free_models, show_message, set_reverse_proxy_policy } from "./common.js";
 import { ComponentBuilderDialog, load_components, set_component_policy, getPureName } from "./components-manager.js";
 import { set_double_click_policy } from "./node_fixer.js";
 
@@ -920,6 +920,28 @@ class ManagerMenuDialog extends ComfyDialog {
 			set_component_policy(event.target.value);
 		});
 
+		// reverse-proxy policy
+		let reverse_proxy_combo = document.createElement("select");
+		reverse_proxy_combo.setAttribute("title", "If you are in China, you can use this option to enable reverse-proxy to download custom nodes and models.");
+		reverse_proxy_combo.className = "cm-menu-combo";
+		reverse_proxy_combo.appendChild($el('option', { value: 'none', text: 'Reverse Proxy: None' }, []));
+		reverse_proxy_combo.appendChild($el('option', { value: 'ghproxy-mirror', text: 'Reverse Proxy: GHProxy Mirror to GitHub' }, []));
+		reverse_proxy_combo.appendChild($el('option', { value: 'hf-mirror', text: 'Reverse Proxy: HF-Mirror to HuggingFace' }, []));
+		reverse_proxy_combo.appendChild($el('option', { value: 'both', text: 'Reverse Proxy: Both' }, []));
+
+		api.fetchApi('/manager/reverse_proxy/policy')
+			.then(response => response.text())
+			.then(data => {
+				reverse_proxy_combo.value = data;
+				set_reverse_proxy_policy(data);
+			})
+
+		reverse_proxy_combo.addEventListener('change', function (event) {
+			api.fetchApi(`/manager/reverse_proxy/policy?value=${event.target.value}`);
+			set_reverse_proxy_policy(event.target.value);
+		})
+
+		// double-click policy
 		let dbl_click_policy_combo = document.createElement("select");
 		dbl_click_policy_combo.setAttribute("title", "Sets the behavior when you double-click the title area of a node.");
 		dbl_click_policy_combo.className = "cm-menu-combo";
@@ -970,6 +992,7 @@ class ManagerMenuDialog extends ComfyDialog {
 			default_ui_combo,
 			share_combo,
 			component_policy_combo,
+			reverse_proxy_combo,
 			dbl_click_policy_combo,
 			$el("br", {}, []),
 

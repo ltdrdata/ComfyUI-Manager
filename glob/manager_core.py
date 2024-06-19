@@ -37,6 +37,11 @@ cache_dir = os.path.join(comfyui_manager_path, '.cache')
 cached_config = None
 js_path = None
 
+reverse_proxies = {
+    'ghproxy-mirror': 'https://mirror.ghproxy.com/https://github.com/REPO_NAME',
+    'hf-mirror': 'https://hf-mirror.com/REPO_NAME'
+}
+
 comfy_ui_required_revision = 1930
 comfy_ui_required_commit_datetime = datetime(2024, 1, 24, 0, 0, 0)
 
@@ -82,6 +87,26 @@ def get_installed_packages():
             return set()
 
     return pip_map
+
+
+def try_to_use_reverse_proxy(url):
+    policy = get_config()['reverse_proxy_policy']
+    if not policy:
+        return url
+    
+    if reverse_proxy := reverse_proxies.get(policy, 'both'):
+        print(f"Reverse proxy is '{policy}'")
+        repo_name = url.split("/", 3)[-1]
+        if policy == 'both':
+            if url.startswith('https://github.com'):
+                return reverse_proxies['ghproxy-mirror'].replace("REPO_NAME", repo_name)
+            elif url.startswith('https://huggingface.co'):
+                return reverse_proxies['hf-mirror'].replace("REPO_NAME", repo_name)
+        else:
+            if ((url.startswith('https://github.com') and policy == 'ghproxy-mirror') or
+                (url.startswith('https://huggingface.co') and policy == 'hf-mirror')):
+                return reverse_proxy.replace("REPO_NAME", repo_name)
+    return url
 
 
 def clear_pip_cache():
@@ -201,6 +226,7 @@ def write_config():
         "file_logging": get_config()['file_logging'],
         'default_ui': get_config()['default_ui'],
         'component_policy': get_config()['component_policy'],
+        'reverse_proxy_policy': get_config()['reverse_proxy_policy'],
         'double_click_policy': get_config()['double_click_policy'],
         'windows_selector_event_loop_policy': get_config()['windows_selector_event_loop_policy'],
         'model_download_by_agent': get_config()['model_download_by_agent'],
@@ -236,6 +262,7 @@ def read_config():
                     'file_logging': default_conf['file_logging'].lower() == 'true' if 'file_logging' in default_conf else True,
                     'default_ui': default_conf['default_ui'] if 'default_ui' in default_conf else 'none',
                     'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
+                    'reverse_proxy_policy': default_conf['reverse_proxy_policy'] if 'reverse_proxy_policy' in default_conf else 'none',
                     'double_click_policy': default_conf['double_click_policy'] if 'double_click_policy' in default_conf else 'copy-all',
                     'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'].lower() == 'true' if 'windows_selector_event_loop_policy' in default_conf else False,
                     'model_download_by_agent': default_conf['model_download_by_agent'].lower() == 'true' if 'model_download_by_agent' in default_conf else False,
@@ -254,6 +281,7 @@ def read_config():
             'file_logging': True,
             'default_ui': 'none',
             'component_policy': 'workflow',
+            'reverse_proxy_policy': 'none',
             'double_click_policy': 'copy-all',
             'windows_selector_event_loop_policy': False,
             'model_download_by_agent': False,
@@ -519,6 +547,8 @@ def gitclone_install(files, instant_execution=False, msg_prefix=''):
 
         if url.endswith("/"):
             url = url[:-1]
+
+        url = try_to_use_reverse_proxy(url)
         try:
             print(f"Download: git clone '{url}'")
             repo_name = os.path.splitext(os.path.basename(url))[0]
@@ -659,6 +689,8 @@ def gitclone_fix(files, instant_execution=False):
 
         if url.endswith("/"):
             url = url[:-1]
+
+        url = try_to_use_reverse_proxy(url)
         try:
             repo_name = os.path.splitext(os.path.basename(url))[0]
             repo_path = os.path.join(custom_nodes_path, repo_name)
