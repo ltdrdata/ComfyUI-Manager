@@ -8,14 +8,16 @@ import re
 import locale
 import platform
 import json
-
+import ast
 
 glob_path = os.path.join(os.path.dirname(__file__), "glob")
 sys.path.append(glob_path)
 
+import security_check
 from manager_util import *
 import cm_global
 
+security_check.security_check()
 
 cm_global.pip_downgrade_blacklist = ['torch', 'torchsde', 'torchvision', 'transformers', 'safetensors', 'kornia']
 
@@ -211,6 +213,9 @@ try:
             except AttributeError:
                 # Handle error
                 raise ValueError("The object does not have a fileno method")
+
+        def isatty(self):
+            return False
 
         def write(self, message):
             global is_start_mode
@@ -427,7 +432,20 @@ def is_installed(name):
                     print(f"[ComfyUI-Manager] skip black listed pip installation: '{name}'")
                     return True
 
-    return name.lower() in get_installed_packages()
+    pkg = get_installed_packages().get(name.lower())
+    if pkg is None:
+        return False  # update if not installed
+
+    if match is None:
+        return True   # don't update if version is not specified
+
+    if match.group(2) in ['>', '>=']:
+        if StrictVersion(pkg) < StrictVersion(match.group(3)):
+            return False
+        elif StrictVersion(pkg) > StrictVersion(match.group(3)):
+            print(f"[SKIP] Downgrading pip package isn't allowed: {name.lower()} (cur={pkg})")
+
+    return True       # prevent downgrade
 
 
 if os.path.exists(restore_snapshot_path):
@@ -476,8 +494,9 @@ if os.path.exists(restore_snapshot_path):
                         for line in file:
                             package_name = remap_pip_package(line.strip())
                             if package_name and not is_installed(package_name):
-                                install_cmd = [sys.executable, "-m", "pip", "install", package_name]
-                                this_exit_code += process_wrap(install_cmd, repo_path)
+                                if not package_name.startswith('#'):
+                                    install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                                    this_exit_code += process_wrap(install_cmd, repo_path)
 
                 if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
                     processed_install.add(f'{repo_path}/install.py')
@@ -541,7 +560,7 @@ if os.path.exists(script_list_path):
             executed.add(line)
 
             try:
-                script = eval(line)
+                script = ast.literal_eval(line)
 
                 if script[1].startswith('#') and script[1] != '#FORCE':
                     if script[1] == "#LAZY-INSTALL-SCRIPT":

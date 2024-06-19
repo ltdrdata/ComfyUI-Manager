@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 30]
+version = [2, 38, 2]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -204,7 +204,8 @@ def write_config():
         'double_click_policy': get_config()['double_click_policy'],
         'windows_selector_event_loop_policy': get_config()['windows_selector_event_loop_policy'],
         'model_download_by_agent': get_config()['model_download_by_agent'],
-        'downgrade_blacklist': get_config()['downgrade_blacklist']
+        'downgrade_blacklist': get_config()['downgrade_blacklist'],
+        'security_level': get_config()['security_level'],
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -216,20 +217,30 @@ def read_config():
         config.read(config_path)
         default_conf = config['default']
 
+        # policy migration: disable_unsecure_features -> security_level
+        if 'disable_unsecure_features' in default_conf:
+            if default_conf['disable_unsecure_features'].lower() == 'true':
+                security_level = 'strong'
+            else:
+                security_level = 'normal'
+        else:
+            security_level = default_conf['security_level'] if 'security_level' in default_conf else 'normal'
+
         return {
                     'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else manager_funcs.get_current_preview_method(),
                     'badge_mode': default_conf['badge_mode'] if 'badge_mode' in default_conf else 'none',
                     'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
-                    'bypass_ssl': default_conf['bypass_ssl'] if 'bypass_ssl' in default_conf else False,
-                    'file_logging': default_conf['file_logging'] if 'file_logging' in default_conf else True,
+                    'bypass_ssl': default_conf['bypass_ssl'].lower() == 'true' if 'bypass_ssl' in default_conf else False,
+                    'file_logging': default_conf['file_logging'].lower() == 'true' if 'file_logging' in default_conf else True,
                     'default_ui': default_conf['default_ui'] if 'default_ui' in default_conf else 'none',
                     'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
                     'double_click_policy': default_conf['double_click_policy'] if 'double_click_policy' in default_conf else 'copy-all',
-                    'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'] if 'windows_selector_event_loop_policy' in default_conf else False,
-                    'model_download_by_agent': default_conf['model_download_by_agent'] if 'model_download_by_agent' in default_conf else False,
+                    'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'].lower() == 'true' if 'windows_selector_event_loop_policy' in default_conf else False,
+                    'model_download_by_agent': default_conf['model_download_by_agent'].lower() == 'true' if 'model_download_by_agent' in default_conf else False,
                     'downgrade_blacklist': default_conf['downgrade_blacklist'] if 'downgrade_blacklist' in default_conf else '',
+                    'security_level': security_level
                }
 
     except Exception:
@@ -246,7 +257,8 @@ def read_config():
             'double_click_policy': 'copy-all',
             'windows_selector_event_loop_policy': False,
             'model_download_by_agent': False,
-            'downgrade_blacklist': ''
+            'downgrade_blacklist': '',
+            'security_level': 'normal',
         }
 
 
@@ -384,7 +396,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
                     package_name = remap_pip_package(line.strip())
                     if package_name and not package_name.startswith('#'):
                         install_cmd = [sys.executable, "-m", "pip", "install", package_name]
-                        if package_name.strip() != "":
+                        if package_name.strip() != "" and not package_name.startswith('#'):
                             try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
         if os.path.exists(install_script_path):
@@ -564,7 +576,7 @@ def git_pull(path):
 
 async def get_data(uri, silent=False):
     if not silent:
-        print(f"FETCH DATA from: {uri}")
+        print(f"FETCH DATA from: {uri}", end="")
 
     if uri.startswith("http"):
         async with aiohttp.ClientSession(trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
@@ -576,6 +588,8 @@ async def get_data(uri, silent=False):
                 json_text = f.read()
 
     json_obj = json.loads(json_text)
+    if not silent:
+        print(f" [DONE]")
     return json_obj
 
 
@@ -964,7 +978,6 @@ def get_current_snapshot():
     # Get ComfyUI hash
     repo_path = comfy_path
 
-    print(f"comfy_path: {comfy_path}")
     if not os.path.exists(os.path.join(repo_path, '.git')):
         print(f"ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
         return {}
@@ -1184,3 +1197,4 @@ def unzip(model_path):
 
     os.remove(model_path)
     return True
+
