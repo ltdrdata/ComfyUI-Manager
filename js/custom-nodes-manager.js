@@ -613,8 +613,6 @@ export class CustomNodesManager {
 		const container = this.element.querySelector(".cn-manager-grid");
 		const grid = new TG.Grid(container);
 		this.grid = grid;
-
-		const autoHeightColumns = ['description', "alternatives"];
 		
 		let prevViewRowsLength = 0;
 		grid.bind('onUpdated', (e, d) => {
@@ -625,47 +623,6 @@ export class CustomNodesManager {
 				this.showStatus(`${prevViewRowsLength} custom nodes`);
 			}
 
-			const visibleRowList = grid.viewport.rows;
-            const rows = [];
-            const heights = [];
-
-            visibleRowList.forEach(function(viewIndex) {
-				// display index after filter is no equal global index
-                const rowItem = grid.getViewRowItem(viewIndex);
-                if (rowItem.rowHeightFixed) {
-                    return;
-                }
-
-				const list = autoHeightColumns.map(k => {
-					const cellNode = grid.getCellNode(rowItem, k);
-					if (cellNode) {
-						const div = cellNode.querySelector('.tg-multiline-fixing');
-						// 10px is padding top and bottom
-						const realHeight = Math.max(TG.$(div).height() + 10, grid.options.rowHeight);
-						return realHeight;
-					}
-				}).filter(n => n);
-
-				if (list.length) {
-					rowItem.rowHeightFixed = true;
-					rows.push(rowItem);
-					heights.push(Math.max.apply(null, list));
-				}
-                
-            });
-            if (!rows.length) {
-                return;
-            }
-            grid.setRowHeight(rows, heights);
-        });
-
-        grid.bind('onColumnWidthChanged', (e, d) => {
-            if (autoHeightColumns.includes(d.id)) {
-                // reset when column width changed
-				grid.forEachRow(function(row) {
-					row.rowHeightFixed = false;
-				});
-            }
         });
 
         grid.bind('onSelectChanged', (e, changes) => {
@@ -691,9 +648,14 @@ export class CustomNodesManager {
 			frozenColumn: 1,
 			rowNotFound: "No Results",
 
-			rowHeight: 30 * 3 + 3 * 4,
+			rowHeight: 40,
 			bindWindowResize: true,
 			bindContainerResize: true,
+
+			cellResizeObserver: (rowItem, columnItem) => {
+				const autoHeightColumns = ['title', 'installed', 'description', "alternatives"];
+				return autoHeightColumns.includes(columnItem.id)
+			},
 
 			// updateGrid handler for filter and keywords
 			rowFilter: (rowItem) => {
@@ -907,9 +869,6 @@ export class CustomNodesManager {
 		if (this.grid) {
 			this.grid.update();
 			if (this.hasAlternatives()) {
-				this.grid.forEachRow(function(row) {
-					row.rowHeightFixed = false;
-				});
 				this.grid.showColumn("alternatives");
 			} else {
 				this.grid.hideColumn("alternatives");
