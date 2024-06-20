@@ -322,7 +322,7 @@
     ],
     "https://github.com/AIFSH/ComfyUI-UVR5": [
         [
-            "LoadAudio",
+            "LoadAudioPath",
             "PreViewAudio",
             "UVR5_Node"
         ],
@@ -400,6 +400,7 @@
             "OpenPoseKeyPose",
             "OpenPoseLineart",
             "OpenPoseMediaPipeFace",
+            "PreviewAudio",
             "\u5b58\u50a8",
             "\u5bfc\u5165",
             "\u622a\u56fe",
@@ -2970,6 +2971,7 @@
             "SplitImages",
             "StringJoin",
             "TimeStamp",
+            "TintnShift",
             "TricolorComposition",
             "WorkflowSettings",
             "WrapText",
@@ -3493,12 +3495,12 @@
     ],
     "https://github.com/SamKhoze/ComfyUI-DeepFuze": [
         [
+            "DeepFuze Save",
             "DeepFuzeAdavance",
             "DeepFuzeFaceSwap",
             "DeepfuzePreview",
             "LLM_node",
             "PlayBackAudio",
-            "SaveVideo [n-suite]",
             "TTS_generation"
         ],
         {
@@ -4600,6 +4602,7 @@
     "https://github.com/TinyTerra/ComfyUI_tinyterraNodes": [
         [
             "ttN KSampler_v2",
+            "ttN advPlot combo",
             "ttN advPlot range",
             "ttN advPlot string",
             "ttN advanced xyPlot",
@@ -4851,6 +4854,8 @@
             "Diffusers Hub Model Down-Loader",
             "Diffusers Model Loader",
             "Export API",
+            "HSL to Hex",
+            "Hex to HSL",
             "Image Analyze",
             "Image Aspect Ratio",
             "Image Batch",
@@ -5555,9 +5560,11 @@
         [
             "AiStoreAzureGPTLiam",
             "GetBetterDepthImage",
+            "LiamLibDisplayText",
             "LiamLibFillImage",
             "LiamLibImageToGray",
             "LiamLibLoadImage",
+            "LiamLibMergeText",
             "LiamLibSaveImg",
             "LiamLibSaveText",
             "OllamaApiTNodeLiam",
@@ -5820,6 +5827,14 @@
         ],
         {
             "title_aux": "antrobots ComfyUI Nodepack"
+        }
+    ],
+    "https://github.com/asagi4/ComfyUI-Adaptive-Guidance": [
+        [
+            "AdaptiveGuidance"
+        ],
+        {
+            "title_aux": "Adaptive Guidance for ComfyUI"
         }
     ],
     "https://github.com/asagi4/ComfyUI-CADS": [
@@ -7514,6 +7529,7 @@
             "FlipSigmas",
             "FreeU",
             "FreeU_V2",
+            "GITSScheduler",
             "GLIGENLoader",
             "GLIGENTextBoxApply",
             "GrowMask",
@@ -7572,6 +7588,7 @@
             "ModelMergeBlocks",
             "ModelMergeSD1",
             "ModelMergeSD2",
+            "ModelMergeSD3",
             "ModelMergeSDXL",
             "ModelMergeSimple",
             "ModelMergeSubtract",
@@ -8559,7 +8576,7 @@
         ],
         {
             "author": "\"\u02f6\ud835\udfa2\u292c\u2ad2\u2d56s\u143c\u02f6\"",
-            "description": "\"Selector & Recourse. Presets & failsafes. Work flow.\"",
+            "description": "\"EXDYSA. Selector and Recourse. Presets & failsafes. Work flow.\"",
             "nickname": "\"Selector\"",
             "title": "\"Selector\"",
             "title_aux": "comfyui-selector"
@@ -10507,6 +10524,15 @@
             "title_aux": "ComfyUI-ELLA-wrapper"
         }
     ],
+    "https://github.com/kijai/ComfyUI-Florence2": [
+        [
+            "DownloadAndLoadFlorence2Model",
+            "Florence2Run"
+        ],
+        {
+            "title_aux": "ComfyUI-Florence2"
+        }
+    ],
     "https://github.com/kijai/ComfyUI-Geowizard": [
         [
             "geowizard_model_loader",
@@ -10660,6 +10686,20 @@
         ],
         {
             "title_aux": "ComfyUI-LaVi-Bridge-Wrapper"
+        }
+    ],
+    "https://github.com/kijai/ComfyUI-LuminaWrapper": [
+        [
+            "DownloadAndLoadGemmaModel",
+            "DownloadAndLoadLuminaModel",
+            "GemmaSampler",
+            "LuminaGemmaTextEncode",
+            "LuminaGemmaTextEncodeArea",
+            "LuminaT2ISampler",
+            "LuminaTextAreaAppend"
+        ],
+        {
+            "title_aux": "ComfyUI-LuminaWrapper"
         }
     ],
     "https://github.com/kijai/ComfyUI-Marigold": [
@@ -11236,7 +11276,8 @@
         [
             "PromptCombinator",
             "PromptCombinatorExportGallery",
-            "PromptCombinatorMerger"
+            "PromptCombinatorMerger",
+            "PromptCombinatorRandomPrompt"
         ],
         {
             "title_aux": "ComfyUI-Prompt-Combinator"
@@ -13388,6 +13429,15 @@
         ],
         {
             "title_aux": "nui suite"
+        }
+    ],
+    "https://github.com/spacepxl/ComfyUI-Florence-2": [
+        [
+            "Florence2",
+            "Florence2Postprocess"
+        ],
+        {
+            "title_aux": "ComfyUI-Florence-2"
         }
     ],
     "https://github.com/spacepxl/ComfyUI-HQ-Image-Save": [
