@@ -106,7 +106,7 @@ core.manager_funcs = ManagerFuncsInComfyUI()
 
 sys.path.append('../..')
 
-from torchvision.datasets.utils import download_url
+from manager_downloader import download_url
 
 core.comfy_path = os.path.dirname(folder_paths.__file__)
 core.js_path = os.path.join(core.comfy_path, "web", "extensions")
