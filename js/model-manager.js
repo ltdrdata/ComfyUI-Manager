@@ -20,7 +20,7 @@ const pageCss = `
 	font-family: arial, sans-serif;
 }
 
-.cmm-manager .cn-flex-auto {
+.cmm-manager .cmm-flex-auto {
 	flex: auto;
 }
 
@@ -46,12 +46,6 @@ const pageCss = `
 	background-color: var(--comfy-input-bg);
 }
 
-.cmm-manager .cmm-manager-restart {
-	display: none;
-	background-color: #500000;
-	color: white;
-}
-
 .cmm-manager-header {
 	display: flex;
 	flex-wrap: wrap;
@@ -66,6 +60,8 @@ const pageCss = `
 	align-items: center;
 }
 
+.cmm-manager-type,
+.cmm-manager-base,
 .cmm-manager-filter {
 	height: 28px;
 	line-height: 28px;
@@ -108,13 +104,13 @@ const pageCss = `
 	background: var(--bg-color);
 }
 
-.cmm-manager-grid .cn-node-name a {
+.cmm-manager-grid .cmm-node-name a {
 	color: skyblue;
 	text-decoration: none;
 	word-break: break-word;
 }
 
-.cmm-manager-grid .cn-node-desc a {
+.cmm-manager-grid .cmm-node-desc a {
 	color: #5555FF;
     font-weight: bold;
 	text-decoration: none;
@@ -124,158 +120,31 @@ const pageCss = `
 	text-decoration: underline;
 }
 
-.cmm-manager-grid .cn-extensions-button,
-.cmm-manager-grid .cn-conflicts-button {
-	display: inline-block;
+.cmm-icon-passed {
 	width: 20px;
 	height: 20px;
-	color: green;
-	border: none;
-	padding: 0;
-	margin: 0;
-	background: none;
-	min-width: 20px;
+	position: absolute;
+	left: calc(50% - 10px);
+	top: calc(50% - 10px);
+
 }
 
-.cmm-manager-grid .cn-conflicts-button {
-	color: orange;
-}
-
-.cmm-manager-grid .cn-extensions-list,
-.cmm-manager-grid .cn-conflicts-list {
-	line-height: normal;
-	text-align: left;
-	max-height: 80%;
-	min-height: 200px;
-	min-width: 300px;
-	overflow-y: auto;
-	font-size: 12px;
-	border-radius: 5px;
-	padding: 10px;
-	filter: drop-shadow(2px 5px 5px rgb(0 0 0 / 30%));
-}
-
-.cmm-manager-grid .cn-extensions-list {
-	border-color: var(--bg-color);
-}
-
-.cmm-manager-grid .cn-conflicts-list {
-	background-color: #CCCC55;
-	color: #AA3333;
-}
-
-.cmm-manager-grid .cn-extensions-list h3,
-.cmm-manager-grid .cn-conflicts-list h3 {
-	margin: 0;
-	padding: 5px 0;
-	color: #000;
-}
-
-.cn-tag-list {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 5px;
-	align-items: center;
-	margin-bottom: 5px;
-}
-
-.cn-tag-list > div {
-	background-color: var(--border-color);
-	border-radius: 5px;
-    padding: 0 5px;
-}
-
-.cn-install-buttons {
-	display: flex;
-	flex-direction: column;
-	gap: 3px;
-	padding: 3px;
-	align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
-.cn-selected-buttons {
-	display: flex;
-	gap: 5px;
-	align-items: center;
-	padding-right: 20px;
-}
-
-.cmm-manager .cn-btn-enable {
+.cmm-manager .cmm-btn-enable {
 	background-color: blue;
 	color: white;
 }
 
-.cmm-manager .cn-btn-disable {
+.cmm-manager .cmm-btn-disable {
 	background-color: MediumSlateBlue;
 	color: white;
 }
 
-.cmm-manager .cn-btn-update {
-	background-color: blue;
-	color: white;
-}
-
-.cmm-manager .cn-btn-try-update {
-	background-color: Gray;
-	color: white;
-}
-
-.cmm-manager .cn-btn-try-fix {
-	background-color: #6495ED;
-	color: white;
-}
-
-.cmm-manager .cn-btn-install {
+.cmm-manager .cmm-btn-install {
 	background-color: black;
 	color: white;
 }
 
-.cmm-manager .cn-btn-try-install {
-	background-color: Gray;
-	color: white;
-}
-
-.cmm-manager .cn-btn-uninstall {
-	background-color: red;
-	color: white;
-}
-
-@keyframes cn-btn-loading-bg {
-    0% {
-        left: 0;
-    }
-    100% {
-        left: -100px;
-    }
-}
-
-.cmm-manager button.cn-btn-loading {
-    position: relative;
-    overflow: hidden;
-    border-color: rgb(0 119 207 / 80%);
-	background-color: var(--comfy-input-bg);
-}
-
-.cmm-manager button.cn-btn-loading::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: "";
-    width: 500px;
-    height: 100%;
-    background-image: repeating-linear-gradient(
-        -45deg,
-        rgb(0 119 207 / 30%),
-        rgb(0 119 207 / 30%) 10px,
-        transparent 10px,
-        transparent 15px
-    );
-    animation: cn-btn-loading-bg 3s linear infinite;
-}
-
-.cmm-manager-light .cn-node-name a {
+.cmm-manager-light .cmm-node-name a {
 	color: blue;
 }
 
@@ -283,7 +152,7 @@ const pageCss = `
 	background-color: #ccc !important;
 }
 
-.cmm-manager-light .cn-btn-install {
+.cmm-manager-light .cmm-btn-install {
 	background-color: #333;
 }
 
@@ -302,14 +171,13 @@ const pageHtml = `
 	</label>
 	<input class="cmm-manager-keywords" type="search" placeholder="Search" />
 	<div class="cmm-manager-status"></div>
-	<div class="cn-flex-auto"></div>
+	<div class="cmm-flex-auto"></div>
 </div>
 <div class="cmm-manager-grid"></div>
 <div class="cmm-manager-message"></div>
 <div class="cmm-manager-footer">
 	<button class="cmm-manager-close">Close</button>
-	<button class="cmm-manager-restart">Restart</button>
-	<div class="cn-flex-auto"></div>
+	<div class="cmm-flex-auto"></div>
 </div>
 `;
 
@@ -325,7 +193,6 @@ export class ModelManager {
 		this.type = '';
 		this.base = '';
 		this.keywords = '';
-		this.restartMap = {};
 
 		this.init();
 	}
@@ -360,9 +227,6 @@ export class ModelManager {
 		}, {
 			label: "Not Installed",
 			value: "False"
-		}, {
-			label: "Unknown",
-			value: "None"
 		}];
 
 		this.typeList = [{
@@ -397,73 +261,23 @@ export class ModelManager {
 
 	}
 
-	getFilterItem(filter) {
-		return this.filterList.find(it => it.value === filter)
-	}
-
-	getInstallButtons(installed, title) {
-
-		const buttons = {
-			"install": {
-				label: "Install",
-				mode: "install"
-			},
-			"try-install": {
-				label: "Try install",
-				mode: "install"
-			}
-		}
-
-		const installGroups = {
-			"False": ["install"],
-			'None': ["try-install"]
-		}
-
-		const list = installGroups[installed];
-		if (!list) {
-			return "";
-		}
-
-		return list.map(id => {
-			const bt = buttons[id];
-			return `<button class="cn-btn-${id}" group="${installed}" mode="${bt.mode}">${bt.label}</button>`;
-		}).join("");
-	}
-
-	getButton(target) {
-		if(!target) {
-			return;
-		}
-		const mode = target.getAttribute("mode");
-		if (!mode) {
-			return;
-		}
-		const group = target.getAttribute("group");
-		if (!group) {
-			return;
-		}
-		return {
-			group,
-			mode,
-			target,
-			label: target.innerText
-		}
-	}
-
 	bindEvents() {
 		const eventsMap = {
 			".cmm-manager-filter": {
 				change: (e) => {
+					this.filter = e.target.value;
 					this.updateGrid();
 				}
 			},
 			".cmm-manager-type": {
 				change: (e) => {
+					this.type = e.target.value;
 					this.updateGrid();
 				}
 			},
 			".cmm-manager-base": {
 				change: (e) => {
+					this.base = e.target.value;
 					this.updateGrid();
 				}
 			},
@@ -483,14 +297,6 @@ export class ModelManager {
 				click: (e) => this.close()
 			},
 
-			".cmm-manager-restart": {
-				click: () => {
-					if(rebootAPI()) {
-						this.close();
-						this.manager_dialog.close();
-					}
-				}
-			}
 		};
 		Object.keys(eventsMap).forEach(selector => {
 			const target = this.element.querySelector(selector);
@@ -524,10 +330,16 @@ export class ModelManager {
         });
 
 		grid.bind('onClick', (e, d) => {
-			const btn = this.getButton(d.e.target);
-			if (btn) {
-				this.installNodes([d.rowItem.hash], btn, d.rowItem.title);
+			const { rowItem } = d;
+			const target = d.e.target;
+			const mode = target.getAttribute("mode");
+			if (mode === "install") {
+				this.installModel(rowItem);
 			}
+
+			this.grid.selectAll(false);
+			this.grid.setRowSelected(rowItem);
+
         });
 
 		grid.setOption({
@@ -544,7 +356,7 @@ export class ModelManager {
 			bindContainerResize: true,
 
 			cellResizeObserver: (rowItem, columnItem) => {
-				const autoHeightColumns = ['name', 'installed', 'description'];
+				const autoHeightColumns = ['name', 'description'];
 				return autoHeightColumns.includes(columnItem.id)
 			},
 
@@ -556,9 +368,18 @@ export class ModelManager {
 				let shouldShown = grid.highlightKeywordsFilter(rowItem, searchableColumns, this.keywords);
 
 				if (shouldShown) {
-					if(this.filter && rowItem.filterTypes) {
-						shouldShown = rowItem.filterTypes.includes(this.filter);
+					if(this.filter && rowItem.installed !== this.filter) {
+						return false;
 					}
+
+					if(this.type && rowItem.type !== this.type) {
+						return false;
+					}
+
+					if(this.base && rowItem.base !== this.base) {
+						return false;
+					}
+
 				}
 
 				return shouldShown;
@@ -595,24 +416,26 @@ export class ModelManager {
 			width: 200,
 			minWidth: 100,
 			maxWidth: 500,
-			classMap: 'cn-node-name',
+			classMap: 'cmm-node-name',
 			formatter: function(name, rowItem, columnItem, cellNode) {
 				return `<a href=${rowItem.reference} target="_blank"><b>${name}</b></a>`;
 			}
 		}, {
 			id: 'installed',
-			name: 'Install',
+			name: 'Download',
 			width: 130,
 			minWidth: 110,
 			maxWidth: 200,
 			sortable: false,
 			align: 'center',
 			formatter: (installed, rowItem, columnItem) => {
-				if (rowItem.restart) {
-					return `<font color="red">Restart Required</span>`;
+				if (rowItem.refresh) {
+					return `<font color="red">Refresh Required</span>`;
 				}
-				const buttons = this.getInstallButtons(installed, rowItem.title);
-				return `<div class="cn-install-buttons">${buttons}</div>`;
+				if (installed === "True") {
+					return `<div class="cmm-icon-passed">${icons.passed}</div>`;
+				}
+				return `<button class="cmm-btn-install" mode="install">Install</button>`;
 			}
 		}, {
 			id: 'type',
@@ -626,14 +449,15 @@ export class ModelManager {
 			name: 'Description',
 			width: 400,
 			maxWidth: 5000,
-			classMap: 'cn-node-desc'
+			classMap: 'cmm-node-desc'
 		}, {
 			id: 'filename',
 			name: 'Filename',
-			width: 150
+			width: 200
 		}, {
 			id: "save_path",
-			name: 'Save Path'
+			name: 'Save Path',
+			width: 200
 		}];
 
 		this.grid.setData({
@@ -654,97 +478,38 @@ export class ModelManager {
 
 	// ===========================================================================================
 
-	focusInstall(item, mode) {
-		const cellNode = this.grid.getCellNode(item, "installed");
-		if (cellNode) {
-			const cellBtn = cellNode.querySelector(`button[mode="${mode}"]`);
-			if (cellBtn) {
-				cellBtn.classList.add("cn-btn-loading");
-				return true
-			}
-		}
-	}
-
-	async installNodes(list, btn, title) {
+	async installModel(item) {
 		
-		const { target, label, mode} = btn;
-
-		if(mode === "uninstall") {
-			title = title || `${list.length} custom nodes`;
-			if (!confirm(`Are you sure uninstall ${title}?`)) {
-				return;
-			}
-		}
-
-		target.classList.add("cn-btn-loading");
 		this.showLoading();
 		this.showError("");
 
-		let needRestart = false;
-		let errorMsg = "";
-		for (const hash of list) {
+		this.showStatus(`Install ${item.name} ...`);
 
-			const item = this.grid.getRowItemBy("hash", hash);
-			if (!item) {
-				errorMsg = `Not found custom node: ${hash}`;
-				break;
-			}
+		this.grid.selectAll(false);
+		this.grid.setRowSelected(item);
 
-			this.grid.scrollRowIntoView(item);
+		const data = item.originalData;
+		const res = await fetchData('/model/install', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		});
 
-			if (!this.focusInstall(item, mode)) {
-				this.grid.onNextUpdated(() => {
-					this.focusInstall(item, mode);
-				});
-			}
 
-			this.showStatus(`${label} ${item.title} ...`);
-
-			const data = item.originalData;
-			const res = await fetchData(`/customnode/${mode}`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(data)
-			});
-
-			if (res.error) {
-
-				errorMsg = `${item.title} ${mode} failed: `;
-				if(res.status == 403) {
-					errorMsg += `This action is not allowed with this security level configuration.`;
-				} else if(res.status == 404) {
-					errorMsg += `With the current security level configuration, only custom nodes from the <B>"default channel"</B> can be installed.`;
-				} else {
-					errorMsg += res.error.message;
-				}
-
-				break;
-			}
-
-			needRestart = true;
-
-			this.grid.setRowSelected(item, false);
-			item.restart = true;
-			this.restartMap[item.hash] = true;
-			this.grid.updateCell(item, "installed");
-
-			//console.log(res.data);
-
+		if (res.error) {
+			const errorMsg = `Install failed: ${item.name} ${res.error.message}`;
+			this.showError(errorMsg);
+			this.hideLoading();
+			return;
 		}
+
+		item.refresh = true;
+		this.grid.updateCell(item, "installed");
 
 		this.hideLoading();
-		target.classList.remove("cn-btn-loading");
 
-		if (errorMsg) {
-			this.showError(errorMsg);
-		} else {
-			this.showStatus(`${label} ${list.length} custom node(s) successfully`);
-		}
-
-		if (needRestart) {
-			this.showRestart();
-			this.showMessage(`To apply the installed/updated/disabled/enabled custom node, please restart ComfyUI. And refresh browser.`, "red")
-		}
+		this.showStatus(`Install ${item.name} successfully`);
+		this.showMessage(`To apply the installed model, please click the 'Refresh' button on the main menu.`, "red")
 
 	}
 
@@ -753,31 +518,32 @@ export class ModelManager {
 		const typeMap = new Map();
 		const baseMap = new Map();
 
-
 		models.forEach((item, i) => {
 			const { type, base, name, reference } = item;
+			item.originalData = JSON.parse(JSON.stringify(item));
 			item.hash = md5(name + reference);
 			item.id = i + 1;
 
-			baseMap.set(type, type);
-			typeMap.set(base, base);
+			typeMap.set(type, type);
+			baseMap.set(base, base);
+
 		});
 
 		this.typeList = [{
 			label: "All",
 			value: ""
 		}];
-		this.baseList = [{
-			label: "All",
-			value: ""
-		}];
-
 		typeMap.forEach(type => {
 			this.typeList.push({
 				label: type,
 				value: type
 			});
 		});
+
+		this.baseList = [{
+			label: "All",
+			value: ""
+		}];
 		baseMap.forEach(base => {
 			this.baseList.push({
 				label: base,
@@ -794,7 +560,7 @@ export class ModelManager {
 
 		this.showLoading();
 
-		this.showStatus(`Loading data ...`);
+		this.showStatus(`Loading external model list ...`);
 
 		const mode = manager_instance.datasrc_combo.value;
 
@@ -808,6 +574,7 @@ export class ModelManager {
 		const { models } = res.data;
 
 		this.modelList = this.getModelList(models);
+		// console.log("models", this.modelList);
 
 		this.updateFilter();
 		
@@ -858,7 +625,6 @@ export class ModelManager {
 	setDisabled(disabled) {
 
 		const $close = this.element.querySelector(".cmm-manager-close");
-		const $restart = this.element.querySelector(".cmm-manager-restart");
 
 		const list = [
 			".cmm-manager-header input",
@@ -869,7 +635,7 @@ export class ModelManager {
 		})
 		.flat()
 		.filter(it => {
-			return it !== $close && it !== $restart;
+			return it !== $close;
 		});
 		
 		list.forEach($elem => {
@@ -880,24 +646,6 @@ export class ModelManager {
 			}
 		});
 
-		Array.from(this.element.querySelectorAll(".cn-btn-loading")).forEach($elem => {
-			$elem.classList.remove("cn-btn-loading");
-		});
-
-	}
-
-	showRestart() {
-		this.element.querySelector(".cmm-manager-restart").style.display = "block";
-	}
-
-	setFilter(filterValue) {
-		let filter = "";
-		const filterItem = this.getFilterItem(filterValue);
-		if(filterItem) {
-			filter = filterItem.value;
-		}
-		this.filter = filter;
-		this.element.querySelector(".cmm-manager-filter").value = filter;
 	}
 
 	setKeywords(keywords = "") {
