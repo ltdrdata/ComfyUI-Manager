@@ -246,17 +246,20 @@ export class ModelManager {
 	updateFilter() {
 		const $filter  = this.element.querySelector(".cmm-manager-filter");
 		$filter.innerHTML = this.filterList.map(item => {
-			return `<option value="${item.value}">${item.label}</option>`
+			const selected = item.value === this.filter ? " selected" : "";
+			return `<option value="${item.value}"${selected}>${item.label}</option>`
 		}).join("");
 
 		const $type  = this.element.querySelector(".cmm-manager-type");
 		$type.innerHTML = this.typeList.map(item => {
-			return `<option value="${item.value}">${item.label}</option>`
+			const selected = item.value === this.type ? " selected" : "";
+			return `<option value="${item.value}"${selected}>${item.label}</option>`
 		}).join("");
 
 		const $base  = this.element.querySelector(".cmm-manager-base");
 		$base.innerHTML = this.baseList.map(item => {
-			return `<option value="${item.value}">${item.label}</option>`
+			const selected = item.value === this.base ? " selected" : "";
+			return `<option value="${item.value}"${selected}>${item.label}</option>`
 		}).join("");
 
 	}
