@@ -1,5 +1,4 @@
 import { app } from "../../scripts/app.js";
-import { api } from "../../scripts/api.js"
 import { $el } from "../../scripts/ui.js";
 import { 
 	manager_instance, rebootAPI, install_via_git_url, 
@@ -120,6 +119,7 @@ const pageCss = `
 .cn-manager-grid .cn-node-name a {
 	color: skyblue;
 	text-decoration: none;
+	word-break: break-word;
 }
 
 .cn-manager-grid .cn-node-desc a {
@@ -724,12 +724,10 @@ export class CustomNodesManager {
 			width: 200,
 			minWidth: 100,
 			maxWidth: 500,
-			classMap: 'tg-multiline cn-node-name',
+			classMap: 'cn-node-name',
 			formatter: (title, rowItem, columnItem) => {
-				return `<div class="tg-multiline-wrapper">
-					${rowItem.installed === 'Fail' ? '<font color="red"><B>(IMPORT FAILED)</B></font>' : ''}
-					<a href=${rowItem.reference} target="_blank"><b>${title}</b></a>
-				</div>`;
+				return `${rowItem.installed === 'Fail' ? '<font color="red"><B>(IMPORT FAILED)</B></font>' : ''}
+					<a href=${rowItem.reference} target="_blank"><b>${title}</b></a>`;
 			}
 		}, {
 			id: 'installed',
@@ -752,19 +750,13 @@ export class CustomNodesManager {
 			width: 400,
 			maxWidth: 5000,
 			invisible: !this.hasAlternatives(),
-			classMap: 'tg-multiline cn-node-desc',
-			formatter: (alternatives, rowItem, columnItem) => {
-				return `<div class="tg-multiline-fixing">${alternatives}</div>`;
-			}
+			classMap: 'cn-node-desc'
 		}, {
 			id: 'description',
 			name: 'Description',
 			width: 400,
 			maxWidth: 5000,
-			classMap: 'tg-multiline cn-node-desc',
-			formatter: (description, rowItem, columnItem) => {
-				return `<div class="tg-multiline-fixing">${description}</div>`;
-			}
+			classMap: 'cn-node-desc'
 		}, {
 			id: "extensions",
 			name: "Extensions",
