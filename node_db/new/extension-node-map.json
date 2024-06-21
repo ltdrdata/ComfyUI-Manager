@@ -366,8 +366,7 @@
     ],
     "https://github.com/AIFSH/ComfyUI_V-Express": [
         [
-            "CombineAudioVideo",
-            "LoadAudio",
+            "LoadAudioPath",
             "LoadImagePath",
             "LoadVideo",
             "PreViewVideo",
@@ -401,6 +400,7 @@
             "OpenPoseLineart",
             "OpenPoseMediaPipeFace",
             "PreviewAudio",
+            "SaveAudioBL",
             "\u5b58\u50a8",
             "\u5bfc\u5165",
             "\u622a\u56fe",
@@ -592,10 +592,12 @@
         [
             "ArgosTranslateCLIPTextEncodeNode",
             "ArgosTranslateTextNode",
+            "ColorsCorrectNode",
             "DeepTranslatorCLIPTextEncodeNode",
             "DeepTranslatorTextNode",
             "GoogleTranslateCLIPTextEncodeNode",
             "GoogleTranslateTextNode",
+            "HexToHueNode",
             "PainterNode",
             "PoseNode",
             "PreviewTextNode"
@@ -1619,6 +1621,8 @@
             "OpenposePreprocessor",
             "PiDiNetPreprocessor",
             "PixelPerfectResolution",
+            "RenderAnimalKps",
+            "RenderPeopleKps",
             "SAMPreprocessor",
             "SavePoseKpsAsJsonFile",
             "ScribblePreprocessor",
@@ -1905,6 +1909,7 @@
     ],
     "https://github.com/GraftingRayman/ComfyUI_GraftingRayman": [
         [
+            "GR Checkered Board",
             "GR Flip Tile Random Inverted",
             "GR Flip Tile Random Red Ring",
             "GR Image Details Displayer",
@@ -1917,6 +1922,7 @@
             "GR Mask Create Random",
             "GR Mask Resize",
             "GR Multi Mask Create",
+            "GR Onomatopoeia",
             "GR Prompt Selector",
             "GR Prompt Selector Multi",
             "GR Stack Image",
@@ -2372,8 +2378,9 @@
     ],
     "https://github.com/KewkLW/ComfyUI-kewky_tools": [
         [
-            "FormattedTextOutput",
-            "TensorDebugPlus"
+            "TensorDebugPlus",
+            "TextAppendNode",
+            "VRAM_Debug_Plus"
         ],
         {
             "title_aux": "ComfyUI-kewky_tools"
@@ -2852,8 +2859,10 @@
     ],
     "https://github.com/MariusKM/ComfyUI-BadmanNodes": [
         [
+            "BadmanCLIPTextEncodeSDXLRegion",
             "BadmanIO",
             "BadmanIntUtil",
+            "BadmanStringSelect",
             "Badman_Blend",
             "Badman_Concat_String",
             "Badman_HexGenerator",
@@ -3543,17 +3552,9 @@
     "https://github.com/Scorpinaus/ComfyUI-DiffusersLoader": [
         [
             "CombinedDiffusersLoader",
-            "CombinedDiffusersSD15Loader",
-            "CombinedDiffusersSDXLLoader",
             "DiffusersClipLoader",
             "DiffusersUNETLoader",
-            "DiffusersVAELoader",
-            "SD15CLIPLoader",
-            "SD15UNETLoader",
-            "SD15VAELoader",
-            "SDXLCLIPLoader",
-            "SDXLUNETLoader",
-            "SDXLVAELoader"
+            "DiffusersVAELoader"
         ],
         {
             "title_aux": "Loaders for Diffusers-format checkpoints"
@@ -9386,6 +9387,7 @@
             "PromptImageVariationTask",
             "PromptTask",
             "Rule",
+            "RulesList",
             "RunAgent",
             "TextSummaryTask",
             "ToolList",
@@ -9405,6 +9407,7 @@
             "gtUIKnowledgeBaseTool",
             "gtUILeonardoImageGenerationDriver",
             "gtUILoadAudio",
+            "gtUIOllamaStructureConfig",
             "gtUIOpenAiAudioTranscriptionDriver",
             "gtUIOpenAiImageGenerationDriver",
             "gtUIOpenAiStructureConfig",
@@ -9700,6 +9703,14 @@
         ],
         {
             "title_aux": "ComfyUI-layerdiffuse (layerdiffusion)"
+        }
+    ],
+    "https://github.com/huchenlei/ComfyUI-openpose-editor": [
+        [
+            "huchenlei.LoadOpenposeJSON"
+        ],
+        {
+            "title_aux": "ComfyUI-openpose-editor"
         }
     ],
     "https://github.com/huchenlei/ComfyUI_DanTagGen": [
@@ -10235,10 +10246,12 @@
     ],
     "https://github.com/kadirnar/ComfyUI-YOLO": [
         [
+            "BBoxToCOCO",
             "BBoxToXYWH",
             "ConvertToDict",
-            "LoadUltralytics",
+            "LoadUltralyticsModel",
             "UltralyticsInference",
+            "UltralyticsModelDownloader",
             "UltralyticsVisualization"
         ],
         {
@@ -11261,6 +11274,22 @@
             "title_aux": "Wildcards"
         }
     ],
+    "https://github.com/lordgasmic/comfyui_save_image_with_options": [
+        [
+            "SaveImageWithOptions"
+        ],
+        {
+            "title_aux": "comfyui_save_image_with_options"
+        }
+    ],
+    "https://github.com/lordgasmic/comfyui_wildcards": [
+        [
+            "CLIPTextEncodeWithWildcards"
+        ],
+        {
+            "title_aux": "comfyui_wildcards"
+        }
+    ],
     "https://github.com/lquesada/ComfyUI-Inpaint-CropAndStitch": [
         [
             "InpaintCrop",
@@ -11327,6 +11356,7 @@
             "FromDetailerPipe",
             "FromDetailerPipeSDXL",
             "FromDetailerPipe_v2",
+            "GITSSchedulerFuncProvider",
             "ImageListToImageBatch",
             "ImageMaskSwitch",
             "ImageReceiver",
@@ -11842,6 +11872,7 @@
             "PettyPaintFileExists",
             "PettyPaintImageColorsToMasks",
             "PettyPaintImageCompositeMasked",
+            "PettyPaintImageDims",
             "PettyPaintImagePlacement",
             "PettyPaintImageSave",
             "PettyPaintImageStore",
@@ -11850,8 +11881,11 @@
             "PettyPaintJsonMap",
             "PettyPaintJsonRead",
             "PettyPaintJsonReadArray",
+            "PettyPaintKSampler",
+            "PettyPaintKSamplerAdvanced",
             "PettyPaintLoRAStack",
             "PettyPaintLoadImage",
+            "PettyPaintLoadImageMasks",
             "PettyPaintLoadImages",
             "PettyPaintMap",
             "PettyPaintMasksToImages",
@@ -11860,9 +11894,11 @@
             "PettyPaintProcessor",
             "PettyPaintRemoveAddText",
             "PettyPaintSDTurboScheduler",
+            "PettyPaintStoryImage",
             "PettyPaintText",
             "PettyPaintTexts_to_Conditioning",
-            "PettyPaintToJson"
+            "PettyPaintToJson",
+            "PettyPaintVAEDecode"
         ],
         {
             "title_aux": "petty-paint-comfyui-node"
@@ -14959,6 +14995,15 @@
         ],
         {
             "title_aux": "EasyCaptureNode for ComfyUI"
+        }
+    ],
+    "https://github.com/zhulu111/ComfyUI_Bxb": [
+        [
+            "sdBxb",
+            "sdBxb_textInput"
+        ],
+        {
+            "title_aux": "ComfyUI_Bxb"
         }
     ],
     "https://github.com/zohac/ComfyUI_ZC_DrawShape": [

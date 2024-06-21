@@ -13,7 +13,37 @@
 
 
 
-
+        {
+            "author": "MinusZoneAI",
+            "title": "ComfyUI-TrainTools-MZ",
+            "id": "traintools",
+            "reference": "https://github.com/MinusZoneAI/ComfyUI-TrainTools-MZ",
+            "files": [
+                "https://github.com/MinusZoneAI/ComfyUI-TrainTools-MZ"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes for fine-tuning lora in ComfyUI, dependent on training tools such as kohya-ss/sd-scripts"
+        },
+        {
+            "author": "lordgasmic",
+            "title": "comfyui_wildcards",
+            "reference": "https://github.com/lordgasmic/comfyui_wildcards",
+            "files": [
+                "https://github.com/lordgasmic/comfyui_wildcards"
+            ],
+            "install_type": "git-clone",
+            "description": "This is an attempt to recreate the wildcards plugin for Automatic1111 but for ComfyUI."
+        },
+        {
+            "author": "lordgasmic",
+            "title": "comfyui_save_image_with_options",
+            "reference": "https://github.com/lordgasmic/comfyui_save_image_with_options",
+            "files": [
+                "https://github.com/lordgasmic/comfyui_save_image_with_options"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Save Image with Options"
+        },
         {
             "author": "asagi4",
             "title": "Adaptive Guidance for ComfyUI",
@@ -661,83 +691,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:ZC DrawShape Node"
-        },
-        {
-            "author": "ThereforeGames",
-            "title": "ComfyUI-Unprompted",
-            "id": "unprompted",
-            "reference": "https://github.com/ThereforeGames/ComfyUI-Unprompted",
-            "files": [
-                "https://github.com/ThereforeGames/ComfyUI-Unprompted"
-            ],
-            "install_type": "git-clone",
-            "description": "This is a ComfyUI node that processes your input text with the [a/Unprompted templating language](https://github.com/ThereforeGames/unprompted). Early alpha release.\n"
-        },
-        {
-            "author": "Scorpinaus",
-            "title": "Loaders for Diffusers-format checkpoints",
-            "id": "diffusersloader",
-            "reference": "https://github.com/Scorpinaus/ComfyUI-DiffusersLoader",
-            "files": [
-                "https://github.com/Scorpinaus/ComfyUI-DiffusersLoader"
-            ],
-            "install_type": "git-clone",
-            "description": "This node pack allows loading of CLIP, MODEL, VAE aspects for both SD1.5 and SDXL checkpoints that is converted to diffusers format."
-        },
-        {
-            "author": "chakib-belgaid",
-            "title": "ComfyUI Style Plugin",
-            "id": "style-plugin",
-            "reference": "https://github.com/chakib-belgaid/Comfyui_Prompt_styler",
-            "files": [
-                "https://github.com/chakib-belgaid/Comfyui_Prompt_styler"
-            ],
-            "install_type": "git-clone",
-            "description": "This is a simple plugin for ComfyUI that allows you to import A1111 CSV styles into ComfyUI prompts."
-        },
-        {
-            "author": "tiankuan93",
-            "title": "V-Express: Conditional Dropout for Progressive Training of Portrait Video Generation",
-            "id": "v-express",
-            "reference": "https://github.com/tiankuan93/ComfyUI-V-Express",
-            "files": [
-                "https://github.com/tiankuan93/ComfyUI-V-Express"
-            ],
-            "install_type": "git-clone",
-            "description": "[Original] In the field of portrait video generation, the use of single images to generate portrait videos has become increasingly prevalent. A common approach involves leveraging generative models to enhance adapters for controlled generation. However, control signals can vary in strength, including text, audio, image reference, pose, depth map, etc. Among these, weaker conditions often struggle to be effective due to interference from stronger conditions, posing a challenge in balancing these conditions. In our work on portrait video generation, we identified audio signals as particularly weak, often overshadowed by stronger signals such as pose and original image. However, direct training with weak signals often leads to difficulties in convergence. To address this, we propose V-Express, a simple method that balances different control signals through a series of progressive drop operations. Our method gradually enables effective control by weak conditions, thereby achieving generation capabilities that simultaneously take into account pose, input image, and audio.\nNOTE: You need to downdload [a/model_ckpts](https://huggingface.co/tk93/V-Express/tree/main) manually."
-        },
-        {
-            "author": "CMonk",
-            "title": "Stable Projectorz Bridge",
-            "id": "projectorz",
-            "reference": "https://github.com/tianlang0704/ComfyUI-StableProjectorzBridge",
-            "files": [
-                "https://github.com/tianlang0704/ComfyUI-StableProjectorzBridge"
-            ],
-            "install_type": "git-clone",
-            "description": "This custom nodes enables Stable Projectorz to work with ComfyUI Directly."
-        },
-        {
-            "author": "comfyanonymous",
-            "title": "TensorRT Node for ComfyUI",
-            "id": "tensorrt",
-            "reference": "https://github.com/comfyanonymous/ComfyUI_TensorRT",
-            "files": [
-                "https://github.com/comfyanonymous/ComfyUI_TensorRT"
-            ],
-            "install_type": "git-clone",
-            "description": "This node enables the best performance on NVIDIA RTX™ Graphics Cards  (GPUs) for Stable Diffusion by leveraging NVIDIA TensorRT."
-        },
-        {
-            "author": "fexploit",
-            "title": "ComfyUI-Classifier",
-            "id": "classifier",
-            "reference": "https://github.com/fexploit/ComfyUI-Classifier",
-            "files": [
-                "https://github.com/fexploit/ComfyUI-Classifier"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI-Classifier is a custom node for ComfyUI that uses a zero-shot classification model to classify text inputs based on a set of candidate labels. This node leverages the power of Hugging Face Transformers to provide accurate and flexible text classification."
         }
     ]
 }

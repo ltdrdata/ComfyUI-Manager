@@ -380,6 +380,7 @@ When you run the `scan.sh` script:
 * https://github.com/SimithWang/comfyui-renameImages
 * https://github.com/icefairy64/comfyui-model-tilt
 * https://github.com/andrewharp/ComfyUI-EasyNodes
+* https://github.com/SimithWang/comfyui-renameImages
 
 ## Roadmap
 
