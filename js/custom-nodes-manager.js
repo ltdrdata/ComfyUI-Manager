@@ -305,7 +305,7 @@ const pageHtml = `
 	<label>Filter
 		<select class="cn-manager-filter"></select>
 	</label>
-	<input class="cn-manager-keywords" type="search" placeholder="input search keyword" />
+	<input class="cn-manager-keywords" type="search" placeholder="Search" />
 	<div class="cn-manager-status"></div>
 	<div class="cn-flex-auto"></div>
 	<div class="cn-manager-channel"></div>
@@ -620,7 +620,7 @@ export class CustomNodesManager {
 			const viewRows = grid.viewRows;
 			if (viewRows.length !== prevViewRowsLength) {
 				prevViewRowsLength = viewRows.length;
-				this.showStatus(`${prevViewRowsLength} custom nodes`);
+				this.showStatus(`${prevViewRowsLength.toLocaleString()} custom nodes`);
 			}
 
         });
@@ -818,7 +818,7 @@ export class CustomNodesManager {
 		}, {
 			id: 'author',
 			name: 'Author',
-			width: 100,
+			width: 120,
 			classMap: "cn-node-author", 
 			formatter: (author, rowItem, columnItem) => {
 				if (rowItem.trust) {
