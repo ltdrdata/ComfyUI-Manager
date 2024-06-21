@@ -321,14 +321,9 @@ export class ModelManager {
 		const grid = new TG.Grid(container);
 		this.grid = grid;
 		
-		let prevViewRowsLength = -1;
 		grid.bind('onUpdated', (e, d) => {
 
-			const viewRows = grid.viewRows;
-			if (viewRows.length !== prevViewRowsLength) {
-				prevViewRowsLength = viewRows.length;
-				this.showStatus(`${prevViewRowsLength.toLocaleString()} external models`);
-			}
+			this.showStatus(`${grid.viewRows.length.toLocaleString()} external models`);
 
         });
 
