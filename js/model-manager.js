@@ -555,27 +555,46 @@ export class ModelManager {
 
 		});
 
-		this.typeList = [{
-			label: "All",
-			value: ""
-		}];
+		const typeList = [];
 		typeMap.forEach(type => {
-			this.typeList.push({
+			typeList.push({
 				label: type,
 				value: type
 			});
 		});
-
-		this.baseList = [{
+		typeList.sort((a,b)=> {
+			const au = a.label.toUpperCase();
+        	const bu = b.label.toUpperCase();
+        	if (au !== bu) {
+            	return au > bu ? 1 : -1;
+			}
+			return 0;
+		});
+		this.typeList = [{
 			label: "All",
 			value: ""
-		}];
+		}].concat(typeList);
+
+
+		const baseList = [];
 		baseMap.forEach(base => {
-			this.baseList.push({
+			baseList.push({
 				label: base,
 				value: base
 			});
 		});
+		baseList.sort((a,b)=> {
+			const au = a.label.toUpperCase();
+        	const bu = b.label.toUpperCase();
+        	if (au !== bu) {
+            	return au > bu ? 1 : -1;
+			}
+			return 0;
+		});
+		this.baseList = [{
+			label: "All",
+			value: ""
+		}].concat(baseList);
 
 		return models;
 	}
