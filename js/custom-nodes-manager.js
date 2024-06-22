@@ -256,7 +256,7 @@ const pageCss = `
         left: 0;
     }
     100% {
-        left: -100px;
+        left: -105px;
     }
 }
 
@@ -281,7 +281,7 @@ const pageCss = `
         transparent 10px,
         transparent 15px
     );
-    animation: cn-btn-loading-bg 3s linear infinite;
+    animation: cn-btn-loading-bg 2s linear infinite;
 }
 
 .cn-manager-light .cn-node-name a {
