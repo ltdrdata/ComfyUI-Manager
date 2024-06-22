@@ -161,6 +161,7 @@ const pageCss = `
 	border-radius: 5px;
 	padding: 10px;
 	filter: drop-shadow(2px 5px 5px rgb(0 0 0 / 30%));
+	white-space: normal;
 }
 
 .cn-manager-grid .cn-extensions-list {

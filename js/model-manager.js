@@ -126,7 +126,6 @@ const pageCss = `
 	position: absolute;
 	left: calc(50% - 10px);
 	top: calc(50% - 10px);
-
 }
 
 .cmm-manager .cmm-btn-enable {
@@ -142,6 +141,25 @@ const pageCss = `
 .cmm-manager .cmm-btn-install {
 	background-color: black;
 	color: white;
+}
+
+.cmm-btn-download {
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	left: calc(50% - 10px);
+	top: calc(50% - 10px);
+	cursor: pointer;
+	opacity: 0.8;
+	color: #fff;
+}
+
+.cmm-btn-download:hover {
+	opacity: 1;
+}
+
+.cmm-manager-light .cmm-btn-download {
+	color: #000;
 }
 
 @keyframes cmm-btn-loading-bg {
@@ -450,7 +468,7 @@ export class ModelManager {
 			}
 		}, {
 			id: 'installed',
-			name: 'Download',
+			name: 'Install',
 			width: 130,
 			minWidth: 110,
 			maxWidth: 200,
@@ -464,6 +482,15 @@ export class ModelManager {
 					return `<div class="cmm-icon-passed">${icons.passed}</div>`;
 				}
 				return `<button class="cmm-btn-install" mode="install">Install</button>`;
+			}
+		}, {
+			id: 'url',
+			name: '',
+			width: 50,
+			sortable: false,
+			align: 'center',
+			formatter: (url, rowItem, columnItem) => {
+				return `<a class="cmm-btn-download" title="Download file" href="${url}" target="_blank">${icons.download}</a>`;
 			}
 		}, {
 			id: 'type',
