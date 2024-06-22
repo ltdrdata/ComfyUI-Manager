@@ -315,6 +315,8 @@ NODE_CLASS_MAPPINGS.update({
   * When you create the `pip_overrides.json` file, it changes the installation of specific pip packages to installations defined by the user.
     * Please refer to the `pip_overrides.json.template` file.
     
+* Use `aria2` as downloader
+  * [howto](docs/en/use_aria2.md)
 
 ## Scanner
 When you run the `scan.sh` script:
