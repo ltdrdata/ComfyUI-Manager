@@ -144,6 +144,39 @@ const pageCss = `
 	color: white;
 }
 
+@keyframes cmm-btn-loading-bg {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -100px;
+    }
+}
+
+.cmm-manager button.cmm-btn-loading {
+    position: relative;
+    overflow: hidden;
+    border-color: rgb(0 119 207 / 80%);
+	background-color: var(--comfy-input-bg);
+}
+
+.cmm-manager button.cmm-btn-loading::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    width: 500px;
+    height: 100%;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        rgb(0 119 207 / 30%),
+        rgb(0 119 207 / 30%) 10px,
+        transparent 10px,
+        transparent 15px
+    );
+    animation: cmm-btn-loading-bg 3s linear infinite;
+}
+
 .cmm-manager-light .cmm-node-name a {
 	color: blue;
 }
@@ -332,11 +365,8 @@ export class ModelManager {
 			const target = d.e.target;
 			const mode = target.getAttribute("mode");
 			if (mode === "install") {
-				this.installModel(rowItem);
+				this.installModel(rowItem, target);
 			}
-
-			this.grid.selectAll(false);
-			this.grid.setRowSelected(rowItem);
 
         });
 
@@ -476,15 +506,13 @@ export class ModelManager {
 
 	// ===========================================================================================
 
-	async installModel(item) {
+	async installModel(item, btn) {
 		
 		this.showLoading();
 		this.showError("");
 
 		this.showStatus(`Install ${item.name} ...`);
-
-		this.grid.selectAll(false);
-		this.grid.setRowSelected(item);
+		btn.classList.add("cmm-btn-loading");
 
 		const data = item.originalData;
 		const res = await fetchData('/model/install', {
@@ -642,6 +670,10 @@ export class ModelManager {
 			} else {
 				$elem.removeAttribute("disabled");
 			}
+		});
+
+		Array.from(this.element.querySelectorAll(".cmm-btn-loading")).forEach($elem => {
+			$elem.classList.remove("cmm-btn-loading");
 		});
 
 	}
