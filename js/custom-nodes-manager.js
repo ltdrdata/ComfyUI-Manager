@@ -161,6 +161,7 @@ const pageCss = `
 	border-radius: 5px;
 	padding: 10px;
 	filter: drop-shadow(2px 5px 5px rgb(0 0 0 / 30%));
+	white-space: normal;
 }
 
 .cn-manager-grid .cn-extensions-list {
@@ -255,7 +256,7 @@ const pageCss = `
         left: 0;
     }
     100% {
-        left: -100px;
+        left: -105px;
     }
 }
 
@@ -280,7 +281,7 @@ const pageCss = `
         transparent 10px,
         transparent 15px
     );
-    animation: cn-btn-loading-bg 3s linear infinite;
+    animation: cn-btn-loading-bg 2s linear infinite;
 }
 
 .cn-manager-light .cn-node-name a {

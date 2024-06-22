@@ -392,10 +392,10 @@ When you run the `scan.sh` script:
 - [ ] Auto migration for custom nodes with changed structures.
 - [ ] Version control feature for nodes.
 - [ ] List of currently used custom nodes.
-- [ ] Download support multiple model download.
-- [ ] Model download via url.
+- [x] Download support multiple model download.
+- [x] Model download via url.
 - [x] List sorting (custom nodes).
-- [ ] List sorting (model).
+- [x] List sorting (model).
 - [ ] Provides description of node.
 
 
