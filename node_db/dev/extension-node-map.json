@@ -196,6 +196,15 @@
             "title_aux": "YANC- Yet Another Node Collection"
         }
     ],
+    "https://github.com/AllenEdgarPoe/ComfyUI-Xorbis-nodes": [
+        [
+            "Add Human Styler",
+            "Save Log Info"
+        ],
+        {
+            "title_aux": "ComfyUI-Xorbis-nodes"
+        }
+    ],
     "https://github.com/BadCafeCode/execution-inversion-demo-comfyui": [
         [
             "AccumulateNode",
@@ -331,6 +340,7 @@
     ],
     "https://github.com/GraftingRayman/ComfyUI_GR_PromptSelector": [
         [
+            "GR Checkered Board",
             "GR Flip Tile Random Inverted",
             "GR Flip Tile Random Red Ring",
             "GR Image Details Displayer",
@@ -338,13 +348,16 @@
             "GR Image Resize",
             "GR Image Resize Methods",
             "GR Image Size",
+            "GR Image/Depth Mask",
             "GR Mask Create",
             "GR Mask Create Random",
             "GR Mask Resize",
             "GR Multi Mask Create",
+            "GR Onomatopoeia",
             "GR Prompt Selector",
             "GR Prompt Selector Multi",
             "GR Stack Image",
+            "GR Text Overlay",
             "GR Tile and Border Image",
             "GR Tile and Border Image Random Flip"
         ],
@@ -525,6 +538,7 @@
     ],
     "https://github.com/Quasimondo/ComfyUI-QuasimondoNodes": [
         [
+            "CPPN Generator",
             "Color Match",
             "Custom Shader",
             "Folder Queue Manager",
@@ -568,17 +582,9 @@
     "https://github.com/Scorpinaus/ComfyUI-DiffusersLoader": [
         [
             "CombinedDiffusersLoader",
-            "CombinedDiffusersSD15Loader",
-            "CombinedDiffusersSDXLLoader",
             "DiffusersClipLoader",
             "DiffusersUNETLoader",
-            "DiffusersVAELoader",
-            "SD15CLIPLoader",
-            "SD15UNETLoader",
-            "SD15VAELoader",
-            "SDXLCLIPLoader",
-            "SDXLUNETLoader",
-            "SDXLVAELoader"
+            "DiffusersVAELoader"
         ],
         {
             "title_aux": "ComfyUI-DiffusersLoader"
@@ -600,12 +606,17 @@
             "Clip Text Encode (Shinsplat)",
             "Clip Text Encode SD3 (Shinsplat)",
             "Clip Text Encode SDXL (Shinsplat)",
+            "Clip Text Encode T5 (Shinsplat)",
+            "Clip Tokens Encode (Shinsplat)",
             "Green Box (Shinsplat)",
+            "Hex To Other (Shinsplat)",
             "Lora Loader (Shinsplat)",
             "Python (Shinsplat)",
             "Python - More Inputs (Shinsplat)",
             "String Interpolated (Shinsplat)",
             "Sum Wrap (Shinsplat)",
+            "Test Node (Shinsplat)",
+            "Text To Tokens (Shinsplat)",
             "Variables (Shinsplat)"
         ],
         {
@@ -724,11 +735,13 @@
     ],
     "https://github.com/baicai99/ComfyUI-FrameSkipping": [
         [
+            "FrameSelector",
             "FrameSkipping",
             "FrameTruncating",
             "IntOperationsNode",
             "MaskFrameSkipping",
-            "WhiteMaskGenerator"
+            "MaskGenerator",
+            "MaskSelector"
         ],
         {
             "title_aux": "ComfyUI-FrameSkipping"
@@ -914,6 +927,7 @@
             "DualCFGGuider",
             "DualCLIPLoader",
             "EmptyImage",
+            "EmptyLatentAudio",
             "EmptyLatentImage",
             "EmptySD3LatentImage",
             "ExponentialScheduler",
@@ -921,6 +935,7 @@
             "FlipSigmas",
             "FreeU",
             "FreeU_V2",
+            "GITSScheduler",
             "GLIGENLoader",
             "GLIGENTextBoxApply",
             "GrowMask",
@@ -967,6 +982,7 @@
             "LatentSubtract",
             "LatentUpscale",
             "LatentUpscaleBy",
+            "LoadAudio",
             "LoadImage",
             "LoadImageMask",
             "LoadLatent",
@@ -978,10 +994,12 @@
             "ModelMergeBlocks",
             "ModelMergeSD1",
             "ModelMergeSD2",
+            "ModelMergeSD3_2B",
             "ModelMergeSDXL",
             "ModelMergeSimple",
             "ModelMergeSubtract",
             "ModelSamplingContinuousEDM",
+            "ModelSamplingContinuousV",
             "ModelSamplingDiscrete",
             "ModelSamplingSD3",
             "ModelSamplingStableCascade",
@@ -1016,6 +1034,7 @@
             "SamplerLMS",
             "SaveAnimatedPNG",
             "SaveAnimatedWEBP",
+            "SaveAudio",
             "SaveImage",
             "SaveImageWebsocket",
             "SaveLatent",
@@ -1042,8 +1061,10 @@
             "UNetTemporalAttentionMultiply",
             "UpscaleModelLoader",
             "VAEDecode",
+            "VAEDecodeAudio",
             "VAEDecodeTiled",
             "VAEEncode",
+            "VAEEncodeAudio",
             "VAEEncodeForInpaint",
             "VAEEncodeTiled",
             "VAELoader",
@@ -1252,6 +1273,14 @@
         ],
         {
             "title_aux": "ComfyUI-InstantStyle"
+        }
+    ],
+    "https://github.com/horidream/ComfyUI-Horidream": [
+        [
+            "PassThroughWithSound"
+        ],
+        {
+            "title_aux": "ComfyUI-Horidream"
         }
     ],
     "https://github.com/houdinii/comfy-magick": [
@@ -1484,7 +1513,7 @@
             "Unique3DRun"
         ],
         {
-            "title_aux": "ComfyUI-Unique3D"
+            "title_aux": "ComfyUI-Unique3D [WIP]"
         }
     ],
     "https://github.com/kadirnar/ComfyUI-Adapter": [
@@ -1551,6 +1580,24 @@
         ],
         {
             "title_aux": "ComfyUI nodes to use DeepSeek-VL"
+        }
+    ],
+    "https://github.com/kijai/ComfyUI-DiffSynthWrapper": [
+        [
+            "DiffSynthSampler",
+            "DownloadAndLoadDiffSynthExVideoSVD"
+        ],
+        {
+            "title_aux": "ComfyUI DiffSynth wrapper nodes [WIP]"
+        }
+    ],
+    "https://github.com/kijai/ComfyUI-DiffusersSD3Wrapper": [
+        [
+            "LoadSD3DiffusersPipeline",
+            "SD3ControlNetSampler"
+        ],
+        {
+            "title_aux": "ComfyUI-DiffusersSD3Wrapper"
         }
     ],
     "https://github.com/komojini/ComfyUI_Prompt_Template_CustomNodes/raw/main/prompt_with_template.py": [
@@ -1665,6 +1712,19 @@
             "title_aux": "ComfyUI mashb1t nodes"
         }
     ],
+    "https://github.com/mikeymcfish/FishTools": [
+        [
+            "Deptherize",
+            "LaserCutterFull"
+        ],
+        {
+            "author": "Fish",
+            "description": "This extension provides tools for generating laser cutter ready files",
+            "nickname": "FishTools",
+            "title": "FishTools",
+            "title_aux": "LaserCutterFull and Deptherize Nodes"
+        }
+    ],
     "https://github.com/mut-ex/comfyui-gligengui-node": [
         [
             "GLIGEN_GUI"
@@ -1762,12 +1822,32 @@
             "title_aux": "NudeNet-Detector-Provider [WIP]"
         }
     ],
+    "https://github.com/prabinpebam/anyPython": [
+        [
+            "Any Python"
+        ],
+        {
+            "author": "prabinpebam",
+            "description": "This node can take any input and use that to run a python script in ComfyUI",
+            "nickname": "AnyPython",
+            "title": "AnyPython v0.1",
+            "title_aux": "anyPython [UNSAFE]"
+        }
+    ],
     "https://github.com/prismwastaken/comfyui-tools": [
         [
             "Prism-RandomNormal"
         ],
         {
             "title_aux": "prism-tools"
+        }
+    ],
+    "https://github.com/pzzmyc/comfyui-sd3-simple-simpletuner": [
+        [
+            "sd not very simple simpletuner by hhy"
+        ],
+        {
+            "title_aux": "comfyui-sd3-simple-simpletuner"
         }
     ],
     "https://github.com/redhottensors/ComfyUI-ODE": [

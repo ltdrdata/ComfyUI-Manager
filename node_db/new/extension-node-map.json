@@ -5643,8 +5643,11 @@
     ],
     "https://github.com/alisson-anjos/ComfyUI-Ollama-Describer": [
         [
-            "LLaVaDescriber",
-            "OllamaDescriber"
+            "InputText",
+            "OllamaImageDescriber",
+            "OllamaTextDescriber",
+            "ShowText",
+            "TextTransformer"
         ],
         {
             "title_aux": "ComfyUI-Ollama-Describer"
@@ -6530,9 +6533,21 @@
             "title_aux": "comfyui-image-round"
         }
     ],
-    "https://github.com/celsojr2013/comfyui_simpletools/raw/main/google_translator.py": [
+    "https://github.com/celsojr2013/comfyui_jamworks_client": [
         [
-            "GoogleTranslator"
+            "Jamworks_Download",
+            "Jamworks_Login",
+            "Shell_Command"
+        ],
+        {
+            "title_aux": "comfyui_jamworks_client"
+        }
+    ],
+    "https://github.com/celsojr2013/comfyui_simpletools": [
+        [
+            "GoogleTranslator",
+            "Parameters",
+            "ResolutionSolver"
         ],
         {
             "title_aux": "ComfyUI SimpleTools Suit"
@@ -8830,6 +8845,14 @@
             "title_aux": "ComfyUI-HyperSDXL1StepUnetScheduler (ByteDance)"
         }
     ],
+    "https://github.com/fofr/ComfyUI-Prompter-fofrAI": [
+        [
+            "Prompt from template \ud83e\udeb4"
+        ],
+        {
+            "title_aux": "ComfyUI-Prompter-fofrAI"
+        }
+    ],
     "https://github.com/forever22777/comfyui-self-guidance": [
         [
             "CLIPConditioning",
@@ -10088,8 +10111,12 @@
             "Evaluate Floats JK",
             "Evaluate Ints JK",
             "Evaluate Strings JK",
+            "GroundingDinoModelLoader (segment anything)",
+            "GroundingDinoSAMSegment (segment anything)",
             "HintImageEnchance JK",
             "Image Upscale Parameters Extract JK",
+            "InvertMask (segment anything)",
+            "IsMaskEmpty",
             "Ksampler Parameters JK",
             "Latent Upscale Parameters Extract JK",
             "Load Image With Metadata JK",
@@ -10111,6 +10138,48 @@
             "Reroute Sampler JK",
             "Reroute Upscale JK",
             "Reroute Vae JK",
+            "SAMModelLoader (segment anything)",
+            "SDXLPromptStylerAll",
+            "SDXLPromptStylerHorror",
+            "SDXLPromptStylerMisc",
+            "SDXLPromptStylerbyArtist",
+            "SDXLPromptStylerbyCamera",
+            "SDXLPromptStylerbyComposition",
+            "SDXLPromptStylerbyCyberpunkSurrealism",
+            "SDXLPromptStylerbyDepth",
+            "SDXLPromptStylerbyDiva",
+            "SDXLPromptStylerbyEnvironment",
+            "SDXLPromptStylerbyFantasySetting",
+            "SDXLPromptStylerbyFilter",
+            "SDXLPromptStylerbyFocus",
+            "SDXLPromptStylerbyFooocus",
+            "SDXLPromptStylerbyImpressionism",
+            "SDXLPromptStylerbyLighting",
+            "SDXLPromptStylerbyMarc",
+            "SDXLPromptStylerbyMileHigh",
+            "SDXLPromptStylerbyMood",
+            "SDXLPromptStylerbyMre",
+            "SDXLPromptStylerbyMythicalCreature",
+            "SDXLPromptStylerbyOriginal",
+            "SDXLPromptStylerbyQuantumRealism",
+            "SDXLPromptStylerbySai",
+            "SDXLPromptStylerbySteamPunkRealism",
+            "SDXLPromptStylerbySubject",
+            "SDXLPromptStylerbySurrealism",
+            "SDXLPromptStylerbyTheme",
+            "SDXLPromptStylerbyTimeofDay",
+            "SDXLPromptStylerbyTwri",
+            "SDXLPromptStylerbyWyvern",
+            "SDXLPromptbyCelticArt",
+            "SDXLPromptbyContemporaryNordicArt",
+            "SDXLPromptbyFashionArt",
+            "SDXLPromptbyGothicRevival",
+            "SDXLPromptbyIrishFolkArt",
+            "SDXLPromptbyRomanticNationalismArt",
+            "SDXLPromptbySportsArt",
+            "SDXLPromptbyStreetArt",
+            "SDXLPromptbyVikingArt",
+            "SDXLPromptbyWildlifeArt",
             "Sampler Loader JK",
             "Save Image with Metadata Flow JK",
             "Save Image with Metadata JK",
@@ -10355,9 +10424,10 @@
     ],
     "https://github.com/kadirnar/ComfyUI-Transformers": [
         [
-            "DepthEstimationPipeline",
+            "DepthEstimationInference",
             "ImageClassificationPipeline",
             "ImageSegmentationPipeline",
+            "LoadDepthModel",
             "ObjectDetectionPipeline"
         ],
         {
