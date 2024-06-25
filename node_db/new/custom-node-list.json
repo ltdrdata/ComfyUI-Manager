@@ -13,6 +13,17 @@
 
 
         {
+            "author": "iwanders",
+            "title": "iwanders/ComfyUI_nodes",
+            "id": "iwanders-nodes",
+            "reference": "https://github.com/iwanders/ComfyUI_nodes",
+            "files": [
+                "https://github.com/iwanders/ComfyUI_nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:IW SaveString, IW PrintString, IW ReplaceString, IW StringNode, IW StringConcat, IW TokenizerVocab, IW JsonPickItem."
+        },
+        {
             "author": "SaltAI",
             "title": "SaltAI_AudioViz",
             "id": "saltai-audioviz",
@@ -33,6 +44,28 @@
             ],
             "install_type": "git-clone",
             "description": "tool set for developing workflow and publish to web api server"
+        },
+        {
+            "author": "SherryXieYuchen",
+            "title": "ComfyUI-Image-Inpainting",
+            "id": "image-inpainting",
+            "reference": "https://github.com/SherryXieYuchen/ComfyUI-Image-Inpainting",
+            "files": [
+                "https://github.com/SherryXieYuchen/ComfyUI-Image-Inpainting"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:VAE Encode Inpaint, VAE Decode Inpaint, ColorCorrection Inpaint, ImagePreprocess Inpaint, ImagePostprocess Inpaint, Load Model Inpaint, Inpainting (using Model)"
+        },
+        {
+            "author": "zeroxoxo",
+            "title": "ComfyUI-Fast-Style-Transfer",
+            "id": "fast-style-transfer",
+            "reference": "https://github.com/zeroxoxo/ComfyUI-Fast-Style-Transfer",
+            "files": [
+                "https://github.com/zeroxoxo/ComfyUI-Fast-Style-Transfer"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI node for fast neural style transfer. This is a simple conversion based on this: [a/https://github.com/rrmina/fast-neural-style-pytorch](https://github.com/rrmina/fast-neural-style-pytorch) Only basic inference functionality is ported for now."
         },
         {
             "author": "Shibiko-AI",
@@ -57,11 +90,11 @@
         },
         {
             "author": "RedRayz",
-            "title": "ComfyUI-BooruToWd",
-            "id": "booru2wd",
-            "reference": "https://github.com/RedRayz/ComfyUI-BooruToWd",
+            "title": "ComfyUI-Danbooru-To-WD",
+            "id": "danbooru2wd",
+            "reference": "https://github.com/RedRayz/ComfyUI-Danbooru-To-WD",
             "files": [
-                "https://github.com/RedRayz/ComfyUI-BooruToWd"
+                "https://github.com/RedRayz/ComfyUI-Danbooru-To-WD"
             ],
             "install_type": "git-clone",
             "description": "Converts booru tags to a format suitable for Waifu Diffusion(or Danbooru based models)."
@@ -664,59 +697,6 @@
             ],
             "install_type": "git-clone",
             "description": "A node to set workflow settings."
-        },
-        {
-            "author": "denfrost",
-            "title": "Den_ComfyUI_Workflows",
-            "id": "den",
-            "reference": "https://github.com/denfrost/Den_ComfyUI_Workflow",
-            "files": [
-                "https://github.com/denfrost/Den_ComfyUI_Workflow"
-            ],
-            "install_type": "git-clone",
-            "description": "Custom nodes make easy Advanced Workflows. Focus on Image/Video and ControlNet efficiency and performances. Manipulation of Latent Space, Automatic pipeline with a bit efforts."
-        },
-        {
-            "author": "seghier",
-            "title": "ComfyUI_LibreTranslate",
-            "reference": "https://github.com/seghier/ComfyUI_LibreTranslate",
-            "files": [
-                "https://github.com/seghier/ComfyUI_LibreTranslate/raw/main/translate_node.py"
-            ],
-            "install_type": "copy",
-            "description": "Use LibreTranslation in ComfyUI [a/https://github.com/LibreTranslate/LibreTranslate](https://github.com/LibreTranslate/LibreTranslate)"
-        },
-        {
-            "author": "Limbicnation",
-            "title": "ComfyUIDepthEstimation",
-            "reference": "https://github.com/Limbicnation/ComfyUIDepthEstimation",
-            "files": [
-                "https://github.com/Limbicnation/ComfyUIDepthEstimation/raw/main/depth_estimation_node.py"
-            ],
-            "pip": ["transformers"],
-            "install_type": "copy",
-            "description": "A custom depth estimation node for ComfyUI using transformer models. It integrates depth estimation with automatic gamma correction, contrast adjustment, and edge detection, based on the [a/TransformDepth](https://github.com/Limbicnation/TransformDepth) repository."
-        },
-        {
-            "author": "shadowcz007",
-            "title": "comfyui-sound-lab",
-            "id": "soundlab",
-            "reference": "https://github.com/shadowcz007/comfyui-sound-lab",
-            "files": [
-                "https://github.com/shadowcz007/comfyui-sound-lab"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Music Gen, Audio Play, Stable Audio"
-        },
-        {
-            "author": "DannyStone1999",
-            "title": "ComfyUI-Depth2Mask",
-            "reference": "https://github.com/DannyStone1999/ComfyUI-Depth2Mask",
-            "files": [
-                "https://github.com/DannyStone1999/ComfyUI-Depth2Mask/raw/main/Depth2Mask.py"
-            ],
-            "install_type": "copy",
-            "description": "Nodes:Depth2Mask"
         }
     ]
 }
