@@ -1278,6 +1278,20 @@ app.registerExtension({
 		separator.style.width = "100%";
 		menu.append(separator);
 
+		// new style Manager button
+		app.menu?.saveButton.element.after(new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+			icon: "puzzle",
+			action: () => {
+				if(!manager_instance)
+					setManagerInstance(new ManagerMenuDialog());
+				manager_instance.show();
+			},
+			tooltip: "ComfyUI Manager",
+			content: "ComfyUI Manager",
+			classList: "comfyui-button comfyui-menu-mobile-collapse primary"
+		}).element);
+
+		// old style Manager button
 		const managerButton = document.createElement("button");
 		managerButton.textContent = "Manager";
 		managerButton.onclick = () => {
