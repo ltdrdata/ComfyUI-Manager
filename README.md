@@ -342,7 +342,8 @@ When you run the `scan.sh` script:
 * Currently, `vid2vid` is not being updated, causing compatibility issues.
 * If you encounter the error message `Overlapped Object has pending operation at deallocation on Comfyui Manager load` under Windows
   * Edit `config.ini` file: add `windows_selector_event_loop_policy = True`
-
+* if `SSL: CERTIFICATE_VERIFY_FAILED` error is occured.
+  * Edit `config.ini` file: add `bypass_ssl = True`
 
 ## Security policy
   * Edit `config.ini` file: add `security_level = <LEVEL>`
