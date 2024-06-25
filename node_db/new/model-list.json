@@ -1,6 +1,18 @@
 {
   "models": [
     {
+      "name": "google-t5/t5-base",
+      "type": "clip",
+      "base": "t5-base",
+      "save_path": "clip/t5-base",
+      "description": "[892MB] T5 Base: Text-To-Text Transfer Transformer. This model can be loaded via CLIPLoader for Stable Audio workflow.",
+      "reference": "https://huggingface.co/google-t5/t5-base",
+      "filename": "model.safetensors",
+      "url": "https://huggingface.co/google-t5/t5-base/resolve/main/model.safetensors",
+      "size": "892MB"
+    },
+
+    {
       "name": "PixArt-Sigma-XL-2-1024-MS.pth",
       "type": "checkpoint",
       "base": "pixart-sigma",
@@ -675,16 +687,6 @@
       "reference": "https://huggingface.co/ShilongLiu/GroundingDINO",
       "filename": "groundingdino_swint_ogc.pth",
       "url": "https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth"
-    },
-    {
-      "name": "GroundingDINO SwinT OGC - CFG File",
-      "type": "GroundingDINO",
-      "base": "DINO",
-      "save_path": "groundingdino",
-      "description": "GroundingDINO SwinT OGC CFG File",
-      "reference": "https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py",
-      "filename": "GroundingDINO_SwinT_OGC.cfg.py",
-      "url": "https://huggingface.co/ShilongLiu/GroundingDINO/raw/main/GroundingDINO_SwinT_OGC.cfg.py"
     }
   ]
 }
