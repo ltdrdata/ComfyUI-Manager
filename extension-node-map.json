@@ -3593,7 +3593,8 @@
     ],
     "https://github.com/ScreamingHawk/comfyui-ollama-prompt-encode": [
         [
-            "OllamaCLIPTextEncode"
+            "OllamaCLIPTextEncode",
+            "OllamaPromptGenerator"
         ],
         {
             "author": "Michael Standen",
@@ -4449,6 +4450,7 @@
     "https://github.com/TRI3D-LC/tri3d-comfyui-nodes": [
         [
             "get_histogram_limits",
+            "main_light_layer",
             "main_scaled_paste",
             "simple_rescale_histogram",
             "tri3d-HistogramEqualization",
@@ -4470,6 +4472,8 @@
             "tri3d-extract-parts-mask-batch",
             "tri3d-extract-pascal-parts-batch",
             "tri3d-face-recognise",
+            "tri3d-facer_face_segment",
+            "tri3d-flexible_color_extract",
             "tri3d-float-to-image",
             "tri3d-fuzzification",
             "tri3d-get_histogram_limits",
@@ -8935,14 +8939,6 @@
             "title_aux": "ComfyUI-Prompter-fofrAI"
         }
     ],
-    "https://github.com/fofr/comfyui-replicate": [
-        [
-            "Llama 3 Replicate"
-        ],
-        {
-            "title_aux": "comfyui-replicate"
-        }
-    ],
     "https://github.com/forever22777/comfyui-self-guidance": [
         [
             "CLIPConditioning",
@@ -9038,48 +9034,6 @@
     ],
     "https://github.com/get-salt-AI/SaltAI": [
         [
-            "LLMChat",
-            "LLMChatEngine",
-            "LLMChatMessageConcat",
-            "LLMChatMessages",
-            "LLMChatMessagesAdv",
-            "LLMComplete",
-            "LLMDirectoryReader",
-            "LLMHtmlComposer",
-            "LLMHtmlRepair",
-            "LLMJSONQueryEngine",
-            "LLMJsonComposer",
-            "LLMJsonRepair",
-            "LLMMarkdownComposer",
-            "LLMMarkdownRepair",
-            "LLMNotionReader",
-            "LLMPostProcessDocuments",
-            "LLMQueryEngine",
-            "LLMQueryEngineAdv",
-            "LLMRegexCreator",
-            "LLMRegexRepair",
-            "LLMRssReaderNode",
-            "LLMSemanticSplitterNodeParser",
-            "LLMSentenceSplitterNodeCreator",
-            "LLMServiceContextAdv",
-            "LLMServiceContextDefault",
-            "LLMSimpleWebPageReader",
-            "LLMSummaryIndex",
-            "LLMTrafilaturaWebReader",
-            "LLMTreeIndex",
-            "LLMVectorStoreIndex",
-            "LLMYamlComposer",
-            "LLMYamlRepair",
-            "OPAC",
-            "OPAC2Floats",
-            "OPACList2ExecList",
-            "OPACListVariance",
-            "OPACPerlinSettings",
-            "OPACTransformImages",
-            "OPCSLayerExtractor",
-            "OPCScheduler",
-            "OpenAIModel",
-            "ParallaxMotion",
             "SAIPrimitiveConverter",
             "SAIStringRegexSearchMatch",
             "SAIStringRegexSearchReplace",
@@ -9097,7 +9051,7 @@
             "SaltMasksToImages",
             "SaltOutput",
             "SaltRGBAFromMask",
-            "ScheduledImageAdjust"
+            "SaltWebsiteScreenshot"
         ],
         {
             "title_aux": "SaltAI-Open-Resources"
@@ -9481,48 +9435,50 @@
     ],
     "https://github.com/griptape-ai/ComfyUI-Griptape": [
         [
-            "AudioTranscriptionTask",
-            "Calculator",
-            "CreateAgent",
-            "DateTime",
-            "EnvironmentConfig",
-            "ExpandAgent",
-            "ImageQueryTask",
-            "MergeTexts",
-            "ParallelImageQueryTask",
-            "PromptImageGenerationTask",
-            "PromptImageVariationTask",
-            "PromptTask",
-            "Rule",
-            "RulesList",
-            "RunAgent",
-            "TextSummaryTask",
-            "ToolList",
-            "ToolTask",
-            "ToolkitTask",
-            "WebScraper",
-            "gtAudioTranscriptionClient",
-            "gtUIAmazonBedrockStableDiffusionImageGenerationDriver",
-            "gtUIAmazonBedrockStructureConfig",
-            "gtUIAmazonBedrockTitanImageGenerationDriver",
-            "gtUIAnthropicStructureConfig",
-            "gtUICLIPTextEncode",
-            "gtUIFetchImage",
-            "gtUIFileManager",
-            "gtUIGoogleStructureConfig",
-            "gtUIInputNode",
-            "gtUIKnowledgeBaseTool",
-            "gtUILMStudioStructureConfig",
-            "gtUILeonardoImageGenerationDriver",
-            "gtUILoadAudio",
-            "gtUIOllamaStructureConfig",
-            "gtUIOpenAiAudioTranscriptionDriver",
-            "gtUIOpenAiImageGenerationDriver",
-            "gtUIOpenAiStructureConfig",
-            "gtUIOutputImageNode",
-            "gtUIOutputStringNode",
-            "gtUITextToClipEncode",
-            "gtUIWebSearch"
+            "Griptape Agent Config: Amazon Bedrock",
+            "Griptape Agent Config: Anthropic",
+            "Griptape Agent Config: Google",
+            "Griptape Agent Config: LM Studio",
+            "Griptape Agent Config: Ollama",
+            "Griptape Agent Config: OpenAI",
+            "Griptape Audio Driver: OpenAI",
+            "Griptape Combine: Merge Texts",
+            "Griptape Combine: Rules List",
+            "Griptape Combine: Tool List",
+            "Griptape Config: Environment Variables",
+            "Griptape Convert: Text to CLIP Encode",
+            "Griptape Create: Agent",
+            "Griptape Create: CLIP Text Encode",
+            "Griptape Create: Image Variation",
+            "Griptape Create: Image from Text",
+            "Griptape Create: Rules",
+            "Griptape Create: Text",
+            "Griptape Display: Artifact",
+            "Griptape Display: Data as Text",
+            "Griptape Display: Image",
+            "Griptape Display: Text",
+            "Griptape Driver: Amazon Bedrock Stable Diffusion",
+            "Griptape Driver: Amazon Bedrock Titan",
+            "Griptape Driver: Leonardo.AI",
+            "Griptape Driver: OpenAI Image Generation",
+            "Griptape Expand: Agent Nodes",
+            "Griptape Load: Audio",
+            "Griptape Load: Image From URL",
+            "Griptape Run: Agent",
+            "Griptape Run: Audio Transcription",
+            "Griptape Run: Image Description",
+            "Griptape Run: Parallel Image Description",
+            "Griptape Run: Prompt Task",
+            "Griptape Run: Text Summary",
+            "Griptape Run: Tool Task",
+            "Griptape Run: Toolkit Task",
+            "Griptape Tool: Audio Transcription",
+            "Griptape Tool: Calculator",
+            "Griptape Tool: DateTime",
+            "Griptape Tool: FileManager",
+            "Griptape Tool: Griptape Cloud KnowledgeBase",
+            "Griptape Tool: WebScraper",
+            "Griptape Tool: WebSearch"
         ],
         {
             "author": "Jason Schleifer",
@@ -9619,6 +9575,14 @@
             "title_aux": "ComfyUI Dreamtalk"
         }
     ],
+    "https://github.com/hay86/ComfyUI_Hallo": [
+        [
+            "D_HalloNode"
+        ],
+        {
+            "title_aux": "ComfyUI Hallo"
+        }
+    ],
     "https://github.com/hay86/ComfyUI_MiniCPM-V": [
         [
             "D_MiniCPM_VQA"
@@ -9653,6 +9617,7 @@
             "CLIPTextEncode_party",
             "Dingding",
             "Dingding_tool",
+            "KG_json_toolkit",
             "KSampler_party",
             "LLM",
             "LLM_api_loader",
@@ -12973,6 +12938,9 @@
     ],
     "https://github.com/ramyma/A8R8_ComfyUI_nodes": [
         [
+            "AttentionCouple",
+            "AttentionCoupleRegion",
+            "AttentionCoupleRegions",
             "Base64ImageInput",
             "Base64ImageOutput"
         ],
@@ -13085,6 +13053,23 @@
             "nodename_pattern": " \\(rgthree\\)$",
             "title": "Comfy Nodes",
             "title_aux": "rgthree's ComfyUI Nodes"
+        }
+    ],
+    "https://github.com/rhdunn/comfyui-bus-plugin": [
+        [
+            "ComfyBus.CLIPEncodedPromptBusNode",
+            "ComfyBus.CheckpointBusNode",
+            "ComfyBus.ImageBusNode",
+            "ComfyBus.ImageParameterBusNode",
+            "ComfyBus.ImageScaleToSideParameterBusNode",
+            "ComfyBus.ImageSizeBusNode",
+            "ComfyBus.LatentImageBusNode",
+            "ComfyBus.LatentImageParameterBusNode",
+            "ComfyBus.PromptBusNode",
+            "ComfyBus.PromptSDXLBusNode"
+        ],
+        {
+            "title_aux": "comfyui-bus-plugin"
         }
     ],
     "https://github.com/richinsley/Comfy-LFO": [
@@ -13935,6 +13920,7 @@
     "https://github.com/ssitu/ComfyUI_UltimateSDUpscale": [
         [
             "UltimateSDUpscale",
+            "UltimateSDUpscaleCustomSample",
             "UltimateSDUpscaleNoUpscale"
         ],
         {
@@ -15036,6 +15022,7 @@
             "easy showLoaderSettingsNames",
             "easy showSpentTime",
             "easy showTensorShape",
+            "easy sliderControl",
             "easy stableDiffusion3API",
             "easy string",
             "easy styleAlignedBatchAlign",
