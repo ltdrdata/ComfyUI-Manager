@@ -241,6 +241,14 @@
             "title_aux": "ComfyUI-3d-photo-inpainting"
         }
     ],
+    "https://github.com/AIFSH/ComfyUI-AuraSR": [
+        [
+            "AuraSRNode"
+        ],
+        {
+            "title_aux": "ComfyUI-AuraSR"
+        }
+    ],
     "https://github.com/AIFSH/ComfyUI-FishSpeech": [
         [
             "FishSpeech_INFER",
@@ -634,7 +642,7 @@
         {
             "author": "amorano",
             "description": "Jovimetrix integrates Webcam, MIDI, Spout and GLSL shader support.",
-            "nodename_pattern": " \\(jov\\)$",
+            "nodename_pattern": " \\(JOV\\)$",
             "title": "Jovimetrix",
             "title_aux": "Jovimetrix Composition Nodes"
         }
@@ -3902,6 +3910,7 @@
     ],
     "https://github.com/Shibiko-AI/ShibikoAI-ComfyUI-Tools": [
         [
+            "Cascade",
             "Luts",
             "Waifu2x"
         ],
@@ -7255,6 +7264,7 @@
             "LayerUtility: PromptTagger",
             "LayerUtility: PurgeVRAM",
             "LayerUtility: QWenImage2Prompt",
+            "LayerUtility: QueueStop",
             "LayerUtility: RGB Value",
             "LayerUtility: RestoreCropBox",
             "LayerUtility: SD3NegativeConditioning",
@@ -9017,7 +9027,11 @@
     "https://github.com/fsdymy1024/ComfyUI_fsdymy": [
         [
             "Preview Image Without Metadata",
-            "Save Image Without Metadata"
+            "PreviewImageWithoutMetadata",
+            "Save Image Without Metadata",
+            "SaveImageWithoutMetadata",
+            "ShowText",
+            "ZhiPuAiNode"
         ],
         {
             "title_aux": "ComfyUI_fsdymy"
@@ -9442,6 +9456,7 @@
             "Griptape Agent Config: Ollama",
             "Griptape Agent Config: OpenAI",
             "Griptape Audio Driver: OpenAI",
+            "Griptape Combine: Merge Inputs",
             "Griptape Combine: Merge Texts",
             "Griptape Combine: Rules List",
             "Griptape Combine: Tool List",
@@ -9617,7 +9632,10 @@
             "CLIPTextEncode_party",
             "Dingding",
             "Dingding_tool",
-            "KG_json_toolkit",
+            "KG_csv_toolkit_developer",
+            "KG_csv_toolkit_user",
+            "KG_json_toolkit_developer",
+            "KG_json_toolkit_user",
             "KSampler_party",
             "LLM",
             "LLM_api_loader",
@@ -9851,6 +9869,14 @@
             "title_aux": "hus' utils for ComfyUI"
         }
     ],
+    "https://github.com/hwhaocool/ComfyUI-Select-Any": [
+        [
+            "SelectAnyValues"
+        ],
+        {
+            "title_aux": "ComfyUI-Select-Any"
+        }
+    ],
     "https://github.com/hylarucoder/ComfyUI-Eagle-PNGInfo": [
         [
             "EagleImageNode",
@@ -9860,6 +9886,14 @@
         ],
         {
             "title_aux": "Eagle PNGInfo"
+        }
+    ],
+    "https://github.com/hyunamy/comfy-ui-on-complete-email-me": [
+        [
+            "OnCompleteEmailMe"
+        ],
+        {
+            "title_aux": "Comfy-UI on-complete-email-me"
         }
     ],
     "https://github.com/iFREEGROUP/comfyui-undistort": [
@@ -10755,7 +10789,8 @@
     "https://github.com/kijai/ComfyUI-CCSR": [
         [
             "CCSR_Model_Select",
-            "CCSR_Upscale"
+            "CCSR_Upscale",
+            "DownloadAndLoadCCSRModel"
         ],
         {
             "title_aux": "ComfyUI-CCSR"
@@ -11269,6 +11304,18 @@
         ],
         {
             "title_aux": "LNL Frame Selector"
+        }
+    ],
+    "https://github.com/leiweiqiang/ComfyUI-TRA": [
+        [
+            "TclEbSynth",
+            "TclExtractFramesFromVideo",
+            "TclExtractFramesFromVideoFile",
+            "TclFrames2Video",
+            "TclSaveVideoFromFrames"
+        ],
+        {
+            "title_aux": "ComfyUI-TRA"
         }
     ],
     "https://github.com/leoleelxh/ComfyUI-LLMs": [
@@ -13713,12 +13760,9 @@
     "https://github.com/smthemex/ComfyUI_Pops": [
         [
             "Imgae_To_Path",
-            "Pops_Controlnet_Sampler",
-            "Pops_Ipadapter_Sampler",
-            "Pops_Mean_Sampler",
             "Pops_Prior_Embedding",
             "Pops_Repo_Choice",
-            "Pops_Unet_Sampler"
+            "Pops_Sampler"
         ],
         {
             "title_aux": "ComfyUI_Pops"
@@ -13737,9 +13781,8 @@
         [
             "Comic_Type",
             "Pre_Translate_prompt",
-            "Storydiffusion_Img2Img",
             "Storydiffusion_Model_Loader",
-            "Storydiffusion_Text2Img"
+            "Storydiffusion_Sampler"
         ],
         {
             "title_aux": "ComfyUI_StoryDiffusion"
@@ -14533,6 +14576,27 @@
             "title_aux": "Simple Wildcard"
         }
     ],
+    "https://github.com/veighnsche/comfyui_gr85": [
+        [
+            "GR85_ContainsWord",
+            "GR85_ElementsConcatenator",
+            "GR85_ImageDimensionResizer",
+            "GR85_ImageSizer",
+            "GR85_InsertCharacter",
+            "GR85_LlmEnhancer",
+            "GR85_NextSeed",
+            "GR85_RandomAtmLocOutfit",
+            "GR85_RandomRatio",
+            "GR85_RandomTitleCharacter",
+            "GR85_RandomWildcardTagPicker",
+            "GR85_ShowText",
+            "GR85_StrSafe",
+            "GR85_TagInjector"
+        ],
+        {
+            "title_aux": "comfyui_gr85"
+        }
+    ],
     "https://github.com/victorchall/comfyui_webcamcapture": [
         [
             "WebcamCapture"
@@ -15262,6 +15326,7 @@
     ],
     "https://github.com/zhangp365/ComfyUI-utils-nodes": [
         [
+            "CheckpointLoaderSimpleWithSwitch",
             "ColorCorrectOfUtils",
             "ConcatTextOfUtils",
             "ImageBatchOneOrMore",
