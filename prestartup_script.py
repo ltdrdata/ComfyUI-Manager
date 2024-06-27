@@ -10,6 +10,7 @@ import platform
 import json
 import ast
 
+
 glob_path = os.path.join(os.path.dirname(__file__), "glob")
 sys.path.append(glob_path)
 
@@ -59,6 +60,9 @@ def check_file_logging():
 
 check_file_logging()
 
+comfy_path = os.environ.get('COMFYUI_PATH')
+if comfy_path is None:
+    comfy_path = os.path.abspath(sys.modules['__main__'].__file__)
 
 sys.__comfyui_manager_register_message_collapse = register_message_collapse
 sys.__comfyui_manager_is_import_failed_extension = is_import_failed_extension
@@ -137,8 +141,8 @@ def handle_stream(stream, prefix):
                 print(prefix, msg, end="")
 
 
-def process_wrap(cmd_str, cwd_path, handler=None):
-    process = subprocess.Popen(cmd_str, cwd=cwd_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
+def process_wrap(cmd_str, cwd_path, handler=None, env=None):
+    process = subprocess.Popen(cmd_str, cwd=cwd_path, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
 
     if handler is None:
         handler = handle_stream
@@ -333,6 +337,7 @@ print("** ComfyUI startup time:", datetime.datetime.now())
 print("** Platform:", platform.system())
 print("** Python version:", sys.version)
 print("** Python executable:", sys.executable)
+print("** ComfyUI Path:", comfy_path)
 
 if enable_file_logging:
     print("** Log path:", os.path.abspath('comfyui.log'))
@@ -475,7 +480,10 @@ if os.path.exists(restore_snapshot_path):
 
         print(f"[ComfyUI-Manager] Restore snapshot.")
         cmd_str = [sys.executable, git_script_path, '--apply-snapshot', restore_snapshot_path]
-        exit_code = process_wrap(cmd_str, custom_nodes_path, handler=msg_capture)
+
+        new_env = os.environ.copy()
+        new_env["COMFYUI_PATH"] = comfy_path
+        exit_code = process_wrap(cmd_str, custom_nodes_path, handler=msg_capture, env=new_env)
 
         repository_name = ''
         for url in cloned_repos:
@@ -502,7 +510,10 @@ if os.path.exists(restore_snapshot_path):
                     processed_install.add(f'{repo_path}/install.py')
                     install_cmd = [sys.executable, install_script_path]
                     print(f">>> {install_cmd} / {repo_path}")
-                    this_exit_code += process_wrap(install_cmd, repo_path)
+
+                    new_env = os.environ.copy()
+                    new_env["COMFYUI_PATH"] = comfy_path
+                    this_exit_code += process_wrap(install_cmd, repo_path, env=new_env)
 
                 if this_exit_code != 0:
                     print(f"[ComfyUI-Manager] Restoring '{repository_name}' is failed.")
@@ -542,7 +553,10 @@ def execute_lazy_install_script(repo_path, executable):
         processed_install.add(f'{repo_path}/install.py')
         print(f"Install: install script for '{repo_path}'")
         install_cmd = [executable, "install.py"]
-        process_wrap(install_cmd, repo_path)
+
+        new_env = os.environ.copy()
+        new_env["COMFYUI_PATH"] = comfy_path
+        process_wrap(install_cmd, repo_path, env=new_env)
 
 
 # Check if script_list_path exists
@@ -576,7 +590,9 @@ if os.path.exists(script_list_path):
                     print(f"\n## ComfyUI-Manager: EXECUTE => {script[1:]}")
                     print(f"\n## Execute install/(de)activation script for '{script[0]}'")
 
-                    exit_code = process_wrap(script[1:], script[0])
+                    new_env = os.environ.copy()
+                    new_env["COMFYUI_PATH"] = comfy_path
+                    exit_code = process_wrap(script[1:], script[0], env=new_env)
 
                     if exit_code != 0:
                         print(f"install/(de)activation script failed: {script[0]}")

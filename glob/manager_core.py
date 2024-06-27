@@ -23,12 +23,17 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 42]
+version = [2, 43]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
+
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, '..'))
-comfy_path = os.path.abspath(os.path.join(custom_nodes_path, '..'))
+
+comfy_path = os.environ.get('COMFYUI_PATH')
+if comfy_path is None:
+    comfy_path = os.path.abspath(os.path.join(custom_nodes_path, '..'))
+
 channel_list_path = os.path.join(comfyui_manager_path, 'channels.list')
 config_path = os.path.join(comfyui_manager_path, "config.ini")
 startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
@@ -181,7 +186,9 @@ class ManagerFuncs:
             print(f"[ComfyUI-Manager] Unexpected behavior: `{cmd}`")
             return 0
 
-        subprocess.check_call(cmd, cwd=cwd)
+        new_env = os.environ.copy()
+        new_env["COMFYUI_PATH"] = comfy_path
+        subprocess.check_call(cmd, cwd=cwd, env=new_env)
 
         return 0
 
@@ -325,6 +332,8 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
     else:
         command = [sys.executable, git_script_path, "--check", path]
 
+    new_env = os.environ.copy()
+    new_env["COMFYUI_PATH"] = comfy_path
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=custom_nodes_path)
     output, _ = process.communicate()
     output = output.decode('utf-8').strip()
@@ -334,10 +343,10 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
         safedir_path = path.replace('\\', '/')
         try:
             print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on '{safedir_path}' repo")
-            process = subprocess.Popen(['git', 'config', '--global', '--add', 'safe.directory', safedir_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            process = subprocess.Popen(['git', 'config', '--global', '--add', 'safe.directory', safedir_path], env=new_env, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             output, _ = process.communicate()
 
-            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            process = subprocess.Popen(command, env=new_env, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             output, _ = process.communicate()
             output = output.decode('utf-8').strip()
         except Exception:
@@ -376,8 +385,10 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
 
 
 def __win_check_git_pull(path):
+    new_env = os.environ.copy()
+    new_env["COMFYUI_PATH"] = comfy_path
     command = [sys.executable, git_script_path, "--pull", path]
-    process = subprocess.Popen(command, cwd=custom_nodes_path)
+    process = subprocess.Popen(command, env=new_env, cwd=custom_nodes_path)
     process.wait()
 
 
