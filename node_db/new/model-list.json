@@ -1,11 +1,68 @@
 {
   "models": [
     {
+      "name": "InstantX/SD3-Controlnet-Canny",
+      "type": "controlnet",
+      "base": "SD3",
+      "save_path": "controlnet/SD3/InstantX-Controlnet-Canny",
+      "description": "Controlnet SD3 Canny model.",
+      "reference": "https://huggingface.co/InstantX/SD3-Controlnet-Canny",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/InstantX/SD3-Controlnet-Canny/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "1.19GB"
+    },
+    {
+      "name": "InstantX/SD3-Controlnet-Pose",
+      "type": "controlnet",
+      "base": "SD3",
+      "save_path": "controlnet/SD3/InstantX-Controlnet-Pose",
+      "description": "Controlnet SD3 Pose model.",
+      "reference": "https://huggingface.co/InstantX/SD3-Controlnet-Pose",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/InstantX/SD3-Controlnet-Pose/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "1.19GB"
+    },
+    {
+      "name": "InstantX/SD3-Controlnet-Tile",
+      "type": "controlnet",
+      "base": "SD3",
+      "save_path": "controlnet/SD3/InstantX-Controlnet-Tile",
+      "description": "Controlnet SD3 Tile model.",
+      "reference": "https://huggingface.co/InstantX/SD3-Controlnet-Tile",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/InstantX/SD3-Controlnet-Tile/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "1.19GB"
+    },
+
+    {
+      "name": "xinsir/ControlNet Depth SDXL, support zoe, midias",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "controlnet/SDXL/controlnet-depth-sdxl-1.0",
+      "description": "Controlnet SDXL Depth model.",
+      "reference": "https://huggingface.co/xinsir/controlnet-depth-sdxl-1.0",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/xinsir/controlnet-depth-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "2.50GB"
+    },
+    {
+      "name": "xinsir/ControlNet Tile SDXL",
+      "type": "controlnet",
+      "base": "SDXL",
+      "save_path": "controlnet/SDXL/controlnet-tile-sdxl-1.0",
+      "description": "Controlnet SDXL Tile model.",
+      "reference": "https://huggingface.co/xinsir/controlnet-tile-sdxl-1.0",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/xinsir/controlnet-tile-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "2.50GB"
+    },
+
+    {
       "name": "google-t5/t5-base",
       "type": "clip",
       "base": "t5-base",
       "save_path": "clip/t5-base",
-      "description": "[892MB] T5 Base: Text-To-Text Transfer Transformer. This model can be loaded via CLIPLoader for Stable Audio workflow.",
+      "description": "T5 Base: Text-To-Text Transfer Transformer. This model can be loaded via CLIPLoader for Stable Audio workflow.",
       "reference": "https://huggingface.co/google-t5/t5-base",
       "filename": "model.safetensors",
       "url": "https://huggingface.co/google-t5/t5-base/resolve/main/model.safetensors",
@@ -17,7 +74,7 @@
       "type": "checkpoint",
       "base": "pixart-sigma",
       "save_path": "checkpoints/PixArt-Sigma",
-      "description": "[2.47GB] PixArt-Sigma Checkpoint model",
+      "description": "PixArt-Sigma Checkpoint model",
       "reference": "https://huggingface.co/PixArt-alpha/PixArt-Sigma/tree/main",
       "filename": "PixArt-Sigma-XL-2-1024-MS.pth",
       "url": "https://huggingface.co/PixArt-alpha/PixArt-Sigma/resolve/main/PixArt-Sigma-XL-2-1024-MS.pth",
@@ -51,7 +108,7 @@
       "type": "controlnet",
       "base": "SDXL",
       "save_path": "controlnet/SDXL",
-      "description": "[774MB] Controlnet SDXL Tile model realistic version.",
+      "description": "Controlnet SDXL Tile model realistic version.",
       "reference": "https://huggingface.co/TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic",
       "filename": "TTPLANET_Controlnet_Tile_realistic_v2_rank256.safetensors",
       "url": "https://huggingface.co/TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic/resolve/main/TTPLANET_Controlnet_Tile_realistic_v2_rank256.safetensors",
@@ -63,7 +120,7 @@
       "type": "depthanything",
       "base": "depthanything",
       "save_path": "depthanything",
-      "description": "[195MB] DepthAnythingV2 model",
+      "description": "DepthAnythingV2 model",
       "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
       "filename": "depth_anything_v2_vitb_fp16.safetensors",
       "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vitb_fp16.safetensors",
@@ -74,7 +131,7 @@
       "type": "depthanything",
       "base": "depthanything",
       "save_path": "depthanything",
-      "description": "[390MB] DepthAnythingV2 model",
+      "description": "DepthAnythingV2 model",
       "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
       "filename": "depth_anything_v2_vitb_fp32.safetensors",
       "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vitb_fp32.safetensors",
@@ -636,57 +693,6 @@
       "reference": "https://huggingface.co/monster-labs/control_v1p_sdxl_qrcode_monster",
       "filename": "control_v1p_sdxl_qrcode_monster.safetensors",
       "url": "https://huggingface.co/monster-labs/control_v1p_sdxl_qrcode_monster/resolve/main/diffusion_pytorch_model.safetensors"
-    },
-    {
-      "name": "DynamiCrafter 1024 bf16 safetensors",
-      "type": "checkpoints",
-      "base": "DynamiCrafter",
-      "save_path": "checkpoints/dynamicrafter",
-      "description": "DynamiCrafter image2video model 1024x575", 
-      "reference": "https://huggingface.co/Kijai/DynamiCrafter_pruned/",
-      "filename": "dynamicrafter_1024_v1_bf16.safetensors",
-      "url": "https://huggingface.co/Kijai/DynamiCrafter_pruned/resolve/main/dynamicrafter_1024_v1_bf16.safetensors"
-    },
-    {
-      "name": "DynamiCrafter 512 interpolation bf16 safetensors",
-      "type": "checkpoints",
-      "base": "DynamiCrafter",
-      "save_path": "checkpoints/dynamicrafter",
-      "description": "DynamiCrafter image2video interpolation model 512", 
-      "reference": "https://huggingface.co/Kijai/DynamiCrafter_pruned/",
-      "filename": "dynamicrafter_512_interp_v1_bf16.safetensors",
-      "url": "https://huggingface.co/Kijai/DynamiCrafter_pruned/resolve/main/dynamicrafter_512_interp_v1_bf16.safetensors"
-    },
-    {
-        "name": "MobileSAM",
-        "type": "sam",
-        "base": "SAM",
-        "save_path": "sams",
-        "description": "MobileSAM",
-        "reference": "https://github.com/ChaoningZhang/MobileSAM/",
-        "filename": "mobile_sam.pt",
-        "url": "https://github.com/ChaoningZhang/MobileSAM/blob/master/weights/mobile_sam.pt"
-    },
-
-    {
-      "name": "BLIP ImageCaption (COCO) w/ ViT-B and CapFilt-L",
-      "type": "BLIP_MODEL",
-      "base": "blip_model",
-      "save_path": "blip",
-      "description": "BLIP ImageCaption (COCO) w/ ViT-B and CapFilt-L",
-      "reference": "https://github.com/salesforce/BLIP",
-      "filename": "model_base_capfilt_large.pth",
-      "url": "https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base_capfilt_large.pth"
-    },
-    {
-      "name": "GroundingDINO SwinT OGC - Model",
-      "type": "GroundingDINO",
-      "base": "DINO",
-      "save_path": "groundingdino",
-      "description": "GroundingDINO SwinT OGC Model",
-      "reference": "https://huggingface.co/ShilongLiu/GroundingDINO",
-      "filename": "groundingdino_swint_ogc.pth",
-      "url": "https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth"
     }
   ]
 }
