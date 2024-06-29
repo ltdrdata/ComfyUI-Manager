@@ -12,15 +12,25 @@
 
 
         {
-            "author": "SEkINVR",
-            "title": "ComfyUI Save Multi-Format Image Node",
-            "id": "save-multi-format",
-            "reference": "https://github.com/SEkINVR/ComfyUI-Save-Multi-Format",
+            "author": "ImmortalPie",
+            "title": "PonySwitch Node",
+            "reference": "https://github.com/ImmortalPie/ComfyUI-PonySwitch",
             "files": [
-                "https://github.com/SEkINVR/ComfyUI-Save-Multi-Format"
+                "https://github.com/ImmortalPie/ComfyUI-PonySwitch/raw/main/PonySwitch.py"
+            ],
+            "install_type": "copy",
+            "description": "The PonySwitch node is a custom node for ComfyUI that modifies prompts based on a toggle switch and adds configurable pony tags."
+        },
+        {
+            "author": "SEkINVR",
+            "title": "ComfyUI SaveAS",
+            "id": "saveas",
+            "reference": "https://github.com/SEkINVR/ComfyUI-SaveAs",
+            "files": [
+                "https://github.com/SEkINVR/ComfyUI-SaveAs"
             ],
             "install_type": "git-clone",
-            "description": "This custom node for ComfyUI allows you to save images in multiple formats, including PNG, JPG, WebP, and ICO."
+            "description": "This custom node for ComfyUI allows you to save images in multiple formats, including PNG, JPG, WebP, and ICO.\n[w/ComfyUI-Save-Multi-Format is renamed to SaveAs. Remove previous one and reinstall to this.]"
         },
         {
             "author": "Fuou Marinas",
@@ -685,27 +695,6 @@
             ],
             "install_type": "git-clone",
             "description": "Tools for scaling images and latents appropriate to SD3 in ComfyUI."
-        },
-        {
-            "author": "ShmuelRonen",
-            "title": "ComfyUI_Gemini_Flash",
-            "id": "gemini-flash",
-            "reference": "https://github.com/ShmuelRonen/ComfyUI_Gemini_Flash",
-            "files": [
-                "https://github.com/ShmuelRonen/ComfyUI_Gemini_Flash"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI_Gemini_Flash is a custom node for ComfyUI, integrating the capabilities of the Gemini 1.5 Flash model. This node supports text and vision-based prompts, allowing users to analyze and adapt images to text prompts for text2image tasks."
-        },
-        {
-            "author": "nagolinc",
-            "title": "comfyui_openai_node",
-            "reference": "https://github.com/nagolinc/comfyui_openai_node",
-            "files": [
-                "https://github.com/nagolinc/comfyui_openai_node"
-            ],
-            "install_type": "git-clone",
-            "description": "This provides a single node openai > Open AI query node\nthat takes a system prompt and user message and sends them to chatGPT 3.5\nNote, you MUST have an OPEN AI API key stored in the environment variable OPENAI_API_KEY in order for this to work."
         }
     ]
 }
