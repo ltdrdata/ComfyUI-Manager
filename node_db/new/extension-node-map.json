@@ -305,6 +305,17 @@
             "title_aux": "ComfyUI-Live2DViewer"
         }
     ],
+    "https://github.com/AIFSH/ComfyUI-MARS5-TTS": [
+        [
+            "LoadAudioPath",
+            "MARS5TTS_Node",
+            "PreViewAudio",
+            "TTSTextEncode"
+        ],
+        {
+            "title_aux": "ComfyUI-MARS5-TTS"
+        }
+    ],
     "https://github.com/AIFSH/ComfyUI-MimicBrush": [
         [
             "MimicBrushNode"
@@ -474,6 +485,7 @@
             "> Get Mean Color",
             "> Int",
             "> Int to Text",
+            "> Layer Weights (for IPAMS)",
             "> Light Source Mask",
             "> Load Image",
             "> Load Image From Folder",
@@ -8644,7 +8656,8 @@
             "SaveImageAdvanced",
             "SavePosEmbeds",
             "VAEDecode_to_folder",
-            "VideoFrameSelector"
+            "VideoFrameSelector",
+            "WidthHeightPicker"
         ],
         {
             "title_aux": "Various custom nodes by Eden.art"
@@ -15418,7 +15431,8 @@
     ],
     "https://github.com/zeroxoxo/ComfyUI-Fast-Style-Transfer": [
         [
-            "FastStyleTransfer"
+            "FastStyleTransfer",
+            "TrainFastStyleTransfer"
         ],
         {
             "title_aux": "ComfyUI-Fast-Style-Transfer"
