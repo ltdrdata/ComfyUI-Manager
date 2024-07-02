@@ -1,10 +1,10 @@
 import { app } from "../../scripts/app.js";
 import { $el, ComfyDialog } from "../../scripts/ui.js";
-const env = "dev";
+const env = "prod";
 
 let DEFAULT_HOMEPAGE_URL = "https://copus.io";
 
-let API_ENDPOINT = "https://api.client.prod.copus.io";
+let API_ENDPOINT = "https://api.client.prod.copus.io/copus-client";
 
 if (env !== "prod") {
   API_ENDPOINT = "https://api.dev.copus.io/copus-client";
