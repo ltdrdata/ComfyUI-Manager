@@ -1236,7 +1236,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					},
 				},
 				{
-					title: "Open 'Copus'",
+					title: "Open 'Copus.io'",
 					callback: () => {
 						const url = "https://www.copus.io";
 						localStorage.setItem("wg_last_visited", url);
