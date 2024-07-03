@@ -1,6 +1,7 @@
-import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js";
-import { ComfyDialog, $el } from "../../scripts/ui.js";
+import { app } from "../../scripts/app.js";
+import { $el, ComfyDialog } from "../../scripts/ui.js";
+import { CopusShareDialog } from "./comfyui-share-copus.js";
 import { OpenArtShareDialog } from "./comfyui-share-openart.js";
 import { YouMLShareDialog } from "./comfyui-share-youml.js";
 
@@ -187,6 +188,21 @@ export const shareToEsheep= () => {
 	})
 }
 
+export const showCopusShareDialog = () => {
+  if (!CopusShareDialog.instance) {
+    CopusShareDialog.instance = new CopusShareDialog();
+  }
+
+  return app.graphToPrompt()
+    .then(prompt => {
+      return app.graph._nodes;
+    })
+    .then(nodes => {
+        const { potential_outputs, potential_output_nodes } = getPotentialOutputsAndOutputNodes(nodes);
+        CopusShareDialog.instance.show({ potential_outputs, potential_output_nodes});
+    })
+}
+
 export const showOpenArtShareDialog = () => {
   if (!OpenArtShareDialog.instance) {
     OpenArtShareDialog.instance = new OpenArtShareDialog();
@@ -314,6 +330,16 @@ export class ShareDialogChooser extends ComfyDialog {
 				onclick: () => {
 					shareToEsheep();
 				  	this.close();
+				}
+			},
+			{
+				key: "Copus",
+				textContent: "Copus",
+				website: "https://www.copus.io",
+				description: "🔴 Permanently store and secure ownership of your workflow on the open-source platform: <a style='color:white;' href='https://copus.io' target='_blank'>Copus.io</a>",
+				onclick: () => {
+					showCopusShareDialog();
+				  this.close();
 				}
 			},
 		];
