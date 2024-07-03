@@ -62,7 +62,7 @@ check_file_logging()
 
 comfy_path = os.environ.get('COMFYUI_PATH')
 if comfy_path is None:
-    comfy_path = os.path.abspath(sys.modules['__main__'].__file__)
+    comfy_path = os.path.abspath(os.path.dirname(sys.modules['__main__'].__file__))
 
 sys.__comfyui_manager_register_message_collapse = register_message_collapse
 sys.__comfyui_manager_is_import_failed_extension = is_import_failed_extension
