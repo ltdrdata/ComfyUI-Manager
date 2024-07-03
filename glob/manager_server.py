@@ -42,7 +42,7 @@ from comfy.cli_args import args
 import latent_preview
 
 
-is_local_mode = args.listen.startswith('127.')
+is_local_mode = args.listen.startswith('127.') or args.listen.startswith('local.')
 
 
 def is_allowed_security_level(level):
@@ -106,7 +106,7 @@ core.manager_funcs = ManagerFuncsInComfyUI()
 
 sys.path.append('../..')
 
-from torchvision.datasets.utils import download_url
+from manager_downloader import download_url
 
 core.comfy_path = os.path.dirname(folder_paths.__file__)
 core.js_path = os.path.join(core.comfy_path, "web", "extensions")

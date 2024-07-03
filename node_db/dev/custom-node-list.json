@@ -9,40 +9,241 @@
             "description": "If you see this message, your ComfyUI-Manager is outdated.\nDev channel provides only the list of the developing nodes. If you want to find the complete node list, please go to the Default channel."
         },
 
-
-
+        
         {
-            "author": "zhulu111",
-            "title": "ComfyUI_Bxb [UNSAFE]",
-            "id": "ComfyUI_Bxb",
-            "reference": "https://github.com/zhulu111/ComfyUI_Bxb",
+            "author": "kijai",
+            "title": "MimicMotion wrapper for ComfyUI [WIP]",
+            "id": "mimicmotion-wrapper",
+            "reference": "https://github.com/kijai/ComfyUI-MimicMotionWrapper",
             "files": [
-                "https://github.com/zhulu111/ComfyUI_Bxb"
+                "https://github.com/kijai/ComfyUI-MimicMotionWrapper"
             ],
             "install_type": "git-clone",
-            "description": "sdBxb, a tool that converts ComfyUI workflows into WeChat Mini Program, Douyin Mini Program, and H5 with one click, and supports payments."
+            "description": "Original repo: [a/https://github.com/tencent/MimicMotion](https://github.com/tencent/MimicMotion)"
         },
         {
-            "author": "mingqizhang",
-            "title": "ComfyUI_tool_zmq",
-            "id": "tool-zmq",
-            "reference": "https://github.com/mingqizhang/ComfyUI_tool_zmq",
+            "author": "thderoo",
+            "title": "_topfun_s_nodes",
+            "reference": "https://github.com/thderoo/ComfyUI-_topfun_s_nodes",
             "files": [
-                "https://github.com/mingqizhang/ComfyUI_tool_zmq"
+                "https://github.com/thderoo/ComfyUI-_topfun_s_nodes"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:ImageConcat, ImageFlip, DWposeTransform, PoseFilter, DrawPose, ReplaceImgae, LoadImageFromPath."
+            "description": "Nodes:Conditioning Perturbation"
+        },
+        {
+            "author": "willblaschko",
+            "title": "ComfyUI-Unload-Models",
+            "reference": "https://github.com/willblaschko/ComfyUI-Unload-Models",
+            "files": [
+                "https://github.com/willblaschko/ComfyUI-Unload-Models"
+            ],
+            "install_type": "git-clone",
+            "description": "This repository provides developers with a way to better manage their ComfyUI model memory. It includes nodes that allow developers to either unload all models or unload one model at a time. These nodes are designed as pass-through nodes, so they can be used anywhere in the flow. The nodes can be found in the 'Unload Model' section.[w/These are massive hammers, and it could be possible to break things, please don't use them if you need finesse.]"
         },
         {
             "author": "kijai",
-            "title": "ComfyUI-LuminaWrapper [WIP]",
-            "id": "luminawrapper",
-            "reference": "https://github.com/kijai/ComfyUI-LuminaWrapper",
+            "title": "ComfyUI-OpenDiTWrapper [WIP]",
+            "id": "open-dit-wrapper",
+            "reference": "https://github.com/kijai/ComfyUI-OpenDiTWrapper",
             "files": [
-                "https://github.com/kijai/ComfyUI-LuminaWrapper"
+                "https://github.com/kijai/ComfyUI-OpenDiTWrapper"
             ],
             "install_type": "git-clone",
-            "description": "NOTE:Currently requires flash_attn!"
+            "description": "Original repo: [a/https://github.com/NUS-HPC-AI-Lab/OpenDiT](https://github.com/NUS-HPC-AI-Lab/OpenDiT)"
+        },
+        {
+            "author": "GeekyGhost",
+            "title": "ComfyUI-GeekyRemB v2",
+            "reference": "https://github.com/GeekyGhost/ComfyUI-GeekyRemB",
+            "files": [
+                "https://github.com/GeekyGhost/ComfyUI-GeekyRemB/raw/SketchUITest/GeekyRembv2.py"
+            ],
+            "install_type": "copy",
+            "description": "GeekyRemB Node Description: GeekyRemB is a powerful and versatile image processing node for ComfyUI, designed to remove backgrounds from images with advanced customization options. This node leverages the rembg library and offers a wide range of features for fine-tuning the background removal process and enhancing the resulting images."
+        },
+        {
+            "author": "AIFSH",
+            "title": "ComfyUI-OpenDIT [WIP]",
+            "id": "opendit",
+            "reference": "https://github.com/AIFSH/ComfyUI-OpenDIT",
+            "files": [
+                "https://github.com/AIFSH/ComfyUI-OpenDIT"
+            ],
+            "install_type": "git-clone",
+            "description": "make [a/OpenDIT](https://github.com/NUS-HPC-AI-Lab/OpenDiT) avaliable in ComfyUI"
+        },
+        {
+            "author": "alexisrolland",
+            "title": "alexisrolland/ComfyUI-AuraSR",
+            "id": "aurasr-alexisrolland",
+            "reference": "https://github.com/alexisrolland/ComfyUI-AuraSR",
+            "files": [
+                "https://github.com/alexisrolland/ComfyUI-AuraSR"
+            ],
+            "install_type": "git-clone",
+            "description": "Custom ComfyUI nodes to run [a/fal-ai/AuraSR](https://huggingface.co/fal-ai/AuraSR) model.[w/This node cannot be installed simultaneously with AIFSH/ComfyUI-AuraSR due to overlapping repository names.]"
+        },
+        {
+            "author": "mingqizhang",
+            "title": "ComfyUI_AEMatter_zmq",
+            "id": "aematter",
+            "reference": "https://github.com/mingqizhang/ComfyUI_AEMatter_zmq",
+            "files": [
+                "https://github.com/mingqizhang/ComfyUI_AEMatter_zmq"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:AEMatter_ModelLoader, Create_Trimap, AEMatter_Apply, Mask_Transfor, Replace_Background, Gaussian_Filter, Guide_Filter, Improved_Aplha_Composite"
+        },
+        {
+            "author": "m-ai-studio",
+            "title": "mai-prompt-progress",
+            "reference": "https://github.com/m-ai-studio/mai-prompt-progress",
+            "files": [
+                "https://github.com/m-ai-studio/mai-prompt-progress"
+            ],
+            "install_type": "git-clone",
+            "description": "mai-prompt-progress"
+        },
+        {
+            "author": "linhusyung",
+            "title": "ComfyUI Build and Train Your Network [WIP]",
+            "id": "cfgpp",
+            "reference": "https://github.com/linhusyung/comfyui-Build-and-train-your-network",
+            "files": [
+                "https://github.com/linhusyung/comfyui-Build-and-train-your-network"
+            ],
+            "install_type": "git-clone",
+            "description": "Stable Diffusion is an image generation technique based on diffusion models. Its core idea involves simulating diffusion processes by iteratively adding noise and using neural networks to predict and remove the noise, thereby generating high-quality images. This approach is not limited to image generation; with appropriate network architecture and training data, it can be adapted for various other tasks. The application of neural networks extends beyond image generation. By adjusting network structures and loss functions, neural networks can also perform tasks such as classification and regression. This flexibility makes neural networks a powerful tool for handling a wide range of machine learning tasks. This project aims to expand custom neural network layers (such as linear layers, convolutional layers, etc.) within ComfyUI and provide simplified task training functionalities. Through this project, users can easily construct custom neural network layers and perform training in ComfyUI using a graphical interface."
+        },
+        {
+            "author": "alexgenovese",
+            "title": "comfyui_CfgPlusPlus [WIP]",
+            "id": "cfgpp",
+            "reference": "https://gitea.com/NotEvilGirl/cfgpp",
+            "files": [
+                "https://gitea.com/NotEvilGirl/cfgpp"
+            ],
+            "install_type": "git-clone",
+            "description": "CFG++ implemented according to [a/https://cfgpp-diffusion.github.io](https://cfgpp-diffusion.github.io). Basically modified DDIM sampler that makes sampling work at low CFG values (0 ~ 2). Read the CFG++ paper for more details"
+        },
+        {
+            "author": "Fucci-Mateo",
+            "title": "ComfyUI-Airtable [WIP]",
+            "id": "airtable",
+            "reference": "https://github.com/Fucci-Mateo/ComfyUI-Airtable",
+            "files": [
+                "https://github.com/Fucci-Mateo/ComfyUI-Airtable"
+            ],
+            "install_type": "git-clone",
+            "description": "A simple node to load image from local path or http url. You can find this node from 'image' category."
+        },
+        {
+            "author": "mingqizhang",
+            "title": "ComfyUI_AEMatter_zmq",
+            "id": "aematter-zmq",
+            "reference": "https://github.com/mingqizhang/ComfyUI_AEMatter_zmq",
+            "files": [
+                "https://github.com/mingqizhang/ComfyUI_AEMatter_zmq"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:AEMatter_ModelLoader, Create_Trimap, AEMatter_Apply, Mask_Transfor, Replace_Background, Gaussian_Filter, Guide_Filter"
+        },
+        {
+            "author": "majorsauce",
+            "title": "comfyui_indieTools [WIP]",
+            "id": "indie-tools",
+            "reference": "https://github.com/majorsauce/comfyui_indieTools",
+            "files": [
+                "https://github.com/majorsauce/comfyui_indieTools"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:[Indie] Cut by Mask, [Indie] Paste Image, [Indie] Local Scale, [Indie] Solidify, [Indie] Yolo Detector.[w/Install may fail due to invliad requirements.txt file]"
+        },
+        {
+            "author": "AIFSH",
+            "title": "ComfyUI-ViViD",
+            "id": "vivid",
+            "reference": "https://github.com/AIFSH/ComfyUI-ViViD",
+            "files": [
+                "https://github.com/AIFSH/ComfyUI-ViViD"
+            ],
+            "install_type": "git-clone",
+            "description": "a comfyui custom node for ViViD"
+        },
+        {
+            "author": "NeuralNotW0rk",
+            "title": "ComfyUI-Waveform-Extensions",
+            "reference": "https://github.com/NeuralNotW0rk/ComfyUI-Waveform-Extensions",
+            "files": [
+                "https://github.com/NeuralNotW0rk/ComfyUI-Waveform-Extensions/raw/main/EXT_VariationUtils.py",
+                "https://github.com/NeuralNotW0rk/ComfyUI-Waveform-Extensions/raw/main/EXT_AudioManipulation.py"
+            ],
+            "install_type": "copy",
+            "description": "Some additional audio utilites for use on top of Sample Diffusion ComfyUI Extension"
+        },
+        {
+            "author": "mingqizhang",
+            "title": "ComfyUI_AEMatter_zmq",
+            "reference": "https://github.com/mingqizhang/ComfyUI_AEMatter_zmq",
+            "files": [
+                "https://github.com/mingqizhang/ComfyUI_AEMatter_zmq"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:AEMatter_ModelLoader, Create_Trimap, AEMatter_Apply, Mask_Transfor, Replace_Background, Gaussian_Filter, Guide_Filter."
+        },
+        {
+            "author": "nat-chan",
+            "title": "comfyui-paint",
+            "reference": "https://github.com/nat-chan/comfyui-paint",
+            "files": [
+                "https://github.com/nat-chan/comfyui-paint"
+            ],
+            "install_type": "git-clone",
+            "description": "comfyui-paint\n[w/You need to clone submodule manually after clone. There is permission issue.]"
+        },
+        {
+            "author": "prabinpebam",
+            "title": "anyPython [UNSAFE]",
+            "reference": "https://github.com/prabinpebam/anyPython",
+            "files": [
+                "https://github.com/prabinpebam/anyPython"
+            ],
+            "install_type": "git-clone",
+            "description": "This node was inspired by AnyNode. I wanted to have a node where I can paste any python script and execute it. That way I can use this node in combination with a Custom node like the Ollama node that can generate the python code and feed into this node. This also makes it much easier to debug or modify the code iteratively. As of the current version, I've created separate nodes for no input, 1 input and 2 inputs. The input also currently takes only sting as input. Let me know in the discussion how you would use this node.\n[w/This extension allows the execution of arbitrary Python code from a workflow.]"
+        },
+        {
+            "author": "kijai",
+            "title": "ComfyUI DiffSynth wrapper nodes",
+            "id": "diffsynth-wrapper",
+            "reference": "https://github.com/kijai/ComfyUI-DiffSynthWrapper",
+            "files": [
+                "https://github.com/kijai/ComfyUI-DiffSynthWrapper"
+            ],
+            "install_type": "git-clone",
+            "description": "Currently only the new extended SVD model 'ExVideo' is supported.\nOriginal repo:[a/https://github.com/modelscope/DiffSynth-Studio](https://github.com/modelscope/DiffSynth-Studio)"
+        },
+        {
+            "author": "AllenEdgarPoe",
+            "title": "ComfyUI-Xorbis-nodes",
+            "id": "xorbis",
+            "reference": "https://github.com/AllenEdgarPoe/ComfyUI-Xorbis-nodes",
+            "files": [
+                "https://github.com/AllenEdgarPoe/ComfyUI-Xorbis-nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "This repository is for MuseumX Update. We use ComfyUI as our framework, and the nodes are built for my comfort."
+        },
+        {
+            "author": "mikeymcfish",
+            "title": "LaserCutterFull and Deptherize Nodes",
+            "id": "fishtools",
+            "reference": "https://github.com/mikeymcfish/FishTools",
+            "files": [
+                "https://github.com/mikeymcfish/FishTools"
+            ],
+            "install_type": "git-clone",
+            "description": "This repository contains two custom nodes, LaserCutterFull and Deptherize, designed for use in image processing workflows. The LaserCutterFull node processes input images to generate layers for laser cutting, while the Deptherize node converts SVG data into a depth map image."
         },
         {
             "author": "pzzmyc",
@@ -337,17 +538,6 @@
             ],
             "install_type": "git-clone",
             "description": "ComfyUI-Comflow."
-        },
-        {
-            "author": "AI2lab",
-            "title": "comfyUI-tool-2lab",
-            "id": "tool2lab",
-            "reference": "https://github.com/AI2lab/comfyUI-tool-2lab",
-            "files": [
-                "https://github.com/AI2lab/comfyUI-tool-2lab"
-            ],
-            "install_type": "git-clone",
-            "description": "simple tool set for developing workflow and publish to web api server"
         },
         {
             "author": "pamparamm",

@@ -12,8 +12,8 @@ import {
 } from "./comfyui-share-common.js";
 import { OpenArtShareDialog } from "./comfyui-share-openart.js";
 import { CustomNodesManager } from "./custom-nodes-manager.js";
+import { ModelManager } from "./model-manager.js";
 import { SnapshotManager } from "./snapshot.js";
-import { ModelInstaller } from "./model-downloader.js";
 import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI, free_models, show_message } from "./common.js";
 import { ComponentBuilderDialog, load_components, set_component_policy, getPureName } from "./components-manager.js";
 import { set_double_click_policy } from "./node_fixer.js";
@@ -736,14 +736,16 @@ class ManagerMenuDialog extends ComfyDialog {
 						}
 				}),
 
+				
 				$el("button.cm-button", {
 					type: "button",
-					textContent: "Install Models",
+					textContent: "Model Manager",
 					onclick:
 						() => {
-							if(!ModelInstaller.instance)
-								ModelInstaller.instance = new ModelInstaller(app, self);
-							ModelInstaller.instance.show();
+							if(!ModelManager.instance) {
+								ModelManager.instance = new ModelManager(app, self);
+							}
+							ModelManager.instance.show();
 						}
 				}),
 
@@ -1276,6 +1278,20 @@ app.registerExtension({
 		separator.style.width = "100%";
 		menu.append(separator);
 
+		// new style Manager button
+		app.menu?.saveButton.element.after(new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+			icon: "puzzle",
+			action: () => {
+				if(!manager_instance)
+					setManagerInstance(new ManagerMenuDialog());
+				manager_instance.show();
+			},
+			tooltip: "ComfyUI Manager",
+			content: "ComfyUI Manager",
+			classList: "comfyui-button comfyui-menu-mobile-collapse primary"
+		}).element);
+
+		// old style Manager button
 		const managerButton = document.createElement("button");
 		managerButton.textContent = "Manager";
 		managerButton.onclick = () => {
