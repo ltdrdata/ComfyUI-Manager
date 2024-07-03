@@ -1,6 +1,6 @@
 import { app } from "../../scripts/app.js";
 import { $el, ComfyDialog } from "../../scripts/ui.js";
-const env = "prod";
+const env = "dev";
 
 let DEFAULT_HOMEPAGE_URL = "https://copus.io";
 
@@ -222,7 +222,7 @@ export class CopusShareDialog extends ComfyDialog {
           ...hyperLinkStyle,
           color: "#59E8C6",
         },
-        href: DEFAULT_HOMEPAGE_URL,
+        href: `${DEFAULT_HOMEPAGE_URL}?fromPage=comfyUI`,
         target: "_blank",
       },
       ["👉 Get your API key here"]
@@ -603,6 +603,7 @@ export class CopusShareDialog extends ComfyDialog {
       );
 
      if (res.status && res.data.status && res.data) {
+      localStorage.setItem("copus_token",this.keyInput.value);
        const { data } = res.data;
        if (data) {
          const url = `${DEFAULT_HOMEPAGE_URL}/work/${data}`;
@@ -657,13 +658,13 @@ export class CopusShareDialog extends ComfyDialog {
     }
     potential_output_nodes = sorted_potential_output_nodes;
     potential_outputs = sorted_potential_outputs;
-
+    const apiToken = localStorage.getItem("copus_token");
     this.message.innerHTML = "";
     this.message.textContent = "";
     this.element.style.display = "block";
     this.previewImage.src = "";
     this.previewImage.style.display = "none";
-    this.keyInput.value = "";
+    this.keyInput.value = apiToken!=null?apiToken:"";
     this.uploadedImages = [];
     this.allFilesImages = [];
     this.allFiles = [];
