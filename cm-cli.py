@@ -201,7 +201,7 @@ cm_ctx = Ctx()
 
 
 def install_node(node_name, is_all=False, cnt_msg=''):
-    if '://' in node_name:
+    if core.is_valid_url(node_name):
         # install via urls
         res = core.gitclone_install([node_name])
         if not res:
