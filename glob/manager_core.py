@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 43]
+version = [2, 44, 1]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 
@@ -515,10 +515,16 @@ class GitProgress(RemoteProgress):
 
 def is_valid_url(url):
     try:
+        # Check for HTTP/HTTPS URL format
         result = urlparse(url)
-        return all([result.scheme, result.netloc])
-    except ValueError:
-        return False
+        if all([result.scheme, result.netloc]):
+            return True
+    finally:
+        # Check for SSH git URL format
+        pattern = re.compile(r"^(.+@|ssh:\/\/).+:.+$")
+        if pattern.match(url):
+            return True
+    return False
 
 
 def gitclone_install(files, instant_execution=False, msg_prefix=''):

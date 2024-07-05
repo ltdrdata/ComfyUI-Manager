@@ -34,8 +34,9 @@ function isValidURL(url) {
 	if(url.includes('&'))
 		return false;
 
-	const pattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
-	return pattern.test(url);
+	const http_pattern = /^(https?|ftp):\/\/[^\s$?#]+$/;
+	const ssh_pattern = /^(.+@|ssh:\/\/).+:.+$/;
+	return http_pattern.test(url) || ssh_pattern.test(url);
 }
 
 export async function install_pip(packages) {

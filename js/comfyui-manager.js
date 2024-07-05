@@ -1,22 +1,22 @@
+import { api } from "../../scripts/api.js";
 import { app } from "../../scripts/app.js";
-import { api } from "../../scripts/api.js"
-import { ComfyDialog, $el } from "../../scripts/ui.js";
+import { $el, ComfyDialog } from "../../scripts/ui.js";
 import {
-	ShareDialog,
 	SUPPORTED_OUTPUT_NODE_TYPES,
-	getPotentialOutputsAndOutputNodes,
+	ShareDialog,
 	ShareDialogChooser,
+	getPotentialOutputsAndOutputNodes,
 	showOpenArtShareDialog,
 	showShareDialog,
 	showYouMLShareDialog
 } from "./comfyui-share-common.js";
 import { OpenArtShareDialog } from "./comfyui-share-openart.js";
+import { free_models, install_pip, install_via_git_url, manager_instance, rebootAPI, setManagerInstance, show_message } from "./common.js";
+import { ComponentBuilderDialog, getPureName, load_components, set_component_policy } from "./components-manager.js";
 import { CustomNodesManager } from "./custom-nodes-manager.js";
 import { ModelManager } from "./model-manager.js";
-import { SnapshotManager } from "./snapshot.js";
-import { manager_instance, setManagerInstance, install_via_git_url, install_pip, rebootAPI, free_models, show_message } from "./common.js";
-import { ComponentBuilderDialog, load_components, set_component_policy, getPureName } from "./components-manager.js";
 import { set_double_click_policy } from "./node_fixer.js";
+import { SnapshotManager } from "./snapshot.js";
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
@@ -897,6 +897,7 @@ class ManagerMenuDialog extends ComfyDialog {
 			['youml', 'YouML'],
 			['matrix', 'Matrix Server'],
 			['comfyworkflows', 'ComfyWorkflows'],
+			['copus', 'Copus'],
 			['all', 'All'],
 		];
 		for (const option of share_options) {
@@ -1229,6 +1230,15 @@ class ManagerMenuDialog extends ComfyDialog {
 					title: "Open 'esheep'",
 					callback: () => {
 						const url = "https://www.esheep.com";
+						localStorage.setItem("wg_last_visited", url);
+						window.open(url, url);
+						modifyButtonStyle(url);
+					},
+				},
+				{
+					title: "Open 'Copus.io'",
+					callback: () => {
+						const url = "https://www.copus.io";
 						localStorage.setItem("wg_last_visited", url);
 						window.open(url, url);
 						modifyButtonStyle(url);
