@@ -165,6 +165,8 @@ try:
         if port_index + 1 < len(sys.argv):
             port = int(sys.argv[port_index + 1])
             postfix = f"_{port}"
+        else:
+            postfix = ""
     else:
         postfix = ""
 
@@ -301,11 +303,13 @@ try:
 
     if enable_file_logging:
         sys.stdout = ComfyUIManagerLogger(True)
-        sys.stderr = ComfyUIManagerLogger(False)
+        stderr_wrapper = ComfyUIManagerLogger(False)
+        sys.stderr = stderr_wrapper
 
         atexit.register(close_log)
     else:
         sys.stdout.close_log = lambda: None
+        stderr_wrapper = None
 
 
     class LoggingHandler(logging.Handler):
@@ -322,8 +326,8 @@ try:
                 if 'Starting server' in message:
                     is_start_mode = False
 
-            if enable_file_logging:
-                sys.stderr.sync_write(message+'\n', file_only=True)
+            if stderr_wrapper:
+                stderr_wrapper.sync_write(message+'\n', file_only=True)
 
 
     logging.getLogger().addHandler(LoggingHandler())
