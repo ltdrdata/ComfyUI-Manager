@@ -1306,21 +1306,21 @@ app.registerExtension({
 		menu.append(separator);
 
 		try {
-			// new style Manager button
-			app.menu?.saveButton.element.after(new(await import("../../scripts/ui/components/button.js")).ComfyButton({
-				icon: "puzzle",
-				action: () => {
-					if(!manager_instance)
-						setManagerInstance(new ManagerMenuDialog());
-					manager_instance.show();
-				},
-				tooltip: "ComfyUI Manager",
-				content: "ComfyUI Manager",
-				classList: "comfyui-button comfyui-menu-mobile-collapse primary"
-			}).element);
+			// new style Manager buttons
 
 			// unload models button into new style Manager button
 			let cmGroup = new (await import("../../scripts/ui/components/buttonGroup.js")).ComfyButtonGroup(
+				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+					icon: "puzzle",
+					action: () => {
+						if(!manager_instance)
+							setManagerInstance(new ManagerMenuDialog());
+						manager_instance.show();
+					},
+					tooltip: "ComfyUI Manager",
+					content: "Manager",
+					classList: "comfyui-button comfyui-menu-mobile-collapse primary"
+				}).element,
 				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
 					icon: "vacuum-outline",
 					action: () => {
@@ -1333,7 +1333,28 @@ app.registerExtension({
 					action: () => {
 						free_models(true);
 					},
-					tooltip: "Unload Whole Cache"
+					tooltip: "Free model and node cache"
+				}).element,
+				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+					icon: "share",
+					action: () => {
+						if (share_option === 'openart') {
+							showOpenArtShareDialog();
+							return;
+						} else if (share_option === 'matrix' || share_option === 'comfyworkflows') {
+							showShareDialog(share_option);
+							return;
+						} else if (share_option === 'youml') {
+							showYouMLShareDialog();
+							return;
+						}
+
+						if(!ShareDialogChooser.instance) {
+							ShareDialogChooser.instance = new ShareDialogChooser();
+						}
+						ShareDialogChooser.instance.show();
+					},
+					tooltip: "Share"
 				}).element
 			);
 
