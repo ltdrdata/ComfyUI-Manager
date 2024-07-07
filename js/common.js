@@ -134,7 +134,7 @@ export async function free_models(free_execution_cache) {
 
 		if (res.status == 200) {
 			if(free_execution_cache) {
-				showToast("'Models' and 'Execution Cache' have been unloaded.", 3000);
+				showToast("'Models' and 'Execution Cache' have been cleared.", 3000);
 			}
 			else {
 				showToast("Models' have been unloaded.", 3000);
