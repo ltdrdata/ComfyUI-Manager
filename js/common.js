@@ -1,5 +1,6 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js";
+import { $el, ComfyDialog } from "../../scripts/ui.js";
 
 export function show_message(msg) {
 	app.ui.dialog.show(msg);
@@ -28,6 +29,15 @@ export var manager_instance = null;
 
 export function setManagerInstance(obj) {
 	manager_instance = obj;
+}
+
+export function showToast(message, duration = 3000) {
+	const toast = $el("div.comfy-toast", {textContent: message});
+	document.body.appendChild(toast);
+	setTimeout(() => {
+		toast.classList.add("comfy-toast-fadeout");
+		setTimeout(() => toast.remove(), 500);
+	}, duration);
 }
 
 function isValidURL(url) {
@@ -106,18 +116,34 @@ export async function install_via_git_url(url, manager_dialog) {
 	}
 }
 
-export async function free_models() {
-	let res = await api.fetchApi(`/free`, {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: '{"unload_models": true}'
-					});
+export async function free_models(free_execution_cache) {
+	try {
+		let mode = "";
+		if(free_execution_cache) {
+			mode = '{"unload_models": true, "free_memory": true}';
+		}
+		else {
+			mode = '{"unload_models": true}';
+		}
 
-	if(res.status == 200) {
-		show_message('Models have been unloaded.')
-	}
-	else {
-		show_message('Unloading of models failed.<BR><BR>Installed ComfyUI may be an outdated version.')
+		let res = await api.fetchApi(`/free`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: mode
+		});
+
+		if (res.status == 200) {
+			if(free_execution_cache) {
+				showToast("'Models' and 'Execution Cache' have been unloaded.", 3000);
+			}
+			else {
+				showToast("Models' have been unloaded.", 3000);
+			}
+		} else {
+			showToast('Unloading of models failed. Installed ComfyUI may be an outdated version.', 5000);
+		}
+	} catch (error) {
+		showToast('An error occurred while trying to unload models.', 5000);
 	}
 }
 

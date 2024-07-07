@@ -20,6 +20,23 @@ import { SnapshotManager } from "./snapshot.js";
 
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
+.comfy-toast {
+	position: fixed;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgba(0, 0, 0, 0.7);
+	color: white;
+	padding: 10px 20px;
+	border-radius: 5px;
+	z-index: 1000;
+	transition: opacity 0.5s;
+}
+
+.comfy-toast-fadeout {
+	opacity: 0;
+}
+
 #cm-manager-dialog {
 	width: 1000px;
 	height: 520px;
@@ -1288,18 +1305,43 @@ app.registerExtension({
 		separator.style.width = "100%";
 		menu.append(separator);
 
-		// new style Manager button
-		app.menu?.saveButton.element.after(new(await import("../../scripts/ui/components/button.js")).ComfyButton({
-			icon: "puzzle",
-			action: () => {
-				if(!manager_instance)
-					setManagerInstance(new ManagerMenuDialog());
-				manager_instance.show();
-			},
-			tooltip: "ComfyUI Manager",
-			content: "ComfyUI Manager",
-			classList: "comfyui-button comfyui-menu-mobile-collapse primary"
-		}).element);
+		try {
+			// new style Manager button
+			app.menu?.saveButton.element.after(new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+				icon: "puzzle",
+				action: () => {
+					if(!manager_instance)
+						setManagerInstance(new ManagerMenuDialog());
+					manager_instance.show();
+				},
+				tooltip: "ComfyUI Manager",
+				content: "ComfyUI Manager",
+				classList: "comfyui-button comfyui-menu-mobile-collapse primary"
+			}).element);
+
+			// unload models button into new style Manager button
+			let cmGroup = new (await import("../../scripts/ui/components/buttonGroup.js")).ComfyButtonGroup(
+				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+					icon: "vacuum-outline",
+					action: () => {
+						free_models();
+					},
+					tooltip: "Unload Models"
+				}).element,
+				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+					icon: "vacuum",
+					action: () => {
+						free_models(true);
+					},
+					tooltip: "Unload Whole Cache"
+				}).element
+			);
+
+			app.menu?.settingsGroup.element.before(cmGroup.element);
+		}
+		catch(exception) {
+			log.console('ComfyUI is outdated. New style menu based features are disabled.');
+		}
 
 		// old style Manager button
 		const managerButton = document.createElement("button");
@@ -1310,7 +1352,6 @@ app.registerExtension({
 				manager_instance.show();
 			}
 		menu.append(managerButton);
-
 
 		const shareButton = document.createElement("button");
 		shareButton.id = "shareButton";
