@@ -385,6 +385,7 @@ When you run the `scan.sh` script:
 * https://github.com/andrewharp/ComfyUI-EasyNodes
 * https://github.com/SimithWang/comfyui-renameImages
 * https://github.com/Tcheko243/ComfyUI-Photographer-Alpha7-Nodes
+* https://github.com/Limbicnation/ComfyUINodeToolbox
 
 ## Roadmap
 
