@@ -1361,7 +1361,7 @@ app.registerExtension({
 			app.menu?.settingsGroup.element.before(cmGroup.element);
 		}
 		catch(exception) {
-			log.console('ComfyUI is outdated. New style menu based features are disabled.');
+			console.log('ComfyUI is outdated. New style menu based features are disabled.');
 		}
 
 		// old style Manager button
