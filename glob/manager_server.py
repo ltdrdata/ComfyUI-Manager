@@ -710,13 +710,14 @@ def copy_install(files, js_path_name=None):
         if url.endswith("/"):
             url = url[:-1]
         try:
+            filename = os.path.basename(url)
             if url.endswith(".py"):
-                download_url(url, core.custom_nodes_path)
+                download_url(url, core.custom_nodes_path, filename)
             else:
                 path = os.path.join(core.js_path, js_path_name) if js_path_name is not None else core.js_path
                 if not os.path.exists(path):
                     os.makedirs(path)
-                download_url(url, path)
+                download_url(url, path, filename)
 
         except Exception as e:
             print(f"Install(copy) error: {url} / {e}", file=sys.stderr)
