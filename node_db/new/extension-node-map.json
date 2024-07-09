@@ -7651,7 +7651,8 @@
             "AudioCombine",
             "AudioCrop",
             "AudioSeparation",
-            "AudioTempoMatch"
+            "AudioTempoMatch",
+            "AudioVideoCombine"
         ],
         {
             "title_aux": "audio-separation-nodes-comfyui"
@@ -8219,6 +8220,7 @@
             "ImageSeamCarving+",
             "ImageTile+",
             "ImageToDevice+",
+            "ImageUntile+",
             "KSamplerVariationsStochastic+",
             "KSamplerVariationsWithNoise+",
             "LoadCLIPSegModels+",
@@ -8236,6 +8238,7 @@
             "MaskPreview+",
             "MaskSmooth+",
             "ModelCompile+",
+            "NoiseFromImage+",
             "PixelOEPixelize+",
             "RemBGSession+",
             "RemoveLatentMask+",
@@ -9954,9 +9957,11 @@
             "story_json_tool",
             "string_logic",
             "substring",
+            "text_iterator",
             "time_tool",
             "tool_combine",
             "tool_combine_plus",
+            "translate_persona",
             "weather_tool",
             "weekday_tool",
             "wikipedia_tool",
@@ -12747,6 +12752,8 @@
     ],
     "https://github.com/mullakhmetov/comfyui_dynamic_util_nodes": [
         [
+            "ConcatStrings",
+            "FormatString",
             "GetFiles",
             "LoadImageByPath"
         ],
@@ -14117,6 +14124,15 @@
             "title_aux": "kb-comfyui-nodes"
         }
     ],
+    "https://github.com/smthemex/ComfyUI_AnyDoor": [
+        [
+            "AnyDoor_LoadModel",
+            "AnyDoor_img2img"
+        ],
+        {
+            "title_aux": "ComfyUI_AnyDoor"
+        }
+    ],
     "https://github.com/smthemex/ComfyUI_ChatGLM_API": [
         [
             "Glm_4_9b_Chat",
@@ -15234,8 +15250,7 @@
             "EZLoadImgBatchFromUrlsNode",
             "EZLoadImgFromUrlNode",
             "EZRemoveImgBackground",
-            "EZS3Uploader",
-            "EZVideoCombiner"
+            "EZS3Uploader"
         ],
         {
             "title_aux": "easy-comfy-nodes"
@@ -15831,6 +15846,7 @@
             "LoadImageMaskWithoutListDir",
             "LoadImageWithSwitch",
             "LoadImageWithoutListDir",
+            "MaskAutoSelector",
             "MaskFastGrow",
             "ModifyTextGender",
             "SplitMask"
