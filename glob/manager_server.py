@@ -579,12 +579,6 @@ async def fetch_externalmodel_list(request):
     return web.json_response(json_obj, content_type='application/json')
 
 
-@PromptServer.instance.routes.get("/snapshot/get_current")
-async def get_snapshot_list(request):
-    json_obj = core.get_current_snapshot()
-    return web.json_response(json_obj, content_type='application/json')
-
-
 @PromptServer.instance.routes.get("/snapshot/getlist")
 async def get_snapshot_list(request):
     snapshots_directory = os.path.join(core.comfyui_manager_path, 'snapshots')
