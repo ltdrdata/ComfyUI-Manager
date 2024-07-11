@@ -452,6 +452,15 @@
             "title_aux": "ComfyUI_V-Express"
         }
     ],
+    "https://github.com/AIFSH/CosyVoice-ComfyUI": [
+        [
+            "CosyVoiceNode",
+            "TextNode"
+        ],
+        {
+            "title_aux": "CosyVoice-ComfyUI"
+        }
+    ],
     "https://github.com/AIGCTeam/ComfyUI_kkTranslator_nodes": [
         [
             "LoadMarianMTCheckPoint",
@@ -676,6 +685,7 @@
             "GoogleTranslateCLIPTextEncodeNode",
             "GoogleTranslateTextNode",
             "HexToHueNode",
+            "IDENode",
             "PainterNode",
             "PoseNode",
             "PreviewTextNode"
@@ -1480,6 +1490,19 @@
         ],
         {
             "title_aux": "ComfyUI-post-processing-nodes"
+        }
+    ],
+    "https://github.com/Excidos/ComfyUI-Documents": [
+        [
+            "ChunkRouter",
+            "DocumentLoader",
+            "ImageSelector",
+            "PDFPageSplitter",
+            "PDFToImage",
+            "TextChunker"
+        ],
+        {
+            "title_aux": "ComfyUI-Documents"
         }
     ],
     "https://github.com/ExponentialML/ComfyUI_ModelScopeT2V": [
@@ -2513,6 +2536,7 @@
             "JNodes_ImageSizeSelector",
             "JNodes_LoadVideo",
             "JNodes_LoadVisualMediaFromPath",
+            "JNodes_LoadVisualMediaFromPath_Batch",
             "JNodes_LoraExtractor",
             "JNodes_MediaInfoToString",
             "JNodes_OutVideoInfo",
@@ -2802,7 +2826,9 @@
             "ADE_UpscaleAndVAEEncode",
             "ADE_UseEvolvedSampling",
             "ADE_ViewsOnlyContextOptions",
-            "ADE_VisualizeContextOptions",
+            "ADE_VisualizeContextOptionsK",
+            "ADE_VisualizeContextOptionsKAdv",
+            "ADE_VisualizeContextOptionsSCustom",
             "AnimateDiffLoaderV1",
             "CheckpointLoaderSimpleWithNoiseSelect"
         ],
@@ -5740,6 +5766,16 @@
             "title_aux": "ComfyUI-Text_Image-Composite [WIP]"
         }
     ],
+    "https://github.com/ZHO-ZHO-ZHO/ComfyUI-UltraEdit-ZHO": [
+        [
+            "UltraEdit_Generation_Zho",
+            "UltraEdit_ModelLoader_Zho",
+            "UltraEdit_ModelLoader_local_Zho"
+        ],
+        {
+            "title_aux": "ComfyUI-UltraEdit-ZHO"
+        }
+    ],
     "https://github.com/ZHO-ZHO-ZHO/ComfyUI-YoloWorld-EfficientSAM": [
         [
             "ESAM_ModelLoader_Zho",
@@ -5761,6 +5797,7 @@
     ],
     "https://github.com/ZZXYWQ/ComfyUI-ZZXYWQ": [
         [
+            "StreamRecorder",
             "VideoFormatConverter"
         ],
         {
@@ -7472,6 +7509,7 @@
     "https://github.com/chflame163/ComfyUI_LayerStyle": [
         [
             "LayerColor: AutoAdjust",
+            "LayerColor: AutoAdjustV2",
             "LayerColor: AutoBrightness",
             "LayerColor: Brightness & Contrast",
             "LayerColor: Color of Shadow & Highlight",
@@ -8247,6 +8285,8 @@
             "IPAdapterMS",
             "IPAdapterModelLoader",
             "IPAdapterNoise",
+            "IPAdapterPreciseComposition",
+            "IPAdapterPreciseCompositionBatch",
             "IPAdapterPreciseStyleTransfer",
             "IPAdapterPreciseStyleTransferBatch",
             "IPAdapterPromptScheduleFromWeightsStrategy",
@@ -8324,6 +8364,7 @@
             "ImageTile+",
             "ImageToDevice+",
             "ImageUntile+",
+            "InjectLatentNoise+",
             "KSamplerVariationsStochastic+",
             "KSamplerVariationsWithNoise+",
             "LoadCLIPSegModels+",
@@ -9694,6 +9735,7 @@
     ],
     "https://github.com/glifxyz/ComfyUI-GlifNodes": [
         [
+            "FilmGrain",
             "GlifConsistencyDecoder",
             "GlifPatchConsistencyDecoderTiled",
             "GlifVariable",
@@ -9839,6 +9881,8 @@
             "Griptape Display: Text",
             "Griptape Driver: Amazon Bedrock Stable Diffusion",
             "Griptape Driver: Amazon Bedrock Titan",
+            "Griptape Driver: DuckDuckGo WebSearch",
+            "Griptape Driver: Google WebSearch",
             "Griptape Driver: Leonardo.AI",
             "Griptape Driver: OpenAI Image Generation",
             "Griptape Expand: Agent Nodes",
@@ -10061,6 +10105,7 @@
             "story_json_tool",
             "string_logic",
             "substring",
+            "text2json",
             "text_iterator",
             "time_tool",
             "tool_combine",
@@ -10362,11 +10407,20 @@
             "title_aux": "FaceSwap"
         }
     ],
+    "https://github.com/injet-zhou/comfyui_extra_api": [
+        [
+            "SimpleGenImageInterface"
+        ],
+        {
+            "title_aux": "comfyui_extra_api"
+        }
+    ],
     "https://github.com/iwanders/ComfyUI_nodes": [
         [
             "IW_JsonPickItem",
             "IW_ModelHook",
             "IW_StringConcat",
+            "IW_StringFromInt",
             "IW_StringNode",
             "IW_StringPrint",
             "IW_StringReplace",
@@ -11737,6 +11791,18 @@
             "title_aux": "LNL Frame Selector"
         }
     ],
+    "https://github.com/leestuartx/ComfyUI-GG": [
+        [
+            "AddPaddingToImage",
+            "ImageMetadataExtractor",
+            "MetadataExtractBySeed",
+            "MetadataExtractorBySeed",
+            "ResizeImageProportionally"
+        ],
+        {
+            "title_aux": "ComfyUI-GG"
+        }
+    ],
     "https://github.com/leiweiqiang/ComfyUI-TRA": [
         [
             "TclEbSynth",
@@ -12512,6 +12578,14 @@
             "title_aux": "ComfyUI Serving toolkit"
         }
     ],
+    "https://github.com/mattjohnpowell/comfyui-lmstudio-image-to-text-node": [
+        [
+            "LM Studio Image To Text"
+        ],
+        {
+            "title_aux": "LM Studio Image to Text Node for ComfyUI"
+        }
+    ],
     "https://github.com/mav-rik/facerestore_cf": [
         [
             "CropFace",
@@ -12730,6 +12804,24 @@
         ],
         {
             "title_aux": "comfyui_met_suite"
+        }
+    ],
+    "https://github.com/mgfxer/ComfyUI-FrameFX": [
+        [
+            "DynamicAnimatedWeightsHelper",
+            "EdgeFXSourceImages",
+            "FlorencePromptTravelHelper",
+            "LivePromptInterpolation",
+            "MaskSequenceHelper",
+            "PromptStackManager",
+            "PromptTravelHelper"
+        ],
+        {
+            "author": "mgfxer",
+            "description": "This extension provides various frame and mask sequence manipulation tools for animation workflows.",
+            "nickname": "FrameFX \ud83d\udcab",
+            "title": "FrameFX",
+            "title_aux": "ComfyUI-FrameFX"
         }
     ],
     "https://github.com/mihaiiancu/ComfyUI_Inpaint": [
@@ -13332,7 +13424,9 @@
     ],
     "https://github.com/pamparamm/sd-perturbed-attention": [
         [
-            "PerturbedAttention"
+            "PerturbedAttention",
+            "TRTAttachPag",
+            "TRTPerturbedAttention"
         ],
         {
             "title_aux": "Perturbed-Attention Guidance"
@@ -15709,6 +15803,7 @@
             "easy kSamplerLayerDiffusion",
             "easy kSamplerSDTurbo",
             "easy kSamplerTiled",
+            "easy kolorsLoader",
             "easy latentCompositeMaskedWithCond",
             "easy latentNoisy",
             "easy loadImageBase64",
