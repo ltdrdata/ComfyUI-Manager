@@ -2867,6 +2867,9 @@
             "VHS_SelectEveryNthImage",
             "VHS_SelectEveryNthLatent",
             "VHS_SelectEveryNthMask",
+            "VHS_SelectImages",
+            "VHS_SelectLatents",
+            "VHS_SelectMasks",
             "VHS_SplitImages",
             "VHS_SplitLatents",
             "VHS_SplitMasks",
@@ -3156,8 +3159,12 @@
             "MaraScottUpscalerRefinerNode_v3",
             "MaraScott_Kijai_TokenCounter_v1",
             "McBoaty_Refiner_v4",
+            "McBoaty_Refiner_v5",
             "McBoaty_TilePrompter_v4",
-            "McBoaty_Upscaler_v4"
+            "McBoaty_TilePrompter_v5",
+            "McBoaty_Upscaler_v4",
+            "McBoaty_Upscaler_v5",
+            "UpscalerRefiner_McBoaty_v5"
         ],
         {
             "title_aux": "\ud83d\udc30 MaraScott Nodes"
@@ -8071,6 +8078,7 @@
             "ModelMergeSDXL",
             "ModelMergeSimple",
             "ModelMergeSubtract",
+            "ModelSamplingAuraFlow",
             "ModelSamplingContinuousEDM",
             "ModelSamplingContinuousV",
             "ModelSamplingDiscrete",
@@ -8973,6 +8981,7 @@
             "Eden_Int",
             "Eden_Lora_Loader",
             "Eden_String",
+            "Eden_gpt4_node",
             "FolderScanner",
             "GetRandomFile",
             "Get_Prefixed_Imgs",
@@ -9875,12 +9884,14 @@
             "Griptape Combine: Rules List",
             "Griptape Combine: Tool List",
             "Griptape Config: Environment Variables",
+            "Griptape Convert: Agent to Tool",
             "Griptape Convert: Text to CLIP Encode",
             "Griptape Convert: Text to Combo",
             "Griptape Create: Agent",
             "Griptape Create: CLIP Text Encode",
             "Griptape Create: Image Variation",
             "Griptape Create: Image from Text",
+            "Griptape Create: Pipeline",
             "Griptape Create: Rules",
             "Griptape Create: Text",
             "Griptape Display: Artifact",
@@ -9896,11 +9907,14 @@
             "Griptape Expand: Agent Nodes",
             "Griptape Load: Audio",
             "Griptape Load: Image From URL",
+            "Griptape Pipeline: Add Task",
+            "Griptape Pipeline: Insert Task",
             "Griptape Run: Agent",
             "Griptape Run: Audio Transcription",
             "Griptape Run: Image Description",
             "Griptape Run: Parallel Image Description",
             "Griptape Run: Prompt Task",
+            "Griptape Run: Structure",
             "Griptape Run: Text Summary",
             "Griptape Run: Tool Task",
             "Griptape Run: Toolkit Task",
@@ -12588,9 +12602,14 @@
     ],
     "https://github.com/mattjohnpowell/comfyui-lmstudio-image-to-text-node": [
         [
-            "LM Studio Image To Text"
+            "LM Studio Image To Text",
+            "LM Studio Text Generation"
         ],
         {
+            "author": "Matt John Powell",
+            "description": "This extension provides two custom nodes for ComfyUI that integrate LM Studio's capabilities:",
+            "nickname": "LM Studio Nodes",
+            "title": "LM Studio Nodes for ComfyUI",
             "title_aux": "LM Studio Image to Text Node for ComfyUI"
         }
     ],
@@ -15126,7 +15145,10 @@
     "https://github.com/tritant/ComfyUI_CreaPrompt": [
         [
             "CreaPrompt",
-            "CreaPrompt List"
+            "CreaPrompt List",
+            "CreaPrompt_1",
+            "CreaPrompt_2",
+            "CreaPrompt_3"
         ],
         {
             "title_aux": "ComfyUI-CreaPrompt"
