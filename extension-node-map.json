@@ -2302,9 +2302,9 @@
         ],
         {
             "author": "AlexL",
-            "description": "Scales an input image into a given box size, whereby the aspect ratio keeps retained.",
-            "nickname": "Hangover-Image_Scale_Bouning_Box",
-            "title": "ComfyUI-Hangover-Image_Scale_Bouning_Box",
+            "description": "Display, save or not save image, with or without extra metadata.",
+            "nickname": "Hangover-Save_Image_Extra_Metadata",
+            "title": "ComfyUI-Hangover-Save_Image",
             "title_aux": "ComfyUI-Hangover-Nodes"
         }
     ],
@@ -3665,6 +3665,9 @@
             "QRNG_Node_CSV"
         ],
         {
+            "preemptions": [
+                "SAMLoader"
+            ],
             "title_aux": "QRNG_Node_ComfyUI"
         }
     ],
@@ -3869,7 +3872,8 @@
             "ImageLoadFromBase64(IOHelpers)",
             "ImageSaveAsBase64(IOHelpers)",
             "ImageSaveToPath(IOHelpers)",
-            "TypeConversion(IOHelpers)"
+            "TypeConversion(IOHelpers)",
+            "VHSFileNamesToStrings(IOHelpers)"
         ],
         {
             "title_aux": "comfyui_io_helpers"
@@ -3938,9 +3942,6 @@
             "RerouteTextForCLIPTextEncodeA1111"
         ],
         {
-            "preemptions": [
-                "SAMLoader"
-            ],
             "title_aux": "ComfyUI A1111-like Prompt Custom Node Solution"
         }
     ],
@@ -7840,9 +7841,9 @@
         ],
         {
             "author": "Chris Freilich",
-            "description": "This extension provides a \"Blend If (BlendIf)\" node.",
-            "nickname": "Virtuoso Pack - Blend If",
-            "title": "Virtuoso Pack - Blend If",
+            "description": "This extension provides blur nodes.",
+            "nickname": "Virtuoso Pack - Blur",
+            "title": "Virtuoso Pack - Blur",
             "title_aux": "Virtuoso Nodes for ComfyUI"
         }
     ],
@@ -8811,6 +8812,7 @@
     "https://github.com/dicksondickson/ComfyUI-Dickson-Nodes": [
         [
             "DicksonColorMatch",
+            "DicksonLoadImage",
             "TTPlanet_Tile_Preprocessor_GF",
             "TTPlanet_Tile_Preprocessor_Simple",
             "TTPlanet_Tile_Preprocessor_cufoff"
@@ -9177,8 +9179,12 @@
         [
             "Count Files in Directory (FW)",
             "Count Tokens (FW)",
+            "CountTokens",
+            "FileCountInDirectory",
             "Token Count Ranker(FW)",
-            "Trim To Tokens (FW)"
+            "TokenCountRanker",
+            "Trim To Tokens (FW)",
+            "TrimToTokens"
         ],
         {
             "title_aux": "Fearnworks Nodes"
@@ -12940,7 +12946,7 @@
             "Miaoshouai_Tagger"
         ],
         {
-            "title_aux": "MiaoshouAI Tagger for ComfyUI"
+            "title_aux": "ComfyUI-Miaoshouai-Tagger"
         }
     ],
     "https://github.com/mihaiiancu/ComfyUI_Inpaint": [
@@ -13558,6 +13564,19 @@
         ],
         {
             "title_aux": "pants"
+        }
+    ],
+    "https://github.com/patriciogonzalezvivo/comfyui_glslnodes": [
+        [
+            "glslEditor",
+            "glslViewer"
+        ],
+        {
+            "author": "Patricio Gonzalez Vivo",
+            "description": "A set of nodes to work with GLSL shaders",
+            "nickname": "GLSL Nodes",
+            "title": "GLSL Nodes",
+            "title_aux": "GLSL Nodes"
         }
     ],
     "https://github.com/paulo-coronado/comfy_clip_blip_node": [
