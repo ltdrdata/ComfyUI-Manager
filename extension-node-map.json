@@ -501,6 +501,15 @@
             "title_aux": "CosyVoice-ComfyUI"
         }
     ],
+    "https://github.com/AIFSH/SenseVoice-ComfyUI": [
+        [
+            "SenseVoiceNode",
+            "TextNode"
+        ],
+        {
+            "title_aux": "SenseVoice-ComfyUI"
+        }
+    ],
     "https://github.com/AIGCTeam/ComfyUI_kkTranslator_nodes": [
         [
             "LoadMarianMTCheckPoint",
@@ -2233,6 +2242,7 @@
             "GR Image/Depth Mask",
             "GR Mask Create",
             "GR Mask Create Random",
+            "GR Mask Create Random Multi",
             "GR Mask Resize",
             "GR Multi Mask Create",
             "GR Onomatopoeia",
@@ -2760,6 +2770,9 @@
     "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet": [
         [
             "ACN_AdvancedControlNetApply",
+            "ACN_ControlNet++InputNode",
+            "ACN_ControlNet++LoaderAdvanced",
+            "ACN_ControlNet++LoaderSingle",
             "ACN_ControlNetLoaderWithLoraAdvanced",
             "ACN_DefaultUniversalWeights",
             "ACN_ReferenceControlNet",
@@ -3213,19 +3226,19 @@
             "MaraScottAnyBus_v2",
             "MaraScottDisplayInfoNode",
             "MaraScottDisplayInfo_v1",
+            "MaraScottMcBoatyRefiner_v4",
+            "MaraScottMcBoatyRefiner_v5",
+            "MaraScottMcBoatyTilePrompter_v4",
+            "MaraScottMcBoatyTilePrompter_v5",
+            "MaraScottMcBoatyUpscalerRefiner_v5",
+            "MaraScottMcBoatyUpscaler_v4",
+            "MaraScottMcBoatyUpscaler_v5",
             "MaraScottPasteInpaintingByMask_v1",
             "MaraScottPromptFromImage_v1",
             "MaraScottSetInpaintingByMask_v1",
             "MaraScottUpscalerRefinerNode_v2",
             "MaraScottUpscalerRefinerNode_v3",
-            "MaraScott_Kijai_TokenCounter_v1",
-            "McBoaty_Refiner_v4",
-            "McBoaty_Refiner_v5",
-            "McBoaty_TilePrompter_v4",
-            "McBoaty_TilePrompter_v5",
-            "McBoaty_Upscaler_v4",
-            "McBoaty_Upscaler_v5",
-            "UpscalerRefiner_McBoaty_v5"
+            "MaraScott_Kijai_TokenCounter_v1"
         ],
         {
             "title_aux": "\ud83d\udc30 MaraScott Nodes"
@@ -5998,6 +6011,14 @@
         ],
         {
             "title_aux": "ComfyUI-TrashNodes-DownloadHuggingface"
+        }
+    ],
+    "https://github.com/ader47/comfyui_meshhamer": [
+        [
+            "Meshamer-DepthMapPreprocessor"
+        ],
+        {
+            "title_aux": "ComfyUI-MeshHamer"
         }
     ],
     "https://github.com/adieyal/comfyui-dynamicprompts": [
@@ -9265,6 +9286,7 @@
             "FL_AudioFrameCalculator",
             "FL_AudioPreview",
             "FL_BatchAlign",
+            "FL_BulletHellGame",
             "FL_CodeNode",
             "FL_DirectoryCrawl",
             "FL_Glitch",
@@ -9294,6 +9316,7 @@
             "FL_SeparateMaskComponents",
             "FL_Shadertoy",
             "FL_TD_Sampler",
+            "FL_TetrisGame",
             "FL_VideoCropMask",
             "FL_VideoRecompose"
         ],
@@ -10063,6 +10086,7 @@
     "https://github.com/hay86/ComfyUI_AceNodes": [
         [
             "ACE_AnyInputSwitchBool",
+            "ACE_AnyInputToAny",
             "ACE_AudioLoad",
             "ACE_AudioPlay",
             "ACE_AudioSave",
@@ -13079,7 +13103,8 @@
             "ConcatStrings",
             "FormatString",
             "GetFiles",
-            "LoadImageByPath"
+            "LoadImageByPath",
+            "StringOutput"
         ],
         {
             "title_aux": "comfyui_dynamic_util_nodes"
@@ -14408,7 +14433,8 @@
             "BizyAirSuperResolution",
             "BizyAirTilePreprocessor",
             "BizyAirUniFormer_SemSegPreprocessor",
-            "BizyAirZoe_DepthMapPreprocessor"
+            "BizyAirZoe_DepthMapPreprocessor",
+            "StableDiffusionXLControlNetUnionPipeline"
         ],
         {
             "title_aux": "\u2601\ufe0fBizyAir Nodes"
@@ -15883,6 +15909,7 @@
     ],
     "https://github.com/yiwangsimple/ComfyUI_GroqChat": [
         [
+            "FileBasedChatNode",
             "GroqChatNode",
             "MoonshotMultiChatNode",
             "MoonshotSingleChatNode",
