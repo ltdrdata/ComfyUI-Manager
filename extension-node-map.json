@@ -143,6 +143,16 @@
             "title_aux": "Hayo comfyui nodes"
         }
     ],
+    "https://github.com/2kpr/ComfyUI-UltraPixel": [
+        [
+            "UltraPixelLoad",
+            "UltraPixelProcess"
+        ],
+        {
+            "author": "italo",
+            "title_aux": "ComfyUI-UltraPixel"
+        }
+    ],
     "https://github.com/42lux/ComfyUI-safety-checker": [
         [
             "Safety Checker"
@@ -504,7 +514,7 @@
     "https://github.com/AIFSH/SenseVoice-ComfyUI": [
         [
             "SenseVoiceNode",
-            "TextNode"
+            "ShowTextNode"
         ],
         {
             "title_aux": "SenseVoice-ComfyUI"
@@ -663,6 +673,7 @@
             "IntToStringAdvanced-badger",
             "LoadImageAdvanced-badger",
             "LoadImagesFromDirListAdvanced-badger",
+            "RotateImageWithPadding",
             "SegmentToMaskByPoint-badger",
             "SimpleBoolean-badger",
             "StringToFizz-badger",
@@ -2399,6 +2410,7 @@
             "IG Interpolate",
             "IG Load Image",
             "IG Load Images",
+            "IG MotionPredictor",
             "IG Multiply",
             "IG Path Join",
             "IG String",
@@ -2850,11 +2862,14 @@
             "ADE_CombineLoraHooks",
             "ADE_CombineLoraHooksEight",
             "ADE_CombineLoraHooksFour",
+            "ADE_ConditioningCombine",
             "ADE_ConditioningSetMask",
             "ADE_ConditioningSetMaskAndCombine",
             "ADE_ConditioningSetUnmaskedAndCombine",
             "ADE_CustomCFG",
             "ADE_CustomCFGKeyframe",
+            "ADE_CustomCFGKeyframeFromList",
+            "ADE_CustomCFGKeyframeInterpolation",
             "ADE_CustomCFGKeyframeSimple",
             "ADE_CustomCFGSimple",
             "ADE_EmptyLatentImageLarge",
@@ -2868,6 +2883,7 @@
             "ADE_LoadAnimateDiffModelWithCameraCtrl",
             "ADE_LoadAnimateLCMI2VModel",
             "ADE_LoadCameraPoses",
+            "ADE_LoadCameraPosesFromPath",
             "ADE_LoopedUniformContextOptions",
             "ADE_LoopedUniformViewOptions",
             "ADE_LoraHookKeyframe",
@@ -2883,6 +2899,7 @@
             "ADE_NoisedImageInjectOptions",
             "ADE_NoisedImageInjection",
             "ADE_PIA_AnimateDiffKeyframe",
+            "ADE_PairedConditioningCombine",
             "ADE_PairedConditioningSetMask",
             "ADE_PairedConditioningSetMaskAndCombine",
             "ADE_PairedConditioningSetUnmaskedAndCombine",
@@ -2898,6 +2915,7 @@
             "ADE_SetLoraHookKeyframe",
             "ADE_SigmaSchedule",
             "ADE_SigmaScheduleSplitAndCombine",
+            "ADE_SigmaScheduleToSigmas",
             "ADE_SigmaScheduleWeightedAverage",
             "ADE_SigmaScheduleWeightedAverageInterp",
             "ADE_StandardStaticContextOptions",
@@ -3018,6 +3036,15 @@
             "nickname": "Canvas Tab",
             "title": "Canvas Tab",
             "title_aux": "Canvas Tab"
+        }
+    ],
+    "https://github.com/LightSketch-ai/ComfyUI-LivePortraitNode": [
+        [
+            "LightSketch Live Portrait",
+            "Preview Video"
+        ],
+        {
+            "title_aux": "ComfyUI-LivePortraitNode (Replicate API)"
         }
     ],
     "https://github.com/Limitex/ComfyUI-Calculation": [
@@ -3470,8 +3497,10 @@
     "https://github.com/NimaNzrii/comfyui-photoshop": [
         [
             "\ud83d\udd39 Photoshop RemoteConnection",
+            "\ud83d\udd39ClipPass",
             "\ud83d\udd39Photoshop ComfyUI Plugin",
-            "\ud83d\udd39SendTo Photoshop Plugin"
+            "\ud83d\udd39SendTo Photoshop Plugin",
+            "\ud83d\udd39modelPass"
         ],
         {
             "title_aux": "comfyui-photoshop"
@@ -6489,6 +6518,7 @@
             "Image From S3",
             "Image From URL",
             "Image To S3",
+            "JSON Text Extraction",
             "Prompt Regex Remove",
             "Prompt Template"
         ],
@@ -7871,7 +7901,8 @@
     "https://github.com/chrisgoringe/cg-image-picker": [
         [
             "Preview Chooser",
-            "Preview Chooser Fabric"
+            "Preview Chooser Fabric",
+            "Simple Chooser"
         ],
         {
             "author": "chrisgoringe",
@@ -8223,6 +8254,7 @@
             "SaveLatent",
             "SelfAttentionGuidance",
             "SetLatentNoiseMask",
+            "SetUnionControlNetType",
             "SolidMask",
             "SplitImageWithAlpha",
             "SplitSigmas",
@@ -9984,12 +10016,14 @@
         [
             "Griptape Agent Config: Amazon Bedrock",
             "Griptape Agent Config: Anthropic",
+            "Griptape Agent Config: Azure OpenAI",
             "Griptape Agent Config: Google",
             "Griptape Agent Config: HuggingFace",
             "Griptape Agent Config: LM Studio",
             "Griptape Agent Config: Ollama",
             "Griptape Agent Config: OpenAI",
             "Griptape Agent Config: OpenAI Compatable",
+            "Griptape Audio Driver: ElevenLabs",
             "Griptape Audio Driver: OpenAI",
             "Griptape Combine: Merge Inputs",
             "Griptape Combine: Merge Texts",
@@ -10028,6 +10062,7 @@
             "Griptape Run: Prompt Task",
             "Griptape Run: Structure",
             "Griptape Run: Text Summary",
+            "Griptape Run: Text to Speech",
             "Griptape Run: Tool Task",
             "Griptape Run: Toolkit Task",
             "Griptape Set: Default Agent",
@@ -10036,6 +10071,7 @@
             "Griptape Tool: DateTime",
             "Griptape Tool: FileManager",
             "Griptape Tool: Griptape Cloud KnowledgeBase",
+            "Griptape Tool: Text to Speech",
             "Griptape Tool: WebScraper",
             "Griptape Tool: WebSearch"
         ],
@@ -10195,6 +10231,7 @@
             "accuweather_tool",
             "api_tool",
             "arxiv_tool",
+            "bing_loader",
             "bing_tool",
             "check_web_tool",
             "classify_function",
@@ -10211,6 +10248,7 @@
             "file_combine_plus",
             "get_string",
             "github_tool",
+            "google_loader",
             "google_tool",
             "image_iterator",
             "interpreter_tool",
@@ -10467,7 +10505,8 @@
     ],
     "https://github.com/icesun963/ComfyUI_HFDownLoad": [
         [
-            "HFDownLoad_Tool"
+            "HFDownLoad_Tool",
+            "LayerUtility: LaMa"
         ],
         {
             "title_aux": "HFDownLoad Node for ComfyUI"
@@ -10530,6 +10569,7 @@
             "IF_ImagePrompt",
             "IF_PromptMkr",
             "IF_SaveText",
+            "IF_TextTyper",
             "IF_saveText"
         ],
         {
@@ -11097,6 +11137,7 @@
             "YANC.GetWidgetValueString",
             "YANC.IntegerCaster",
             "YANC.MultilineString",
+            "YANC.SaveImageWEBP",
             "YANC.TruncateString"
         ],
         {
