@@ -8425,10 +8425,10 @@
         {
             "author": "AIFSH",
             "title": "DiffMorpher-ComfyUI",
-            "id": "uvr5",
+            "id": "diffmorpher",
             "reference": "https://github.com/AIFSH/DiffMorpher-ComfyUI",
             "files": [
-                "hhttps://github.com/AIFSH/DiffMorpher-ComfyUI"
+                "https://github.com/AIFSH/DiffMorpher-ComfyUI"
             ],
             "install_type": "git-clone",
             "description": "a custom node for [a/DiffMorpher](https://github.com/Kevin-thu/DiffMorpher),you can find base workflow in [a/doc](https://github.com/AIFSH/DiffMorpher-ComfyUI/blob/main/doc)"
@@ -11610,7 +11610,61 @@
             "install_type":"git-clone",
             "description":"Nodes to perform tensor operations in ComfyUI"
         },
-        
+        {
+            "author": "john-mnz",
+            "title": "ComfyUI-Inspyrenet-Rembg",
+            "id":"inspyrenet",
+            "reference": "https://github.com/john-mnz/ComfyUI-Inspyrenet-Rembg",
+            "files":[
+                "https://github.com/john-mnz/ComfyUI-Inspyrenet-Rembg"
+            ],
+            "install_type":"git-clone",
+            "description":"ComfyUI node for background removal implementing [a/InSPyReNet](https://github.com/plemeri/InSPyReNet)"
+        },
+        {
+            "author": "Koushakur",
+            "title": "ComfyUI-DenoiseChooser",
+            "id":"denoise-chooser",
+            "reference": "https://github.com/Koushakur/ComfyUI-DenoiseChooser",
+            "files":[
+                "https://github.com/Koushakur/ComfyUI-DenoiseChooser"
+            ],
+            "install_type":"git-clone",
+            "description":"The latent gets passed straight through unaltered, if it's empty (i.e from a 'Empty Latent Image' node) FLOAT outputs the first value, otherwise it outputs the second value"
+        },
+        {
+            "author": "ycchanau",
+            "title": "ComfyUI Preview Magnifier",
+            "id":"magnifier",
+            "reference": "https://github.com/ycchanau/ComfyUI_Preview_Magnifier",
+            "files":[
+                "https://github.com/ycchanau/ComfyUI_Preview_Magnifier"
+            ],
+            "install_type":"git-clone",
+            "description":"Custom nodes that preview image with a magnifier."
+        },
+        {
+            "author": "lrzjason",
+            "title": "Comfyui Kolors Utils",
+            "reference": "https://github.com/lrzjason/Comfyui-Kolors-Utils",
+            "files":[
+                "https://github.com/lrzjason/Comfyui-Kolors-Utils"
+            ],
+            "install_type":"git-clone",
+            "description":"Nodes: Save Weight As Kolors Unet"
+        },
+        {
+            "author": "lrzjason",
+            "title": "ComfyUIJasonNode",
+            "reference": "https://github.com/lrzjason/ComfyUIJasonNode",
+            "files": [
+                "https://github.com/lrzjason/ComfyUIJasonNode/raw/main/SDXLMixSampler.py",
+                "https://github.com/lrzjason/ComfyUIJasonNode/raw/main/LatentByRatio.py",
+                ""
+            ],
+            "install_type": "copy",
+            "description": "Nodes:SDXLMixSampler, LatentByRatio"
+        },
         
         
         
@@ -11704,18 +11758,6 @@
             ],
             "install_type": "copy",
             "description": "fcFloatMatic is a custom module, that when configured correctly will increment through the lines generating you loras at different strengths. The JSON file will load the config."
-        },
-        {
-            "author": "lrzjason",
-            "title": "ComfyUIJasonNode",
-            "reference": "https://github.com/lrzjason/ComfyUIJasonNode",
-            "files": [
-                "https://github.com/lrzjason/ComfyUIJasonNode/raw/main/SDXLMixSampler.py",
-                "https://github.com/lrzjason/ComfyUIJasonNode/raw/main/LatentByRatio.py",
-                ""
-            ],
-            "install_type": "copy",
-            "description": "Nodes:SDXLMixSampler, LatentByRatio"
         },
         {
             "author": "lordgasmic",

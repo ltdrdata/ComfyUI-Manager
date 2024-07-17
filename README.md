@@ -387,6 +387,7 @@ When you run the `scan.sh` script:
 * https://github.com/Tcheko243/ComfyUI-Photographer-Alpha7-Nodes
 * https://github.com/Limbicnation/ComfyUINodeToolbox
 * https://github.com/chenpipi0807/pip_longsize
+* https://github.com/APZmedia/ComfyUI-APZmedia-srtTools
 
 ## Roadmap
 
