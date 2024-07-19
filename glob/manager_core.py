@@ -1521,7 +1521,8 @@ def __win_check_git_pull(path):
     process.wait()
 
 
-def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=False):
+def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=False, no_deps=False):
+    # import ipdb; ipdb.set_trace()
     install_script_path = os.path.join(repo_path, "install.py")
     requirements_path = os.path.join(repo_path, "requirements.txt")
 
@@ -1529,7 +1530,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
         install_cmd = ["#LAZY-INSTALL-SCRIPT",  sys.executable]
         try_install_script(url, repo_path, install_cmd)
     else:
-        if os.path.exists(requirements_path):
+        if os.path.exists(requirements_path) and not no_deps:
             print("Install: pip packages")
             with open(requirements_path, "r") as requirements_file:
                 for line in requirements_file:
@@ -1547,7 +1548,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
     return True
 
 
-def git_repo_update_check_with(path, do_fetch=False, do_update=False):
+def git_repo_update_check_with(path, do_fetch=False, do_update=False, no_deps=False):
     """
 
     perform update check for git custom node
@@ -1570,7 +1571,7 @@ def git_repo_update_check_with(path, do_fetch=False, do_update=False):
     if platform.system() == "Windows":
         updated, success = __win_check_git_update(path, do_fetch, do_update)
         if updated and success:
-            execute_install_script(None, path, lazy_mode=True)
+            execute_install_script(None, path, lazy_mode=True, no_deps=no_deps)
         return updated, success
     else:
         # Fetch the latest commits from the remote repository
@@ -1618,7 +1619,7 @@ def git_repo_update_check_with(path, do_fetch=False, do_update=False):
                 new_commit_hash = repo.head.commit.hexsha
 
                 if commit_hash != new_commit_hash:
-                    execute_install_script(None, path)
+                    execute_install_script(None, path, no_deps=no_deps)
                     print(f"\nUpdated: {path}")
                     return True, True
                 else:
@@ -1683,7 +1684,7 @@ def is_valid_url(url):
     return False
 
 
-async def gitclone_install(url, instant_execution=False, msg_prefix=''):
+async def gitclone_install(url, instant_execution=False, msg_prefix='', no_deps=False):
     await unified_manager.reload('cache')
     await unified_manager.get_custom_nodes('default', 'cache')
 
@@ -1729,7 +1730,7 @@ async def gitclone_install(url, instant_execution=False, msg_prefix=''):
                 repo.git.clear_cache()
                 repo.close()
 
-            execute_install_script(url, repo_path, instant_execution=instant_execution)
+            execute_install_script(url, repo_path, instant_execution=instant_execution, no_deps=no_deps)
             print("Installation was successful.")
             return result.with_target(repo_path)
 
@@ -1806,7 +1807,7 @@ async def get_data_by_mode(mode, filename, channel_url=None):
     return json_obj
 
 
-def gitclone_fix(files, instant_execution=False):
+def gitclone_fix(files, instant_execution=False, no_deps=False):
     print(f"Try fixing: {files}")
     for url in files:
         if not is_valid_url(url):
@@ -1822,7 +1823,7 @@ def gitclone_fix(files, instant_execution=False):
             if os.path.exists(repo_path+'.disabled'):
                 repo_path = repo_path+'.disabled'
 
-            if not execute_install_script(url, repo_path, instant_execution=instant_execution):
+            if not execute_install_script(url, repo_path, instant_execution=instant_execution, no_deps=no_deps):
                 return False
 
         except Exception as e:
@@ -1950,7 +1951,7 @@ def gitclone_set_active(files, is_disable):
     return True
 
 
-def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefix=""):
+def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefix="", no_deps=False):
     import os
 
     print(f"{msg_prefix}Update: {files}")
@@ -1968,10 +1969,10 @@ def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefi
 
             if not skip_script:
                 if instant_execution:
-                    if not execute_install_script(url, repo_path, lazy_mode=False, instant_execution=True):
+                    if not execute_install_script(url, repo_path, lazy_mode=False, instant_execution=True, no_deps=no_deps):
                         return False
                 else:
-                    if not execute_install_script(url, repo_path, lazy_mode=True):
+                    if not execute_install_script(url, repo_path, lazy_mode=True, no_deps=no_deps):
                         return False
 
         except Exception as e:
@@ -1983,7 +1984,7 @@ def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefi
     return True
 
 
-def update_path(repo_path, instant_execution=False):
+def update_path(repo_path, instant_execution=False, no_deps=False):
     if not os.path.exists(os.path.join(repo_path, '.git')):
         return "fail"
 
@@ -2023,7 +2024,7 @@ def update_path(repo_path, instant_execution=False):
 
     if commit_hash != remote_commit_hash:
         git_pull(repo_path)
-        execute_install_script("ComfyUI", repo_path, instant_execution=instant_execution)
+        execute_install_script("ComfyUI", repo_path, instant_execution=instant_execution, no_deps=no_deps)
         return "updated"
     else:
         return "skipped"
