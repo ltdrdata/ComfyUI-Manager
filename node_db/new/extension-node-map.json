@@ -1161,6 +1161,14 @@
             "title_aux": "ComfyUI Deploy"
         }
     ],
+    "https://github.com/BetaDoggo/ComfyUI-YetAnotherSafetyChecker": [
+        [
+            "YetAnotherSafetyChecker"
+        ],
+        {
+            "title_aux": "ComfyUI YetAnotherSafetyChecker"
+        }
+    ],
     "https://github.com/Big-Idea-Technology/ComfyUI-Book-Tools": [
         [
             "BTPromptSchedule",
@@ -2648,6 +2656,7 @@
             "JNodes_BreakMediaInfo",
             "JNodes_CheckpointSelectorWithString",
             "JNodes_CreateStereoscopicImageFromDepth",
+            "JNodes_GetComfyDirectory",
             "JNodes_GetOutputDirectory",
             "JNodes_GetParameterFromList",
             "JNodes_GetParameterGlobal",
@@ -3350,6 +3359,14 @@
         ],
         {
             "title_aux": "ComfyUI_Segment_Mask"
+        }
+    ],
+    "https://github.com/Marksusu/ComfyUI_MTEncode": [
+        [
+            "MTCLIPEncode"
+        ],
+        {
+            "title_aux": "ComfyUI_MTEncode"
         }
     ],
     "https://github.com/Mason-McGough/ComfyUI-Mosaica": [
@@ -5364,8 +5381,9 @@
     ],
     "https://github.com/VAST-AI-Research/ComfyUI-Tripo": [
         [
-            "TripoAPIImageToMeshNode",
-            "TripoAPITextToMeshNode",
+            "TripoAPIDraft",
+            "TripoAnimateRetargetNode",
+            "TripoAnimateRigNode",
             "TripoGLBViewer"
         ],
         {
@@ -5666,14 +5684,6 @@
         ],
         {
             "title_aux": "WAS Node Suite"
-        }
-    ],
-    "https://github.com/WX-NPS1598/ComfyUI-auto-crop-by-NPS": [
-        [
-            "AutoCropByNPS"
-        ],
-        {
-            "title_aux": "ComfyUI-auto-crop-by-NPS"
         }
     ],
     "https://github.com/WebDev9000/WebDev9000-Nodes": [
@@ -6623,7 +6633,8 @@
             "Image To S3",
             "JSON Text Extraction",
             "Prompt Regex Remove",
-            "Prompt Template"
+            "Prompt Template",
+            "Prompt Template with Two Inputs"
         ],
         {
             "title_aux": "Amazon Bedrock nodes for ComfyUI"
@@ -8605,6 +8616,7 @@
             "ImageBatchMultiple+",
             "ImageCASharpening+",
             "ImageColorMatch+",
+            "ImageComposite+",
             "ImageCompositeFromMaskBatch+",
             "ImageCrop+",
             "ImageDesaturate+",
@@ -8649,7 +8661,8 @@
             "SD3NegativeConditioning+",
             "SDXLEmptyLatentSizePicker+",
             "SimpleMath+",
-            "TransitionMask+"
+            "TransitionMask+",
+            "TransparentBGSession+"
         ],
         {
             "title_aux": "ComfyUI Essentials"
@@ -9713,6 +9726,15 @@
             "title_aux": "ComfyUI_fsdymy"
         }
     ],
+    "https://github.com/fssorc/ComfyUI_FaceShaper": [
+        [
+            "FaceShaper",
+            "FaceShaperModels"
+        ],
+        {
+            "title_aux": "ComfyUI_FaceShaper"
+        }
+    ],
     "https://github.com/gemell1/ComfyUI_GMIC": [
         [
             "GmicCliWrapper",
@@ -10627,10 +10649,16 @@
     ],
     "https://github.com/icesun963/ComfyUI_HFDownLoad": [
         [
+            "Apply EasyOCR V2",
             "HFDownLoad_Tool",
-            "LayerUtility: LaMa"
+            "LayerMask: SegmentAnythingUltra V2.1",
+            "LayerUtility: LaMa V2"
         ],
         {
+            "author": "chflame",
+            "description": "A set of nodes for ComfyUI that can composite layer and mask to achieve Photoshop like functionality.",
+            "nickname": "LayerStyle",
+            "title": "LayerStyle",
             "title_aux": "HFDownLoad Node for ComfyUI"
         }
     ],
@@ -14779,6 +14807,16 @@
             "title_aux": "ComfyUI_EchoMimic"
         }
     ],
+    "https://github.com/smthemex/ComfyUI_FollowYourEmoji": [
+        [
+            "Emoji_Make_Temple",
+            "FollowYouEmoji_LoadModel",
+            "FollowYouEmoji_Sampler"
+        ],
+        {
+            "title_aux": "ComfyUI_FollowYourEmoji"
+        }
+    ],
     "https://github.com/smthemex/ComfyUI_HiDiffusion_Pro": [
         [
             "HI_Diffusers_Model_Loader",
@@ -14987,6 +15025,7 @@
             "ClampOutliers",
             "ColorMatchImage",
             "ConvertNormals",
+            "DepthToNormals",
             "DifferenceChecker",
             "DilateErodeMask",
             "EnhanceDetail",
@@ -16105,6 +16144,7 @@
     ],
     "https://github.com/ycchanau/ComfyUI_Preview_Magnifier": [
         [
+            "YC.ImageComparerMagnifier",
             "YC.PreviewImageMagnifier"
         ],
         {
@@ -16527,6 +16567,7 @@
             "ImageBatchOneOrMore",
             "ImageCompositeMaskedWithSwitch",
             "ImageConcanateOfUtils",
+            "ImageResizeTo8x",
             "IntAndIntAddOffsetLiteral",
             "IntMultipleAddLiteral",
             "LoadImageMaskWithSwitch",

@@ -11700,17 +11700,6 @@
             "description": "Post images and video to Discord. Nodes to facilitate communication using REST."
         },
         {
-            "author": "WX-NPS1598",
-            "title": "ComfyUI-auto-crop-by-NPS",
-            "id": "auto-crop-nps",
-            "reference": "https://github.com/WX-NPS1598/ComfyUI-auto-crop-by-NPS",
-            "files": [
-                "https://github.com/WX-NPS1598/ComfyUI-auto-crop-by-NPS"
-            ],
-            "install_type": "git-clone",
-            "description": "A very useful automatic cropping tool! It can realize cropping, expansion and rotation functions in the form of a slider."
-        },
-        {
             "author": "ShmuelRonen",
             "title": "ComfyUI-AstralAnimator",
             "id": "astralanimator",
@@ -11732,6 +11721,41 @@
             "install_type": "git-clone",
             "description": "Nodes:LatteVideoGenerator"
         },
+        {
+            "author": "Marksusu",
+            "title": "ComfyUI_MTEncode",
+            "id": "mtencode",
+            "reference": "https://github.com/Marksusu/ComfyUI_MTEncode",
+            "files": [
+                "https://github.com/Marksusu/ComfyUI_MTEncode"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:MTCLIPEncode"
+        },
+        {
+            "author": "fssorc",
+            "title": "ComfyUI_FaceShaper",
+            "id": "facesharper",
+            "reference": "https://github.com/fssorc/ComfyUI_FaceShaper",
+            "files": [
+                "https://github.com/fssorc/ComfyUI_FaceShaper"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Match two faces' shape before using other face swap nodes\nFace-swapping tools typically only replace facial features during the swap, without altering the facial shape. When there is a significant difference in facial shape between the target person and the person in the original photo, the result of the face swap is less satisfactory.\nThis project is a small script that can first liquefy and stretch the face in the original photo according to the horizontal and vertical proportions of the target person's facial contour. The resulting image can be used as input for other face-swapping nodes."
+        },
+        {
+            "author": "BetaDoggo",
+            "title": "ComfyUI YetAnotherSafetyChecker",
+            "id": "yetanothersafetychecker",
+            "reference": "https://github.com/BetaDoggo/ComfyUI-YetAnotherSafetyChecker",
+            "files": [
+                "https://github.com/BetaDoggo/ComfyUI-YetAnotherSafetyChecker"
+            ],
+            "install_type": "git-clone",
+            "description": "Just a simple node to filter out NSFW outputs. This node utilizes [a/AdamCodd/vit-base-nsfw-detector](https://huggingface.co/AdamCodd/vit-base-nsfw-detector) to score the outputs. I chose this model because it's small, fast, and performed very well in my testing. Nudity tends to be scored in the 0.95+ range, but I've set the default to 0.8 as a safe baseline."
+        },
+        
+        
         
         
         
