@@ -1717,11 +1717,24 @@
     ],
     "https://github.com/Extraltodeus/pre_cfg_comfy_nodes_for_ComfyUI": [
         [
+            "Conditioning set timestep from sigma",
+            "Individual channel selector",
+            "Post CFG make a dot",
+            "Post CFG subtract mean",
+            "Pre CFG PAG",
             "Pre CFG automatic scale",
+            "Pre CFG channel multiplier",
+            "Pre CFG color control",
             "Pre CFG consensus sharpening",
             "Pre CFG exponentiation",
             "Pre CFG perp-neg",
-            "Pre CFG sharpening"
+            "Pre CFG sharpening",
+            "Pre CFG subtract mean",
+            "Pre CFG uncond zero",
+            "Pre CFG variable scaling",
+            "Pre CFG zero attention",
+            "Shape attention",
+            "Support empty uncond"
         ],
         {
             "title_aux": "pre_cfg_comfy_nodes_for_ComfyUI"
@@ -2656,6 +2669,7 @@
             "JNodes_BreakMediaInfo",
             "JNodes_CheckpointSelectorWithString",
             "JNodes_CreateStereoscopicImageFromDepth",
+            "JNodes_FloatLiteral",
             "JNodes_GetComfyDirectory",
             "JNodes_GetOutputDirectory",
             "JNodes_GetParameterFromList",
@@ -2663,6 +2677,7 @@
             "JNodes_GetTempDirectory",
             "JNodes_ImageFormatSelector",
             "JNodes_ImageSizeSelector",
+            "JNodes_IntLiteral",
             "JNodes_LoadVideo",
             "JNodes_LoadVisualMediaFromPath",
             "JNodes_LoadVisualMediaFromPath_Batch",
@@ -2684,6 +2699,7 @@
             "JNodes_SearchAndReplaceFromFile",
             "JNodes_SearchAndReplaceFromList",
             "JNodes_SelectRandomFileFromDirectory",
+            "JNodes_SetMetadataA1111",
             "JNodes_SetNegativePromptInMetaData",
             "JNodes_SetPositivePromptInMetaData",
             "JNodes_SplitAndJoin",
@@ -6321,6 +6337,7 @@
             "Image Saver",
             "Int Literal (Image Saver)",
             "Sampler Selector (Image Saver)",
+            "SamplerToString (Image Saver)",
             "Scheduler Selector (Comfy) (Image Saver)",
             "Scheduler Selector (Image Saver)",
             "SchedulerComfyToString (Image Saver)",
@@ -6792,6 +6809,7 @@
             "InpaintingOptionNAID",
             "MaskImageToNAID",
             "ModelOptionNAID",
+            "NetworkOptionNAID",
             "PromptToNAID",
             "VibeTransferOptionNAID"
         ],
@@ -7091,18 +7109,6 @@
         ],
         {
             "title_aux": "ResolutionSelector for ComfyUI"
-        }
-    ],
-    "https://github.com/bradsec/ComfyUI_StringTools": [
-        [
-            "ModifyStringNode",
-            "RandomStringNode",
-            "ReplaceStringNode",
-            "ShowStringNode",
-            "TextStringNode"
-        ],
-        {
-            "title_aux": "ComfyUI_StringTools"
         }
     ],
     "https://github.com/braintacles/braintacles-comfyui-nodes": [
@@ -7830,6 +7836,7 @@
             "LayerMask: SegmentAnythingUltra",
             "LayerMask: SegmentAnythingUltra V2",
             "LayerMask: Shadow & Highlight Mask",
+            "LayerMask: TransparentBackgroundUltra",
             "LayerMask: YoloV8Detect",
             "LayerStyle: ColorOverlay",
             "LayerStyle: ColorOverlay V2",
@@ -9241,6 +9248,7 @@
     "https://github.com/edenartlab/eden_comfy_pipelines": [
         [
             "Animation_RGB_Mask",
+            "AspectPadImageForOutpainting",
             "CLIP_Interrogator",
             "ConvertToGrayscale",
             "DepthSlicer",
@@ -10976,6 +10984,8 @@
             "CR Mesh Input Switch JK",
             "CR Model Input Switch JK",
             "CR Multi-ControlNet Stack JK",
+            "CR Obit Pose Input Switch JK",
+            "CR Orbit Pose Input Switch JK",
             "CR Pipe Input Switch JK",
             "CR SD1.5 Aspect Ratio JK",
             "CR SDXL Aspect Ratio JK",
@@ -11000,6 +11010,8 @@
             "NodesState JK",
             "Noise Injection Parameters JK",
             "Orbit Poses JK",
+            "OrbitLists to OrbitPoses JK",
+            "OrbitPoses to OrbitLists JK",
             "Pipe End JK",
             "Project Setting JK",
             "Refine 1 Parameters Extract JK",
@@ -13830,8 +13842,14 @@
     ],
     "https://github.com/patriciogonzalezvivo/comfyui_glslnodes": [
         [
+            "float",
             "glslEditor",
-            "glslViewer"
+            "glslEditor (ShaderToy)",
+            "glslViewer",
+            "int",
+            "vec2",
+            "vec3",
+            "vec4"
         ],
         {
             "author": "Patricio Gonzalez Vivo",
@@ -15889,7 +15907,8 @@
     ],
     "https://github.com/wTechArtist/ComfyUI-CustomNodes": [
         [
-            "Image Blending Mode Mask"
+            "Image Blending Mode Mask",
+            "Load Image With Bool"
         ],
         {
             "title_aux": "ComfyUI-CustomNodes"
