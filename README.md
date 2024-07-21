@@ -5,6 +5,7 @@
 ![menu](misc/menu.jpg)
 
 ## NOTICE
+* V2.47: Security policy has been changed. The former 'normal' is now 'normal-', and 'normal' no longer allows high-risk features, even if your ComfyUI is local.
 * V2.37 Show a ✅ mark to accounts that have been active on GitHub for more than six months.
 * V2.33 Security policy is applied.
 * V2.21 [cm-cli](docs/en/cm-cli.md) tool is added.
@@ -350,6 +351,9 @@ When you run the `scan.sh` script:
     * `strong`
       * doesn't allow `high` and `middle` level risky feature
     * `normal`
+      * doesn't allow `high` level risky feature
+      * `middle` level risky feature is available
+    * `normal-`
       * doesn't allow `high` level risky feature if `--listen` is specified and not starts with `127.`
       * `middle` level risky feature is available
     * `weak`

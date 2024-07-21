@@ -48,11 +48,11 @@ is_local_mode = args.listen.startswith('127.') or args.listen.startswith('local.
 def is_allowed_security_level(level):
     if level == 'high':
         if is_local_mode:
-            return core.get_config()['security_level'].lower() in ['weak', 'normal']
+            return core.get_config()['security_level'].lower() in ['weak', 'normal-']
         else:
             return core.get_config()['security_level'].lower() == 'weak'
     elif level == 'middle':
-        return core.get_config()['security_level'].lower() in ['weak', 'normal']
+        return core.get_config()['security_level'].lower() in ['weak', 'normal', 'normal-']
     else:
         return True
 
@@ -858,7 +858,7 @@ async def fix_custom_node(request):
 @PromptServer.instance.routes.post("/customnode/install/git_url")
 async def install_custom_node_git_url(request):
     if not is_allowed_security_level('high'):
-        print(f"ERROR: To use this feature, you must set '--listen' to a local IP and set the security level to 'middle' or 'weak'. Please contact the administrator.")
+        print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
         return web.Response(status=403)
 
     url = await request.text()
@@ -874,7 +874,7 @@ async def install_custom_node_git_url(request):
 @PromptServer.instance.routes.post("/customnode/install/pip")
 async def install_custom_node_git_url(request):
     if not is_allowed_security_level('high'):
-        print(f"ERROR: To use this feature, you must set '--listen' to a local IP and set the security level to 'middle' or 'weak'. Please contact the administrator.")
+        print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
         return web.Response(status=403)
 
     packages = await request.text()
@@ -990,7 +990,7 @@ async def install_model(request):
         return web.Response(status=403)
 
     if not json_data['filename'].endswith('.safetensors') and not is_allowed_security_level('high'):
-        print(f"ERROR: To use this feature, you must set '--listen' to a local IP and set the security level to 'middle' or 'weak'. Please contact the administrator.")
+        print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
         return web.Response(status=403)
 
     res = False
@@ -1040,7 +1040,7 @@ manager_terminal_hook = ManagerTerminalHook()
 @PromptServer.instance.routes.get("/manager/terminal")
 async def terminal_mode(request):
     if not is_allowed_security_level('high'):
-        print(f"ERROR: To use this action, a security_level of `weak` is required. Please contact the administrator.")
+        print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
         return web.Response(status=403)
 
     if "mode" in request.rel_url.query:
