@@ -989,7 +989,7 @@ async def install_model(request):
         print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
         return web.Response(status=403)
 
-    if not json_data['name'].endswith('.safetensors') and not is_allowed_security_level('high'):
+    if not json_data['filename'].endswith('.safetensors') and not is_allowed_security_level('high'):
         print(f"ERROR: To use this feature, you must set '--listen' to a local IP and set the security level to 'middle' or 'weak'. Please contact the administrator.")
         return web.Response(status=403)
 
