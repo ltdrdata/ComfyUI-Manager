@@ -1627,6 +1627,14 @@
             "title_aux": "ComfyUI-Documents"
         }
     ],
+    "https://github.com/Excidos/ComfyUI-Lumina-Next-SFT-DiffusersWrapper": [
+        [
+            "LuminaDiffusersNode"
+        ],
+        {
+            "title_aux": "ComfyUI-Lumina-Next-SFT-DiffusersWrapper"
+        }
+    ],
     "https://github.com/ExponentialML/ComfyUI_ModelScopeT2V": [
         [
             "ModelScopeT2VLoader"
@@ -4133,6 +4141,7 @@
         [
             "AudioBatchValueNode",
             "AudioTranscriptionNode",
+            "BatchedTranscriptionEncoderNode",
             "DownloadAudio",
             "ImageRepeatInterleavedNode",
             "LatentRepeatInterleavedNode",
@@ -4146,6 +4155,7 @@
             "MergeLatentBatches",
             "PreviewAudio",
             "RVCNode",
+            "SimpleMathNode",
             "UVR5Node"
         ],
         {
@@ -6229,7 +6239,8 @@
     ],
     "https://github.com/adigayung/ComfyUI-Translator": [
         [
-            "CLIP Text Encode (Auto Translate)"
+            "CLIP Text Encode (Auto Translate)",
+            "Prompt Text (Auto Translate)"
         ],
         {
             "title_aux": "ComfyUI-Translator"
@@ -6328,6 +6339,15 @@
         ],
         {
             "title_aux": "ComfyUI-CascadeResolutions"
+        }
+    ],
+    "https://github.com/alanhuang67/ComfyUI-FAI-Node": [
+        [
+            "FAIScaleScheduler",
+            "FAI_Voronoi_Generator"
+        ],
+        {
+            "title_aux": "FAI-Node"
         }
     ],
     "https://github.com/alessandrozonta/ComfyUI-CenterNode": [
@@ -10201,14 +10221,14 @@
             "Griptape Agent Config: Amazon Bedrock",
             "Griptape Agent Config: Anthropic",
             "Griptape Agent Config: Azure OpenAI",
+            "Griptape Agent Config: Custom Structure",
             "Griptape Agent Config: Google",
             "Griptape Agent Config: HuggingFace",
             "Griptape Agent Config: LM Studio",
             "Griptape Agent Config: Ollama",
             "Griptape Agent Config: OpenAI",
-            "Griptape Agent Config: OpenAI Compatable",
-            "Griptape Audio Driver: ElevenLabs",
-            "Griptape Audio Driver: OpenAI",
+            "Griptape Agent Config: OpenAI Compatible",
+            "Griptape Audio Transcription Driver: OpenAI",
             "Griptape Combine: Merge Inputs",
             "Griptape Combine: Merge Texts",
             "Griptape Combine: Rules List",
@@ -10218,6 +10238,7 @@
             "Griptape Convert: Text to CLIP Encode",
             "Griptape Convert: Text to Combo",
             "Griptape Create: Agent",
+            "Griptape Create: Agent from Config",
             "Griptape Create: CLIP Text Encode",
             "Griptape Create: Image Variation",
             "Griptape Create: Image from Text",
@@ -10230,15 +10251,52 @@
             "Griptape Display: Text",
             "Griptape Driver: Amazon Bedrock Stable Diffusion",
             "Griptape Driver: Amazon Bedrock Titan",
+            "Griptape Driver: Amazon OpenSearch Vector Store",
+            "Griptape Driver: Azure MongoDB Vector Store",
             "Griptape Driver: DuckDuckGo WebSearch",
             "Griptape Driver: Google WebSearch",
             "Griptape Driver: Leonardo.AI",
+            "Griptape Driver: Local Vector Store",
+            "Griptape Driver: Marqo Vector Store",
+            "Griptape Driver: MongoDB Atlas Vector Store",
             "Griptape Driver: OpenAI Image Generation",
+            "Griptape Driver: PGVector Vector Store",
+            "Griptape Driver: Pinecone Vector Store",
+            "Griptape Driver: Qdrant Vector Store",
+            "Griptape Driver: Redis Vector Store",
+            "Griptape Embedding Driver: Amazon Bedrock Titan",
+            "Griptape Embedding Driver: Amazon SageMaker Jumpstart",
+            "Griptape Embedding Driver: Azure OpenAI",
+            "Griptape Embedding Driver: Cohere",
+            "Griptape Embedding Driver: Google",
+            "Griptape Embedding Driver: HuggingFace",
+            "Griptape Embedding Driver: Ollama",
+            "Griptape Embedding Driver: OpenAI",
+            "Griptape Embedding Driver: OpenAI Compatible",
+            "Griptape Embedding Driver: Voyage AI",
             "Griptape Expand: Agent Nodes",
+            "Griptape Image Query Driver: Amazon Bedrock Claude",
+            "Griptape Image Query Driver: Anthropic",
+            "Griptape Image Query Driver: Azure OpenAI",
+            "Griptape Image Query Driver: Ollama",
+            "Griptape Image Query Driver: OpenAI",
             "Griptape Load: Audio",
             "Griptape Load: Image From URL",
             "Griptape Pipeline: Add Task",
             "Griptape Pipeline: Insert Task",
+            "Griptape Prompt Driver: Amazon Bedrock",
+            "Griptape Prompt Driver: Amazon SageMaker Jumpstart",
+            "Griptape Prompt Driver: Anthropic",
+            "Griptape Prompt Driver: Azure OpenAI",
+            "Griptape Prompt Driver: Cohere",
+            "Griptape Prompt Driver: Google",
+            "Griptape Prompt Driver: HuggingFace",
+            "Griptape Prompt Driver: LM Studio",
+            "Griptape Prompt Driver: Ollama",
+            "Griptape Prompt Driver: OpenAI",
+            "Griptape Prompt Driver: OpenAI Compatible",
+            "Griptape Replace: Rulesets on Agent",
+            "Griptape Replace: Tools on Agent",
             "Griptape Run: Agent",
             "Griptape Run: Audio Transcription",
             "Griptape Run: Image Description",
@@ -10250,14 +10308,20 @@
             "Griptape Run: Tool Task",
             "Griptape Run: Toolkit Task",
             "Griptape Set: Default Agent",
+            "Griptape Text To Speech Driver: ElevenLabs",
+            "Griptape Text To Speech Driver: OpenAI",
             "Griptape Tool: Audio Transcription",
             "Griptape Tool: Calculator",
             "Griptape Tool: DateTime",
             "Griptape Tool: FileManager",
             "Griptape Tool: Griptape Cloud KnowledgeBase",
             "Griptape Tool: Text to Speech",
+            "Griptape Tool: VectorStore",
             "Griptape Tool: WebScraper",
-            "Griptape Tool: WebSearch"
+            "Griptape Tool: WebSearch",
+            "Griptape Vector Store: Add Text",
+            "Griptape Vector Store: Query",
+            "Grptape Driver: Azure OpenAI Image Generation"
         ],
         {
             "author": "Jason Schleifer",
@@ -10540,6 +10604,23 @@
         ],
         {
             "title_aux": "ComfyUI-ModelDownloader"
+        }
+    ],
+    "https://github.com/hotpizzatactics/ComfyUI-WaterMark-Detector": [
+        [
+            "AdaptiveThresholding",
+            "CLAHEEnhancement",
+            "CombineEnhancements",
+            "DenoisingFilter",
+            "EdgeDetection",
+            "FlexibleCombineEnhancements",
+            "HighPassFilter",
+            "ImprovedGrayColorEnhancement",
+            "MorphologicalOperations",
+            "TextureEnhancement"
+        ],
+        {
+            "title_aux": "ComfyUI-WaterMark-Detector"
         }
     ],
     "https://github.com/huagetai/ComfyUI-Gaffer": [
@@ -11014,6 +11095,7 @@
             "CR Obit Pose Input Switch JK",
             "CR Orbit Pose Input Switch JK",
             "CR Pipe Input Switch JK",
+            "CR Ply Input Switch JK",
             "CR SD1.5 Aspect Ratio JK",
             "CR SDXL Aspect Ratio JK",
             "CR Switch Model and CLIP JK",
@@ -13872,6 +13954,7 @@
             "float",
             "glslEditor",
             "glslEditor (ShaderToy)",
+            "glslUniforms",
             "glslViewer",
             "int",
             "vec2",
