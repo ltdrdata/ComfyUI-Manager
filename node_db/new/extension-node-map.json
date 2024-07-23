@@ -753,7 +753,8 @@
             "ETN_MergeImageTile",
             "ETN_NSFWFilter",
             "ETN_SendImageWebSocket",
-            "ETN_TileLayout"
+            "ETN_TileLayout",
+            "ETN_Translate"
         ],
         {
             "title_aux": "ComfyUI Nodes for External Tooling"
@@ -1164,7 +1165,9 @@
     ],
     "https://github.com/BetaDoggo/ComfyUI-VideoPlayer": [
         [
-            "LoadFrame"
+            "LoadFrame",
+            "LoadJPGFrame",
+            "LoadVideoFrame"
         ],
         {
             "title_aux": "ComfyUI Video Player"
@@ -3590,6 +3593,16 @@
             "title_aux": "ComfyUI-TextOverlay"
         }
     ],
+    "https://github.com/MuziekMagie/ComfyUI-Matchering": [
+        [
+            "Matchering",
+            "MatcheringAdvanced",
+            "MatcheringLimiterConfig"
+        ],
+        {
+            "title_aux": "ComfyUI-Matchering"
+        }
+    ],
     "https://github.com/N3rd00d/ComfyUI-Paint3D-Nodes": [
         [
             "3D_GenerateDepthImage",
@@ -4711,7 +4724,8 @@
     ],
     "https://github.com/StartHua/Comfyui_segformer_b2_clothes": [
         [
-            "segformer_b2_clothes"
+            "segformer_b2_clothes",
+            "segformer_b3_fashion"
         ],
         {
             "title_aux": "comfyui_segformer_b2_clothes"
@@ -5437,7 +5451,8 @@
             "TripoAPIDraft",
             "TripoAnimateRetargetNode",
             "TripoAnimateRigNode",
-            "TripoGLBViewer"
+            "TripoGLBViewer",
+            "TripoRefineModel"
         ],
         {
             "title_aux": "Tripo for ComfyUI"
@@ -7880,6 +7895,9 @@
             "LayerMask: RemBgUltra",
             "LayerMask: RmBgUltra V2",
             "LayerMask: SegformerB2ClothesUltra",
+            "LayerMask: SegformerClothesPipelineLoader",
+            "LayerMask: SegformerFashionPipelineLoader",
+            "LayerMask: SegformerUltraV2",
             "LayerMask: SegmentAnythingUltra",
             "LayerMask: SegmentAnythingUltra V2",
             "LayerMask: Shadow & Highlight Mask",
@@ -9505,6 +9523,24 @@
             "title_aux": "Pixelization"
         }
     ],
+    "https://github.com/filliptm/ComfyUI_FL-Trainer": [
+        [
+            "FL_ImageCaptionSaver",
+            "FL_KohyaSSAdvConfig",
+            "FL_KohyaSSDatasetConfig",
+            "FL_KohyaSSInitWorkspace",
+            "FL_KohyaSSTrain",
+            "FL_Kohya_EasyTrain",
+            "FL_LoadImagesFromDirectoryPath",
+            "FL_SliderLoraAdvConfig",
+            "FL_SliderLoraDatasetConfig",
+            "FL_SliderLoraInitWorkspace",
+            "FL_SliderLoraTrain"
+        ],
+        {
+            "title_aux": "ComfyUI_FL-Trainer"
+        }
+    ],
     "https://github.com/filliptm/ComfyUI_Fill-Nodes": [
         [
             "FL_Ascii",
@@ -9704,6 +9740,16 @@
         ],
         {
             "title_aux": "ComfyUI-Prompter-fofrAI"
+        }
+    ],
+    "https://github.com/fofr/comfyui-fofr-toolkit": [
+        [
+            "Incrementer \ud83e\udeb4",
+            "Width and height for scaling image to ideal resolution \ud83e\udeb4",
+            "Width and height from aspect ratio \ud83e\udeb4"
+        ],
+        {
+            "title_aux": "comfyui-fofr-toolkit"
         }
     ],
     "https://github.com/forever22777/comfyui-self-guidance": [
@@ -10251,19 +10297,9 @@
             "Griptape Display: Text",
             "Griptape Driver: Amazon Bedrock Stable Diffusion",
             "Griptape Driver: Amazon Bedrock Titan",
-            "Griptape Driver: Amazon OpenSearch Vector Store",
-            "Griptape Driver: Azure MongoDB Vector Store",
-            "Griptape Driver: DuckDuckGo WebSearch",
-            "Griptape Driver: Google WebSearch",
+            "Griptape Driver: Azure OpenAI Image Generation",
             "Griptape Driver: Leonardo.AI",
-            "Griptape Driver: Local Vector Store",
-            "Griptape Driver: Marqo Vector Store",
-            "Griptape Driver: MongoDB Atlas Vector Store",
             "Griptape Driver: OpenAI Image Generation",
-            "Griptape Driver: PGVector Vector Store",
-            "Griptape Driver: Pinecone Vector Store",
-            "Griptape Driver: Qdrant Vector Store",
-            "Griptape Driver: Redis Vector Store",
             "Griptape Embedding Driver: Amazon Bedrock Titan",
             "Griptape Embedding Driver: Amazon SageMaker Jumpstart",
             "Griptape Embedding Driver: Azure OpenAI",
@@ -10307,6 +10343,7 @@
             "Griptape Run: Text to Speech",
             "Griptape Run: Tool Task",
             "Griptape Run: Toolkit Task",
+            "Griptape Save: Text",
             "Griptape Set: Default Agent",
             "Griptape Text To Speech Driver: ElevenLabs",
             "Griptape Text To Speech Driver: OpenAI",
@@ -10319,9 +10356,19 @@
             "Griptape Tool: VectorStore",
             "Griptape Tool: WebScraper",
             "Griptape Tool: WebSearch",
+            "Griptape Vector Store Driver: Amazon OpenSearch",
+            "Griptape Vector Store Driver: Azure MongoDB",
+            "Griptape Vector Store Driver: Local",
+            "Griptape Vector Store Driver: Marqo",
+            "Griptape Vector Store Driver: MongoDB Atlas",
+            "Griptape Vector Store Driver: PGVector",
+            "Griptape Vector Store Driver: Pinecone",
+            "Griptape Vector Store Driver: Qdrant",
+            "Griptape Vector Store Driver: Redis",
             "Griptape Vector Store: Add Text",
             "Griptape Vector Store: Query",
-            "Grptape Driver: Azure OpenAI Image Generation"
+            "Griptape WebSearch Driver: DuckDuckGo",
+            "Griptape WebSearch Driver: Google"
         ],
         {
             "author": "Jason Schleifer",
@@ -10463,6 +10510,8 @@
             "CosyVoice",
             "Dingding",
             "Dingding_tool",
+            "FeishuGetHistory",
+            "FeishuSendMsg",
             "KG_csv_toolkit_developer",
             "KG_csv_toolkit_user",
             "KG_json_toolkit_developer",
@@ -11342,7 +11391,8 @@
     ],
     "https://github.com/john-mnz/ComfyUI-Inspyrenet-Rembg": [
         [
-            "InspyrenetRembg"
+            "InspyrenetRembg",
+            "InspyrenetRembgAdvanced"
         ],
         {
             "title_aux": "ComfyUI-Inspyrenet-Rembg"
@@ -12252,10 +12302,14 @@
     "https://github.com/leestuartx/ComfyUI-GG": [
         [
             "AddPaddingToImage",
+            "ForLoopNode",
             "ImageMetadataExtractor",
+            "InputNode",
             "MetadataExtractBySeed",
             "MetadataExtractorBySeed",
-            "ResizeImageProportionally"
+            "OutputNode",
+            "ResizeImageProportionally",
+            "WorkspaceNode"
         ],
         {
             "title_aux": "ComfyUI-GG"
@@ -13337,16 +13391,6 @@
             "title_aux": "ComfyUI - Mask Bounding Box"
         }
     ],
-    "https://github.com/mingqizhang/ComfyUI_InSPyResNet_zmq": [
-        [
-            "INSPY removebg Apply",
-            "INSPY removebg ModelLoader",
-            "INSPY removebg ModelLoaderFromPath"
-        ],
-        {
-            "title_aux": "ComfyUI_InSPyResNet_zmq"
-        }
-    ],
     "https://github.com/mirabarukaso/ComfyUI_Mira": [
         [
             "BooleanListInterpreter1",
@@ -13516,6 +13560,15 @@
         ],
         {
             "title_aux": "ComfyUI-NegiTools"
+        }
+    ],
+    "https://github.com/neverbiasu/ComfyUI-ImageCaptioner": [
+        [
+            "DashscopeConfig",
+            "ImageCaptioner"
+        ],
+        {
+            "title_aux": "ComfyUI ImageCaptioner"
         }
     ],
     "https://github.com/nickve28/ComfyUI-Nich-Utils": [
@@ -14761,6 +14814,7 @@
             "BizyAirKolorsVAEEncode",
             "BizyAirLeReS_DepthMapPreprocessor",
             "BizyAirLineArtPreprocessor",
+            "BizyAirMZChatGLM3TextEncode",
             "BizyAirM_LSDPreprocessor",
             "BizyAirMetric3D_DepthMapPreprocessor",
             "BizyAirMetric3D_NormalMapPreprocessor",
@@ -15051,6 +15105,7 @@
     ],
     "https://github.com/smthemex/ComfyUI_Streamv2v_Plus": [
         [
+            "Stream_Lora_Loader",
             "Stream_Model_Loader",
             "Stream_Sampler"
         ],
@@ -15169,6 +15224,7 @@
             "LatentNormalizeShuffle",
             "LatentStats",
             "MedianFilterImage",
+            "ModelTest",
             "NormalMapSimple",
             "OffsetLatentImage",
             "PrintSigmas",
