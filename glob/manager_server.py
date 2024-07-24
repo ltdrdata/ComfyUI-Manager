@@ -16,11 +16,14 @@ import git
 
 from server import PromptServer
 import manager_core as core
+import manager_util
 import cm_global
 
 print(f"### Loading: ComfyUI-Manager ({core.version_str})")
 
 comfy_ui_hash = "-"
+
+routes = PromptServer.instance.routes
 
 
 def handle_stream(stream, prefix):
@@ -59,7 +62,7 @@ def is_allowed_security_level(level):
 
 async def get_risky_level(files):
     json_data1 = await core.get_data_by_mode('local', 'custom-node-list.json')
-    json_data2 = await core.get_data_by_mode('cache', 'custom-node-list.json', channel_url='https://github.com/ltdrdata/ComfyUI-Manager/raw/main/custom-node-list.json')
+    json_data2 = await core.get_data_by_mode('cache', 'custom-node-list.json', channel_url='https://github.com/ltdrdata/ComfyUI-Manager/raw/main')
 
     all_urls = set()
     for x in json_data1['custom_nodes'] + json_data2['custom_nodes']:
@@ -201,19 +204,6 @@ def print_comfyui_version():
 print_comfyui_version()
 
 
-async def populate_github_stats(json_obj, json_obj_github):
-    if 'custom_nodes' in json_obj:
-        for i, node in enumerate(json_obj['custom_nodes']):
-            url = node['reference']
-            if url in json_obj_github:
-                json_obj['custom_nodes'][i]['stars'] = json_obj_github[url]['stars']
-                json_obj['custom_nodes'][i]['last_update'] = json_obj_github[url]['last_update']
-                json_obj['custom_nodes'][i]['trust'] = json_obj_github[url]['author_account_age_days'] > 180
-            else:
-                json_obj['custom_nodes'][i]['stars'] = -1
-                json_obj['custom_nodes'][i]['last_update'] = -1
-                json_obj['custom_nodes'][i]['trust'] = False
-        return json_obj
 
 
 def setup_environment():
@@ -280,7 +270,7 @@ def get_model_path(data):
     return os.path.join(base_model, data['filename'])
 
 
-def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True, do_update=False):
+def check_state_of_git_node_pack(node_packs, do_fetch=False, do_update_check=True, do_update=False):
     if do_fetch:
         print("Start fetching...", end="")
     elif do_update:
@@ -289,16 +279,17 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
         print("Start update check...", end="")
 
     def process_custom_node(item):
-        core.check_a_custom_node_installed(item, do_fetch, do_update_check, do_update)
+        core.check_state_of_git_node_pack_single(item, do_fetch, do_update_check, do_update)
 
     with concurrent.futures.ThreadPoolExecutor(4) as executor:
-        for item in json_obj['custom_nodes']:
-            executor.submit(process_custom_node, item)
+        for k, v in node_packs.items():
+            if v.get('active_version') in ['unknown', 'nightly']:
+                executor.submit(process_custom_node, v)
 
     if do_fetch:
         print(f"\x1b[2K\rFetching done.")
     elif do_update:
-        update_exists = any(item['installed'] == 'Update' for item in json_obj['custom_nodes'])
+        update_exists = any(item.get('updatable', False) for item in node_packs.values())
         if update_exists:
             print(f"\x1b[2K\rUpdate done.")
         else:
@@ -335,8 +326,11 @@ def nickname_filter(json_obj):
     return json_obj
 
 
-@PromptServer.instance.routes.get("/customnode/getmappings")
+@routes.get("/customnode/getmappings")
 async def fetch_customnode_mappings(request):
+    """
+    provide unified (node -> node pack) mapping list
+    """
     mode = request.rel_url.query["mode"]
 
     nickname_mode = False
@@ -345,6 +339,7 @@ async def fetch_customnode_mappings(request):
         nickname_mode = True
 
     json_obj = await core.get_data_by_mode(mode, 'extension-node-map.json')
+    json_obj = core.map_to_unified_keys(json_obj)
 
     if nickname_mode:
         json_obj = nickname_filter(json_obj)
@@ -367,25 +362,34 @@ async def fetch_customnode_mappings(request):
     return web.json_response(json_obj, content_type='application/json')
 
 
-@PromptServer.instance.routes.get("/customnode/fetch_updates")
+@routes.get("/customnode/fetch_updates")
 async def fetch_updates(request):
     try:
-        json_obj = await core.get_data_by_mode(request.rel_url.query["mode"], 'custom-node-list.json')
+        if request.rel_url.query["mode"] == "local":
+            channel = 'local'
+        else:
+            channel = core.get_config()['channel_url']
 
-        check_custom_nodes_installed(json_obj, True)
+        await core.unified_manager.reload(request.rel_url.query["mode"])
+        await core.unified_manager.get_custom_nodes(channel, request.rel_url.query["mode"])
 
-        update_exists = any('custom_nodes' in json_obj and 'installed' in node and node['installed'] == 'Update' for node in
-                            json_obj['custom_nodes'])
+        res = core.unified_manager.fetch_or_pull_git_repo(is_pull=False)
 
-        if update_exists:
+        for x in res['failed']:
+            print(f"FETCH FAILED: {x}")
+
+        print("\nDone.")
+
+        if len(res['updated']) > 0:
             return web.Response(status=201)
 
         return web.Response(status=200)
     except:
+        traceback.print_exc()
         return web.Response(status=400)
 
 
-@PromptServer.instance.routes.get("/customnode/update_all")
+@routes.get("/customnode/update_all")
 async def update_all(request):
     if not is_allowed_security_level('middle'):
         print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
@@ -394,22 +398,37 @@ async def update_all(request):
     try:
         core.save_snapshot_with_postfix('autosave')
 
-        json_obj = await core.get_data_by_mode(request.rel_url.query["mode"], 'custom-node-list.json')
+        if request.rel_url.query["mode"] == "local":
+            channel = 'local'
+        else:
+            channel = core.get_config()['channel_url']
 
-        check_custom_nodes_installed(json_obj, do_update=True)
+        await core.unified_manager.reload(request.rel_url.query["mode"])
+        await core.unified_manager.get_custom_nodes(channel, request.rel_url.query["mode"])
 
-        updated = [item['title'] for item in json_obj['custom_nodes'] if item['installed'] == 'Update']
-        failed = [item['title'] for item in json_obj['custom_nodes'] if item['installed'] == 'Fail']
+        updated_cnr = []
+        for k, v in core.unified_manager.active_nodes.items():
+            if v[0] != 'nightly':
+                res = core.unified_manager.unified_update(k, v[0])
+                if res.action == 'switch-cnr' and res:
+                    updated_cnr.append(k)
 
-        res = {'updated': updated, 'failed': failed}
+        res = core.unified_manager.fetch_or_pull_git_repo(is_pull=True)
 
-        if len(updated) == 0 and len(failed) == 0:
+        res['updated'] += updated_cnr
+
+        for x in res['failed']:
+            print(f"PULL FAILED: {x}")
+
+        if len(res['updated']) == 0 and len(res['failed']) == 0:
             status = 200
         else:
             status = 201
 
+        print(f"\nDone.")
         return web.json_response(res, status=status, content_type='application/json')
     except:
+        traceback.print_exc()
         return web.Response(status=400)
     finally:
         core.clear_pip_cache()
@@ -450,17 +469,20 @@ def convert_markdown_to_html(input_text):
 
 def populate_markdown(x):
     if 'description' in x:
-        x['description'] = convert_markdown_to_html(x['description'])
+        x['description'] = convert_markdown_to_html(manager_util.sanitize_tag(x['description']))
 
     if 'name' in x:
-        x['name'] = x['name'].replace('<', '&lt;').replace('>', '&gt;')
+        x['name'] = manager_util.sanitize_tag(x['name'])
 
     if 'title' in x:
-        x['title'] = x['title'].replace('<', '&lt;').replace('>', '&gt;')
+        x['title'] = manager_util.sanitize_tag(x['title'])
 
 
-@PromptServer.instance.routes.get("/customnode/getlist")
+@routes.get("/customnode/getlist")
 async def fetch_customnode_list(request):
+    """
+    provide unified custom node list
+    """
     if "skip_update" in request.rel_url.query and request.rel_url.query["skip_update"] == "true":
         skip_update = True
     else:
@@ -471,26 +493,14 @@ async def fetch_customnode_list(request):
     else:
         channel = core.get_config()['channel_url']
 
-    json_obj = await core.get_data_by_mode(request.rel_url.query["mode"], 'custom-node-list.json')
+    node_packs = await core.get_unified_total_nodes(channel, request.rel_url.query["mode"])
     json_obj_github = await core.get_data_by_mode(request.rel_url.query["mode"], 'github-stats.json', 'default')
-    json_obj = await populate_github_stats(json_obj, json_obj_github)
+    core.populate_github_stats(node_packs, json_obj_github)
 
-    def is_ignored_notice(code):
-        if code is not None and code.startswith('#NOTICE_'):
-            try:
-                notice_version = [int(x) for x in code[8:].split('.')]
-                return notice_version[0] < core.version[0] or (notice_version[0] == core.version[0] and notice_version[1] <= core.version[1])
-            except Exception:
-                return False
-        else:
-            return False
+    check_state_of_git_node_pack(node_packs, False, do_update_check=not skip_update)
 
-    json_obj['custom_nodes'] = [record for record in json_obj['custom_nodes'] if not is_ignored_notice(record.get('author'))]
-
-    check_custom_nodes_installed(json_obj, False, not skip_update)
-
-    for x in json_obj['custom_nodes']:
-        populate_markdown(x)
+    for v in node_packs.values():
+        populate_markdown(v)
 
     if channel != 'local':
         found = 'custom'
@@ -502,48 +512,24 @@ async def fetch_customnode_list(request):
 
         channel = found
 
-    json_obj['channel'] = channel
+    result = dict(channel=channel, node_packs=node_packs)
 
-    return web.json_response(json_obj, content_type='application/json')
+    return web.json_response(result, content_type='application/json')
 
 
-@PromptServer.instance.routes.get("/customnode/alternatives")
+@routes.get("/customnode/alternatives")
 async def fetch_customnode_alternatives(request):
     alter_json = await core.get_data_by_mode(request.rel_url.query["mode"], 'alter-list.json')
 
+    res = {}
+
     for item in alter_json['items']:
         populate_markdown(item)
-        
-    return web.json_response(alter_json, content_type='application/json')
+        res[item['id']] = item
 
+    res = core.map_to_unified_keys(res)
 
-@PromptServer.instance.routes.get("/alternatives/getlist")
-async def fetch_alternatives_list(request):
-    if "skip_update" in request.rel_url.query and request.rel_url.query["skip_update"] == "true":
-        skip_update = True
-    else:
-        skip_update = False
-
-    alter_json = await core.get_data_by_mode(request.rel_url.query["mode"], 'alter-list.json')
-    custom_node_json = await core.get_data_by_mode(request.rel_url.query["mode"], 'custom-node-list.json')
-
-    fileurl_to_custom_node = {}
-
-    for item in custom_node_json['custom_nodes']:
-        for fileurl in item['files']:
-            fileurl_to_custom_node[fileurl] = item
-
-    for item in alter_json['items']:
-        fileurl = item['id']
-        if fileurl in fileurl_to_custom_node:
-            custom_node = fileurl_to_custom_node[fileurl]
-            core.check_a_custom_node_installed(custom_node, not skip_update)
-
-            populate_markdown(item)
-            populate_markdown(custom_node)
-            item['custom_node'] = custom_node
-
-    return web.json_response(alter_json, content_type='application/json')
+    return web.json_response(res, content_type='application/json')
 
 
 def check_model_installed(json_obj):
@@ -567,7 +553,7 @@ def check_model_installed(json_obj):
             executor.submit(process_model, item)
 
 
-@PromptServer.instance.routes.get("/externalmodel/getlist")
+@routes.get("/externalmodel/getlist")
 async def fetch_externalmodel_list(request):
     json_obj = await core.get_data_by_mode(request.rel_url.query["mode"], 'model-list.json')
 
@@ -587,7 +573,7 @@ async def get_snapshot_list(request):
     return web.json_response({'items': items}, content_type='application/json')
 
 
-@PromptServer.instance.routes.get("/snapshot/remove")
+@routes.get("/snapshot/remove")
 async def remove_snapshot(request):
     if not is_allowed_security_level('middle'):
         print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
@@ -605,7 +591,7 @@ async def remove_snapshot(request):
         return web.Response(status=400)
 
 
-@PromptServer.instance.routes.get("/snapshot/restore")
+@routes.get("/snapshot/restore")
 async def remove_snapshot(request):
     if not is_allowed_security_level('middle'):
         print(f"ERROR: To use this action, a security_level of `middle or below` is required.  Please contact the administrator.")
@@ -631,7 +617,7 @@ async def remove_snapshot(request):
         return web.Response(status=400)
 
 
-@PromptServer.instance.routes.get("/snapshot/get_current")
+@routes.get("/snapshot/get_current")
 async def get_current_snapshot_api(request):
     try:
         return web.json_response(core.get_current_snapshot(), content_type='application/json')
@@ -639,7 +625,7 @@ async def get_current_snapshot_api(request):
         return web.Response(status=400)
 
 
-@PromptServer.instance.routes.get("/snapshot/save")
+@routes.get("/snapshot/save")
 async def save_snapshot(request):
     try:
         core.save_snapshot_with_postfix('snapshot')
@@ -774,7 +760,34 @@ def copy_set_active(files, is_disable, js_path_name='.'):
     return True
 
 
-@PromptServer.instance.routes.post("/customnode/install")
+@routes.get("/customnode/versions/{node_name}")
+async def get_cnr_versions(request):
+    node_name = request.match_info.get("node_name", None)
+    versions = core.cnr_utils.all_versions_of_node(node_name)
+
+    if versions:
+        return web.json_response(versions, content_type='application/json')
+
+    return web.Response(status=400)
+
+
+@routes.get("/customnode/disabled_versions/{node_name}")
+async def get_disabled_versions(request):
+    node_name = request.match_info.get("node_name", None)
+    versions = []
+    if node_name in core.unified_manager.nightly_inactive_nodes:
+        versions.append(dict(version='nightly'))
+
+    for v in core.unified_manager.cnr_inactive_nodes.get(node_name, {}).keys():
+        versions.append(dict(version=v))
+
+    if versions:
+        return web.json_response(versions, content_type='application/json')
+
+    return web.Response(status=400)
+
+
+@routes.post("/customnode/install")
 async def install_custom_node(request):
     if not is_allowed_security_level('middle'):
         print(f"ERROR: To use this action, a security_level of `middle or below` is required.  Please contact the administrator.")
@@ -782,46 +795,47 @@ async def install_custom_node(request):
 
     json_data = await request.json()
 
-    risky_level = await get_risky_level(json_data['files'])
+    # non-nightly cnr is safe
+    risky_level = None
+    cnr_id = json_data.get('id')
+    skip_post_install = json_data.get('skip_post_install')
+
+    if json_data['version'] != 'unknown':
+        selected_version = json_data.get('selected_version', 'latest')
+        if selected_version != 'nightly':
+            risky_level = 'low'
+            node_spec_str = f"{cnr_id}@{selected_version}"
+        else:
+            node_spec_str = f"{cnr_id}@nightly"
+    else:
+        # unknown
+        unknown_name = os.path.basename(json_data['files'][0])
+        node_spec_str = f"{unknown_name}@unknown"
+
+    # apply security policy if not cnr node (nightly isn't regarded as cnr node)
+    if risky_level is None:
+        risky_level = await get_risky_level(json_data['files'])
+
     if not is_allowed_security_level(risky_level):
         print(f"ERROR: This installation is not allowed in this security_level.  Please contact the administrator.")
         return web.Response(status=404)
 
-    install_type = json_data['install_type']
+    node_spec = core.unified_manager.resolve_node_spec(node_spec_str)
 
-    print(f"Install custom node '{json_data['title']}'")
+    if node_spec is None:
+        return
 
-    res = False
+    node_name, version_spec, is_specified = node_spec
+    res = await core.unified_manager.install_by_id(node_name, version_spec, json_data['channel'], json_data['mode'], return_postinstall=skip_post_install)
+    # discard post install if skip_post_install mode
 
-    if len(json_data['files']) == 0:
+    if res not in ['skip', 'enable', 'install-git', 'install-cnr', 'switch-cnr']:
         return web.Response(status=400)
 
-    if install_type == "unzip":
-        res = unzip_install(json_data['files'])
-
-    if install_type == "copy":
-        js_path_name = json_data['js_path'] if 'js_path' in json_data else '.'
-        res = copy_install(json_data['files'], js_path_name)
-
-    elif install_type == "git-clone":
-        res = core.gitclone_install(json_data['files'])
-
-    if 'pip' in json_data:
-        for pname in json_data['pip']:
-            pkg = core.remap_pip_package(pname)
-            install_cmd = [sys.executable, "-m", "pip", "install", pkg]
-            core.try_install_script(json_data['files'][0], ".", install_cmd)
-
-    core.clear_pip_cache()
-
-    if res:
-        print(f"After restarting ComfyUI, please refresh the browser.")
-        return web.json_response({}, content_type='application/json')
-
-    return web.Response(status=400)
+    return web.Response(status=200)
 
 
-@PromptServer.instance.routes.post("/customnode/fix")
+@routes.post("/customnode/fix")
 async def fix_custom_node(request):
     if not is_allowed_security_level('middle'):
         print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
@@ -829,49 +843,45 @@ async def fix_custom_node(request):
 
     json_data = await request.json()
 
-    install_type = json_data['install_type']
-
-    print(f"Install custom node '{json_data['title']}'")
-
-    res = False
-
-    if len(json_data['files']) == 0:
-        return web.Response(status=400)
-
-    if install_type == "git-clone":
-        res = core.gitclone_fix(json_data['files'])
+    node_id = json_data.get('id')
+    node_ver = json_data['version']
+    if node_ver != 'unknown':
+        node_name = node_id
     else:
-        return web.Response(status=400)
+        # unknown
+        node_name = os.path.basename(json_data['files'][0])
 
-    if 'pip' in json_data:
-        for pname in json_data['pip']:
-            install_cmd = [sys.executable, "-m", "pip", "install", '-U', pname]
-            core.try_install_script(json_data['files'][0], ".", install_cmd)
+    res = core.unified_manager.unified_fix(node_name, node_ver)
 
-    if res:
+    if res.result:
         print(f"After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
+    print(f"ERROR: An error occurred while fixing '{node_name}@{node_ver}'.")
     return web.Response(status=400)
 
 
-@PromptServer.instance.routes.post("/customnode/install/git_url")
+@routes.post("/customnode/install/git_url")
 async def install_custom_node_git_url(request):
     if not is_allowed_security_level('high'):
         print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
         return web.Response(status=403)
 
     url = await request.text()
-    res = core.gitclone_install([url])
+    res = await core.gitclone_install(url)
 
-    if res:
+    if res.action == 'skip':
+        print(f"Already installed: '{res.target}'")
+        return web.Response(status=200)
+    elif res.result:
         print(f"After restarting ComfyUI, please refresh the browser.")
         return web.Response(status=200)
 
+    print(res.msg)
     return web.Response(status=400)
 
 
-@PromptServer.instance.routes.post("/customnode/install/pip")
+@routes.post("/customnode/install/pip")
 async def install_custom_node_git_url(request):
     if not is_allowed_security_level('high'):
         print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
@@ -883,7 +893,7 @@ async def install_custom_node_git_url(request):
     return web.Response(status=200)
 
 
-@PromptServer.instance.routes.post("/customnode/uninstall")
+@routes.post("/customnode/uninstall")
 async def uninstall_custom_node(request):
     if not is_allowed_security_level('middle'):
         print(f"ERROR: To use this action, a security_level of `middle or below` is required.  Please contact the administrator.")
@@ -891,27 +901,26 @@ async def uninstall_custom_node(request):
 
     json_data = await request.json()
 
-    install_type = json_data['install_type']
+    node_id = json_data.get('id')
+    if json_data['version'] != 'unknown':
+        is_unknown = False
+        node_name = node_id
+    else:
+        # unknown
+        is_unknown = True
+        node_name = os.path.basename(json_data['files'][0])
 
-    print(f"Uninstall custom node '{json_data['title']}'")
+    res = core.unified_manager.unified_uninstall(node_name, is_unknown)
 
-    res = False
-
-    if install_type == "copy":
-        js_path_name = json_data['js_path'] if 'js_path' in json_data else '.'
-        res = copy_uninstall(json_data['files'], js_path_name)
-
-    elif install_type == "git-clone":
-        res = core.gitclone_uninstall(json_data['files'])
-
-    if res:
+    if res.result:
         print(f"After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
+    print(f"ERROR: An error occurred while uninstalling '{node_name}'.")
     return web.Response(status=400)
 
 
-@PromptServer.instance.routes.post("/customnode/update")
+@routes.post("/customnode/update")
 async def update_custom_node(request):
     if not is_allowed_security_level('middle'):
         print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
@@ -919,25 +928,26 @@ async def update_custom_node(request):
 
     json_data = await request.json()
 
-    install_type = json_data['install_type']
+    node_id = json_data.get('id')
+    if json_data['version'] != 'unknown':
+        node_name = node_id
+    else:
+        # unknown
+        node_name = os.path.basename(json_data['files'][0])
 
-    print(f"Update custom node '{json_data['title']}'")
-
-    res = False
-
-    if install_type == "git-clone":
-        res = core.gitclone_update(json_data['files'])
+    res = core.unified_manager.unified_update(node_name, json_data['version'])
 
     core.clear_pip_cache()
 
-    if res:
+    if res.result:
         print(f"After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
+    print(f"ERROR: An error occurred while updating '{node_name}'.")
     return web.Response(status=400)
 
 
-@PromptServer.instance.routes.get("/comfyui_manager/update_comfyui")
+@routes.get("/comfyui_manager/update_comfyui")
 async def update_comfyui(request):
     print(f"Update ComfyUI")
 
@@ -957,21 +967,20 @@ async def update_comfyui(request):
     return web.Response(status=400)
 
 
-@PromptServer.instance.routes.post("/customnode/toggle_active")
-async def toggle_active(request):
+@routes.post("/customnode/disable")
+async def disable_node(request):
     json_data = await request.json()
 
-    install_type = json_data['install_type']
-    is_disabled = json_data['installed'] == "Disabled"
+    node_id = json_data.get('id')
+    if json_data['version'] != 'unknown':
+        is_unknown = False
+        node_name = node_id
+    else:
+        # unknown
+        is_unknown = True
+        node_name = os.path.basename(json_data['files'][0])
 
-    print(f"Update custom node '{json_data['title']}'")
-
-    res = False
-
-    if install_type == "git-clone":
-        res = core.gitclone_set_active(json_data['files'], not is_disabled)
-    elif install_type == "copy":
-        res = copy_set_active(json_data['files'], not is_disabled, json_data.get('js_path', None))
+    res = core.unified_manager.unified_disable(node_name, is_unknown)
 
     if res:
         return web.json_response({}, content_type='application/json')
@@ -979,7 +988,20 @@ async def toggle_active(request):
     return web.Response(status=400)
 
 
-@PromptServer.instance.routes.post("/model/install")
+@routes.get("/manager/migrate_unmanaged_nodes")
+async def migrate_unmanaged_nodes(request):
+    print(f"[ComfyUI-Manager] Migrating unmanaged nodes...")
+    await core.unified_manager.migrate_unmanaged_nodes()
+    print("Done.")
+    return web.Response(status=200)
+
+
+@routes.get("/manager/need_to_migrate")
+async def need_to_migrate(request):
+    return web.Response(text=str(core.need_to_migrate), status=200)
+
+
+@routes.post("/model/install")
 async def install_model(request):
     json_data = await request.json()
 
@@ -1046,7 +1068,7 @@ class ManagerTerminalHook:
 manager_terminal_hook = ManagerTerminalHook()
 
 
-@PromptServer.instance.routes.get("/manager/terminal")
+@routes.get("/manager/terminal")
 async def terminal_mode(request):
     if not is_allowed_security_level('high'):
         print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
@@ -1061,7 +1083,7 @@ async def terminal_mode(request):
     return web.Response(status=200)
 
 
-@PromptServer.instance.routes.get("/manager/preview_method")
+@routes.get("/manager/preview_method")
 async def preview_method(request):
     if "value" in request.rel_url.query:
         set_preview_method(request.rel_url.query['value'])
@@ -1072,7 +1094,7 @@ async def preview_method(request):
     return web.Response(status=200)
 
 
-@PromptServer.instance.routes.get("/manager/badge_mode")
+@routes.get("/manager/badge_mode")
 async def badge_mode(request):
     if "value" in request.rel_url.query:
         set_badge_mode(request.rel_url.query['value'])
@@ -1083,7 +1105,7 @@ async def badge_mode(request):
     return web.Response(status=200)
 
 
-@PromptServer.instance.routes.get("/manager/default_ui")
+@routes.get("/manager/default_ui")
 async def default_ui_mode(request):
     if "value" in request.rel_url.query:
         set_default_ui_mode(request.rel_url.query['value'])
@@ -1094,7 +1116,7 @@ async def default_ui_mode(request):
     return web.Response(status=200)
 
 
-@PromptServer.instance.routes.get("/manager/component/policy")
+@routes.get("/manager/component/policy")
 async def component_policy(request):
     if "value" in request.rel_url.query:
         set_component_policy(request.rel_url.query['value'])
@@ -1105,7 +1127,7 @@ async def component_policy(request):
     return web.Response(status=200)
 
 
-@PromptServer.instance.routes.get("/manager/dbl_click/policy")
+@routes.get("/manager/dbl_click/policy")
 async def dbl_click_policy(request):
     if "value" in request.rel_url.query:
         set_double_click_policy(request.rel_url.query['value'])
@@ -1116,7 +1138,7 @@ async def dbl_click_policy(request):
     return web.Response(status=200)
 
 
-@PromptServer.instance.routes.get("/manager/channel_url_list")
+@routes.get("/manager/channel_url_list")
 async def channel_url_list(request):
     channels = core.get_channel_dict()
     if "value" in request.rel_url.query:
@@ -1153,7 +1175,7 @@ def add_target_blank(html_text):
     return modified_html
 
 
-@PromptServer.instance.routes.get("/manager/notice")
+@routes.get("/manager/notice")
 async def get_notice(request):
     url = "github.com"
     path = "/ltdrdata/ltdrdata.github.io/wiki/News"
@@ -1188,7 +1210,7 @@ async def get_notice(request):
                 return web.Response(text="Unable to retrieve Notice", status=200)
 
 
-@PromptServer.instance.routes.get("/manager/reboot")
+@routes.get("/manager/reboot")
 def restart(self):
     if not is_allowed_security_level('middle'):
         print(f"ERROR: To use this action, a security_level of `middle or below` is required.  Please contact the administrator.")
@@ -1214,12 +1236,11 @@ def restart(self):
 
 
 def sanitize_filename(input_string):
-    # 알파벳, 숫자, 및 밑줄 이외의 문자를 밑줄로 대체
     result_string = re.sub(r'[^a-zA-Z0-9_]', '_', input_string)
     return result_string
 
 
-@PromptServer.instance.routes.post("/manager/component/save")
+@routes.post("/manager/component/save")
 async def save_component(request):
     try:
         data = await request.json()
@@ -1249,7 +1270,7 @@ async def save_component(request):
         return web.Response(status=400)
 
 
-@PromptServer.instance.routes.post("/manager/component/loads")
+@routes.post("/manager/component/loads")
 async def load_components(request):
     try:
         json_files = [f for f in os.listdir(components_path) if f.endswith('.json')]
@@ -1271,7 +1292,7 @@ async def load_components(request):
         return web.Response(status=400)
 
 
-@PromptServer.instance.routes.get("/manager/share_option")
+@routes.get("/manager/share_option")
 async def share_option(request):
     if "value" in request.rel_url.query:
         core.get_config()['share_option'] = request.rel_url.query['value']
@@ -1340,7 +1361,7 @@ def set_youml_settings(settings):
         f.write(settings)
 
 
-@PromptServer.instance.routes.get("/manager/get_openart_auth")
+@routes.get("/manager/get_openart_auth")
 async def api_get_openart_auth(request):
     # print("Getting stored Matrix credentials...")
     openart_key = get_openart_auth()
@@ -1349,7 +1370,7 @@ async def api_get_openart_auth(request):
     return web.json_response({"openart_key": openart_key})
 
 
-@PromptServer.instance.routes.post("/manager/set_openart_auth")
+@routes.post("/manager/set_openart_auth")
 async def api_set_openart_auth(request):
     json_data = await request.json()
     openart_key = json_data['openart_key']
@@ -1358,7 +1379,7 @@ async def api_set_openart_auth(request):
     return web.Response(status=200)
 
 
-@PromptServer.instance.routes.get("/manager/get_matrix_auth")
+@routes.get("/manager/get_matrix_auth")
 async def api_get_matrix_auth(request):
     # print("Getting stored Matrix credentials...")
     matrix_auth = get_matrix_auth()
@@ -1367,7 +1388,7 @@ async def api_get_matrix_auth(request):
     return web.json_response(matrix_auth)
 
 
-@PromptServer.instance.routes.get("/manager/youml/settings")
+@routes.get("/manager/youml/settings")
 async def api_get_youml_settings(request):
     youml_settings = get_youml_settings()
     if not youml_settings:
@@ -1375,14 +1396,14 @@ async def api_get_youml_settings(request):
     return web.json_response(json.loads(youml_settings))
 
 
-@PromptServer.instance.routes.post("/manager/youml/settings")
+@routes.post("/manager/youml/settings")
 async def api_set_youml_settings(request):
     json_data = await request.json()
     set_youml_settings(json.dumps(json_data))
     return web.Response(status=200)
 
 
-@PromptServer.instance.routes.get("/manager/get_comfyworkflows_auth")
+@routes.get("/manager/get_comfyworkflows_auth")
 async def api_get_comfyworkflows_auth(request):
     # Check if the user has provided Matrix credentials in a file called 'matrix_accesstoken'
     # in the same directory as the ComfyUI base folder
@@ -1400,7 +1421,7 @@ if hasattr(PromptServer.instance, "app"):
     app.middlewares.append(cors_middleware)
 
 
-@PromptServer.instance.routes.post("/manager/set_esheep_workflow_and_images")
+@routes.post("/manager/set_esheep_workflow_and_images")
 async def set_esheep_workflow_and_images(request):
     json_data = await request.json()
     current_workflow = json_data['workflow']
@@ -1410,7 +1431,7 @@ async def set_esheep_workflow_and_images(request):
         return web.Response(status=200)
 
 
-@PromptServer.instance.routes.get("/manager/get_esheep_workflow_and_images")
+@routes.get("/manager/get_esheep_workflow_and_images")
 async def get_esheep_workflow_and_images(request):
     with open(os.path.join(core.comfyui_manager_path, "esheep_share_message.json"), 'r', encoding='utf-8') as file:
         data = json.load(file)
@@ -1481,7 +1502,7 @@ def compute_sha256_checksum(filepath):
     return sha256.hexdigest()
 
 
-@PromptServer.instance.routes.post("/manager/share")
+@routes.post("/manager/share")
 async def share_art(request):
     # get json data
     json_data = await request.json()
@@ -1654,15 +1675,11 @@ async def share_art(request):
     }, content_type='application/json', status=200)
 
 
-def sanitize(data):
-    return data.replace("<", "&lt;").replace(">", "&gt;")
-
-
 async def _confirm_try_install(sender, custom_node_url, msg):
     json_obj = await core.get_data_by_mode('default', 'custom-node-list.json')
 
-    sender = sanitize(sender)
-    msg = sanitize(msg)
+    sender = manager_util.sanitize_tag(sender)
+    msg = manager_util.sanitize_tag(msg)
     target = core.lookup_customnode_by_url(json_obj, custom_node_url)
 
     if target is not None:
@@ -1684,10 +1701,10 @@ import asyncio
 async def default_cache_update():
     async def get_cache(filename):
         uri = 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/' + filename
-        cache_uri = str(core.simple_hash(uri)) + '_' + filename
+        cache_uri = str(manager_util.simple_hash(uri)) + '_' + filename
         cache_uri = os.path.join(core.cache_dir, cache_uri)
 
-        json_obj = await core.get_data(uri, True)
+        json_obj = await manager_util.get_data(uri, True)
 
         with core.cache_lock:
             with open(cache_uri, "w", encoding='utf-8') as file:
@@ -1700,7 +1717,7 @@ async def default_cache_update():
     d = get_cache("alter-list.json")
     e = get_cache("github-stats.json")
 
-    await asyncio.gather(a, b, c, d, e)
+    await asyncio.gather(a, b, c, d, e, core.check_need_to_migrate())
 
 
 threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()

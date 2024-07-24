@@ -5,12 +5,19 @@ import traceback
 
 import git
 import configparser
-import re
 import json
 import yaml
 from torchvision.datasets.utils import download_url
 from tqdm.auto import tqdm
 from git.remote import RemoteProgress
+
+
+comfy_path = os.environ.get('COMFYUI_PATH')
+
+if comfy_path is None:
+    print(f"\n[bold yellow]WARN: The `COMFYUI_PATH` environment variable is not set. Assuming `custom_nodes/ComfyUI-Manager/../../` as the ComfyUI path.[/bold yellow]", file=sys.stderr)
+    comfy_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+
 
 config_path = os.path.join(os.path.dirname(__file__), "config.ini")
 nodelist_path = os.path.join(os.path.dirname(__file__), "custom-node-list.json")
@@ -35,9 +42,11 @@ class GitProgress(RemoteProgress):
         self.pbar.refresh()
 
 
-def gitclone(custom_nodes_path, url, target_hash=None):
+def gitclone(custom_nodes_path, url, target_hash=None, repo_path=None):
     repo_name = os.path.splitext(os.path.basename(url))[0]
-    repo_path = os.path.join(custom_nodes_path, repo_name)
+
+    if repo_path is None:
+        repo_path = os.path.join(custom_nodes_path, repo_name)
 
     # Clone the repository from the remote URL
     repo = git.Repo.clone_from(url, repo_path, recursive=True, progress=GitProgress())
@@ -70,7 +79,12 @@ def gitcheck(path, do_fetch=False):
 
         # Get the current commit hash and the commit hash of the remote branch
         commit_hash = repo.head.commit.hexsha
-        remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+
+        if f'{remote_name}/{branch_name}' in repo.refs:
+            remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+        else:
+            print("CUSTOM NODE CHECK: True")  # non default branch is treated as updatable
+            return
 
         # Compare the commit hashes to determine if the local repository is behind the remote repository
         if commit_hash != remote_commit_hash:
@@ -89,11 +103,8 @@ def gitcheck(path, do_fetch=False):
 
 
 def switch_to_default_branch(repo):
-    show_result = repo.git.remote("show", "origin")
-    matches = re.search(r"\s*HEAD branch:\s*(.*)", show_result)
-    if matches:
-        default_branch = matches.group(1)
-        repo.git.checkout(default_branch)
+    default_branch = repo.git.symbolic_ref('refs/remotes/origin/HEAD').replace('refs/remotes/origin/', '')
+    repo.git.checkout(default_branch)
 
 
 def gitpull(path):
@@ -116,6 +127,11 @@ def gitpull(path):
 
         remote_name = current_branch.tracking_branch().remote_name
         remote = repo.remote(name=remote_name)
+
+        if f'{remote_name}/{branch_name}' not in repo.refs:
+            switch_to_default_branch(repo)
+            current_branch = repo.active_branch
+            branch_name = current_branch.name
 
         remote.fetch()
         remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
@@ -142,9 +158,7 @@ def gitpull(path):
 
 
 def checkout_comfyui_hash(target_hash):
-    repo_path = os.path.abspath(os.path.join(working_directory, '..'))  # ComfyUI dir
-
-    repo = git.Repo(repo_path)
+    repo = git.Repo(comfy_path)
     commit_hash = repo.head.commit.hexsha
 
     if commit_hash != target_hash:
@@ -167,7 +181,7 @@ def checkout_custom_node_hash(git_custom_node_infos):
         repo_name_to_url[repo_name] = url
 
     for path in os.listdir(working_directory):
-        if path.endswith("ComfyUI-Manager"):
+        if '@' in path or path.endswith("ComfyUI-Manager"):
             continue
 
         fullpath = os.path.join(working_directory, path)
@@ -226,6 +240,9 @@ def checkout_custom_node_hash(git_custom_node_infos):
 
     # clone missing
     for k, v in git_custom_node_infos.items():
+        if 'ComfyUI-Manager' in k:
+            continue
+
         if not v['disabled']:
             repo_name = k.split('/')[-1]
             if repo_name.endswith('.git'):
@@ -234,7 +251,7 @@ def checkout_custom_node_hash(git_custom_node_infos):
             path = os.path.join(working_directory, repo_name)
             if not os.path.exists(path):
                 print(f"CLONE: {path}")
-                gitclone(working_directory, k, v['hash'])
+                gitclone(working_directory, k, target_hash=v['hash'])
 
 
 def invalidate_custom_node_file(file_custom_node_infos):
@@ -286,6 +303,7 @@ def invalidate_custom_node_file(file_custom_node_infos):
 
 def apply_snapshot(target):
     try:
+        # todo: should be if target is not in snapshots dir
         path = os.path.join(os.path.dirname(__file__), 'snapshots', f"{target}")
         if os.path.exists(path):
             if not target.endswith('.json') and not target.endswith('.yaml'):
@@ -401,7 +419,11 @@ setup_environment()
 
 try:
     if sys.argv[1] == "--clone":
-        gitclone(sys.argv[2], sys.argv[3])
+        repo_path = None
+        if len(sys.argv) > 4:
+            repo_path = sys.argv[4]
+
+        gitclone(sys.argv[2], sys.argv[3], repo_path=repo_path)
     elif sys.argv[1] == "--check":
         gitcheck(sys.argv[2], False)
     elif sys.argv[1] == "--fetch":

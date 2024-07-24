@@ -11,7 +11,7 @@ import {
 	showYouMLShareDialog
 } from "./comfyui-share-common.js";
 import { OpenArtShareDialog } from "./comfyui-share-openart.js";
-import { free_models, install_pip, install_via_git_url, manager_instance, rebootAPI, setManagerInstance, show_message } from "./common.js";
+import { free_models, install_pip, install_via_git_url, manager_instance, rebootAPI, migrateAPI, setManagerInstance, show_message } from "./common.js";
 import { ComponentBuilderDialog, getPureName, load_components, set_component_policy } from "./components-manager.js";
 import { CustomNodesManager } from "./custom-nodes-manager.js";
 import { ModelManager } from "./model-manager.js";
@@ -251,6 +251,18 @@ const style = `
 	font-size: 17px !important;
 	background-color: #500000 !important;
 	color: white !important;
+}
+
+
+.cm-button-orange {
+	width: 310px;
+	height: 30px;
+	position: relative;
+	overflow: hidden;
+	font-size: 17px !important;
+	font-weight: bold;
+	background-color: orange !important;
+	color: black !important;
 }
 
 .cm-experimental-button {
@@ -803,6 +815,28 @@ class ManagerMenuDialog extends ComfyDialog {
 					onclick: () => rebootAPI()
 				}),
 			];
+
+		let migration_btn =
+			$el("button.cm-button-orange", {
+				type: "button",
+				textContent: "Migrate to New Node System",
+				onclick: () => migrateAPI()
+			});
+
+		migration_btn.style.display = 'none';
+
+		res.push(migration_btn);
+
+		api.fetchApi('/manager/need_to_migrate')
+			.then(response => response.text())
+			.then(text => {
+				if (text === 'True') {
+					migration_btn.style.display = 'block';
+				}
+			})
+			.catch(error => {
+				console.error('Error checking migration status:', error);
+			});
 
 		return res;
 	}

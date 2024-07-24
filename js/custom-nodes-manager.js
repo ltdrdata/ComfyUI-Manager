@@ -1,7 +1,9 @@
 import { app } from "../../scripts/app.js";
-import { $el } from "../../scripts/ui.js";
-import { 
-	manager_instance, rebootAPI, install_via_git_url, 
+import { ComfyDialog, $el } from "../../scripts/ui.js";
+import { api } from "../../scripts/api.js";
+
+import {
+	manager_instance, rebootAPI, install_via_git_url,
 	fetchData, md5, icons 
 } from  "./common.js";
 
@@ -28,11 +30,11 @@ const pageCss = `
 .cn-manager button {
 	font-size: 16px;
 	color: var(--input-text);
-    background-color: var(--comfy-input-bg);
-    border-radius: 8px;
-    border-color: var(--border-color);
-    border-style: solid;
-    margin: 0;
+	background-color: var(--comfy-input-bg);
+	border-radius: 8px;
+	border-color: var(--border-color);
+	border-style: solid;
+	margin: 0;
 	padding: 4px 8px;
 	min-width: 100px;
 }
@@ -124,7 +126,7 @@ const pageCss = `
 
 .cn-manager-grid .cn-node-desc a {
 	color: #5555FF;
-    font-weight: bold;
+	font-weight: bold;
 	text-decoration: none;
 }
 
@@ -191,7 +193,7 @@ const pageCss = `
 .cn-tag-list > div {
 	background-color: var(--border-color);
 	border-radius: 5px;
-    padding: 0 5px;
+	padding: 0 5px;
 }
 
 .cn-install-buttons {
@@ -200,8 +202,8 @@ const pageCss = `
 	gap: 3px;
 	padding: 3px;
 	align-items: center;
-    justify-content: center;
-    height: 100%;
+	justify-content: center;
+	height: 100%;
 }
 
 .cn-selected-buttons {
@@ -212,17 +214,17 @@ const pageCss = `
 }
 
 .cn-manager .cn-btn-enable {
-	background-color: blue;
+	background-color: #333399;
 	color: white;
 }
 
 .cn-manager .cn-btn-disable {
-	background-color: MediumSlateBlue;
+	background-color: #442277;
 	color: white;
 }
 
 .cn-manager .cn-btn-update {
-	background-color: blue;
+	background-color: #1155AA;
 	color: white;
 }
 
@@ -247,41 +249,47 @@ const pageCss = `
 }
 
 .cn-manager .cn-btn-uninstall {
-	background-color: red;
+	background-color: #993333;
 	color: white;
 }
 
+.cn-manager .cn-btn-switch {
+	background-color: #448833;
+	color: white;
+
+}
+
 @keyframes cn-btn-loading-bg {
-    0% {
-        left: 0;
-    }
-    100% {
-        left: -105px;
-    }
+	0% {
+		left: 0;
+	}
+	100% {
+		left: -105px;
+	}
 }
 
 .cn-manager button.cn-btn-loading {
-    position: relative;
-    overflow: hidden;
-    border-color: rgb(0 119 207 / 80%);
+	position: relative;
+	overflow: hidden;
+	border-color: rgb(0 119 207 / 80%);
 	background-color: var(--comfy-input-bg);
 }
 
 .cn-manager button.cn-btn-loading::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: "";
-    width: 500px;
-    height: 100%;
-    background-image: repeating-linear-gradient(
-        -45deg,
-        rgb(0 119 207 / 30%),
-        rgb(0 119 207 / 30%) 10px,
-        transparent 10px,
-        transparent 15px
-    );
-    animation: cn-btn-loading-bg 2s linear infinite;
+	position: absolute;
+	top: 0;
+	left: 0;
+	content: "";
+	width: 500px;
+	height: 100%;
+	background-image: repeating-linear-gradient(
+		-45deg,
+		rgb(0 119 207 / 30%),
+		rgb(0 119 207 / 30%) 10px,
+		transparent 10px,
+		transparent 15px
+	);
+	animation: cn-btn-loading-bg 2s linear infinite;
 }
 
 .cn-manager-light .cn-node-name a {
@@ -356,7 +364,6 @@ export class CustomNodesManager {
 	}
 
 	init() {
-
 		if (!document.querySelector(`style[context="${this.id}"]`)) {
 			const $style = document.createElement("style");
 			$style.setAttribute("context", this.id);
@@ -374,6 +381,130 @@ export class CustomNodesManager {
 		this.initGrid();
 	}
 
+	showVersionSelectorDialog(versions, onSelect) {
+		const dialog = new ComfyDialog();
+		dialog.element.style.zIndex = 100003;
+		dialog.element.style.width = "300px";
+		dialog.element.style.padding = "0";
+		dialog.element.style.backgroundColor = "#2a2a2a";
+		dialog.element.style.border = "1px solid #3a3a3a";
+		dialog.element.style.borderRadius = "8px";
+		dialog.element.style.boxSizing = "border-box";
+		dialog.element.style.overflow = "hidden";
+
+		const contentStyle = {
+			width: "300px",
+			display: "flex",
+			flexDirection: "column",
+			alignItems: "center",
+			padding: "20px",
+			boxSizing: "border-box",
+			gap: "15px"
+		};
+
+		let selectedVersion = versions[0];
+
+		const versionList = $el("select", {
+			multiple: true,
+			size: Math.min(10, versions.length),
+			style: {
+				width: "260px",
+				height: "auto",
+				backgroundColor: "#383838",
+				color: "#ffffff",
+				border: "1px solid #4a4a4a",
+				borderRadius: "4px",
+				padding: "5px",
+				boxSizing: "border-box"
+			}
+		},
+		versions.map((v, index) => $el("option", {
+			value: v,
+			textContent: v,
+			selected: index === 0
+		}))
+		);
+
+		versionList.addEventListener('change', (e) => {
+			selectedVersion = e.target.value;
+			Array.from(e.target.options).forEach(opt => {
+				opt.selected = opt.value === selectedVersion;
+			});
+		});
+
+		const content = $el("div", {
+			style: contentStyle
+		}, [
+			$el("h3", {
+				textContent: "Select Version",
+				style: {
+					color: "#ffffff",
+					backgroundColor: "#1a1a1a",
+					padding: "10px 15px",
+					margin: "0 0 10px 0",
+					width: "260px",
+					textAlign: "center",
+					borderRadius: "4px",
+					boxSizing: "border-box",
+					whiteSpace: "nowrap",
+					overflow: "hidden",
+					textOverflow: "ellipsis"
+				}
+			}),
+			versionList,
+			$el("div", {
+				style: {
+					display: "flex",
+					justifyContent: "space-between",
+					width: "260px",
+					gap: "10px"
+				}
+			}, [
+				$el("button", {
+					textContent: "Cancel",
+					onclick: () => dialog.close(),
+					style: {
+						flex: "1",
+						padding: "8px",
+						backgroundColor: "#4a4a4a",
+						color: "#ffffff",
+						border: "none",
+						borderRadius: "4px",
+						cursor: "pointer",
+						whiteSpace: "nowrap",
+						overflow: "hidden",
+						textOverflow: "ellipsis"
+					}
+				}),
+				$el("button", {
+					textContent: "Select",
+					onclick: () => {
+						if (selectedVersion) {
+							onSelect(selectedVersion);
+							dialog.close();
+						} else {
+							alert("Please select a version.");
+						}
+					},
+					style: {
+						flex: "1",
+						padding: "8px",
+						backgroundColor: "#4CAF50",
+						color: "#ffffff",
+						border: "none",
+						borderRadius: "4px",
+						cursor: "pointer",
+						whiteSpace: "nowrap",
+						overflow: "hidden",
+						textOverflow: "ellipsis"
+					}
+				}),
+			])
+		]);
+
+		dialog.show(content);
+	}
+
 	initFilter() {
 		const $filter  = this.element.querySelector(".cn-manager-filter");
 		const filterList = [{
@@ -382,23 +513,31 @@ export class CustomNodesManager {
 			hasData: true
 		}, {
 			label: "Installed",
-			value: "True",
+			value: "installed",
+			hasData: true
+		}, {
+			label: "Enabled",
+			value: "enabled",
 			hasData: true
 		}, {
 			label: "Disabled",
-			value: "Disabled",
+			value: "disabled",
 			hasData: true
 		}, {
 			label: "Import Failed",
-			value: "Fail",
+			value: "import-fail",
 			hasData: true
 		}, {
 			label: "Not Installed",
-			value: "False",
+			value: "not-installed",
 			hasData: true
 		}, {
-			label: "Unknown",
-			value: "None",
+			label: "ComfyRegistry",
+			value: "cnr",
+			hasData: true
+		}, {
+			label: "Non-ComfyRegistry",
+			value: "unknown",
 			hasData: true
 		}, {
 			label: "Update",
@@ -423,16 +562,15 @@ export class CustomNodesManager {
 		return this.filterList.find(it => it.value === filter)
 	}
 
-	getInstallButtons(installed, title) {
-
+	getActionButtons(action, rowItem, is_selected_button) {
 		const buttons = {
 			"enable": {
 				label: "Enable",
-				mode: "toggle_active"
+				mode: "enable"
 			},
 			"disable": {
 				label: "Disable",
-				mode: "toggle_active"
+				mode: "disable"
 			},
 
 			"update": {
@@ -460,34 +598,47 @@ export class CustomNodesManager {
 			"uninstall": {
 				label: "Uninstall",
 				mode: "uninstall"
+			},
+			"switch": {
+				label: "Switch",
+				mode: "switch"
 			}
 		}
 
 		const installGroups = {
-			"Disabled": ["enable", "uninstall"],
-			"Update": ["update", "disable", "uninstall"],
-			"Fail": ["try-fix", "uninstall"],
-			"True": ["try-update", "disable", "uninstall"],
-			"False": ["install"],
-			'None': ["try-install"]
+			"disabled": ["enable", "switch", "uninstall"],
+			"updatable": ["update", "switch", "disable", "uninstall"],
+			"import-fail": ["try-fix", "switch", "disable", "uninstall"],
+			"enabled": ["try-update", "switch", "disable", "uninstall"],
+			"not-installed": ["install"],
+			'unknown': ["try-install"]
 		}
 
 		if (!manager_instance.update_check_checkbox.checked) {
-			installGroups.True = installGroups.True.filter(it => it !== "try-update");
+			installGroups.enabled = installGroups.enabled.filter(it => it !== "try-update");
 		}
 
-		if (title === "ComfyUI-Manager") {
-			installGroups.True = installGroups.True.filter(it => it !== "disable");
+		if (rowItem?.title === "ComfyUI-Manager") {
+			installGroups.enabled = installGroups.enabled.filter(it => it !== "disable");
 		}
 
-		const list = installGroups[installed];
+		if (rowItem?.version === "unknown") {
+			installGroups.enabled = installGroups.enabled.filter(it => it !== "switch");
+		}
+
+		let list = installGroups[action];
+
+		if(is_selected_button) {
+			list = list.filter(it => it !== "switch");
+		}
+
 		if (!list) {
 			return "";
 		}
 
 		return list.map(id => {
 			const bt = buttons[id];
-			return `<button class="cn-btn-${id}" group="${installed}" mode="${bt.mode}">${bt.label}</button>`;
+			return `<button class="cn-btn-${id}" group="${action}" mode="${bt.mode}">${bt.label}</button>`;
 		}).join("");
 	}
 
@@ -621,18 +772,27 @@ export class CustomNodesManager {
 				this.showStatus(`${prevViewRowsLength.toLocaleString()} custom nodes`);
 			}
 
-        });
+		});
 
-        grid.bind('onSelectChanged', (e, changes) => {
-            this.renderSelected();
-        });
+		grid.bind('onSelectChanged', (e, changes) => {
+			this.renderSelected();
+		});
 
 		grid.bind('onClick', (e, d) => {
 			const btn = this.getButton(d.e.target);
 			if (btn) {
-				this.installNodes([d.rowItem.hash], btn, d.rowItem.title);
+				const item = this.grid.getRowItemBy("hash", d.rowItem.hash);
+
+				const { target, label, mode} = btn;
+				if((mode === "install" || mode === "switch" || mode == "enable") && item.originalData.version != 'unknown') {
+					// install after select version via dialog if item is cnr node
+					this.installNodeWithVersion(d.rowItem, btn, mode == 'enable');
+				}
+				else {
+					this.installNodes([d.rowItem.hash], btn, d.rowItem.title);
+				}
 			}
-        });
+		});
 
 		grid.setOption({
 			theme: 'dark',
@@ -651,7 +811,7 @@ export class CustomNodesManager {
 			bindContainerResize: true,
 
 			cellResizeObserver: (rowItem, columnItem) => {
-				const autoHeightColumns = ['title', 'installed', 'description', "alternatives"];
+				const autoHeightColumns = ['title', 'action', 'description', "alternatives"];
 				return autoHeightColumns.includes(columnItem.id)
 			},
 
@@ -696,11 +856,11 @@ export class CustomNodesManager {
 			theme: colorPalette === "light" ? "" : "dark"
 		};
 
-		const rows = this.custom_nodes || [];
-		rows.forEach((item, i) => {
-			item.id = i + 1;
-			const nodeKey = item.files[0];
+		const rows = this.custom_nodes || {};
+		for(let nodeKey in rows) {
+			let item = rows[nodeKey];
 			const extensionInfo = this.extension_mappings[nodeKey];
+
 			if(extensionInfo) {
 				const { extensions, conflicts } = extensionInfo;
 				if (extensions.length) {
@@ -712,7 +872,7 @@ export class CustomNodesManager {
 					item.conflictsList = conflicts;
 				}
 			}
-		});
+		}
 
 		const columns = [{
 			id: 'id',
@@ -727,22 +887,47 @@ export class CustomNodesManager {
 			maxWidth: 500,
 			classMap: 'cn-node-name',
 			formatter: (title, rowItem, columnItem) => {
-				return `${rowItem.installed === 'Fail' ? '<font color="red"><B>(IMPORT FAILED)</B></font>' : ''}
+				return `${rowItem.action === 'import-fail' ? '<font color="red"><B>(IMPORT FAILED)</B></font>' : ''}
 					<a href=${rowItem.reference} target="_blank"><b>${title}</b></a>`;
 			}
 		}, {
-			id: 'installed',
-			name: 'Install',
+			id: 'version',
+			name: 'Version',
+			width: 200,
+			minWidth: 100,
+			maxWidth: 500,
+			classMap: 'cn-node-desc',
+			formatter: (version, rowItem, columnItem) => {
+				if(version == undefined) {
+					return `undef`;
+				}
+				else {
+					if(rowItem.cnr_latest && version != rowItem.cnr_latest) {
+						if(version == 'nightly') {
+							return `${version} [${rowItem.cnr_latest}]`;
+						}
+						else {
+							return `${version} [↑${rowItem.cnr_latest}]`;
+						}
+					}
+					else {
+						return `${version}`;
+					}
+				}
+			}
+		}, {
+			id: 'action',
+			name: 'Action',
 			width: 130,
 			minWidth: 110,
 			maxWidth: 200,
 			sortable: false,
 			align: 'center',
-			formatter: (installed, rowItem, columnItem) => {
+			formatter: (action, rowItem, columnItem) => {
 				if (rowItem.restart) {
 					return `<font color="red">Restart Required</span>`;
 				}
-				const buttons = this.getInstallButtons(installed, rowItem.title);
+				const buttons = this.getActionButtons(action, rowItem);
 				return `<div class="cn-install-buttons">${buttons}</div>`;
 			}
 		}, {
@@ -845,14 +1030,35 @@ export class CustomNodesManager {
 			}
 		}];
 
+		let rows_values = Object.keys(rows).map(key => rows[key]);
+
+		rows_values =
+			rows_values.sort((a, b) => {
+				if (a.version == 'unknown' && b.version != 'unknown') return 1;
+				if (a.version != 'unknown' && b.version == 'unknown') return -1;
+
+				if (a.stars !== b.stars) {
+					return b.stars - a.stars;
+				}
+
+				if (a.last_update !== b.last_update) {
+					return new Date(b.last_update) - new Date(a.last_update);
+				}
+
+				return 0;
+			});
+
 		this.grid.setData({
-			options,
-			rows,
-			columns
+			options: options,
+			rows: rows_values,
+			columns: columns
 		});
 
+		for(let i=0; i<rows_values.length; i++) {
+			rows_values[i].id = i+1;
+		}
+
 		this.grid.render();
-		
 	}
 
 	updateGrid() {
@@ -877,7 +1083,7 @@ export class CustomNodesManager {
 
 		const selectedMap = {};
 		selectedList.forEach(item => {
-			let type = item.installed;
+			let type = item.action;
 			if (item.restart) {
 				type = "Restart Required";
 			}
@@ -895,7 +1101,7 @@ export class CustomNodesManager {
 			const filterItem = this.getFilterItem(v);
 			list.push(`<div class="cn-selected-buttons">
 				<span>Selected <b>${selectedMap[v].length}</b> ${filterItem ? filterItem.label : v}</span>
-				${this.grid.hasMask ? "" : this.getInstallButtons(v)}
+				${this.grid.hasMask ? "" : this.getActionButtons(v, null, true)}
 			</div>`);
 		});
 
@@ -913,8 +1119,67 @@ export class CustomNodesManager {
 		}
 	}
 
-	async installNodes(list, btn, title) {
-		
+	async installNodeWithVersion(rowItem, btn, is_enable) {
+		let hash = rowItem.hash;
+		let title = rowItem.title;
+
+		const item = this.grid.getRowItemBy("hash", hash);
+
+		let node_id = item.originalData.id;
+
+		this.showLoading();
+		let res;
+		if(is_enable) {
+			res = await api.fetchApi(`/customnode/disabled_versions/${node_id}`, { cache: "no-store" });
+		}
+		else {
+			res = await api.fetchApi(`/customnode/versions/${node_id}`, { cache: "no-store" });
+		}
+		this.hideLoading();
+
+		if(res.status == 200) {
+			let obj = await res.json();
+
+			let versions = [];
+			let default_version;
+			let version_cnt = 0;
+
+			if(!is_enable) {
+				if(rowItem.cnr_latest != rowItem.originalData.active_version) {
+					versions.push('latest');
+				}
+
+				if(rowItem.originalData.active_version != 'nightly') {
+					versions.push('nightly');
+					default_version = 'nightly';
+					version_cnt++;
+				}
+			}
+
+			for(let v of obj) {
+				if(rowItem.originalData.active_version != v.version) {
+					default_version = v.version;
+					versions.push(v.version);
+					version_cnt++;
+				}
+			}
+
+			if(version_cnt == 1) {
+				// if only one version is available
+				this.installNodes([hash], btn, title, default_version);
+			}
+			else {
+				this.showVersionSelectorDialog(versions, (selected_version) => {
+					this.installNodes([hash], btn, title, selected_version);
+				});
+			}
+		}
+		else {
+			show_message('Failed to fetch versions from ComfyRegistry.');
+		}
+	}
+
+	async installNodes(list, btn, title, selected_version) {
 		const { target, label, mode} = btn;
 
 		if(mode === "uninstall") {
@@ -925,13 +1190,11 @@ export class CustomNodesManager {
 		}
 
 		target.classList.add("cn-btn-loading");
-		this.showLoading();
 		this.showError("");
 
 		let needRestart = false;
 		let errorMsg = "";
 		for (const hash of list) {
-
 			const item = this.grid.getRowItemBy("hash", hash);
 			if (!item) {
 				errorMsg = `Not found custom node: ${hash}`;
@@ -949,9 +1212,24 @@ export class CustomNodesManager {
 			this.showStatus(`${label} ${item.title} ...`);
 
 			const data = item.originalData;
-			const res = await fetchData(`/customnode/${mode}`, {
+			data.selected_version = selected_version;
+			data.channel = this.channel;
+			data.mode = this.mode;
+
+			let install_mode = mode;
+			if(mode == 'switch') {
+				install_mode = 'install';
+			}
+
+			// don't post install if install_mode == 'enable'
+			data.skip_post_install = install_mode == 'enable';
+			let api_mode = install_mode;
+			if(install_mode == 'enable') {
+				api_mode = 'install';
+			}
+
+			const res = await api.fetchApi(`/customnode/${api_mode}`, {
 				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(data)
 			});
 
@@ -974,13 +1252,12 @@ export class CustomNodesManager {
 			this.grid.setRowSelected(item, false);
 			item.restart = true;
 			this.restartMap[item.hash] = true;
-			this.grid.updateCell(item, "installed");
+			this.grid.updateCell(item, "action");
 
 			//console.log(res.data);
 
 		}
 
-		this.hideLoading();
 		target.classList.remove("cn-btn-loading");
 
 		if (errorMsg) {
@@ -1064,26 +1341,28 @@ export class CustomNodesManager {
 		const mappings = res.data;
 
 		// build regex->url map
-		const regex_to_url = [];
-		this.custom_nodes.forEach(node => {
+		const regex_to_pack = [];
+		for(let k in this.custom_nodes) {
+			let node = this.custom_nodes[k];
+
 			if(node.nodename_pattern) {
-				regex_to_url.push({
-					regex: new RegExp(node.nodename_pattern), 
+				regex_to_pack.push({
+					regex: new RegExp(node.nodename_pattern),
 					url: node.files[0]
 				});
 			}
-		});
+		}
 
 		// build name->url map
-		const name_to_urls = {};
+		const name_to_packs = {};
 		for (const url in mappings) {
 			const names = mappings[url];
 
 			for(const name in names[0]) {
-				let v = name_to_urls[names[0][name]];
+				let v = name_to_packs[names[0][name]];
 				if(v == undefined) {
 					v = [];
-					name_to_urls[names[0][name]] = v;
+					name_to_packs[names[0][name]] = v;
 				}
 				v.push(url);
 			}
@@ -1110,15 +1389,15 @@ export class CustomNodesManager {
 				continue;
 
 			if (!registered_nodes.has(node_type)) {
-				const urls = name_to_urls[node_type.trim()];
-				if(urls)
-					urls.forEach(url => {
+				const packs = name_to_packs[node_type.trim()];
+				if(packs)
+					packs.forEach(url => {
 						missing_nodes.add(url);
 					});
 				else {
-					for(let j in regex_to_url) {
-						if(regex_to_url[j].regex.test(node_type)) {
-							missing_nodes.add(regex_to_url[j].url);
+					for(let j in regex_to_pack) {
+						if(regex_to_pack[j].regex.test(node_type)) {
+							missing_nodes.add(regex_to_pack[j].url);
 						}
 					}
 				}
@@ -1129,19 +1408,27 @@ export class CustomNodesManager {
 		const unresolved = resUnresolved.data;
 		if (unresolved && unresolved.nodes) {
 			unresolved.nodes.forEach(node_type => {
-				const url = name_to_urls[node_type];
-				if(url) {
-					missing_nodes.add(url);
+				const packs = name_to_packs[node_type];
+				if(packs) {
+					packs.forEach(url => {
+						missing_nodes.add(url);
+					});
 				}
 			});
 		}
 
 		const hashMap = {};
-		this.custom_nodes.forEach(item => {
-			if (item.files.some(file => missing_nodes.has(file))) {
+		for(let k in this.custom_nodes) {
+			let item = this.custom_nodes[k];
+
+			if(missing_nodes.has(item.id)) {
 				hashMap[item.hash] = true;
 			}
-		});
+			else if (item.files?.some(file => missing_nodes.has(file))) {
+				hashMap[item.hash] = true;
+			}
+		}
+
 		return hashMap;
 	}
 
@@ -1156,27 +1443,28 @@ export class CustomNodesManager {
 		}
 
 		const hashMap = {};
-		const { items } = res.data;
+		const items = res.data;
 
-		items.forEach(item => {
+		for(let i in items) {
+			let item = items[i];
+			let custom_node = this.custom_nodes[i];
 
-			const custom_node = this.custom_nodes.find(node => node.files.find(file => file === item.id));
 			if (!custom_node) {
 				console.log(`Not found custom node: ${item.id}`);
-				return;
+				continue;
 			}
 
 			const tags = `${item.tags}`.split(",").map(tag => {
 				return `<div>${tag.trim()}</div>`;
-			}).join("")
+			}).join("");
 
 			hashMap[custom_node.hash] = {
 				alternatives: `<div class="cn-tag-list">${tags}</div> ${item.description}`
 			}
 
-		});
+		}
 	
-		return hashMap
+		return hashMap;
 	}
 
 	async loadData(show_mode = ShowMode.NORMAL) {
@@ -1198,18 +1486,19 @@ export class CustomNodesManager {
 			return
 		}
 		
-		const { channel, custom_nodes} = res.data;
+		const { channel, node_packs } = res.data;
 		this.channel = channel;
-		this.custom_nodes = custom_nodes;
+		this.mode = mode;
+		this.custom_nodes = node_packs;
 
 		if(this.channel !== 'default') {
 			this.element.querySelector(".cn-manager-channel").innerHTML = `Channel: ${this.channel} (Incomplete list)`;
 		}
 
-		for (const item of custom_nodes) {
+		for (const k in node_packs) {
+			let item = node_packs[k];
 			item.originalData = JSON.parse(JSON.stringify(item));
-			const message = item.title + item.files[0];
-			item.hash = md5(message);
+			item.hash = md5(k);
 		}
 
 		const filterItem = this.getFilterItem(this.show_mode);
@@ -1217,11 +1506,12 @@ export class CustomNodesManager {
 			let hashMap;
 			if(this.show_mode == ShowMode.UPDATE) {
 				hashMap = {};
-				custom_nodes.forEach(it => {
-					if (it.installed === "Update") {
+				for (const k in node_packs) {
+					let it = node_packs[k];
+					if (it['update-state'] === "true") {
 						hashMap[it.hash] = true;
 					}
-				});
+				}
 			} else if(this.show_mode == ShowMode.MISSING) {
 				hashMap = await this.getMissingNodes();
 			} else if(this.show_mode == ShowMode.ALTERNATIVES) {
@@ -1231,10 +1521,23 @@ export class CustomNodesManager {
 			filterItem.hasData = true;
 		}
 
-		custom_nodes.forEach(nodeItem => {
+		for(let k in node_packs) {
+			let nodeItem = node_packs[k];
+
 			if (this.restartMap[nodeItem.hash]) {
 				nodeItem.restart = true;
 			}
+
+			if(nodeItem['update-state'] == "true") {
+				nodeItem.action = 'updatable';
+			}
+			else if(nodeItem['import-fail']) {
+				nodeItem.action = 'import-fail';
+			}
+			else {
+				nodeItem.action = nodeItem.state;
+			}
+
 			const filterTypes = new Set();
 			this.filterList.forEach(filterItem => {
 				const { value, hashMap } = filterItem;
@@ -1243,29 +1546,51 @@ export class CustomNodesManager {
 					if (hashData) {
 						filterTypes.add(value);
 						if (value === ShowMode.UPDATE) {
-							nodeItem.installed = "Update";
+							nodeItem['update-state'] = "true";
+						}
+						if (value === ShowMode.MISSING) {
+							nodeItem['missing-node'] = "true";
 						}
 						if (typeof hashData === "object") {
 							Object.assign(nodeItem, hashData);
 						}
 					}
 				} else {
-					if (nodeItem.installed === value) {
+					if (nodeItem.state === value) {
 						filterTypes.add(value);
 					}
-					const map = {
-						"Update": "True",
-						"Disabled": "True",
-						"Fail": "True",
-						"None": "False"
+
+					switch(nodeItem.state) {
+						case "enabled":
+							filterTypes.add("enabled");
+						case "disabled":
+							filterTypes.add("installed");
+							break;
+
+						case "not-installed":
+							filterTypes.add("not-installed");
+							break;
 					}
-					if (map[nodeItem.installed]) {
-						filterTypes.add(map[nodeItem.installed]);
+
+					if(nodeItem.version != 'unknown') {
+						filterTypes.add("cnr");
+					}
+					else {
+						filterTypes.add("unknown");
+					}
+
+					if(nodeItem['update-state'] == 'true') {
+						filterTypes.add("updatable");
+					}
+
+					if(nodeItem['import-fail']) {
+						filterTypes.add("import-fail");
 					}
 				}
 			});
+
 			nodeItem.filterTypes = Array.from(filterTypes);
-		});
+		}
 
 		this.renderGrid();
 

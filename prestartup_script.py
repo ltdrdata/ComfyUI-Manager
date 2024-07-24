@@ -1,4 +1,3 @@
-import datetime
 import os
 import subprocess
 import sys
@@ -70,11 +69,12 @@ cm_global.register_api('cm.register_message_collapse', register_message_collapse
 cm_global.register_api('cm.is_import_failed_extension', is_import_failed_extension)
 
 
-comfyui_manager_path = os.path.dirname(__file__)
+comfyui_manager_path = os.path.abspath(os.path.dirname(__file__))
 custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, ".."))
 startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
 restore_snapshot_path = os.path.join(startup_script_path, "restore-snapshot.json")
 git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
+cm_cli_path = os.path.join(comfyui_manager_path, "cm-cli.py")
 pip_overrides_path = os.path.join(comfyui_manager_path, "pip_overrides.json")
 
 
@@ -200,7 +200,7 @@ try:
         write_stderr = wrapper_stderr
 
     pat_tqdm = r'\d+%.*\[(.*?)\]'
-    pat_import_fail = r'seconds \(IMPORT FAILED\):.*[/\\]custom_nodes[/\\](.*)$'
+    pat_import_fail = r'seconds \(IMPORT FAILED\):(.*)$'
 
     is_start_mode = True
 
@@ -233,7 +233,7 @@ try:
             if is_start_mode:
                 match = re.search(pat_import_fail, message)
                 if match:
-                    import_failed_extensions.add(match.group(1))
+                    import_failed_extensions.add(match.group(1).strip())
 
                 if 'Starting server' in message:
                     is_start_mode = False
@@ -255,7 +255,7 @@ try:
 
         def sync_write(self, message, file_only=False):
             with log_lock:
-                timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')[:-3]
+                timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')[:-3]
                 if self.last_char != '\n':
                     log_file.write(message)
                 else:
@@ -321,7 +321,7 @@ try:
             if is_start_mode:
                 match = re.search(pat_import_fail, message)
                 if match:
-                    import_failed_extensions.add(match.group(1))
+                    import_failed_extensions.add(match.group(1).strip())
 
                 if 'Starting server' in message:
                     is_start_mode = False
@@ -361,7 +361,7 @@ except:
     print(f"## [ERROR] ComfyUI-Manager: GitPython package seems to be installed, but failed to load somehow. Make sure you have a working git client installed")
 
 
-print("** ComfyUI startup time:", datetime.datetime.now())
+print("** ComfyUI startup time:", datetime.now())
 print("** Platform:", platform.system())
 print("** Python version:", sys.version)
 print("** Python executable:", sys.executable)
@@ -507,48 +507,11 @@ if os.path.exists(restore_snapshot_path):
                         print(prefix, msg, end="")
 
         print(f"[ComfyUI-Manager] Restore snapshot.")
-        cmd_str = [sys.executable, git_script_path, '--apply-snapshot', restore_snapshot_path]
-
         new_env = os.environ.copy()
         new_env["COMFYUI_PATH"] = comfy_path
+
+        cmd_str = [sys.executable, cm_cli_path, 'restore-snapshot', restore_snapshot_path]
         exit_code = process_wrap(cmd_str, custom_nodes_path, handler=msg_capture, env=new_env)
-
-        repository_name = ''
-        for url in cloned_repos:
-            try:
-                repository_name = url.split("/")[-1].strip()
-                repo_path = os.path.join(custom_nodes_path, repository_name)
-                repo_path = os.path.abspath(repo_path)
-
-                requirements_path = os.path.join(repo_path, 'requirements.txt')
-                install_script_path = os.path.join(repo_path, 'install.py')
-
-                this_exit_code = 0
-
-                if os.path.exists(requirements_path):
-                    with open(requirements_path, 'r', encoding="UTF-8", errors="ignore") as file:
-                        for line in file:
-                            package_name = remap_pip_package(line.strip())
-                            if package_name and not is_installed(package_name):
-                                if not package_name.startswith('#'):
-                                    install_cmd = [sys.executable, "-m", "pip", "install", package_name]
-                                    this_exit_code += process_wrap(install_cmd, repo_path)
-
-                if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
-                    processed_install.add(f'{repo_path}/install.py')
-                    install_cmd = [sys.executable, install_script_path]
-                    print(f">>> {install_cmd} / {repo_path}")
-
-                    new_env = os.environ.copy()
-                    new_env["COMFYUI_PATH"] = comfy_path
-                    this_exit_code += process_wrap(install_cmd, repo_path, env=new_env)
-
-                if this_exit_code != 0:
-                    print(f"[ComfyUI-Manager] Restoring '{repository_name}' is failed.")
-
-            except Exception as e:
-                print(e)
-                print(f"[ComfyUI-Manager] Restoring '{repository_name}' is failed.")
 
         if exit_code != 0:
             print(f"[ComfyUI-Manager] Restore snapshot failed.")
