@@ -677,7 +677,7 @@ class UnifiedManager:
         except:
             return version.parse("0.0.0")
 
-    def execute_install_script(self, url, repo_path, lazy_mode=False, instant_execution=False):
+    def execute_install_script(self, url, repo_path, instant_execution=False, lazy_mode=False, no_deps=False):
         install_script_path = os.path.join(repo_path, "install.py")
         requirements_path = os.path.join(repo_path, "requirements.txt")
 
@@ -685,7 +685,7 @@ class UnifiedManager:
             install_cmd = ["#LAZY-INSTALL-SCRIPT", sys.executable]
             return try_install_script(url, repo_path, install_cmd)
         else:
-            if os.path.exists(requirements_path):
+            if os.path.exists(requirements_path) and not no_deps:
                 print("Install: pip packages")
                 with open(requirements_path, "r") as requirements_file:
                     for line in requirements_file:
@@ -704,7 +704,7 @@ class UnifiedManager:
 
         return True
 
-    def unified_fix(self, node_id, version_spec, instant_execution=False):
+    def unified_fix(self, node_id, version_spec, instant_execution=False, no_deps=False):
         """
         fix dependencies
         """
@@ -715,11 +715,11 @@ class UnifiedManager:
         if info is None or not os.path.exists(info[1]):
             return result.fail(f'not found: {node_id}@{version_spec}')
 
-        self.execute_install_script(node_id, info[1], instant_execution=instant_execution)
+        self.execute_install_script(node_id, info[1], instant_execution=instant_execution, no_deps=no_deps)
 
         return result
 
-    def cnr_switch_version(self, node_id, version_spec=None, instant_execution=False, return_postinstall=False):
+    def cnr_switch_version(self, node_id, version_spec=None, instant_execution=False, no_deps=False, return_postinstall=False):
         """
         switch between cnr version
         """
@@ -783,7 +783,7 @@ class UnifiedManager:
         result.target = version_spec
 
         def postinstall():
-            res = self.execute_install_script(f"{node_id}@{version_spec}", new_install_path, instant_execution=instant_execution)
+            res = self.execute_install_script(f"{node_id}@{version_spec}", new_install_path, instant_execution=instant_execution, no_deps=no_deps)
             return res
 
         if return_postinstall:
@@ -976,7 +976,7 @@ class UnifiedManager:
 
         return result
 
-    def cnr_install(self, node_id, version_spec=None, instant_execution=False, return_postinstall=False):
+    def cnr_install(self, node_id, version_spec=None, instant_execution=False, no_deps=False, return_postinstall=False):
         result = ManagedResult('install-cnr')
 
         node_info = cnr_utils.install_node(node_id, version_spec)
@@ -1013,7 +1013,7 @@ class UnifiedManager:
         result.target = version_spec
 
         def postinstall():
-            return self.execute_install_script(node_id, install_path, instant_execution=instant_execution)
+            return self.execute_install_script(node_id, install_path, instant_execution=instant_execution, no_deps=no_deps)
 
         if return_postinstall:
             return result.with_postinstall(postinstall)
@@ -1023,7 +1023,7 @@ class UnifiedManager:
 
         return result
 
-    def repo_install(self, url, repo_path, instant_execution=False, return_postinstall=False):
+    def repo_install(self, url, repo_path, instant_execution=False, no_deps=False, return_postinstall=False):
         result = ManagedResult('install-git')
         result.append(url)
 
@@ -1046,7 +1046,7 @@ class UnifiedManager:
                 repo.close()
 
             def postinstall():
-                return self.execute_install_script(url, repo_path, instant_execution=instant_execution)
+                return self.execute_install_script(url, repo_path, instant_execution=instant_execution, no_deps=no_deps)
 
             if return_postinstall:
                 return result.with_postinstall(postinstall)
@@ -1060,7 +1060,7 @@ class UnifiedManager:
         print("Installation was successful.")
         return result
 
-    def repo_update(self, repo_path, instant_execution=False, return_postinstall=False):
+    def repo_update(self, repo_path, instant_execution=False, no_deps=False, return_postinstall=False):
         result = ManagedResult('update-git')
 
         if not os.path.exists(os.path.join(repo_path, '.git')):
@@ -1109,7 +1109,7 @@ class UnifiedManager:
                 url = "unknown repo"
 
             def postinstall():
-                return self.execute_install_script(url, repo_path, instant_execution=instant_execution)
+                return self.execute_install_script(url, repo_path, instant_execution=instant_execution, no_deps=no_deps)
 
             if return_postinstall:
                 return result.with_postinstall(postinstall)
@@ -1121,7 +1121,7 @@ class UnifiedManager:
         else:
             return ManagedResult('skip').with_msg('Up to date')
 
-    def unified_update(self, node_id, version_spec=None, instant_execution=False, return_postinstall=False):
+    def unified_update(self, node_id, version_spec=None, instant_execution=False, no_deps=False, return_postinstall=False):
         if version_spec is None:
             version_spec = self.resolve_unspecified_version(node_id, guess_mode='active')
 
@@ -1129,13 +1129,13 @@ class UnifiedManager:
             return ManagedResult('update').fail(f'Update not available: {node_id}@{version_spec}')
 
         if version_spec == 'nightly':
-            return self.repo_update(self.active_nodes[node_id][1], instant_execution=instant_execution, return_postinstall=return_postinstall).with_target('nightly')
+            return self.repo_update(self.active_nodes[node_id][1], instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall).with_target('nightly')
         elif version_spec == 'unknown':
-            return self.repo_update(self.unknown_active_nodes[node_id][1], instant_execution=instant_execution, return_postinstall=return_postinstall).with_target('unknown')
+            return self.repo_update(self.unknown_active_nodes[node_id][1], instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall).with_target('unknown')
         else:
-            return self.cnr_switch_version(node_id, instant_execution=instant_execution, return_postinstall=return_postinstall)
+            return self.cnr_switch_version(node_id, instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall)
 
-    async def install_by_id(self, node_id, version_spec=None, channel=None, mode=None, instant_execution=False, return_postinstall=False):
+    async def install_by_id(self, node_id, version_spec=None, channel=None, mode=None, instant_execution=False, no_deps=False, return_postinstall=False):
         """
         priority if version_spec == None
         1. CNR latest
@@ -1175,7 +1175,7 @@ class UnifiedManager:
                     self.unified_disable(node_id, False)
 
             to_path = os.path.abspath(os.path.join(custom_nodes_path, f"{node_id}@{version_spec.replace('.', '_')}"))
-            res = self.repo_install(repo_url, to_path, instant_execution=instant_execution, return_postinstall=return_postinstall)
+            res = self.repo_install(repo_url, to_path, instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall)
             if res.result:
                 if version_spec == 'unknown':
                     self.unknown_active_nodes[node_id] = to_path
@@ -1195,12 +1195,12 @@ class UnifiedManager:
         if self.is_disabled(node_id, "cnr"):
             # enable and switch version if cnr is disabled (not specified version)
             self.unified_enable(node_id, "cnr")
-            return self.cnr_switch_version(node_id, version_spec, return_postinstall=return_postinstall)
+            return self.cnr_switch_version(node_id, version_spec, no_deps=no_deps, return_postinstall=return_postinstall)
 
         if self.is_enabled(node_id, "cnr"):
-            return self.cnr_switch_version(node_id, version_spec, return_postinstall=return_postinstall)
+            return self.cnr_switch_version(node_id, version_spec, no_deps=no_deps, return_postinstall=return_postinstall)
 
-        res = self.cnr_install(node_id, version_spec, instant_execution=instant_execution, return_postinstall=return_postinstall)
+        res = self.cnr_install(node_id, version_spec, instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall)
         if res.result:
             self.active_nodes[node_id] = version_spec, res.to_path
 
@@ -1521,7 +1521,8 @@ def __win_check_git_pull(path):
     process.wait()
 
 
-def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=False):
+def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=False, no_deps=False):
+    # import ipdb; ipdb.set_trace()
     install_script_path = os.path.join(repo_path, "install.py")
     requirements_path = os.path.join(repo_path, "requirements.txt")
 
@@ -1529,7 +1530,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
         install_cmd = ["#LAZY-INSTALL-SCRIPT",  sys.executable]
         try_install_script(url, repo_path, install_cmd)
     else:
-        if os.path.exists(requirements_path):
+        if os.path.exists(requirements_path) and not no_deps:
             print("Install: pip packages")
             with open(requirements_path, "r") as requirements_file:
                 for line in requirements_file:
@@ -1547,7 +1548,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
     return True
 
 
-def git_repo_update_check_with(path, do_fetch=False, do_update=False):
+def git_repo_update_check_with(path, do_fetch=False, do_update=False, no_deps=False):
     """
 
     perform update check for git custom node
@@ -1570,7 +1571,7 @@ def git_repo_update_check_with(path, do_fetch=False, do_update=False):
     if platform.system() == "Windows":
         updated, success = __win_check_git_update(path, do_fetch, do_update)
         if updated and success:
-            execute_install_script(None, path, lazy_mode=True)
+            execute_install_script(None, path, lazy_mode=True, no_deps=no_deps)
         return updated, success
     else:
         # Fetch the latest commits from the remote repository
@@ -1618,7 +1619,7 @@ def git_repo_update_check_with(path, do_fetch=False, do_update=False):
                 new_commit_hash = repo.head.commit.hexsha
 
                 if commit_hash != new_commit_hash:
-                    execute_install_script(None, path)
+                    execute_install_script(None, path, no_deps=no_deps)
                     print(f"\nUpdated: {path}")
                     return True, True
                 else:
@@ -1683,7 +1684,7 @@ def is_valid_url(url):
     return False
 
 
-async def gitclone_install(url, instant_execution=False, msg_prefix=''):
+async def gitclone_install(url, instant_execution=False, msg_prefix='', no_deps=False):
     await unified_manager.reload('cache')
     await unified_manager.get_custom_nodes('default', 'cache')
 
@@ -1729,7 +1730,7 @@ async def gitclone_install(url, instant_execution=False, msg_prefix=''):
                 repo.git.clear_cache()
                 repo.close()
 
-            execute_install_script(url, repo_path, instant_execution=instant_execution)
+            execute_install_script(url, repo_path, instant_execution=instant_execution, no_deps=no_deps)
             print("Installation was successful.")
             return result.with_target(repo_path)
 
@@ -1806,7 +1807,7 @@ async def get_data_by_mode(mode, filename, channel_url=None):
     return json_obj
 
 
-def gitclone_fix(files, instant_execution=False):
+def gitclone_fix(files, instant_execution=False, no_deps=False):
     print(f"Try fixing: {files}")
     for url in files:
         if not is_valid_url(url):
@@ -1822,7 +1823,7 @@ def gitclone_fix(files, instant_execution=False):
             if os.path.exists(repo_path+'.disabled'):
                 repo_path = repo_path+'.disabled'
 
-            if not execute_install_script(url, repo_path, instant_execution=instant_execution):
+            if not execute_install_script(url, repo_path, instant_execution=instant_execution, no_deps=no_deps):
                 return False
 
         except Exception as e:
@@ -1950,7 +1951,7 @@ def gitclone_set_active(files, is_disable):
     return True
 
 
-def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefix=""):
+def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefix="", no_deps=False):
     import os
 
     print(f"{msg_prefix}Update: {files}")
@@ -1968,10 +1969,10 @@ def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefi
 
             if not skip_script:
                 if instant_execution:
-                    if not execute_install_script(url, repo_path, lazy_mode=False, instant_execution=True):
+                    if not execute_install_script(url, repo_path, lazy_mode=False, instant_execution=True, no_deps=no_deps):
                         return False
                 else:
-                    if not execute_install_script(url, repo_path, lazy_mode=True):
+                    if not execute_install_script(url, repo_path, lazy_mode=True, no_deps=no_deps):
                         return False
 
         except Exception as e:
@@ -1983,7 +1984,7 @@ def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefi
     return True
 
 
-def update_path(repo_path, instant_execution=False):
+def update_path(repo_path, instant_execution=False, no_deps=False):
     if not os.path.exists(os.path.join(repo_path, '.git')):
         return "fail"
 
@@ -2023,7 +2024,7 @@ def update_path(repo_path, instant_execution=False):
 
     if commit_hash != remote_commit_hash:
         git_pull(repo_path)
-        execute_install_script("ComfyUI", repo_path, instant_execution=instant_execution)
+        execute_install_script("ComfyUI", repo_path, instant_execution=instant_execution, no_deps=no_deps)
         return "updated"
     else:
         return "skipped"
