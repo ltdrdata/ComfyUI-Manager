@@ -557,8 +557,9 @@ def install(
         no_deps: Annotated[
             Optional[bool],
             typer.Option(
+                "--no-deps",
                 show_default=False,
-                help="Use new fast dependency installer",
+                help="Skip installing any Python dependencies",
             ),
         ] = False,
 ):
@@ -586,8 +587,9 @@ def reinstall(
         no_deps: Annotated[
             Optional[bool],
             typer.Option(
+                "--no-deps",
                 show_default=False,
-                help="Use new fast dependency installer",
+                help="Skip installing any Python dependencies",
             ),
         ] = False,
 ):
