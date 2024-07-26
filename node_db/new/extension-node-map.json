@@ -1165,6 +1165,7 @@
     ],
     "https://github.com/BetaDoggo/ComfyUI-VideoPlayer": [
         [
+            "ImageToEmoji",
             "LoadFrame",
             "LoadJPGFrame",
             "LoadVideoFrame"
@@ -6364,12 +6365,36 @@
             "title_aux": "LiamUtil (single node)"
         }
     ],
+    "https://github.com/ai-shizuka/ComfyUI-tbox": [
+        [
+            "ImageLoader",
+            "ImageResize",
+            "ImageSaver",
+            "ImageSize",
+            "ImagesSaver"
+        ],
+        {
+            "title_aux": "ComfyUI-tbox"
+        }
+    ],
     "https://github.com/aianimation55/ComfyUI-FatLabels": [
         [
             "FatLabels"
         ],
         {
             "title_aux": "Comfy UI FatLabels"
+        }
+    ],
+    "https://github.com/akierson/comfyui-colornodes": [
+        [
+            "Color Picker",
+            "Color to Hex",
+            "Color to RGB",
+            "Image Replace Color",
+            "Invert Color"
+        ],
+        {
+            "title_aux": "comfyui-colornodes"
         }
     ],
     "https://github.com/al-swaiti/ComfyUI-CascadeResolutions": [
@@ -7283,13 +7308,6 @@
     "https://github.com/bvhari/ComfyUI_SUNoise": [
         [
             "SUNoiseLatent",
-            "SamplerDPM2Ancestral_SUN",
-            "SamplerDPMPP2SAncestral_SUN",
-            "SamplerDPMPP_2M_SDE_SUN",
-            "SamplerDPMPP_3M_SDE_SUN",
-            "SamplerDPMPP_SDE_SUN",
-            "SamplerEulerAncestralCFGpp_SUN",
-            "SamplerEulerAncestral_SUN",
             "SamplersSUNoise",
             "SamplersSUNoiseAdvanced"
         ],
@@ -8661,6 +8679,7 @@
             "IPAdapterAdvanced",
             "IPAdapterBatch",
             "IPAdapterClipVisionEnhancer",
+            "IPAdapterClipVisionEnhancerBatch",
             "IPAdapterCombineEmbeds",
             "IPAdapterCombineParams",
             "IPAdapterCombineWeights",
@@ -10545,6 +10564,8 @@
             "CosyVoice",
             "Dingding",
             "Dingding_tool",
+            "FeishuDownloadAudio",
+            "FeishuDownloadImage",
             "FeishuGetHistory",
             "FeishuSendMsg",
             "KG_csv_toolkit_developer",
@@ -10585,6 +10606,7 @@
             "google_loader",
             "google_tool",
             "image_iterator",
+            "img2path",
             "interpreter_function",
             "interpreter_tool",
             "json2text",
@@ -10601,6 +10623,7 @@
             "load_excel",
             "load_file",
             "load_file_folder",
+            "load_img_path",
             "load_keyword",
             "load_name",
             "load_openai_ebd",
@@ -11429,6 +11452,82 @@
             "title_aux": "ULTools for ComfyUI"
         }
     ],
+    "https://github.com/jn-jairo/jn_comfyui": [
+        [
+            "JN_AreaInfo",
+            "JN_AreaNormalize",
+            "JN_AreaWidthHeight",
+            "JN_AreaXY",
+            "JN_Blip",
+            "JN_BlipLoader",
+            "JN_BooleanOperation",
+            "JN_Condition",
+            "JN_CoolDown",
+            "JN_CoolDownOutput",
+            "JN_CropFace",
+            "JN_DatetimeFormat",
+            "JN_DatetimeInfo",
+            "JN_DatetimeNow",
+            "JN_Dump",
+            "JN_DumpOutput",
+            "JN_FaceRestoreModelLoader",
+            "JN_FaceRestoreWithModel",
+            "JN_FirstActive",
+            "JN_ImageAddMask",
+            "JN_ImageBatch",
+            "JN_ImageCenterArea",
+            "JN_ImageCrop",
+            "JN_ImageGrid",
+            "JN_ImageInfo",
+            "JN_ImageSharpness",
+            "JN_ImageSquare",
+            "JN_ImageUncrop",
+            "JN_KSampler",
+            "JN_KSamplerAdvancedParams",
+            "JN_KSamplerFaceRestoreParams",
+            "JN_KSamplerResizeInputParams",
+            "JN_KSamplerResizeMaskAreaParams",
+            "JN_KSamplerResizeOutputParams",
+            "JN_KSamplerSeamlessParams",
+            "JN_KSamplerTileParams",
+            "JN_LoadImageDirectory",
+            "JN_LogicOperation",
+            "JN_MaskInfo",
+            "JN_MathOperation",
+            "JN_MathOperationArray",
+            "JN_PrimitiveArrayInfo",
+            "JN_PrimitiveBatchToArray",
+            "JN_PrimitiveBoolean",
+            "JN_PrimitiveFloat",
+            "JN_PrimitiveInt",
+            "JN_PrimitivePrompt",
+            "JN_PrimitiveString",
+            "JN_PrimitiveStringMultiline",
+            "JN_PrimitiveStringToArray",
+            "JN_PrimitiveToArray",
+            "JN_PrimitiveToBoolean",
+            "JN_PrimitiveToFloat",
+            "JN_PrimitiveToInt",
+            "JN_PrimitiveToString",
+            "JN_RemoveBackground",
+            "JN_Seamless",
+            "JN_SeamlessBorder",
+            "JN_SeamlessBorderCrop",
+            "JN_SelectItem",
+            "JN_Sleep",
+            "JN_SleepOutput",
+            "JN_SliceOperation",
+            "JN_StopIf",
+            "JN_StopIfOutput",
+            "JN_TextConcatenation",
+            "JN_TextReplace",
+            "JN_TimedeltaFormat",
+            "JN_TimedeltaInfo"
+        ],
+        {
+            "title_aux": "JNComfy"
+        }
+    ],
     "https://github.com/john-mnz/ComfyUI-Inspyrenet-Rembg": [
         [
             "InspyrenetRembg",
@@ -12155,6 +12254,7 @@
             "SingleString",
             "SizeSelector",
             "YellowBus",
+            "YellowBusV2",
             "concat"
         ],
         {
@@ -12730,7 +12830,8 @@
     ],
     "https://github.com/lrzjason/Comfyui-Kolors-Utils": [
         [
-            "Save Weight As Kolors Unet"
+            "SaveKolors",
+            "SaveWeightAsKolorsUnet"
         ],
         {
             "title_aux": "Comfyui Kolors Utils"
@@ -13494,6 +13595,8 @@
             "TextBox",
             "TextCombinerSix",
             "TextCombinerTwo",
+            "TextSwitcherThreeWays",
+            "TextSwitcherTwoWays",
             "TextWithBooleanSwitchAndCommonTextInput",
             "TwoBooleanTrigger",
             "TwoFloats"
@@ -13613,7 +13716,7 @@
             "title_aux": "ComfyUI-NegiTools"
         }
     ],
-    "https://github.com/neverbiasu/ComfyUI-ImageCaptioner": [
+    "https://github.com/neverbiasu/ComfyUI-Image-Captioner": [
         [
             "ImageCaptioner"
         ],
