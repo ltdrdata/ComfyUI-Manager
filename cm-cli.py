@@ -489,7 +489,7 @@ def get_all_installed_node_specs():
 
         latest = unified_manager.get_from_cnr_inactive_nodes(k)
         if latest is not None:
-            node_spec_str = f"{k}@{latest}"
+            node_spec_str = f"{k}@{str(latest[0])}"
             res.append(node_spec_str)
 
     for k, _ in unified_manager.nightly_inactive_nodes.keys():

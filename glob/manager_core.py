@@ -255,7 +255,7 @@ class UnifiedManager:
                 latest = self.get_from_cnr_inactive_nodes(node_name)
 
                 if latest is not None:
-                    version_spec = latest[0]
+                    version_spec = str(latest[0])
                 else:
                     if node_name in self.nightly_inactive_nodes:
                         version_spec = "nightly"
@@ -2384,7 +2384,12 @@ async def get_unified_total_nodes(channel, mode):
             elif cnr_id in unified_manager.cnr_inactive_nodes:
                 # disabled
                 v['state'] = 'disabled'
-                v['version'] = unified_manager.get_from_cnr_inactive_nodes(cnr_id)[0]
+                cnr_ver = unified_manager.get_from_cnr_inactive_nodes(cnr_id)
+                if cnr_ver is not None:
+                    v['version'] = str(cnr_ver[0])
+                else:
+                    v['version'] = '0'
+
             elif cnr_id in unified_manager.nightly_inactive_nodes:
                 # disabled
                 v['state'] = 'disabled'
