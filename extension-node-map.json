@@ -2826,6 +2826,16 @@
             "title_aux": "comfy-plasma"
         }
     ],
+    "https://github.com/JosefKuchar/ComfyUI-AdvancedTiling": [
+        [
+            "AdvancedTiling",
+            "AdvancedTilingSettings",
+            "AdvancedTilingVAEDecode"
+        ],
+        {
+            "title_aux": "ComfyUI-AdvancedTiling"
+        }
+    ],
     "https://github.com/Kangkang625/ComfyUI-paint-by-example": [
         [
             "PaintbyExamplePipeLoader",
@@ -3610,14 +3620,6 @@
             "title_aux": "ComfyUI_SSStereoscope"
         }
     ],
-    "https://github.com/Munkyfoot/ComfyUI-TextOverlay": [
-        [
-            "Text Overlay"
-        ],
-        {
-            "title_aux": "ComfyUI-TextOverlay"
-        }
-    ],
     "https://github.com/MushroomFleet/DJZ-Nodes": [
         [
             "AspectSize",
@@ -4192,7 +4194,6 @@
             "DownloadAudio",
             "ImageRepeatInterleavedNode",
             "LatentRepeatInterleavedNode",
-            "LoadAudio",
             "LoadHubertModel",
             "LoadPitchExtractionParams",
             "LoadRVCModelNode",
@@ -4200,9 +4201,11 @@
             "MergeAudioNode",
             "MergeImageBatches",
             "MergeLatentBatches",
-            "PreviewAudio",
+            "RVC-Studio.LoadAudio",
+            "RVC-Studio.PreviewAudio",
             "RVCNode",
             "SimpleMathNode",
+            "SliceNode",
             "UVR5Node"
         ],
         {
@@ -8516,6 +8519,7 @@
             "SamplerCustomAdvanced",
             "SamplerDPMAdaptative",
             "SamplerDPMPP_2M_SDE",
+            "SamplerDPMPP_2S_Ancestral",
             "SamplerDPMPP_3M_SDE",
             "SamplerDPMPP_SDE",
             "SamplerEulerAncestral",
@@ -10246,6 +10250,15 @@
             "title_aux": "Load Image From Base64 URI"
         }
     ],
+    "https://github.com/glowcone/comfyui-string-converter": [
+        [
+            "StringToFloat",
+            "StringToInt"
+        ],
+        {
+            "title_aux": "String Converter"
+        }
+    ],
     "https://github.com/godspede/ComfyUI_Substring": [
         [
             "SubstringTheory"
@@ -10449,7 +10462,8 @@
             "Griptape Vector Store: Add Text",
             "Griptape Vector Store: Query",
             "Griptape WebSearch Driver: DuckDuckGo",
-            "Griptape WebSearch Driver: Google"
+            "Griptape WebSearch Driver: Google",
+            "Gt Run Agent"
         ],
         {
             "author": "Jason Schleifer",
@@ -11484,8 +11498,10 @@
     ],
     "https://github.com/jn-jairo/jn_comfyui": [
         [
+            "JN_AreaAround",
             "JN_AreaInfo",
             "JN_AreaNormalize",
+            "JN_AreaToMask",
             "JN_AreaWidthHeight",
             "JN_AreaXY",
             "JN_Blip",
@@ -11503,14 +11519,17 @@
             "JN_FaceRestoreModelLoader",
             "JN_FaceRestoreWithModel",
             "JN_FirstActive",
+            "JN_ImageAddBackground",
             "JN_ImageAddMask",
             "JN_ImageBatch",
             "JN_ImageCenterArea",
             "JN_ImageCrop",
             "JN_ImageGrid",
             "JN_ImageInfo",
+            "JN_ImageRemoveBackground",
             "JN_ImageSharpness",
             "JN_ImageSquare",
+            "JN_ImageToMask",
             "JN_ImageUncrop",
             "JN_KSampler",
             "JN_KSamplerAdvancedParams",
@@ -11522,9 +11541,14 @@
             "JN_KSamplerTileParams",
             "JN_LoadImageDirectory",
             "JN_LogicOperation",
+            "JN_MaskBatch",
             "JN_MaskInfo",
+            "JN_MaskToArea",
+            "JN_MaskToImage",
             "JN_MathOperation",
             "JN_MathOperationArray",
+            "JN_PreviewImage",
+            "JN_PreviewMask",
             "JN_PrimitiveArrayInfo",
             "JN_PrimitiveBatchToArray",
             "JN_PrimitiveBoolean",
@@ -11539,7 +11563,8 @@
             "JN_PrimitiveToFloat",
             "JN_PrimitiveToInt",
             "JN_PrimitiveToString",
-            "JN_RemoveBackground",
+            "JN_RemBGSession",
+            "JN_SaveImage",
             "JN_Seamless",
             "JN_SeamlessBorder",
             "JN_SeamlessBorderCrop",
@@ -11572,7 +11597,9 @@
             "LCMScheduler",
             "SamplerLCMAlternative",
             "SamplerLCMCycle",
-            "SamplerLCMDualNoise"
+            "SamplerLCMDualNoise",
+            "SamplerLCMDuoFusion",
+            "SamplerLCMParallel"
         ],
         {
             "title_aux": "ComfyUI-sampler-lcm-alternative"
@@ -13744,6 +13771,14 @@
         ],
         {
             "title_aux": "ComfyUI-NegiTools"
+        }
+    ],
+    "https://github.com/neeltheninja/ComfyUI-TextOverlay": [
+        [
+            "Text Overlay"
+        ],
+        {
+            "title_aux": "ComfyUI-TextOverlay"
         }
     ],
     "https://github.com/neverbiasu/ComfyUI-Image-Captioner": [
