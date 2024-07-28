@@ -5,6 +5,7 @@
 ![menu](misc/menu.jpg)
 
 ## NOTICE
+* V2.48.1: Security policy has been changed. Downloads of models in the list are allowed under the 'normal' security level.
 * V2.47: Security policy has been changed. The former 'normal' is now 'normal-', and 'normal' no longer allows high-risk features, even if your ComfyUI is local.
 * V2.37 Show a ✅ mark to accounts that have been active on GitHub for more than six months.
 * V2.33 Security policy is applied.

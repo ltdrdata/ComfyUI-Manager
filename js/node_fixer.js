@@ -105,6 +105,10 @@ function node_info_copy(src, dest, connect_both) {
 	// copy input connections
 	for(let i in src.inputs) {
 		let input = src.inputs[i];
+		if (input.widget !== undefined) {
+			const destWidget = dest.widgets.find(x => x.name === input.widget.name);
+			dest.convertWidgetToInput(destWidget);
+		}
 		if(input.link) {
 			let link = app.graph.links[input.link];
 			let src_node = app.graph.getNodeById(link.origin_id);
@@ -137,6 +141,10 @@ function node_info_copy(src, dest, connect_both) {
 			}
 		}
 	}
+
+	dest.color = src.color;
+	dest.bgcolor = src.bgcolor;
+	dest.size = src.size;
 
 	app.graph.afterChange();
 }
@@ -202,7 +210,7 @@ app.registerExtension({
 					let new_node = LiteGraph.createNode(nodeType.comfyClass);
 					new_node.pos = [this.pos[0], this.pos[1]];
 					app.canvas.graph.add(new_node, false);
-					node_info_copy(this, new_node);
+					node_info_copy(this, new_node, true);
 					app.canvas.graph.remove(this);
 				},
 			});

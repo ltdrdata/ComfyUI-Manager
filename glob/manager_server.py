@@ -990,8 +990,17 @@ async def install_model(request):
         return web.Response(status=403)
 
     if not json_data['filename'].endswith('.safetensors') and not is_allowed_security_level('high'):
-        print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
-        return web.Response(status=403)
+        models_json = await core.get_data_by_mode('cache', 'model-list.json')
+
+        is_belongs_to_whitelist = False
+        for x in models_json['models']:
+            if x.get('url') == json_data['url']:
+                is_belongs_to_whitelist = True
+                break
+
+        if not is_belongs_to_whitelist:
+            print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
+            return web.Response(status=403)
 
     res = False
 

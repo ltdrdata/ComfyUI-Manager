@@ -488,6 +488,7 @@ def gen_json(node_info):
                     print("------------------------------------------------------")
                     print(e)
                     print("------------------------------------------------------")
+                    node_list_json = {}
 
             metadata_in_url = {}
             if git_url not in data:
