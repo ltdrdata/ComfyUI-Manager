@@ -253,6 +253,11 @@ const pageCss = `
 	color: white;
 }
 
+.cn-manager .cn-btn-reinstall {
+	background-color: #993333;
+	color: white;
+}
+
 .cn-manager .cn-btn-switch {
 	background-color: #448833;
 	color: white;
@@ -587,18 +592,26 @@ export class CustomNodesManager {
 				mode: "fix"
 			},
 
+			"reinstall": {
+				label: "Reinstall",
+				mode: "reinstall"
+			},
+
 			"install": {
 				label: "Install",
 				mode: "install"
 			},
+
 			"try-install": {
 				label: "Try install",
 				mode: "install"
 			},
+
 			"uninstall": {
 				label: "Uninstall",
 				mode: "uninstall"
 			},
+
 			"switch": {
 				label: "Switch",
 				mode: "switch"
@@ -611,7 +624,8 @@ export class CustomNodesManager {
 			"import-fail": ["try-fix", "switch", "disable", "uninstall"],
 			"enabled": ["try-update", "switch", "disable", "uninstall"],
 			"not-installed": ["install"],
-			'unknown': ["try-install"]
+			'unknown': ["try-install"],
+			"invalid-installation": ["reinstall"],
 		}
 
 		if (!manager_instance.update_check_checkbox.checked) {
@@ -887,8 +901,16 @@ export class CustomNodesManager {
 			maxWidth: 500,
 			classMap: 'cn-node-name',
 			formatter: (title, rowItem, columnItem) => {
-				return `${rowItem.action === 'import-fail' ? '<font color="red"><B>(IMPORT FAILED)</B></font>' : ''}
-					<a href=${rowItem.reference} target="_blank"><b>${title}</b></a>`;
+			    var prefix = '';
+			    if(rowItem.action === 'invalid-installation') {
+			        prefix = '<font color="red"><B>(INVALID)</B></font>';
+			    }
+
+			    else if(rowItem.action === 'import-fail') {
+			        prefix = '<font color="red"><B>(IMPORT FAILED)</B></font>';
+			    }
+
+				return `${prefix}<a href=${rowItem.reference} target="_blank"><b>${title}</b></a>`;
 			}
 		}, {
 			id: 'version',
@@ -1189,6 +1211,13 @@ export class CustomNodesManager {
 			}
 		}
 
+		if(mode === "reinstall") {
+			title = title || `${list.length} custom nodes`;
+			if (!confirm(`Are you sure reinstall ${title}?`)) {
+				return;
+			}
+		}
+
 		target.classList.add("cn-btn-loading");
 		this.showError("");
 
@@ -1226,6 +1255,10 @@ export class CustomNodesManager {
 			let api_mode = install_mode;
 			if(install_mode == 'enable') {
 				api_mode = 'install';
+			}
+
+			if(install_mode == 'reinstall') {
+				api_mode = 'reinstall';
 			}
 
 			const res = await api.fetchApi(`/customnode/${api_mode}`, {
@@ -1538,6 +1571,10 @@ export class CustomNodesManager {
 				nodeItem.action = nodeItem.state;
 			}
 
+            if(nodeItem['invalid-installation']) {
+                nodeItem.action = 'invalid-installation';
+            }
+
 			const filterTypes = new Set();
 			this.filterList.forEach(filterItem => {
 				const { value, hashMap } = filterItem;
@@ -1585,6 +1622,10 @@ export class CustomNodesManager {
 
 					if(nodeItem['import-fail']) {
 						filterTypes.add("import-fail");
+					}
+
+					if(nodeItem['invalid-installation']) {
+						filterTypes.add("invalid-installation");
 					}
 				}
 			});

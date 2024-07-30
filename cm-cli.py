@@ -55,6 +55,7 @@ def check_comfyui_hash():
 
 
 check_comfyui_hash()  # This is a preparation step for manager_core
+core.check_invalid_nodes()
 
 
 def read_downgrade_blacklist():

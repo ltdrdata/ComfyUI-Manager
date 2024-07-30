@@ -202,8 +202,7 @@ def print_comfyui_version():
 
 
 print_comfyui_version()
-
-
+core.check_invalid_nodes()
 
 
 def setup_environment():
@@ -785,6 +784,12 @@ async def get_disabled_versions(request):
         return web.json_response(versions, content_type='application/json')
 
     return web.Response(status=400)
+
+
+@routes.post("/customnode/reinstall")
+async def reinstall_custom_node(request):
+    await uninstall_custom_node(request)
+    await install_custom_node(request)
 
 
 @routes.post("/customnode/install")

@@ -56,6 +56,55 @@ def download_url(url, dest_folder, filename):
 
 custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, '..'))
 
+invalid_nodes = {}
+
+
+def check_invalid_nodes():
+    global invalid_nodes
+
+    try:
+        import folder_paths
+        node_paths = folder_paths.get_folder_paths("custom_nodes")
+    except:
+        try:
+            sys.path.append(comfy_path)
+            import folder_paths
+        except:
+            raise Exception(f"Invalid COMFYUI_PATH: {comfy_path}")
+
+    def check(root):
+        global invalid_nodes
+
+        subdirs = [d for d in os.listdir(root) if os.path.isdir(os.path.join(root, d))]
+        for subdir in subdirs:
+            if subdir in ['.disabled', '__pycache__']:
+                continue
+
+            if '@' in subdir:
+                spec = subdir.split('@')
+                if spec[1] in ['unknown', 'nightly']:
+                    continue
+
+                if not os.path.exists(os.path.join(root, subdir, '.tracking')):
+                    invalid_nodes[spec[0]] = os.path.join(root, subdir)
+
+    node_paths = folder_paths.get_folder_paths("custom_nodes")
+    for x in node_paths:
+        check(x)
+
+        disabled_dir = os.path.join(x, '.disabled')
+        if os.path.exists(disabled_dir):
+            check(disabled_dir)
+
+    if len(invalid_nodes):
+        print(f"\n-------------------- ComfyUI-Manager invalid nodes notice ----------------")
+        print(f"\nNodes requiring reinstallation have been detected:\n(Directly delete the corresponding path and reinstall.)\n")
+
+        for x in invalid_nodes.values():
+            print(x)
+
+        print("\n---------------------------------------------------------------------------\n")
+
 
 comfy_path = os.environ.get('COMFYUI_PATH')
 if comfy_path is None:
@@ -2368,6 +2417,9 @@ async def get_unified_total_nodes(channel, mode):
             updatable = False
             cnr = unified_manager.cnr_map[cnr_id]
 
+            if cnr_id in invalid_nodes:
+                v['invalid-installation'] = True
+
             if cnr_id in unified_manager.active_nodes:
                 # installed
                 v['state'] = 'enabled'
@@ -2608,4 +2660,3 @@ async def check_need_to_migrate():
         print("The following custom nodes were installed using the old management method and require migration:")
         print(", ".join(legacy_custom_nodes))
         print("---------------------------------------------------------------------------\n")
-
