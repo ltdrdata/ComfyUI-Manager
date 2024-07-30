@@ -83,7 +83,7 @@
         {
             "author": "Fannovel16",
             "title": "ComfyUI's ControlNet Auxiliary Preprocessors",
-            "id": "cnet-aux",
+            "id": "comfyui_controlnet_aux",
             "reference": "https://github.com/Fannovel16/comfyui_controlnet_aux",
             "files": [
                 "https://github.com/Fannovel16/comfyui_controlnet_aux"
@@ -139,7 +139,7 @@
                 "Zoe-DepthMapPreprocessor",
                 "Zoe_DepthAnythingPreprocessor"],
             "install_type": "git-clone",
-            "description": "This is a rework of comfyui_controlnet_preprocessors based on ControlNet auxiliary models by 🤗. I think the old repo isn't good enough to maintain. All old workflow will still be work with this repo but the version option won't do anything. Almost all v1 preprocessors are replaced by v1.1 except those doesn't appear in v1.1. [w/NOTE: Please refrain from using the controlnet preprocessor alongside this installation, as it may lead to conflicts and prevent proper recognition.]"
+            "description": "Plug-and-play ComfyUI node sets for making ControlNet hint images."
         },
         {
             "author": "Fannovel16",
@@ -2679,14 +2679,14 @@
         },
         {
             "author": "mcmonkeyprojects",
-            "title": "Stable Diffusion Dynamic Thresholding (CFG Scale Fix)",
+            "title": "Dynamic Thresholding",
             "id": "dynamic-thresholding",
             "reference": "https://github.com/mcmonkeyprojects/sd-dynamic-thresholding",
             "files": [
                 "https://github.com/mcmonkeyprojects/sd-dynamic-thresholding"
             ],
             "install_type": "git-clone",
-            "description": "Extension for StableSwarmUI, ComfyUI, and AUTOMATIC1111 Stable Diffusion WebUI that enables a way to use higher CFG Scales without color issues. This works by clamping latents between steps."
+            "description": "Adds nodes for Dynamic Thresholding, CFG scheduling, and related techniques."
         },
         {
             "author": "Tropfchen",
@@ -6878,6 +6878,17 @@
             "description": "Nodes:Cascade Resolutions"
         },
         {
+            "author": "al-swaiti",
+            "title": "All-IN-ONE-style",
+            "id": "all-in-one-style",
+            "reference": "https://github.com/al-swaiti/All-IN-ONE-style",
+            "files": [
+                "https://github.com/al-swaiti/All-IN-ONE-style"
+            ],
+            "install_type": "git-clone",
+            "description": "all art styles"
+        },
+        {
             "author": "mirabarukaso",
             "title": "ComfyUI_Mira",
             "id": "mira",
@@ -10671,7 +10682,7 @@
                 "https://github.com/ThereforeGames/ComfyUI-Unprompted"
             ],
             "install_type": "git-clone",
-            "description": "This is a ComfyUI node that processes your input text with the [a/Unprompted templating language](https://github.com/ThereforeGames/unprompted). Early alpha release.\n"
+            "description": "A node that processes input text with the [a/Unprompted templating language](https://github.com/ThereforeGames/unprompted)."
         },
         {
             "author": "Tool Of North america",
@@ -11933,7 +11944,7 @@
         },
         {
             "author": "EnragedAntelope",
-            "title": "Doubutsu Image Describer for ComfyUI",
+            "title": "ComfyUI-Doubutsu-Describer",
             "reference": "https://github.com/EnragedAntelope/ComfyUI-Doubutsu-Describer",
             "files": [
                 "https://github.com/EnragedAntelope/ComfyUI-Doubutsu-Describer"
@@ -11983,13 +11994,14 @@
         },
         {
             "author": "neverbiasu",
-            "title": "ComfyUI ImageCaptioner",
+            "title": "ComfyUI-Image-Captioner",
+            "id": "image-captioner",
             "reference": "https://github.com/neverbiasu/ComfyUI-Image-Captioner",
             "files": [
                 "https://github.com/neverbiasu/ComfyUI-Image-Captioner"
             ],
             "install_type": "git-clone",
-            "description": "A ComfyUI extension for generating captions for your images. Runs on your own system, no external services used, no filter.\nUses various VLMs with APIs to generate captions for images. You can give instructions or ask questions in natural language."
+            "description": "A ComfyUI extension for generating captions of images."
         },
         {
             "author": "DriftJohnson",
@@ -12127,7 +12139,18 @@
                 "https://github.com/pzc163/Comfyui-CatVTON"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:Load CatVTON Pipeline, Load AutoMask Generator, TryOn by CatVTON, Auto Mask Generation.\nComfyUI nodes for [a/CatVTON: Concatenation Is All You Need for Virtual Try-On with Diffusion Models](https://github.com/Zheng-Chong/CatVTON)"
+            "description": "Comfyui-CatVTON This repository is the modified official Comfyui node of CatVTON, which is a simple and efficient virtual try-on diffusion model with 1) Lightweight Network (899.06M parameters totally), 2) Parameter-Efficient Training (49.57M parameters trainable) 3) Simplified Inference (< 8G VRAM for 1024X768 resolution).\nThe original GitHub project is [a/https://github.com/Zheng-Chong/CatVTON](https://github.com/Zheng-Chong/CatVTON)"
+        },
+        {
+            "author": "aisabervisionlab",
+            "title": "ComfyUI_merge_ASVL",
+            "id": "merge-asvl",
+            "reference": "https://github.com/aisabervisionlab/ComfyUI_merge_ASVL",
+            "files": [
+                "https://github.com/aisabervisionlab/ComfyUI_merge_ASVL"
+            ],
+            "install_type": "git-clone",
+            "description": "This is a simple node for connecting images. For pictures of the same size, users can choose to fill in vertical in the parameter to connect the pictures vertically or fill in horizontal to connect the pictures horizontally."
         },
         
         
@@ -12509,17 +12532,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "neverbiasu",
-            "title": "ComfyUI-Image-Captioner",
-            "id": "image-captioner",
-            "reference": "https://github.com/neverbiasu/ComfyUI-Image-Captioner",
-            "files": [
-                "https://github.com/neverbiasu/ComfyUI-Image-Captioner"
-            ],
-            "install_type": "git-clone",
-            "description": "A ComfyUI extension for generating captions of images."
         }
     ]
 }
