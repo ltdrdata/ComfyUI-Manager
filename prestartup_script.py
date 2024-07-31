@@ -9,7 +9,7 @@ import locale
 import platform
 import json
 import ast
-
+import logging
 
 glob_path = os.path.join(os.path.dirname(__file__), "glob")
 sys.path.append(glob_path)
@@ -82,6 +82,7 @@ cm_global.pip_overrides = {}
 if os.path.exists(pip_overrides_path):
     with open(pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
         cm_global.pip_overrides = json.load(json_file)
+        cm_global.pip_overrides['numpy'] = 'numpy<2'
 
 
 def remap_pip_package(pkg):
@@ -165,6 +166,8 @@ try:
         if port_index + 1 < len(sys.argv):
             port = int(sys.argv[port_index + 1])
             postfix = f"_{port}"
+        else:
+            postfix = ""
     else:
         postfix = ""
 
@@ -201,6 +204,7 @@ try:
     pat_import_fail = r'seconds \(IMPORT FAILED\):.*[/\\]custom_nodes[/\\](.*)$'
 
     is_start_mode = True
+
 
     class ComfyUIManagerLogger:
         def __init__(self, is_stdout):
@@ -250,7 +254,7 @@ try:
             else:
                 self.sync_write(message)
 
-        def sync_write(self, message):
+        def sync_write(self, message, file_only=False):
             with log_lock:
                 timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')[:-3]
                 if self.last_char != '\n':
@@ -260,15 +264,16 @@ try:
                 log_file.flush()
                 self.last_char = message if message == '' else message[-1]
 
-            with std_log_lock:
-                if self.is_stdout:
-                    write_stdout(message)
-                    original_stdout.flush()
-                    terminal_hook.write_stderr(message)
-                else:
-                    write_stderr(message)
-                    original_stderr.flush()
-                    terminal_hook.write_stdout(message)
+            if not file_only:
+                with std_log_lock:
+                    if self.is_stdout:
+                        write_stdout(message)
+                        original_stdout.flush()
+                        terminal_hook.write_stderr(message)
+                    else:
+                        write_stderr(message)
+                        original_stderr.flush()
+                        terminal_hook.write_stdout(message)
 
         def flush(self):
             log_file.flush()
@@ -299,11 +304,35 @@ try:
 
     if enable_file_logging:
         sys.stdout = ComfyUIManagerLogger(True)
-        sys.stderr = ComfyUIManagerLogger(False)
+        stderr_wrapper = ComfyUIManagerLogger(False)
+        sys.stderr = stderr_wrapper
 
         atexit.register(close_log)
     else:
         sys.stdout.close_log = lambda: None
+        stderr_wrapper = None
+
+
+    class LoggingHandler(logging.Handler):
+        def emit(self, record):
+            global is_start_mode
+
+            message = record.getMessage()
+
+            if is_start_mode:
+                match = re.search(pat_import_fail, message)
+                if match:
+                    import_failed_extensions.add(match.group(1))
+
+                if 'Starting server' in message:
+                    is_start_mode = False
+
+            if stderr_wrapper:
+                stderr_wrapper.sync_write(message+'\n', file_only=True)
+
+
+    logging.getLogger().addHandler(LoggingHandler())
+
 
 except Exception as e:
     print(f"[ComfyUI-Manager] Logging failed: {e}")
