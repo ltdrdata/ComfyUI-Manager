@@ -4802,10 +4802,12 @@
     ],
     "https://github.com/SuperBeastsAI/ComfyUI-SuperBeasts": [
         [
+            "Deflicker - Experimental (SuperBeasts.AI)",
             "HDR Effects (SuperBeasts.AI)",
             "Image Batch Manager (SuperBeasts.AI)",
             "Make Resized Mask Batch (SuperBeasts.AI)",
             "Mask Batch Manager (SuperBeasts.AI)",
+            "Pixel Deflicker - Experimental (SuperBeasts.AI)",
             "String List Manager (SuperBeasts.AI)"
         ],
         {
@@ -5153,6 +5155,7 @@
             "tri3d-atr-parse",
             "tri3d-atr-parse-batch",
             "tri3d-bgremove-mega",
+            "tri3d-clean_mask",
             "tri3d-clear-memory",
             "tri3d-clipdrop-bgremove-api",
             "tri3d-clipdrop-bgreplace-api",
@@ -5164,6 +5167,7 @@
             "tri3d-extract-parts-batch2",
             "tri3d-extract-parts-mask-batch",
             "tri3d-extract-pascal-parts-batch",
+            "tri3d-extract_pose_part",
             "tri3d-face-recognise",
             "tri3d-flexible_color_extract",
             "tri3d-float-to-image",
@@ -5196,7 +5200,8 @@
             "tri3d-simple_bg_swap",
             "tri3d-simple_rescale_histogram",
             "tri3d-skin-feathered-padded-mask",
-            "tri3d-swap-pixels"
+            "tri3d-swap-pixels",
+            "tri3d_position_pose_part"
         ],
         {
             "title_aux": "tri3d-comfyui-nodes"
@@ -6450,6 +6455,14 @@
         ],
         {
             "title_aux": "ComfyUI_merge_ASVL"
+        }
+    ],
+    "https://github.com/akatz-ai/ComfyUI-AKatz-Nodes": [
+        [
+            "AK_AnimatedDilationMaskLinear"
+        ],
+        {
+            "title_aux": "Akatz Custom Nodes"
         }
     ],
     "https://github.com/akierson/ComfyUI-textnodes": [
@@ -8825,6 +8838,44 @@
             "PrepImageForClipVision"
         ],
         {
+            "preemptions": [
+                "IPAAdapterFaceIDBatch",
+                "IPAdapter",
+                "IPAdapterAdvanced",
+                "IPAdapterBatch",
+                "IPAdapterClipVisionEnhancer",
+                "IPAdapterClipVisionEnhancerBatch",
+                "IPAdapterCombineEmbeds",
+                "IPAdapterCombineParams",
+                "IPAdapterCombineWeights",
+                "IPAdapterEmbeds",
+                "IPAdapterEmbedsBatch",
+                "IPAdapterEncoder",
+                "IPAdapterFaceID",
+                "IPAdapterFromParams",
+                "IPAdapterInsightFaceLoader",
+                "IPAdapterLoadEmbeds",
+                "IPAdapterMS",
+                "IPAdapterModelLoader",
+                "IPAdapterNoise",
+                "IPAdapterPreciseComposition",
+                "IPAdapterPreciseCompositionBatch",
+                "IPAdapterPreciseStyleTransfer",
+                "IPAdapterPreciseStyleTransferBatch",
+                "IPAdapterPromptScheduleFromWeightsStrategy",
+                "IPAdapterRegionalConditioning",
+                "IPAdapterSaveEmbeds",
+                "IPAdapterStyleComposition",
+                "IPAdapterStyleCompositionBatch",
+                "IPAdapterTiled",
+                "IPAdapterTiledBatch",
+                "IPAdapterUnifiedLoader",
+                "IPAdapterUnifiedLoaderCommunity",
+                "IPAdapterUnifiedLoaderFaceID",
+                "IPAdapterWeights",
+                "IPAdapterWeightsFromStrategy",
+                "PrepImageForClipVision"
+            ],
             "title_aux": "ComfyUI_IPAdapter_plus"
         }
     ],
@@ -10261,10 +10312,15 @@
             "OverrideSamplerSetup",
             "Remap_Values",
             "Select_By_Index",
+            "Select_Line_By_Index",
             "Select_String_By_Index",
             "SetupSelector",
             "Show_Type",
-            "UniversalLatentHelper"
+            "Split_Entry_In_2Chunks",
+            "Split_Entry_In_4Chunks",
+            "Split_Entry_In_6Chunks",
+            "UniversalLatentHelper",
+            "Universal_VAE_Loader"
         ],
         {
             "title_aux": "foxpack"
@@ -10722,6 +10778,7 @@
             "LLM_local",
             "LLM_local_loader",
             "LLavaLoader",
+            "URL2IMG",
             "VAEDecode_party",
             "accuweather_tool",
             "api_function",
@@ -11297,6 +11354,8 @@
             "CM_NumberToInt JK",
             "CM_NumberUnaryCondition JK",
             "CM_NumberUnaryOperation JK",
+            "CM_PromptCombine_JK",
+            "CM_StringBinaryCondition_JK",
             "CM_Vec2BinaryCondition JK",
             "CM_Vec2BinaryOperation JK",
             "CM_Vec2FloatOperation_JK",
@@ -12219,6 +12278,7 @@
             "OffsetMask",
             "OffsetMaskByNormalizedAmplitude",
             "PlotCoordinates",
+            "PointsEditor",
             "PreviewAnimation",
             "RemapImageRange",
             "RemapMaskRange",
@@ -12378,6 +12438,17 @@
         ],
         {
             "title_aux": "ComfyUI-moondream"
+        }
+    ],
+    "https://github.com/kijai/ComfyUI-segment-anything-2": [
+        [
+            "DownloadAndLoadSAM2Model",
+            "Florence2toCoordinates",
+            "Sam2AutoSegmentation",
+            "Sam2Segmentation"
+        ],
+        {
+            "title_aux": "ComfyUI-segment-anything-2"
         }
     ],
     "https://github.com/kinfolk0117/ComfyUI_GradientDeepShrink": [
@@ -15150,6 +15221,7 @@
     ],
     "https://github.com/siliconflow/BizyAir": [
         [
+            "BizyAirAuraSR",
             "BizyAirBAE_NormalMapPreprocessor",
             "BizyAirBinaryPreprocessor",
             "BizyAirCannyEdgePreprocessor",
@@ -15731,6 +15803,8 @@
         [
             "OllamaGenerate",
             "OllamaGenerateAdvance",
+            "OllamaLoadContext",
+            "OllamaSaveContext",
             "OllamaVision"
         ],
         {
@@ -16469,6 +16543,7 @@
     ],
     "https://github.com/wTechArtist/ComfyUI-CustomNodes": [
         [
+            "IPAdapter FaceID With Bool",
             "IPAdapter Mad Scientist Weight_Type",
             "Image Blending Mode Mask",
             "Load Image With Bool"
@@ -17203,7 +17278,8 @@
             "MaskAutoSelector",
             "MaskFastGrow",
             "ModifyTextGender",
-            "SplitMask"
+            "SplitMask",
+            "TextPreview"
         ],
         {
             "title_aux": "zhangp365/Some Utils for ComfyUI"

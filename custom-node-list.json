@@ -1125,6 +1125,44 @@
             "files": [
                 "https://github.com/cubiq/ComfyUI_IPAdapter_plus"
             ],
+            "preemptions": [
+                "IPAAdapterFaceIDBatch",
+                "IPAdapter",
+                "IPAdapterAdvanced",
+                "IPAdapterBatch",
+                "IPAdapterClipVisionEnhancer",
+                "IPAdapterClipVisionEnhancerBatch",
+                "IPAdapterCombineEmbeds",
+                "IPAdapterCombineParams",
+                "IPAdapterCombineWeights",
+                "IPAdapterEmbeds",
+                "IPAdapterEmbedsBatch",
+                "IPAdapterEncoder",
+                "IPAdapterFaceID",
+                "IPAdapterFromParams",
+                "IPAdapterInsightFaceLoader",
+                "IPAdapterLoadEmbeds",
+                "IPAdapterMS",
+                "IPAdapterModelLoader",
+                "IPAdapterNoise",
+                "IPAdapterPreciseComposition",
+                "IPAdapterPreciseCompositionBatch",
+                "IPAdapterPreciseStyleTransfer",
+                "IPAdapterPreciseStyleTransferBatch",
+                "IPAdapterPromptScheduleFromWeightsStrategy",
+                "IPAdapterRegionalConditioning",
+                "IPAdapterSaveEmbeds",
+                "IPAdapterStyleComposition",
+                "IPAdapterStyleCompositionBatch",
+                "IPAdapterTiled",
+                "IPAdapterTiledBatch",
+                "IPAdapterUnifiedLoader",
+                "IPAdapterUnifiedLoaderCommunity",
+                "IPAdapterUnifiedLoaderFaceID",
+                "IPAdapterWeights",
+                "IPAdapterWeightsFromStrategy",
+                "PrepImageForClipVision"
+            ],
             "pip": ["insightface"],
             "install_type": "git-clone",
             "description": "ComfyUI reference implementation for IPAdapter models. The code is mostly taken from the original IPAdapter repository and laksjdjf's implementation, all credit goes to them. I just made the extension closer to ComfyUI philosophy."
@@ -12174,6 +12212,17 @@
             "install_type": "git-clone",
             "description": "This is a simple node for connecting images. For pictures of the same size, users can choose to fill in vertical in the parameter to connect the pictures vertically or fill in horizontal to connect the pictures horizontally."
         },
+        {
+          "author": "akatz-ai",
+          "title": "Akatz Custom Nodes",
+          "id": "akatz-ai",
+          "reference": "https://github.com/akatz-ai/ComfyUI-AKatz-Nodes",
+          "files": [
+              "https://github.com/akatz-ai/ComfyUI-AKatz-Nodes"
+          ],
+          "install_type": "git-clone",
+          "description": "Simple custom node pack for nodes I use in my workflows. Includes Dilate Mask Linear for animating masks."
+        },
         
         
         
@@ -12554,17 +12603,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-          "author": "akatz-ai",
-          "title": "Akatz Custom Nodes",
-          "id": "akatz-ai",
-          "reference": "https://github.com/akatz-ai/ComfyUI-AKatz-Nodes",
-          "files": [
-              "https://github.com/akatz-ai/ComfyUI-AKatz-Nodes"
-          ],
-          "install_type": "git-clone",
-          "description": "Simple custom node pack for nodes I use in my workflows. Includes Dilate Mask Linear for animating masks."
         }
     ]
 }
