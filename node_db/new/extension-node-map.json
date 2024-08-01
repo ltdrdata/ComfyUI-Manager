@@ -112,6 +112,21 @@
             "title_aux": "Comfyui-ergouzi-Nodes"
         }
     ],
+    "https://github.com/11dogzi/Comfyui-ergouzi-kaiguan": [
+        [
+            "ALLty",
+            "EGRYDZQHNode",
+            "GroupSwitchNode",
+            "GroupSwitchNodee",
+            "GroupSwitchNodeee",
+            "GroupSwitchNodeeee",
+            "hulue",
+            "jinyong"
+        ],
+        {
+            "title_aux": "Comfyui-ergouzi-kaiguan"
+        }
+    ],
     "https://github.com/11dogzi/Comfyui-ergouzi-samplers": [
         [
             "EGBYZZCYQ",
@@ -810,8 +825,19 @@
             "FILTER MASK (JOV) \ud83e\udd3f",
             "FLATTEN (JOV) \u2b07\ufe0f",
             "GLSL (JOV) \ud83c\udf69",
+            "GLSL BLEND LINEAR (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL FILTER RANGE (JOV) \ud83e\uddd9\ud83c\udffd\u200d\u2640\ufe0f",
+            "GLSL GRAYSCALE (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL HSV-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL HSV-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL LAB-2-HSV (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL LAB-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL NORMAL (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL RGB-2-HSV (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL RGB-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
             "GRADIENT MAP (JOV) \ud83c\uddf2\ud83c\uddfa",
             "GRAPH (JOV) \ud83d\udcc8",
+            "IMAGE INFO (JOV) \ud83d\udcda",
             "LERP (JOV) \ud83d\udd30",
             "MIDI FILTER (JOV) \u2733\ufe0f",
             "MIDI FILTER EZ (JOV) \u2747\ufe0f",
@@ -2249,6 +2275,8 @@
     ],
     "https://github.com/FuouM/FM_nodes": [
         [
+            "ProPIH_Harmonizer",
+            "RealViFormerSR",
             "WFEN"
         ],
         {
@@ -3511,47 +3539,6 @@
         ],
         {
             "title_aux": "ComfyUI-KerasOCR"
-        }
-    ],
-    "https://github.com/MinusZoneAI/ComfyUI-Kolors-MZ": [
-        [
-            "IPAAdapterFaceIDBatch",
-            "IPAdapter",
-            "IPAdapterAdvanced",
-            "IPAdapterBatch",
-            "IPAdapterCombineEmbeds",
-            "IPAdapterCombineParams",
-            "IPAdapterCombineWeights",
-            "IPAdapterEmbeds",
-            "IPAdapterEmbedsBatch",
-            "IPAdapterEncoder",
-            "IPAdapterFaceID",
-            "IPAdapterFromParams",
-            "IPAdapterInsightFaceLoader",
-            "IPAdapterLoadEmbeds",
-            "IPAdapterMS",
-            "IPAdapterModelLoader",
-            "IPAdapterNoise",
-            "IPAdapterPreciseComposition",
-            "IPAdapterPreciseCompositionBatch",
-            "IPAdapterPreciseStyleTransfer",
-            "IPAdapterPreciseStyleTransferBatch",
-            "IPAdapterPromptScheduleFromWeightsStrategy",
-            "IPAdapterRegionalConditioning",
-            "IPAdapterSaveEmbeds",
-            "IPAdapterStyleComposition",
-            "IPAdapterStyleCompositionBatch",
-            "IPAdapterTiled",
-            "IPAdapterTiledBatch",
-            "IPAdapterUnifiedLoader",
-            "IPAdapterUnifiedLoaderCommunity",
-            "IPAdapterUnifiedLoaderFaceID",
-            "IPAdapterWeights",
-            "IPAdapterWeightsFromStrategy",
-            "PrepImageForClipVision"
-        ],
-        {
-            "title_aux": "ComfyUI-Kolors-MZ"
         }
     ],
     "https://github.com/Miosp/ComfyUI-FBCNN": [
@@ -6271,13 +6258,12 @@
             "AmplitudeToGraph",
             "AmplitudeToNumber",
             "AudioToAmplitudeGraph",
+            "AudioToAudioData",
             "AudioToFFTs",
             "BatchAmplitudeSchedule",
             "ClipAmplitude",
             "FloatArrayToGraph",
             "GateNormalizedAmplitude",
-            "LoadAudio",
-            "LoadVHSAudio",
             "NormalizeAmplitude",
             "NormalizedAmplitudeDrivenString",
             "NormalizedAmplitudeToGraph",
@@ -6779,7 +6765,8 @@
     ],
     "https://github.com/asagi4/ComfyUI-Adaptive-Guidance": [
         [
-            "AdaptiveGuidance"
+            "AdaptiveGuidance",
+            "PerpNegAdaptiveGuidanceGuider"
         ],
         {
             "title_aux": "Adaptive Guidance for ComfyUI"
@@ -7503,6 +7490,7 @@
     ],
     "https://github.com/cerspense/ComfyUI_cspnodes": [
         [
+            "DepthToNormalMap",
             "ImageDirIterator",
             "IncrementEveryN",
             "Modelscopet2v",
@@ -10350,6 +10338,7 @@
             "Split_Entry_In_2Chunks",
             "Split_Entry_In_4Chunks",
             "Split_Entry_In_6Chunks",
+            "Step_Denoise",
             "UniversalLatentHelper",
             "Universal_VAE_Loader"
         ],
@@ -12476,7 +12465,9 @@
             "DownloadAndLoadSAM2Model",
             "Florence2toCoordinates",
             "Sam2AutoSegmentation",
-            "Sam2Segmentation"
+            "Sam2Segmentation",
+            "Sam2VideoSegmentation",
+            "Sam2VideoSegmentationAddPoints"
         ],
         {
             "title_aux": "ComfyUI-segment-anything-2"
@@ -14006,6 +13997,18 @@
             "title_aux": "ComfyUI-Image-Captioner"
         }
     ],
+    "https://github.com/neverbiasu/ComfyUI-SAM2": [
+        [
+            "GroundingDinoModelLoader (segment anything)",
+            "GroundingDinoSAMSegment (segment anything)",
+            "InvertMask (segment anything)",
+            "IsMaskEmpty",
+            "SAM2ModelLoader (segment anything)"
+        ],
+        {
+            "title_aux": "ComfyUI SAM2(Segment Anything 2)"
+        }
+    ],
     "https://github.com/nickve28/ComfyUI-Nich-Utils": [
         [
             "Image from Dir Selector (Nich)",
@@ -14484,6 +14487,7 @@
             "CheckpointLoaderSimpleExtended",
             "EmptyLatentImageScaleBy",
             "ImageScaleTo",
+            "LoadRandomImage",
             "LoraLoaderExtended",
             "RandomPrompt",
             "RandomPromptMixed",
@@ -15302,41 +15306,7 @@
             "BizyAirTilePreprocessor",
             "BizyAirUniFormer_SemSegPreprocessor",
             "BizyAirZoe_DepthMapPreprocessor",
-            "IPAAdapterFaceIDBatch",
-            "IPAdapter",
-            "IPAdapterAdvanced",
-            "IPAdapterBatch",
-            "IPAdapterClipVisionEnhancer",
-            "IPAdapterCombineEmbeds",
-            "IPAdapterCombineParams",
-            "IPAdapterCombineWeights",
-            "IPAdapterEmbeds",
-            "IPAdapterEmbedsBatch",
-            "IPAdapterEncoder",
-            "IPAdapterFaceID",
-            "IPAdapterFromParams",
-            "IPAdapterInsightFaceLoader",
-            "IPAdapterLoadEmbeds",
-            "IPAdapterMS",
-            "IPAdapterModelLoader",
-            "IPAdapterNoise",
-            "IPAdapterPreciseComposition",
-            "IPAdapterPreciseCompositionBatch",
-            "IPAdapterPreciseStyleTransfer",
-            "IPAdapterPreciseStyleTransferBatch",
-            "IPAdapterPromptScheduleFromWeightsStrategy",
-            "IPAdapterRegionalConditioning",
-            "IPAdapterSaveEmbeds",
-            "IPAdapterStyleComposition",
-            "IPAdapterStyleCompositionBatch",
-            "IPAdapterTiled",
-            "IPAdapterTiledBatch",
-            "IPAdapterUnifiedLoader",
-            "IPAdapterUnifiedLoaderCommunity",
-            "IPAdapterUnifiedLoaderFaceID",
-            "IPAdapterWeights",
-            "IPAdapterWeightsFromStrategy",
-            "PrepImageForClipVision",
+            "BizyAir_MinusZoneChatGLM3TextEncode",
             "StableDiffusionXLControlNetUnionPipeline"
         ],
         {
@@ -16902,7 +16872,9 @@
     ],
     "https://github.com/yiwangsimple/ComfyUI_GroqChat": [
         [
+            "DeepSeekChatNode",
             "DeepSeekTranslator",
+            "ErrorLogNode",
             "FileBasedChatNode",
             "GroqChatNode",
             "MoonshotMultiChatNode",
@@ -17322,12 +17294,13 @@
             "LoadImageWithoutListDir",
             "MaskAutoSelector",
             "MaskFastGrow",
+            "MatchImageRatioToPreset",
             "ModifyTextGender",
             "SplitMask",
             "TextPreview"
         ],
         {
-            "title_aux": "zhangp365/Some Utils for ComfyUI"
+            "title_aux": "zhangp365/ComfyUI-utils-nodes"
         }
     ],
     "https://github.com/zhongpei/ComfyUI-InstructIR": [

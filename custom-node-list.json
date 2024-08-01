@@ -1061,7 +1061,7 @@
                 "https://github.com/shiimizu/ComfyUI_smZNodes"
             ],
             "install_type": "git-clone",
-            "description": "NODES: CLIP Text Encode++. Achieve identical embeddings from stable-diffusion-webui for ComfyUI."
+            "description": "Nodes such as CLIP Text Encode++ to achieve identical embeddings from stable-diffusion-webui for ComfyUI."
         },
         {
             "author": "shiimizu",
@@ -5293,7 +5293,7 @@
                 "https://github.com/54rt1n/ComfyUI-DareMerge"
             ],
             "install_type": "git-clone",
-            "description": "Merge two checkpoint models by dare ties [a/(https://github.com/yule-BUAA/MergeLM)](https://github.com/yule-BUAA/MergeLM), sort of."
+            "description": "ComfyUI powertools for SD1.5 and SDXL model merging."
         },
         {
             "author": "an90ray",
@@ -7407,6 +7407,17 @@
         },
         {
             "author": "11dogzi",
+            "title": "Comfyui-ergouzi-kaiguan",
+            "id": "ergouzi-nodes",
+            "reference": "https://github.com/11dogzi/Comfyui-ergouzi-kaiguan",
+            "files": [
+                "https://github.com/11dogzi/Comfyui-ergouzi-kaiguan"
+            ],
+            "install_type": "git-clone",
+            "description": "Group switching control, one click control to ignore and disable multiple groups, as well as wired switch combination nodes, allowing for arbitrary switching of annotation names"
+        },
+        {
+            "author": "11dogzi",
             "title": "ComfUI-EGAdapterMadAssistant",
             "id": "ergouzi-samplers",
             "reference": "https://github.com/11dogzi/ComfUI-EGAdapterMadAssistant",
@@ -7936,13 +7947,13 @@
         },
         {
             "author": "zhangp365",
-            "title": "zhangp365/Some Utils for ComfyUI",
+            "title": "zhangp365/ComfyUI-utils-nodes",
             "reference": "https://github.com/zhangp365/ComfyUI-utils-nodes",
             "files": [
                 "https://github.com/zhangp365/ComfyUI-utils-nodes"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:LoadImageWithSwitch, ImageBatchOneOrMore, ConcatText, ModifyTextGender"
+            "description": "Nodes:LoadImageWithSwitch, ImageBatchOneOrMore, ModifyTextGender, ImageCompositeMaskedWithSwitch, ColorCorrectOfUtils, SplitMask, MaskFastGrow, CheckpointLoaderSimpleWithSwitch, ImageResizeTo8x, MatchImageRatioToPreset etc."
         },
         {
             "author": "ratulrafsan",
@@ -9057,7 +9068,7 @@
                 "https://github.com/nullquant/ComfyUI-BrushNet"
             ],
             "install_type": "git-clone",
-            "description": "Custom nodes for ComfyUI allow to inpaint using Brushnet: '[a/BrushNet: A Plug-and-Play Image Inpainting Model with Decomposed Dual-Branch Diffusion](https://arxiv.org/abs/2403.06976)'."
+            "description": "These are custom nodes for ComfyUI native implementation of [a/BrushNet](https://arxiv.org/abs/2403.06976) (inpaint), PowerPaint (inpaint, object removal) and HiDiffusion (higher resolution for SD15 and SDXL)"
         },
         {
             "author": "pamparamm",
@@ -11870,7 +11881,7 @@
                 "https://github.com/RhizoNymph/ComfyUI-Latte"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:LatteVideoGenerator"
+            "description": "Nodes to use [a/latte](https://github.com/Vchitect/Latte) for text to video generation"
         },
         {
             "author": "Marksusu",
@@ -12081,7 +12092,18 @@
                 "https://github.com/neverbiasu/ComfyUI-Image-Captioner"
             ],
             "install_type": "git-clone",
-            "description": "A ComfyUI extension for generating captions of images."
+            "description": "A ComfyUI extension for generating captions for your images. Runs on your own system, no external services used, no filter.\nUses various VLMs with APIs to generate captions for images. You can give instructions or ask questions in natural language."
+        },
+        {
+            "author": "neverbiasu",
+            "title": "ComfyUI SAM2(Segment Anything 2)",
+            "id": "sam2",
+            "reference": "https://github.com/neverbiasu/ComfyUI-SAM2",
+            "files": [
+                "https://github.com/neverbiasu/ComfyUI-SAM2"
+            ],
+            "install_type": "git-clone",
+            "description": "This project adapts the SAM2 to incorporate functionalities from [a/comfyui_segment_anything](https://github.com/storyicon/comfyui_segment_anything). Many thanks to continue-revolution for their foundational work."
         },
         {
             "author": "DriftJohnson",
@@ -12261,7 +12283,7 @@
                 "https://github.com/FuouM/FM_nodes"
             ],
             "install_type": "git-clone",
-            "description": "A collection of ComfyUI nodes. Including: WFEN Face Restore, Efficient Face Super-Resolution via Wavelet-based Feature Enhancement Network"
+            "description": "A collection of ComfyUI nodes. Including: WFEN, RealViFormer, ProPIH"
         },
         {
             "author": "MiddleKD",
@@ -12653,17 +12675,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "11dogzi",
-            "title": "Comfyui-ergouzi-kaiguan",
-            "id": "ergouzi-nodes",
-            "reference": "https://github.com/11dogzi/Comfyui-ergouzi-kaiguan",
-            "files": [
-                "https://github.com/11dogzi/Comfyui-ergouzi-kaiguan"
-            ],
-            "install_type": "git-clone",
-            "description": "Group switching control, one click control to ignore and disable multiple groups, as well as wired switch combination nodes, allowing for arbitrary switching of annotation names"
         }
     ]
 }
