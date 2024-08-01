@@ -7,7 +7,7 @@ import git
 import configparser
 import json
 import yaml
-from torchvision.datasets.utils import download_url
+import requests
 from tqdm.auto import tqdm
 from git.remote import RemoteProgress
 
@@ -17,6 +17,30 @@ comfy_path = os.environ.get('COMFYUI_PATH')
 if comfy_path is None:
     print(f"\n[bold yellow]WARN: The `COMFYUI_PATH` environment variable is not set. Assuming `custom_nodes/ComfyUI-Manager/../../` as the ComfyUI path.[/bold yellow]", file=sys.stderr)
     comfy_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+
+
+
+def download_url(url, dest_folder, filename=None):
+    # Ensure the destination folder exists
+    if not os.path.exists(dest_folder):
+        os.makedirs(dest_folder)
+
+    # Extract filename from URL if not provided
+    if filename is None:
+        filename = os.path.basename(url)
+
+    # Full path to save the file
+    dest_path = os.path.join(dest_folder, filename)
+
+    # Download the file
+    response = requests.get(url, stream=True)
+    if response.status_code == 200:
+        with open(dest_path, 'wb') as file:
+            for chunk in response.iter_content(chunk_size=1024):
+                if chunk:
+                    file.write(chunk)
+    else:
+        print(f"Failed to download file from {url}")
 
 
 config_path = os.path.join(os.path.dirname(__file__), "config.ini")

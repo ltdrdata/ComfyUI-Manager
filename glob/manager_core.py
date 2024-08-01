@@ -31,7 +31,7 @@ import cnr_utils
 from manager_util import *
 
 
-version_code = [2, 48, 1]
+version_code = [2, 48, 4]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1584,8 +1584,14 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
             with open(requirements_path, "r") as requirements_file:
                 for line in requirements_file:
                     package_name = remap_pip_package(line.strip())
+
                     if package_name and not package_name.startswith('#'):
-                        install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                        if '--index-url' in package_name:
+                            s = package_name.split('--index-url')
+                            install_cmd = [sys.executable, "-m", "pip", "install", s[0].strip(), '--index-url', s[1].strip()]
+                        else:
+                            install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+
                         if package_name.strip() != "" and not package_name.startswith('#'):
                             try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 

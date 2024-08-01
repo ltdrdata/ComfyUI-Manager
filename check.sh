@@ -32,7 +32,7 @@ done
 
 echo
 echo CHECK2
-find ~/.tmp/default -name "*.py" -print0 | xargs -0 grep "crypto"
+find ~/.tmp/default -name "*.py" -print0 | xargs -0 grep -E "crypto|^_A="
 
 echo
 echo CHECK3
