@@ -478,6 +478,15 @@
             "title_aux": "GH Tools for ComfyUI"
         }
     ],
+    "https://github.com/Isi-dev/ComfyUI-UniAnimate": [
+        [
+            "Gen_align_pose",
+            "UniAnimateImage"
+        ],
+        {
+            "title_aux": "Isi-dev/ComfyUI-UniAnimate"
+        }
+    ],
     "https://github.com/IvanZhd/comfyui-codeformer": [
         [
             "RedBeanie_CustomImageInverter"
@@ -501,6 +510,7 @@
             "ImAppendVideoNode",
             "ImApplyWav2lip",
             "ImDumpEntity",
+            "ImNodeTitleOverride",
             "LoadPackage",
             "MergeNode",
             "NewNode",
@@ -510,6 +520,7 @@
             "SetNodeMapping",
             "SetProperties",
             "batchNodes",
+            "mergeEntityAndPointer",
             "redirectToNode"
         ],
         {
@@ -530,16 +541,6 @@
         ],
         {
             "title_aux": "comfy-consistency-vae"
-        }
-    ],
-    "https://github.com/JosefKuchar/ComfyUI-AdvancedTiling": [
-        [
-            "AdvancedTiling",
-            "AdvancedTilingSettings",
-            "AdvancedTilingVAEDecode"
-        ],
-        {
-            "title_aux": "ComfyUI-AdvancedTiling [WIP]"
         }
     ],
     "https://github.com/LZpenguin/ComfyUI-Text": [
@@ -662,14 +663,6 @@
             "title_aux": "CheckProgress [WIP]"
         }
     ],
-    "https://github.com/MushroomFleet/DJZ-Nodes": [
-        [
-            "AspectSize"
-        ],
-        {
-            "title_aux": "DJZ-Nodes"
-        }
-    ],
     "https://github.com/NeuralNotW0rk/ComfyUI-Waveform-Extensions/raw/main/EXT_VariationUtils.py": [
         [
             "BatchToList",
@@ -694,13 +687,20 @@
         [
             "CPPN Generator",
             "Color Match",
+            "Coordinates From Mask",
             "Custom Shader",
+            "Distance Map",
             "Folder Queue Manager",
             "Image Blend by Mask (Batch)",
             "Image Noise Generator",
+            "Image to Optical Flow",
             "Perlin Noise Generator",
+            "Preview Mask",
             "Random Image Generator",
+            "Shift Mask",
+            "Slit Scan",
             "Spring Mesh",
+            "Temporal Blur",
             "Video Queue Manager"
         ],
         {
@@ -1113,6 +1113,8 @@
             "CLIPSetLastLayer",
             "CLIPTextEncode",
             "CLIPTextEncodeControlnet",
+            "CLIPTextEncodeFlux",
+            "CLIPTextEncodeHunyuanDiT",
             "CLIPTextEncodeSD3",
             "CLIPTextEncodeSDXL",
             "CLIPTextEncodeSDXLRefiner",
@@ -1149,6 +1151,7 @@
             "ExponentialScheduler",
             "FeatherMask",
             "FlipSigmas",
+            "FluxGuidance",
             "FreeU",
             "FreeU_V2",
             "GITSScheduler",
@@ -1245,6 +1248,7 @@
             "SamplerCustomAdvanced",
             "SamplerDPMAdaptative",
             "SamplerDPMPP_2M_SDE",
+            "SamplerDPMPP_2S_Ancestral",
             "SamplerDPMPP_3M_SDE",
             "SamplerDPMPP_SDE",
             "SamplerEulerAncestral",
@@ -1333,6 +1337,23 @@
         ],
         {
             "title_aux": "ComfyUI-Better-Dimensions"
+        }
+    ],
+    "https://github.com/denislov/Comfyui_AutoSurvey": [
+        [
+            "AddDoc2Knowledge",
+            "AutoSurvey",
+            "ChatModel",
+            "ComfyWeaviate",
+            "ManageDatabase",
+            "QueryKnowledge",
+            "WcProperty",
+            "WcPropertyComb",
+            "WriteOutline",
+            "WriteSection"
+        ],
+        {
+            "title_aux": "Comfyui_AutoSurvey"
         }
     ],
     "https://github.com/dfl/comfyui-stylegan": [
@@ -1482,6 +1503,16 @@
             "title_aux": "comfyui-cem-tools"
         }
     ],
+    "https://github.com/futureversecom/ComfyUI-JEN": [
+        [
+            "JEN_download",
+            "JEN_extend",
+            "JEN_generate"
+        ],
+        {
+            "title_aux": "ComfyUI-JEN"
+        }
+    ],
     "https://github.com/gameltb/ComfyUI_stable_fast": [
         [
             "ApplyStableFastUnet",
@@ -1602,22 +1633,6 @@
         ],
         {
             "title_aux": "ComfyUI_Easy_Nodes_hui"
-        }
-    ],
-    "https://github.com/hy134300/ComfyUI-PhotoMaker-V2": [
-        [
-            "BaseModel_Loader_fromhub",
-            "BaseModel_Loader_local",
-            "LoRALoader",
-            "NEW_PhotoMaker_Generation",
-            "PhotoMakerAdapter_Loader_fromhub",
-            "PhotoMakerAdapter_Loader_local",
-            "PhotoMaker_Generation",
-            "Prompt_Styler",
-            "Ref_Image_Preprocessing"
-        ],
-        {
-            "title_aux": "ComfyUI-PhotoMaker-V2"
         }
     ],
     "https://github.com/hy134300/comfyui-hb-node": [
@@ -1805,8 +1820,11 @@
     ],
     "https://github.com/justUmen/Bjornulf_custom_nodes": [
         [
+            "Bjornulf_ClearVRAM",
+            "Bjornulf_CombineBackgroundOverlay",
             "Bjornulf_CombineTexts",
             "Bjornulf_CustomStringType",
+            "Bjornulf_GrayscaleTransform",
             "Bjornulf_LoopBasicBatch",
             "Bjornulf_LoopCombosSamplersSchedulers",
             "Bjornulf_LoopFloat",
@@ -1816,6 +1834,7 @@
             "Bjornulf_LoopTexts",
             "Bjornulf_RandomModelClipVae",
             "Bjornulf_RandomTexts",
+            "Bjornulf_RemoveTransparency",
             "Bjornulf_ResizeImage",
             "Bjornulf_SaveApiImage",
             "Bjornulf_SaveImagePath",
@@ -1831,7 +1850,7 @@
             "Bjornulf_WriteImageCharacters",
             "Bjornulf_WriteImageEnvironment",
             "Bjornulf_WriteText",
-            "Bjornulf_imgs2vid",
+            "Bjornulf_imagesToVideo",
             "Bjornulf_ollamaLoader"
         ],
         {
@@ -1926,6 +1945,9 @@
         [
             "DownloadAndLoadFYEModel",
             "FYECLIPEncode",
+            "FYEClipEmbedToComfy",
+            "FYELandmarkEncode",
+            "FYELandmarkToComfy",
             "FYEMediaPipe",
             "FYESampler",
             "FYESamplerLong"

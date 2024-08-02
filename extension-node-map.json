@@ -52,7 +52,8 @@
             "EGIPAdapter_Mad_AssistantV2",
             "EGIPAdapter_Mad_AssistantV3",
             "EGIPAdapter_Mad_AssistantV4",
-            "EGIPAdapter_Mad_AssistantV5"
+            "EGIPAdapter_Mad_AssistantV5",
+            "EGIPAdapter_Mad_AssistantV6"
         ],
         {
             "title_aux": "ComfUI-EGAdapterMadAssistant"
@@ -2275,6 +2276,7 @@
     ],
     "https://github.com/FuouM/FM_nodes": [
         [
+            "CoLIE_LowLight_Enhance",
             "ProPIH_Harmonizer",
             "RealViFormerSR",
             "WFEN"
@@ -2491,7 +2493,7 @@
             "Recenter XL"
         ],
         {
-            "title_aux": "ComfyUI Diffusion Color Grading"
+            "title_aux": "Diffusion CG"
         }
     ],
     "https://github.com/Haoming02/comfyui-floodgate": [
@@ -2499,7 +2501,7 @@
             "FloodGate"
         ],
         {
-            "title_aux": "ComfyUI Floodgate"
+            "title_aux": "Floodgate"
         }
     ],
     "https://github.com/Haoming02/comfyui-resharpen": [
@@ -8405,6 +8407,8 @@
             "HYDiTTextEncoderLoader",
             "MiaoBiCLIPLoader",
             "MiaoBiDiffusersLoader",
+            "OverrideCLIPDevice",
+            "OverrideVAEDevice",
             "PixArtCheckpointLoader",
             "PixArtCheckpointLoaderSimple",
             "PixArtControlNetCond",
@@ -8500,6 +8504,7 @@
             "CLIPSetLastLayer",
             "CLIPTextEncode",
             "CLIPTextEncodeControlnet",
+            "CLIPTextEncodeFlux",
             "CLIPTextEncodeHunyuanDiT",
             "CLIPTextEncodeSD3",
             "CLIPTextEncodeSDXL",
@@ -8537,6 +8542,7 @@
             "ExponentialScheduler",
             "FeatherMask",
             "FlipSigmas",
+            "FluxGuidance",
             "FreeU",
             "FreeU_V2",
             "GITSScheduler",
@@ -8832,6 +8838,7 @@
             "IPAdapterEmbedsBatch",
             "IPAdapterEncoder",
             "IPAdapterFaceID",
+            "IPAdapterFaceIDKolors",
             "IPAdapterFromParams",
             "IPAdapterInsightFaceLoader",
             "IPAdapterLoadEmbeds",
@@ -10329,6 +10336,8 @@
             "CheckpointMetaExtractor",
             "Negate_Boolean",
             "OverrideSamplerSetup",
+            "Refine_Prompt",
+            "Refine_Setup",
             "Remap_Values",
             "Select_By_Index",
             "Select_Line_By_Index",
@@ -15089,6 +15098,7 @@
             "IncrementingListNode_",
             "IntNumber",
             "JoinWithDelimiter",
+            "KeyInput",
             "LimitNumber",
             "ListSplit_",
             "LoadImagesFromPath",
@@ -15454,6 +15464,15 @@
             "title_aux": "ComfyUI_CustomNet"
         }
     ],
+    "https://github.com/smthemex/ComfyUI_Diffree": [
+        [
+            "Diffree_Model_Loader",
+            "Diffree_Sampler"
+        ],
+        {
+            "title_aux": "ComfyUI_Diffree"
+        }
+    ],
     "https://github.com/smthemex/ComfyUI_EchoMimic": [
         [
             "Echo_LoadModel",
@@ -15504,7 +15523,7 @@
     ],
     "https://github.com/smthemex/ComfyUI_MS_Diffusion": [
         [
-            "MS_Comic_Type",
+            "MS_Object_img_Batch",
             "MSdiffusion_Model_Loader",
             "MSdiffusion_Sampler"
         ],
@@ -16558,6 +16577,7 @@
     ],
     "https://github.com/wTechArtist/ComfyUI-CustomNodes": [
         [
+            "GPT4 WWL",
             "IPAdapter FaceID With Bool",
             "IPAdapter Mad Scientist Weight_Type",
             "Image Blending Mode Mask",
@@ -16875,6 +16895,7 @@
             "DeepSeekChatNode",
             "DeepSeekTranslator",
             "ErrorLogNode",
+            "ExecutionTime",
             "FileBasedChatNode",
             "GroqChatNode",
             "MoonshotMultiChatNode",
