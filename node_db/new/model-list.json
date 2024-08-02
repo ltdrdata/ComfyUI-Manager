@@ -1,6 +1,53 @@
 {
   "models": [
     {
+      "name": "FLUX.1 [schnell] UNET model",
+      "type": "unet",
+      "base": "FLUX.1",
+      "save_path": "unet/FLUX1",
+      "description": "FLUX.1 [Schnell] UNET model (a.k.a. FLUX.1 turbo model)[w/Due to the large size of the model, it is recommended to download it through a browser if possible.]",
+      "reference": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+      "filename": "flux1-schnell.sft",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.sft",
+      "size": "23.8GB"
+    },
+
+    {
+      "name": "FLUX.1 VAE model",
+      "type": "vae",
+      "base": "FLUX.1",
+      "save_path": "vae/FLUX1",
+      "description": "FLUX.1 [Schnell] VAE model",
+      "reference": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+      "filename": "ae.sft",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.sft",
+      "size": "335MB"
+    },
+
+    {
+      "name": "kijai/FLUX.1 [schnell] UNET model (float8_e4m3fn)",
+      "type": "unet",
+      "base": "FLUX.1",
+      "save_path": "unet/FLUX1",
+      "description": "FLUX.1 [Schnell] UNET model (float8_e4m3fn)",
+      "reference": "https://huggingface.co/Kijai/flux-fp8",
+      "filename": "flux1-schnell-fp8.safetensors",
+      "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8.safetensors",
+      "size": "11.9GB"
+    },
+    {
+      "name": "kijai/FLUX.1 [dev] UNET model (float8_e4m3fn)",
+      "type": "unet",
+      "base": "FLUX.1",
+      "save_path": "unet/FLUX1",
+      "description": "FLUX.1 [dev] UNET model (float8_e4m3fn)",
+      "reference": "https://huggingface.co/Kijai/flux-fp8",
+      "filename": "flux1-dev-fp8.safetensors",
+      "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors",
+      "size": "11.9GB"
+    },
+
+    {
       "name": "photomaker-v2.bin",
       "type": "photomaker",
       "base": "SDXL",
@@ -641,56 +688,6 @@
       "reference": "https://huggingface.co/ostris/ip-composition-adapter",
       "filename": "ip_plus_composition_sd15.safetensors",
       "url": "https://huggingface.co/ostris/ip-composition-adapter/resolve/main/ip_plus_composition_sd15.safetensors"
-    },
-    {
-      "name": "ip_plus_composition_sdxl.safetensors",
-      "type": "IP-Adapter",
-      "base": "SDXL",
-      "save_path": "ipadapter",
-      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
-      "reference": "https://huggingface.co/ostris/ip-composition-adapter",
-      "filename": "ip_plus_composition_sdxl.safetensors",
-      "url": "https://huggingface.co/ostris/ip-composition-adapter/resolve/main/ip_plus_composition_sdxl.safetensors"
-    },
-    {
-      "name": "ip-adapter-faceid-portrait-v11_sd15.bin",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "IP-Adapter-FaceID Portrait V11 Model (SD1.5) [ipadapter]",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid-portrait-v11_sd15.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-portrait-v11_sd15.bin"
-    },
-    {
-      "name": "ip-adapter-faceid-portrait_sdxl.bin",
-      "type": "IP-Adapter",
-      "base": "SDXL",
-      "save_path": "ipadapter",
-      "description": "IP-Adapter-FaceID Portrait Model (SDXL) [ipadapter]",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid-portrait_sdxl.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-portrait_sdxl.bin"
-    },
-    {
-      "name": "ip-adapter-faceid-portrait_sdxl_unnorm.bin",
-      "type": "IP-Adapter",
-      "base": "SDXL",
-      "save_path": "ipadapter",
-      "description": "IP-Adapter-FaceID Portrait Model (SDXL/unnorm) [ipadapter]",
-      "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
-      "filename": "ip-adapter-faceid-portrait_sdxl_unnorm.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-portrait_sdxl_unnorm.bin"
-    },
-    {
-      "name": "ip-adapter_sd15_light_v11.bin",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
-      "reference": "https://huggingface.co/h94/IP-Adapter",
-      "filename": "ip-adapter_sd15_light_v11.bin",
-      "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter_sd15_light_v11.bin"
     }
   ]
 }

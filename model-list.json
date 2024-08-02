@@ -3400,7 +3400,7 @@
       "type": "unet",
       "base": "FLUX.1",
       "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [Schnell] UNET model",
+      "description": "FLUX.1 [Schnell] UNET model (a.k.a. FLUX.1 turbo model)[w/Due to the large size of the model, it is recommended to download it through a browser if possible.]",
       "reference": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
       "filename": "flux1-schnell.sft",
       "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.sft",
@@ -3408,7 +3408,7 @@
     },
 
     {
-      "name": "FLUX.1 [schnell] VAE model",
+      "name": "FLUX.1 VAE model",
       "type": "vae",
       "base": "FLUX.1",
       "save_path": "vae/FLUX1",
@@ -3417,6 +3417,29 @@
       "filename": "ae.sft",
       "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.sft",
       "size": "335MB"
+    },
+
+    {
+      "name": "kijai/FLUX.1 [schnell] UNET model (float8_e4m3fn)",
+      "type": "unet",
+      "base": "FLUX.1",
+      "save_path": "unet/FLUX1",
+      "description": "FLUX.1 [Schnell] UNET model (float8_e4m3fn)",
+      "reference": "https://huggingface.co/Kijai/flux-fp8",
+      "filename": "flux1-schnell-fp8.safetensors",
+      "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8.safetensors",
+      "size": "11.9GB"
+    },
+    {
+      "name": "kijai/FLUX.1 [dev] UNET model (float8_e4m3fn)",
+      "type": "unet",
+      "base": "FLUX.1",
+      "save_path": "unet/FLUX1",
+      "description": "FLUX.1 [dev] UNET model (float8_e4m3fn)",
+      "reference": "https://huggingface.co/Kijai/flux-fp8",
+      "filename": "flux1-dev-fp8.safetensors",
+      "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors",
+      "size": "11.9GB"
     }
   ]
 }
