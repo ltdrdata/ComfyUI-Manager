@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 48, 4]
+version = [2, 48, 5]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 
@@ -97,7 +97,7 @@ def clear_pip_cache():
 def is_blacklisted(name):
     name = name.strip()
 
-    pattern = r'([^<>!=]+)([<>!=]=?)(.*)'
+    pattern = r'([^<>!=]+)([<>!=]=?)([^ ]*)'
     match = re.search(pattern, name)
 
     if match:
@@ -123,7 +123,7 @@ def is_installed(name):
     if name.startswith('#'):
         return True
 
-    pattern = r'([^<>!=]+)([<>!=]=?)(.*)'
+    pattern = r'([^<>!=]+)([<>!=]=?)([^ ]*)'
     match = re.search(pattern, name)
 
     if match:
