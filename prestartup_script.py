@@ -532,7 +532,12 @@ if os.path.exists(restore_snapshot_path):
                             package_name = remap_pip_package(line.strip())
                             if package_name and not is_installed(package_name):
                                 if not package_name.startswith('#'):
-                                    install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                                    if '--index-url' in package_name:
+                                        s = package_name.split('--index-url')
+                                        install_cmd = [sys.executable, "-m", "pip", "install", s[0].strip(), '--index-url', s[1].strip()]
+                                    else:
+                                        install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+
                                     this_exit_code += process_wrap(install_cmd, repo_path)
 
                 if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
@@ -575,7 +580,12 @@ def execute_lazy_install_script(repo_path, executable):
             for line in requirements_file:
                 package_name = remap_pip_package(line.strip())
                 if package_name and not is_installed(package_name):
-                    install_cmd = [executable, "-m", "pip", "install", package_name]
+                    if '--index-url' in package_name:
+                        s = package_name.split('--index-url')
+                        install_cmd = [sys.executable, "-m", "pip", "install", s[0].strip(), '--index-url', s[1].strip()]
+                    else:
+                        install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+
                     process_wrap(install_cmd, repo_path)
 
     if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
