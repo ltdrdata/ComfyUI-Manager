@@ -1,6 +1,29 @@
 {
   "models": [
     {
+      "name": "google-t5/t5-v1_1-xxl_encoderonly-fp16",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "The encoder part of https://huggingface.co/google/t5-v1_1-xxl, used with SD3 and Flux1",
+      "reference": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly",
+      "filename": "google_t5-v1_1-xxl_encoderonly-fp16.safetensors",
+      "url": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/pytorch_model.safetensors",
+      "size": "10.1GB"
+    },
+    {
+      "name": "google-t5/t5-v1_1-xxl_encoderonly-fp8_e4m3fn",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "The encoder part of https://huggingface.co/google/t5-v1_1-xxl, used with SD3 and Flux1",
+      "reference": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly",
+      "filename": "google_t5-v1_1-xxl_encoderonly-fp8_e4m3fn.safetensors",
+      "url": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/t5xxl_fp8_e4m3fn.safetensors",
+      "size": "4.89GB"
+    },
+
+    {
       "name": "FLUX.1 [schnell] UNET model",
       "type": "unet",
       "base": "FLUX.1",
@@ -658,36 +681,6 @@
       "filename": "antelopev2.zip",
       "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/antelopev2.zip",
       "size": "360.7MB"
-    },
-    {
-      "name": "InstantID/ip-adapter",
-      "type": "instantid",
-      "base": "SDXL",
-      "save_path": "instantid/SDXL",
-      "description": "ip-adapter model for cubiq/InstantID",
-      "reference": "https://huggingface.co/InstantX/InstantID",
-      "filename": "ip-adapter.bin",
-      "url": "https://huggingface.co/InstantX/InstantID/resolve/main/ip-adapter.bin"
-    },
-    {
-      "name": "InstantID/ControlNet",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/instantid",
-      "description": "instantid controlnet model for cubiq/InstantID",
-      "reference": "https://huggingface.co/InstantX/InstantID",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/InstantX/InstantID/resolve/main/ControlNetModel/diffusion_pytorch_model.safetensors"
-    },
-    {
-      "name": "ip_plus_composition_sd15.safetensors",
-      "type": "IP-Adapter",
-      "base": "SD1.5",
-      "save_path": "ipadapter",
-      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
-      "reference": "https://huggingface.co/ostris/ip-composition-adapter",
-      "filename": "ip_plus_composition_sd15.safetensors",
-      "url": "https://huggingface.co/ostris/ip-composition-adapter/resolve/main/ip_plus_composition_sd15.safetensors"
     }
   ]
 }
