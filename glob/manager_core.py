@@ -874,7 +874,9 @@ class UnifiedManager:
             if repo_and_path is None:
                 return result.fail(f'Specified inactive node not exists: {node_id}@unknown')
             from_path = repo_and_path[1]
-            to_path = os.path.join(custom_nodes_path, f"{node_id}@unknown")
+            # NOTE: Keep original name as possible if unknown node
+            # to_path = os.path.join(custom_nodes_path, f"{node_id}@unknown")
+            to_path = os.path.join(custom_nodes_path, node_id)
         elif version_spec == 'nightly':
             self.unified_disable(node_id, False)
             from_path = self.nightly_inactive_nodes.get(node_id)
@@ -932,10 +934,12 @@ class UnifiedManager:
 
         if is_unknown:
             repo_and_path = self.unknown_active_nodes.get(node_id)
-            to_path = os.path.join(custom_nodes_path, '.disabled', f"{node_id}@unknown")
+            # NOTE: Keep original name as possible if unknown node
+            # to_path = os.path.join(custom_nodes_path, '.disabled', f"{node_id}@unknown")
+            to_path = os.path.join(custom_nodes_path, '.disabled', node_id)
 
             if repo_and_path is None or not os.path.exists(repo_and_path[1]):
-                return result.fail(f'Specified active node not exists: {node_id}@unknown')
+                return result.fail(f'Specified active node not exists: {node_id}')
 
             shutil.move(repo_and_path[1], to_path)
             result.append((repo_and_path[1], to_path))
@@ -1275,33 +1279,34 @@ class UnifiedManager:
 
         self.nightly_inactive_nodes.update(fixes)
 
-        print(f"Migration: STAGE 2")
-        # migrate unknown inactive
-        fixes = {}
-        for x, v in self.unknown_inactive_nodes.items():
-            if v[1].endswith('@unknown'):
-                continue
+        # NOTE: Don't migration unknown node - keep original name as possible
+        # print(f"Migration: STAGE 2")
+        # # migrate unknown inactive
+        # fixes = {}
+        # for x, v in self.unknown_inactive_nodes.items():
+        #     if v[1].endswith('@unknown'):
+        #         continue
+        #
+        #     new_path = os.path.join(custom_nodes_path, '.disabled', f"{x}@unknown")
+        #     shutil.move(v[1], new_path)
+        #     fixes[x] = v[0], new_path
+        #
+        # self.unknown_inactive_nodes.update(fixes)
 
-            new_path = os.path.join(custom_nodes_path, '.disabled', f"{x}@unknown")
-            shutil.move(v[1], new_path)
-            fixes[x] = v[0], new_path
-
-        self.unknown_inactive_nodes.update(fixes)
-
-        print(f"Migration: STAGE 3")
+        # print(f"Migration: STAGE 3")
         # migrate unknown active nodes
-        fixes = {}
-        for x, v in self.unknown_active_nodes.items():
-            if v[1].endswith('@unknown'):
-                continue
+        # fixes = {}
+        # for x, v in self.unknown_active_nodes.items():
+        #     if v[1].endswith('@unknown'):
+        #         continue
+        #
+        #     new_path = os.path.join(custom_nodes_path, f"{x}@unknown")
+        #     shutil.move(v[1], new_path)
+        #     fixes[x] = v[0], new_path
+        #
+        # self.unknown_active_nodes.update(fixes)
 
-            new_path = os.path.join(custom_nodes_path, f"{x}@unknown")
-            shutil.move(v[1], new_path)
-            fixes[x] = v[0], new_path
-
-        self.unknown_active_nodes.update(fixes)
-
-        print(f"Migration: STAGE 4")
+        print(f"Migration: STAGE 2")
         # migrate active nodes
         fixes = {}
         for x, v in self.active_nodes.items():
@@ -1759,7 +1764,11 @@ async def gitclone_install(url, instant_execution=False, msg_prefix='', no_deps=
             return await unified_manager.install_by_id(cnr_id, version_spec='nightly')
         else:
             repo_name = os.path.splitext(os.path.basename(url))[0]
-            node_dir = f"{repo_name}@unknown"
+
+            # NOTE: Keep original name as possible if unknown node
+            # node_dir = f"{repo_name}@unknown"
+            node_dir = repo_name
+
             repo_path = os.path.join(custom_nodes_path, node_dir)
             disabled_repo_path1 = os.path.join(custom_nodes_path, '.disabled', node_dir)
             disabled_repo_path2 = os.path.join(custom_nodes_path, repo_name+'.disabled')  # old style
@@ -2636,33 +2645,26 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
 # check need to migrate
 need_to_migrate = False
 
+
 async def check_need_to_migrate():
     global need_to_migrate
 
+    await unified_manager.reload('cache')
+    await unified_manager.load_nightly(channel='default', mode='cache')
+
     legacy_custom_nodes = []
 
-    try:
-        import folder_paths
-    except:
-        try:
-            sys.path.append(comfy_path)
-            import folder_paths
-        except:
-            raise Exception(f"Invalid COMFYUI_PATH: {comfy_path}")
+    for x in unified_manager.active_nodes.values():
+        if x[0] == 'nightly' and not x[1].endswith('@nightly'):
+            legacy_custom_nodes.append(x[1])
 
-    node_paths = folder_paths.get_folder_paths("custom_nodes")
-    for x in node_paths:
-        subdirs = [d for d in os.listdir(x) if os.path.isdir(os.path.join(x, d))]
-        for subdir in subdirs:
-            if subdir in ['.disabled', '__pycache__']:
-                continue
-
-            if '@' not in subdir:
-                need_to_migrate = True
-                legacy_custom_nodes.append(subdir)
+    for x in unified_manager.nightly_inactive_nodes.values():
+        if not x.endswith('@nightly'):
+            legacy_custom_nodes.append(x)
 
     if len(legacy_custom_nodes) > 0:
         print("\n--------------------- ComfyUI-Manager migration notice --------------------")
         print("The following custom nodes were installed using the old management method and require migration:")
         print(", ".join(legacy_custom_nodes))
         print("---------------------------------------------------------------------------\n")
+        need_to_migrate = True

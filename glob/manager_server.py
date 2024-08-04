@@ -1722,7 +1722,8 @@ async def default_cache_update():
     d = get_cache("alter-list.json")
     e = get_cache("github-stats.json")
 
-    await asyncio.gather(a, b, c, d, e, core.check_need_to_migrate())
+    await asyncio.gather(a, b, c, d, e)
+    await core.check_need_to_migrate()
 
 
 threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()
