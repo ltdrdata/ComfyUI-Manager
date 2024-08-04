@@ -3420,11 +3420,11 @@
     },
 
     {
-      "name": "FLUX.1 [schnell] UNET model",
+      "name": "FLUX.1 [schnell] Diffusion model",
       "type": "unet",
       "base": "FLUX.1",
       "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [Schnell] UNET model (a.k.a. FLUX.1 turbo model)[w/Due to the large size of the model, it is recommended to download it through a browser if possible.]",
+      "description": "FLUX.1 [Schnell] Diffusion model (a.k.a. FLUX.1 turbo model)[w/Due to the large size of the model, it is recommended to download it through a browser if possible.]",
       "reference": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
       "filename": "flux1-schnell.sft",
       "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.sft",
@@ -3444,26 +3444,38 @@
     },
 
     {
-      "name": "kijai/FLUX.1 [schnell] UNET model (float8_e4m3fn)",
+      "name": "kijai/FLUX.1 [schnell] Diffusion model (float8_e4m3fn)",
       "type": "unet",
       "base": "FLUX.1",
       "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [Schnell] UNET model (float8_e4m3fn)",
+      "description": "FLUX.1 [Schnell] Diffusion model (float8_e4m3fn)",
       "reference": "https://huggingface.co/Kijai/flux-fp8",
       "filename": "flux1-schnell-fp8.safetensors",
       "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8.safetensors",
       "size": "11.9GB"
     },
     {
-      "name": "kijai/FLUX.1 [dev] UNET model (float8_e4m3fn)",
+      "name": "kijai/FLUX.1 [dev] Diffusion model (float8_e4m3fn)",
       "type": "unet",
       "base": "FLUX.1",
       "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [dev] UNET model (float8_e4m3fn)",
+      "description": "FLUX.1 [dev] Diffusion model (float8_e4m3fn)",
       "reference": "https://huggingface.co/Kijai/flux-fp8",
       "filename": "flux1-dev-fp8.safetensors",
       "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors",
       "size": "11.9GB"
+    },
+
+    {
+      "name": "Comfy Org/FLUX.1 [dev] Diffusion model (fp8)",
+      "type": "unet",
+      "base": "FLUX.1",
+      "save_path": "unet/FLUX1",
+      "description": "FLUX.1 [dev] Diffusion model (fp8)",
+      "reference": "https://huggingface.co/Comfy-Org/flux1-dev/tree/main",
+      "filename": "flux1-dev-fp8.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors",
+      "size": "17.2GB"
     }
   ]
 }
