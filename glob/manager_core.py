@@ -1397,6 +1397,7 @@ def write_config():
         'model_download_by_agent': get_config()['model_download_by_agent'],
         'downgrade_blacklist': get_config()['downgrade_blacklist'],
         'security_level': get_config()['security_level'],
+        'skip_migration_check': get_config()['skip_migration_check'],
     }
     with open(config_path, 'w') as configfile:
         config.write(configfile)
@@ -1431,6 +1432,7 @@ def read_config():
                     'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'].lower() == 'true' if 'windows_selector_event_loop_policy' in default_conf else False,
                     'model_download_by_agent': default_conf['model_download_by_agent'].lower() == 'true' if 'model_download_by_agent' in default_conf else False,
                     'downgrade_blacklist': default_conf['downgrade_blacklist'] if 'downgrade_blacklist' in default_conf else '',
+                    'skip_migration_check': default_conf['skip_migration_check'].lower() == 'true' if 'skip_migration_check' in default_conf else False,
                     'security_level': security_level
                }
 
@@ -1449,6 +1451,7 @@ def read_config():
             'windows_selector_event_loop_policy': False,
             'model_download_by_agent': False,
             'downgrade_blacklist': '',
+            'skip_migration_check': False,
             'security_level': 'normal',
         }
 

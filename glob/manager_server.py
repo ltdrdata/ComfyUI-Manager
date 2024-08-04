@@ -1723,7 +1723,11 @@ async def default_cache_update():
     e = get_cache("github-stats.json")
 
     await asyncio.gather(a, b, c, d, e)
-    await core.check_need_to_migrate()
+
+    if not core.get_config()['skip_migration_check']:
+        await core.check_need_to_migrate()
+    else:
+        print("[ComfyUI-Manager] Migration check is skipped...")
 
 
 threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()
