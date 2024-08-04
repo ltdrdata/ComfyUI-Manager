@@ -11,6 +11,49 @@
 
 
         {
+            "author": "Extraltodeus",
+            "title": "Skimmed_CFG",
+            "id": "skimmed-cfg",
+            "reference": "https://github.com/Extraltodeus/Skimmed_CFG",
+            "files": [
+                "https://github.com/Extraltodeus/Skimmed_CFG"
+            ],
+            "install_type": "git-clone",
+            "description": "A powerful anti-burn allowing much higher CFG scales for latent diffusion models (for ComfyUI)"
+        },
+        {
+            "author": "noarche",
+            "title": "Color Enhance",
+            "id": "color-enhance",
+            "reference": "https://github.com/noarche/sd-webui-color-enhance",
+            "files": [
+                "https://github.com/noarche/sd-webui-color-enhance"
+            ],
+            "install_type": "git-clone",
+            "description": "Script for [a/AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) and node for ComfyUI to enhance colors.\nThis is the same algorithm GIMP/GEGL uses for color enhancement. The gist of this implementation is that it converts the color space to [CIELCh(ab) and normalizes the chroma (or '[a/colorfulness](https://en.wikipedia.org/wiki/Colorfulness)') component. Original source can be found in the link below."
+        },
+        {
+            "author": "PowerHouseMan",
+            "title": "ComfyUI-AdvancedLivePortrait",
+            "id": "advancedliveportrait",
+            "reference": "https://github.com/PowerHouseMan/ComfyUI-AdvancedLivePortrait",
+            "files": [
+                "https://github.com/PowerHouseMan/ComfyUI-AdvancedLivePortrait"
+            ],
+            "install_type": "git-clone",
+            "description": "AdvancedLivePortrait with Facial expression editor"
+        },
+        {
+            "author": "cdxOo",
+            "title": "Text Node With Comments (@cdxoo)",
+            "reference": "https://github.com/cdxOo/comfyui-text-node-with-comments",
+            "files": [
+                "https://github.com/cdxOo/comfyui-text-node-with-comments"
+            ],
+            "install_type": "git-clone",
+            "description": "multiline text node that strips c-style comments (i.e.'//' and '/* ... */') before passing output string downstream"
+        },
+        {
             "author": "11dogzi",
             "title": "Comfyui-ergouzi-kaiguan",
             "id": "ergouzi-nodes",
@@ -184,13 +227,13 @@
         },
         {
             "author": "vault-developer",
-            "title": "Image-blender",
+            "title": "ImageBlender",
             "reference": "https://github.com/vault-developer/comfyui-image-blender",
             "files": [
                 "https://github.com/vault-developer/comfyui-image-blender"
             ],
             "install_type": "git-clone",
-            "description": "A custom node to blend two images together using a specified blending mode."
+            "description": "ComfyuiImageBlender is a custom node for ComfyUI. It may be used to blend two images together using a specified blending mode."
         },
         {
             "author": "liangt",
@@ -645,72 +688,6 @@
             ],
             "install_type":"git-clone",
             "description":"The latent gets passed straight through unaltered, if it's empty (i.e from a 'Empty Latent Image' node) FLOAT outputs the first value, otherwise it outputs the second value"
-        },
-        {
-            "author": "john-mnz",
-            "title": "ComfyUI-Inspyrenet-Rembg",
-            "id":"inspyrenet",
-            "reference": "https://github.com/john-mnz/ComfyUI-Inspyrenet-Rembg",
-            "files":[
-                "https://github.com/john-mnz/ComfyUI-Inspyrenet-Rembg"
-            ],
-            "install_type":"git-clone",
-            "description":"ComfyUI node for background removal implementing [a/InSPyReNet](https://github.com/plemeri/InSPyReNet)"
-        },
-        {
-            "author": "AIFSH",
-            "title": "DiffMorpher-ComfyUI",
-            "id": "uvr5",
-            "reference": "https://github.com/AIFSH/DiffMorpher-ComfyUI",
-            "files": [
-                "https://github.com/AIFSH/DiffMorpher-ComfyUI"
-            ],
-            "install_type": "git-clone",
-            "description": "a custom node for [a/DiffMorpher](https://github.com/Kevin-thu/DiffMorpher),you can find base workflow in [a/doc](https://github.com/AIFSH/DiffMorpher-ComfyUI/blob/main/doc)"
-        },        
-        {
-            "author": "2kpr",
-            "title": "ComfyUI-UltraPixel",
-            "id": "comfyui-ultrapixel",
-            "reference": "https://github.com/2kpr/ComfyUI-UltraPixel",
-            "files": [
-                "https://github.com/2kpr/ComfyUI-UltraPixel"
-            ],
-            "install_type": "git-clone",
-            "description": "Implementation of UltraPixel on ComfyUI"
-        },
-        {
-            "author": "LightSketch-ai",
-            "title": "ComfyUI-LivePortraitNode (Replicate API)",
-            "id": "lightsketchlp",
-            "reference": "https://github.com/LightSketch-ai/ComfyUI-LivePortraitNode",
-            "files": [
-                "https://github.com/LightSketch-ai/ComfyUI-LivePortraitNode"
-            ],
-            "install_type": "git-clone",
-            "description": "Two simple to install nodes to get Live Portrait working in ComfyUI without the need for a fancy GPU (Replicate account needed)."
-        },
-        {
-            "author": "aaronchm",
-            "title": "z-a1111-sd-webui-DanTagGen",
-            "id":"z-a1111-sd-webui-DanTagGen",
-            "reference": "https://github.com/Aaron-CHM/ComfyUI-z-a1111-sd-webui-DanTagGen",
-            "files":[
-                "https://github.com/Aaron-CHM/ComfyUI-z-a1111-sd-webui-DanTagGen"
-            ],
-            "install_type":"git-clone",
-            "description":"Improved DanTagGen implementation that posesses all functionality of the A1111 webui extension."
-        },
-        {
-            "author": "mikebilly",
-            "title": "Transparent-background-comfyUI",
-            "id":"transparent-background-comfyui",
-            "reference": "https://github.com/mikebilly/Transparent-background-comfyUI",
-            "files":[
-                "https://github.com/mikebilly/Transparent-background-comfyUI"
-            ],
-            "install_type":"git-clone",
-            "description":"Removes background using Transparent Background"
         }
     ]
 }
