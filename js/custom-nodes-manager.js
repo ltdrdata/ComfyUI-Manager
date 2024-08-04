@@ -636,13 +636,9 @@ export class CustomNodesManager {
 			installGroups.enabled = installGroups.enabled.filter(it => it !== "disable");
 		}
 
-		if (rowItem?.version === "unknown") {
-			installGroups.enabled = installGroups.enabled.filter(it => it !== "switch");
-		}
-
 		let list = installGroups[action];
 
-		if(is_selected_button) {
+		if(is_selected_button || rowItem?.version === "unknown") {
 			list = list.filter(it => it !== "switch");
 		}
 
