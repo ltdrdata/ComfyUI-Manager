@@ -300,6 +300,15 @@
             "title_aux": "Image-vector-for-ComfyUI"
         }
     ],
+    "https://github.com/AIFSH/AniTalker-ComfyUI": [
+        [
+            "AniTalkerNode",
+            "PreViewVideo"
+        ],
+        {
+            "title_aux": "AniTalker-ComfyUI"
+        }
+    ],
     "https://github.com/AIFSH/ComfyUI-3d-photo-inpainting": [
         [
             "LoadImagePath",
@@ -867,6 +876,15 @@
             "title_aux": "Jovimetrix Composition Nodes"
         }
     ],
+    "https://github.com/Anibaaal/ComfyUI-UX-Nodes": [
+        [
+            "EasyResolutionPicker",
+            "StepCalculator"
+        ],
+        {
+            "title_aux": "ComfyUI UX Nodes"
+        }
+    ],
     "https://github.com/AonekoSS/ComfyUI-LoRA-Tuner": [
         [
             "LoraTuner"
@@ -1183,6 +1201,7 @@
     ],
     "https://github.com/BetaDoggo/ComfyUI-VideoPlayer": [
         [
+            "AllInOnePlayer",
             "ImageToEmoji",
             "LoadFrame",
             "LoadJPGFrame",
@@ -2803,6 +2822,7 @@
             "JNodes_SetPositivePromptInMetaData",
             "JNodes_SplitAndJoin",
             "JNodes_StringLiteral",
+            "JNodes_SubdirectorySelector",
             "JNodes_SyncedStringLiteral",
             "JNodes_TokenCounter",
             "JNodes_TrimAndStrip",
@@ -4250,12 +4270,14 @@
     ],
     "https://github.com/SayanoAI/Comfy-RVC": [
         [
+            "Any2ListNode",
             "AudioBatchValueNode",
             "AudioTranscriptionNode",
             "BatchedTranscriptionEncoderNode",
             "DownloadAudio",
             "ImageRepeatInterleavedNode",
             "LatentRepeatInterleavedNode",
+            "List2AnyNode",
             "LoadHubertModel",
             "LoadPitchExtractionParams",
             "LoadRVCModelNode",
@@ -4268,7 +4290,8 @@
             "RVCNode",
             "SimpleMathNode",
             "SliceNode",
-            "UVR5Node"
+            "UVR5Node",
+            "ZipNode"
         ],
         {
             "title_aux": "Comfy-RVC"
@@ -6615,6 +6638,15 @@
         ],
         {
             "title_aux": "ComfyUI-Ollama-Describer"
+        }
+    ],
+    "https://github.com/alpertunga-bile/image-caption-comfyui": [
+        [
+            "Image Caption Node",
+            "Insert Prompt Node"
+        ],
+        {
+            "title_aux": "image-caption-comfyui"
         }
     ],
     "https://github.com/alpertunga-bile/prompt-generator-comfyui": [
@@ -9119,6 +9151,7 @@
             "PGSD3LatentGenerator",
             "PromptGenerator",
             "RandomIntegerNode",
+            "SentenceMixerNode",
             "StringMergerNode"
         ],
         {
@@ -10400,6 +10433,7 @@
             "Change_Entries_In_A_List",
             "Change_Entry_From_List",
             "CheckpointMetaExtractor",
+            "CheckpointSelector",
             "Convert_Into",
             "Negate_Boolean",
             "OverrideSamplerSetup",
@@ -10939,14 +10973,15 @@
             "none2false",
             "omost_decode",
             "omost_setting",
+            "openai_ebd_tool",
             "openai_tts",
             "openai_whisper",
             "parameter_combine",
             "parameter_combine_plus",
             "parameter_function",
-            "play_audio",
             "replace_string",
             "save_ebd_database",
+            "save_openai_ebd",
             "show_text_party",
             "start_dialog",
             "start_workflow",
@@ -12258,7 +12293,9 @@
     ],
     "https://github.com/kijai/ComfyUI-Florence2": [
         [
+            "DownloadAndLoadFlorence2Lora",
             "DownloadAndLoadFlorence2Model",
+            "Florence2ModelLoader",
             "Florence2Run"
         ],
         {
@@ -14324,6 +14361,14 @@
             "title_aux": "ComfyUI-HfLoader"
         }
     ],
+    "https://github.com/oleksandr612/ComfyUI-Counter": [
+        [
+            "Simple Counter"
+        ],
+        {
+            "title_aux": "ComfyUI-Counter"
+        }
+    ],
     "https://github.com/omar92/ComfyUI-QualityOfLifeSuit_Omar92": [
         [
             "CLIPStringEncode _O",
@@ -14469,6 +14514,7 @@
     "https://github.com/pamparamm/ComfyUI-ppm": [
         [
             "AttentionCouplePPM",
+            "CFGLimiterGuider",
             "CFGPPSamplerSelect",
             "CLIPMicroConditioning",
             "CLIPNegPip",
@@ -15199,6 +15245,7 @@
             "NewLayer",
             "NoiseImage",
             "OutlineMask",
+            "P5Input",
             "PreviewMask_",
             "PromptImage",
             "PromptSimplification",
@@ -15317,6 +15364,7 @@
     "https://github.com/shinich39/comfyui-pkg39": [
         [
             "Command39",
+            "Keybinding39",
             "LoadImage39",
             "Random39"
         ],
@@ -15783,7 +15831,9 @@
             "BlurMaskFast",
             "ClampOutliers",
             "ColorMatchImage",
+            "ConditioningSubtract",
             "ConvertNormals",
+            "CustomNoise",
             "DepthToNormals",
             "DifferenceChecker",
             "DilateErodeMask",
@@ -16008,6 +16058,25 @@
         ],
         {
             "title_aux": "comfyui_lumaAPI"
+        }
+    ],
+    "https://github.com/syaofox/ComfyUI_FoxTools": [
+        [
+            "FoxTools: CreateFaceMask",
+            "FoxTools: FaceOcclusionModelLoader",
+            "Foxtools: BatchImageFromList",
+            "Foxtools: CaculFaceAlign",
+            "Foxtools: FaceAlign",
+            "Foxtools: FaceRotate",
+            "Foxtools: GenBlurBord",
+            "Foxtools: ImageAdd",
+            "Foxtools: LoadImageList",
+            "Foxtools: RegTextFind",
+            "Foxtools: SaveImagePlus",
+            "Foxtools: SimpleFaceAlign"
+        ],
+        {
+            "title_aux": "ComfyUI_FoxTools"
         }
     ],
     "https://github.com/syllebra/bilbox-comfyui": [
@@ -16982,6 +17051,8 @@
             "ErrorLogNode",
             "ExecutionTime",
             "FileBasedChatNode",
+            "Gemma2PromptNode",
+            "GemmaDialogueNode",
             "GroqChatNode",
             "MoonshotMultiChatNode",
             "MoonshotSingleChatNode",

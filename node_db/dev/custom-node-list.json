@@ -13,6 +13,16 @@
 
 
         {
+            "author": "neuratech-ai",
+            "title": "ComfyUI-MultiGPU",
+            "reference": "https://github.com/neuratech-ai/ComfyUI-MultiGPU",
+            "files": [
+                "https://github.com/neuratech-ai/ComfyUI-MultiGPU"
+            ],
+            "install_type": "git-clone",
+            "description": "Experimental nodes for using multiple GPUs in a single ComfyUI workflow.\nThis extension adds new nodes for model loading that allow you to specify the GPU to use for each model. It monkey patches the memory management of ComfyUI in a hacky way and is neither a comprehensive solution nor a well-tested one. Use at your own risk.\nNote that this does not add parallelism. The workflow steps are still executed sequentially just on different GPUs. Any potential speedup comes from not having to constantly load and unload models from VRAM."
+        },
+        {
             "author": "Isi-dev",
             "title": "Isi-dev/ComfyUI-UniAnimate",
             "reference": "https://github.com/Isi-dev/ComfyUI-UniAnimate",
