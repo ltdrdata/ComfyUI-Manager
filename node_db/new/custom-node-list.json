@@ -11,6 +11,38 @@
 
 
         {
+            "author": "AIFSH",
+            "title": "DHLive-ComfyUI",
+            "id": "dhlive",
+            "reference": "https://github.com/AIFSH/DHLive-ComfyUI",
+            "files": [
+                "https://github.com/AIFSH/DHLive-ComfyUI"
+            ],
+            "install_type": "git-clone",
+            "description": "a comfyui custom node for [a/DH_live](https://github.com/kleinlee/DH_live)"
+        },
+        {
+            "author": "NeuralSamurAI",
+            "title": "Dimensional Latent Perlin for ComfyUI",
+            "reference": "https://github.com/NeuralSamurAI/ComfyUI-Dimensional-Latent-Perlin",
+            "files": [
+                "https://github.com/NeuralSamurAI/ComfyUI-Dimensional-Latent-Perlin"
+            ],
+            "install_type": "git-clone",
+            "description": "Dimensional Latent Perlin is a custom node for ComfyUI that generates Perlin noise in the latent space. This node is designed to work seamlessly with various diffusion models and can be used as an alternative or complement to standard random noise generators in image generation pipelines."
+        },
+        {
+          "author": "Dobidop",
+          "title": "Dobidop ComfyStereo",
+          "id": "simple-stereoscopic",
+          "reference": "https://github.com/Dobidop/ComfyStereo",
+          "files": [
+              "https://github.com/Dobidop/ComfyStereo"
+          ],
+          "install_type": "git-clone",
+          "description": "Two simple nodes for stereoscopic image generation. Nodes: Stereo Image Node - a basic port from the Automatic1111 stereo script in thygate/stable-diffusion-webui-depthmap-script, LazyStereo - a naïve stereo image generator"
+        },
+        {
             "author": "caleboleary",
             "title": "Arc2Face ComfyUI Node Library",
             "reference": "https://github.com/caleboleary/ComfyUI-Arc2Face",
@@ -659,39 +691,6 @@
             ],
             "install_type": "git-clone",
             "description": "A very useful automatic cropping tool! It can realize cropping, expansion and rotation functions in the form of a slider. "
-        },
-        {
-            "author": "BetaDoggo",
-            "title": "ComfyUI YetAnotherSafetyChecker",
-            "id": "yetanothersafetychecker",
-            "reference": "https://github.com/BetaDoggo/ComfyUI-YetAnotherSafetyChecker",
-            "files": [
-                "https://github.com/BetaDoggo/ComfyUI-YetAnotherSafetyChecker"
-            ],
-            "install_type": "git-clone",
-            "description": "Just a simple node to filter out NSFW outputs. This node utilizes [a/AdamCodd/vit-base-nsfw-detector](https://huggingface.co/AdamCodd/vit-base-nsfw-detector) to score the outputs. I chose this model because it's small, fast, and performed very well in my testing. Nudity tends to be scored in the 0.95+ range, but I've set the default to 0.8 as a safe baseline."
-        },
-        {
-            "author": "smthemex",
-            "title": "ComfyUI_FollowYourEmoji",
-            "id": "FollowYourEmoji",
-            "reference": "https://github.com/smthemex/ComfyUI_FollowYourEmoji",
-            "files": [
-                "https://github.com/smthemex/ComfyUI_FollowYourEmoji"
-            ],
-            "install_type": "git-clone",
-            "description": "You can make emoji from a video and a image in comfyui"
-        },
-        {
-            "author": "fssorc",
-            "title": "ComfyUI_FaceShaper",
-            "id": "facesharper",
-            "reference": "https://github.com/fssorc/ComfyUI_FaceShaper",
-            "files": [
-                "https://github.com/fssorc/ComfyUI_FaceShaper"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Match two faces' shape before using other face swap nodes\nFace-swapping tools typically only replace facial features during the swap, without altering the facial shape. When there is a significant difference in facial shape between the target person and the person in the original photo, the result of the face swap is less satisfactory.\nThis project is a small script that can first liquefy and stretch the face in the original photo according to the horizontal and vertical proportions of the target person's facial contour. The resulting image can be used as input for other face-swapping nodes."
         }
     ]
 }
