@@ -4,7 +4,7 @@ import { sleep } from "./common.js";
 
 async function tryInstallCustomNode(event) {
 	let msg = '-= [ComfyUI Manager] extension installation request =-\n\n';
-	msg += `The '${event.detail.sender}' extension requires the installation of the '${event.detail.title}' extension. `;
+	msg += `The '${event.detail.sender}' extension requires the installation of the '${event.detail.target.title}' extension. `;
 
 	if(event.detail.target.installed == 'Disabled') {
 		msg += 'However, the extension is currently disabled. Would you like to enable it and reboot?'
