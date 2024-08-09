@@ -249,8 +249,12 @@ def get_model_dir(data):
         model_type = data['type']
         if model_type == "checkpoints":
             base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
+        elif model_type == "checkpoint":
+            base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
         elif model_type == "unclip":
             base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
+        elif model_type == "clip":
+            base_model = folder_paths.folder_names_and_paths["clip"][0][0]
         elif model_type == "VAE":
             base_model = folder_paths.folder_names_and_paths["vae"][0][0]
         elif model_type == "lora":
