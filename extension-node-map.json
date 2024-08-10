@@ -542,6 +542,22 @@
             "title_aux": "DiffMorpher-ComfyUI"
         }
     ],
+    "https://github.com/AIFSH/GSTTS-ComfyUI": [
+        [
+            "ASRNode",
+            "AudioSlicerNode",
+            "ConfigGPTNode",
+            "ConfigSoVITSNode",
+            "DatasetNode",
+            "ExperienceNode",
+            "GSFinetuneNone",
+            "GSVTTSNode",
+            "TextDictNode"
+        ],
+        {
+            "title_aux": "GSTTS-ComfyUI"
+        }
+    ],
     "https://github.com/AIFSH/SenseVoice-ComfyUI": [
         [
             "SenseVoiceNode",
@@ -2285,6 +2301,14 @@
         ],
         {
             "title_aux": "NX_PromptStyler"
+        }
+    ],
+    "https://github.com/Franck-Demongin/NX_Translator": [
+        [
+            "Nx_Translator"
+        ],
+        {
+            "title_aux": "NX_Translator"
         }
     ],
     "https://github.com/FuouM/ComfyUI-EbSynth": [
@@ -6653,9 +6677,16 @@
     ],
     "https://github.com/akatz-ai/ComfyUI-AKatz-Nodes": [
         [
-            "AK_AnimatedDilationMaskLinear"
+            "AK_AnimatedDilationMaskLinear",
+            "AK_AudioreactiveDilationMask",
+            "AK_IPAdapterCustomWeights",
+            "AK_NormalizeMaskImage"
         ],
         {
+            "author": "akatz",
+            "description": "Custom node pack for nodes I use in my workflows. Includes Dilation mask nodes for animating subject masks.",
+            "nickname": "Akatz Custom Nodes",
+            "title": "Akatz Custom Nodes",
             "title_aux": "Akatz Custom Nodes"
         }
     ],
@@ -9241,6 +9272,7 @@
             "ImageRemoveBackground+",
             "ImageResize+",
             "ImageSeamCarving+",
+            "ImageSmartSharpen+",
             "ImageTile+",
             "ImageToDevice+",
             "ImageUntile+",
@@ -9863,6 +9895,16 @@
         ],
         {
             "title_aux": "ComfyUI Easy Padding"
+        }
+    ],
+    "https://github.com/eastoc/ComfyUI_SemanticSAM": [
+        [
+            "PointPrompt",
+            "SemanticSAMLoader",
+            "SemanticSAMSegment"
+        ],
+        {
+            "title_aux": "Semantic-SAM"
         }
     ],
     "https://github.com/edenartlab/eden_comfy_pipelines": [
@@ -10540,99 +10582,6 @@
         ],
         {
             "title_aux": "SaltAI Language Toolkit"
-        }
-    ],
-    "https://github.com/get-salt-AI/SaltAI_LlamaIndex": [
-        [
-            "AddTool",
-            "ChangeSystemMessage",
-            "ClearMemory",
-            "ConversableAgentCreator",
-            "ConversableAgentCreatorAdvanced",
-            "ConvertAgentAsTool",
-            "ConvertAgentToLlamaindex",
-            "CreateTavilySearchTool",
-            "Example",
-            "GenerateReply",
-            "GroupChat",
-            "GroupChatAdvanced",
-            "GroupChatManagerCreator",
-            "LLMCSVReader",
-            "LLMChat",
-            "LLMChatBot",
-            "LLMChatEngine",
-            "LLMChatMessageConcat",
-            "LLMChatMessages",
-            "LLMChatMessagesAdv",
-            "LLMComplete",
-            "LLMCustomNodeComposer",
-            "LLMDirectoryReader",
-            "LLMDocumentListAppend",
-            "LLMDocxReader",
-            "LLMEpubReader",
-            "LLMFlatReader",
-            "LLMHTMLTagReader",
-            "LLMHWPReader",
-            "LLMHtmlComposer",
-            "LLMHtmlRepair",
-            "LLMIPYNBReader",
-            "LLMImageCaptionReader",
-            "LLMImageTabularChartReader",
-            "LLMImageTextReader",
-            "LLMImageVisionLLMReader",
-            "LLMInputToDocuments",
-            "LLMJsonComposer",
-            "LLMJsonRepair",
-            "LLMLLaVANextImageEvaluator",
-            "LLMLLaVANextModelLoader",
-            "LLMMarkdownComposer",
-            "LLMMarkdownReader",
-            "LLMMarkdownRepair",
-            "LLMMboxReader",
-            "LLMMultiModalImageEvaluation",
-            "LLMNotionReader",
-            "LLMOpenAIModel",
-            "LLMOpenAIModelOpts",
-            "LLMPDFReader",
-            "LLMPagedCSVReader",
-            "LLMPandasCSVReader",
-            "LLMParquetDatasetSearcher",
-            "LLMPostProcessDocuments",
-            "LLMPptxReader",
-            "LLMPyMuPDFReader",
-            "LLMQueryEngine",
-            "LLMQueryEngineAdv",
-            "LLMQueryEngineAsTool",
-            "LLMRTFReader",
-            "LLMRegexCreator",
-            "LLMRegexRepair",
-            "LLMRssReaderNode",
-            "LLMSaltWebCrawler",
-            "LLMScaleSERPSearch",
-            "LLMSemanticSplitterNodeParser",
-            "LLMSentenceSplitterNodeCreator",
-            "LLMServiceContextAdv",
-            "LLMServiceContextDefault",
-            "LLMSimpleWebPageReader",
-            "LLMSimpleWebPageReaderAdv",
-            "LLMSummaryIndex",
-            "LLMTavilyResearch",
-            "LLMTrafilaturaWebReader",
-            "LLMTrafilaturaWebReaderAdv",
-            "LLMTreeIndex",
-            "LLMUnstructuredReader",
-            "LLMVectorStoreIndex",
-            "LLMVectorStoreIndexAdv",
-            "LLMVideoAudioReader",
-            "LLMXMLReader",
-            "LLMYamlComposer",
-            "LLMYamlRepair",
-            "SaltJSONQueryEngine",
-            "SendMessage",
-            "SimpleChat"
-        ],
-        {
-            "title_aux": "SaltAI_LlamaIndex"
         }
     ],
     "https://github.com/giriss/comfy-image-saver": [
@@ -12051,8 +12000,10 @@
             "JN_AudioArrayToBatch",
             "JN_AudioAutoTune",
             "JN_AudioBatchToArray",
+            "JN_AudioCompare",
             "JN_AudioConcatenation",
             "JN_AudioGetChannels",
+            "JN_AudioInfo",
             "JN_AudioNoiseReduction",
             "JN_AudioNormalize",
             "JN_AudioPitch",
@@ -12083,6 +12034,8 @@
             "JN_FaceRestoreModelLoader",
             "JN_FaceRestoreWithModel",
             "JN_FirstActive",
+            "JN_Flow",
+            "JN_FlowOutput",
             "JN_ImageAddBackground",
             "JN_ImageAddMask",
             "JN_ImageBatch",
@@ -15746,10 +15699,10 @@
     ],
     "https://github.com/shinich39/comfyui-pkg39": [
         [
-            "BindKey39",
             "Command39",
             "LoadImage39",
-            "Random39"
+            "Random39",
+            "Textarea39"
         ],
         {
             "author": "shinich39",
@@ -16066,7 +16019,8 @@
     ],
     "https://github.com/smthemex/ComfyUI_ParlerTTS": [
         [
-            "PromptToAudio"
+            "ParlerTTS_LoadModel",
+            "ParlerTTS_Sampler"
         ],
         {
             "title_aux": "ComfyUI_ParlerTTS"
@@ -16101,8 +16055,8 @@
     ],
     "https://github.com/smthemex/ComfyUI_StableAudio_Open": [
         [
-            "StableAudio_Open",
-            "Use_LocalModel_Or_Repo"
+            "StableAudio_ModelLoader",
+            "StableAudio_Sampler"
         ],
         {
             "title_aux": "ComfyUI_StableAudio_Open"
