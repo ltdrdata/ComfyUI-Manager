@@ -245,6 +245,8 @@
             "cam-pos-bus",
             "mesh_data_bus",
             "mesh_remap_cubvh",
+            "ply_load",
+            "ply_normalize",
             "show_any",
             "string-to-array",
             "vc_to_texture"
@@ -848,6 +850,7 @@
             "GLSL BLEND LINEAR (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL FILTER RANGE (JOV) \ud83e\uddd9\ud83c\udffd\u200d\u2640\ufe0f",
             "GLSL GRAYSCALE (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL HSV ADJUST (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL HSV-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL HSV-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL LAB-2-HSV (JOV) \ud83e\uddd9\ud83c\udffd",
@@ -2346,6 +2349,7 @@
             "FOMM_Seg10Chooser",
             "FOMM_Seg15Chooser",
             "FOMM_Seg5Chooser",
+            "FSRT_Runner",
             "MRFA_Runner",
             "Spline_Runner"
         ],
@@ -2360,6 +2364,11 @@
     "https://github.com/FuouM/FM_nodes": [
         [
             "CoLIE_LowLight_Enhance",
+            "ConvIR_DeHaze",
+            "ConvIR_DeRain",
+            "ConvIR_DeSnow",
+            "ConvIR_DefocusDeblur",
+            "ConvIR_MotionDeBlur",
             "ProPIH_Harmonizer",
             "RealViFormerSR",
             "WFEN"
@@ -3879,8 +3888,7 @@
     ],
     "https://github.com/NeuralSamurAI/ComfyUI-PromptJSON": [
         [
-            "PromptJSON",
-            "TokenCounter"
+            "PromptJSON"
         ],
         {
             "title_aux": "PromptJSON Node for ComfyUI"
@@ -7382,6 +7390,14 @@
             "title_aux": "BrevImage"
         }
     ],
+    "https://github.com/blackcodetavern/ComfyUI-Benripack": [
+        [
+            "CharacterPipe"
+        ],
+        {
+            "title_aux": "ComfyUI-Benripack"
+        }
+    ],
     "https://github.com/blepping/ComfyUI-bleh": [
         [
             "BlehBlockOps",
@@ -10181,28 +10197,34 @@
     "https://github.com/filliptm/ComfyUI_Fill-Nodes": [
         [
             "FL_Ascii",
-            "FL_AudioConverter",
-            "FL_AudioFrameCalculator",
-            "FL_AudioPreview",
             "FL_BatchAlign",
             "FL_BulletHellGame",
+            "FL_CaptionToCSV",
             "FL_CodeNode",
+            "FL_ColorPicker",
             "FL_DirectoryCrawl",
             "FL_Dither",
+            "FL_FractalKSampler",
+            "FL_GPT_Vision",
             "FL_Glitch",
+            "FL_HFHubModelUploader",
+            "FL_HF_Character",
             "FL_HalftonePattern",
             "FL_HexagonalPattern",
+            "FL_ImageCaptionLayout",
             "FL_ImageCaptionSaver",
             "FL_ImageCollage",
             "FL_ImageDimensionDisplay",
-            "FL_ImageDurationSync",
             "FL_ImageNotes",
             "FL_ImagePixelator",
             "FL_ImageRandomizer",
             "FL_InfiniteZoom",
             "FL_InpaintCrop",
             "FL_Inpaint_Stitch",
+            "FL_KsamplerBasic",
+            "FL_KsamplerPlus",
             "FL_KsamplerSettings",
+            "FL_MirrorAndAppendCaptions",
             "FL_NFTGenerator",
             "FL_PaperDrawn",
             "FL_PasteOnCanvas",
@@ -10213,12 +10235,18 @@
             "FL_RetroEffect",
             "FL_Ripple",
             "FL_SDUltimate_Slices",
+            "FL_SendToDiscordWebhook",
             "FL_SeparateMaskComponents",
             "FL_Shadertoy",
+            "FL_SimpleGPTVision",
+            "FL_SystemCheck",
             "FL_TD_Sampler",
             "FL_TetrisGame",
+            "FL_TimeLine",
             "FL_VideoCropMask",
             "FL_VideoRecompose",
+            "FL_ZipDirectory",
+            "FL_ZipSave",
             "GradientImageGenerator"
         ],
         {
@@ -13392,6 +13420,21 @@
             "title_aux": "ComfyUI-RefSampling"
         }
     ],
+    "https://github.com/logtd/ComfyUI-RefUNet": [
+        [
+            "ConfigRefMapAdv",
+            "ConfigureRefNet",
+            "CreateRefBank",
+            "CustomRefMapSD1",
+            "PrepareRefLatents",
+            "ReadSampler",
+            "RefModelSamplingPred",
+            "WriteSampler"
+        ],
+        {
+            "title_aux": "ComfyUI-RefUNet"
+        }
+    ],
     "https://github.com/logtd/ComfyUI-TrackingNodes": [
         [
             "OpenPoseTrackerNode",
@@ -15951,7 +15994,8 @@
     ],
     "https://github.com/smthemex/ComfyUI_CustomNet": [
         [
-            "CustomNet_Plus"
+            "CustomNet_LoadModel",
+            "CustomNet_Sampler"
         ],
         {
             "title_aux": "ComfyUI_CustomNet"
@@ -16044,7 +16088,8 @@
     ],
     "https://github.com/smthemex/ComfyUI_Pic2Story": [
         [
-            "Pic2Story"
+            "Pic2Story_Loader",
+            "Pic2Story_Sampler"
         ],
         {
             "title_aux": "ComfyUI_Pic2Story"
@@ -16453,8 +16498,7 @@
             "FoxImageAdd",
             "FoxImageConcanate",
             "FoxImageExtractFromBatch",
-            "FoxImageResizeByLongerSide",
-            "FoxImageResizeByShorterSide",
+            "FoxImageResizeBySpecialSide",
             "FoxImageRotate",
             "FoxImageTileBatch",
             "FoxLoadImageBatch",
@@ -16462,6 +16506,8 @@
             "FoxPreviewMask",
             "FoxPrimitiveText",
             "FoxRegTextFind",
+            "FoxSDXLPromptStyler",
+            "FoxSDXLPromptStylerAdvanced",
             "FoxSaveImagePlus",
             "FoxShowText",
             "FoxTextConcatenate",
