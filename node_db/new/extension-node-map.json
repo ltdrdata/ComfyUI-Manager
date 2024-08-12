@@ -1855,31 +1855,6 @@
             "title_aux": "noise latent perlinpinpin"
         }
     ],
-    "https://github.com/Extraltodeus/pre_cfg_comfy_nodes_for_ComfyUI": [
-        [
-            "Conditioning set timestep from sigma",
-            "Individual channel selector",
-            "Post CFG make a dot",
-            "Post CFG subtract mean",
-            "Pre CFG PAG",
-            "Pre CFG automatic scale",
-            "Pre CFG channel multiplier",
-            "Pre CFG color control",
-            "Pre CFG consensus sharpening",
-            "Pre CFG exponentiation",
-            "Pre CFG perp-neg",
-            "Pre CFG sharpening",
-            "Pre CFG subtract mean",
-            "Pre CFG uncond zero",
-            "Pre CFG variable scaling",
-            "Pre CFG zero attention",
-            "Shape attention",
-            "Support empty uncond"
-        ],
-        {
-            "title_aux": "pre_cfg_comfy_nodes_for_ComfyUI"
-        }
-    ],
     "https://github.com/Extraltodeus/sigmas_tools_and_the_golden_scheduler": [
         [
             "Aligned Scheduler",
@@ -2380,11 +2355,14 @@
             "ConvIR_MotionDeBlur",
             "ProPIH_Harmonizer",
             "RealViFormerSR",
+            "StabStitch",
+            "StabStitch_Crop_Resize",
+            "StabStitch_Stabilize",
             "WFEN"
         ],
         {
             "author": "Fuou Marinas",
-            "description": "A collection of nodes. WFEN Face Super Resolution.",
+            "description": "A collection of nodes.",
             "nickname": "FM_nodes",
             "title": "FM Nodes",
             "title_aux": "FM_nodes"
@@ -2942,9 +2920,11 @@
     ],
     "https://github.com/JayLyu/ComfyUI_BaiKong_Node": [
         [
+            "BK_ColorContrast",
             "BK_ColorLimit",
             "BK_ColorSelector",
             "BK_GradientImage",
+            "BK_ImageFilterByAspectRatio",
             "BK_Img2Color"
         ],
         {
@@ -4280,6 +4260,14 @@
         ],
         {
             "title_aux": "ComfyUI-Qais-Helper"
+        }
+    ],
+    "https://github.com/Raapys/ComfyUI-LatentGC_Aggressive": [
+        [
+            "LatentGC"
+        ],
+        {
+            "title_aux": "LatentGC Aggressive"
         }
     ],
     "https://github.com/RedRayz/ComfyUI-Danbooru-To-WD": [
@@ -6798,6 +6786,7 @@
             "BRIA_RMBG",
             "BRIA_RMBG_ModelLoader",
             "ConvertRasterToVector",
+            "FLUXResolutions",
             "GeminiOllamaAPI",
             "SaveSVG",
             "TextSplitByDelimiter"
@@ -7377,9 +7366,11 @@
     ],
     "https://github.com/bedovyy/ComfyUI_NAIDGenerator": [
         [
+            "ColorizeNAID",
             "GenerateNAID",
             "Img2ImgOptionNAID",
             "InpaintingOptionNAID",
+            "LineArtNAID",
             "MaskImageToNAID",
             "ModelOptionNAID",
             "NetworkOptionNAID",
@@ -15718,6 +15709,20 @@
             "title_aux": "comfyui-sound-lab"
         }
     ],
+    "https://github.com/shadowcz007/comfyui-try-on": [
+        [
+            "CatVTONNode",
+            "FashionClothMask",
+            "FashionClothMask2"
+        ],
+        {
+            "author": "chflame",
+            "description": "CatVTON warpper for ComfyUI",
+            "nickname": "CatVTON_Wrapper",
+            "title": "CatVTON_Wrapper",
+            "title_aux": "comfyui-try-on"
+        }
+    ],
     "https://github.com/shadowcz007/comfyui-ultralytics-yolo": [
         [
             "DetectByLabel"
@@ -16145,9 +16150,8 @@
     ],
     "https://github.com/smthemex/ComfyUI_Pops": [
         [
-            "Imgae_To_Path",
-            "Pops_Prior_Embedding",
-            "Pops_Repo_Choice",
+            "Pops_Decoder",
+            "Pops_Repo_Loader",
             "Pops_Sampler"
         ],
         {
@@ -17540,7 +17544,9 @@
             "GroqChatNode",
             "MoonshotMultiChatNode",
             "MoonshotSingleChatNode",
+            "OllamaImageToText",
             "OllamaPromptExtractor",
+            "OllamaTextToText",
             "PromptExtractorNode",
             "SD3LongCaptionerV2",
             "SDPromptAgent",

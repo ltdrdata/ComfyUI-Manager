@@ -3468,6 +3468,16 @@
             "description": "The ComfyUI version of [a/LivePortrait](https://github.com/KwaiVGI/LivePortrait)."
         },
         {
+            "author": "shadowcz007",
+            "title": "comfyui-try-on",
+            "reference": "https://github.com/shadowcz007/comfyui-try-on",
+            "files": [
+                "https://github.com/shadowcz007/comfyui-try-on"
+            ],
+            "install_type": "git-clone",
+            "description": "Virtual try-on for creating a personal brand wardrobe collection."
+        },
+        {
             "author": "ostris",
             "title": "Ostris Nodes ComfyUI",
             "id": "ostris",
@@ -9553,6 +9563,17 @@
             "description": "Implementation of Kolors on ComfyUI\nReference from [a/https://github.com/kijai/ComfyUI-KwaiKolorsWrapper](https://github.com/kijai/ComfyUI-KwaiKolorsWrapper)\nUsing ComfyUI Native Sampling"
         },
         {
+            "author": "MinusZoneAI",
+            "title": "ComfyUI-Flux1Quantize-MZ",
+            "reference": "https://github.com/MinusZoneAI/ComfyUI-Flux1Quantize-MZ",
+            "files": [
+                "https://github.com/MinusZoneAI/ComfyUI-Flux1Quantize-MZ"
+            ],
+            "pip": ["git+https://github.com/IST-DASLab/marlin"],
+            "install_type": "git-clone",
+            "description": "Quantization tools are from [a/https://github.com/casper-hansen/AutoAWQ](https://github.com/casper-hansen/AutoAWQ) and [a/https://github.com/IST-DASLab/marlin](https://github.com/IST-DASLab/marlin)\nOnly applicable to graphics cards with sm_80 and above (30 series and above)\nNeed to install marlin dependencies first"
+        },
+        {
             "author": "blueraincoatli",
             "title": "comfyUI_SillyNodes",
             "id": "silly",
@@ -12773,15 +12794,25 @@
             "description": "Nodes:Magical Save Node, Thermal Latenator. This package contains a collection of neat nodes that are supposed to ease your comfy-flow."
         },
         {
-            "author": "OgreLemonSoup",
-            "title": "Load Image Gallery",
-            "id": "LoadImageGallery",
-            "reference": "https://github.com/OgreLemonSoup/ComfyUI-Load-Image-Gallery",
+            "author": "caleboleary",
+            "title": "Comfyui-calbenodes",
+            "reference": "https://github.com/caleboleary/Comfyui-calbenodes",
             "files": [
-                "https://github.com/OgreLemonSoup/ComfyUI-Load-Image-Gallery"
+                "https://github.com/caleboleary/Comfyui-calbenodes"
             ],
             "install_type": "git-clone",
-            "description": "Adds a gallery to the Load Image node"
+            "description": "Nodes:CharacterManagerNode, FilmGrain, FlipFlopperSameArch"
+        },
+        {
+            "author": "Raapys",
+            "title": "LatentGC Aggressive",
+            "id": "latentgcaggressive",
+            "reference": "https://github.com/Raapys/ComfyUI-LatentGC_Aggressive",
+            "files": [
+                "https://github.com/Raapys/ComfyUI-LatentGC_Aggressive"
+            ],
+            "install_type": "git-clone",
+            "description": "Simple latent-passthrough node for running a full VRAM cleanup between workflow stages."
         },
 
 
@@ -13159,17 +13190,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "Raapys",
-            "title": "LatentGC Aggressive",
-            "id": "latentgcaggressive",
-            "reference": "https://github.com/Raapys/ComfyUI-LatentGC_Aggressive",
-            "files": [
-                "https://github.com/Raapys/ComfyUI-LatentGC_Aggressive"
-            ],
-            "install_type": "git-clone",
-            "description": "Simple latent-passthrough node for running a full VRAM cleanup between workflow stages."
         }
     ]
 }
