@@ -478,6 +478,17 @@
             "title_aux": "Isi-dev/ComfyUI-UniAnimate"
         }
     ],
+    "https://github.com/IuvenisSapiens/ComfyUI_MiniCPM-V-2_6-int4": [
+        [
+            "DisplayText",
+            "LoadVideo",
+            "MiniCPM_VQA",
+            "PreViewVideo"
+        ],
+        {
+            "title_aux": "ComfyUI_MiniCPM-V-2_6-int4"
+        }
+    ],
     "https://github.com/IvanZhd/comfyui-codeformer": [
         [
             "RedBeanie_CustomImageInverter"
@@ -498,9 +509,12 @@
         [
             "AppendNode",
             "ApplyVoiceConversion",
+            "ImAppendQuickbackNode",
+            "ImAppendQuickbackVideoNode",
             "ImAppendVideoNode",
             "ImApplyWav2lip",
             "ImDumpEntity",
+            "ImDumpNode",
             "ImNodeTitleOverride",
             "LoadPackage",
             "MergeNode",
@@ -804,6 +818,17 @@
         ],
         {
             "title_aux": "ComfyUI-TSFNodes"
+        }
+    ],
+    "https://github.com/TTPlanetPig/Comfyui_TTP_CN_Preprocessor": [
+        [
+            "TTPlanet_Tile_Preprocessor_GF",
+            "TTPlanet_Tile_Preprocessor_Simple",
+            "TTPlanet_Tile_Preprocessor_cufoff",
+            "TTPlanet_inpainting_Preprecessor"
+        ],
+        {
+            "title_aux": "for comfyui image proprocessor"
         }
     ],
     "https://github.com/Video3DGenResearch/comfyui-batch-input-node": [
@@ -1289,6 +1314,14 @@
             "title_aux": "ComfyUI"
         }
     ],
+    "https://github.com/comfyanonymous/ComfyUI_bitsandbytes_NF4": [
+        [
+            "CheckpointLoaderNF4"
+        ],
+        {
+            "title_aux": "ComfyUI_bitsandbytes_NF4 [EXPERIMENTAL]"
+        }
+    ],
     "https://github.com/comfypod/ComfyUI-Comflow": [
         [
             "ComflowInputBoolean",
@@ -1350,20 +1383,6 @@
         ],
         {
             "title_aux": "comfyui-stylegan"
-        }
-    ],
-    "https://github.com/dnl13/ComfyUI-dnl13-seg": [
-        [
-            "Automatic Segmentation (dnl13)",
-            "BatchSelector (dnl13)",
-            "Combine Images By Mask (dnl13)",
-            "Dinov1 Model Loader (dnl13)",
-            "Mask with prompt (dnl13)",
-            "RGB (dnl13)",
-            "SAM Model Loader (dnl13)"
-        ],
-        {
-            "title_aux": "ComfyUI-dnl13-seg"
         }
     ],
     "https://github.com/doucx/ComfyUI_WcpD_Utility_Kit": [
@@ -1795,47 +1814,6 @@
             "title_aux": "ComfyUI-Unique3D [WIP]"
         }
     ],
-    "https://github.com/justUmen/Bjornulf_custom_nodes": [
-        [
-            "Bjornulf_CheckBlackImage",
-            "Bjornulf_ClearVRAM",
-            "Bjornulf_CombineBackgroundOverlay",
-            "Bjornulf_CombineTexts",
-            "Bjornulf_CustomStringType",
-            "Bjornulf_GrayscaleTransform",
-            "Bjornulf_LoopBasicBatch",
-            "Bjornulf_LoopCombosSamplersSchedulers",
-            "Bjornulf_LoopFloat",
-            "Bjornulf_LoopInteger",
-            "Bjornulf_LoopSamplers",
-            "Bjornulf_LoopSchedulers",
-            "Bjornulf_LoopTexts",
-            "Bjornulf_RandomModelClipVae",
-            "Bjornulf_RandomTexts",
-            "Bjornulf_RemoveTransparency",
-            "Bjornulf_ResizeImage",
-            "Bjornulf_SaveApiImage",
-            "Bjornulf_SaveBjornulfLobeChat",
-            "Bjornulf_SaveImagePath",
-            "Bjornulf_SaveImageToFolder",
-            "Bjornulf_SaveText",
-            "Bjornulf_SaveTmpImage",
-            "Bjornulf_ShowFloat",
-            "Bjornulf_ShowInt",
-            "Bjornulf_ShowText",
-            "Bjornulf_VideoPingPong",
-            "Bjornulf_WriteImageAllInOne",
-            "Bjornulf_WriteImageCharacter",
-            "Bjornulf_WriteImageCharacters",
-            "Bjornulf_WriteImageEnvironment",
-            "Bjornulf_WriteText",
-            "Bjornulf_imagesToVideo",
-            "Bjornulf_ollamaLoader"
-        ],
-        {
-            "title_aux": "Bjornulf_custom_nodes [WIP]"
-        }
-    ],
     "https://github.com/kadirnar/ComfyUI-Adapter": [
         [
             "GarmentSegLoader"
@@ -1932,6 +1910,19 @@
             "title_aux": "ComfyUI-DiffusersSD3Wrapper"
         }
     ],
+    "https://github.com/kijai/ComfyUI-EasyAnimateWrapper": [
+        [
+            "DownloadAndLoadEasyAnimateModel",
+            "EasyAnimateDecode",
+            "EasyAnimateImageEncoder",
+            "EasyAnimateResize",
+            "EasyAnimateSampler",
+            "EasyAnimateTextEncode"
+        ],
+        {
+            "title_aux": "ComfyUI-EasyAnimateWrapper [WIP]"
+        }
+    ],
     "https://github.com/kijai/ComfyUI-FollowYourEmojiWrapper": [
         [
             "DownloadAndLoadFYEModel",
@@ -1945,6 +1936,15 @@
         ],
         {
             "title_aux": "ComfyUI-FollowYourEmojiWrapper [WIP]"
+        }
+    ],
+    "https://github.com/kijai/ComfyUI-LLaVA-OneVision": [
+        [
+            "DownloadAndLoadLLaVAOneVisionModel",
+            "LLaVA_OneVision_Run"
+        ],
+        {
+            "title_aux": "ComfyUI-LLaVA-OneVision [WIP]"
         }
     ],
     "https://github.com/komojini/ComfyUI_Prompt_Template_CustomNodes/raw/main/prompt_with_template.py": [
@@ -2021,6 +2021,24 @@
         ],
         {
             "title_aux": "ComfyUI-MotionThiefExperiment"
+        }
+    ],
+    "https://github.com/logtd/ComfyUI-Veevee": [
+        [
+            "ApplyVVModel",
+            "FlowConfig",
+            "FlowGetFlow",
+            "GetRaftFlow",
+            "InjectionConfig",
+            "PivotConfig",
+            "RaveConfig",
+            "SCAConfig",
+            "TemporalConfig",
+            "VVSamplerSampler",
+            "VVUnsamplerSampler"
+        ],
+        {
+            "title_aux": "ComfyUI-Veevee [WIP]"
         }
     ],
     "https://github.com/longgui0318/comfyui-one-more-step": [

@@ -31,7 +31,7 @@ import cnr_utils
 from manager_util import *
 
 
-version_code = [2, 48, 6]
+version_code = [2, 48, 7]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -194,7 +194,7 @@ def is_installed(name):
     if name.startswith('#'):
         return True
 
-    pattern = r'([^<>!=]+)([<>!=]=?)([^ ]*)'
+    pattern = r'([^<>!=]+)([<>!=]=?)([0-9.a-zA-Z]*)'
     match = re.search(pattern, name)
 
     if match:

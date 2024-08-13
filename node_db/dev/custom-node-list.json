@@ -13,6 +13,67 @@
 
 
         {
+            "author": "comfyanonymous",
+            "title": "ComfyUI_bitsandbytes_NF4 [EXPERIMENTAL]",
+            "reference": "https://github.com/comfyanonymous/ComfyUI_bitsandbytes_NF4",
+            "files": [
+                "https://github.com/comfyanonymous/ComfyUI_bitsandbytes_NF4"
+            ],
+            "install_type": "git-clone",
+            "description": "A quickly written custom node that uses code from Forge to support the nf4 flux dev checkpoint and nf4 flux schnell checkpoint.\nRequires installing bitsandbytes.\nMake sure your ComfyUI is updated.\nThe node is: CheckpointLoaderNF4, just plug it in your flux workflow instead of the regular one.[w/NF4 checckpoint doesn't support LoRA.]"
+        },
+        {
+            "author": "kijai",
+            "title": "ComfyUI-EasyAnimateWrapper [WIP]",
+            "reference": "https://github.com/kijai/ComfyUI-EasyAnimateWrapper",
+            "files": [
+                "https://github.com/kijai/ComfyUI-EasyAnimateWrapper"
+            ],
+            "install_type": "git-clone",
+            "description": "EasyAnimateWrapper for ComfyUI"
+        },
+        {
+            "author": "logtd",
+            "title": "ComfyUI-Veevee [WIP]",
+            "reference": "https://github.com/logtd/ComfyUI-Veevee",
+            "files": [
+                "https://github.com/logtd/ComfyUI-Veevee"
+            ],
+            "install_type": "git-clone",
+            "description": "A Video2Video framework for text2image models in ComfyUI. Supports SD1.5 and SDXL."
+        },
+        {
+            "author": "kijai",
+            "title": "ComfyUI-LLaVA-OneVision [WIP]",
+            "reference": "https://github.com/kijai/ComfyUI-LLaVA-OneVision",
+            "files": [
+                "https://github.com/kijai/ComfyUI-LLaVA-OneVision"
+            ],
+            "install_type": "git-clone",
+            "description": "Original repo: [a/https://github.com/LLaVA-VL/LLaVA-NeXT](https://github.com/LLaVA-VL/LLaVA-NeXT)\nUnsure of the dependencies, the original was a huge list, but I didn't install single new one to my environment and it worked."
+        },
+        {
+            "author": "TTPlanetPig",
+            "title": "for comfyui image proprocessor",
+            "reference": "https://github.com/TTPlanetPig/Comfyui_TTP_CN_Preprocessor",
+            "files": [
+                "https://github.com/TTPlanetPig/Comfyui_TTP_CN_Preprocessor"
+            ],
+            "install_type": "git-clone",
+            "description": "Adapt for Hunyuan now"
+        },
+        {
+            "author": "IuvenisSapiens",
+            "title": "ComfyUI_MiniCPM-V-2_6-int4",
+            "id": "minicpm-v-2_6-int4",
+            "reference": "https://github.com/IuvenisSapiens/ComfyUI_MiniCPM-V-2_6-int4",
+            "files": [
+                "https://github.com/IuvenisSapiens/ComfyUI_MiniCPM-V-2_6-int4"
+            ],
+            "install_type": "git-clone",
+            "description": "This is an implementation of [a/MiniCPM-V-2_6-int4](https://github.com/OpenBMB/MiniCPM-V) by [a/ComfyUI](https://github.com/comfyanonymous/ComfyUI), including support for text-based queries, video queries, single-image queries, and multi-image queries to generate captions or responses."
+        },
+        {
             "author": "chrisdreid",
             "title": "ComfyUI_EnvAutopsyAPI [UNSAFE]",
             "reference": "https://github.com/chrisdreid/ComfyUI_EnvAutopsyAPI",
@@ -287,16 +348,6 @@
             ],
             "install_type": "git-clone",
             "description": "If you wish to incorporate these changes into your repo, feel free to open an issue and ask. The commits should be pretty clear, and I also label almost all changes with #HACK so a full text search will work too.\nPlease let me know if you decide to incorporate any of these changes into your LivePortrait implementation so I can direct people to you repository. I do not intend to maintain this repo.\nSome operations are simply not supported on MPS and I didn't rewrite them. Most of my changes are just to .cuda calls and that sort of thing. Many operations are still done on CPU, so don't expect awesome performance."
-        },
-        {
-            "author": "justUmen",
-            "title": "Bjornulf_custom_nodes [WIP]",
-            "reference": "https://github.com/justUmen/Bjornulf_custom_nodes",
-            "files": [
-                "https://github.com/justUmen/Bjornulf_custom_nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: ollamaLoader, ShowText, ShowInt, LoopTexts, LoopFloat, LoopInteger, ..."
         },
         {
             "author": "thderoo",
@@ -1810,16 +1861,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes: CheckpointVAELoaderSimpleText, CheckpointVAESelectorText, LoRA_Tag_To_Stack"
-        },
-        {
-            "author": "dnl13",
-            "title": "ComfyUI-dnl13-seg",
-            "reference": "https://github.com/dnl13/ComfyUI-dnl13-seg",
-            "files": [
-                "https://github.com/dnl13/ComfyUI-dnl13-seg"
-            ],
-            "install_type": "git-clone",
-            "description": "After discovering @storyicon implementation here of Segment Anything, I realized its potential as a powerful tool for ComfyUI if implemented correctly. I delved into the SAM and Dino models. The following is my own adaptation of sam_hq for ComfyUI."
         },
         {
             "author": "Brandelan",

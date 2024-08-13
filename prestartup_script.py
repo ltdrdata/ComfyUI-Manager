@@ -448,7 +448,7 @@ def is_installed(name):
     if name.startswith('#'):
         return True
 
-    pattern = r'([^<>!=]+)([<>!=]=?)([^ ]*)'
+    pattern = r'([^<>!=]+)([<>!=]=?)([0-9.a-zA-Z]*)'
     match = re.search(pattern, name)
 
     if match:
