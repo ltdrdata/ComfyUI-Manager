@@ -6482,6 +6482,17 @@
             "description": "This repo provides a ComfyUI Custom Node implementation of [a/YOLO-NAS-POSE](https://github.com/Deci-AI/super-gradients), powered by TensorRT for ultra fast pose estimation. It has been adapted to work with openpose controlnet (experimental)"
         },
         {
+            "author": "yuvraj108c",
+            "title": "ComfyUI Dwpose TensorRT",
+            "id": "dwpose-tensorrt",
+            "reference": "https://github.com/yuvraj108c/ComfyUI-Dwpose-Tensorrt",
+            "files": [
+                "https://github.com/yuvraj108c/ComfyUI-Dwpose-Tensorrt"
+            ],
+            "install_type": "git-clone",
+            "description": "This project provides a Tensorrt implementation of Dwpose for ultra fast pose estimation inside ComfyUI"
+        },
+        {
             "author": "blepping",
             "title": "ComfyUI-bleh",
             "id": "bleh",
@@ -8212,13 +8223,13 @@
         },
         {
             "author": "shinich39",
-            "title": "comfyui-pkg39",
-            "reference": "https://github.com/shinich39/comfyui-pkg39",
+            "title": "comfyui-load-image-with-cmd",
+            "reference": "https://github.com/shinich39/comfyui-load-image-with-cmd",
             "files": [
-                "https://github.com/shinich39/comfyui-pkg39"
+                "https://github.com/shinich39/comfyui-load-image-with-cmd"
             ],
             "install_type": "git-clone",
-            "description": "This package has created for generate image from generated image and embedded workflow."
+            "description": "Load image and partially workflow with javascript."
         },
         {
             "author": "wei30172",
@@ -11543,17 +11554,6 @@
             "description": "This extension is a node that directly expands the functionality of KSampler, rather than being in the form of a custom node. [w/Workflows created using this feature are not compatible with other users.]"
         },
         {
-            "author": "Fuou Marinas",
-            "title": "ComfyUI-FirstOrderMM",
-            "id": "fomm",
-            "reference": "https://github.com/FuouM/ComfyUI-FirstOrderMM",
-            "files": [
-                "https://github.com/FuouM/ComfyUI-FirstOrderMM"
-            ],
-            "install_type": "git-clone",
-            "description": "Run [a/First Order Motion Model](https://github.com/AliaksandrSiarohin/first-order-model) for Image Animation in ComfyUI."
-        },
-        {
             "author": "my-opencode",
             "title": "ComfyUI_IndustrialMagick",
             "id": "industrialmagick",
@@ -11630,13 +11630,13 @@
         },
         {
             "author": "yiwangsimple",
-            "title": "comfy-groqchat",
-            "reference": "https://github.com/yiwangsimple/ComfyUI_GroqChat",
+            "title": "ComfyUI_DW_Chat",
+            "reference": "https://github.com/yiwangsimple/ComfyUI_DW_Chat",
             "files": [
-                "https://github.com/yiwangsimple/ComfyUI_GroqChat"
+                "https://github.com/yiwangsimple/ComfyUI_DW_Chat"
             ],
             "install_type": "git-clone",
-            "description": "Content generation with open source models in comfyui via graq api implementation."
+            "description": "Content generation with open source models in comfyui via graq api implementation.\n[w/This repo is renamed from ComfyUI_GroqChat to ComfyUI_DW_CHAT. Please remove previous one and reinstall to this.]"
         },
         {
             "author": "Tritant",
@@ -12464,7 +12464,7 @@
             "description": "ComfyUI custom node that activates integration with a Sentry instance for loading. Has no actual nodes."
         },
         {
-            "author": "FuouM",
+            "author": "Fuou Marinas",
             "title": "FM_nodes",
             "reference": "https://github.com/FuouM/FM_nodes",
             "files": [
@@ -12472,6 +12472,28 @@
             ],
             "install_type": "git-clone",
             "description": "A collection of ComfyUI nodes. Including: WFEN, RealViFormer, ProPIH"
+        },
+        {
+            "author": "Fuou Marinas",
+            "title": "ComfyUI-FirstOrderMM",
+            "id": "fomm",
+            "reference": "https://github.com/FuouM/ComfyUI-FirstOrderMM",
+            "files": [
+                "https://github.com/FuouM/ComfyUI-FirstOrderMM"
+            ],
+            "install_type": "git-clone",
+            "description": "Run [a/First Order Motion Model](https://github.com/AliaksandrSiarohin/first-order-model) for Image Animation in ComfyUI."
+        },
+        {
+            "author": "Fuou Marinas",
+            "title": "ComfyUI-StyleTransferPlus",
+            "id": "styletransferplus",
+            "reference": "https://github.com/FuouM/ComfyUI-StyleTransferPlus",
+            "files": [
+                "https://github.com/FuouM/ComfyUI-StyleTransferPlus"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Neural Neighbor, CAST, EFDM, MicroAST, Coral Color Transfer."
         },
         {
             "author": "MiddleKD",
@@ -12814,6 +12836,69 @@
             "install_type": "git-clone",
             "description": "Simple latent-passthrough node for running a full VRAM cleanup between workflow stages."
         },
+        {
+            "author": "Pheat-AI",
+            "title": "Remade_nodes",
+            "reference": "https://github.com/Pheat-AI/Remade_nodes",
+            "files": [
+                "https://github.com/Pheat-AI/Remade_nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Batch Image Blend by Mask"
+        },
+        {
+            "author": "OgreLemonSoup",
+            "title": "Load Image Gallery",
+            "id": "LoadImageGallery",
+            "reference": "https://github.com/OgreLemonSoup/ComfyUI-Load-Image-Gallery",
+            "files": [
+                "https://github.com/OgreLemonSoup/ComfyUI-Load-Image-Gallery"
+            ],
+            "install_type": "git-clone",
+            "description": "Adds a gallery to the Load Image node"
+        },
+        {
+            "author": "OuticNZ",
+            "title": "ComfyUI-Simple-Of-Complex",
+            "reference": "https://github.com/OuticNZ/ComfyUI-Simple-Of-Complex",
+            "files": [
+                "https://github.com/OuticNZ/ComfyUI-Simple-Of-Complex"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Text Switch 2 Way, Prompt Tidy, Text With Context."
+        },
+        {
+            "author": "justUmen",
+            "title": "Bjornulf_custom_nodes",
+            "reference": "https://github.com/justUmen/Bjornulf_custom_nodes",
+            "files": [
+                "https://github.com/justUmen/Bjornulf_custom_nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes: Ollama, Green Screen to Transparency, Save image for Bjornulf LobeChat, Text with random Seed, Random line from input, Combine images (Background+Overlay alpha), Image to grayscale (black & white), Remove image Transparency (alpha), Resize Image, ..."
+        },
+        {
+            "author": "jstit",
+            "title": "comfyui_custom_node_image",
+            "reference": "https://github.com/jstit/comfyui_custom_node_image",
+            "files": [
+                "https://github.com/jstit/comfyui_custom_node_image"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:ImageCropCircle."
+        },
+        {
+            "author": "jstit",
+            "title": "ComfyUI-HeadshotPro",
+            "reference": "https://github.com/HeadshotPro/ComfyUI-HeadshotPro",
+            "files": [
+                "https://github.com/HeadshotPro/ComfyUI-HeadshotPro"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Download Dreambooth Checkpoint, Get Random Value From List, Load Canny Pose Face, Transparent to White Background, Download Flux Lora."
+        },
+
+
 
 
 
