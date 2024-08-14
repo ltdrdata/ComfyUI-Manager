@@ -9,7 +9,108 @@
         },
 
         
-        
+        {
+            "author": "XLabs-AI",
+            "title": "x-flux-comfyui",
+            "reference": "https://github.com/XLabs-AI/x-flux-comfyui",
+            "files": [
+                "https://github.com/XLabs-AI/x-flux-comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Load Flux LoRA, Load Flux ControlNet, Apply Flux ControlNet, Xlabs Sampler"
+        },
+        {
+            "author": "okgo4",
+            "title": "ComfyUI-Mosaic-Mask",
+            "reference": "https://github.com/okgo4/ComfyUI-Mosaic-Mask",
+            "files": [
+                "https://github.com/okgo4/ComfyUI-Mosaic-Mask"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI-Mosaic-Mask is an automatic tool designed to detect and mask mosaic areas in input images."
+        },
+        {
+            "author": "kijai",
+            "title": "ComfyUI nodes for ControlNext-SVD v2",
+            "reference": "https://github.com/kijai/ComfyUI-ControlNeXt-SVD",
+            "files": [
+                "https://github.com/kijai/ComfyUI-ControlNeXt-SVD"
+            ],
+            "install_type": "git-clone",
+            "description": "These nodes include my wrapper for the original diffusers pipeline, as well as work in progress native ComfyUI implementation.\nFor the diffusers wrapper models should be downloaded automatically, for the native version you can get the unet [a/here](https://huggingface.co/Kijai/ControlNeXt-SVD-V2-Comfy/blob/main/controlnext-svd_v2-unet-fp16_converted.safetensors)."
+        },
+        {
+            "author": "Isi-dev",
+            "title": "UniAnimate Nodes for ComfyUI",
+            "id": "comfyuiunianimatenodes",
+            "reference": "https://github.com/Isi-dev/ComfyUI-UniAnimate-W",
+            "files": [
+                "https://github.com/Isi-dev/ComfyUI-UniAnimate-W"
+            ],
+            "install_type": "git-clone",
+            "description": "These are nodes to animate an image with a reference video using UniAnimate. [w/Name conflict with AIFSH/ComfyUI-UniAnimate. Cannot install simulatenously.]"
+        },
+        {
+            "author": "dadoirie",
+            "title": "ComfyUI_Dados_Nodes",
+            "reference": "https://github.com/dadoirie/ComfyUI_Dados_Nodes",
+            "files": [
+                "https://github.com/dadoirie/ComfyUI_Dados_Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI_Dados_Nodes is a collection of custom nodes for ComfyUI, designed to enhance functionality and provide integration with various services, including Pinterest. This privacy policy explains how these nodes handle user data.\nNOTE: [a/privacy_policy](https://github.com/dadoirie/ComfyUI_Dados_Nodes/blob/master/privacy_policy.md)"
+        },
+        {
+            "author": "leeguandong",
+            "title": "ComfyUI nodes to use VideoEditing",
+            "reference": "https://github.com/leeguandong/ComfyUI_VideoEditing",
+            "files": [
+                "https://github.com/leeguandong/ComfyUI_VideoEditing"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Load Video to Images, Image to Canny, ControlNet Model Loader, VEDit Model Loader, VEdit Sampler. [a/https://github.com/SingleZombie/DiffusersExample/tree/main/ReplaceAttn](https://github.com/SingleZombie/DiffusersExample/tree/main/ReplaceAttn)"
+        },
+        {
+            "author": "shinich39",
+            "title": " connect-from-afar",
+            "reference": "https://github.com/shinich39/comfyui-connect-from-afar",
+            "files": [
+                "https://github.com/shinich39/comfyui-connect-from-afar"
+            ],
+            "install_type": "git-clone",
+            "description": "Connect a new link from out of screen."
+        },
+        {
+            "author": "StartHua",
+            "title": "Comfyui_CXH_joy_caption",
+            "reference": "https://github.com/StartHua/Comfyui_CXH_joy_caption",
+            "files": [
+                "https://github.com/StartHua/Comfyui_CXH_joy_caption"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Joy_caption_load, Joy_caption"
+        },
+        {
+            "author": "fanfanfan",
+            "title": "chinese_clip_encode",
+            "id": "chinese_clip_encode",
+            "reference": "https://github.com/yuan199696/chinese_clip_encode",
+            "files": [
+                "https://github.com/yuan199696/chinese_clip_encode"
+            ],
+            "install_type": "git-clone",
+            "description": "Support input of Chinese prompts."
+        },
+        {
+            "author": "ChrisColeTech",
+            "title": "ComfyUI-Line-counter",
+            "reference": "https://github.com/ChrisColeTech/ComfyUI-Line-counter",
+            "files": [
+                "https://github.com/ChrisColeTech/ComfyUI-Line-counter"
+            ],
+            "install_type": "git-clone",
+            "description": "Custom node to count the number of lines in a text file"
+        },
         {
             "author": "Fuou Marinas",
             "title": "ComfyUI-StyleTransferPlus",
@@ -592,102 +693,6 @@
             ],
             "install_type": "git-clone",
             "description": "A powerful anti-burn allowing much higher CFG scales for latent diffusion models (for ComfyUI)"
-        },
-        {
-            "author": "noarche",
-            "title": "Color Enhance",
-            "id": "color-enhance",
-            "reference": "https://github.com/noarche/sd-webui-color-enhance",
-            "files": [
-                "https://github.com/noarche/sd-webui-color-enhance"
-            ],
-            "install_type": "git-clone",
-            "description": "Script for [a/AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) and node for ComfyUI to enhance colors.\nThis is the same algorithm GIMP/GEGL uses for color enhancement. The gist of this implementation is that it converts the color space to [CIELCh(ab) and normalizes the chroma (or '[a/colorfulness](https://en.wikipedia.org/wiki/Colorfulness)') component. Original source can be found in the link below."
-        },
-        {
-            "author": "PowerHouseMan",
-            "title": "ComfyUI-AdvancedLivePortrait",
-            "id": "advancedliveportrait",
-            "reference": "https://github.com/PowerHouseMan/ComfyUI-AdvancedLivePortrait",
-            "files": [
-                "https://github.com/PowerHouseMan/ComfyUI-AdvancedLivePortrait"
-            ],
-            "install_type": "git-clone",
-            "description": "AdvancedLivePortrait with Facial expression editor"
-        },
-        {
-            "author": "cdxOo",
-            "title": "Text Node With Comments (@cdxoo)",
-            "reference": "https://github.com/cdxOo/comfyui-text-node-with-comments",
-            "files": [
-                "https://github.com/cdxOo/comfyui-text-node-with-comments"
-            ],
-            "install_type": "git-clone",
-            "description": "multiline text node that strips c-style comments (i.e.'//' and '/* ... */') before passing output string downstream"
-        },
-        {
-            "author": "11dogzi",
-            "title": "Comfyui-ergouzi-kaiguan",
-            "id": "ergouzi-nodes",
-            "reference": "https://github.com/11dogzi/Comfyui-ergouzi-kaiguan",
-            "files": [
-                "https://github.com/11dogzi/Comfyui-ergouzi-kaiguan"
-            ],
-            "install_type": "git-clone",
-            "description": "Group switching control, one click control to ignore and disable multiple groups, as well as wired switch combination nodes, allowing for arbitrary switching of annotation names"
-        },
-        {
-            "author": "neverbiasu",
-            "title": "ComfyUI SAM2(Segment Anything 2)",
-            "id": "sam2",
-            "reference": "https://github.com/neverbiasu/ComfyUI-SAM2",
-            "files": [
-                "https://github.com/neverbiasu/ComfyUI-SAM2"
-            ],
-            "install_type": "git-clone",
-            "description": "This project adapts the SAM2 to incorporate functionalities from [a/comfyui_segment_anything](https://github.com/storyicon/comfyui_segment_anything). Many thanks to continue-revolution for their foundational work."
-        },
-        {
-            "author": "kijai",
-            "title": "ComfyUI-segment-anything-2",
-            "id": "segment-anything-2",
-            "reference": "https://github.com/kijai/ComfyUI-segment-anything-2",
-            "files": [
-                "https://github.com/kijai/ComfyUI-segment-anything-2"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes to use [a/segment-anything-2](https://github.com/facebookresearch/segment-anything-2) for image or video segmentation."
-        },
-        {
-          "author": "akatz-ai",
-          "title": "Akatz Custom Nodes",
-          "id": "akatz-ai",
-          "reference": "https://github.com/akatz-ai/ComfyUI-AKatz-Nodes",
-          "files": [
-              "https://github.com/akatz-ai/ComfyUI-AKatz-Nodes"
-          ],
-          "install_type": "git-clone",
-          "description": "Simple custom node pack for nodes I use in my workflows. Includes Dilate Mask Linear for animating masks."
-        },
-        {
-            "author": "MiddleKD",
-            "title": "ComfyUI-mem-safe-wrapper",
-            "reference": "https://github.com/MiddleKD/ComfyUI-mem-safe-wrapper",
-            "files": [
-                "https://github.com/MiddleKD/ComfyUI-mem-safe-wrapper"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI's Smart Memory Management efficiently manages RAM, GPU memory, and garbage collection. This feature keeps frequently used models in memory to increase inference speed, and dynamically releases less important models when memory is low to optimize resources. However, not all ComfyUI custom node developers create nodes that are compatible with Smart memory management. This includes several impressive models. Mem-safe-wrapper is a custom node that wraps these model nodes to enable ComfyUI's Smart memory management capabilities."
-        },
-        {
-            "author": "teward",
-            "title": "Comfy-Sentry",
-            "reference": "https://github.com/teward/Comfy-Sentry",
-            "files": [
-                "https://github.com/teward/Comfy-Sentry"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI custom node that activates integration with a Sentry instance for loading. Has no actual nodes."
         }
     ]
 }
