@@ -2,7 +2,7 @@
 # try:
 #     from distutils.version import StrictVersion
 # except:
-print(f"[ComfyUI-Manager]  'distutils' package not found. Activating fallback mode for compatibility.")
+#     print(f"[ComfyUI-Manager]  'distutils' package not found. Activating fallback mode for compatibility.")
 class StrictVersion:
     def __init__(self, version_string):
         self.version_string = version_string
