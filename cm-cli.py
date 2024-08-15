@@ -35,11 +35,13 @@ restore_snapshot_path = os.path.join(startup_script_path, "restore-snapshot.json
 pip_overrides_path = os.path.join(comfyui_manager_path, "pip_overrides.json")
 git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
 
+cm_global.pip_blacklist = ['torch', 'torchsde', 'torchvision']
 cm_global.pip_downgrade_blacklist = ['torch', 'torchsde', 'torchvision', 'transformers', 'safetensors', 'kornia']
 cm_global.pip_overrides = {}
 if os.path.exists(pip_overrides_path):
     with open(pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
         cm_global.pip_overrides = json.load(json_file)
+        cm_global.pip_overrides['numpy'] = 'numpy<2'
 
 
 def check_comfyui_hash():

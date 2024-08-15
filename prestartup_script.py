@@ -20,6 +20,7 @@ import cm_global
 
 security_check.security_check()
 
+cm_global.pip_blacklist = ['torch', 'torchsde', 'torchvision']
 cm_global.pip_downgrade_blacklist = ['torch', 'torchsde', 'torchvision', 'transformers', 'safetensors', 'kornia']
 
 
@@ -82,6 +83,7 @@ cm_global.pip_overrides = {}
 if os.path.exists(pip_overrides_path):
     with open(pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
         cm_global.pip_overrides = json.load(json_file)
+        cm_global.pip_overrides['numpy'] = 'numpy<2'
 
 
 def remap_pip_package(pkg):
@@ -447,11 +449,14 @@ def is_installed(name):
     if name.startswith('#'):
         return True
 
-    pattern = r'([^<>!=]+)([<>!=]=?)(.*)'
+    pattern = r'([^<>!=]+)([<>!=]=?)([0-9.a-zA-Z]*)'
     match = re.search(pattern, name)
 
     if match:
         name = match.group(1)
+
+    if name in cm_global.pip_blacklist:
+        return True
 
     if name in cm_global.pip_downgrade_blacklist:
         pips = get_installed_packages()
@@ -531,7 +536,12 @@ if os.path.exists(restore_snapshot_path):
                             package_name = remap_pip_package(line.strip())
                             if package_name and not is_installed(package_name):
                                 if not package_name.startswith('#'):
-                                    install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                                    if '--index-url' in package_name:
+                                        s = package_name.split('--index-url')
+                                        install_cmd = [sys.executable, "-m", "pip", "install", s[0].strip(), '--index-url', s[1].strip()]
+                                    else:
+                                        install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+
                                     this_exit_code += process_wrap(install_cmd, repo_path)
 
                 if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
@@ -574,7 +584,12 @@ def execute_lazy_install_script(repo_path, executable):
             for line in requirements_file:
                 package_name = remap_pip_package(line.strip())
                 if package_name and not is_installed(package_name):
-                    install_cmd = [executable, "-m", "pip", "install", package_name]
+                    if '--index-url' in package_name:
+                        s = package_name.split('--index-url')
+                        install_cmd = [sys.executable, "-m", "pip", "install", s[0].strip(), '--index-url', s[1].strip()]
+                    else:
+                        install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+
                     process_wrap(install_cmd, repo_path)
 
     if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:

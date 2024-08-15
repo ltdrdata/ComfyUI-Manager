@@ -59,7 +59,7 @@ def is_allowed_security_level(level):
 
 async def get_risky_level(files):
     json_data1 = await core.get_data_by_mode('local', 'custom-node-list.json')
-    json_data2 = await core.get_data_by_mode('cache', 'custom-node-list.json', channel_url='https://github.com/ltdrdata/ComfyUI-Manager/raw/main/custom-node-list.json')
+    json_data2 = await core.get_data_by_mode('cache', 'custom-node-list.json', channel_url='https://github.com/ltdrdata/ComfyUI-Manager/raw/main')
 
     all_urls = set()
     for x in json_data1['custom_nodes'] + json_data2['custom_nodes']:
@@ -249,8 +249,12 @@ def get_model_dir(data):
         model_type = data['type']
         if model_type == "checkpoints":
             base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
+        elif model_type == "checkpoint":
+            base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
         elif model_type == "unclip":
             base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
+        elif model_type == "clip":
+            base_model = folder_paths.folder_names_and_paths["clip"][0][0]
         elif model_type == "VAE":
             base_model = folder_paths.folder_names_and_paths["vae"][0][0]
         elif model_type == "lora":
@@ -990,8 +994,17 @@ async def install_model(request):
         return web.Response(status=403)
 
     if not json_data['filename'].endswith('.safetensors') and not is_allowed_security_level('high'):
-        print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
-        return web.Response(status=403)
+        models_json = await core.get_data_by_mode('cache', 'model-list.json')
+
+        is_belongs_to_whitelist = False
+        for x in models_json['models']:
+            if x.get('url') == json_data['url']:
+                is_belongs_to_whitelist = True
+                break
+
+        if not is_belongs_to_whitelist:
+            print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
+            return web.Response(status=403)
 
     res = False
 
