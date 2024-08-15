@@ -415,18 +415,7 @@
         {
             "author": "SaltAI",
             "title": "SaltAI_Language_Toolkit",
-            "id": "saltai-llamaindex",
-            "reference": "https://github.com/get-salt-AI/SaltAI_Language_Toolkit",
-            "files": [
-                "https://github.com/get-salt-AI/SaltAI_Language_Toolkit"
-            ],
-            "install_type": "git-clone",
-            "description": "An implementation of the RAG LlamaIndex with Agents from AutoGen.[w/SaltAI_LlamaIndex is renamed to SaltAI_Language_Toolkit. Please reinstall.]"
-        },
-        {
-            "author": "SaltAI",
-            "title": "SaltAI Language Toolkit",
-            "id": "saltai-langtool",
+            "id": "saltai_language_toolkit",
             "reference": "https://github.com/get-salt-AI/SaltAI_Language_Toolkit",
             "files": [
                 "https://github.com/get-salt-AI/SaltAI_Language_Toolkit"
@@ -655,6 +644,17 @@
             ],
             "install_type": "git-clone",
             "description": "This extension aims to add support for various random image diffusion models to ComfyUI."
+        },
+        {
+            "author": "city96",
+            "title": "ComfyUI-GGUF",
+            "id": "gguf",
+            "reference": "https://github.com/city96/ComfyUI-GGUF",
+            "files": [
+                "https://github.com/city96/ComfyUI-GGUF"
+            ],
+            "install_type": "git-clone",
+            "description": "GGUF Quantization support for native ComfyUI models\nThis is currently very much WIP. These custom nodes provide support for model files stored in the GGUF format popularized by llama.cpp.\nWhile quantization wasn't feasible for regular UNET models (conv2d), transformer/DiT models such as flux seem less affected by quantization. This allows running it in much lower bits per weight variable bitrate quants on low-end GPUs.\n[w/LoRA / Controlnet / etc are currently not supported due to the weights being quantized.]"
         },
         {
             "author": "SLAPaper",
@@ -1456,7 +1456,7 @@
         {
             "author": "asagi4",
             "title": "Adaptive Guidance for ComfyUI",
-            "id": "asagi-nodes",
+            "id": "comfyui-adaptive-guidance",
             "reference": "https://github.com/asagi4/ComfyUI-Adaptive-Guidance",
             "files": [
                 "https://github.com/asagi4/ComfyUI-Adaptive-Guidance"
@@ -2761,14 +2761,14 @@
         },
         {
             "author": "chrisgoringe",
-            "title": "Variation seeds",
-            "id": "variation-seed",
-            "reference": "https://github.com/chrisgoringe/cg-noise",
+            "title": "Noise variation and batch noise tools",
+            "id": "cg-noisetools",
+            "reference": "https://github.com/chrisgoringe/cg-noisetools",
             "files": [
-                "https://github.com/chrisgoringe/cg-noise"
+                "https://github.com/chrisgoringe/cg-noisetools"
             ],
             "install_type": "git-clone",
-            "description": "Adds KSampler custom nodes with variation seed and variation strength."
+            "description": "Nodes to create small variations on noise, to shape noise, and to control noise in batches. Replaces the old 'variation-seed' nodes."
         },
         {
             "author": "chrisgoringe",
@@ -3107,6 +3107,16 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes to use [a/segment-anything-2](https://github.com/facebookresearch/segment-anything-2) for image or video segmentation."
+        },
+        {
+            "author": "kijai",
+            "title": "ComfyUI nodes for ControlNext-SVD v2",
+            "reference": "https://github.com/kijai/ComfyUI-ControlNeXt-SVD",
+            "files": [
+                "https://github.com/kijai/ComfyUI-ControlNeXt-SVD"
+            ],
+            "install_type": "git-clone",
+            "description": "These nodes include my wrapper for the original diffusers pipeline, as well as work in progress native ComfyUI implementation.\nFor the diffusers wrapper models should be downloaded automatically, for the native version you can get the unet [a/here](https://huggingface.co/Kijai/ControlNeXt-SVD-V2-Comfy/blob/main/controlnext-svd_v2-unet-fp16_converted.safetensors)."
         },
         {
             "author": "hhhzzyang",
@@ -4717,7 +4727,7 @@
         },
         {
             "author": "mmaker",
-            "title": "Color Enhance",
+            "title": "mmaker/Color Enhance",
             "reference": "https://git.mmaker.moe/mmaker/sd-webui-color-enhance",
             "files": [
                 "https://git.mmaker.moe/mmaker/sd-webui-color-enhance"
@@ -5805,7 +5815,7 @@
         {
             "author": "alexopus",
             "title": "ComfyUI Image Saver",
-            "id": "image-saver",
+            "id": "comfyui-image-saver",
             "reference": "https://github.com/alexopus/ComfyUI-Image-Saver",
             "files": [
                 "https://github.com/alexopus/ComfyUI-Image-Saver"
@@ -6516,14 +6526,14 @@
         },
         {
             "author": "blepping",
-            "title": "ComfyUI jank HiDiffusion",
+            "title": "comfyui_jankhidiffusion",
             "id": "jank-hidiffusion",
             "reference": "https://github.com/blepping/comfyui_jankhidiffusion",
             "files": [
                 "https://github.com/blepping/comfyui_jankhidiffusion"
             ],
             "install_type": "git-clone",
-            "description": "Janky experimental attempt at implementing [a/HiDiffusion](https://github.com/megvii-research/HiDiffusion) for ComfyUI."
+            "description": "Janky implementation of [a/HiDiffusion](https://github.com/megvii-research/HiDiffusion) for ComfyUI. Enables generating at resolutions higher than what the model was trained for. Only supports SD 1.x (maybe 2.x) and SDXL."
         },
         {
             "author": "blepping",
@@ -6664,6 +6674,16 @@
             ],
             "install_type": "git-clone",
             "description": "Original project: [a/link](https://github.com/tencent-ailab/PCDMs)\nBased on testing, the author's original images work very well, but using my own images generally requires some luck!"
+        },
+        {
+            "author": "StartHua",
+            "title": "Comfyui_CXH_joy_caption",
+            "reference": "https://github.com/StartHua/Comfyui_CXH_joy_caption",
+            "files": [
+                "https://github.com/StartHua/Comfyui_CXH_joy_caption"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Joy_caption_load, Joy_caption"
         },
         {
             "author": "ricklove",
@@ -7121,7 +7141,7 @@
         {
             "author": "logtd",
             "title": "ComfyUI-RAVE Attention",
-            "id": "rave",
+            "id": "rave-attn",
             "reference": "https://github.com/logtd/ComfyUI-RAVE_ATTN",
             "files": [
                 "https://github.com/logtd/ComfyUI-RAVE_ATTN"
@@ -7490,7 +7510,7 @@
         {
             "author": "11dogzi",
             "title": "Comfyui-ergouzi-kaiguan",
-            "id": "ergouzi-nodes",
+            "id": "ergouzi-kaiguan",
             "reference": "https://github.com/11dogzi/Comfyui-ergouzi-kaiguan",
             "files": [
                 "https://github.com/11dogzi/Comfyui-ergouzi-kaiguan"
@@ -7501,7 +7521,7 @@
         {
             "author": "11dogzi",
             "title": "ComfUI-EGAdapterMadAssistant",
-            "id": "ergouzi-samplers",
+            "id": "madassistant",
             "reference": "https://github.com/11dogzi/ComfUI-EGAdapterMadAssistant",
             "files": [
                 "https://github.com/11dogzi/ComfUI-EGAdapterMadAssistant"
@@ -8084,7 +8104,7 @@
         {
             "author": "viperyl",
             "title": "ComfyUI-BiRefNet",
-            "id": "birefnet",
+            "id": "comfyui-birefnet",
             "reference": "https://github.com/viperyl/ComfyUI-BiRefNet",
             "files": [
                 "https://github.com/viperyl/ComfyUI-BiRefNet"
@@ -8230,6 +8250,26 @@
             ],
             "install_type": "git-clone",
             "description": "Load image and partially workflow with javascript."
+        },
+        {
+            "author": "shinich39",
+            "title": "connect-from-afar",
+            "reference": "https://github.com/shinich39/comfyui-connect-from-afar",
+            "files": [
+                "https://github.com/shinich39/comfyui-connect-from-afar"
+            ],
+            "install_type": "git-clone",
+            "description": "Connect a new link from out of screen."
+        },
+        {
+            "author": "shinich39",
+            "title": "comfyui-target-search",
+            "reference": "https://github.com/shinich39/comfyui-target-search",
+            "files": [
+                "https://github.com/shinich39/comfyui-target-search"
+            ],
+            "install_type": "git-clone",
+            "description": "Move canvas to target on dragging connection."
         },
         {
             "author": "wei30172",
@@ -8647,7 +8687,7 @@
         {
             "author": "discus0434",
             "title": "ComfyUI Aesthetic Predictor V2.5",
-            "id": "caching-embeddings",
+            "id": "aesthetic-predictor",
             "reference": "https://github.com/discus0434/comfyui-aesthetic-predictor-v2-5",
             "files": [
                 "https://github.com/discus0434/comfyui-aesthetic-predictor-v2-5"
@@ -9184,6 +9224,17 @@
             "description": "using [a/StreamV2V](https://github.com/Jeff-LiangF/streamv2v) in ComfyUI"
         },
         {
+            "author": "smthemex",
+            "title": "ComfyUI_MooER",
+            "id": "comfyui_mooer",
+            "reference": "https://github.com/smthemex/ComfyUI_MooER",
+            "files": [
+                "https://github.com/smthemex/ComfyUI_MooER"
+            ],
+            "install_type": "git-clone",
+            "description": "MooER is an LLM-based Speech Recognition and Translation Model from Moore Threads.You can use MooER when install ComfyUI_MooER node"
+        },
+        {
             "author": "choey",
             "title": "Comfy-Topaz",
             "id": "topaz",
@@ -9197,7 +9248,7 @@
         {
             "author": "ALatentPlace",
             "title": "ComfyUI_yanc",
-            "id": "yanc",
+            "id": "yanc-alatentplace",
             "reference": "https://github.com/ALatentPlace/ComfyUI_yanc",
             "files": [
                 "https://github.com/ALatentPlace/ComfyUI_yanc"
@@ -9583,6 +9634,16 @@
             "pip": ["git+https://github.com/IST-DASLab/marlin"],
             "install_type": "git-clone",
             "description": "Quantization tools are from [a/https://github.com/casper-hansen/AutoAWQ](https://github.com/casper-hansen/AutoAWQ) and [a/https://github.com/IST-DASLab/marlin](https://github.com/IST-DASLab/marlin)\nOnly applicable to graphics cards with sm_80 and above (30 series and above)\nNeed to install marlin dependencies first"
+        },
+        {
+            "author": "MinusZoneAI",
+            "title": "ComfyUI-FluxExt-MZ",
+            "reference": "https://github.com/MinusZoneAI/ComfyUI-FluxExt-MZ",
+            "files": [
+                "https://github.com/MinusZoneAI/ComfyUI-FluxExt-MZ"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:MZ_Flux1PartialLoad_Patch. Tool nodes related to flux1"
         },
         {
             "author": "blueraincoatli",
@@ -10058,7 +10119,7 @@
                 "https://github.com/saftle/suplex_comfy_nodes"
             ],
             "install_type": "git-clone",
-            "description": "Misc Nodes: ControlNet Selector Node, Load Optional ControlNet Model"
+            "description": "Misc Nodes: ControlNet Selector Node, Load Optional ControlNet Model, Diffusers Selector, Save Image JPG No Meta, Multi Input Variable Rewrite"
         },
         {
             "author": "mephisto83",
@@ -12336,16 +12397,6 @@
             "description": "Advanced tiling of various shapes for ComfyUI"
         },
         {
-            "author": "neeltheninja",
-            "title": "ComfyUI-TextOverlay",
-            "reference": "https://github.com/neeltheninja/ComfyUI-TextOverlay",
-            "files": [
-                "https://github.com/neeltheninja/ComfyUI-TextOverlay"
-            ],
-            "install_type": "git-clone",
-            "description": "A custom node for ComfyUI that adds text overlay to images, with options for text and background color, opacity, vertical positioning, and custom font selection."
-        },
-        {
             "author": "Fuou Marinas",
             "title": "ComfyUI-EbSynth",
             "id": "comfyEbsynth",
@@ -12538,7 +12589,7 @@
         },
         {
             "author": "noarche",
-            "title": "Color Enhance",
+            "title": "noarche/Color Enhance",
             "id": "color-enhance",
             "reference": "https://github.com/noarche/sd-webui-color-enhance",
             "files": [
@@ -12681,6 +12732,16 @@
             "description": "ComfyUI for [a/LLaSM](https://huggingface.co/spaces/LinkSoul/LLaSM)"
         },
         {
+            "author": "leeguandong",
+            "title": "ComfyUI nodes to use VideoEditing",
+            "reference": "https://github.com/leeguandong/ComfyUI_VideoEditing",
+            "files": [
+                "https://github.com/leeguandong/ComfyUI_VideoEditing"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Load Video to Images, Image to Canny, ControlNet Model Loader, VEDit Model Loader, VEdit Sampler. [a/https://github.com/SingleZombie/DiffusersExample/tree/main/ReplaceAttn](https://github.com/SingleZombie/DiffusersExample/tree/main/ReplaceAttn)"
+        },
+        {
             "author": "lenskikh",
             "title": "Propmt Worker",
             "reference": "https://github.com/lenskikh/ComfyUI-Prompt-Worker",
@@ -12797,13 +12858,13 @@
         },
         {
             "author": "MohammadAboulEla",
-            "title": "iTools ImageLoaderPlus",
+            "title": "ComfyUI-iTools",
             "reference": "https://github.com/MohammadAboulEla/ComfyUI-iTools",
             "files": [
                 "https://github.com/MohammadAboulEla/ComfyUI-iTools"
             ],
             "install_type": "git-clone",
-            "description": "The iTools ImageLoaderPlus is an enhancement of the original ComfyUI ImageLoader node. It attempts to return the possible prompt used to create an image."
+            "description": "The iTools are some quality of life nodes, like read a possible prompt used to create an image, save a prompt to file as a new line, read prompts from a multiline file."
         },
         {
             "author": "Hellrunner2k",
@@ -12897,7 +12958,99 @@
             "install_type": "git-clone",
             "description": "Nodes:Download Dreambooth Checkpoint, Get Random Value From List, Load Canny Pose Face, Transparent to White Background, Download Flux Lora."
         },
-
+        {
+            "author": "Isi-dev",
+            "title": "UniAnimate Nodes for ComfyUI",
+            "id": "comfyuiunianimatenodes",
+            "reference": "https://github.com/Isi-dev/ComfyUI-UniAnimate-W",
+            "files": [
+                "https://github.com/Isi-dev/ComfyUI-UniAnimate-W"
+            ],
+            "install_type": "git-clone",
+            "description": "These are nodes to animate an image with a reference video using UniAnimate. [w/Name conflict with AIFSH/ComfyUI-UniAnimate. Cannot install simulatenously.]"
+        },
+        {
+            "author": "XLabs-AI",
+            "title": "x-flux-comfyui",
+            "reference": "https://github.com/XLabs-AI/x-flux-comfyui",
+            "files": [
+                "https://github.com/XLabs-AI/x-flux-comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:Load Flux LoRA, Load Flux ControlNet, Apply Flux ControlNet, Xlabs Sampler"
+        },
+        {
+            "author": "okgo4",
+            "title": "ComfyUI-Mosaic-Mask",
+            "reference": "https://github.com/okgo4/ComfyUI-Mosaic-Mask",
+            "files": [
+                "https://github.com/okgo4/ComfyUI-Mosaic-Mask"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI-Mosaic-Mask is an automatic tool designed to detect and mask mosaic areas in input images."
+        },
+        {
+            "author": "ChrisColeTech",
+            "title": "ComfyUI-Line-counter",
+            "reference": "https://github.com/ChrisColeTech/ComfyUI-Line-counter",
+            "files": [
+                "https://github.com/ChrisColeTech/ComfyUI-Line-counter"
+            ],
+            "install_type": "git-clone",
+            "description": "Custom node to count the number of lines in a text file"
+        },
+        {
+            "author": "dadoirie",
+            "title": "ComfyUI_Dados_Nodes",
+            "reference": "https://github.com/dadoirie/ComfyUI_Dados_Nodes",
+            "files": [
+                "https://github.com/dadoirie/ComfyUI_Dados_Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI_Dados_Nodes is a collection of custom nodes for ComfyUI, designed to enhance functionality and provide integration with various services, including Pinterest. This privacy policy explains how these nodes handle user data.\nNOTE: [a/privacy_policy](https://github.com/dadoirie/ComfyUI_Dados_Nodes/blob/master/privacy_policy.md)"
+        },
+        {
+            "author": "fanfanfan",
+            "title": "chinese_clip_encode",
+            "id": "chinese_clip_encode",
+            "reference": "https://github.com/yuan199696/chinese_clip_encode",
+            "files": [
+                "https://github.com/yuan199696/chinese_clip_encode"
+            ],
+            "install_type": "git-clone",
+            "description": "Support input of Chinese prompts."
+        },
+        {
+            "author": "fanfanfan",
+            "title": "add_text_2_img",
+            "id": "add_text_2_img",
+            "reference": "https://github.com/yuan199696/add_text_2_img",
+            "files": [
+                "https://github.com/yuan199696/add_text_2_img"
+            ],
+            "install_type": "git-clone",
+            "description": "Support adding custom text to the generated images."
+        },
+        {
+            "author": "fairy-root",
+            "title": "Ollama and Llava Vision integration for ComfyUI",
+            "reference": "https://github.com/fairy-root/comfyui-ollama-llms",
+            "files": [
+                "https://github.com/fairy-root/comfyui-ollama-llms"
+            ],
+            "install_type": "git-clone",
+            "description": "The PonySwitch node is a custom node for ComfyUI that modifies prompts based on a toggle switch and adds configurable pony tags."
+        },
+        {
+            "author": "ryanontheinside",
+            "title": "ComfyUI_RyanOnTheInside",
+            "reference": "https://github.com/ryanontheinside/ComfyUI_RyanOnTheInside",
+            "files": [
+                "https://github.com/ryanontheinside/ComfyUI_RyanOnTheInside"
+            ],
+            "install_type": "git-clone",
+            "description": "RyanOnTheInside node pack introduces the following (so far): Particle Systems, Optical Flow, Temporal Masks."
+        },
 
 
 
