@@ -657,17 +657,6 @@
             "description": "GGUF Quantization support for native ComfyUI models\nThis is currently very much WIP. These custom nodes provide support for model files stored in the GGUF format popularized by llama.cpp.\nWhile quantization wasn't feasible for regular UNET models (conv2d), transformer/DiT models such as flux seem less affected by quantization. This allows running it in much lower bits per weight variable bitrate quants on low-end GPUs.\n[w/LoRA / Controlnet / etc are currently not supported due to the weights being quantized.]"
         },
         {
-            "author": "city96",
-            "title": "ComfyUI-GGUF",
-            "id": "gguf",
-            "reference": "https://github.com/city96/ComfyUI-GGUF",
-            "files": [
-                "https://github.com/city96/ComfyUI-GGUF"
-            ],
-            "install_type": "git-clone",
-            "description": "GGUF Quantization support for native ComfyUI models\nThis is currently very much WIP. These custom nodes provide support for model files stored in the GGUF format popularized by llama.cpp.\nWhile quantization wasn't feasible for regular UNET models (conv2d), transformer/DiT models such as flux seem less affected by quantization. This allows running it in much lower bits per weight variable bitrate quants on low-end GPUs."
-        },
-        {
             "author": "SLAPaper",
             "title": "ComfyUI-Image-Selector",
             "id": "image-selector",
@@ -6537,14 +6526,14 @@
         },
         {
             "author": "blepping",
-            "title": "ComfyUI jank HiDiffusion",
+            "title": "comfyui_jankhidiffusion",
             "id": "jank-hidiffusion",
             "reference": "https://github.com/blepping/comfyui_jankhidiffusion",
             "files": [
                 "https://github.com/blepping/comfyui_jankhidiffusion"
             ],
             "install_type": "git-clone",
-            "description": "Janky experimental attempt at implementing [a/HiDiffusion](https://github.com/megvii-research/HiDiffusion) for ComfyUI."
+            "description": "Janky implementation of [a/HiDiffusion](https://github.com/megvii-research/HiDiffusion) for ComfyUI. Enables generating at resolutions higher than what the model was trained for. Only supports SD 1.x (maybe 2.x) and SDXL."
         },
         {
             "author": "blepping",
