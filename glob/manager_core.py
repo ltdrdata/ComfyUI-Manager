@@ -35,6 +35,8 @@ version_code = [2, 48, 7]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
+DEFAULT_CHANNEL = "https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main"
+
 def download_url(url, dest_folder, filename):
     # Ensure the destination folder exists
     if not os.path.exists(dest_folder):
@@ -272,6 +274,10 @@ class UnifiedManager:
         self.custom_node_map_cache = {}    # (channel, mode) -> augmented custom node list json
         self.processed_install = set()
 
+    def get_cnr_by_repo(self, url):
+        normalized_url = url.replace("git@github.com:", "https://github.com/")
+        return self.repo_cnr_map.get(normalized_url)
+
     def resolve_unspecified_version(self, node_name, guess_mode=None):
         if guess_mode == 'active':
             # priority:
@@ -385,7 +391,7 @@ class UnifiedManager:
 
         for k, v in config.items():
             if k.startswith('remote ') and 'url' in v:
-                cnr = self.repo_cnr_map.get(v['url'])
+                cnr = self.get_cnr_by_repo(v['url'])
                 if cnr:
                     return "nightly"
                 else:
@@ -402,7 +408,7 @@ class UnifiedManager:
 
         for k, v in config.items():
             if k.startswith('remote ') and 'url' in v:
-                cnr = self.repo_cnr_map.get(v['url'])
+                cnr = self.get_cnr_by_repo(v['url'])
                 if cnr:
                     return "nightly", cnr['id'], v['url']
                 else:
@@ -642,7 +648,8 @@ class UnifiedManager:
             self.cnr_map[x['id']] = x
 
             if 'repository' in x:
-                self.repo_cnr_map[x['repository']] = x
+                normalized_url = x['repository'].replace("git@github.com:", "https://github.com/")
+                self.repo_cnr_map[normalized_url] = x
 
         # reload node status info from custom_nodes/*
         for x in os.listdir(custom_nodes_path):
@@ -683,13 +690,14 @@ class UnifiedManager:
         return res
 
     async def get_custom_nodes(self, channel, mode):
-        channel = normalize_channel(channel)
-
-        cache = self.custom_node_map_cache.get((channel, mode))
+        default_channel = normalize_channel('default')
+        cache = self.custom_node_map_cache.get((default_channel, mode)) # CNR/nightly should always be based on the default channel.
 
         if cache is not None:
             return cache
 
+        channel = normalize_channel(channel)
+        print(f"nightly_channel: {channel}/{mode}")
         nodes = await self.load_nightly(channel, mode)
 
         res = {}
@@ -697,7 +705,7 @@ class UnifiedManager:
         for v in nodes.values():
             v = v[0]
             if len(v['files']) == 1:
-                cnr = self.repo_cnr_map.get(v['files'][0])
+                cnr = self.get_cnr_by_repo(v['files'][0])
                 if cnr:
                     if 'latest_version' not in cnr:
                         v['cnr_latest'] = '0.0.0'
@@ -1422,7 +1430,7 @@ def read_config():
                     'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else manager_funcs.get_current_preview_method(),
                     'badge_mode': default_conf['badge_mode'] if 'badge_mode' in default_conf else 'none',
                     'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
-                    'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
+                    'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else DEFAULT_CHANNEL,
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
                     'bypass_ssl': default_conf['bypass_ssl'].lower() == 'true' if 'bypass_ssl' in default_conf else False,
                     'file_logging': default_conf['file_logging'].lower() == 'true' if 'file_logging' in default_conf else True,
@@ -1441,7 +1449,7 @@ def read_config():
             'preview_method': manager_funcs.get_current_preview_method(),
             'badge_mode': 'none',
             'git_exe': '',
-            'channel_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
+            'channel_url': DEFAULT_CHANNEL,
             'share_option': 'all',
             'bypass_ssl': False,
             'file_logging': True,
@@ -1761,7 +1769,7 @@ async def gitclone_install(url, instant_execution=False, msg_prefix='', no_deps=
     if url.endswith("/"):
         url = url[:-1]
     try:
-        cnr = unified_manager.repo_cnr_map.get(url)
+        cnr = unified_manager.get_cnr_by_repo(url)
         if cnr:
             cnr_id = cnr['id']
             return await unified_manager.install_by_id(cnr_id, version_spec='nightly')
@@ -2403,7 +2411,7 @@ def unzip(model_path):
 def map_to_unified_keys(json_obj):
     res = {}
     for k, v in json_obj.items():
-        cnr = unified_manager.repo_cnr_map.get(k)
+        cnr = unified_manager.get_cnr_by_repo(k)
         if cnr:
             res[cnr['id']] = v
         else:
@@ -2425,7 +2433,7 @@ async def get_unified_total_nodes(channel, mode):
         files_in_json = v.get('files', [])
         cnr_id = None
         if len(files_in_json) == 1:
-            cnr = unified_manager.repo_cnr_map.get(files_in_json[0])
+            cnr = unified_manager.get_cnr_by_repo(files_in_json[0])
             if cnr:
                 cnr_id = cnr['id']
 
@@ -2489,52 +2497,54 @@ async def get_unified_total_nodes(channel, mode):
                 v['state'] = 'not-installed'
 
     # add items for pure cnr nodes
-    for cnr_id in cnr_ids:
-        cnr = unified_manager.cnr_map[cnr_id]
-        author = cnr['publisher']['name']
-        title = cnr['name']
-        reference = f"https://registry.comfy.org/nodes/{cnr['id']}"
-        install_type = "cnr"
-        description = cnr.get('description', '')
+    if normalize_channel(channel) == DEFAULT_CHANNEL:
+        # Don't show CNR nodes unless default channel
+        for cnr_id in cnr_ids:
+            cnr = unified_manager.cnr_map[cnr_id]
+            author = cnr['publisher']['name']
+            title = cnr['name']
+            reference = f"https://registry.comfy.org/nodes/{cnr['id']}"
+            install_type = "cnr"
+            description = cnr.get('description', '')
 
-        ver = None
-        active_version = None
-        updatable = False
-        import_fail = None
-        if cnr_id in unified_manager.active_nodes:
-            # installed
-            state = 'enabled'
-            updatable = unified_manager.is_updatable(cnr_id)
-            active_version = unified_manager.active_nodes[cnr['id']][0]
-            ver = active_version
+            ver = None
+            active_version = None
+            updatable = False
+            import_fail = None
+            if cnr_id in unified_manager.active_nodes:
+                # installed
+                state = 'enabled'
+                updatable = unified_manager.is_updatable(cnr_id)
+                active_version = unified_manager.active_nodes[cnr['id']][0]
+                ver = active_version
 
-            if cm_global.try_call(api="cm.is_import_failed_extension", name=unified_manager.active_nodes[cnr_id][1]):
-                import_fail = True
+                if cm_global.try_call(api="cm.is_import_failed_extension", name=unified_manager.active_nodes[cnr_id][1]):
+                    import_fail = True
 
-        elif cnr['id'] in unified_manager.cnr_inactive_nodes:
-            # disabled
-            state = 'disabled'
-        elif cnr['id'] in unified_manager.nightly_inactive_nodes:
-            # disabled
-            state = 'disabled'
-            ver = 'nightly'
-        else:
-            # not installed
-            state = 'not-installed'
+            elif cnr['id'] in unified_manager.cnr_inactive_nodes:
+                # disabled
+                state = 'disabled'
+            elif cnr['id'] in unified_manager.nightly_inactive_nodes:
+                # disabled
+                state = 'disabled'
+                ver = 'nightly'
+            else:
+                # not installed
+                state = 'not-installed'
 
-        if ver is None:
-            ver = cnr['latest_version']['version']
+            if ver is None:
+                ver = cnr['latest_version']['version']
 
-        item = dict(author=author, title=title, reference=reference, install_type=install_type,
-                    description=description, state=state, updatable=updatable, version=ver)
+            item = dict(author=author, title=title, reference=reference, install_type=install_type,
+                        description=description, state=state, updatable=updatable, version=ver)
 
-        if active_version:
-            item['active_version'] = active_version
+            if active_version:
+                item['active_version'] = active_version
 
-        if import_fail:
-            item['import-fail'] = True
+            if import_fail:
+                item['import-fail'] = True
 
-        res[cnr_id] = item
+            res[cnr_id] = item
 
     return res
 
