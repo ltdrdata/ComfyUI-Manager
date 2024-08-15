@@ -1239,7 +1239,7 @@ class UnifiedManager:
 
         if self.is_enabled(node_id, 'nightly'):
             # disable nightly nodes
-            self.unified_disable(node_id, 'nightly')  # NOTE: don't return from here
+            self.unified_disable(node_id, False)  # NOTE: don't return from here
 
         if self.is_disabled(node_id, version_spec):
             # enable and return if specified version is disabled
