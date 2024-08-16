@@ -852,6 +852,10 @@ async def fix_custom_node(request):
             install_cmd = [sys.executable, "-m", "pip", "install", '-U', pname]
             core.try_install_script(json_data['files'][0], ".", install_cmd)
 
+    # HOTFIX: force downgrade to numpy<2
+    install_cmd = [sys.executable, "-m", "pip", "install", "numpy<2"]
+    core.try_install_script(json_data['files'][0], ".", install_cmd)
+
     if res:
         print(f"After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
