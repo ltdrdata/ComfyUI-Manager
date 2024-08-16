@@ -2070,6 +2070,7 @@
             "BinaryPreprocessor",
             "CannyEdgePreprocessor",
             "ColorPreprocessor",
+            "ControlNetAuxSimpleAddText",
             "ControlNetPreprocessorSelector",
             "DSINE-NormalMapPreprocessor",
             "DWPreprocessor",
@@ -2077,6 +2078,7 @@
             "DepthAnythingPreprocessor",
             "DepthAnythingV2Preprocessor",
             "DiffusionEdge_Preprocessor",
+            "ExecuteAllControlNetPreprocessors",
             "FacialPartColoringFromPoseKps",
             "FakeScribblePreprocessor",
             "HEDPreprocessor",
@@ -3779,6 +3781,7 @@
     ],
     "https://github.com/MohammadAboulEla/ComfyUI-iTools": [
         [
+            "iToolsAddOverlay",
             "iToolsLoadImagePlus",
             "iToolsPromptLoader",
             "iToolsPromptSaver"
@@ -10133,7 +10136,8 @@
     ],
     "https://github.com/doomy23/ComfyUI-D00MYsNodes": [
         [
-            "ImagesToPNG"
+            "Images_to_PNG",
+            "Show_String"
         ],
         {
             "title_aux": "ComfyUI-D00MYsNodes"
@@ -10231,7 +10235,15 @@
             "WidthHeightPicker"
         ],
         {
-            "title_aux": "Various custom nodes by Eden.art"
+            "title_aux": "Eden.art nodesuite"
+        }
+    ],
+    "https://github.com/edenartlab/sd-lora-trainer": [
+        [
+            "Eden_LoRa_trainer"
+        ],
+        {
+            "title_aux": "Eden.art LoRa Trainer"
         }
     ],
     "https://github.com/emojiiii/ComfyUI_Emojiiii_Custom_Nodes": [
@@ -14673,10 +14685,8 @@
             "CanvasCreatorSimple",
             "CircleCreator",
             "CirclesGenerator",
-            "CreateCircleMask",
             "CreateMaskWithCanvas",
             "CreateNestedPNGMask",
-            "CreatePolygonPNGMask",
             "CreateSimpleMask",
             "CreateTillingPNGMask",
             "CreateWatermarkRemovalMask",
@@ -14694,6 +14704,7 @@
             "IntMultiplication",
             "IntSubtraction",
             "IntToFloatMultiplication",
+            "LoRALoaderWithNameStacker",
             "LogicNot",
             "NoneToZero",
             "NumeralToString",
@@ -17079,6 +17090,7 @@
             "Compare-\ud83d\udd2c",
             "DebugPrint-\ud83d\udd2c",
             "Float-\ud83d\udd2c",
+            "If ANY execute A else B-\ud83d\udd2c",
             "If ANY return A else B-\ud83d\udd2c",
             "Int-\ud83d\udd2c",
             "String-\ud83d\udd2c"
