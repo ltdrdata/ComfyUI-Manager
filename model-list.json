@@ -1,9 +1,31 @@
 {
   "models": [
     {
+      "name": "TAEF1 Decoder",
+      "type": "TAESD",
+      "base": "FLUX.1",
+      "save_path": "vae_approx",
+      "description": "(FLUX.1 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
+      "reference": "https://github.com/madebyollin/taesd",
+      "filename": "taef1_decoder.pth",
+      "url": "https://github.com/madebyollin/taesd/raw/main/taef1_decoder.pth",
+      "size": "4.71MB"
+    },
+    {
+      "name": "TAEF1 Encoder",
+      "type": "TAESD",
+      "base": "FLUX.1",
+      "save_path": "vae_approx",
+      "description": "(FLUX.1 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
+      "reference": "https://github.com/madebyollin/taesd",
+      "filename": "taef1_encoder.pth",
+      "url": "https://github.com/madebyollin/taesd/raw/main/taef1_encoder.pth",
+      "size": "4.71MB"
+    },
+    {
       "name": "TAESD3 Decoder",
       "type": "TAESD",
-      "base": "SDXL",
+      "base": "SD3",
       "save_path": "vae_approx",
       "description": "(SD3 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
       "reference": "https://github.com/madebyollin/taesd",
@@ -14,7 +36,7 @@
     {
       "name": "TAESD3 Encoder",
       "type": "TAESD",
-      "base": "SDXL",
+      "base": "SD3",
       "save_path": "vae_approx",
       "description": "(SD3 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
       "reference": "https://github.com/madebyollin/taesd",
