@@ -1,6 +1,29 @@
 {
   "models": [
     {
+      "name": "TAESD3 Decoder",
+      "type": "TAESD",
+      "base": "FLUX.1",
+      "save_path": "vae_approx",
+      "description": "(FLUX.1 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
+      "reference": "https://github.com/madebyollin/taesd",
+      "filename": "taef1_decoder.pth",
+      "url": "https://github.com/madebyollin/taesd/raw/main/taef1_decoder.pth",
+      "size": "4.71MB"
+    },
+    {
+      "name": "TAESD3 Encoder",
+      "type": "TAESD",
+      "base": "FLUX.1",
+      "save_path": "vae_approx",
+      "description": "(FLUX.1 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
+      "reference": "https://github.com/madebyollin/taesd",
+      "filename": "taef1_encoder.pth",
+      "url": "https://github.com/madebyollin/taesd/raw/main/taef1_encoder.pth",
+      "size": "4.71MB"
+    },
+
+    {
       "name": "comfyanonymous/clip_l",
       "type": "clip",
       "base": "clip",
@@ -670,52 +693,6 @@
       "filename": "model.safetensors",
       "url": "https://huggingface.co/spaces/ID-Animator/ID-Animator/resolve/main/image_encoder/model.safetensors",
       "size": "2.53GB"
-    },
-
-    {
-      "name": "IC-Light/fc",
-      "type": "IC-Light",
-      "base": "SD1.5",
-      "save_path": "unet/IC-Light",
-      "description": "The default relighting model, conditioned on text and foreground",
-      "reference": "https://huggingface.co/lllyasviel/ic-light",
-      "filename": "iclight_sd15_fc.safetensors",
-      "url": "https://huggingface.co/lllyasviel/ic-light/resolve/main/iclight_sd15_fc.safetensors",
-      "size": "1.72GB"
-    },
-    {
-      "name": "IC-Light/fbc",
-      "type": "IC-Light",
-      "base": "SD1.5",
-      "save_path": "unet/IC-Light",
-      "description": "Relighting model conditioned with text, foreground, and background",
-      "reference": "https://huggingface.co/lllyasviel/ic-light",
-      "filename": "iclight_sd15_fbc.safetensors",
-      "url": "https://huggingface.co/lllyasviel/ic-light/resolve/main/iclight_sd15_fbc.safetensors",
-      "size": "1.72GB"
-    },
-    {
-      "name": "IC-Light/fcon",
-      "type": "IC-Light",
-      "base": "SD1.5",
-      "save_path": "unet/IC-Light",
-      "description": "Same as iclight_sd15_fc.safetensors, but trained with offset noise",
-      "reference": "https://huggingface.co/lllyasviel/ic-light",
-      "filename": "iclight_sd15_fcon.safetensors",
-      "url": "https://huggingface.co/lllyasviel/ic-light/resolve/main/iclight_sd15_fcon.safetensors",
-      "size": "1.72GB"
-    },
-
-    {
-      "name": "MonsterMMORPG/insightface (for InstantID)",
-      "type": "insightface",
-      "base": "SDXL",
-      "save_path": "insightface/models",
-      "description": "MonsterMMORPG insightface model for cubiq/InstantID",
-      "reference": "https://huggingface.co/MonsterMMORPG/tools/tree/main",
-      "filename": "antelopev2.zip",
-      "url": "https://huggingface.co/MonsterMMORPG/tools/resolve/main/antelopev2.zip",
-      "size": "360.7MB"
     }
   ]
 }
