@@ -1241,7 +1241,10 @@ class UnifiedManager:
                 if self.is_enabled(node_id, 'cnr'):
                     self.unified_disable(node_id, False)
 
-            to_path = os.path.abspath(os.path.join(custom_nodes_path, f"{node_id}@{version_spec.replace('.', '_')}"))
+            if version_spec == 'unknown':
+                to_path = os.path.abspath(os.path.join(custom_nodes_path, node_id))    # don't attach @unknown
+            else:
+                to_path = os.path.abspath(os.path.join(custom_nodes_path, f"{node_id}@{version_spec.replace('.', '_')}"))
             res = self.repo_install(repo_url, to_path, instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall)
             if res.result:
                 if version_spec == 'unknown':
