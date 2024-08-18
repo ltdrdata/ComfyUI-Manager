@@ -21,6 +21,10 @@ print(f"### Loading: ComfyUI-Manager ({core.version_str})")
 
 comfy_ui_hash = "-"
 
+SECURITY_MESSAGE_MIDDLE_OR_BELOW = f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
+SECURITY_MESSAGE_NORMAL_MINUS = f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
+SECURITY_MESSAGE_GENERAL = f"ERROR: This installation is not allowed in this security_level. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
+
 routes = PromptServer.instance.routes
 
 
@@ -393,7 +397,7 @@ async def fetch_updates(request):
 @routes.get("/customnode/update_all")
 async def update_all(request):
     if not is_allowed_security_level('middle'):
-        print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
+        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
     try:
@@ -577,7 +581,7 @@ async def get_snapshot_list(request):
 @routes.get("/snapshot/remove")
 async def remove_snapshot(request):
     if not is_allowed_security_level('middle'):
-        print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
+        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
     
     try:
@@ -595,7 +599,7 @@ async def remove_snapshot(request):
 @routes.get("/snapshot/restore")
 async def remove_snapshot(request):
     if not is_allowed_security_level('middle'):
-        print(f"ERROR: To use this action, a security_level of `middle or below` is required.  Please contact the administrator.")
+        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
     
     try:
@@ -797,7 +801,7 @@ async def reinstall_custom_node(request):
 @routes.post("/customnode/install")
 async def install_custom_node(request):
     if not is_allowed_security_level('middle'):
-        print(f"ERROR: To use this action, a security_level of `middle or below` is required.  Please contact the administrator.")
+        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
     json_data = await request.json()
@@ -824,7 +828,7 @@ async def install_custom_node(request):
         risky_level = await get_risky_level(json_data['files'])
 
     if not is_allowed_security_level(risky_level):
-        print(f"ERROR: This installation is not allowed in this security_level.  Please contact the administrator.")
+        print(SECURITY_MESSAGE_GENERAL)
         return web.Response(status=404)
 
     node_spec = core.unified_manager.resolve_node_spec(node_spec_str)
@@ -845,7 +849,7 @@ async def install_custom_node(request):
 @routes.post("/customnode/fix")
 async def fix_custom_node(request):
     if not is_allowed_security_level('middle'):
-        print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
+        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
     json_data = await request.json()
@@ -871,7 +875,7 @@ async def fix_custom_node(request):
 @routes.post("/customnode/install/git_url")
 async def install_custom_node_git_url(request):
     if not is_allowed_security_level('high'):
-        print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
+        print(SECURITY_MESSAGE_NORMAL_MINUS)
         return web.Response(status=403)
 
     url = await request.text()
@@ -891,7 +895,7 @@ async def install_custom_node_git_url(request):
 @routes.post("/customnode/install/pip")
 async def install_custom_node_git_url(request):
     if not is_allowed_security_level('high'):
-        print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
+        print(SECURITY_MESSAGE_NORMAL_MINUS)
         return web.Response(status=403)
 
     packages = await request.text()
@@ -903,7 +907,7 @@ async def install_custom_node_git_url(request):
 @routes.post("/customnode/uninstall")
 async def uninstall_custom_node(request):
     if not is_allowed_security_level('middle'):
-        print(f"ERROR: To use this action, a security_level of `middle or below` is required.  Please contact the administrator.")
+        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
     json_data = await request.json()
@@ -930,7 +934,7 @@ async def uninstall_custom_node(request):
 @routes.post("/customnode/update")
 async def update_custom_node(request):
     if not is_allowed_security_level('middle'):
-        print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
+        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
     json_data = await request.json()
@@ -1015,7 +1019,7 @@ async def install_model(request):
     model_path = get_model_path(json_data)
 
     if not is_allowed_security_level('middle'):
-        print(f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.")
+        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
     if not json_data['filename'].endswith('.safetensors') and not is_allowed_security_level('high'):
@@ -1028,7 +1032,7 @@ async def install_model(request):
                 break
 
         if not is_belongs_to_whitelist:
-            print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
+            print(SECURITY_MESSAGE_NORMAL_MINUS)
             return web.Response(status=403)
 
     res = False
@@ -1078,7 +1082,7 @@ manager_terminal_hook = ManagerTerminalHook()
 @routes.get("/manager/terminal")
 async def terminal_mode(request):
     if not is_allowed_security_level('high'):
-        print(f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.")
+        print(SECURITY_MESSAGE_NORMAL_MINUS)
         return web.Response(status=403)
 
     if "mode" in request.rel_url.query:
@@ -1220,7 +1224,7 @@ async def get_notice(request):
 @routes.get("/manager/reboot")
 def restart(self):
     if not is_allowed_security_level('middle'):
-        print(f"ERROR: To use this action, a security_level of `middle or below` is required.  Please contact the administrator.")
+        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
     try:
