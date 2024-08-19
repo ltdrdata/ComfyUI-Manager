@@ -46,11 +46,15 @@
         [
             "EG-YSZT-ZT",
             "EG_CPSYTJ",
+            "EG_CYQ_JB",
+            "EG_FSFT",
             "EG_FX_BDAPI",
             "EG_HT_YSTZ",
             "EG_JF_ZZSC",
+            "EG_JF_ZZTC",
             "EG_JXFZ_node",
             "EG_K_LATENT",
+            "EG_LJ_JZTXDZ",
             "EG_RY_HT",
             "EG_SCQY_BHDQY",
             "EG_SCQY_QBQY",
@@ -58,7 +62,7 @@
             "EG_SJ",
             "EG_SJPJ_Node",
             "EG_SS_RYZH",
-            "EG_SZ_JDYS",
+            "EG_SZ_CGJS",
             "EG_TC_Node",
             "EG_TSCDS_CJ",
             "EG_TSCDS_DG",
@@ -66,6 +70,7 @@
             "EG_TSCDS_JT",
             "EG_TSCDS_QT",
             "EG_TSCDS_RW",
+            "EG_TSCDS_SRJK",
             "EG_TSCDS_WP",
             "EG_TSCDS_ZL",
             "EG_TSCMB_GL",
@@ -88,7 +93,11 @@
             "EG_ZZ_BSYH",
             "EG_ZZ_BYYH",
             "EG_ZZ_HSYH",
+            "EG_ZZ_MH",
+            "EG_ZZ_MHHT",
+            "EG_ZZ_RH",
             "EG_ZZ_SSKZ",
+            "EG_ZZ_TMTX",
             "ER_JBCH",
             "ER_TX_ZZCJ"
         ],
@@ -663,12 +672,23 @@
     ],
     "https://github.com/ALatentPlace/ComfyUI_yanc": [
         [
+            "> Bloom",
+            "> Blur",
+            "> Brightness",
             "> Clear Text",
+            "> Combine Channels",
+            "> Contrast",
+            "> Divide Channels",
+            "> Edge Enhance",
+            "> Film Grain",
             "> Float to Int",
+            "> Fog",
             "> Get Mean Color",
+            "> HUE",
             "> Int",
             "> Int to Text",
             "> Layer Weights (for IPAMS)",
+            "> Lens Distortion",
             "> Light Source Mask",
             "> Load Image",
             "> Load Image From Folder",
@@ -677,15 +697,20 @@
             "> Noise From Image",
             "> Normal Map Lighting",
             "> RGB Color",
+            "> RGB Shift",
             "> Resolution by Aspect Ratio",
             "> Rotate Image",
+            "> Saturation",
             "> Save Image",
             "> Scale Image to Side",
+            "> Scanlines",
+            "> Sharpen",
             "> Text",
             "> Text Combine",
             "> Text Pick Random Line",
             "> Text Random Weights",
-            "> Text Replace"
+            "> Text Replace",
+            "> Vignette"
         ],
         {
             "title_aux": "ComfyUI_yanc"
@@ -862,9 +887,14 @@
             "GLSL HSV-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL LAB-2-HSV (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL LAB-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL LAB-2-XYZ (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL NORMAL (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL NORMAL BLEND (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL RGB-2-HSV (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL RGB-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL RGB-2-XYZ (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL XYZ-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL XYZ-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
             "GRADIENT MAP (JOV) \ud83c\uddf2\ud83c\uddfa",
             "GRAPH (JOV) \ud83d\udcc8",
             "IMAGE INFO (JOV) \ud83d\udcda",
@@ -2895,6 +2925,16 @@
             "title_aux": "JPS Custom Nodes for ComfyUI"
         }
     ],
+    "https://github.com/JPrevots/ComfyUI-PhyCV": [
+        [
+            "PAGE",
+            "PST",
+            "VEVID"
+        ],
+        {
+            "title_aux": "ComfyUI-PhyCV"
+        }
+    ],
     "https://github.com/JackEllie/ComfyUI_AI_Assistant": [
         [
             "apply_lighting_effects",
@@ -3755,6 +3795,7 @@
     ],
     "https://github.com/MilitantHitchhiker/MilitantHitchhiker-SwitchbladePack": [
         [
+            "FluxModelSave",
             "IntegratedRandomPromptGenerator",
             "TextAppender"
         ],
@@ -7188,6 +7229,18 @@
             "title_aux": "StableCascadeResizer"
         }
     ],
+    "https://github.com/anhkhoatranle30/Handy-Nodes-ComfyUI": [
+        [
+            "Custom Save Image //Handy"
+        ],
+        {
+            "author": "Khoa Tran",
+            "description": "This extension offers various handy nodes.",
+            "nickname": "Handy-Nodes-ComfyUI",
+            "title": "Handy-Nodes-ComfyUI",
+            "title_aux": "Handy Node ComfyUI"
+        }
+    ],
     "https://github.com/ansonkao/comfyui-geometry": [
         [
             "TransformTemplateOntoFaceMask"
@@ -8874,7 +8927,7 @@
             "description": "",
             "nickname": "img2color",
             "title": "Img2Color Node - Detect and describe color palettes in images",
-            "title_aux": "img2colors-comfyui-node"
+            "title_aux": "Img2color - Extract Colors from Image"
         }
     ],
     "https://github.com/christian-byrne/img2txt-comfyui-nodes": [
@@ -9584,7 +9637,14 @@
             "SDXLEmptyLatentSizePicker+",
             "SamplerSelectHelper+",
             "SchedulerSelectHelper+",
+            "SimpleComparison+",
+            "SimpleCondition+",
             "SimpleMath+",
+            "SimpleMathCondition+",
+            "SimpleMathFloat+",
+            "SimpleMathInt+",
+            "SimpleMathPercent+",
+            "SimpleMathSlider+",
             "TextEncodeForSamplerParams+",
             "TransitionMask+",
             "TransparentBGSession+"
@@ -10514,6 +10574,7 @@
             "FL_RetroEffect",
             "FL_Ripple",
             "FL_SDUltimate_Slices",
+            "FL_SaveCSV",
             "FL_SendToDiscordWebhook",
             "FL_SeparateMaskComponents",
             "FL_Shadertoy",
@@ -11286,6 +11347,8 @@
     ],
     "https://github.com/gseth/ControlAltAI-Nodes": [
         [
+            "BooleanBasic",
+            "BooleanReverse",
             "FluxControlNetApply",
             "FluxResolutionNode",
             "FluxSampler"
@@ -13386,6 +13449,14 @@
             "title_aux": "komojini-comfyui-nodes"
         }
     ],
+    "https://github.com/kudou-reira/ComfyUI_StringToHex": [
+        [
+            "ColorNameToHex"
+        ],
+        {
+            "title_aux": "ComfyUI_StringToHex"
+        }
+    ],
     "https://github.com/kunieone/ComfyUI_alkaid": [
         [
             "A_EmptyLatentImageLongside",
@@ -14314,6 +14385,19 @@
             "title_aux": "ComfyUI CrewAI"
         }
     ],
+    "https://github.com/lucafoscili/comfyui-lf": [
+        [
+            "CharacterImpersonator",
+            "GetRandomKeyFromJSON",
+            "LoadLocalJSON",
+            "SeedGenerator",
+            "SwitchInteger",
+            "WorkflowSettings"
+        ],
+        {
+            "title_aux": "LF Nodes"
+        }
+    ],
     "https://github.com/m-sokes/ComfyUI-Sokes-Nodes": [
         [
             "Custom Date Format | sokes \ud83e\uddac",
@@ -14789,6 +14873,14 @@
         ],
         {
             "title_aux": "MLTask_ComfyUI"
+        }
+    ],
+    "https://github.com/modelscope/comfyscope": [
+        [
+            "DashScopeFLUXAPI"
+        ],
+        {
+            "title_aux": "Dashscope FLUX API for ComfyUI"
         }
     ],
     "https://github.com/modusCell/ComfyUI-dimension-node-modusCell": [
@@ -17272,6 +17364,7 @@
             "quadmoonKSamplerAdvanced",
             "quadmoonLoadConfigs",
             "quadmoonModelLoader",
+            "quadmoonRotationalSampler",
             "quadmoonSaveNeg",
             "quadmoonSavePrompt",
             "quadmoonSmartNeg",
