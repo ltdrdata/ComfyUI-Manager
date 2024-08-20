@@ -139,6 +139,7 @@ def gitpull(path):
     # Pull the latest changes from the remote repository
     repo = git.Repo(path)
     if repo.is_dirty():
+        print(f"STASH: '{path}' is dirty.")
         repo.git.stash()
 
     commit_hash = repo.head.commit.hexsha

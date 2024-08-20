@@ -1680,6 +1680,7 @@ def git_repo_update_check_with(path, do_fetch=False, do_update=False, no_deps=Fa
 
         if do_update:
             if repo.is_dirty():
+                print(f"STASH: '{path}' is dirty.")
                 repo.git.stash()
 
             if f'{remote_name}/{branch_name}' not in repo.refs:
@@ -1836,6 +1837,7 @@ def git_pull(path):
         repo = git.Repo(path)
 
         if repo.is_dirty():
+            print(f"STASH: '{path}' is dirty.")
             repo.git.stash()
 
         if repo.head.is_detached:
