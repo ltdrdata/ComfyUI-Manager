@@ -2692,3 +2692,23 @@ async def check_need_to_migrate():
         print(", ".join(legacy_custom_nodes))
         print("---------------------------------------------------------------------------\n")
         need_to_migrate = True
+
+
+def get_comfyui_versions():
+    repo = git.Repo(comfy_path)
+    versions = [x.name for x in repo.tags if x.name.startswith('v')]
+    versions.reverse()
+
+    # nearest tag
+    tag = repo.git.describe('--tags')
+
+    if tag not in versions:
+        versions = [tag] + versions
+
+    return versions, tag
+
+
+def switch_comfyui(tag):
+    repo = git.Repo(comfy_path)
+    repo.git.checkout(tag)
+    print(f"[ComfyUI-Manager] ComfyUI version is switched to '{tag}'")

@@ -12,7 +12,7 @@ import TG from "./turbogrid.esm.js";
 
 const pageCss = `
 .cn-manager {
-	--grid-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+	--grid-font: -apple-system, BlinkMacSystemFont, "Segue UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 	z-index: 10001;
 	width: 80%;
 	height: 80%;

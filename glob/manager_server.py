@@ -978,6 +978,30 @@ async def update_comfyui(request):
     return web.Response(status=400)
 
 
+@routes.get("/comfyui_manager/comfyui_versions")
+async def comfyui_versions(request):
+    try:
+        res, current = core.get_comfyui_versions()
+        return web.json_response({'versions': res, 'current': current}, status=200, content_type='application/json')
+    except Exception as e:
+        print(f"ComfyUI update fail: {e}", file=sys.stderr)
+
+    return web.Response(status=400)
+
+
+@routes.get("/comfyui_manager/comfyui_switch_version")
+async def comfyui_switch_version(request):
+    try:
+        if "ver" in request.rel_url.query:
+            core.switch_comfyui(request.rel_url.query['ver'])
+
+        return web.Response(status=200)
+    except Exception as e:
+        print(f"ComfyUI update fail: {e}", file=sys.stderr)
+
+    return web.Response(status=400)
+
+
 @routes.post("/customnode/disable")
 async def disable_node(request):
     json_data = await request.json()

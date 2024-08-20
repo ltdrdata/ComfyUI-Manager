@@ -205,6 +205,7 @@ docStyle.innerHTML = `
 document.head.appendChild(docStyle);
 
 var update_comfyui_button = null;
+var switch_comfyui_button = null;
 var fetch_updates_button = null;
 var update_all_button = null;
 var badge_mode = "none";
@@ -573,6 +574,154 @@ async function updateComfyUI() {
 	}
 }
 
+function showVersionSelectorDialog(versions, current, onSelect) {
+		const dialog = new ComfyDialog();
+		dialog.element.style.zIndex = 100003;
+		dialog.element.style.width = "300px";
+		dialog.element.style.padding = "0";
+		dialog.element.style.backgroundColor = "#2a2a2a";
+		dialog.element.style.border = "1px solid #3a3a3a";
+		dialog.element.style.borderRadius = "8px";
+		dialog.element.style.boxSizing = "border-box";
+		dialog.element.style.overflow = "hidden";
+
+		const contentStyle = {
+			width: "300px",
+			display: "flex",
+			flexDirection: "column",
+			alignItems: "center",
+			padding: "20px",
+			boxSizing: "border-box",
+			gap: "15px"
+		};
+
+		let selectedVersion = versions[0];
+
+		const versionList = $el("select", {
+			multiple: true,
+			size: Math.min(10, versions.length),
+			style: {
+				width: "260px",
+				height: "auto",
+				backgroundColor: "#383838",
+				color: "#ffffff",
+				border: "1px solid #4a4a4a",
+				borderRadius: "4px",
+				padding: "5px",
+				boxSizing: "border-box"
+			}
+		},
+		versions.map((v, index) => $el("option", {
+			value: v,
+			textContent: v,
+			selected: v === current
+		}))
+		);
+
+		versionList.addEventListener('change', (e) => {
+			selectedVersion = e.target.value;
+			Array.from(e.target.options).forEach(opt => {
+				opt.selected = opt.value === selectedVersion;
+			});
+		});
+
+		const content = $el("div", {
+			style: contentStyle
+		}, [
+			$el("h3", {
+				textContent: "Select Version",
+				style: {
+					color: "#ffffff",
+					backgroundColor: "#1a1a1a",
+					padding: "10px 15px",
+					margin: "0 0 10px 0",
+					width: "260px",
+					textAlign: "center",
+					borderRadius: "4px",
+					boxSizing: "border-box",
+					whiteSpace: "nowrap",
+					overflow: "hidden",
+					textOverflow: "ellipsis"
+				}
+			}),
+			versionList,
+			$el("div", {
+				style: {
+					display: "flex",
+					justifyContent: "space-between",
+					width: "260px",
+					gap: "10px"
+				}
+			}, [
+				$el("button", {
+					textContent: "Cancel",
+					onclick: () => dialog.close(),
+					style: {
+						flex: "1",
+						padding: "8px",
+						backgroundColor: "#4a4a4a",
+						color: "#ffffff",
+						border: "none",
+						borderRadius: "4px",
+						cursor: "pointer",
+						whiteSpace: "nowrap",
+						overflow: "hidden",
+						textOverflow: "ellipsis"
+					}
+				}),
+				$el("button", {
+					textContent: "Select",
+					onclick: () => {
+						if (selectedVersion) {
+							onSelect(selectedVersion);
+							dialog.close();
+						} else {
+							alert("Please select a version.");
+						}
+					},
+					style: {
+						flex: "1",
+						padding: "8px",
+						backgroundColor: "#4CAF50",
+						color: "#ffffff",
+						border: "none",
+						borderRadius: "4px",
+						cursor: "pointer",
+						whiteSpace: "nowrap",
+						overflow: "hidden",
+						textOverflow: "ellipsis"
+					}
+				}),
+			])
+		]);
+
+		dialog.show(content);
+}
+
+async function switchComfyUI() {
+    let res = await api.fetchApi(`/comfyui_manager/comfyui_versions`, { cache: "no-store" });
+
+    if(res.status == 200) {
+        let obj = await res.json();
+
+        let versions = [];
+        let default_version;
+
+        for(let v of obj.versions) {
+            default_version = v;
+            versions.push(v);
+        }
+
+        showVersionSelectorDialog(versions, obj.current, (selected_version) => {
+            api.fetchApi(`/comfyui_manager/comfyui_switch_version?ver=${selected_version}`, { cache: "no-store" });
+        });
+    }
+    else {
+        show_message('Failed to fetch ComfyUI versions.');
+    }
+}
+
+
 async function fetchUpdates(update_check_checkbox) {
 	let prev_text = fetch_updates_button.innerText;
 	fetch_updates_button.innerText = "Fetching updates...";
@@ -723,6 +872,14 @@ class ManagerMenuDialog extends ComfyDialog {
 					() => updateComfyUI()
 			});
 
+		switch_comfyui_button =
+			$el("button.cm-button", {
+				type: "button",
+				textContent: "Switch ComfyUI",
+				onclick:
+					() => switchComfyUI()
+			});
+
 		fetch_updates_button =
 			$el("button.cm-button", {
 				type: "button",
@@ -793,6 +950,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				$el("br", {}, []),
 				update_all_button,
 				update_comfyui_button,
+				switch_comfyui_button,
 				fetch_updates_button,
 
 				$el("br", {}, []),
