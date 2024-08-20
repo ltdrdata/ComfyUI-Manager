@@ -256,6 +256,7 @@
             "mesh_remap_cubvh",
             "ply_load",
             "ply_normalize",
+            "ply_save",
             "show_any",
             "string-to-array",
             "vc_to_texture"
@@ -8959,6 +8960,9 @@
     ],
     "https://github.com/city96/ComfyUI-GGUF": [
         [
+            "CLIPLoaderGGUF",
+            "DualCLIPLoaderGGUF",
+            "TripleCLIPLoaderGGUF",
             "UnetLoaderGGUF"
         ],
         {
@@ -9640,6 +9644,7 @@
             "SimpleComparison+",
             "SimpleCondition+",
             "SimpleMath+",
+            "SimpleMathBoolean+",
             "SimpleMathCondition+",
             "SimpleMathFloat+",
             "SimpleMathInt+",
@@ -10560,6 +10565,7 @@
             "FL_InfiniteZoom",
             "FL_InpaintCrop",
             "FL_Inpaint_Stitch",
+            "FL_KSamplerXYZPlot",
             "FL_KsamplerBasic",
             "FL_KsamplerPlus",
             "FL_KsamplerSettings",
@@ -10574,7 +10580,9 @@
             "FL_RetroEffect",
             "FL_Ripple",
             "FL_SDUltimate_Slices",
+            "FL_SamplerStrings",
             "FL_SaveCSV",
+            "FL_SchedulerStrings",
             "FL_SendToDiscordWebhook",
             "FL_SeparateMaskComponents",
             "FL_Shadertoy",
@@ -13676,6 +13684,7 @@
             "TclExtractFramesFromVideo",
             "TclExtractFramesFromVideoFile",
             "TclFrames2Video",
+            "TclLoraSaveImages",
             "TclSaveVideoFromFrames",
             "TclYoloV8Segmentation",
             "TclYoloV9Segmentation"
@@ -14389,7 +14398,10 @@
         [
             "CharacterImpersonator",
             "GetRandomKeyFromJSON",
+            "GetValueFromJSON",
             "LoadLocalJSON",
+            "Lora2Prompt",
+            "LoraName2Prompt",
             "SeedGenerator",
             "SwitchInteger",
             "WorkflowSettings"
@@ -15812,6 +15824,22 @@
             "title_aux": "rgthree's ComfyUI Nodes"
         }
     ],
+    "https://github.com/rhdunn/comfyui-audio-processing": [
+        [
+            "ComfyAudio.ApplyFilterBank",
+            "ComfyAudio.GriffinLim",
+            "ComfyAudio.InverseSpectrogram",
+            "ComfyAudio.LoadAudio",
+            "ComfyAudio.MelScaleFilterBank",
+            "ComfyAudio.PlotFilterBank",
+            "ComfyAudio.PlotSpectrogram",
+            "ComfyAudio.PlotWaveform",
+            "ComfyAudio.Spectrogram"
+        ],
+        {
+            "title_aux": "comfyui-audio-processing"
+        }
+    ],
     "https://github.com/rhdunn/comfyui-bus-plugin": [
         [
             "ComfyBus.CLIPEncodedPromptBusNode",
@@ -16379,7 +16407,6 @@
             "BizyAirFakeScribblePreprocessor",
             "BizyAirGenerateLightningImage",
             "BizyAirHEDPreprocessor",
-            "BizyAirImageCaption",
             "BizyAirJoyCaption",
             "BizyAirLeReS_DepthMapPreprocessor",
             "BizyAirLineArtPreprocessor",

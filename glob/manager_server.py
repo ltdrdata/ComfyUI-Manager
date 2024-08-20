@@ -248,9 +248,7 @@ def get_model_dir(data):
                 base_model = os.path.join(folder_paths.models_dir, data['save_path'])
     else:
         model_type = data['type']
-        if model_type == "checkpoints":
-            base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
-        elif model_type == "checkpoint":
+        if model_type == "checkpoints" or model_type == "checkpoint":
             base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
         elif model_type == "unclip":
             base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
@@ -274,6 +272,12 @@ def get_model_dir(data):
             base_model = folder_paths.folder_names_and_paths["upscale_models"][0][0]
         elif model_type == "embeddings":
             base_model = folder_paths.folder_names_and_paths["embeddings"][0][0]
+        elif model_type == "unet" or model_type == "diffusion_model":
+            if folder_paths.folder_names_and_paths.get("diffusion_models"):
+                base_model = folder_paths.folder_names_and_paths["diffusion_models"][0][1]
+            else:
+                print(f"[ComfyUI-Manager] Your ComfyUI is outdated version.")
+                base_model = folder_paths.folder_names_and_paths["unet"][0][0]  # outdated version
         else:
             base_model = "etc"
 
