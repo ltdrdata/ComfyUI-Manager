@@ -2697,18 +2697,33 @@ async def check_need_to_migrate():
 def get_comfyui_versions():
     repo = git.Repo(comfy_path)
     versions = [x.name for x in repo.tags if x.name.startswith('v')]
-    versions.reverse()
+    versions.reverse()  # nearest tag
 
-    # nearest tag
-    tag = repo.git.describe('--tags')
+    versions = versions[:4]
 
-    if tag not in versions:
-        versions = [tag] + versions
+    current_tag = repo.git.describe('--tags')
 
-    return versions, tag
+    if current_tag not in versions:
+        versions = sorted(versions + [current_tag], reverse=True)
+        versions = versions[:4]
+
+    main_branch = repo.heads.main
+    latest_commit = main_branch.commit
+    latest_tag = repo.git.describe('--tags', latest_commit.hexsha)
+
+    if latest_tag != versions[0]:
+        versions.insert(0, 'nightly')
+
+    return versions, current_tag
 
 
 def switch_comfyui(tag):
     repo = git.Repo(comfy_path)
-    repo.git.checkout(tag)
-    print(f"[ComfyUI-Manager] ComfyUI version is switched to '{tag}'")
+
+    if tag == 'nightly':
+        repo.git.checkout('main')
+        repo.remotes.origin.pull()
+        print("[ComfyUI-Manager] ComfyUI version is switched to the latest 'main' version")
+    else:
+        repo.git.checkout(tag)
+        print(f"[ComfyUI-Manager] ComfyUI version is switched to '{tag}'")
