@@ -2713,6 +2713,9 @@ def get_comfyui_versions():
 
     if latest_tag != versions[0]:
         versions.insert(0, 'nightly')
+    else:
+        versions[0] = 'nightly'
+        current_tag = 'nightly'
 
     return versions, current_tag
 
