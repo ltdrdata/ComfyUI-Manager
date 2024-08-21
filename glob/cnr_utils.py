@@ -99,14 +99,3 @@ def all_versions_of_node(node_id):
     else:
         return None
 
-
-def extract_package_as_zip(file_path, extract_path):
-    try:
-        with zipfile.ZipFile(file_path, "r") as zip_ref:
-            zip_ref.extractall(extract_path)
-            extracted_files = zip_ref.namelist()
-        print(f"Extracted zip file to {extract_path}")
-        return extracted_files
-    except zipfile.BadZipFile:
-        print(f"File '{file_path}' is not a zip or is corrupted.")
-        return None

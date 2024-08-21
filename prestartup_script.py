@@ -560,6 +560,65 @@ def execute_lazy_install_script(repo_path, executable):
         process_wrap(install_cmd, repo_path, env=new_env)
 
 
+def execute_lazy_cnr_switch(target, zip_url, from_path, to_path, no_deps, custom_nodes_path):
+    import uuid
+    import shutil
+
+    # 1. download
+    archive_name = f"CNR_temp_{str(uuid.uuid4())}.zip"  # should be unpredictable name - security precaution
+    download_path = os.path.join(custom_nodes_path, archive_name)
+    download_url(zip_url, custom_nodes_path, archive_name)
+
+    # 2. extract files into <node_id>@<cur_ver>
+    extracted = extract_package_as_zip(download_path, from_path)
+    os.remove(download_path)
+
+    if extracted is None:
+        if len(os.listdir(from_path)) == 0:
+            shutil.rmtree(from_path)
+
+        print(f'Empty archive file: {target}')
+        return False
+
+
+    # 3. calculate garbage files (.tracking - extracted)
+    tracking_info_file = os.path.join(from_path, '.tracking')
+    prev_files = set()
+    with open(tracking_info_file, 'r') as f:
+        for line in f:
+            prev_files.add(line.strip())
+    garbage = prev_files.difference(extracted)
+    garbage = [os.path.join(custom_nodes_path, x) for x in garbage]
+
+    # 4-1. remove garbage files
+    for x in garbage:
+        if os.path.isfile(x):
+            os.remove(x)
+
+    # 4-2. remove garbage dir if empty
+    for x in garbage:
+        if os.path.isdir(x):
+            if not os.listdir(x):
+                os.rmdir(x)
+
+    # 5. rename dir name <node_id>@<prev_ver> ==> <node_id>@<cur_ver>
+    print(f"'{from_path}' is moved to '{to_path}'")
+    shutil.move(from_path, to_path)
+
+    # 6. create .tracking file
+    tracking_info_file = os.path.join(to_path, '.tracking')
+    with open(tracking_info_file, "w", encoding='utf-8') as file:
+        file.write('\n'.join(list(extracted)))
+
+
+def execute_migration(moves):
+    import shutil
+    for x in moves:
+        if os.path.exists(x[0]) and not os.path.exists(x[1]):
+            shutil.move(x[0], x[1])
+            print(f"[ComfyUI-Manager] MIGRATION: '{x[0]}' -> '{x[1]}'")
+
+
 # Check if script_list_path exists
 if os.path.exists(script_list_path):
     print("\n#######################################################################")
@@ -580,6 +639,13 @@ if os.path.exists(script_list_path):
                 if script[1].startswith('#') and script[1] != '#FORCE':
                     if script[1] == "#LAZY-INSTALL-SCRIPT":
                         execute_lazy_install_script(script[0], script[2])
+
+                    elif script[1] == "#LAZY-CNR-SWITCH-SCRIPT":
+                        execute_lazy_cnr_switch(script[0], script[2], script[3], script[4], script[5], script[6])
+                        execute_lazy_install_script(script[3], script[7])
+
+                    elif script[1] == "#LAZY-MIGRATION":
+                        execute_migration(script[2])
 
                 elif os.path.exists(script[0]):
                     if script[1] == "#FORCE":

@@ -138,3 +138,37 @@ async def get_data_with_cache(uri, silent=False, cache_mode=True):
 
 def sanitize_tag(x):
     return x.replace('<', '&lt;').replace('>', '&gt;')
+
+
+def download_url(url, dest_folder, filename):
+    import requests
+
+    # Ensure the destination folder exists
+    if not os.path.exists(dest_folder):
+        os.makedirs(dest_folder)
+
+    # Full path to save the file
+    dest_path = os.path.join(dest_folder, filename)
+
+    # Download the file
+    response = requests.get(url, stream=True)
+    if response.status_code == 200:
+        with open(dest_path, 'wb') as file:
+            for chunk in response.iter_content(chunk_size=1024):
+                if chunk:
+                    file.write(chunk)
+    else:
+        raise Exception(f"Failed to download file from {url}")
+
+
+def extract_package_as_zip(file_path, extract_path):
+    import zipfile
+    try:
+        with zipfile.ZipFile(file_path, "r") as zip_ref:
+            zip_ref.extractall(extract_path)
+            extracted_files = zip_ref.namelist()
+        print(f"Extracted zip file to {extract_path}")
+        return extracted_files
+    except zipfile.BadZipFile:
+        print(f"File '{file_path}' is not a zip or is corrupted.")
+        return None
