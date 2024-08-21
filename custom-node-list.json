@@ -1532,15 +1532,15 @@
             "description": "Nodes: Prompt With Style, Prompt With SDXL, Resize Image for SDXL, Save Image With Prompt Data, HaldCLUT, Empty Latent Ratio Select/Custom SDXL"
         },
         {
-            "author": "failfa.st",
-            "title": "failfast-comfyui-extensions",
-            "id": "failfast",
-            "reference": "https://github.com/failfa-st/failfast-comfyui-extensions",
+            "author": "blib-la",
+            "title": "blibla-comfyui-extensions",
+            "id": "blibla-comfyui-extensions",
+            "reference": "https://github.com/blib-la/blibla-comfyui-extensions",
             "files": [
-                "https://github.com/failfa-st/failfast-comfyui-extensions"
+                "https://github.com/blib-la/blibla-comfyui-extensions"
             ],
             "install_type": "git-clone",
-            "description": "node color customization, custom colors, dot reroutes, link rendering options, straight lines, group freezing, node pinning, automated arrangement of nodes, copy image\nNOTE: This repo is identical to 'blibla-comfyui-extensions'."
+            "description": "node color customization, custom colors, dot reroutes, link rendering options, straight lines, group freezing, node pinning, automated arrangement of nodes, copy image\n[w/failfast-comfyui-extensions is renamed to blibla-comfyui-extensions. Please resintall to this.]"
         },
         {
             "author": "Pfaeff",
@@ -3118,6 +3118,16 @@
             ],
             "install_type": "git-clone",
             "description": "These nodes include my wrapper for the original diffusers pipeline, as well as work in progress native ComfyUI implementation.\nFor the diffusers wrapper models should be downloaded automatically, for the native version you can get the unet [a/here](https://huggingface.co/Kijai/ControlNeXt-SVD-V2-Comfy/blob/main/controlnext-svd_v2-unet-fp16_converted.safetensors)."
+        },
+        {
+            "author": "kijai",
+            "title": "ComfyUI Flux Trainer",
+            "reference": "https://github.com/kijai/ComfyUI-FluxTrainer",
+            "files": [
+                "https://github.com/kijai/ComfyUI-FluxTrainer"
+            ],
+            "install_type": "git-clone",
+            "description": "Currently supports LoRA training, and untested full finetune with code from kohya's scripts: [a/https://github.com/kohya-ss/sd-scripts](https://github.com/kohya-ss/sd-scripts)"
         },
         {
             "author": "hhhzzyang",
@@ -4754,7 +4764,7 @@
                 "https://github.com/aria1th/ComfyUI-LogicUtils"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:UniformRandomFloat..., RandomShuffleInt, YieldableIterator..., LogicGate..., Add..., MergeString, MemoryNode, ..."
+            "description": "Logical Utils (compare, string, boolean operations) for ComfyUI"
         },
         {
             "author": "MitoshiroPJ",
@@ -9036,6 +9046,16 @@
             "description": "a comfyui custom node for [a/GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS)"
         },
         {
+            "author": "AIFSH",
+            "title": "FancyVideo-ComfyUI",
+            "reference": "https://github.com/AIFSH/FancyVideo-ComfyUI",
+            "files": [
+                "https://github.com/AIFSH/FancyVideo-ComfyUI"
+            ],
+            "install_type": "git-clone",
+            "description": "a custom node for [a/FancyVideo](https://github.com/360CVGroup/FancyVideo)"
+        },
+        {
             "author": "Koishi-Star",
             "title": "Euler-Smea-Dyn-Sampler",
             "id": "smea",
@@ -9548,6 +9568,16 @@
             "description": "A set of block-based LLM agent node libraries designed for ComfyUI.This project aims to develop a complete set of nodes for LLM workflow construction based on comfyui. It allows users to quickly and conveniently build their own LLM workflows and easily integrate them into their existing SD workflows."
         },
         {
+            "author": "heshengtao",
+            "title": "comfyui_LLM_schools",
+            "reference": "https://github.com/heshengtao/comfyui_LLM_schools",
+            "files": [
+                "https://github.com/heshengtao/comfyui_LLM_schools"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI node library for fine-tuning LLMs"
+        },
+        {
             "author": "VAST-AI-Research",
             "title": "Tripo for ComfyUI",
             "id": "tripo",
@@ -9860,7 +9890,7 @@
                 "https://github.com/da2el-ai/ComfyUI-d2-send-eagle"
             ],
             "install_type": "git-clone",
-            "description": "This is a custom node for sending images generated in ComfyUI to the image management software Eagle. It's an extension of an existing custom node called [a/ComfyUI-send-eagle-slim](https://github.com/shingo1228/ComfyUI-send-eagle-slim), modified to suit my preferences. I'm grateful to Shingo.T for creating the excellent original custom node."
+            "description": "Send images generated by ComfyUI to Eagle image management software"
         },
         {
             "author": "nat-chan",
@@ -10265,14 +10295,14 @@
         },
         {
             "author": "christian-byrne",
-            "title": "img2colors-comfyui-node",
-            "id": "img2colors-nodes",
+            "title": "Img2color - Extract Colors from Image",
+            "id": "img2colors-comfyui-node",
             "reference": "https://github.com/christian-byrne/img2colors-comfyui-node",
             "files": [
                 "https://github.com/christian-byrne/img2colors-comfyui-node"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:Img2Color - Color Palette Extractor"
+            "description": "Extract the most common colors from an image, up to any number. Convert colors to plain English names using various color naming systems."
         },
         {
             "author": "christian-byrne",
@@ -11026,14 +11056,14 @@
         },
         {
             "author": "Scorpinaus",
-            "title": "Loaders for Diffusers-format checkpoints",
-            "id": "diffusersloader",
+            "title": "ComfyUI-DiffusersLoader",
+            "id": "comfyui-diffusersloader",
             "reference": "https://github.com/Scorpinaus/ComfyUI-DiffusersLoader",
             "files": [
                 "https://github.com/Scorpinaus/ComfyUI-DiffusersLoader"
             ],
             "install_type": "git-clone",
-            "description": "This project aims to create loaders for diffusers format checkpoint models, making it easier for ComfyUI users to use diffusers format checkpoints instead of the standard checkpoint formats."
+            "description": "This node pack allows loading of SD checkpoints that uses diffusers format in comfyUI."
         },
         {
             "author": "chakib-belgaid",
@@ -11611,6 +11641,16 @@
             ],
             "install_type": "git-clone",
             "description": "A collection of nodes for rerouting multiple I/O lines together in a bus."
+        },
+        {
+            "author": "rhdunn",
+            "title": "comfyui-audio-processing",
+            "reference": "https://github.com/rhdunn/comfyui-audio-processing",
+            "files": [
+                "https://github.com/rhdunn/comfyui-audio-processing"
+            ],
+            "install_type": "git-clone",
+            "description": "This plugin is compatible with the ComfyUI audio nodes."
         },
         {
             "author": "hyunamy",
@@ -13207,6 +13247,79 @@
             ],
             "install_type": "git-clone",
             "description": "InstantX's Flux union ControlNet loader and implementation"
+        },
+        {
+            "author": "anhkhoatranle30",
+            "title": "Handy Node ComfyUI",
+            "id": "handynode",
+            "reference": "https://github.com/anhkhoatranle30/Handy-Nodes-ComfyUI",
+            "files": [
+                "https://github.com/anhkhoatranle30/Handy-Nodes-ComfyUI"
+            ],
+            "install_type": "git-clone",
+            "description": "This is a pack with some handy nodes for ComfyUI."
+        },
+        {
+            "author": "Artiprocher",
+            "title": "Dashscope FLUX API for ComfyUI",
+            "id": "dashscope_api",
+            "reference": "https://github.com/modelscope/comfyscope",
+            "files": [
+                "https://github.com/modelscope/comfyscope"
+            ],
+            "install_type": "git-clone",
+            "description": "The FLUX model API from DashScope, developed by Black Forest Labs, offers superior image generation capabilities with optimized support for Chinese prompts, achieving a commendable tradeoff between performance and the quality of generated images compared to other open-source models."
+        },
+        {
+            "author": "lucafoscili",
+            "title": "LF Nodes",
+            "reference": "https://github.com/lucafoscili/comfyui-lf",
+            "files": [
+                "https://github.com/lucafoscili/comfyui-lf"
+            ],
+            "install_type": "git-clone",
+            "description": "JSON Nodes, Large Language Model Nodes, Logic Nodes, Workflow Nodes."
+        },
+        {
+            "author": "JPrevots",
+            "title": "ComfyUI-PhyCV",
+            "reference": "https://github.com/JPrevots/ComfyUI-PhyCV",
+            "files": [
+                "https://github.com/JPrevots/ComfyUI-PhyCV"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:PhyCV - Phase-Stretch Transform (PST), PhyCV - VEViD, PhyCV - Page."
+        },
+        {
+            "author": "rnbwdsh",
+            "title": "Latent Walk",
+            "reference": "https://github.com/rnbwdsh/ComfyUI-LatentWalk",
+            "files": [
+                "https://github.com/rnbwdsh/ComfyUI-LatentWalk"
+            ],
+            "install_type": "git-clone",
+            "description": "Latent space walks for latents, conditionals and noise"
+        },
+        {
+            "author": "kudou-reira",
+            "title": "ComfyUI_StringToHex",
+            "reference": "https://github.com/kudou-reira/ComfyUI_StringToHex",
+            "files": [
+                "https://github.com/kudou-reira/ComfyUI_StringToHex"
+            ],
+            "install_type": "git-clone",
+            "description": "This is a simple ComfyUI node that will take in a string of 'color' (i.e. 'blue') and output a hex color format."
+        },
+        {
+            "author": "phyblas",
+            "title": "paint-by-example @ ComfyUI",
+            "id": "paintbyexample",
+            "reference": "https://github.com/phyblas/paint-by-example_comfyui",
+            "files": [
+                "https://github.com/phyblas/paint-by-example_comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "Implementation of paint-by-example on ComfyUI"
         },
 
 
