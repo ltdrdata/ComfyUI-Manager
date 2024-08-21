@@ -3120,6 +3120,16 @@
             "description": "These nodes include my wrapper for the original diffusers pipeline, as well as work in progress native ComfyUI implementation.\nFor the diffusers wrapper models should be downloaded automatically, for the native version you can get the unet [a/here](https://huggingface.co/Kijai/ControlNeXt-SVD-V2-Comfy/blob/main/controlnext-svd_v2-unet-fp16_converted.safetensors)."
         },
         {
+            "author": "kijai",
+            "title": "ComfyUI Flux Trainer",
+            "reference": "https://github.com/kijai/ComfyUI-FluxTrainer",
+            "files": [
+                "https://github.com/kijai/ComfyUI-FluxTrainer"
+            ],
+            "install_type": "git-clone",
+            "description": "Currently supports LoRA training, and untested full finetune with code from kohya's scripts: [a/https://github.com/kohya-ss/sd-scripts](https://github.com/kohya-ss/sd-scripts)"
+        },
+        {
             "author": "hhhzzyang",
             "title": "Comfyui-Lama",
             "id": "lama",
@@ -9036,6 +9046,16 @@
             "description": "a comfyui custom node for [a/GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS)"
         },
         {
+            "author": "AIFSH",
+            "title": "FancyVideo-ComfyUI",
+            "reference": "https://github.com/AIFSH/FancyVideo-ComfyUI",
+            "files": [
+                "https://github.com/AIFSH/FancyVideo-ComfyUI"
+            ],
+            "install_type": "git-clone",
+            "description": "a custom node for [a/FancyVideo](https://github.com/360CVGroup/FancyVideo)"
+        },
+        {
             "author": "Koishi-Star",
             "title": "Euler-Smea-Dyn-Sampler",
             "id": "smea",
@@ -9546,6 +9566,16 @@
             ],
             "install_type": "git-clone",
             "description": "A set of block-based LLM agent node libraries designed for ComfyUI.This project aims to develop a complete set of nodes for LLM workflow construction based on comfyui. It allows users to quickly and conveniently build their own LLM workflows and easily integrate them into their existing SD workflows."
+        },
+        {
+            "author": "heshengtao",
+            "title": "comfyui_LLM_schools",
+            "reference": "https://github.com/heshengtao/comfyui_LLM_schools",
+            "files": [
+                "https://github.com/heshengtao/comfyui_LLM_schools"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI node library for fine-tuning LLMs"
         },
         {
             "author": "VAST-AI-Research",
@@ -11026,14 +11056,14 @@
         },
         {
             "author": "Scorpinaus",
-            "title": "Loaders for Diffusers-format checkpoints",
-            "id": "diffusersloader",
+            "title": "ComfyUI-DiffusersLoader",
+            "id": "comfyui-diffusersloader",
             "reference": "https://github.com/Scorpinaus/ComfyUI-DiffusersLoader",
             "files": [
                 "https://github.com/Scorpinaus/ComfyUI-DiffusersLoader"
             ],
             "install_type": "git-clone",
-            "description": "This project aims to create loaders for diffusers format checkpoint models, making it easier for ComfyUI users to use diffusers format checkpoints instead of the standard checkpoint formats."
+            "description": "This node pack allows loading of SD checkpoints that uses diffusers format in comfyUI."
         },
         {
             "author": "chakib-belgaid",
@@ -13280,6 +13310,18 @@
             "install_type": "git-clone",
             "description": "This is a simple ComfyUI node that will take in a string of 'color' (i.e. 'blue') and output a hex color format."
         },
+        {
+            "author": "phyblas",
+            "title": "paint-by-example @ ComfyUI",
+            "id": "paintbyexample",
+            "reference": "https://github.com/phyblas/paint-by-example_comfyui",
+            "files": [
+                "https://github.com/phyblas/paint-by-example_comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "Implementation of paint-by-example on ComfyUI"
+        },
+
 
 
 
@@ -13658,17 +13700,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "phyblas",
-            "title": "paint-by-example @ ComfyUI",
-            "id": "paintbyexample",
-            "reference": "https://github.com/phyblas/paint-by-example_comfyui",
-            "files": [
-                "https://github.com/phyblas/paint-by-example_comfyui"
-            ],
-            "install_type": "git-clone",
-            "description": "Implementation of paint-by-example on ComfyUI"
         }
     ]
 }

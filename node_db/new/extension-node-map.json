@@ -554,6 +554,16 @@
             "title_aux": "DiffMorpher-ComfyUI"
         }
     ],
+    "https://github.com/AIFSH/FancyVideo-ComfyUI": [
+        [
+            "FancyVideoNode",
+            "PreViewVideo",
+            "TextEncode"
+        ],
+        {
+            "title_aux": "FancyVideo-ComfyUI"
+        }
+    ],
     "https://github.com/AIFSH/GSTTS-ComfyUI": [
         [
             "ASRNode",
@@ -708,6 +718,7 @@
             "> Sharpen",
             "> Text",
             "> Text Combine",
+            "> Text Pick Line by Index",
             "> Text Pick Random Line",
             "> Text Random Weights",
             "> Text Replace",
@@ -2837,7 +2848,7 @@
             "MiniCPM_VQA",
             "MiniCPM_VQA_Polished",
             "MultipleImagesInput",
-            "PreViewVideo"
+            "PreviewVideo"
         ],
         {
             "title_aux": "ComfyUI_MiniCPM-V-2_6-int4"
@@ -3839,6 +3850,7 @@
         [
             "iToolsAddOverlay",
             "iToolsLoadImagePlus",
+            "iToolsLoadImages",
             "iToolsPromptLoader",
             "iToolsPromptSaver"
         ],
@@ -4691,7 +4703,7 @@
             "DiffusersVAELoader"
         ],
         {
-            "title_aux": "Loaders for Diffusers-format checkpoints"
+            "title_aux": "ComfyUI-DiffusersLoader"
         }
     ],
     "https://github.com/ScreamingHawk/comfyui-ollama-prompt-encode": [
@@ -6332,9 +6344,10 @@
     "https://github.com/XLabs-AI/x-flux-comfyui": [
         [
             "ApplyFluxControlNet",
+            "ApplyFluxIPAdapter",
             "FluxLoraLoader",
             "LoadFluxControlNet",
-            "LoadFluxModel",
+            "LoadFluxIPAdapter",
             "XlabsSampler"
         ],
         {
@@ -10556,6 +10569,7 @@
             "FL_HalftonePattern",
             "FL_HexagonalPattern",
             "FL_ImageCaptionLayout",
+            "FL_ImageCaptionLayoutPDF",
             "FL_ImageCaptionSaver",
             "FL_ImageCollage",
             "FL_ImageDimensionDisplay",
@@ -11630,6 +11644,20 @@
             "title_aux": "comfyui_LLM_party"
         }
     ],
+    "https://github.com/heshengtao/comfyui_LLM_schools": [
+        [
+            "CausalLM_loader",
+            "LLM_Arguments",
+            "LLM_Trainer",
+            "LLM_data_collator",
+            "download_dataset",
+            "get_dataset_name",
+            "split_dataset"
+        ],
+        {
+            "title_aux": "comfyui_LLM_schools"
+        }
+    ],
     "https://github.com/hhhzzyang/Comfyui_Lama": [
         [
             "LamaApply",
@@ -12185,6 +12213,7 @@
             "OrbitPoses to OrbitLists JK",
             "Pipe End JK",
             "Project Setting JK",
+            "Random Beats JK",
             "Refine 1 Parameters Extract JK",
             "Refine 2 Parameters Extract JK",
             "Refine Model Parameters JK",
@@ -13061,6 +13090,28 @@
             "title_aux": "ComfyUI-Florence2"
         }
     ],
+    "https://github.com/kijai/ComfyUI-FluxTrainer": [
+        [
+            "FluxKohyaInferenceSampler",
+            "FluxTrainEnd",
+            "FluxTrainLoop",
+            "FluxTrainModelSelect",
+            "FluxTrainSave",
+            "FluxTrainValidate",
+            "FluxTrainValidationSettings",
+            "InitFluxLoRATraining",
+            "InitFluxTraining",
+            "OptimizerConfig",
+            "OptimizerConfigAdafactor",
+            "TrainDatasetAdd",
+            "TrainDatasetGeneralConfig",
+            "UploadToHuggingFace",
+            "VisualizeLoss"
+        ],
+        {
+            "title_aux": "ComfyUI Flux Trainer"
+        }
+    ],
     "https://github.com/kijai/ComfyUI-Geowizard": [
         [
             "geowizard_model_loader",
@@ -13146,6 +13197,7 @@
             "ImageBatchRepeatInterleaving",
             "ImageBatchTestPattern",
             "ImageConcanate",
+            "ImageConcatFromBatch",
             "ImageConcatMulti",
             "ImageGrabPIL",
             "ImageGridComposite2x2",
@@ -14396,15 +14448,16 @@
     ],
     "https://github.com/lucafoscili/comfyui-lf": [
         [
-            "CharacterImpersonator",
-            "GetRandomKeyFromJSON",
-            "GetValueFromJSON",
-            "LoadLocalJSON",
-            "Lora2Prompt",
-            "LoraName2Prompt",
-            "SeedGenerator",
-            "SwitchInteger",
-            "WorkflowSettings"
+            "LF_CharacterImpersonator",
+            "LF_DisplayJSON",
+            "LF_GetRandomKeyFromJSON",
+            "LF_GetValueFromJSON",
+            "LF_LoadLocalJSON",
+            "LF_Lora2Prompt",
+            "LF_LoraName2Prompt",
+            "LF_SeedGenerator",
+            "LF_SwitchInteger",
+            "LF_WorkflowSettings"
         ],
         {
             "title_aux": "LF Nodes"
@@ -15512,6 +15565,16 @@
             "title_aux": "\u2728 Clarity AI - Creative Image Upscaler and Enhancer for ComfyUI"
         }
     ],
+    "https://github.com/phyblas/paint-by-example_comfyui": [
+        [
+            "PaintbyExampleAdvanced",
+            "PaintbyExampleGen",
+            "PaintbyExampleSimple"
+        ],
+        {
+            "title_aux": "paint-by-example @ ComfyUI"
+        }
+    ],
     "https://github.com/picturesonpictures/comfy_PoP": [
         [
             "AdaptiveCannyDetector_PoP",
@@ -15829,6 +15892,7 @@
             "ComfyAudio.ApplyFilterBank",
             "ComfyAudio.GriffinLim",
             "ComfyAudio.InverseSpectrogram",
+            "ComfyAudio.LinearFilterBank",
             "ComfyAudio.LoadAudio",
             "ComfyAudio.MelScaleFilterBank",
             "ComfyAudio.PlotFilterBank",
@@ -17773,7 +17837,8 @@
             "IPAdapter FaceID With Bool",
             "IPAdapter Mad Scientist Weight_Type",
             "Image Blending Mode Mask",
-            "Load Image With Bool"
+            "Load Image With Bool",
+            "Load Lora With Shared"
         ],
         {
             "title_aux": "ComfyUI-CustomNodes"
@@ -18089,6 +18154,9 @@
             "ErrorLogNode",
             "ExecutionTime",
             "FileBasedChatNode",
+            "Gemini1_5Text",
+            "Gemini1_5Vision",
+            "GeminiFluxPrompt",
             "Gemma2PromptNode",
             "GemmaDialogueNode",
             "GithubLinkNode",
