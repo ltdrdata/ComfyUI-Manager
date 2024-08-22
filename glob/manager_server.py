@@ -240,7 +240,7 @@ def get_model_dir(data):
     if data['save_path'] != 'default':
         if '..' in data['save_path'] or data['save_path'].startswith('/'):
             print(f"[WARN] '{data['save_path']}' is not allowed path. So it will be saved into 'models/etc'.")
-            base_model = "etc"
+            base_model = os.path.join(folder_paths.models_dir, "etc")
         else:
             if data['save_path'].startswith("custom_nodes"):
                 base_model = os.path.join(core.comfy_path, data['save_path'])
@@ -279,7 +279,7 @@ def get_model_dir(data):
                 print(f"[ComfyUI-Manager] Your ComfyUI is outdated version.")
                 base_model = folder_paths.folder_names_and_paths["unet"][0][0]  # outdated version
         else:
-            base_model = "etc"
+            base_model = os.path.join(folder_paths.models_dir, "etc")
 
     return base_model
 
