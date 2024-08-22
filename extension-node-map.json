@@ -99,7 +99,9 @@
             "EG_ZZ_SSKZ",
             "EG_ZZ_TMTX",
             "ER_JBCH",
-            "ER_TX_ZZCJ"
+            "ER_TX_ZZCJ",
+            "SaveTextToFile",
+            "SequentialImageLoader"
         ],
         {
             "title_aux": "Comfyui-ergouzi-Nodes"
@@ -949,9 +951,11 @@
     ],
     "https://github.com/Anibaaal/ComfyUI-UX-Nodes": [
         [
+            "CheckpointLoaderBNB",
             "EasyResolutionPicker",
-            "SmoothCurveMerger",
-            "UNETSave"
+            "ModelSave",
+            "SmoothCurveMergerFlux",
+            "UNETLoaderBNB"
         ],
         {
             "title_aux": "ComfyUI UX Nodes"
@@ -3807,16 +3811,18 @@
     ],
     "https://github.com/MilitantHitchhiker/MilitantHitchhiker-SwitchbladePack": [
         [
-            "FluxModelSave",
+            "FluxModelSave_v2",
             "IntegratedRandomPromptGenerator",
-            "TextAppender"
+            "MilitantMergeNodev2",
+            "ModelAnalyserNode",
+            "TextAppender_v2"
         ],
         {
             "author": "Militant Hitchhiker",
             "description": "Militant Hitchhiker's multi-function nodes.",
             "nickname": "Switchblade",
             "title": "Switchblade Pack",
-            "title_aux": "Militant Hitchhiker's Switchblade Pack"
+            "title_aux": "MilitantHitchhiker-SwitchbladePack"
         }
     ],
     "https://github.com/Mintbeer96/ComfyUI-KerasOCR": [
@@ -4430,6 +4436,19 @@
         ],
         {
             "title_aux": "ComfyUI-AdvancedLivePortrait"
+        }
+    ],
+    "https://github.com/Pseudotools/Pseudocomfy": [
+        [
+            "Combiner",
+            "LoadJSONAuto",
+            "LoadJSONFromFolder",
+            "MakeMaskBatch",
+            "MixedBuiltinCombinerIPAdaper",
+            "ProcessJSON"
+        ],
+        {
+            "title_aux": "Pseudocomfy"
         }
     ],
     "https://github.com/QaisMalkawi/ComfyUI-QaisHelper": [
@@ -5670,10 +5689,36 @@
             "tri3d-skin-feathered-padded-mask",
             "tri3d-swap-pixels",
             "tri3d_fill_mask",
+            "tri3d_is_only_trouser",
             "tri3d_position_pose_part"
         ],
         {
             "title_aux": "tri3d-comfyui-nodes"
+        }
+    ],
+    "https://github.com/TTPlanetPig/Comfyui_TTP_CN_Preprocessor": [
+        [
+            "TTPlanet_Tile_Preprocessor_GF",
+            "TTPlanet_Tile_Preprocessor_Simple",
+            "TTPlanet_Tile_Preprocessor_cufoff",
+            "TTPlanet_inpainting_Preprecessor"
+        ],
+        {
+            "title_aux": "for comfyui image proprocessor"
+        }
+    ],
+    "https://github.com/TTPlanetPig/Comfyui_TTP_Toolset": [
+        [
+            "TTP_CoordinateSplitter",
+            "TTP_Image_Assy",
+            "TTP_Image_Tile_Batch",
+            "TTP_Tile_image_size",
+            "TTP_condsetarea_merge",
+            "TTP_condtobatch",
+            "TTPlanet_Tile_Preprocessor_Simple"
+        ],
+        {
+            "title_aux": "Comfyui_TTP_Toolset"
         }
     ],
     "https://github.com/TW-CUI/TW-CUI-Util": [
@@ -6937,6 +6982,17 @@
             "title_aux": "Comfy UI FatLabels"
         }
     ],
+    "https://github.com/aidenli/ComfyUI_NYJY": [
+        [
+            "JoyCaption",
+            "JoyTag",
+            "LoadLlamaModel",
+            "Translate"
+        ],
+        {
+            "title_aux": "ComfyUI_NYJY"
+        }
+    ],
     "https://github.com/aisabervisionlab/ComfyUI_merge_ASVL": [
         [
             "ASVL"
@@ -6949,6 +7005,9 @@
         [
             "AK_AnimatedDilationMaskLinear",
             "AK_AudioreactiveDilationMask",
+            "AK_AudioreactiveDynamicDilationMask",
+            "AK_ConvertAudioToSaltAudio",
+            "AK_ConvertSaltAudioToAudio",
             "AK_IPAdapterCustomWeights",
             "AK_NormalizeMaskImage"
         ],
@@ -8037,6 +8096,14 @@
         ],
         {
             "title_aux": "Arc2Face ComfyUI Node Library"
+        }
+    ],
+    "https://github.com/camenduru/ComfyUI-TostAI": [
+        [
+            "SendToTostAI"
+        ],
+        {
+            "title_aux": "ComfyUI-TostAI"
         }
     ],
     "https://github.com/catscandrive/comfyui-imagesubfolders/raw/main/loadImageWithSubfolders.py": [
@@ -9293,6 +9360,7 @@
             "StableCascade_SuperResolutionControlnet",
             "StableZero123_Conditioning",
             "StableZero123_Conditioning_Batched",
+            "StubConstantImage",
             "StubFloat",
             "StubImage",
             "StubInt",
@@ -9320,6 +9388,7 @@
             "TestForLoopOpen",
             "TestIntConditions",
             "TestIntMathOperation",
+            "TestIsChangedWithConstants",
             "TestLazyMixImages",
             "TestListToAccumulationNode",
             "TestMakeListNode",
@@ -10229,6 +10298,7 @@
     "https://github.com/doomy23/ComfyUI-D00MYsNodes": [
         [
             "Images_Converter|D00MYs",
+            "JSPaint|D00MYs",
             "Show_Text|D00MYs"
         ],
         {
@@ -10296,6 +10366,8 @@
             "Eden_Compare",
             "Eden_DebugPrint",
             "Eden_Float",
+            "Eden_IMG_padder",
+            "Eden_IMG_unpadder",
             "Eden_Int",
             "Eden_Lora_Loader",
             "Eden_String",
@@ -10305,10 +10377,8 @@
             "Get_Prefixed_Imgs",
             "HistogramMatching",
             "IMG_blender",
-            "IMG_padder",
             "IMG_resolution_multiple_of",
             "IMG_scaler",
-            "IMG_unpadder",
             "If ANY execute A else B",
             "ImageDescriptionNode",
             "LatentTypeConversion",
@@ -10559,6 +10629,7 @@
             "FL_CaptionToCSV",
             "FL_CodeNode",
             "FL_ColorPicker",
+            "FL_Dalle3",
             "FL_DirectoryCrawl",
             "FL_Dither",
             "FL_FractalKSampler",
@@ -11373,7 +11444,8 @@
             "BooleanReverse",
             "FluxControlNetApply",
             "FluxResolutionNode",
-            "FluxSampler"
+            "FluxSampler",
+            "GetImageSizeRatio"
         ],
         {
             "title_aux": "ControlAltAI Nodes"
@@ -13736,6 +13808,7 @@
             "TclExtractFramesFromVideo",
             "TclExtractFramesFromVideoFile",
             "TclFrames2Video",
+            "TclLoraGenDatasets",
             "TclLoraSaveImages",
             "TclSaveVideoFromFrames",
             "TclYoloV8Segmentation",
@@ -14452,6 +14525,7 @@
             "LF_DisplayJSON",
             "LF_GetRandomKeyFromJSON",
             "LF_GetValueFromJSON",
+            "LF_LoadImages",
             "LF_LoadLocalJSON",
             "LF_Lora2Prompt",
             "LF_LoraName2Prompt",
@@ -16424,6 +16498,34 @@
             "title_aux": "comfyui-load-image-with-cmd"
         }
     ],
+    "https://github.com/shinich39/comfyui-parse-image": [
+        [
+            "LoadBooleanFromImage",
+            "LoadComboFromImage",
+            "LoadFloatFromImage",
+            "LoadIntFromImage",
+            "LoadStringFromImage"
+        ],
+        {
+            "author": "shinich39",
+            "description": "Extract metadata from image.",
+            "nickname": "parse-image",
+            "title": "parse-image",
+            "title_aux": "comfyui-parse-image"
+        }
+    ],
+    "https://github.com/shinich39/comfyui-put-image": [
+        [
+            "PutImage"
+        ],
+        {
+            "author": "shinich39",
+            "description": "Load image from directory.",
+            "nickname": "put-image",
+            "title": "put-image",
+            "title_aux": "comfyui-put-image"
+        }
+    ],
     "https://github.com/shobhitic/ComfyUI-PlusMinusTextClip": [
         [
             "PlusMinusTextClip"
@@ -17157,6 +17259,7 @@
             "FoxImageTileBatch",
             "FoxLoadImageBatch",
             "FoxLoadImageList",
+            "FoxLoadImagePlus",
             "FoxMaskAddMask",
             "FoxMaskAndMask",
             "FoxMaskSubMask",
@@ -17166,6 +17269,7 @@
             "FoxSDXLPromptStyler",
             "FoxSDXLPromptStylerAdvanced",
             "FoxSaveImagePlus",
+            "FoxSelectFace",
             "FoxShowText",
             "FoxTextConcatenate",
             "FoxTrimBlackBoard",
@@ -17943,6 +18047,88 @@
             "title_aux": "easy-comfy-nodes"
         }
     ],
+    "https://github.com/wmpmiles/ComfyUI-GTF-Utilities": [
+        [
+            "BBOX | Change",
+            "BBOX | From Mask",
+            "BBOX | Scale Area",
+            "Dimensions | Align To",
+            "Dimensions | Change",
+            "Dimensions | From GTF",
+            "Dimensions | From Raw",
+            "Dimensions | Scale",
+            "Dimensions | Scale to Megapixels",
+            "Dimensions | To Raw",
+            "GTF | Colorspace - Linear to Log",
+            "GTF | Colorspace - Log to Linear",
+            "GTF | Colorspace - SRGB Gamma to Linear",
+            "GTF | Colorspace - SRGB Linear to Gamma",
+            "GTF | Colorspace - Standard Gamma to Linear",
+            "GTF | Colorspace - Standard Linear to Gamma",
+            "GTF | Convert - Batch Max",
+            "GTF | Convert - Batch Min",
+            "GTF | Convert - Binary Threshold",
+            "GTF | Convert - Channel Max",
+            "GTF | Convert - Channel Min",
+            "GTF | Convert - Luminance",
+            "GTF | Convert - Max",
+            "GTF | Convert - Min",
+            "GTF | Filter - Gaussian Blur",
+            "GTF | Filter - Morphological",
+            "GTF | From Images",
+            "GTF | From Latents",
+            "GTF | From Masks",
+            "GTF | Math - Add",
+            "GTF | Math - Divide",
+            "GTF | Math - Equal",
+            "GTF | Math - Lerp",
+            "GTF | Math - Less Than",
+            "GTF | Math - Multiply",
+            "GTF | Math - Negative",
+            "GTF | Math - Pow",
+            "GTF | Math - Reciprocal",
+            "GTF | Math - Subtract",
+            "GTF | Resample - Area",
+            "GTF | Resample - Lanczos",
+            "GTF | Resample - Mitchell-Netravali",
+            "GTF | Resample - Nearest Neighbor",
+            "GTF | Resample - Triangle",
+            "GTF | Source - One",
+            "GTF | Source - RGB",
+            "GTF | Source - Value",
+            "GTF | Source - Zero",
+            "GTF | To Images",
+            "GTF | To Masks",
+            "GTF | Tonemap - ACES",
+            "GTF | Tonemap - Reinhard",
+            "GTF | Tonemap - Reinhard Extended",
+            "GTF | Tonemap - Reinhard Extended over Luminance",
+            "GTF | Tonemap - Reinhard over Luminance",
+            "GTF | Tonemap - Reinhard-Jodie",
+            "GTF | Tonemap - Reinhard-Jodie Extended",
+            "GTF | Tonemap - Uncharted 2",
+            "GTF | Transform - 1 Channel to 3",
+            "GTF | Transform - 1 Channel to 4",
+            "GTF | Transform - Batch",
+            "GTF | Transform - Connected Components",
+            "GTF | Transform - Crop to BBOX",
+            "GTF | Transform - Crop/Uncrop with Anchor",
+            "GTF | Transform - Uncrop from BBOX",
+            "GTF | Update Latents",
+            "Primitive | Boolean",
+            "Primitive | Float",
+            "Primitive | Integer",
+            "Primitive | String",
+            "Primitive | Text"
+        ],
+        {
+            "author": "wmpmiles",
+            "description": "TODO",
+            "nickname": "GTFU",
+            "title": "GTF Utilities",
+            "title_aux": "ComfyUI-GTF-Utilities"
+        }
+    ],
     "https://github.com/wolfden/ComfyUi_PromptStylers": [
         [
             "SDXLPromptStylerAll",
@@ -18098,6 +18284,16 @@
         ],
         {
             "title_aux": "hd-nodes-comfyui"
+        }
+    ],
+    "https://github.com/xlinx/ComfyUI-decadetw-auto-prompt-llm": [
+        [
+            "Auto-LLM-Text",
+            "Auto-LLM-Text-Vision",
+            "Auto-LLM-Vision"
+        ],
+        {
+            "title_aux": "ComfyUI-decadetw-auto-prompt-llm"
         }
     ],
     "https://github.com/xliry/ComfyUI_SendDiscord": [

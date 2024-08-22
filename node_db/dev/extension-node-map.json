@@ -540,6 +540,8 @@
         [
             "AppendNode",
             "ApplyVoiceConversion",
+            "CombineVideos",
+            "ImAppendFreeChatAction",
             "ImAppendQuickbackNode",
             "ImAppendQuickbackVideoNode",
             "ImAppendVideoNode",
@@ -555,7 +557,9 @@
             "SetEvent",
             "SetNodeMapping",
             "SetProperties",
+            "String2Node",
             "batchNodes",
+            "grepNodeByText",
             "mergeEntityAndPointer",
             "redirectToNode"
         ],
@@ -769,6 +773,14 @@
             "title_aux": "ComfyUI-MS-Nodes [WIP]"
         }
     ],
+    "https://github.com/Sakura-nee/ComfyUI_Save2Discord": [
+        [
+            "SendToWebhook"
+        ],
+        {
+            "title_aux": "ComfyUI_Save2Discord"
+        }
+    ],
     "https://github.com/SeedV/ComfyUI-SeedV-Nodes": [
         [
             "CheckpointLoaderSimpleShared //SeedV",
@@ -841,31 +853,6 @@
         ],
         {
             "title_aux": "ComfyUI-TSFNodes"
-        }
-    ],
-    "https://github.com/TTPlanetPig/Comfyui_TTP_CN_Preprocessor": [
-        [
-            "TTPlanet_Tile_Preprocessor_GF",
-            "TTPlanet_Tile_Preprocessor_Simple",
-            "TTPlanet_Tile_Preprocessor_cufoff",
-            "TTPlanet_inpainting_Preprecessor"
-        ],
-        {
-            "title_aux": "for comfyui image proprocessor"
-        }
-    ],
-    "https://github.com/TTPlanetPig/Comfyui_TTP_Toolset": [
-        [
-            "TTP_CoordinateSplitter",
-            "TTP_Image_Assy",
-            "TTP_Image_Tile_Batch",
-            "TTP_Tile_image_size",
-            "TTP_condsetarea_merge",
-            "TTP_condtobatch",
-            "TTPlanet_Tile_Preprocessor_Simple"
-        ],
-        {
-            "title_aux": "Comfyui_TTP_Toolset"
         }
     ],
     "https://github.com/ThisModernDay/ComfyUI-InstructorOllama": [
@@ -1323,6 +1310,7 @@
             "StableCascade_SuperResolutionControlnet",
             "StableZero123_Conditioning",
             "StableZero123_Conditioning_Batched",
+            "StubConstantImage",
             "StubFloat",
             "StubImage",
             "StubInt",
@@ -1350,6 +1338,7 @@
             "TestForLoopOpen",
             "TestIntConditions",
             "TestIntMathOperation",
+            "TestIsChangedWithConstants",
             "TestLazyMixImages",
             "TestListToAccumulationNode",
             "TestMakeListNode",
@@ -1472,7 +1461,7 @@
     ],
     "https://github.com/drmbt/comfyui-dreambait-nodes": [
         [
-            "Aspect Pad Image For Outpainting"
+            "DRMBT_AspectPadImageForOutpainting"
         ],
         {
             "title_aux": "comfyui-dreambait-nodes"
@@ -1790,6 +1779,8 @@
             "ChooseFromStringList",
             "Cubby",
             "DefineWord",
+            "DictionaryToJSON",
+            "JSONToDictionary",
             "LoadImageAndInfoFromPath",
             "LookupWord",
             "ReplaceWords",
