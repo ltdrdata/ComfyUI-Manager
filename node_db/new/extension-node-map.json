@@ -537,6 +537,7 @@
     ],
     "https://github.com/AIFSH/DHLive-ComfyUI": [
         [
+            "CombineVideo",
             "DHLiveNode",
             "LoadVideo",
             "PreViewVideo",
@@ -576,6 +577,8 @@
             "ExperienceNode",
             "GSFinetuneNone",
             "GSVTTSNode",
+            "LoadSRT",
+            "PreViewSRT",
             "TSCY_Node",
             "TextDictNode"
         ],
@@ -2858,6 +2861,14 @@
             "title_aux": "ComfyUI_MiniCPM-V-2_6-int4"
         }
     ],
+    "https://github.com/IuvenisSapiens/ComfyUI_Qwen2-Audio-7B-Instruct-Int4": [
+        [
+            "Qwen2_AQA"
+        ],
+        {
+            "title_aux": "ComfyUI_Qwen2-Audio-7B-Instruct-Int4"
+        }
+    ],
     "https://github.com/JPS-GER/ComfyUI_JPS-Nodes": [
         [
             "CLIPTextEncode SDXL Plus (JPS)",
@@ -4054,6 +4065,17 @@
         ],
         {
             "title_aux": "ComfyUI-RTX-Remix"
+        }
+    ],
+    "https://github.com/NakamuraShippo/ComfyUI-PromptList": [
+        [
+            "ComfyUI-PromptList"
+        ],
+        {
+            "author": "Assistant",
+            "description": "Custom node for managing prompts with CSV integration",
+            "title": "ComfyUI-PromptList",
+            "title_aux": "ComfyUI-PromptList"
         }
     ],
     "https://github.com/NeuralSamurAI/ComfyUI-Dimensional-Latent-Perlin": [
@@ -8827,6 +8849,7 @@
             "LayerUtility: BooleanOperator",
             "LayerUtility: BooleanOperatorV2",
             "LayerUtility: CheckMask",
+            "LayerUtility: CheckMaskV2",
             "LayerUtility: ColorImage",
             "LayerUtility: ColorImage V2",
             "LayerUtility: ColorPicker",
@@ -8859,6 +8882,8 @@
             "LayerUtility: ImageHub",
             "LayerUtility: ImageMaskScaleAs",
             "LayerUtility: ImageOpacity",
+            "LayerUtility: ImageReel",
+            "LayerUtility: ImageReelComposit",
             "LayerUtility: ImageRemoveAlpha",
             "LayerUtility: ImageRewardFilter",
             "LayerUtility: ImageScaleByAspectRatio",
@@ -12841,6 +12866,7 @@
             "Bjornulf_CustomStringType",
             "Bjornulf_GrayscaleTransform",
             "Bjornulf_GreenScreenToTransparency",
+            "Bjornulf_LoadImageWithTransparency",
             "Bjornulf_LoopAllLines",
             "Bjornulf_LoopBasicBatch",
             "Bjornulf_LoopCombosSamplersSchedulers",
@@ -13250,6 +13276,7 @@
     ],
     "https://github.com/kijai/ComfyUI-FluxTrainer": [
         [
+            "ExtractFluxLoRA",
             "FluxKohyaInferenceSampler",
             "FluxTrainEnd",
             "FluxTrainLoop",
@@ -18179,20 +18206,27 @@
             "GTF | Colorspace - Standard Linear to Gamma",
             "GTF | Convert - Batch Max",
             "GTF | Convert - Batch Min",
-            "GTF | Convert - Binary Threshold",
             "GTF | Convert - Channel Max",
             "GTF | Convert - Channel Min",
             "GTF | Convert - Luminance",
             "GTF | Convert - Max",
             "GTF | Convert - Min",
-            "GTF | Convert - Quantize Normalized",
+            "GTF | Filter - Binary Threshold",
             "GTF | Filter - Convolve",
+            "GTF | Filter - Invert",
             "GTF | Filter - Morphological",
+            "GTF | Filter - Normalize Kernel",
+            "GTF | Filter - Quantize",
             "GTF | From Images",
             "GTF | From Latents",
             "GTF | From Masks",
             "GTF | Kernel - Gaussian",
+            "GTF | Math - Acos",
             "GTF | Math - Add",
+            "GTF | Math - Asin",
+            "GTF | Math - Atan",
+            "GTF | Math - Atan2",
+            "GTF | Math - Cos",
             "GTF | Math - Divide",
             "GTF | Math - Equal",
             "GTF | Math - Lerp",
@@ -18201,7 +18235,9 @@
             "GTF | Math - Negative",
             "GTF | Math - Pow",
             "GTF | Math - Reciprocal",
+            "GTF | Math - Sin",
             "GTF | Math - Subtract",
+            "GTF | Math - Tan",
             "GTF | Resample - Area",
             "GTF | Resample - Lanczos",
             "GTF | Resample - Mitchell-Netravali",
@@ -18227,6 +18263,12 @@
             "GTF | Transform - Connected Components",
             "GTF | Transform - Crop to BBOX",
             "GTF | Transform - Crop/Uncrop with Anchor",
+            "GTF | Transform - Flip Horizontal",
+            "GTF | Transform - Flip Vertical",
+            "GTF | Transform - Rotate 180",
+            "GTF | Transform - Rotate CCW",
+            "GTF | Transform - Rotate CW",
+            "GTF | Transform - Transpose",
             "GTF | Transform - Uncrop from BBOX",
             "GTF | Update Latents",
             "Primitive | Boolean",
@@ -18622,6 +18664,7 @@
             "easy mathInt",
             "easy mathString",
             "easy negative",
+            "easy outputToList",
             "easy pipeBatchIndex",
             "easy pipeEdit",
             "easy pipeEditPrompt",
