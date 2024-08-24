@@ -20,6 +20,7 @@ import cm_global
 print(f"### Loading: ComfyUI-Manager ({core.version_str})")
 
 comfy_ui_hash = "-"
+comfyui_tag = None
 
 SECURITY_MESSAGE_MIDDLE_OR_BELOW = f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
 SECURITY_MESSAGE_NORMAL_MINUS = f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
@@ -157,6 +158,7 @@ def set_double_click_policy(mode):
 
 def print_comfyui_version():
     global comfy_ui_hash
+    global comfyui_tag
 
     is_detached = False
     try:
@@ -171,6 +173,11 @@ def print_comfyui_version():
 
         is_detached = repo.head.is_detached
         current_branch = repo.active_branch.name
+
+        if current_branch == "master":
+            comfyui_tag = repo.git.describe('--tags', repo.heads.main.commit.hexsha)
+            if not comfyui_tag.startswith("v"):
+                comfyui_tag = None
 
         try:
             if core.comfy_ui_commit_datetime.date() < core.comfy_ui_required_commit_datetime.date():
@@ -193,7 +200,10 @@ def print_comfyui_version():
         # <--
 
         if current_branch == "master":
-            print(f"### ComfyUI Revision: {core.comfy_ui_revision} [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
+            if comfyui_tag:
+                print(f"### ComfyUI Version: {comfyui_tag} | Released on '{core.comfy_ui_commit_datetime.date()}'")
+            else:
+                print(f"### ComfyUI Revision: {core.comfy_ui_revision} [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
         else:
             print(f"### ComfyUI Revision: {core.comfy_ui_revision} on '{current_branch}' [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
     except:
@@ -230,7 +240,7 @@ def get_model_dir(data):
     if data['save_path'] != 'default':
         if '..' in data['save_path'] or data['save_path'].startswith('/'):
             print(f"[WARN] '{data['save_path']}' is not allowed path. So it will be saved into 'models/etc'.")
-            base_model = "etc"
+            base_model = os.path.join(folder_paths.models_dir, "etc")
         else:
             if data['save_path'].startswith("custom_nodes"):
                 base_model = os.path.join(core.comfy_path, data['save_path'])
@@ -269,7 +279,7 @@ def get_model_dir(data):
                 print(f"[ComfyUI-Manager] Your ComfyUI is outdated version.")
                 base_model = folder_paths.folder_names_and_paths["unet"][0][0]  # outdated version
         else:
-            base_model = "etc"
+            base_model = os.path.join(folder_paths.models_dir, "etc")
 
     return base_model
 
@@ -1230,7 +1240,10 @@ async def get_notice(request):
 
                 if match:
                     markdown_content = match.group(1)
-                    markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
+                    if comfyui_tag:
+                        markdown_content += f"<HR>ComfyUI: {comfyui_tag}<BR>Commit Date: {core.comfy_ui_commit_datetime.date()}"
+                    else:
+                        markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
                     # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
                     markdown_content += f"<BR>Manager: {core.version_str}"
 

@@ -380,6 +380,14 @@
             "title_aux": "ComfyUI-Get-Random-File [UNSAFE]"
         }
     ],
+    "https://github.com/Comfy-Org/ComfyUI_devtools": [
+        [
+            "DevToolsErrorRaiseNode"
+        ],
+        {
+            "title_aux": "ComfyUI_devtools [WIP]"
+        }
+    ],
     "https://github.com/DeTK/ComfyUI-Switch": [
         [
             "NodeSwitch"
@@ -540,6 +548,8 @@
         [
             "AppendNode",
             "ApplyVoiceConversion",
+            "CombineVideos",
+            "ImAppendFreeChatAction",
             "ImAppendQuickbackNode",
             "ImAppendQuickbackVideoNode",
             "ImAppendVideoNode",
@@ -555,7 +565,9 @@
             "SetEvent",
             "SetNodeMapping",
             "SetProperties",
+            "String2Node",
             "batchNodes",
+            "grepNodeByText",
             "mergeEntityAndPointer",
             "redirectToNode"
         ],
@@ -769,6 +781,14 @@
             "title_aux": "ComfyUI-MS-Nodes [WIP]"
         }
     ],
+    "https://github.com/Sakura-nee/ComfyUI_Save2Discord": [
+        [
+            "SendToWebhook"
+        ],
+        {
+            "title_aux": "ComfyUI_Save2Discord"
+        }
+    ],
     "https://github.com/SeedV/ComfyUI-SeedV-Nodes": [
         [
             "CheckpointLoaderSimpleShared //SeedV",
@@ -792,8 +812,6 @@
             "KSampler (Shinsplat)",
             "Lora Loader (Shinsplat)",
             "Nupoma (Shinsplat)",
-            "Python (Shinsplat)",
-            "Python - More Inputs (Shinsplat)",
             "Seed (Shinsplat)",
             "String Interpolated (Shinsplat)",
             "Sum Wrap (Shinsplat)",
@@ -843,31 +861,6 @@
             "title_aux": "ComfyUI-TSFNodes"
         }
     ],
-    "https://github.com/TTPlanetPig/Comfyui_TTP_CN_Preprocessor": [
-        [
-            "TTPlanet_Tile_Preprocessor_GF",
-            "TTPlanet_Tile_Preprocessor_Simple",
-            "TTPlanet_Tile_Preprocessor_cufoff",
-            "TTPlanet_inpainting_Preprecessor"
-        ],
-        {
-            "title_aux": "for comfyui image proprocessor"
-        }
-    ],
-    "https://github.com/TTPlanetPig/Comfyui_TTP_Toolset": [
-        [
-            "TTP_CoordinateSplitter",
-            "TTP_Image_Assy",
-            "TTP_Image_Tile_Batch",
-            "TTP_Tile_image_size",
-            "TTP_condsetarea_merge",
-            "TTP_condtobatch",
-            "TTPlanet_Tile_Preprocessor_Simple"
-        ],
-        {
-            "title_aux": "Comfyui_TTP_Toolset"
-        }
-    ],
     "https://github.com/ThisModernDay/ComfyUI-InstructorOllama": [
         [
             "OllamaInstructorNode"
@@ -894,6 +887,32 @@
         ],
         {
             "title_aux": "ve_custom_comfyui_nodes"
+        }
+    ],
+    "https://github.com/VykosX/ControlFlowUtils": [
+        [
+            "CheckpointSelector",
+            "Cycle",
+            "CycleEnd",
+            "CycleStart",
+            "DataMonitor",
+            "GarbageCollector",
+            "HaltExecution",
+            "IfConditionSelector",
+            "ImageResolutionAdjust",
+            "LoraSelector",
+            "MemoryStorage",
+            "NullInput",
+            "NullOutput",
+            "ReadTextFile",
+            "SaveTextFile",
+            "UniversalSwitch",
+            "UnloadModels",
+            "VAESelector",
+            "Wait"
+        ],
+        {
+            "title_aux": "ControlFlowUtils [UNSTABLE]"
         }
     ],
     "https://github.com/WSJUSA/Comfyui-StableSR": [
@@ -1323,6 +1342,7 @@
             "StableCascade_SuperResolutionControlnet",
             "StableZero123_Conditioning",
             "StableZero123_Conditioning_Batched",
+            "StubConstantImage",
             "StubFloat",
             "StubImage",
             "StubInt",
@@ -1350,6 +1370,7 @@
             "TestForLoopOpen",
             "TestIntConditions",
             "TestIntMathOperation",
+            "TestIsChangedWithConstants",
             "TestLazyMixImages",
             "TestListToAccumulationNode",
             "TestMakeListNode",
@@ -1472,7 +1493,7 @@
     ],
     "https://github.com/drmbt/comfyui-dreambait-nodes": [
         [
-            "Aspect Pad Image For Outpainting"
+            "DRMBT_AspectPadImageForOutpainting"
         ],
         {
             "title_aux": "comfyui-dreambait-nodes"
@@ -1790,6 +1811,8 @@
             "ChooseFromStringList",
             "Cubby",
             "DefineWord",
+            "DictionaryToJSON",
+            "JSONToDictionary",
             "LoadImageAndInfoFromPath",
             "LookupWord",
             "ReplaceWords",
@@ -2034,7 +2057,9 @@
     "https://github.com/kijai/ComfyUI-LLaVA-OneVision": [
         [
             "DownloadAndLoadLLaVAOneVisionModel",
-            "LLaVA_OneVision_Run"
+            "LLaVA_OneVision_Run",
+            "OneVisionCaptionFolder",
+            "SaveCaptionToTextFile"
         ],
         {
             "title_aux": "ComfyUI-LLaVA-OneVision [WIP]"
@@ -2181,22 +2206,6 @@
         ],
         {
             "title_aux": "ComfyUI-Workflow-Component [WIP]"
-        }
-    ],
-    "https://github.com/maepopi/Diffusers-in-ComfyUI": [
-        [
-            "BLoRALoader",
-            "GenerateImg2Image",
-            "GenerateInpaintImage",
-            "GenerateTxt2Image",
-            "Img2ImgStableDiffusionPipeline",
-            "InpaintingStableDiffusionPipeline",
-            "LoRALoader",
-            "MakeCanny",
-            "Text2ImgStableDiffusionPipeline"
-        ],
-        {
-            "title_aux": "Diffusers-in-ComfyUI"
         }
     ],
     "https://github.com/majorsauce/comfyui_indieTools": [
@@ -2513,6 +2522,18 @@
         ],
         {
             "title_aux": "comfyui-musicgen"
+        }
+    ],
+    "https://github.com/shinich39/comfyui-event-handler": [
+        [
+            "EventHandler"
+        ],
+        {
+            "author": "shinich39",
+            "description": "Javascript code will run when an event fires.",
+            "nickname": "event-handler",
+            "title": "event-handler",
+            "title_aux": "comfyui-event-handler [USAFE]"
         }
     ],
     "https://github.com/shirazdesigner/CLIPTextEncodeAndEnhancev4": [
