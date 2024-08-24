@@ -731,6 +731,7 @@ class UnifiedManager:
         else:
             if os.path.exists(requirements_path) and not no_deps:
                 print("Install: pip packages")
+                res = True
                 with open(requirements_path, "r") as requirements_file:
                     for line in requirements_file:
                         package_name = remap_pip_package(line.strip())
@@ -738,7 +739,8 @@ class UnifiedManager:
                             self.processed_install.add(package_name)
                             install_cmd = [sys.executable, "-m", "pip", "install", package_name]
                             if package_name.strip() != "" and not package_name.startswith('#'):
-                                return try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
+                                res = res and try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
+                return res
 
             if os.path.exists(install_script_path) and install_script_path not in self.processed_install:
                 self.processed_install.add(install_script_path)
