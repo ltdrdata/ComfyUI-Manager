@@ -1,6 +1,18 @@
 {
   "models": [
     {
+      "name": "BAAI/SegGPT",
+      "type": "SegGPT",
+      "base": "SegGPT",
+      "save_path": "custom_nodes/comfyui-SegGPT",
+      "description": "SegGPT",
+      "reference": "https://huggingface.co/BAAI/SegGPT",
+      "filename": "seggpt_vit_large.pth",
+      "url": "https://huggingface.co/BAAI/SegGPT/resolve/main/seggpt_vit_large.pth",
+      "size": "1.48GB"
+    },
+
+    {
       "name": "DMD2 LoRA (4steps)",
       "type": "lora",
       "base": "SDXL",
