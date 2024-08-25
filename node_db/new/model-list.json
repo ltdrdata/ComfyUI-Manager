@@ -1,6 +1,197 @@
 {
   "models": [
     {
+      "name": "DMD2 LoRA (4steps)",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/DMD2",
+      "description": "DMD2 LoRA (4steps)",
+      "reference": "https://huggingface.co/tianweiy/DMD2",
+      "filename": "dmd2_sdxl_4step_lora.safetensors",
+      "url": "https://huggingface.co/tianweiy/DMD2/resolve/main/dmd2_sdxl_4step_lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "DMD2 LoRA (4steps/fp16)",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/DMD2",
+      "description": "DMD2 LoRA (4steps/fp16)",
+      "reference": "https://huggingface.co/tianweiy/DMD2",
+      "filename": "dmd2_sdxl_4step_lora_fp16.safetensors",
+      "url": "https://huggingface.co/tianweiy/DMD2/resolve/main/dmd2_sdxl_4step_lora_fp16.safetensors",
+      "size": "394MB"
+    },
+
+    {
+      "name": "Hyper-SD LoRA (1step) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD LoRA (1step) - SD1.5",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-1step-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-1step-lora.safetensors",
+      "size": "269MB"
+    },
+    {
+      "name": "Hyper-SD LoRA (2steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD LoRA (2steps) - SD1.5",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-2steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-2steps-lora.safetensors",
+      "size": "269MB"
+    },
+    {
+      "name": "Hyper-SD LoRA (4steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD LoRA (4steps)",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-4steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-4steps-lora.safetensors",
+      "size": "269MB"
+    },
+    {
+      "name": "Hyper-SD LoRA (8steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD LoRA (8steps)",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-8steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-8steps-lora.safetensors",
+      "size": "269MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (8steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD CFG LoRA (8steps)",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-8steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-8steps-CFG-lora.safetensors",
+      "size": "269MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (12steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD CFG LoRA (12steps)",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-12steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-12steps-CFG-lora.safetensors",
+      "size": "269MB"
+    },
+
+    {
+      "name": "Hyper-SD LoRA (1step) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD LoRA (1step) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-1step-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-1step-lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "Hyper-SD LoRA (2steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD LoRA (2steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-2steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-2steps-lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "Hyper-SD LoRA (4steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD LoRA (4steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-4steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-4steps-lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "Hyper-SD LoRA (8steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD LoRA (8steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-8steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-8steps-lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (8steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD CFG LoRA (8steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-8steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-8steps-CFG-lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (12steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD CFG LoRA (12steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-12steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-12steps-CFG-lora.safetensors",
+      "size": "787MB"
+    },
+
+    {
+      "name": "Hyper-SD CFG LoRA (4steps) - SD3",
+      "type": "lora",
+      "base": "SD3",
+      "save_path": "loras/HyperSD/SD3",
+      "description": "Hyper-SD CFG LoRA (4steps) - SD3",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD3-4steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-4steps-CFG-lora.safetensors",
+      "size": "472MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (8steps) - SD3",
+      "type": "lora",
+      "base": "SD3",
+      "save_path": "loras/HyperSD/SD3",
+      "description": "Hyper-SD CFG LoRA (8steps) - SD3",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD3-8steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-8steps-CFG-lora.safetensors",
+      "size": "472MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (16steps) - SD3",
+      "type": "lora",
+      "base": "SD3",
+      "save_path": "loras/HyperSD/SD3",
+      "description": "Hyper-SD CFG LoRA (16steps) - SD3",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD3-16steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-16steps-CFG-lora.safetensors",
+      "size": "472MB"
+    },
+
+    {
       "name": "InstantX/FLUX.1-dev Controlnet (Union)",
       "type": "controlnet",
       "base": "FLUX.1",
@@ -486,87 +677,6 @@
       "filename": "diffusion_pytorch_model.safetensors",
       "url": "https://huggingface.co/InstantX/SD3-Controlnet-Tile/resolve/main/diffusion_pytorch_model.safetensors",
       "size": "1.19GB"
-    },
-
-    {
-      "name": "xinsir/ControlNet Depth SDXL, support zoe, midias",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-depth-sdxl-1.0",
-      "description": "Controlnet SDXL Depth model.",
-      "reference": "https://huggingface.co/xinsir/controlnet-depth-sdxl-1.0",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/xinsir/controlnet-depth-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "2.50GB"
-    },
-    {
-      "name": "xinsir/ControlNet Tile SDXL",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-tile-sdxl-1.0",
-      "description": "Controlnet SDXL Tile model.",
-      "reference": "https://huggingface.co/xinsir/controlnet-tile-sdxl-1.0",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/xinsir/controlnet-tile-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "2.50GB"
-    },
-
-    {
-      "name": "google-t5/t5-base",
-      "type": "clip",
-      "base": "t5-base",
-      "save_path": "clip/t5-base",
-      "description": "T5 Base: Text-To-Text Transfer Transformer. This model can be loaded via CLIPLoader for Stable Audio workflow.",
-      "reference": "https://huggingface.co/google-t5/t5-base",
-      "filename": "model.safetensors",
-      "url": "https://huggingface.co/google-t5/t5-base/resolve/main/model.safetensors",
-      "size": "892MB"
-    },
-
-    {
-      "name": "PixArt-Sigma-XL-2-1024-MS.pth",
-      "type": "checkpoint",
-      "base": "pixart-sigma",
-      "save_path": "checkpoints/PixArt-Sigma",
-      "description": "PixArt-Sigma Checkpoint model",
-      "reference": "https://huggingface.co/PixArt-alpha/PixArt-Sigma/tree/main",
-      "filename": "PixArt-Sigma-XL-2-1024-MS.pth",
-      "url": "https://huggingface.co/PixArt-alpha/PixArt-Sigma/resolve/main/PixArt-Sigma-XL-2-1024-MS.pth",
-      "size": "2.47GB"
-    },
-    {
-      "name": "TAESD3 Decoder",
-      "type": "TAESD",
-      "base": "SD3",
-      "save_path": "vae_approx",
-      "description": "(SD3 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
-      "reference": "https://github.com/madebyollin/taesd",
-      "filename": "taesd3_decoder.pth",
-      "url": "https://github.com/madebyollin/taesd/raw/main/taesd3_decoder.pth",
-      "size": "4.94MB"
-    },
-    {
-      "name": "TAESD3 Encoder",
-      "type": "TAESD",
-      "base": "SD3",
-      "save_path": "vae_approx",
-      "description": "(SD3 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
-      "reference": "https://github.com/madebyollin/taesd",
-      "filename": "taesd3_encoder.pth",
-      "url": "https://github.com/madebyollin/taesd/raw/main/taesd3_encoder.pth",
-      "size": "4.94MB"
-    },
-
-    {
-      "name": "TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic v2 (rank256)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL",
-      "description": "Controlnet SDXL Tile model realistic version.",
-      "reference": "https://huggingface.co/TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic",
-      "filename": "TTPLANET_Controlnet_Tile_realistic_v2_rank256.safetensors",
-      "url": "https://huggingface.co/TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic/resolve/main/TTPLANET_Controlnet_Tile_realistic_v2_rank256.safetensors",
-      "size": "774.4MB"
     }
   ]
 }

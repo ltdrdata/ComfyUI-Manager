@@ -4726,6 +4726,8 @@
             "RVC-Studio.LoadAudio",
             "RVC-Studio.PreviewAudio",
             "RVCNode",
+            "RVCProcessDatasetNode",
+            "RVCTrainModelNode",
             "SimpleMathNode",
             "SliceNode",
             "SortImagesNode",
@@ -7064,13 +7066,20 @@
     ],
     "https://github.com/akatz-ai/ComfyUI-AKatz-Nodes": [
         [
+            "AK_AdjustListSize",
             "AK_AnimatedDilationMaskLinear",
             "AK_AudioreactiveDilationMask",
             "AK_AudioreactiveDynamicDilationMask",
+            "AK_BinaryAmplitudeGate",
             "AK_ConvertAudioToSaltAudio",
+            "AK_ConvertListToFloatList",
             "AK_ConvertSaltAudioToAudio",
             "AK_IPAdapterCustomWeights",
-            "AK_NormalizeMaskImage"
+            "AK_LagChop",
+            "AK_ListToNumpyFloatArray",
+            "AK_NormalizeMaskImage",
+            "AK_RescaleFloatList",
+            "AK_VideoSpeedAdjust"
         ],
         {
             "author": "akatz",
@@ -9114,7 +9123,8 @@
             "CLIPLoaderGGUF",
             "DualCLIPLoaderGGUF",
             "TripleCLIPLoaderGGUF",
-            "UnetLoaderGGUF"
+            "UnetLoaderGGUF",
+            "UnetLoaderGGUFAdvanced"
         ],
         {
             "title_aux": "ComfyUI-GGUF"
@@ -9799,6 +9809,7 @@
             "SimpleMath+",
             "SimpleMathBoolean+",
             "SimpleMathCondition+",
+            "SimpleMathDual+",
             "SimpleMathFloat+",
             "SimpleMathInt+",
             "SimpleMathPercent+",
@@ -11829,10 +11840,12 @@
     ],
     "https://github.com/heshengtao/comfyui_LLM_schools": [
         [
-            "CausalLM_loader",
+            "CausalLM_trainer",
+            "IA3_Arguments",
             "LLM_Arguments",
-            "LLM_Trainer",
-            "LLM_data_collator",
+            "Lora_or_adapter_Arguments",
+            "P_or_Prompt_Arguments",
+            "Prefix_Arguments",
             "download_dataset",
             "get_dataset_name",
             "split_dataset"
@@ -12866,6 +12879,7 @@
             "Bjornulf_CustomStringType",
             "Bjornulf_GrayscaleTransform",
             "Bjornulf_GreenScreenToTransparency",
+            "Bjornulf_ImageMaskCutter",
             "Bjornulf_LoadImageWithTransparency",
             "Bjornulf_LoopAllLines",
             "Bjornulf_LoopBasicBatch",
@@ -14172,6 +14186,27 @@
         ],
         {
             "title_aux": "ComfyUI-SEGAttention"
+        }
+    ],
+    "https://github.com/logtd/ComfyUI-SSREncoder": [
+        [
+            "ApplySSR",
+            "EncodeSSRQuery",
+            "LoadSSRAligner",
+            "LoadSSRAttention"
+        ],
+        {
+            "title_aux": "ComfyUI-SSREncoder"
+        }
+    ],
+    "https://github.com/logtd/ComfyUI-SeeCoder": [
+        [
+            "LoadSeeCoder",
+            "LoadSeeCoderUncond",
+            "SeecoderEncode"
+        ],
+        {
+            "title_aux": "ComfyUI-SeeCoder"
         }
     ],
     "https://github.com/logtd/ComfyUI-TrackingNodes": [
@@ -15519,6 +15554,40 @@
             "title_aux": "BrushNet"
         }
     ],
+    "https://github.com/nux1111/ComfyUI_NetDist_Plus": [
+        [
+            "CombineImageBatch",
+            "ConditioningFromBase64(Nux)",
+            "ConditioningToBase64(Nux)",
+            "ExtractBase64FromImage(Nux)",
+            "ExtractBase64FromImageUpload(Nux)",
+            "FetchRemote",
+            "FetchRemoteWithExtras(Nux)",
+            "LatentToBase64(Nux)",
+            "LoadCurrentWorkflowJSON",
+            "LoadDiskWorkflowJSON",
+            "LoadImageUrl",
+            "LoadLatentFromBase64(Nux)",
+            "LoadLatentNumpy",
+            "LoadLatentUrl",
+            "LoadWorkflowJSON",
+            "RemoteApplyValues(Nux)",
+            "RemoteApplyValuesMulti(Nux)",
+            "RemoteChainEnd",
+            "RemoteChainStart",
+            "RemoteChainStart(Nux)",
+            "RemoteQueueSimple",
+            "RemoteQueueSimple(Nux)",
+            "RemoteQueueWorker",
+            "SaveDiskWorkflowJSON",
+            "SaveImageUrl",
+            "SaveImageWithBase64(Nux)",
+            "SaveLatentNumpy"
+        ],
+        {
+            "title_aux": "ComfyUI_NetDist_Plus"
+        }
+    ],
     "https://github.com/okgo4/ComfyUI-Mosaic-Mask": [
         [
             "MosaicMask"
@@ -15781,7 +15850,9 @@
         [
             "PaintbyExampleAdvanced",
             "PaintbyExampleGen",
-            "PaintbyExampleSimple"
+            "PaintbyExampleSimple",
+            "PaintbyIchimatsu",
+            "PaintbySingleColor"
         ],
         {
             "title_aux": "paint-by-example @ ComfyUI"
@@ -17879,6 +17950,8 @@
         [
             "ChannelSelector",
             "DownloadAndLoadFlorence2Model",
+            "FalDifferentialDiffusion",
+            "FalDiffusion",
             "FetchFromRedis",
             "FetchJsonFromSurreal",
             "Florence2Run",
@@ -18512,8 +18585,11 @@
     ],
     "https://github.com/yhayano-ponotech/ComfyUI-Fal-API-Flux": [
         [
+            "FalAPIFluxControlNetConfigNode",
+            "FalAPIFluxControlNetUnionConfigNode",
             "FalAPIFluxLoraConfigNode",
-            "FalAPIFluxNode"
+            "FalAPIFluxNode",
+            "FalAPIFluxNodeWithControlNet"
         ],
         {
             "title_aux": "ComfyUI-Fal-API-Flux"
