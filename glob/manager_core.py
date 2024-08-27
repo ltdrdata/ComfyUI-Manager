@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 import subprocess
@@ -2586,33 +2587,21 @@ def populate_github_stats(node_packs, json_obj_github):
 async def restore_snapshot(snapshot_path, git_helper_extras=None):
     cloned_repos = []
     checkout_repos = []
-    skipped_repos = []
     enabled_repos = []
     disabled_repos = []
-    is_failed = False
+    skip_node_packs = []
 
-    def extract_infos(msg):
-        nonlocal is_failed
+    await unified_manager.reload('cache')
+    await unified_manager.get_custom_nodes('default', 'cache')
 
-        for x in msg:
-            if x.startswith("CLONE: "):
-                cloned_repos.append(x[7:])
-            elif x.startswith("CHECKOUT: "):
-                checkout_repos.append(x[10:])
-            elif x.startswith("SKIPPED: "):
-                skipped_repos.append(x[9:])
-            elif x.startswith("ENABLE: "):
-                enabled_repos.append(x[8:])
-            elif x.startswith("DISABLE: "):
-                disabled_repos.append(x[9:])
-            elif 'APPLY SNAPSHOT: False' in x:
-                is_failed = True
+    cnr_repo_map = {}
+    for k, v in unified_manager.repo_cnr_map.items():
+        cnr_repo_map[v['id']] = k
 
     print(f"Restore snapshot.")
 
     postinstalls = []
 
-    # for cnr restore
     with open(snapshot_path, 'r', encoding="UTF-8") as snapshot_file:
         if snapshot_path.endswith('.json'):
             info = json.load(snapshot_file)
@@ -2620,43 +2609,218 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
             info = yaml.load(snapshot_file, Loader=yaml.SafeLoader)
             info = info['custom_nodes']
 
+        # for cnr restore
         cnr_info = info.get('cnr_custom_nodes')
         if cnr_info is not None:
             # disable not listed cnr nodes
             todo_disable = []
+            todo_checkout = []
+
             for k, v in unified_manager.active_nodes.items():
+                if 'comfyui-manager' in k:
+                    continue
+
                 if v[0] != 'nightly':
                     if k not in cnr_info:
                         todo_disable.append(k)
+                    else:
+                        cnr_ver = cnr_info[k]
+                        if v[1] != cnr_ver:
+                            todo_checkout.append((k, cnr_ver))
+                        else:
+                            skip_node_packs.append(k)
 
             for x in todo_disable:
                 unified_manager.unified_disable(x, False)
+                disabled_repos.append(x)
+
+            for x in todo_checkout:
+                unified_manager.cnr_switch_version(x[0], x[1], instant_execution=True, no_deps=True, return_postinstall=False)
+                checkout_repos.append(x[1])
 
             # install listed cnr nodes
             for k, v in cnr_info.items():
+                if 'comfyui-manager' in k:
+                    continue
+
                 ps = await unified_manager.install_by_id(k, version_spec=v, instant_execution=True, return_postinstall=True)
+                cloned_repos.append(k)
                 if ps is not None and ps.result:
                     if hasattr(ps, 'postinstall'):
                         postinstalls.append(ps.postinstall)
                     else:
                         print(f"cm-cli: unexpected [0001]")
 
-    # for git restore
-    if git_helper_extras is None:
-        git_helper_extras = []
+        # for nightly restore
+        git_info = info.get('git_custom_nodes')
+        if git_info is not None:
+            todo_disable = []
+            todo_enable = []
+            todo_checkout = []
+            processed_urls = []
 
-    cmd_str = [sys.executable, git_script_path, '--apply-snapshot', snapshot_path] + git_helper_extras
-    new_env = os.environ.copy()
-    new_env["COMFYUI_PATH"] = comfy_path
-    output = subprocess.check_output(cmd_str, cwd=custom_nodes_path, text=True, env=new_env)
-    msg_lines = output.split('\n')
-    extract_infos(msg_lines)
+            for k, v in unified_manager.active_nodes.items():
+                if 'comfyui-manager' in k:
+                    continue
 
-    for repo_path in cloned_repos:
-        unified_manager.execute_install_script('', repo_path, instant_execution=True)
+                if v[0] == 'nightly' and cnr_repo_map.get(k):
+                    repo_url = cnr_repo_map.get(k)
 
-    for ps in postinstalls:
-        ps()
+                    normalized_url1 = repo_url.replace("git@github.com:", "https://github.com/")
+                    normalized_url2 = repo_url.replace("https://github.com/", "git@github.com:")
+
+                    if normalized_url1 not in git_info and normalized_url2 not in git_info:
+                        todo_disable.append(k)
+                    else:
+                        if normalized_url1 in git_info:
+                            commit_hash = git_info[normalized_url1]['hash']
+                            todo_checkout.append((v[1], commit_hash))
+
+                        if normalized_url2 in git_info:
+                            commit_hash = git_info[normalized_url2]['hash']
+                            todo_checkout.append((v[1], commit_hash))
+
+            for k, v in unified_manager.nightly_inactive_nodes.items():
+                if 'comfyui-manager' in k:
+                    continue
+
+                if cnr_repo_map.get(k):
+                    repo_url = cnr_repo_map.get(k)
+                    normalized_url1 = repo_url.replace("git@github.com:", "https://github.com/")
+                    normalized_url2 = repo_url.replace("https://github.com/", "git@github.com:")
+
+                    if normalized_url1 in git_info:
+                        commit_hash = git_info[normalized_url1]['hash']
+                        todo_enable.append((k, commit_hash))
+                        processed_urls.append(normalized_url1)
+
+                    if normalized_url2 in git_info:
+                        commit_hash = git_info[normalized_url2]['hash']
+                        todo_enable.append((k, commit_hash))
+                        processed_urls.append(normalized_url2)
+
+            for x in todo_disable:
+                unified_manager.unified_disable(x, False)
+                disabled_repos.append(x)
+
+            for x in todo_enable:
+                res = unified_manager.unified_enable(x, 'nightly')
+
+                is_switched = False
+                if res and res.target:
+                    is_switched = repo_switch_commit(res.target, x[1])
+
+                if is_switched:
+                    checkout_repos.append(x)
+                else:
+                    enabled_repos.append(x)
+
+            for x in todo_checkout:
+                is_switched = repo_switch_commit(x[0], x[1])
+
+                if is_switched:
+                    checkout_repos.append(x)
+                else:
+                    skip_node_packs.append(x[0])
+
+            for x in git_info.keys():
+                normalized_url = x.replace("git@github.com:", "https://github.com/")
+                cnr = unified_manager.repo_cnr_map.get(normalized_url)
+                if cnr is not None:
+                    pack_id = cnr['id']
+                    await unified_manager.install_by_id(pack_id, 'nightly', instant_execution=True, no_deps=False, return_postinstall=False)
+                    cloned_repos.append(pack_id)
+                    processed_urls.append(x)
+
+            for x in processed_urls:
+                if x in git_info:
+                    del git_info[x]
+
+            # remained nightly will be installed and migrated
+
+    # for unknown restore
+    todo_disable = []
+    todo_enable = []
+    todo_checkout = []
+    processed_urls = []
+
+    for k2, v2 in unified_manager.unknown_active_nodes.items():
+        repo_url = resolve_giturl_from_path(v2[1])
+
+        if repo_url is None:
+            continue
+
+        normalized_url1 = repo_url.replace("git@github.com:", "https://github.com/")
+        normalized_url2 = repo_url.replace("https://github.com/", "git@github.com:")
+
+        if normalized_url1 not in git_info and normalized_url2 not in git_info:
+            todo_disable.append(k2)
+        else:
+            if normalized_url1 in git_info:
+                commit_hash = git_info[normalized_url1]['hash']
+                todo_checkout.append((k2, commit_hash))
+                processed_urls.append(normalized_url1)
+
+            if normalized_url2 in git_info:
+                commit_hash = git_info[normalized_url2]['hash']
+                todo_checkout.append((k2, commit_hash))
+                processed_urls.append(normalized_url2)
+
+    for k2, v2 in unified_manager.unknown_inactive_nodes.items():
+        repo_url = resolve_giturl_from_path(v2[1])
+
+        if repo_url is None:
+            continue
+
+        normalized_url1 = repo_url.replace("git@github.com:", "https://github.com/")
+        normalized_url2 = repo_url.replace("https://github.com/", "git@github.com:")
+
+        if normalized_url1 in git_info:
+            commit_hash = git_info[normalized_url1]['hash']
+            todo_enable.append((k2, commit_hash))
+            processed_urls.append(normalized_url1)
+
+        if normalized_url2 in git_info:
+            commit_hash = git_info[normalized_url2]['hash']
+            todo_enable.append((k2, commit_hash))
+            processed_urls.append(normalized_url2)
+
+    for x in todo_disable:
+        unified_manager.unified_disable(x, True)
+        disabled_repos.append(x)
+
+    for x in todo_enable:
+        res = unified_manager.unified_enable(x[0], 'unknown')
+
+        is_switched = False
+        if res and res.target:
+            is_switched = repo_switch_commit(res.target, x[1])
+
+        if is_switched:
+            checkout_repos.append(x)
+        else:
+            enabled_repos.append(x)
+
+    for x in todo_checkout:
+        is_switched = repo_switch_commit(x[0], x[1])
+
+        if is_switched:
+            checkout_repos.append(x)
+        else:
+            skip_node_packs.append(x[0])
+
+    for x in processed_urls:
+        if x in git_info:
+            del git_info[x]
+
+    for repo_url in git_info.keys():
+        repo_name = os.path.basename(repo_url)
+        if repo_name.endswith('.git'):
+            repo_name = repo_name[:-4]
+
+        to_path = os.path.join(custom_nodes_path, repo_name)
+        unified_manager.repo_install(repo_url, to_path, instant_execution=True, no_deps=False, return_postinstall=False)
+        cloned_repos.append(repo_name)
 
     # reload
     await unified_manager.migrate_unmanaged_nodes()
@@ -2670,10 +2834,11 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
         print(f"[  ENABLED  ] {x}")
     for x in disabled_repos:
         print(f"[  DISABLED ] {x}")
+    for x in skip_node_packs:
+        print(f"[  SKIPPED ] {x}")
 
-    if is_failed:
-        print(output)
-        print("[bold red]ERROR: Failed to restore snapshot.[/bold red]")
+    # if is_failed:
+    #     print("[bold red]ERROR: Failed to restore snapshot.[/bold red]")
 
 
 # check need to migrate
@@ -2740,3 +2905,34 @@ def switch_comfyui(tag):
     else:
         repo.git.checkout(tag)
         print(f"[ComfyUI-Manager] ComfyUI version is switched to '{tag}'")
+
+
+def resolve_giturl_from_path(fullpath):
+    """
+    resolve giturl path of unclassified custom node based on remote url in .git/config
+    """
+    git_config_path = os.path.join(fullpath, '.git', 'config')
+
+    if not os.path.exists(git_config_path):
+        return "unknown"
+
+    config = configparser.ConfigParser()
+    config.read(git_config_path)
+
+    for k, v in config.items():
+        if k.startswith('remote ') and 'url' in v:
+            return v['url'].replace("git@github.com:", "https://github.com/")
+
+    return None
+
+
+def repo_switch_commit(repo_path, commit_hash):
+    try:
+        repo = git.Repo(repo_path)
+        if repo.head.commit.hexsha == commit_hash:
+            return False
+
+        repo.git.checkout(commit_hash)
+        return True
+    except:
+        return None
