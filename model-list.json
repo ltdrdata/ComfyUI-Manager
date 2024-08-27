@@ -1,9 +1,31 @@
 {
   "models": [
     {
+      "name": "TAEF1 Decoder",
+      "type": "TAESD",
+      "base": "FLUX.1",
+      "save_path": "vae_approx",
+      "description": "(FLUX.1 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
+      "reference": "https://github.com/madebyollin/taesd",
+      "filename": "taef1_decoder.pth",
+      "url": "https://github.com/madebyollin/taesd/raw/main/taef1_decoder.pth",
+      "size": "4.71MB"
+    },
+    {
+      "name": "TAEF1 Encoder",
+      "type": "TAESD",
+      "base": "FLUX.1",
+      "save_path": "vae_approx",
+      "description": "(FLUX.1 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
+      "reference": "https://github.com/madebyollin/taesd",
+      "filename": "taef1_encoder.pth",
+      "url": "https://github.com/madebyollin/taesd/raw/main/taef1_encoder.pth",
+      "size": "4.71MB"
+    },
+    {
       "name": "TAESD3 Decoder",
       "type": "TAESD",
-      "base": "SDXL",
+      "base": "SD3",
       "save_path": "vae_approx",
       "description": "(SD3 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
       "reference": "https://github.com/madebyollin/taesd",
@@ -14,7 +36,7 @@
     {
       "name": "TAESD3 Encoder",
       "type": "TAESD",
-      "base": "SDXL",
+      "base": "SD3",
       "save_path": "vae_approx",
       "description": "(SD3 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
       "reference": "https://github.com/madebyollin/taesd",
@@ -178,7 +200,7 @@
     },
     {
       "name": "stabilityai/stable-diffusion-x4-upscaler",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "upscale",
       "save_path": "checkpoints/upscale",
       "description": "This upscaling model is a latent text-guided diffusion model and should be used with SD_4XUpscale_Conditioning and KSampler.",
@@ -255,7 +277,7 @@
     },
     {
       "name": "Stable Video Diffusion Image-to-Video",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SVD",
       "save_path": "checkpoints/SVD",
       "description": "Stable Video Diffusion (SVD) Image-to-Video is a diffusion model that takes in a still image as a conditioning frame, and generates a video from it.\nNOTE: 14 frames @ 576x1024",
@@ -277,7 +299,7 @@
     },
     {
       "name": "Stable Video Diffusion Image-to-Video (XT)",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SVD",
       "save_path": "checkpoints/SVD",
       "description": "Stable Video Diffusion (SVD) Image-to-Video is a diffusion model that takes in a still image as a conditioning frame, and generates a video from it.\nNOTE: 25 frames @ 576x1024 ",
@@ -332,7 +354,7 @@
     },
     {
       "name": "stabilityai/comfyui_checkpoints/stable_cascade_stage_b.safetensors",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "Stable Cascade",
       "save_path": "checkpoints/Stable-Cascade",
       "description": "Stable Cascade stage_b checkpoints",
@@ -343,7 +365,7 @@
     },
     {
       "name": "stabilityai/comfyui_checkpoints/stable_cascade_stage_c.safetensors",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "Stable Cascade",
       "save_path": "checkpoints/Stable-Cascade",
       "description": "Stable Cascade stage_c checkpoints",
@@ -376,9 +398,9 @@
     },
     {
       "name": "stabilityai/Stable Cascade: stage_b.safetensors (UNET)",
-      "type": "unet",
+      "type": "diffusion_model",
       "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
+      "save_path": "diffusion_models/Stable-Cascade",
       "description": "Stable Cascade: stage_b",
       "reference": "https://huggingface.co/stabilityai/stable-cascade",
       "filename": "stage_b.safetensors",
@@ -387,9 +409,9 @@
     },
     {
       "name": "stabilityai/Stable Cascade: stage_b_bf16.safetensors (UNET)",
-      "type": "unet",
+      "type": "diffusion_model",
       "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
+      "save_path": "diffusion_models/Stable-Cascade",
       "description": "Stable Cascade: stage_b/bf16",
       "reference": "https://huggingface.co/stabilityai/stable-cascade",
       "filename": "stage_b_bf16.safetensors",
@@ -398,9 +420,9 @@
     },
     {
       "name": "stabilityai/Stable Cascade: stage_b_lite.safetensors (UNET)",
-      "type": "unet",
+      "type": "diffusion_model",
       "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
+      "save_path": "diffusion_models/Stable-Cascade",
       "description": "Stable Cascade: stage_b/lite",
       "reference": "https://huggingface.co/stabilityai/stable-cascade",
       "filename": "stage_b_lite.safetensors",
@@ -409,9 +431,9 @@
     },
     {
       "name": "stabilityai/Stable Cascade: stage_b_lite.safetensors (UNET)",
-      "type": "unet",
+      "type": "diffusion_model",
       "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
+      "save_path": "diffusion_models/Stable-Cascade",
       "description": "Stable Cascade: stage_b/bf16,lite",
       "reference": "https://huggingface.co/stabilityai/stable-cascade",
       "filename": "stage_b_lite_bf16.safetensors",
@@ -420,9 +442,9 @@
     },
     {
       "name": "stabilityai/Stable Cascade: stage_c.safetensors (UNET)",
-      "type": "unet",
+      "type": "diffusion_model",
       "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
+      "save_path": "diffusion_models/Stable-Cascade",
       "description": "Stable Cascade: stage_c",
       "reference": "https://huggingface.co/stabilityai/stable-cascade",
       "filename": "stage_c.safetensors",
@@ -431,9 +453,9 @@
     },
     {
       "name": "stabilityai/Stable Cascade: stage_c_bf16.safetensors (UNET)",
-      "type": "unet",
+      "type": "diffusion_model",
       "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
+      "save_path": "diffusion_models/Stable-Cascade",
       "description": "Stable Cascade: stage_c/bf16",
       "reference": "https://huggingface.co/stabilityai/stable-cascade",
       "filename": "stage_c_bf16.safetensors",
@@ -442,9 +464,9 @@
     },
     {
       "name": "stabilityai/Stable Cascade: stage_c_lite.safetensors (UNET)",
-      "type": "unet",
+      "type": "diffusion_model",
       "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
+      "save_path": "diffusion_models/Stable-Cascade",
       "description": "Stable Cascade: stage_c/lite",
       "reference": "https://huggingface.co/stabilityai/stable-cascade",
       "filename": "stage_c_lite.safetensors",
@@ -453,9 +475,9 @@
     },
     {
       "name": "stabilityai/Stable Cascade: stage_c_lite.safetensors (UNET)",
-      "type": "unet",
+      "type": "diffusion_model",
       "base": "Stable Cascade",
-      "save_path": "unet/Stable-Cascade",
+      "save_path": "diffusion_models/Stable-Cascade",
       "description": "Stable Cascade: stage_c/bf16,lite",
       "reference": "https://huggingface.co/stabilityai/stable-cascade",
       "filename": "stage_c_lite_bf16.safetensors",
@@ -475,7 +497,7 @@
     },
     {
       "name": "SDXL-Turbo 1.0 (fp16)",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SDXL",
       "save_path": "checkpoints/SDXL-TURBO",
       "description": "SDXL-Turbo 1.0 fp16",
@@ -486,7 +508,7 @@
     },
     {
       "name": "SDXL-Turbo 1.0",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SDXL",
       "save_path": "checkpoints/SDXL-TURBO",
       "description": "SDXL-Turbo 1.0",
@@ -497,7 +519,7 @@
     },
     {
       "name": "sd_xl_base_1.0_0.9vae.safetensors",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SDXL",
       "save_path": "default",
       "description": "Stable Diffusion XL base model (VAE 0.9)",
@@ -508,7 +530,7 @@
     },
     {
       "name": "sd_xl_base_1.0.safetensors",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SDXL",
       "save_path": "default",
       "description": "Stable Diffusion XL base model",
@@ -519,7 +541,7 @@
     },
     {
       "name": "sd_xl_refiner_1.0_0.9vae.safetensors",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SDXL",
       "save_path": "default",
       "description": "Stable Diffusion XL refiner model (VAE 0.9)",
@@ -530,7 +552,7 @@
     },
     {
       "name": "stable-diffusion-xl-refiner-1.0",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SDXL",
       "save_path": "default",
       "description": "Stable Diffusion XL refiner model",
@@ -540,25 +562,25 @@
       "size": "6.08GB"
     },
     {
-      "name": "diffusers/stable-diffusion-xl-1.0-inpainting-0.1 (UNET/fp16)",
-      "type": "unet",
+      "name": "diffusers/stable-diffusion-xl-1.0-inpainting-0.1 (diffusion_models/fp16)",
+      "type": "diffusion_model",
       "base": "SDXL",
-      "save_path": "unet/xl-inpaint-0.1",
+      "save_path": "diffusion_models/xl-inpaint-0.1",
       "description": "Stable Diffusion XL inpainting model 0.1. You need UNETLoader instead of CheckpointLoader.",
       "reference": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1",
       "filename": "diffusion_pytorch_model.fp16.safetensors",
-      "url": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1/resolve/main/unet/diffusion_pytorch_model.fp16.safetensors",
+      "url": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1/resolve/main/diffusion_models/diffusion_pytorch_model.fp16.safetensors",
       "size": "5.14GB"
     },
     {
       "name": "diffusers/stable-diffusion-xl-1.0-inpainting-0.1 (UNET)",
-      "type": "unet",
+      "type": "diffusion_model",
       "base": "SDXL",
-      "save_path": "unet/xl-inpaint-0.1",
+      "save_path": "diffusion_models/xl-inpaint-0.1",
       "description": "Stable Diffusion XL inpainting model 0.1. You need UNETLoader instead of CheckpointLoader.",
       "reference": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1",
       "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1/resolve/main/unet/diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/diffusers/stable-diffusion-xl-1.0-inpainting-0.1/resolve/main/diffusion_models/diffusion_pytorch_model.safetensors",
       "size": "10.3GB"
     },
     {
@@ -572,38 +594,230 @@
       "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors",
       "size": "49.6MB"
     },
+
     {
-      "name": "SDXL Lightning LoRA (2step)",
+      "name": "SDXL Lightning LoRA (2steps)",
       "type": "lora",
       "base": "SDXL",
       "save_path": "loras/SDXL-Lightning",
-      "description": "SDXL Lightning LoRA (2step)",
+      "description": "SDXL Lightning LoRA (2steps)",
       "reference": "https://huggingface.co/ByteDance/SDXL-Lightning",
       "filename": "sdxl_lightning_2step_lora.safetensors",
       "url": "https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_2step_lora.safetensors",
       "size": "393.9MB"
     },
     {
-      "name": "SDXL Lightning LoRA (4step)",
+      "name": "SDXL Lightning LoRA (4steps)",
       "type": "lora",
       "base": "SDXL",
       "save_path": "loras/SDXL-Lightning",
-      "description": "SDXL Lightning LoRA (4step)",
+      "description": "SDXL Lightning LoRA (4steps)",
       "reference": "https://huggingface.co/ByteDance/SDXL-Lightning",
       "filename": "sdxl_lightning_4step_lora.safetensors",
       "url": "https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_4step_lora.safetensors",
       "size": "393.9MB"
     },
     {
-      "name": "SDXL Lightning LoRA (8step)",
+      "name": "SDXL Lightning LoRA (8steps)",
       "type": "lora",
       "base": "SDXL",
       "save_path": "loras/SDXL-Lightning",
-      "description": "SDXL Lightning LoRA (8tep)",
+      "description": "SDXL Lightning LoRA (8steps)",
       "reference": "https://huggingface.co/ByteDance/SDXL-Lightning",
       "filename": "sdxl_lightning_8step_lora.safetensors",
       "url": "https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_8step_lora.safetensors",
       "size": "393.9MB"
+    },
+
+    {
+      "name": "DMD2 LoRA (4steps)",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/DMD2",
+      "description": "DMD2 LoRA (4steps)",
+      "reference": "https://huggingface.co/tianweiy/DMD2",
+      "filename": "dmd2_sdxl_4step_lora.safetensors",
+      "url": "https://huggingface.co/tianweiy/DMD2/resolve/main/dmd2_sdxl_4step_lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "DMD2 LoRA (4steps/fp16)",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/DMD2",
+      "description": "DMD2 LoRA (4steps/fp16)",
+      "reference": "https://huggingface.co/tianweiy/DMD2",
+      "filename": "dmd2_sdxl_4step_lora_fp16.safetensors",
+      "url": "https://huggingface.co/tianweiy/DMD2/resolve/main/dmd2_sdxl_4step_lora_fp16.safetensors",
+      "size": "394MB"
+    },
+
+    {
+      "name": "Hyper-SD LoRA (1step) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD LoRA (1step) - SD1.5",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-1step-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-1step-lora.safetensors",
+      "size": "269MB"
+    },
+    {
+      "name": "Hyper-SD LoRA (2steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD LoRA (2steps) - SD1.5",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-2steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-2steps-lora.safetensors",
+      "size": "269MB"
+    },
+    {
+      "name": "Hyper-SD LoRA (4steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD LoRA (4steps)",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-4steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-4steps-lora.safetensors",
+      "size": "269MB"
+    },
+    {
+      "name": "Hyper-SD LoRA (8steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD LoRA (8steps)",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-8steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-8steps-lora.safetensors",
+      "size": "269MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (8steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD CFG LoRA (8steps)",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-8steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-8steps-CFG-lora.safetensors",
+      "size": "269MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (12steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD CFG LoRA (12steps)",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-12steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-12steps-CFG-lora.safetensors",
+      "size": "269MB"
+    },
+
+    {
+      "name": "Hyper-SD LoRA (1step) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD LoRA (1step) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-1step-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-1step-lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "Hyper-SD LoRA (2steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD LoRA (2steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-2steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-2steps-lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "Hyper-SD LoRA (4steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD LoRA (4steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-4steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-4steps-lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "Hyper-SD LoRA (8steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD LoRA (8steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-8steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-8steps-lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (8steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD CFG LoRA (8steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-8steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-8steps-CFG-lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (12steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD CFG LoRA (12steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-12steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-12steps-CFG-lora.safetensors",
+      "size": "787MB"
+    },
+
+    {
+      "name": "Hyper-SD CFG LoRA (4steps) - SD3",
+      "type": "lora",
+      "base": "SD3",
+      "save_path": "loras/HyperSD/SD3",
+      "description": "Hyper-SD CFG LoRA (4steps) - SD3",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD3-4steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-4steps-CFG-lora.safetensors",
+      "size": "472MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (8steps) - SD3",
+      "type": "lora",
+      "base": "SD3",
+      "save_path": "loras/HyperSD/SD3",
+      "description": "Hyper-SD CFG LoRA (8steps) - SD3",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD3-8steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-8steps-CFG-lora.safetensors",
+      "size": "472MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (16steps) - SD3",
+      "type": "lora",
+      "base": "SD3",
+      "save_path": "loras/HyperSD/SD3",
+      "description": "Hyper-SD CFG LoRA (16steps) - SD3",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD3-16steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-16steps-CFG-lora.safetensors",
+      "size": "472MB"
     },
 
     {
@@ -629,7 +843,6 @@
       "url": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/pytorch_model.safetensors",
       "size": "10.1GB"
     },
-
     {
       "name": "google-t5/t5-v1_1-xxl_encoderonly-fp8_e4m3fn",
       "type": "clip",
@@ -642,9 +855,145 @@
       "size": "4.89GB"
     },
 
+
+    {
+      "name": "city96/t5-v1_1-xxl-encoder-Q3_K_L.gguf",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "t5xxl Text Encoder GGUF model. (Q3_K_L quantized)",
+      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
+      "filename": "t5-v1_1-xxl-encoder-Q3_K_L.gguf",
+      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q3_K_L.gguf",
+      "size": "2.46GB"
+    },
+    {
+      "name": "city96/t5-v1_1-xxl-encoder-Q3_K_M.gguf",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "t5xxl Text Encoder GGUF model. (Q3_K_M quantized)",
+      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
+      "filename": "t5-v1_1-xxl-encoder-Q3_K_M.gguf",
+      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q3_K_M.gguf",
+      "size": "2.3GB"
+    },
+    {
+      "name": "city96/t5-v1_1-xxl-encoder-Q3_K_S.gguf",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "t5xxl Text Encoder GGUF model. (Q3_K_S quantized)",
+      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
+      "filename": "t5-v1_1-xxl-encoder-Q3_K_S.gguf",
+      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q3_K_S.gguf",
+      "size": "2.1GB"
+    },
+    {
+      "name": "city96/t5-v1_1-xxl-encoder-Q4_K_M.gguf",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "t5xxl Text Encoder GGUF model. (Q4_K_M quantized)",
+      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
+      "filename": "t5-v1_1-xxl-encoder-Q4_K_M.gguf",
+      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q4_K_M.gguf",
+      "size": "2.9GB"
+    },
+    {
+      "name": "city96/t5-v1_1-xxl-encoder-Q4_K_S.gguf",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "t5xxl Text Encoder GGUF model. (Q4_K_S quantized)",
+      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
+      "filename": "t5-v1_1-xxl-encoder-Q4_K_S.gguf",
+      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q4_K_S.gguf",
+      "size": "2.74GB"
+    },
+    {
+      "name": "city96/t5-v1_1-xxl-encoder-Q5_K_M.gguf",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "t5xxl Text Encoder GGUF model. (Q5_K_M quantized)",
+      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
+      "filename": "t5-v1_1-xxl-encoder-Q5_K_M.gguf",
+      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q5_K_M.gguf",
+      "size": "3.39GB"
+    },
+    {
+      "name": "city96/t5-v1_1-xxl-encoder-Q5_K_S.gguf",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "t5xxl Text Encoder GGUF model. (Q5_K_S quantized)",
+      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
+      "filename": "t5-v1_1-xxl-encoder-Q5_K_S.gguf",
+      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q5_K_S.gguf",
+      "size": "3.29GB"
+    },
+    {
+      "name": "city96/t5-v1_1-xxl-encoder-Q6_K.gguf",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "t5xxl Text Encoder GGUF model. (Q6_K quantized)",
+      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
+      "filename": "t5-v1_1-xxl-encoder-Q6_K.gguf",
+      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q6_K.gguf",
+      "size": "3.91GB"
+    },
+    {
+      "name": "city96/t5-v1_1-xxl-encoder-Q8_0.gguf",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "t5xxl Text Encoder GGUF model. (Q8_0 quantized)",
+      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
+      "filename": "t5-v1_1-xxl-encoder-Q8_0.gguf",
+      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q8_0.gguf",
+      "size": "5.06GB"
+    },
+    {
+      "name": "city96/t5-v1_1-xxl-encoder-f16.gguf",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "t5xxl Text Encoder GGUF model. (float 16)",
+      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
+      "filename": "t5-v1_1-xxl-encoder-f16.gguf",
+      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-f16.gguf",
+      "size": "9.53GB"
+    },
+    {
+      "name": "city96/t5-v1_1-xxl-encoder-f32.gguf",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "clip/t5",
+      "description": "t5xxl Text Encoder GGUF model. (float 32)",
+      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
+      "filename": "t5-v1_1-xxl-encoder-f32.gguf",
+      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-f32.gguf",
+      "size": "19.1GB"
+    },
+    
+
+    {
+      "name": "comfyanonymous/clip_l",
+      "type": "clip",
+      "base": "clip",
+      "save_path": "default",
+      "description": "clip_l model",
+      "reference": "https://huggingface.co/comfyanonymous/flux_text_encoders/tree/main",
+      "filename": "clip_l.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors",
+      "size": "246MB"
+    },
+
     {
       "name": "v1-5-pruned-emaonly.ckpt",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SD1.5",
       "save_path": "default",
       "description": "Stable Diffusion 1.5 base model",
@@ -655,7 +1004,7 @@
     },
     {
       "name": "v2-1_512-ema-pruned.safetensors",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SD2",
       "save_path": "default",
       "description": "Stable Diffusion 2 base model (512)",
@@ -666,7 +1015,7 @@
     },
     {
       "name": "v2-1_768-ema-pruned.safetensors",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SD2",
       "save_path": "default",
       "description": "Stable Diffusion 2 base model (768)",
@@ -677,7 +1026,7 @@
     },
     {
       "name": "AbyssOrangeMix2 (hard)",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SD1.5",
       "save_path": "default",
       "description": "AbyssOrangeMix2 - hard version (anime style)",
@@ -688,7 +1037,7 @@
     },
     {
       "name": "AbyssOrangeMix3 A1",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SD1.5",
       "save_path": "default",
       "description": "AbyssOrangeMix3 - A1 (anime style)",
@@ -699,7 +1048,7 @@
     },
     {
       "name": "AbyssOrangeMix3 A3",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SD1.5",
       "save_path": "default",
       "description": "AbyssOrangeMix - A3 (anime style)",
@@ -710,7 +1059,7 @@
     },
     {
       "name": "Waifu Diffusion 1.5 Beta3 (fp16)",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SD2.1",
       "save_path": "default",
       "description": "Waifu Diffusion 1.5 Beta3",
@@ -821,7 +1170,7 @@
     {
       "name": "LCM LoRA SDXL",
       "type": "lora",
-      "base": "SSD-1B",
+      "base": "SDXL",
       "save_path": "loras/lcm/SDXL",
       "description": "Latent Consistency LoRA for SDXL",
       "reference": "https://huggingface.co/latent-consistency/lcm-lora-sdxl",
@@ -831,7 +1180,7 @@
     },
     {
       "name": "Segmind-Vega",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "segmind-vega",
       "save_path": "checkpoints/segmind-vega",
       "description": "The Segmind-Vega Model is a distilled version of the Stable Diffusion XL (SDXL), offering a remarkable 70% reduction in size and an impressive 100% speedup while retaining high-quality text-to-image generation capabilities.",
@@ -964,7 +1313,7 @@
     {
       "name": "T2I-Adapter XL (lineart) FP16",
       "type": "T2I-Adapter",
-      "base": "SDXL 1.0",
+      "base": "SDXL",
       "save_path": "default",
       "description": "ControlNet T2I-Adapter XL for lineart",
       "reference": "https://huggingface.co/TencentARC/t2i-adapter-lineart-sdxl-1.0",
@@ -975,7 +1324,7 @@
     {
       "name": "T2I-Adapter XL (canny) FP16",
       "type": "T2I-Adapter",
-      "base": "SDXL 1.0",
+      "base": "SDXL",
       "save_path": "default",
       "description": "ControlNet T2I-Adapter XL for canny",
       "reference": "https://huggingface.co/TencentARC/t2i-adapter-canny-sdxl-1.0",
@@ -986,7 +1335,7 @@
     {
       "name": "T2I-Adapter XL (depth-zoe) FP16",
       "type": "T2I-Adapter",
-      "base": "SDXL 1.0",
+      "base": "SDXL",
       "save_path": "default",
       "description": "ControlNet T2I-Adapter XL for depth-zoe",
       "reference": "https://huggingface.co/TencentARC/t2i-adapter-depth-zoe-sdxl-1.0",
@@ -997,7 +1346,7 @@
     {
       "name": "T2I-Adapter XL (depth-midas) FP16",
       "type": "T2I-Adapter",
-      "base": "SDXL 1.0",
+      "base": "SDXL",
       "save_path": "default",
       "description": "ControlNet T2I-Adapter XL for depth-midas",
       "reference": "https://huggingface.co/TencentARC/t2i-adapter-depth-midas-sdxl-1.0",
@@ -1008,7 +1357,7 @@
     {
       "name": "T2I-Adapter XL (sketch) FP16",
       "type": "T2I-Adapter",
-      "base": "SDXL 1.0",
+      "base": "SDXL",
       "save_path": "default",
       "description": "ControlNet T2I-Adapter XL for sketch",
       "reference": "https://huggingface.co/TencentARC/t2i-adapter-sketch-sdxl-1.0",
@@ -1019,7 +1368,7 @@
     {
       "name": "T2I-Adapter XL (lineart)",
       "type": "T2I-Adapter",
-      "base": "SDXL 1.0",
+      "base": "SDXL",
       "save_path": "default",
       "description": "ControlNet T2I-Adapter XL for lineart",
       "reference": "https://huggingface.co/TencentARC/t2i-adapter-lineart-sdxl-1.0",
@@ -1030,7 +1379,7 @@
     {
       "name": "T2I-Adapter XL (canny)",
       "type": "T2I-Adapter",
-      "base": "SDXL 1.0",
+      "base": "SDXL",
       "save_path": "default",
       "description": "ControlNet T2I-Adapter XL for canny",
       "reference": "https://huggingface.co/TencentARC/t2i-adapter-canny-sdxl-1.0",
@@ -1041,7 +1390,7 @@
     {
       "name": "T2I-Adapter XL (depth-zoe)",
       "type": "T2I-Adapter",
-      "base": "SDXL 1.0",
+      "base": "SDXL",
       "save_path": "default",
       "description": "ControlNet T2I-Adapter XL for depth-zoe",
       "reference": "https://huggingface.co/TencentARC/t2i-adapter-depth-zoe-sdxl-1.0",
@@ -1052,7 +1401,7 @@
     {
       "name": "T2I-Adapter XL (depth-midas)",
       "type": "T2I-Adapter",
-      "base": "SDXL 1.0",
+      "base": "SDXL",
       "save_path": "default",
       "description": "ControlNet T2I-Adapter XL for depth-midas",
       "reference": "https://huggingface.co/TencentARC/t2i-adapter-depth-midas-sdxl-1.0",
@@ -1063,7 +1412,7 @@
     {
       "name": "T2I-Adapter XL (sketch)",
       "type": "T2I-Adapter",
-      "base": "SDXL 1.0",
+      "base": "SDXL",
       "save_path": "default",
       "description": "ControlNet T2I-Adapter XL for sketch",
       "reference": "https://huggingface.co/TencentARC/t2i-adapter-sketch-sdxl-1.0",
@@ -1074,7 +1423,7 @@
     {
       "name": "T2I-Adapter XL (openpose)",
       "type": "T2I-Adapter",
-      "base": "SDXL 1.0",
+      "base": "SDXL",
       "save_path": "default",
       "description": "ControlNet T2I-Adapter XL for openpose",
       "reference": "https://huggingface.co/TencentARC/t2i-adapter-openpose-sdxl-1.0",
@@ -1107,7 +1456,7 @@
     {
       "name": "CLIPVision model (stabilityai/clip_vision_g)",
       "type": "clip_vision",
-      "base": "vit-g",
+      "base": "ViT-G",
       "save_path": "clip_vision",
       "description": "clip_g vision model",
       "reference": "https://huggingface.co/stabilityai/control-lora",
@@ -1986,7 +2335,7 @@
     },
     {
       "name": "TencentARC/motionctrl.pth",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "MotionCtrl",
       "save_path": "checkpoints/motionctrl",
       "description": "To use the ComfyUI-MotionCtrl extension, downloading this model is required.",
@@ -2130,7 +2479,7 @@
     {
       "name": "ip-adapter-faceid_sdxl.bin",
       "type": "IP-Adapter",
-      "base": "SD1.5",
+      "base": "SDXL",
       "save_path": "ipadapter",
       "description": "IP-Adapter-FaceID Model (SDXL) [ipadapter]",
       "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
@@ -2141,7 +2490,7 @@
     {
       "name": "ip-adapter-faceid-plusv2_sdxl.bin",
       "type": "IP-Adapter",
-      "base": "SD1.5",
+      "base": "SDXL",
       "save_path": "ipadapter",
       "description": "IP-Adapter-FaceID Plus Model (SDXL) [ipadapter]",
       "reference": "https://huggingface.co/h94/IP-Adapter-FaceID",
@@ -2668,7 +3017,7 @@
     },
     {
       "name": "DynamiCrafter 1024 bf16 safetensors",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "DynamiCrafter",
       "save_path": "checkpoints/dynamicrafter",
       "description": "DynamiCrafter image2video model 1024x575",
@@ -2679,7 +3028,7 @@
     },
     {
       "name": "DynamiCrafter 512 interpolation bf16 safetensors",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "DynamiCrafter",
       "save_path": "checkpoints/dynamicrafter",
       "description": "DynamiCrafter image2video interpolation model 512",
@@ -2701,7 +3050,7 @@
     },
     {
       "name": "Depth-FM-v1 fp16 safetensors",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "Depth-FM",
       "save_path": "checkpoints/depthfm",
       "description": "Depth-FM monocular depth estimation model",
@@ -2712,7 +3061,7 @@
     },
     {
       "name": "Depth-FM-v1 fp32 safetensors",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "Depth-FM",
       "save_path": "checkpoints/depthfm",
       "description": "Depth-FM monocular depth estimation model",
@@ -2723,7 +3072,7 @@
     },
     {
       "name": "SUPIR-v0F.ckpt",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SUPIR",
       "save_path": "checkpoints/SUPIR",
       "description": "SUPIR checkpoint model",
@@ -2734,7 +3083,7 @@
     },
     {
       "name": "SUPIR-v0Q.ckpt",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SUPIR",
       "save_path": "checkpoints/SUPIR",
       "description": "SUPIR checkpoint model",
@@ -2745,7 +3094,7 @@
     },
     {
       "name": "Kijai/SUPIR-v0F_fp16.safetensors (pruned)",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SUPIR",
       "save_path": "checkpoints/SUPIR",
       "description": "SUPIR checkpoint model",
@@ -2756,7 +3105,7 @@
     },
     {
       "name": "Kijai/SUPIR-v0Q_fp16.safetensors (pruned)",
-      "type": "checkpoints",
+      "type": "checkpoint",
       "base": "SUPIR",
       "save_path": "checkpoints/SUPIR",
       "description": "SUPIR checkpoint model",
@@ -2879,7 +3228,7 @@
       "name": "IC-Light/fc",
       "type": "IC-Light",
       "base": "SD1.5",
-      "save_path": "unet/IC-Light",
+      "save_path": "diffusion_models/IC-Light",
       "description": "The default relighting model, conditioned on text and foreground",
       "reference": "https://huggingface.co/lllyasviel/ic-light",
       "filename": "iclight_sd15_fc.safetensors",
@@ -2890,7 +3239,7 @@
       "name": "IC-Light/fbc",
       "type": "IC-Light",
       "base": "SD1.5",
-      "save_path": "unet/IC-Light",
+      "save_path": "diffusion_models/IC-Light",
       "description": "Relighting model conditioned with text, foreground, and background",
       "reference": "https://huggingface.co/lllyasviel/ic-light",
       "filename": "iclight_sd15_fbc.safetensors",
@@ -2901,7 +3250,7 @@
       "name": "IC-Light/fcon",
       "type": "IC-Light",
       "base": "SD1.5",
-      "save_path": "unet/IC-Light",
+      "save_path": "diffusion_models/IC-Light",
       "description": "Same as iclight_sd15_fc.safetensors, but trained with offset noise",
       "reference": "https://huggingface.co/lllyasviel/ic-light",
       "filename": "iclight_sd15_fcon.safetensors",
@@ -3053,6 +3402,18 @@
     },
 
     {
+      "name": "InstantX/FLUX.1-dev Controlnet (Union)",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "controlnet/FLUX.1/InstantX-FLUX1-Dev-Union",
+      "description": "FLUX.1 [Dev] Union Controlnet. Supports Canny, Depth, Pose, Tile, Blur, Gray Low Quality.",
+      "reference": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "6.6GB"
+    },
+
+    {
       "name": "xinsir/ControlNet++: All-in-one ControlNet",
       "type": "controlnet",
       "base": "SDXL",
@@ -3070,7 +3431,7 @@
       "save_path": "controlnet/SDXL/controlnet-union-sdxl-1.0",
       "description": "All-in-one ControlNet for image generations and editing! (ProMax model)",
       "reference": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0",
-      "filename": "iffusion_pytorch_model_promax.safetensors",
+      "filename": "diffusion_pytorch_model_promax.safetensors",
       "url": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/resolve/main/diffusion_pytorch_model_promax.safetensors",
       "size": "2.50GB"
     },
@@ -3420,50 +3781,329 @@
     },
 
     {
-      "name": "FLUX.1 [schnell] UNET model",
-      "type": "unet",
+      "name": "FLUX.1 [Schnell] Diffusion model",
+      "type": "diffusion_model",
       "base": "FLUX.1",
-      "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [Schnell] UNET model (a.k.a. FLUX.1 turbo model)[w/Due to the large size of the model, it is recommended to download it through a browser if possible.]",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Schnell] Diffusion model (a.k.a. FLUX.1 turbo model)[w/Due to the large size of the model, it is recommended to download it through a browser if possible.]",
       "reference": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
-      "filename": "flux1-schnell.sft",
-      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.sft",
+      "filename": "flux1-schnell.safetensors",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors",
       "size": "23.8GB"
     },
 
     {
       "name": "FLUX.1 VAE model",
-      "type": "vae",
+      "type": "VAE",
       "base": "FLUX.1",
       "save_path": "vae/FLUX1",
-      "description": "FLUX.1 [Schnell] VAE model",
+      "description": "FLUX.1 VAE model",
       "reference": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
-      "filename": "ae.sft",
-      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.sft",
+      "filename": "ae.safetensors",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors",
       "size": "335MB"
     },
 
     {
-      "name": "kijai/FLUX.1 [schnell] UNET model (float8_e4m3fn)",
-      "type": "unet",
+      "name": "kijai/FLUX.1 [schnell] Diffusion model (float8_e4m3fn)",
+      "type": "diffusion_model",
       "base": "FLUX.1",
-      "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [Schnell] UNET model (float8_e4m3fn)",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Schnell] Diffusion model (float8_e4m3fn)",
       "reference": "https://huggingface.co/Kijai/flux-fp8",
       "filename": "flux1-schnell-fp8.safetensors",
       "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8.safetensors",
       "size": "11.9GB"
     },
     {
-      "name": "kijai/FLUX.1 [dev] UNET model (float8_e4m3fn)",
-      "type": "unet",
+      "name": "kijai/FLUX.1 [dev] Diffusion model (float8_e4m3fn)",
+      "type": "diffusion_model",
       "base": "FLUX.1",
-      "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [dev] UNET model (float8_e4m3fn)",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [dev] Diffusion model (float8_e4m3fn)",
       "reference": "https://huggingface.co/Kijai/flux-fp8",
       "filename": "flux1-dev-fp8.safetensors",
       "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors",
       "size": "11.9GB"
+    },
+
+    {
+      "name": "Comfy Org/FLUX.1 [dev] Checkpoint model (fp8)",
+      "type": "checkpoint",
+      "base": "FLUX.1",
+      "save_path": "checkpoints/FLUX1",
+      "description": "FLUX.1 [dev] Checkpoint model (fp8)",
+      "reference": "https://huggingface.co/Comfy-Org/flux1-dev/tree/main",
+      "filename": "flux1-dev-fp8.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors",
+      "size": "17.2GB"
+    },
+    {
+      "name": "Comfy Org/FLUX.1 [schnell] Checkpoint model (fp8)",
+      "type": "checkpoint",
+      "base": "FLUX.1",
+      "save_path": "checkpoints/FLUX1",
+      "description": "FLUX.1 [schnell] Checkpoint model (fp8)",
+      "reference": "https://huggingface.co/Comfy-Org/flux1-dev/tree/main",
+      "filename": "flux1-schnell-fp8.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/flux1-schnell/resolve/main/flux1-schnell-fp8.safetensors",
+      "size": "17.2GB"
+    },
+
+    {
+      "name": "city96/flux1-dev-F16.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_model/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (f16/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-F16.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-F16.gguf",
+      "size": "23.8GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q2_K.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q2_K/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q2_K.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q2_K.gguf",
+      "size": "4.03GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q3_K_S.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q3_K_S/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q3_K_S.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q3_K_S.gguf",
+      "size": "5.23GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q4_0.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q4_0/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q4_0.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_0.gguf",
+      "size": "6.79GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q4_1.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q4_1/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q4_1.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_1.gguf",
+      "size": "7.53GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q4_K_S.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q4_K_S/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q4_K_S.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_K_S.gguf",
+      "size": "6.81GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q5_0.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q5_0/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q5_0.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_0.gguf",
+      "size": "8.27GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q5_1.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q5_1/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q5_1.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_1.gguf",
+      "size": "9.01GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q5_K_S.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q5_K_S/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q5_K_S.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_K_S.gguf",
+      "size": "8.29GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q6_K.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q6_K/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q6_K.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q6_K.gguf",
+      "size": "9.86GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q8_0.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q8_0/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q8_0.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf",
+      "size": "12.7GB"
+    },
+
+    {
+      "name": "city96/flux1-schnell-F16.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (f16/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-F16.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-F16.gguf",
+      "size": "23.8GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q2_K.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q2_K/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q2_K.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q2_K.gguf",
+      "size": "4.01GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q3_K_S.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q3_K_S/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q3_K_S.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q3_K_S.gguf",
+      "size": "5.21GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q4_0.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q4_0/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q4_0.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q4_0.gguf",
+      "size": "6.77GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q4_1.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q4_1/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q4_1.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q4_1.gguf",
+      "size": "7.51GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q4_K_S.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q4_K_S/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q4_K_S.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q4_K_S.gguf",
+      "size": "6.78GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q5_0.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q5_0/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q5_0.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q5_0.gguf",
+      "size": "8.25GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q5_1.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q5_1/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q5_1.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q5_1.gguf",
+      "size": "8.99GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q5_K_S.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q5_K_S/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q5_K_S.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q5_K_S.gguf",
+      "size": "8.26GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q6_K.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q6_K/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q6_K.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q6_K.gguf",
+      "size": "9.83GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q8_0.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q8_0/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q8_0.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q8_0.gguf",
+      "size": "12.7GB"
+    },
+
+    {
+      "name": "BAAI/SegGPT",
+      "type": "SegGPT",
+      "base": "SegGPT",
+      "save_path": "custom_nodes/comfyui-SegGPT",
+      "description": "SegGPT",
+      "reference": "https://huggingface.co/BAAI/SegGPT",
+      "filename": "seggpt_vit_large.pth",
+      "url": "https://huggingface.co/BAAI/SegGPT/resolve/main/seggpt_vit_large.pth",
+      "size": "1.48GB"
     }
   ]
 }

@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 48, 4]
+version = [2, 50, 2]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 
@@ -97,11 +97,14 @@ def clear_pip_cache():
 def is_blacklisted(name):
     name = name.strip()
 
-    pattern = r'([^<>!=]+)([<>!=]=?)(.*)'
+    pattern = r'([^<>!=]+)([<>!=]=?)([^ ]*)'
     match = re.search(pattern, name)
 
     if match:
         name = match.group(1)
+
+    if name in cm_global.pip_blacklist:
+        return True
 
     if name in cm_global.pip_downgrade_blacklist:
         pips = get_installed_packages()
@@ -123,11 +126,14 @@ def is_installed(name):
     if name.startswith('#'):
         return True
 
-    pattern = r'([^<>!=]+)([<>!=]=?)(.*)'
+    pattern = r'([^<>!=]+)([<>!=]=?)([0-9.a-zA-Z]*)'
     match = re.search(pattern, name)
 
     if match:
         name = match.group(1)
+
+    if name in cm_global.pip_blacklist:
+        return True
 
     if name in cm_global.pip_downgrade_blacklist:
         pips = get_installed_packages()
