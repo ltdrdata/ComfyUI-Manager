@@ -46,15 +46,11 @@
         [
             "EG-YSZT-ZT",
             "EG_CPSYTJ",
-            "EG_CYQ_JB",
-            "EG_FSFT",
             "EG_FX_BDAPI",
             "EG_HT_YSTZ",
             "EG_JF_ZZSC",
-            "EG_JF_ZZTC",
             "EG_JXFZ_node",
             "EG_K_LATENT",
-            "EG_LJ_JZTXDZ",
             "EG_RY_HT",
             "EG_SCQY_BHDQY",
             "EG_SCQY_QBQY",
@@ -62,7 +58,7 @@
             "EG_SJ",
             "EG_SJPJ_Node",
             "EG_SS_RYZH",
-            "EG_SZ_CGJS",
+            "EG_SZ_JDYS",
             "EG_TC_Node",
             "EG_TSCDS_CJ",
             "EG_TSCDS_DG",
@@ -70,7 +66,6 @@
             "EG_TSCDS_JT",
             "EG_TSCDS_QT",
             "EG_TSCDS_RW",
-            "EG_TSCDS_SRJK",
             "EG_TSCDS_WP",
             "EG_TSCDS_ZL",
             "EG_TSCMB_GL",
@@ -93,15 +88,10 @@
             "EG_ZZ_BSYH",
             "EG_ZZ_BYYH",
             "EG_ZZ_HSYH",
-            "EG_ZZ_MH",
             "EG_ZZ_MHHT",
-            "EG_ZZ_RH",
             "EG_ZZ_SSKZ",
-            "EG_ZZ_TMTX",
             "ER_JBCH",
-            "ER_TX_ZZCJ",
-            "SaveTextToFile",
-            "SequentialImageLoader"
+            "ER_TX_ZZCJ"
         ],
         {
             "title_aux": "Comfyui-ergouzi-Nodes"
@@ -936,6 +926,7 @@
             "STEREOSCOPIC (JOV) \ud83d\udd76\ufe0f",
             "STREAM READER (JOV) \ud83d\udcfa",
             "STREAM WRITER (JOV) \ud83c\udf9e\ufe0f",
+            "STRINGER (JOV) \ud83e\ude80",
             "SWIZZLE (JOV) \ud83d\ude35",
             "TEXT GEN (JOV) \ud83d\udcdd",
             "THRESHOLD (JOV) \ud83d\udcc9",
@@ -5134,6 +5125,18 @@
             "title_aux": "ComfyUI-Image-Inpainting"
         }
     ],
+    "https://github.com/Shiba-2-shiba/comfyui-color-ascii-art-node": [
+        [
+            "ASCIIArtNode"
+        ],
+        {
+            "author": "Shiba-2-shiba",
+            "description": "This node generates colorful ASCII art using custom character sets and fonts.",
+            "nickname": "ColorASCII",
+            "title": "Colorful ASCII Art Node",
+            "title_aux": "ComfyUI-color-ascii-art-node"
+        }
+    ],
     "https://github.com/Shibiko-AI/ShibikoAI-ComfyUI-Tools": [
         [
             "Cascade",
@@ -5372,6 +5375,10 @@
     ],
     "https://github.com/StartHua/Comfyui_CXH_joy_caption": [
         [
+            "CXH_DownloadAndLoadFlorence2Model",
+            "CXH_Florence2Run",
+            "CXH_HG_Model_Load",
+            "CXH_Min2_6_prompt_Run",
             "Joy_caption",
             "Joy_caption_load"
         ],
@@ -7719,6 +7726,8 @@
             "SD3BlocksMultiply",
             "SD3Multiply",
             "SP-CheckpointSave",
+            "SP-UnetSave",
+            "SP_FluxFastMergePatchFP8 [Experimental]",
             "SP_KoboldCpp",
             "SP_WebsocketSendImage",
             "ScatterParams",
@@ -11714,6 +11723,7 @@
             "Griptape Tool: DateTime",
             "Griptape Tool: FileManager",
             "Griptape Tool: Griptape Cloud KnowledgeBase",
+            "Griptape Tool: Query",
             "Griptape Tool: Text to Speech",
             "Griptape Tool: VectorStore",
             "Griptape Tool: WebScraper",
@@ -14333,6 +14343,17 @@
             "title_aux": "comfyui-easyapi-nodes"
         }
     ],
+    "https://github.com/logtd/ComfyUI-4DHumans": [
+        [
+            "LoadDetectron",
+            "LoadHMR",
+            "ProcessHumans",
+            "SelectHuman"
+        ],
+        {
+            "title_aux": "ComfyUI-4DHumans"
+        }
+    ],
     "https://github.com/logtd/ComfyUI-FLATTEN": [
         [
             "ApplyFlattenAttentionNode",
@@ -15445,6 +15466,30 @@
             "title_aux": "ComfyUI_mittimiLoadPreset"
         }
     ],
+    "https://github.com/mittimi/ComfyUI_mittimiRecalculateSize": [
+        [
+            "RecalculateSizeMittimi01"
+        ],
+        {
+            "author": "mittimi",
+            "description": "Switch between vertical and horizontal values with a single button.",
+            "nickname": "mittimiWidthHeight",
+            "title": "mittimiWidthHeight",
+            "title_aux": "ComfyUI_mittimiRecalculateSize"
+        }
+    ],
+    "https://github.com/mittimi/ComfyUI_mittimiWidthHeight": [
+        [
+            "WidthHeightMittimi01"
+        ],
+        {
+            "author": "mittimi",
+            "description": "Switch between vertical and horizontal values with a single button.",
+            "nickname": "mittimiWidthHeight",
+            "title": "mittimiWidthHeight",
+            "title_aux": "ComfyUI_mittimiWidthHeight"
+        }
+    ],
     "https://github.com/modelscope/comfyscope": [
         [
             "DashScopeFLUXAPI"
@@ -16038,6 +16083,7 @@
             "CLIPNegPip",
             "CLIPTextEncodeBREAK",
             "CLIPTokenCounter",
+            "DynSamplerSelect",
             "EmptyLatentImageAR",
             "EmptyLatentImageARAdvanced",
             "Guidance Limiter",
@@ -16656,7 +16702,11 @@
             "DownloadOpenUnmixModel",
             "DyeImage",
             "EmitterMovement",
+            "FeatureMath",
             "FeatureMixer",
+            "FeatureOscillator",
+            "FeatureScaler",
+            "FeatureSmoothing",
             "FeatureToWeightsStrategy",
             "FlexDepthBasedMaskOpacity",
             "FlexImageBloom",
@@ -16668,6 +16718,7 @@
             "FlexImagePixelate",
             "FlexImagePosterize",
             "FlexImageTiltShift",
+            "FlexMaskBinary",
             "FlexMaskMath",
             "FlexMaskMorph",
             "FlexMaskOpacity",
@@ -17460,6 +17511,7 @@
     ],
     "https://github.com/souki202/ComfyUI-LoadImage-Advanced": [
         [
+            "ColorAdjustment",
             "LoadImageUpscale",
             "LoadImageUpscaleBy"
         ],
@@ -17794,7 +17846,6 @@
             "FoxImageResizeBySpecialSide",
             "FoxImageRotate",
             "FoxImageTileBatch",
-            "FoxLoadImageBatch",
             "FoxLoadImageList",
             "FoxLoadImagePlus",
             "FoxMaskAddMask",
@@ -18632,6 +18683,10 @@
             "GTF | From Image",
             "GTF | From Latent",
             "GTF | From Mask",
+            "GTF | Helper - Area Window Radius",
+            "GTF | Helper - Derivative of Gaussian Area Radius",
+            "GTF | Helper - Gaussian Area Radius",
+            "GTF | Helper - Mitchell Netravali Radius",
             "GTF | Logic - And",
             "GTF | Logic - Equal",
             "GTF | Logic - Greater Than",
@@ -18641,23 +18696,30 @@
             "GTF | Logic - Not",
             "GTF | Logic - Or",
             "GTF | Logic - Xor",
+            "GTF | Math - Absolute",
             "GTF | Math - Add",
+            "GTF | Math - Cartesian to Polar",
             "GTF | Math - Divide",
             "GTF | Math - Lerp",
             "GTF | Math - Multiply",
             "GTF | Math - Negative",
+            "GTF | Math - Polar to Cartesian",
             "GTF | Math - Pow",
             "GTF | Math - Reciprocal",
             "GTF | Math - Subtract",
-            "GTF | Resample - Area",
-            "GTF | Resample - Lanczos",
-            "GTF | Resample - Mitchell-Netravali",
-            "GTF | Resample - Nearest Neighbor",
-            "GTF | Resample - Triangle",
+            "GTF | Resample - 2D",
+            "GTF | Resample - Coords",
+            "GTF | Resample - Separable",
+            "GTF | Source - Kernel X",
+            "GTF | Source - Kernel Y",
             "GTF | Source - One",
             "GTF | Source - RGB",
             "GTF | Source - Value",
             "GTF | Source - Zero",
+            "GTF | Special - Derivative of Gaussian",
+            "GTF | Special - Gaussian",
+            "GTF | Special - Jinc",
+            "GTF | Special - Sinc",
             "GTF | To Image",
             "GTF | To Mask",
             "GTF | Tonemap - ACES",
@@ -18685,9 +18747,15 @@
             "GTF | Trig - Atan",
             "GTF | Trig - Atan2",
             "GTF | Trig - Cos",
+            "GTF | Trig - Hypot",
             "GTF | Trig - Sin",
             "GTF | Trig - Tan",
             "GTF | Update Latent",
+            "GTF | Window - Area",
+            "GTF | Window - Boxcar",
+            "GTF | Window - Lanczos",
+            "GTF | Window - Mitchell-Netravali",
+            "GTF | Window - Triangle",
             "Primitive | Boolean",
             "Primitive | Float",
             "Primitive | Integer",
