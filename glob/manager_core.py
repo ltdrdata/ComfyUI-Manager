@@ -410,6 +410,14 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
             print("Install: pip packages")
             with open(requirements_path, "r") as requirements_file:
                 for line in requirements_file:
+                    #handle comments
+                    if '#' in line:
+                        if line.strip()[0] == '#':
+                            print("Line is comment...skipping")
+                            continue
+                        else:
+                            line = line.split('#')[0].strip()
+
                     package_name = remap_pip_package(line.strip())
 
                     if package_name and not package_name.startswith('#'):
