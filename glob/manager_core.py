@@ -506,7 +506,7 @@ class UnifiedManager:
             for k, v in self.unknown_active_nodes.items():
                 futures.append(executor.submit(check_update, k, v[1], 'unknown'))
 
-            for k, v in self.active_nodes.values():
+            for k, v in self.active_nodes.items():
                 if v[0] == 'nightly':
                     futures.append(executor.submit(check_update, k, v[1], 'nightly'))
 
