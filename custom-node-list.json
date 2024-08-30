@@ -2451,7 +2451,7 @@
                 "https://github.com/Acly/comfyui-inpaint-nodes"
             ],
             "install_type": "git-clone",
-            "description": "Experimental nodes for better inpainting with ComfyUI. Adds two nodes which allow using [a/Fooocus](https://github.com/Acly/comfyui-inpaint-nodes) inpaint model. It's a small and flexible patch which can be applied to any SDXL checkpoint and will transform it into an inpaint model. This model can then be used like other inpaint models, and provides the same benefits. [a/Read more](https://github.com/lllyasviel/Fooocus/discussions/414)"
+            "description": "Nodes for better inpainting with ComfyUI. Adds various ways to pre-process inpaint areas. Supports the Fooocus inpaint model, a small and flexible patch which can be applied to any SDXL checkpoint and will improve consistency when generating masked areas."
         },
         {
             "author": "picturesonpictures",
@@ -5078,6 +5078,17 @@
             "description": "Simple custom nodes for testing and use HiDiffusion technology: https://github.com/megvii-research/HiDiffusion/"
         },
         {
+            "author": "florestefano1975",
+            "title": "Advanced Sequence Seed Generator",
+            "id": "adv-seq-seed-gen",
+            "reference": "https://github.com/florestefano1975/ComfyUI-Advanced-Sequence-Seed",
+            "files": [
+                "https://github.com/florestefano1975/ComfyUI-Advanced-Sequence-Seed"
+            ],
+            "install_type": "git-clone",
+            "description": "A simple seed generator based on special number sequences: Fibonacci, Prime, Padovan, Triangular, Catalan, Pell, Lucas"
+        },
+        {
             "author": "mozman",
             "title": "ComfyUI_mozman_nodes",
             "id": "mozman-nodes",
@@ -7265,6 +7276,16 @@
             ],
             "install_type": "git-clone",
             "description": "ComfyUI nodes to use [a/4D-Humans](ComfyUI nodes to use 4D-Humans)"
+        },
+        {
+            "author": "logtd",
+            "title": "ComfyUI-ReNoise",
+            "reference": "https://github.com/logtd/ComfyUI-ReNoise",
+            "files": [
+                "https://github.com/logtd/ComfyUI-ReNoise"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI nodes to use ReNoise"
         },
         {
             "author": "Big-Idea-Technology",
@@ -9831,6 +9852,16 @@
             "description": "Nodes:MZ_Flux1PartialLoad_Patch. Tool nodes related to flux1"
         },
         {
+            "author": "MinusZoneAI",
+            "title": "ComfyUI-CogVideoX-MZ",
+            "reference": "https://github.com/MinusZoneAI/ComfyUI-CogVideoX-MZ",
+            "files": [
+                "https://github.com/MinusZoneAI/ComfyUI-CogVideoX-MZ"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:MZ_CogVideoXLoader"
+        },
+        {
             "author": "blueraincoatli",
             "title": "comfyUI_SillyNodes",
             "id": "silly",
@@ -12187,16 +12218,6 @@
             "description": "A collections of nodes to support GLSL shaders inside a workflow."
         },
         {
-            "author": "ader47",
-            "title": "ComfyUI-MeshHamer",
-            "reference": "https://github.com/ader47/comfyui_meshhamer",
-            "files": [
-                "https://github.com/ader47/comfyui_meshhamer"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:MeshHamer Hand Refiner. See also: [a/HaMeR: Hand Mesh Recovery](https://github.com/geopavlakos/hamer/tree/main)"
-        },
-        {
             "author": "2kpr",
             "title": "ComfyUI-UltraPixel",
             "id": "comfyui-ultrapixel",
@@ -12352,14 +12373,14 @@
         },
         {
             "author": "Marksusu",
-            "title": "ComfyUI_MTEncode",
-            "id": "mtencode",
-            "reference": "https://github.com/Marksusu/ComfyUI_MTEncode",
+            "title": "ComfyUI_MTCLIPEncode",
+            "id": "mtclipencode",
+            "reference": "https://github.com/Marksusu/ComfyUI_MTCLIPEncode",
             "files": [
-                "https://github.com/Marksusu/ComfyUI_MTEncode"
+                "https://github.com/Marksusu/ComfyUI_MTCLIPEncode"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:MTCLIPEncode"
+            "description": "Nodes:MTCLIPEncode\n[w/Repo name is changed from ComfyUI_MTEncode to MECLIPEncode. Please remove one and reinstall this.]"
         },
         {
             "author": "fssorc",
@@ -12702,13 +12723,24 @@
         {
             "author": "pzc163",
             "title": "Comfyui-CatVTON",
-            "id": "catvton",
+            "id": "comfyui-catvton",
             "reference": "https://github.com/pzc163/Comfyui-CatVTON",
             "files": [
                 "https://github.com/pzc163/Comfyui-CatVTON"
             ],
             "install_type": "git-clone",
             "description": "Comfyui-CatVTON This repository is the modified official Comfyui node of CatVTON, which is a simple and efficient virtual try-on diffusion model with 1) Lightweight Network (899.06M parameters totally), 2) Parameter-Efficient Training (49.57M parameters trainable) 3) Simplified Inference (< 8G VRAM for 1024X768 resolution).\nThe original GitHub project is [a/https://github.com/Zheng-Chong/CatVTON](https://github.com/Zheng-Chong/CatVTON)"
+        },
+        {
+            "author": "pzc163",
+            "title": "Comfyui_MiniCPMv2_6-prompt-generator",
+            "id": "Comfyui_MiniCPMv2_6-prompt-generator",
+            "reference": "https://github.com/pzc163/Comfyui_MiniCPMv2_6-prompt-generator",
+            "files": [
+                "https://github.com/pzc163/Comfyui_MiniCPMv2_6-prompt-generator"
+            ],
+            "install_type": "git-clone",
+            "description": "This is an implementation of [MiniCPMv2_6-prompt-generator](https://huggingface.co/pzc163/MiniCPMv2_6-prompt-generator) by [ComfyUI](https://github.com/comfyanonymous/ComfyUI), including support for single-image caption, generate prompt by upload image and batch-images Prompt generation."
         },
         {
             "author": "aisabervisionlab",
@@ -12998,6 +13030,16 @@
             ],
             "install_type": "git-clone",
             "description": "NODES:HF ModelLoader, Show Images, Text2Image Inference, Decode Latent, Show CrossAttn Map, Show SelfAttn Map"
+        },
+        {
+            "author": "leeguandong",
+            "title": "ComfyUI nodes to use MasaCtrl",
+            "reference": "https://github.com/leeguandong/ComfyUI_MasaCtrl",
+            "files": [
+                "https://github.com/leeguandong/ComfyUI_MasaCtrl"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI nodes to use MasaCtrl"
         },
         {
             "author": "lenskikh",
@@ -13896,7 +13938,7 @@
                 "https://github.com/souki202/ComfyUI-LoadImage-Advanced"
             ],
             "install_type": "git-clone",
-            "description": "This is a node that simply integrates LoadImage, Vae Encode, and Upscale."
+            "description": "This is a node that simply integrates LoadImage, Vae Encode, Upscale, Resolution factor correction, and Color Adjustment."
         },
         {
             "author": "drmbt",
@@ -13941,6 +13983,20 @@
             "install_type": "git-clone",
             "description": "This extension provides a set of nodes that can be used to mask multiple object at once"
         },
+        {
+            "author": "AbyssBadger0",
+            "title": "Kolors Awesome Prompts",
+            "reference": "https://github.com/AbyssBadger0/ComfyUI_Kolors_awesome_prompts",
+            "files": [
+                "https://github.com/AbyssBadger0/ComfyUI_Kolors_awesome_prompts"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes:KolorsAwesomePrompts"
+        },
+
+
+
+
 
 
 
