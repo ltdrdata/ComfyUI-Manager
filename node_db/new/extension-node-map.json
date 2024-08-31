@@ -2907,10 +2907,22 @@
     ],
     "https://github.com/IuvenisSapiens/ComfyUI_Qwen2-Audio-7B-Instruct-Int4": [
         [
+            "AudioLoader",
+            "AudioPreviewer",
             "Qwen2_AQA"
         ],
         {
             "title_aux": "ComfyUI_Qwen2-Audio-7B-Instruct-Int4"
+        }
+    ],
+    "https://github.com/IuvenisSapiens/ComfyUI_Qwen2-VL-Instruct": [
+        [
+            "ImageLoader",
+            "MultiplePathsInput",
+            "Qwen2_VQA"
+        ],
+        {
+            "title_aux": "ComfyUI_Qwen2-VL-Instruct"
         }
     ],
     "https://github.com/JPS-GER/ComfyUI_JPS-Nodes": [
@@ -5143,7 +5155,9 @@
     ],
     "https://github.com/Shiba-2-shiba/comfyui-color-ascii-art-node": [
         [
-            "ASCIIArtNode"
+            "ASCIIArtNode",
+            "ASCIIArtNodev2",
+            "ASCIIArtSinglefontNode"
         ],
         {
             "author": "Shiba-2-shiba",
@@ -7014,6 +7028,7 @@
             "abyz22_lamaInpaint",
             "abyz22_lamaPreprocessor",
             "abyz22_makecircles",
+            "abyz22_path_generator",
             "abyz22_setimageinfo",
             "abyz22_smallhead"
         ],
@@ -8995,6 +9010,7 @@
             "LayerStyle: ColorOverlay V2",
             "LayerStyle: DropShadow",
             "LayerStyle: DropShadow V2",
+            "LayerStyle: Gradient Map",
             "LayerStyle: GradientOverlay",
             "LayerStyle: GradientOverlay V2",
             "LayerStyle: InnerGlow",
@@ -12377,6 +12393,26 @@
             "title_aux": "ComfyUI-IF_AI_tools"
         }
     ],
+    "https://github.com/ihmily/ComfyUI-Light-Tool": [
+        [
+            "Light-Tool: BoundingBoxCropping",
+            "Light-Tool: ChangeBackground",
+            "Light-Tool: ImageMaskApply",
+            "Light-Tool: ImageOverlay",
+            "Light-Tool: ImageToMask",
+            "Light-Tool: InvertMask",
+            "Light-Tool: MaskBoundingBoxCropping",
+            "Light-Tool: MaskImageToTransparent",
+            "Light-Tool: MaskToImage"
+        ],
+        {
+            "author": "Hmily",
+            "description": "An awesome light image processing tool nodes for ComfyUI.",
+            "nickname": "ComfyUI-Light-Tool",
+            "title": "ComfyUI-Light-Tool",
+            "title_aux": "ComfyUI-Light-Tool"
+        }
+    ],
     "https://github.com/imb101/ComfyUI-FaceSwap": [
         [
             "FaceSwapNode"
@@ -13154,6 +13190,14 @@
             "title_aux": "Bjornulf_custom_nodes"
         }
     ],
+    "https://github.com/k-komarov/comfyui-bunny-cdn-storage": [
+        [
+            "Save Image to BunnyStorage"
+        ],
+        {
+            "title_aux": "comfyui-bunny-cdn-storage"
+        }
+    ],
     "https://github.com/ka-puna/comfyui-yanc": [
         [
             "YANC.ConcatStrings",
@@ -13634,6 +13678,7 @@
             "FloatToMask",
             "FloatToSigmas",
             "FluxBlockLoraLoader",
+            "FluxBlockLoraSelect",
             "GLIGENTextBoxApplyBatchCoords",
             "GenerateNoise",
             "GetImageRangeFromBatch",
@@ -14446,6 +14491,16 @@
         ],
         {
             "title_aux": "ComfyUI-InversedNoise"
+        }
+    ],
+    "https://github.com/logtd/ComfyUI-MotionThiefExperiment": [
+        [
+            "ApplyRefMotionNode",
+            "MotionRefSettingsCustomNode",
+            "MotionRefSettingsDefaultNode"
+        ],
+        {
+            "title_aux": "ComfyUI-MotionThiefExperiment"
         }
     ],
     "https://github.com/logtd/ComfyUI-RAVE_ATTN": [
@@ -16805,12 +16860,14 @@
             "FlexImagePosterize",
             "FlexImageTiltShift",
             "FlexMaskBinary",
+            "FlexMaskEmanatingRings",
             "FlexMaskMath",
             "FlexMaskMorph",
             "FlexMaskOpacity",
             "FlexMaskTransform",
             "FlexMaskVoronoiScheduled",
             "FlexMaskWarp",
+            "FlexMaskWavePropagation",
             "FrequencyFilterCustom",
             "FrequencyFilterPreset",
             "GravityWell",
@@ -18765,6 +18822,7 @@
             "GTF | Filter - Hysteresis Threshold",
             "GTF | Filter - Invert",
             "GTF | Filter - Morphological",
+            "GTF | Filter - Patch Range Normalize",
             "GTF | Filter - Quantize",
             "GTF | Filter - Range Normalize",
             "GTF | Filter - Sum Normalize",
@@ -18775,6 +18833,7 @@
             "GTF | Helper - Derivative of Gaussian Area Radius",
             "GTF | Helper - Gaussian Area Radius",
             "GTF | Helper - Mitchell Netravali Radius",
+            "GTF | Helper - Otsu's Method",
             "GTF | Logic - And",
             "GTF | Logic - Equal",
             "GTF | Logic - Greater Than",
@@ -19034,6 +19093,15 @@
         ],
         {
             "title_aux": "ComfyUI-decadetw-auto-prompt-llm"
+        }
+    ],
+    "https://github.com/xlinx/ComfyUI-decadetw-spout-syphon-im-vj": [
+        [
+            "Im-SD-VJ-SPOUT",
+            "Im-SD-VJ-SYPHON"
+        ],
+        {
+            "title_aux": "ComfyUI-decadetw-spout-syphon-im-vj"
         }
     ],
     "https://github.com/xliry/ComfyUI_SendDiscord": [
