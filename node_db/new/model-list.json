@@ -1,125 +1,497 @@
 {
   "models": [
     {
-      "name": "city96/t5-v1_1-xxl-encoder-Q3_K_L.gguf",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "t5xxl Text Encoder GGUF model. (Q3_K_L quantized)",
-      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
-      "filename": "t5-v1_1-xxl-encoder-Q3_K_L.gguf",
-      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q3_K_L.gguf",
-      "size": "2.46GB"
+      "name": "Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "controlnet/FLUX.1/Shakker-Labs-ControlNet-Union-Pro",
+      "description": "FLUX.1 [Dev] Union Controlnet. Supports Canny, Tile, Depth, Blur, Pose, Gray, Low Quality",
+      "reference": "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "6.6GB"
+    },
+    
+    {
+      "name": "Hyper-SD LoRA (8steps) - FLUX.1 [Dev]",
+      "type": "lora",
+      "base": "FLUX.1",
+      "save_path": "loras/HyperSD/FLUX.1",
+      "description": "Hyper-SD LoRA (8steps) - FLUX.1 [Dev]",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-FLUX.1-dev-8steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-8steps-lora.safetensors",
+      "size": "1.39GB"
     },
     {
-      "name": "city96/t5-v1_1-xxl-encoder-Q3_K_M.gguf",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "t5xxl Text Encoder GGUF model. (Q3_K_M quantized)",
-      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
-      "filename": "t5-v1_1-xxl-encoder-Q3_K_M.gguf",
-      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q3_K_M.gguf",
-      "size": "2.3GB"
+      "name": "Hyper-SD LoRA (16steps) - FLUX.1 [Dev]",
+      "type": "lora",
+      "base": "FLUX.1",
+      "save_path": "loras/HyperSD/FLUX.1",
+      "description": "Hyper-SD LoRA (16steps) - FLUX.1 [Dev]",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-FLUX.1-dev-16steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-16steps-lora.safetensors",
+      "size": "1.39GB"
+    },
+
+    {
+      "name": "BAAI/SegGPT",
+      "type": "SegGPT",
+      "base": "SegGPT",
+      "save_path": "custom_nodes/comfyui-SegGPT",
+      "description": "SegGPT",
+      "reference": "https://huggingface.co/BAAI/SegGPT",
+      "filename": "seggpt_vit_large.pth",
+      "url": "https://huggingface.co/BAAI/SegGPT/resolve/main/seggpt_vit_large.pth",
+      "size": "1.48GB"
+    },
+
+    {
+      "name": "DMD2 LoRA (4steps)",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/DMD2",
+      "description": "DMD2 LoRA (4steps)",
+      "reference": "https://huggingface.co/tianweiy/DMD2",
+      "filename": "dmd2_sdxl_4step_lora.safetensors",
+      "url": "https://huggingface.co/tianweiy/DMD2/resolve/main/dmd2_sdxl_4step_lora.safetensors",
+      "size": "787MB"
     },
     {
-      "name": "city96/t5-v1_1-xxl-encoder-Q3_K_S.gguf",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "t5xxl Text Encoder GGUF model. (Q3_K_S quantized)",
-      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
-      "filename": "t5-v1_1-xxl-encoder-Q3_K_S.gguf",
-      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q3_K_S.gguf",
-      "size": "2.1GB"
+      "name": "DMD2 LoRA (4steps/fp16)",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/DMD2",
+      "description": "DMD2 LoRA (4steps/fp16)",
+      "reference": "https://huggingface.co/tianweiy/DMD2",
+      "filename": "dmd2_sdxl_4step_lora_fp16.safetensors",
+      "url": "https://huggingface.co/tianweiy/DMD2/resolve/main/dmd2_sdxl_4step_lora_fp16.safetensors",
+      "size": "394MB"
+    },
+
+    {
+      "name": "Hyper-SD LoRA (1step) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD LoRA (1step) - SD1.5",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-1step-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-1step-lora.safetensors",
+      "size": "269MB"
     },
     {
-      "name": "city96/t5-v1_1-xxl-encoder-Q4_K_M.gguf",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "t5xxl Text Encoder GGUF model. (Q4_K_M quantized)",
-      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
-      "filename": "t5-v1_1-xxl-encoder-Q4_K_M.gguf",
-      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q4_K_M.gguf",
-      "size": "2.9GB"
+      "name": "Hyper-SD LoRA (2steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD LoRA (2steps) - SD1.5",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-2steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-2steps-lora.safetensors",
+      "size": "269MB"
     },
     {
-      "name": "city96/t5-v1_1-xxl-encoder-Q4_K_S.gguf",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "t5xxl Text Encoder GGUF model. (Q4_K_S quantized)",
-      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
-      "filename": "t5-v1_1-xxl-encoder-Q4_K_S.gguf",
-      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q4_K_S.gguf",
-      "size": "2.74GB"
+      "name": "Hyper-SD LoRA (4steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD LoRA (4steps)",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-4steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-4steps-lora.safetensors",
+      "size": "269MB"
     },
     {
-      "name": "city96/t5-v1_1-xxl-encoder-Q5_K_M.gguf",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "t5xxl Text Encoder GGUF model. (Q5_K_M quantized)",
-      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
-      "filename": "t5-v1_1-xxl-encoder-Q5_K_M.gguf",
-      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q5_K_M.gguf",
-      "size": "3.39GB"
+      "name": "Hyper-SD LoRA (8steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD LoRA (8steps)",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-8steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-8steps-lora.safetensors",
+      "size": "269MB"
     },
     {
-      "name": "city96/t5-v1_1-xxl-encoder-Q5_K_S.gguf",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "t5xxl Text Encoder GGUF model. (Q5_K_S quantized)",
-      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
-      "filename": "t5-v1_1-xxl-encoder-Q5_K_S.gguf",
-      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q5_K_S.gguf",
-      "size": "3.29GB"
+      "name": "Hyper-SD CFG LoRA (8steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD CFG LoRA (8steps)",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-8steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-8steps-CFG-lora.safetensors",
+      "size": "269MB"
     },
     {
-      "name": "city96/t5-v1_1-xxl-encoder-Q6_K.gguf",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "t5xxl Text Encoder GGUF model. (Q6_K quantized)",
-      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
-      "filename": "t5-v1_1-xxl-encoder-Q6_K.gguf",
-      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q6_K.gguf",
-      "size": "3.91GB"
+      "name": "Hyper-SD CFG LoRA (12steps) - SD1.5",
+      "type": "lora",
+      "base": "SD1.5",
+      "save_path": "loras/HyperSD/SD15",
+      "description": "Hyper-SD CFG LoRA (12steps)",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-12steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-12steps-CFG-lora.safetensors",
+      "size": "269MB"
+    },
+
+    {
+      "name": "Hyper-SD LoRA (1step) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD LoRA (1step) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-1step-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-1step-lora.safetensors",
+      "size": "787MB"
     },
     {
-      "name": "city96/t5-v1_1-xxl-encoder-Q8_0.gguf",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "t5xxl Text Encoder GGUF model. (Q8_0 quantized)",
-      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
-      "filename": "t5-v1_1-xxl-encoder-Q8_0.gguf",
-      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q8_0.gguf",
-      "size": "5.06GB"
+      "name": "Hyper-SD LoRA (2steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD LoRA (2steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-2steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-2steps-lora.safetensors",
+      "size": "787MB"
     },
     {
-      "name": "city96/t5-v1_1-xxl-encoder-f16.gguf",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "t5xxl Text Encoder GGUF model. (float 16)",
-      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
-      "filename": "t5-v1_1-xxl-encoder-f16.gguf",
-      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-f16.gguf",
-      "size": "9.53GB"
+      "name": "Hyper-SD LoRA (4steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD LoRA (4steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD15-4steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-4steps-lora.safetensors",
+      "size": "787MB"
     },
     {
-      "name": "city96/t5-v1_1-xxl-encoder-f32.gguf",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "t5xxl Text Encoder GGUF model. (float 32)",
-      "reference": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf",
-      "filename": "t5-v1_1-xxl-encoder-f32.gguf",
-      "url": "https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-f32.gguf",
-      "size": "19.1GB"
+      "name": "Hyper-SD LoRA (8steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD LoRA (8steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-8steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-8steps-lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (8steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD CFG LoRA (8steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-8steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-8steps-CFG-lora.safetensors",
+      "size": "787MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (12steps) - SDXL",
+      "type": "lora",
+      "base": "SDXL",
+      "save_path": "loras/HyperSD/SDXL",
+      "description": "Hyper-SD CFG LoRA (12steps) - SDXL",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SDXL-12steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-12steps-CFG-lora.safetensors",
+      "size": "787MB"
+    },
+
+    {
+      "name": "Hyper-SD CFG LoRA (4steps) - SD3",
+      "type": "lora",
+      "base": "SD3",
+      "save_path": "loras/HyperSD/SD3",
+      "description": "Hyper-SD CFG LoRA (4steps) - SD3",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD3-4steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-4steps-CFG-lora.safetensors",
+      "size": "472MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (8steps) - SD3",
+      "type": "lora",
+      "base": "SD3",
+      "save_path": "loras/HyperSD/SD3",
+      "description": "Hyper-SD CFG LoRA (8steps) - SD3",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD3-8steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-8steps-CFG-lora.safetensors",
+      "size": "472MB"
+    },
+    {
+      "name": "Hyper-SD CFG LoRA (16steps) - SD3",
+      "type": "lora",
+      "base": "SD3",
+      "save_path": "loras/HyperSD/SD3",
+      "description": "Hyper-SD CFG LoRA (16steps) - SD3",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-SD3-16steps-CFG-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-16steps-CFG-lora.safetensors",
+      "size": "472MB"
+    },
+
+    {
+      "name": "InstantX/FLUX.1-dev Controlnet (Union)",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "controlnet/FLUX.1/InstantX-FLUX1-Dev-Union",
+      "description": "FLUX.1 [Dev] Union Controlnet. Supports Canny, Depth, Pose, Tile, Blur, Gray Low Quality.",
+      "reference": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "6.6GB"
+    },
+
+    {
+      "name": "city96/flux1-dev-F16.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_model/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (f16/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-F16.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-F16.gguf",
+      "size": "23.8GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q2_K.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q2_K/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q2_K.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q2_K.gguf",
+      "size": "4.03GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q3_K_S.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q3_K_S/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q3_K_S.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q3_K_S.gguf",
+      "size": "5.23GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q4_0.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q4_0/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q4_0.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_0.gguf",
+      "size": "6.79GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q4_1.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q4_1/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q4_1.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_1.gguf",
+      "size": "7.53GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q4_K_S.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q4_K_S/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q4_K_S.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_K_S.gguf",
+      "size": "6.81GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q5_0.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q5_0/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q5_0.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_0.gguf",
+      "size": "8.27GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q5_1.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q5_1/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q5_1.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_1.gguf",
+      "size": "9.01GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q5_K_S.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q5_K_S/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q5_K_S.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_K_S.gguf",
+      "size": "8.29GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q6_K.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q6_K/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q6_K.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q6_K.gguf",
+      "size": "9.86GB"
+    },
+    {
+      "name": "city96/flux1-dev-Q8_0.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q8_0/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
+      "filename": "flux1-dev-Q8_0.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf",
+      "size": "12.7GB"
+    },
+
+    {
+      "name": "city96/flux1-schnell-F16.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (f16/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-F16.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-F16.gguf",
+      "size": "23.8GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q2_K.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q2_K/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q2_K.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q2_K.gguf",
+      "size": "4.01GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q3_K_S.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q3_K_S/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q3_K_S.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q3_K_S.gguf",
+      "size": "5.21GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q4_0.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q4_0/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q4_0.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q4_0.gguf",
+      "size": "6.77GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q4_1.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q4_1/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q4_1.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q4_1.gguf",
+      "size": "7.51GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q4_K_S.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q4_K_S/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q4_K_S.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q4_K_S.gguf",
+      "size": "6.78GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q5_0.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q5_0/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q5_0.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q5_0.gguf",
+      "size": "8.25GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q5_1.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q5_1/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q5_1.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q5_1.gguf",
+      "size": "8.99GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q5_K_S.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q5_K_S/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q5_K_S.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q5_K_S.gguf",
+      "size": "8.26GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q6_K.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q6_K/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q6_K.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q6_K.gguf",
+      "size": "9.83GB"
+    },
+    {
+      "name": "city96/flux1-schnell-Q8_0.gguf",
+      "type": "diffusion_model",
+      "base": "FLUX.1",
+      "save_path": "diffusion_models/FLUX1",
+      "description": "FLUX.1 [Dev] Diffusion model (Q8_0/.gguf)",
+      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
+      "filename": "flux1-schnell-Q8_0.gguf",
+      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q8_0.gguf",
+      "size": "12.7GB"
     },
 
     {
@@ -217,10 +589,10 @@
 
     {
       "name": "FLUX.1 VAE model",
-      "type": "vae",
+      "type": "VAE",
       "base": "FLUX.1",
       "save_path": "vae/FLUX1",
-      "description": "FLUX.1 [Schnell] VAE model",
+      "description": "FLUX.1 VAE model",
       "reference": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
       "filename": "ae.sft",
       "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors",
@@ -303,7 +675,7 @@
       "save_path": "controlnet/SDXL/controlnet-union-sdxl-1.0",
       "description": "All-in-one ControlNet for image generations and editing! (ProMax model)",
       "reference": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0",
-      "filename": "iffusion_pytorch_model_promax.safetensors",
+      "filename": "diffusion_pytorch_model_promax.safetensors",
       "url": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/resolve/main/diffusion_pytorch_model_promax.safetensors",
       "size": "2.50GB"
     },
@@ -317,379 +689,6 @@
       "filename": "diffusion_pytorch_model.safetensors",
       "url": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors",
       "size": "2.50GB"
-    },
-
-    {
-      "name": "InstantX/SD3-Controlnet-Canny",
-      "type": "controlnet",
-      "base": "SD3",
-      "save_path": "controlnet/SD3/InstantX-Controlnet-Canny",
-      "description": "Controlnet SD3 Canny model.",
-      "reference": "https://huggingface.co/InstantX/SD3-Controlnet-Canny",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/InstantX/SD3-Controlnet-Canny/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "1.19GB"
-    },
-    {
-      "name": "InstantX/SD3-Controlnet-Pose",
-      "type": "controlnet",
-      "base": "SD3",
-      "save_path": "controlnet/SD3/InstantX-Controlnet-Pose",
-      "description": "Controlnet SD3 Pose model.",
-      "reference": "https://huggingface.co/InstantX/SD3-Controlnet-Pose",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/InstantX/SD3-Controlnet-Pose/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "1.19GB"
-    },
-    {
-      "name": "InstantX/SD3-Controlnet-Tile",
-      "type": "controlnet",
-      "base": "SD3",
-      "save_path": "controlnet/SD3/InstantX-Controlnet-Tile",
-      "description": "Controlnet SD3 Tile model.",
-      "reference": "https://huggingface.co/InstantX/SD3-Controlnet-Tile",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/InstantX/SD3-Controlnet-Tile/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "1.19GB"
-    },
-
-    {
-      "name": "xinsir/ControlNet Depth SDXL, support zoe, midias",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-depth-sdxl-1.0",
-      "description": "Controlnet SDXL Depth model.",
-      "reference": "https://huggingface.co/xinsir/controlnet-depth-sdxl-1.0",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/xinsir/controlnet-depth-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "2.50GB"
-    },
-    {
-      "name": "xinsir/ControlNet Tile SDXL",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-tile-sdxl-1.0",
-      "description": "Controlnet SDXL Tile model.",
-      "reference": "https://huggingface.co/xinsir/controlnet-tile-sdxl-1.0",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/xinsir/controlnet-tile-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "2.50GB"
-    },
-
-    {
-      "name": "google-t5/t5-base",
-      "type": "clip",
-      "base": "t5-base",
-      "save_path": "clip/t5-base",
-      "description": "T5 Base: Text-To-Text Transfer Transformer. This model can be loaded via CLIPLoader for Stable Audio workflow.",
-      "reference": "https://huggingface.co/google-t5/t5-base",
-      "filename": "model.safetensors",
-      "url": "https://huggingface.co/google-t5/t5-base/resolve/main/model.safetensors",
-      "size": "892MB"
-    },
-
-    {
-      "name": "PixArt-Sigma-XL-2-1024-MS.pth",
-      "type": "checkpoint",
-      "base": "pixart-sigma",
-      "save_path": "checkpoints/PixArt-Sigma",
-      "description": "PixArt-Sigma Checkpoint model",
-      "reference": "https://huggingface.co/PixArt-alpha/PixArt-Sigma/tree/main",
-      "filename": "PixArt-Sigma-XL-2-1024-MS.pth",
-      "url": "https://huggingface.co/PixArt-alpha/PixArt-Sigma/resolve/main/PixArt-Sigma-XL-2-1024-MS.pth",
-      "size": "2.47GB"
-    },
-    {
-      "name": "TAESD3 Decoder",
-      "type": "TAESD",
-      "base": "SD3",
-      "save_path": "vae_approx",
-      "description": "(SD3 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
-      "reference": "https://github.com/madebyollin/taesd",
-      "filename": "taesd3_decoder.pth",
-      "url": "https://github.com/madebyollin/taesd/raw/main/taesd3_decoder.pth",
-      "size": "4.94MB"
-    },
-    {
-      "name": "TAESD3 Encoder",
-      "type": "TAESD",
-      "base": "SD3",
-      "save_path": "vae_approx",
-      "description": "(SD3 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
-      "reference": "https://github.com/madebyollin/taesd",
-      "filename": "taesd3_encoder.pth",
-      "url": "https://github.com/madebyollin/taesd/raw/main/taesd3_encoder.pth",
-      "size": "4.94MB"
-    },
-
-    {
-      "name": "TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic v2 (rank256)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL",
-      "description": "Controlnet SDXL Tile model realistic version.",
-      "reference": "https://huggingface.co/TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic",
-      "filename": "TTPLANET_Controlnet_Tile_realistic_v2_rank256.safetensors",
-      "url": "https://huggingface.co/TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic/resolve/main/TTPLANET_Controlnet_Tile_realistic_v2_rank256.safetensors",
-      "size": "774.4MB"
-    },
-
-    {
-      "name": "kijai/DepthAnythingV2 (vitb/fp16)",
-      "type": "depthanything",
-      "base": "depthanything",
-      "save_path": "depthanything",
-      "description": "DepthAnythingV2 model",
-      "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
-      "filename": "depth_anything_v2_vitb_fp16.safetensors",
-      "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vitb_fp16.safetensors",
-      "size": "195.0MB"
-    },
-    {
-      "name": "kijai/DepthAnythingV2 (vitb/fp32)",
-      "type": "depthanything",
-      "base": "depthanything",
-      "save_path": "depthanything",
-      "description": "DepthAnythingV2 model",
-      "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
-      "filename": "depth_anything_v2_vitb_fp32.safetensors",
-      "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vitb_fp32.safetensors",
-      "size": "389.9MB"
-    },
-    {
-      "name": "kijai/DepthAnythingV2 (vitl/fp16)",
-      "type": "depthanything",
-      "base": "depthanything",
-      "save_path": "depthanything",
-      "description": "[671MB] DepthAnythingV2 model",
-      "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
-      "filename": "depth_anything_v2_vitl_fp16.safetensors",
-      "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vitl_fp16.safetensors",
-      "size": "670.7MB"
-    },
-    {
-      "name": "kijai/DepthAnythingV2 (vitl/fp32)",
-      "type": "depthanything",
-      "base": "depthanything",
-      "save_path": "depthanything",
-      "description": "[195MB] DepthAnythingV2 model",
-      "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
-      "filename": "depth_anything_v2_vitl_fp32.safetensors",
-      "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vitl_fp32.safetensors",
-      "size": "1.34GB"
-    },
-    {
-      "name": "kijai/DepthAnythingV2 (vits/fp16)",
-      "type": "depthanything",
-      "base": "depthanything",
-      "save_path": "depthanything",
-      "description": "[49.6MB] DepthAnythingV2 model",
-      "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
-      "filename": "depth_anything_v2_vits_fp16.safetensors",
-      "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vits_fp16.safetensors",
-      "size": "49.6MB"
-    },
-    {
-      "name": "kijai/DepthAnythingV2 (vitb/fp32)",
-      "type": "depthanything",
-      "base": "depthanything",
-      "save_path": "depthanything",
-      "description": "[99.2MB] DepthAnythingV2 model",
-      "reference": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/tree/main",
-      "filename": "depth_anything_v2_vits_fp32.safetensors",
-      "url": "https://huggingface.co/Kijai/DepthAnythingV2-safetensors/resolve/main/depth_anything_v2_vits_fp32.safetensors",
-      "size": "99.2MB"
-    },
-
-    {
-      "name": "CN-anytest_v4-marged.safetensors",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL",
-      "description": "[2.5GB] AnyTest Controlnet. A model for style transfer.",
-      "reference": "https://huggingface.co/2vXpSwA7/iroiro-lora/tree/main",
-      "filename": "CN-anytest_v4-marged.safetensors",
-      "url": "https://huggingface.co/2vXpSwA7/iroiro-lora/resolve/main/test_controlnet2/CN-anytest_v4-marged.safetensors",
-      "size": "2.50GB"
-    },
-    {
-      "name": "CN-anytest_v4-marged_am_dim256.safetensors (dim256/Animagine)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL",
-      "description": "[774MB] AnyTest Controlnet Lora (dim256) for Animagine. A model for style transfer.",
-      "reference": "https://huggingface.co/2vXpSwA7/iroiro-lora/tree/main",
-      "filename": "CN-anytest_v4-marged_am_dim256.safetensors",
-      "url": "https://huggingface.co/2vXpSwA7/iroiro-lora/resolve/main/test_controlnet2/CN-anytest_v4-marged_am_dim256.safetensors",
-      "size": "774.4MB"
-    },
-    {
-      "name": "CN-anytest_v4-marged_am_dim128.safetensors (dim128/Animagine)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL",
-      "description": "[396MB] AnyTest Controlnet Lora (dim128) for Animagine. A model for style transfer.",
-      "reference": "https://huggingface.co/2vXpSwA7/iroiro-lora/tree/main",
-      "filename": "CN-anytest_v4-marged_am_dim128.safetensors",
-      "url": "https://huggingface.co/2vXpSwA7/iroiro-lora/resolve/main/test_controlnet2/CN-anytest_v4-marged_am_dim128.safetensors",
-      "size": "395.7MB"
-    },
-    {
-      "name": "CN-anytest_v4-marged_pn_dim256.safetensors (dim256/Pony)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL",
-      "description": "[774MB] AnyTest Controlnet Lora (dim256) for Pony. A model for style transfer.",
-      "reference": "https://huggingface.co/2vXpSwA7/iroiro-lora/tree/main",
-      "filename": "CN-anytest_v4-marged_pn_dim256.safetensors",
-      "url": "https://huggingface.co/2vXpSwA7/iroiro-lora/resolve/main/test_controlnet2/CN-anytest_v4-marged_pn_dim256.safetensors",
-      "size": "774.4MB"
-    },
-    {
-      "name": "CN-anytest_v4-marged_pn_dim128.safetensors (dim128/Pony)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL",
-      "description": "[396MB] AnyTest Controlnet Lora (dim128) for Pony. A model for style transfer.",
-      "reference": "https://huggingface.co/2vXpSwA7/iroiro-lora/tree/main",
-      "filename": "CN-anytest_v4-marged_pn_dim128.safetensors",
-      "url": "https://huggingface.co/2vXpSwA7/iroiro-lora/resolve/main/test_controlnet2/CN-anytest_v4-marged_pn_dim128.safetensors",
-      "size": "395.7MB"
-    },
-    {
-      "name": "CN-anytest_v3-50000_fp16.safetensors (fp16)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL",
-      "description": "[2.5GB] AnyTest Controlnet. A strict control model.",
-      "reference": "https://huggingface.co/2vXpSwA7/iroiro-lora/tree/main",
-      "filename": "CN-anytest_v3-50000_fp16.safetensors",
-      "url": "https://huggingface.co/2vXpSwA7/iroiro-lora/resolve/main/test_controlnet2/CN-anytest_v3-50000_fp16.safetensors",
-      "size": "2.50GB"
-    },
-    {
-      "name": "CN-anytest_v3-50000_am_dim256.safetensors (dim256/Animagine)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL",
-      "description": "[774MB] AnyTest Controlnet Lora (dim256) for Animagine. A strict control model.",
-      "reference": "https://huggingface.co/2vXpSwA7/iroiro-lora/tree/main",
-      "filename": "CN-anytest_v3-50000_am_dim256.safetensors",
-      "url": "https://huggingface.co/2vXpSwA7/iroiro-lora/resolve/main/test_controlnet2/CN-anytest_v3-50000_am_dim256.safetensors",
-      "size": "774.4MB"
-    },
-    {
-      "name": "CN-anytest_v3-50000_am_dim128.safetensors (dim128/Animagine)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL",
-      "description": "[396MB] AnyTest Controlnet Lora (dim128) for Animagine. A strict control model.",
-      "reference": "https://huggingface.co/2vXpSwA7/iroiro-lora/tree/main",
-      "filename": "CN-anytest_v3-50000_am_dim128.safetensors",
-      "url": "https://huggingface.co/2vXpSwA7/iroiro-lora/resolve/main/test_controlnet2/CN-anytest_v3-50000_am_dim128.safetensors",
-      "size": "395.7MB"
-    },
-    {
-      "name": "CN-anytest_v3-50000_pn_dim256.safetensors (dim256/Pony)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL",
-      "description": "[774MB] AnyTest Controlnet Lora (dim256) for Pony. A strict control model.",
-      "reference": "https://huggingface.co/2vXpSwA7/iroiro-lora/tree/main",
-      "filename": "CN-anytest_v3-50000_pn_dim256.safetensors",
-      "url": "https://huggingface.co/2vXpSwA7/iroiro-lora/resolve/main/test_controlnet2/CN-anytest_v3-50000_pn_dim256.safetensors",
-      "size": "774.4MB"
-    },
-    {
-      "name": "CN-anytest_v3-50000_pn_dim128.safetensors (dim128/Pony)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL",
-      "description": "[396MB] AnyTest Controlnet Lora (dim128) for Pony. A strict control model.",
-      "reference": "https://huggingface.co/2vXpSwA7/iroiro-lora/tree/main",
-      "filename": "CN-anytest_v3-50000_pn_dim128.safetensors",
-      "url": "https://huggingface.co/2vXpSwA7/iroiro-lora/resolve/main/test_controlnet2/CN-anytest_v3-50000_pn_dim128.safetensors",
-      "size": "395.7MB"
-    },
-
-    {
-      "name": "Kijai/ToonCrafter model checkpoint (interpolation fp16)",
-      "type": "checkpoint",
-      "base": "ToonCrafter",
-      "save_path": "checkpoints/ToonCrafter",
-      "description": "[5.25GB] ToonCrafter checkpoint model for ComfyUI-DynamiCrafterWrapper",
-      "reference": "https://huggingface.co/Kijai/DynamiCrafter_pruned",
-      "filename": "tooncrafter_512_interp-fp16.safetensors",
-      "url": "https://huggingface.co/Kijai/DynamiCrafter_pruned/resolve/main/tooncrafter_512_interp-fp16.safetensors",
-      "size": "5.25GB"
-    },
-
-    {
-      "name": "xinsir/Controlnet-Scribble-Sdxl-1.0",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-scribble-sdxl-1.0",
-      "description": "[2.5GB] Controlnet SDXL Scribble model.",
-      "reference": "https://huggingface.co/xinsir/controlnet-scribble-sdxl-1.0",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/xinsir/controlnet-scribble-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "2.50GB"
-    },
-    {
-      "name": "xinsir/Controlnet-Canny-Sdxl-1.0 (V2)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-canny-sdxl-1.0",
-      "description": "[2.5GB] Controlnet SDXL Canny model.",
-      "reference": "https://huggingface.co/xinsir/controlnet-canny-sdxl-1.0",
-      "filename": "diffusion_pytorch_model_V2.safetensors",
-      "url": "https://huggingface.co/xinsir/controlnet-canny-sdxl-1.0/resolve/main/diffusion_pytorch_model_V2.safetensors",
-      "size": "2.50GB"
-    },
-    {
-      "name": "xinsir/Controlnet-Openpose-Sdxl-1.0",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-openpose-sdxl-1.0",
-      "description": "[2.5GB] Controlnet SDXL Openpose model.",
-      "reference": "https://huggingface.co/xinsir/controlnet-openpose-sdxl-1.0",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/xinsir/controlnet-openpose-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "2.50GB"
-    },
-    {
-      "name": "xinsir/Controlnet-Openpose-Sdxl-1.0 (Ver. twins)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-openpose-sdxl-1.0",
-      "description": "[2.5GB] Controlnet SDXL Openpose model. (Ver. twins)",
-      "reference": "https://huggingface.co/xinsir/controlnet-openpose-sdxl-1.0",
-      "filename": "diffusion_pytorch_model_twins.safetensors",
-      "url": "https://huggingface.co/xinsir/controlnet-openpose-sdxl-1.0/resolve/main/diffusion_pytorch_model_twins.safetensors",
-      "size": "2.50GB"
-    },
-    {
-      "name": "xinsir/Controlnet-Scribble-Sdxl-1.0-Anime",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-scribble-sdxl-1.0-anime",
-      "description": "[2.5GB] Controlnet SDXL Scribble model. (Ver. anime)",
-      "reference": "https://huggingface.co/xinsir/anime-painter",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/xinsir/anime-painter/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "2.50GB"
-    },
-
-    {
-      "name": "Doubiiu/ToonCrafter model checkpoint",
-      "type": "checkpoint",
-      "base": "ToonCrafter",
-      "save_path": "custom_nodes/ComfyUI-ToonCrafter/ToonCrafter/checkpoints/tooncrafter_512_interp_v1",
-      "description": "[10.5GB] ToonCrafter checkpoint model for ComfyUI-ToonCrafter",
-      "reference": "https://huggingface.co/Doubiiu/ToonCrafter/tree/main",
-      "filename": "model.ckpt",
-      "url": "https://huggingface.co/Doubiiu/ToonCrafter/resolve/main/model.ckpt",
-      "size": "10.5GB"
     }
   ]
 }
