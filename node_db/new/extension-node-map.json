@@ -594,6 +594,16 @@
             "title_aux": "StyleShot-ComfyUI"
         }
     ],
+    "https://github.com/AIFSH/VideoSys-ComfyUI": [
+        [
+            "PreViewVideo",
+            "TextNode",
+            "VideoSysNode"
+        ],
+        {
+            "title_aux": "VideoSys-ComfyUI"
+        }
+    ],
     "https://github.com/AIFSH/VocalSeparation-ComfyUI": [
         [
             "VocalSeparationNode"
@@ -3061,7 +3071,9 @@
             "JNodes_ConditioningInOut",
             "JNodes_CreateStereoscopicImageFromDepth",
             "JNodes_FloatLiteral",
+            "JNodes_GetCleanFilename",
             "JNodes_GetComfyDirectory",
+            "JNodes_GetLeafDirectory",
             "JNodes_GetOutputDirectory",
             "JNodes_GetParameterFromList",
             "JNodes_GetParameterGlobal",
@@ -12020,6 +12032,7 @@
             "file_combine",
             "file_combine_plus",
             "flux_persona",
+            "genai_api_loader",
             "get_string",
             "github_tool",
             "google_loader",
@@ -12660,6 +12673,7 @@
             "CR Switch Model and CLIP JK",
             "CR Text Input Switch JK",
             "CR VAE Input Switch JK",
+            "CR_Apply Multi-ControlNet SD3 JK",
             "Ckpt Loader JK",
             "Detailer Parameters JK",
             "Embedding Picker JK",
@@ -12677,6 +12691,7 @@
             "Metadata Pipe JK",
             "NodesState JK",
             "Noise Injection Parameters JK",
+            "Noise Injection Pipe Extract JK",
             "Orbit Poses JK",
             "OrbitLists to OrbitPoses JK",
             "OrbitPoses to OrbitLists JK",
@@ -12692,6 +12707,7 @@
             "Reroute List JK",
             "Reroute Resize JK",
             "Reroute Sampler JK",
+            "Reroute String JK",
             "Reroute Upscale JK",
             "Reroute Vae JK",
             "SDXLPromptStylerAll",
@@ -13417,11 +13433,10 @@
             "Axis Pack",
             "Axis To Any",
             "Axis Unpack",
-            "Image Accumulator End",
-            "Image Accumulator Start",
             "Load Lines From Text File",
             "Slice List",
             "Text Splitter",
+            "XY Grid Accumulator",
             "XY Grid Helper"
         ],
         {
@@ -16222,6 +16237,7 @@
     ],
     "https://github.com/pamparamm/ComfyUI-vectorscope-cc": [
         [
+            "DiffusionCG",
             "NormalizeLatent",
             "VectorscopeCC"
         ],
