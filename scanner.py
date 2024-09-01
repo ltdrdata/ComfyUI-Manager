@@ -259,7 +259,7 @@ def clone_or_pull_git_repository(git_url):
             print(f"Pulling {repo_name} failed: {e}")
     else:
         try:
-            Repo.clone_from(git_url, repo_dir, recursive=True)
+            Repo.clone_from(git_url, repo_dir, multi_options = ["--depth=1", "--single-branch" "--recurse-submodules"])
             print(f"Cloning {repo_name}...")
         except Exception as e:
             print(f"Cloning {repo_name} failed: {e}")
