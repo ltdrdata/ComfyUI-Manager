@@ -186,6 +186,15 @@
             "title_aux": "ComfyUI-GPT4V-Image-Captioner"
         }
     ],
+    "https://github.com/45uee/ComfyUI-Color_Transfer": [
+        [
+            "ColorPalette",
+            "PaletteTransfer"
+        ],
+        {
+            "title_aux": "ComfyUI-Color_Transfer"
+        }
+    ],
     "https://github.com/54rt1n/ComfyUI-DareMerge": [
         [
             "DM_AdvancedDareModelMerger",
@@ -736,7 +745,8 @@
     ],
     "https://github.com/APZmedia/ComfyUI-APZmedia-cleanName-from-string": [
         [
-            "CleanFileNameNode"
+            "CleanFileNameNode",
+            "GenerateFilePathNode"
         ],
         {
             "title_aux": "APZmedia Clean Name"
@@ -1532,7 +1542,7 @@
     ],
     "https://github.com/ChrisColeTech/ComfyUI-Elegant-Resource-Monitor": [
         [
-            "ElegantResourceMonitor"
+            "Resource Monitor"
         ],
         {
             "title_aux": "ComfyUI-Elegant-Resource-Monitor"
@@ -1540,8 +1550,9 @@
     ],
     "https://github.com/ChrisColeTech/ComfyUI-Line-counter": [
         [
-            "DirectoryFileCounter",
-            "TextFileLineCounter"
+            "Directory File Counter",
+            "Simple Number Counter",
+            "Text File Line Counter"
         ],
         {
             "title_aux": "ComfyUI-Line-counter"
@@ -1917,6 +1928,7 @@
     "https://github.com/Extraltodeus/Skimmed_CFG": [
         [
             "Skimmed CFG",
+            "Skimmed CFG - Difference CFG",
             "Skimmed CFG - linear interpolation",
             "Skimmed CFG - linear interpolation dual scales",
             "Skimmed CFG - replace"
@@ -2710,7 +2722,6 @@
     "https://github.com/Haoming02/comfyui-diffusion-cg": [
         [
             "Normalization",
-            "NormalizationXL",
             "Recenter",
             "Recenter XL"
         ],
@@ -4154,8 +4165,8 @@
             "ComfyUI-PromptList"
         ],
         {
-            "author": "Assistant",
-            "description": "Custom node for managing prompts with CSV integration",
+            "author": "NakamuraShippo",
+            "description": "Custom node to manage prompts in YAML format.|YAML\u3067\u30d7\u30ed\u30f3\u30d7\u30c8\u3092\u7ba1\u7406\u3059\u308b\u30ce\u30fc\u30c9",
             "title": "ComfyUI-PromptList",
             "title_aux": "ComfyUI-PromptList"
         }
@@ -6603,6 +6614,7 @@
     ],
     "https://github.com/Xclbr7/ComfyUI-Merlin": [
         [
+            "GeminiPromptExpander",
             "Magic Photo Prompter \ud83e\ude84"
         ],
         {
@@ -7219,6 +7231,7 @@
             "AK_ListToNumpyFloatArray",
             "AK_NormalizeMaskImage",
             "AK_RescaleFloatList",
+            "AK_ShrinkNumSequence",
             "AK_VideoSpeedAdjust"
         ],
         {
@@ -8986,6 +8999,7 @@
             "LayerFilter: SkinBeauty",
             "LayerFilter: SoftLight",
             "LayerFilter: WaterColor",
+            "LayerMask: BBoxJoin",
             "LayerMask: BiRefNetUltra",
             "LayerMask: BlendIf Mask",
             "LayerMask: CreateGradientMask",
@@ -9007,11 +9021,17 @@
             "LayerMask: MaskPreview",
             "LayerMask: MaskStroke",
             "LayerMask: MediapipeFacialSegment",
+            "LayerMask: ObjectDetectorFL2",
+            "LayerMask: ObjectDetectorMask",
+            "LayerMask: ObjectDetectorYOLO8",
+            "LayerMask: ObjectDetectorYOLOWorld",
             "LayerMask: PersonMaskUltra",
             "LayerMask: PersonMaskUltra V2",
             "LayerMask: PixelSpread",
             "LayerMask: RemBgUltra",
             "LayerMask: RmBgUltra V2",
+            "LayerMask: SAM2Ultra",
+            "LayerMask: SAM2VideoUltra",
             "LayerMask: SegformerB2ClothesUltra",
             "LayerMask: SegformerClothesPipelineLoader",
             "LayerMask: SegformerFashionPipelineLoader",
@@ -9970,6 +9990,7 @@
             "KSamplerVariationsStochastic+",
             "KSamplerVariationsWithNoise+",
             "LoadCLIPSegModels+",
+            "LorasForFluxParams+",
             "MaskBatch+",
             "MaskBlur+",
             "MaskBoundingBox+",
@@ -10743,6 +10764,9 @@
     ],
     "https://github.com/emojiiii/ComfyUI_Emojiiii_Custom_Nodes": [
         [
+            "BatchImageProcessor",
+            "Caption",
+            "CaptionDownload",
             "KolorsMultiTextEncode",
             "MultiTextEncode"
         ],
@@ -10783,6 +10807,7 @@
             "CM_IntToNumber",
             "CM_IntUnaryCondition",
             "CM_IntUnaryOperation",
+            "CM_NearestSDXLExtendedResolution",
             "CM_NearestSDXLResolution",
             "CM_NumberBinaryCondition",
             "CM_NumberBinaryOperation",
@@ -10790,6 +10815,7 @@
             "CM_NumberToInt",
             "CM_NumberUnaryCondition",
             "CM_NumberUnaryOperation",
+            "CM_SDXLExtendedResolution",
             "CM_SDXLResolution",
             "CM_Vec2BinaryCondition",
             "CM_Vec2BinaryOperation",
@@ -10978,6 +11004,7 @@
             "FL_FractalKSampler",
             "FL_GPT_Vision",
             "FL_Glitch",
+            "FL_GradGenerator",
             "FL_HFHubModelUploader",
             "FL_HF_Character",
             "FL_HalftonePattern",
@@ -11001,6 +11028,7 @@
             "FL_LoadImage",
             "FL_MirrorAndAppendCaptions",
             "FL_NFTGenerator",
+            "FL_OllamaCaptioner",
             "FL_PDFImageExtractor",
             "FL_PDFLoader",
             "FL_PDFMerger",
@@ -11017,6 +11045,7 @@
             "FL_Ripple",
             "FL_SDUltimate_Slices",
             "FL_SamplerStrings",
+            "FL_SaveAndDisplayImage",
             "FL_SaveCSV",
             "FL_SaveImages",
             "FL_SchedulerStrings",
@@ -11963,8 +11992,10 @@
     "https://github.com/hben35096/ComfyUI-ToolBox": [
         [
             "AutoDLDownload",
+            "CreatePaths",
             "FolderDeleter",
-            "FolderViewe"
+            "FolderViewe",
+            "PathOutput"
         ],
         {
             "title_aux": "ComfyUI-ToolBox"
@@ -14171,6 +14202,14 @@
             "title_aux": "LNL Frame Selector"
         }
     ],
+    "https://github.com/lazniak/Head-Orientation-Node-for-ComfyUI---by-PabloGFX": [
+        [
+            "HeadOrientationNode"
+        ],
+        {
+            "title_aux": "Head Orientation Node"
+        }
+    ],
     "https://github.com/leeguandong/ComfyUI_CrossImageAttention": [
         [
             "AppearanceTransferInference",
@@ -14533,6 +14572,7 @@
     ],
     "https://github.com/logtd/ComfyUI-ReNoise": [
         [
+            "ReNoiseModelSamplingPred",
             "ReNoiseSampler"
         ],
         {
@@ -15601,6 +15641,7 @@
     "https://github.com/mittimi/ComfyUI_mittimiLoadPreset": [
         [
             "LoadAndSettingParametersMittimi01",
+            "LoadAndSettingParametersMittimi02",
             "LoadPresetForSettingParametersMittimi01",
             "SettingParametersMittimi01"
         ],
@@ -16897,6 +16938,10 @@
             "FrequencyFilterCustom",
             "FrequencyFilterPreset",
             "GravityWell",
+            "ImageChunk",
+            "ImageDifference",
+            "ImageInterval",
+            "ImageShuffle",
             "MIDILoadAndExtract",
             "MaskMath",
             "MaskMorph",
@@ -16915,8 +16960,10 @@
             "ParticleSpeedModulation",
             "SpringJointSetting",
             "StaticBody",
+            "SwapDevice",
             "TextMaskNode",
             "TimeFeatureNode",
+            "VideoChunk",
             "Vortex",
             "_mfc"
         ],
@@ -18508,6 +18555,7 @@
     ],
     "https://github.com/un-seen/comfyui-tensorops": [
         [
+            "BackgroundSelect",
             "ChannelSelector",
             "DownloadAndLoadFlorence2Model",
             "FalDifferentialDiffusion",
@@ -19584,8 +19632,9 @@
     ],
     "https://github.com/yvann-ba/ComfyUI_Yvann-Nodes": [
         [
-            "Audio Analysis YVANN",
-            "Show Text YVANN"
+            "Audio Analysis | YVANN",
+            "Audio Frequency Analysis | YVANN",
+            "Show Text | YVANN"
         ],
         {
             "title_aux": "ComfyUI_Yvann-Nodes"
