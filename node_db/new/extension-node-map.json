@@ -745,6 +745,7 @@
     ],
     "https://github.com/APZmedia/ComfyUI-APZmedia-cleanName-from-string": [
         [
+            "APZmediaStandardFilenameBuilder",
             "CleanFileNameNode",
             "GenerateFilePathNode"
         ],
@@ -945,6 +946,7 @@
             "PIXEL SPLIT (JOV) \ud83d\udc94",
             "PIXEL SWAP (JOV) \ud83d\udd03",
             "QUEUE (JOV) \ud83d\uddc3",
+            "QUEUE TOO (JOV) \ud83d\uddc3",
             "ROUTE (JOV) \ud83d\ude8c",
             "SAVE OUTPUT (JOV) \ud83d\udcbe",
             "SHAPE GEN (JOV) \u2728",
@@ -1928,13 +1930,15 @@
     "https://github.com/Extraltodeus/Skimmed_CFG": [
         [
             "Skimmed CFG",
+            "Skimmed CFG - Clean Skim",
             "Skimmed CFG - Difference CFG",
+            "Skimmed CFG - Timed flip",
             "Skimmed CFG - linear interpolation",
             "Skimmed CFG - linear interpolation dual scales",
             "Skimmed CFG - replace"
         ],
         {
-            "title_aux": "Skimmed_CFG"
+            "title_aux": "DistanceSampler"
         }
     ],
     "https://github.com/Extraltodeus/Stable-Diffusion-temperature-settings": [
@@ -3773,7 +3777,7 @@
     "https://github.com/MakkiShizu/comfyui_reimgsize": [
         [
             "Cropimg",
-            "Resize"
+            "Reimgsize"
         ],
         {
             "title_aux": "comfyui_reimgsize"
@@ -4501,6 +4505,15 @@
             "title_aux": "pfaeff-comfyui"
         }
     ],
+    "https://github.com/Phando/ComfyUI-PhandoNodes": [
+        [
+            "SearchBySubstring",
+            "TextConcatenateDynamic"
+        ],
+        {
+            "title_aux": "ComfyUI-PhandoNodes"
+        }
+    ],
     "https://github.com/Pheat-AI/Remade_nodes": [
         [
             "Batch Image Blend by Mask"
@@ -4816,11 +4829,13 @@
             "MuseAudioFeatureExtractionNode",
             "MuseImageFeatureExtractionNode",
             "MuseTalkNode",
+            "ProcessAudioNode",
             "RVC-Studio.LoadAudio",
             "RVC-Studio.PreviewAudio",
             "RVCNode",
             "RVCProcessDatasetNode",
             "RVCTrainModelNode",
+            "RVCTrainParamsNode",
             "SimpleMathNode",
             "SliceNode",
             "SortImagesNode",
@@ -4867,11 +4882,21 @@
     ],
     "https://github.com/SeaArtLab/ComfyUI-Long-CLIP": [
         [
+            "LongCLIPTextEncodeFlux",
             "SeaArtLongClip",
             "SeaArtLongXLClipMerge"
         ],
         {
             "title_aux": "ComfyUI-Long-CLIP"
+        }
+    ],
+    "https://github.com/SeanScripts/ComfyUI-Unload-Model": [
+        [
+            "UnloadAllModels",
+            "UnloadModel"
+        ],
+        {
+            "title_aux": "ComfyUI-Unload-Model"
         }
     ],
     "https://github.com/SeargeDP/ComfyUI_Searge_LLM": [
@@ -5176,6 +5201,15 @@
             "title_aux": "ComfyUI-Image-Inpainting"
         }
     ],
+    "https://github.com/Shiba-2-shiba/ComfyUI_DiffusionModel_fp8_converter": [
+        [
+            "ClipFP8ConverterNode",
+            "ModelFP8ConverterNode"
+        ],
+        {
+            "title_aux": "ComfyUI_DiffusionModel_fp8_converter"
+        }
+    ],
     "https://github.com/Shiba-2-shiba/comfyui-color-ascii-art-node": [
         [
             "ASCIIArtNode",
@@ -5395,7 +5429,7 @@
             "DownloadAndLoadFlorence2Model_jsonL",
             "Florence2ModelLoader_jsonL",
             "Florence2Run_jsonL",
-            "Florence2Run_save_file_jsonL"
+            "batch_text_save_jsonL"
         ],
         {
             "title_aux": "ComfyUI-tagger"
@@ -5460,11 +5494,11 @@
     ],
     "https://github.com/Steudio/ComfyUI_Steudio": [
         [
-            "DynamicTileMerge",
-            "DynamicTileSplit",
             "Make Size",
             "Make Size Latent",
-            "TileCalc"
+            "Make Tile Calc",
+            "Make Tiles",
+            "Unmake Tiles"
         ],
         {
             "title_aux": "ComfyUI_Steudio"
@@ -6592,7 +6626,9 @@
             "CivitaiLoraLoaderStackedAdvanced",
             "LoraLoaderStackedAdvancedWithPreviews",
             "LoraLoaderStackedWithPreviews",
-            "LoraLoaderWithPreviews"
+            "LoraLoaderWithPreviews",
+            "XTNodesCleanPrompt",
+            "XTNodesPromptConcatenate"
         ],
         {
             "title_aux": "ComfyUI Easy Civitai (XTNodes)"
@@ -6600,6 +6636,7 @@
     ],
     "https://github.com/XLabs-AI/x-flux-comfyui": [
         [
+            "ApplyAdvancedFluxControlNet",
             "ApplyAdvancedFluxIPAdapter",
             "ApplyFluxControlNet",
             "ApplyFluxIPAdapter",
@@ -8127,6 +8164,7 @@
             "Get Contour from list",
             "Get Models",
             "Get Prompt",
+            "Hue Mode (InRange hsv)",
             "HypernetworkLoader (dirty)",
             "ImageBatchToList",
             "InRange (hsv)",
@@ -9132,6 +9170,7 @@
             "LayerUtility: SwitchCase",
             "LayerUtility: TextBox",
             "LayerUtility: TextImage",
+            "LayerUtility: TextImage V2",
             "LayerUtility: TextJoin",
             "LayerUtility: XY to Percent"
         ],
@@ -10130,6 +10169,7 @@
             "FlexibleStringMergerNode",
             "GPT4MiniNode",
             "GPT4VisionNode",
+            "GeminiCustomVision",
             "Gpt4CustomVision",
             "Gpt4VisionCloner",
             "MedianOppositeColorNode",
@@ -11370,6 +11410,15 @@
             "title_aux": "ComfyUI_GMIC"
         }
     ],
+    "https://github.com/geocine/geocine-comfyui": [
+        [
+            "Image Scale (geocine)",
+            "Image Selector (geocine)"
+        ],
+        {
+            "title_aux": "geocine-comfyui"
+        }
+    ],
     "https://github.com/get-salt-AI/SaltAI": [
         [
             "SAIPrimitiveConverter",
@@ -12442,12 +12491,16 @@
     ],
     "https://github.com/ihmily/ComfyUI-Light-Tool": [
         [
+            "Light-Tool: AddBackground",
+            "Light-Tool: AddBackgroundV2",
             "Light-Tool: BoundingBoxCropping",
-            "Light-Tool: ChangeBackground",
             "Light-Tool: ImageMaskApply",
             "Light-Tool: ImageOverlay",
             "Light-Tool: ImageToMask",
             "Light-Tool: InvertMask",
+            "Light-Tool: IsTransparent",
+            "Light-Tool: LoadImage",
+            "Light-Tool: LoadImageFromURL",
             "Light-Tool: MaskBoundingBoxCropping",
             "Light-Tool: MaskImageToTransparent",
             "Light-Tool: MaskToImage"
@@ -12717,6 +12770,7 @@
             "Evaluate Ints JK",
             "Evaluate Strings JK",
             "HintImageEnchance JK",
+            "Image Remove Alpha JK",
             "Image Upscale Parameters Extract JK",
             "Ksampler Parameters JK",
             "Latent Upscale Parameters Extract JK",
@@ -14330,6 +14384,7 @@
             "TclExtractFramesFromVideo",
             "TclExtractFramesFromVideoFile",
             "TclFrames2Video",
+            "TclFresco",
             "TclLoraGenDatasets",
             "TclLoraSaveImages",
             "TclLoraTraining",
@@ -14474,7 +14529,11 @@
         [
             "Base64ToImage",
             "Base64ToMask",
+            "BboxToBbox",
+            "BboxToCropData",
+            "BboxesToBboxes",
             "ColorPicker",
+            "CropImageByBbox",
             "GetImageBatchSize",
             "ImageEqual",
             "ImageToBase64",
@@ -14484,14 +14543,18 @@
             "IntToNumber",
             "JoinList",
             "ListMerge",
+            "ListWrapper",
             "LoadImageFromURL",
             "LoadImageToBase64",
             "LoadMaskFromURL",
+            "MaskByBboxes",
             "MaskImageToBase64",
             "MaskToBase64",
             "MaskToBase64Image",
             "SDBaseVerNumber",
             "SamAutoMaskSEGS",
+            "SelectBbox",
+            "SelectBboxes",
             "ShowBoolean",
             "ShowFloat",
             "ShowInt",
@@ -15109,14 +15172,18 @@
             "LF_ImageClassifier",
             "LF_ImageHistogram",
             "LF_ImageResizeByEdge",
+            "LF_LLMChat",
             "LF_LoadImages",
             "LF_LoadLocalJSON",
             "LF_Lora2Prompt",
             "LF_LoraTag2Prompt",
             "LF_MultipleImageResizeForWeb",
             "LF_SequentialSeedsGenerator",
+            "LF_SetValueInJSON",
             "LF_Something2Number",
             "LF_Something2String",
+            "LF_String",
+            "LF_StringToJSON",
             "LF_SwitchImage",
             "LF_SwitchInteger",
             "LF_SwitchJSON",
@@ -16909,6 +16976,7 @@
             "DownloadOpenUnmixModel",
             "DyeImage",
             "EmitterMovement",
+            "FeatureFade",
             "FeatureMath",
             "FeatureMixer",
             "FeatureOscillator",
@@ -16926,6 +16994,8 @@
             "FlexImagePosterize",
             "FlexImageTiltShift",
             "FlexMaskBinary",
+            "FlexMaskDepthChamber",
+            "FlexMaskDepthChamberRelative",
             "FlexMaskEmanatingRings",
             "FlexMaskMath",
             "FlexMaskMorph",
@@ -17239,6 +17309,7 @@
     "https://github.com/shiimizu/ComfyUI-TiledDiffusion": [
         [
             "NoiseInversion",
+            "SpotDiffusionParams_TiledDiffusion",
             "TiledDiffusion",
             "VAEDecodeTiled_TiledDiffusion",
             "VAEEncodeTiled_TiledDiffusion"
@@ -19728,6 +19799,7 @@
             "LoadImageWithoutListDir",
             "MaskAutoSelector",
             "MaskFastGrow",
+            "MaskFromFaceModel",
             "MatchImageRatioToPreset",
             "ModifyTextGender",
             "SplitMask",
