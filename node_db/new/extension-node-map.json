@@ -810,6 +810,7 @@
             "IntToStringAdvanced-badger",
             "LoadImageAdvanced-badger",
             "LoadImagesFromDirListAdvanced-badger",
+            "NormalizationNumber-badger",
             "RotateImageWithPadding",
             "SegmentToMaskByPoint-badger",
             "SimpleBoolean-badger",
@@ -1895,6 +1896,16 @@
             "title_aux": "ComfyUI_VisualStylePrompting"
         }
     ],
+    "https://github.com/ExterminanzHS/Gecco-Discord-Autosend": [
+        [
+            "GeccoAutosend",
+            "GeccoImageSave",
+            "GeccoSelectchannel"
+        ],
+        {
+            "title_aux": "Gecco Discord Autosend"
+        }
+    ],
     "https://github.com/Extraltodeus/ComfyUI-AutomaticCFG": [
         [
             "Automatic CFG",
@@ -2658,6 +2669,15 @@
         ],
         {
             "title_aux": "AuraSR-ComfyUI"
+        }
+    ],
+    "https://github.com/GrenKain/PixelArt-Processing-Nodes-for-ComfyUI": [
+        [
+            "PixelArtDownscaleNode",
+            "PixelArtNode"
+        ],
+        {
+            "title_aux": "PixelArt Processing Nodes for ComfyUI"
         }
     ],
     "https://github.com/Guillaume-Fgt/ComfyUI_StableCascadeLatentRatio": [
@@ -4045,6 +4065,14 @@
         ],
         {
             "title_aux": "Node Pack mostly for manipulating strings and integers"
+        }
+    ],
+    "https://github.com/MoonHugo/ComfyUI-BiRefNet-Hugo": [
+        [
+            "BiRefNet_Hugo"
+        ],
+        {
+            "title_aux": "ComfyUI-BiRefNet-Hugo"
         }
     ],
     "https://github.com/MrForExample/ComfyUI-3D-Pack": [
@@ -6163,6 +6191,14 @@
             "nodename_pattern": "^ttN ",
             "title": "tinyterraNodes",
             "title_aux": "ComfyUI_tinyterraNodes"
+        }
+    ],
+    "https://github.com/Trgtuan10/ComfyUI_YoloSegment_Mask": [
+        [
+            "Object Mask"
+        ],
+        {
+            "title_aux": "ComfyUI_YoloSegment_Mask"
         }
     ],
     "https://github.com/TripleHeadedMonkey/ComfyUI_MileHighStyler": [
@@ -9039,11 +9075,13 @@
             "LayerFilter: WaterColor",
             "LayerMask: BBoxJoin",
             "LayerMask: BiRefNetUltra",
+            "LayerMask: BiRefNetUltraV2",
             "LayerMask: BlendIf Mask",
             "LayerMask: CreateGradientMask",
             "LayerMask: EVFSAMUltra",
             "LayerMask: Florence2Ultra",
             "LayerMask: ImageToMask",
+            "LayerMask: LoadBiRefNetModel",
             "LayerMask: LoadFlorence2Model",
             "LayerMask: MaskBoxDetect",
             "LayerMask: MaskByColor",
@@ -9617,6 +9655,7 @@
             "LoadLatent",
             "LoraLoader",
             "LoraLoaderModelOnly",
+            "LoraSave",
             "MaskComposite",
             "MaskToImage",
             "ModelMergeAdd",
@@ -10817,7 +10856,7 @@
     "https://github.com/erosDiffusion/ComfyUI-enricos-nodes": [
         [
             "Compositor",
-            "EnricosCompositor"
+            "CompositorConfig"
         ],
         {
             "title_aux": "Compositor Node"
@@ -11786,20 +11825,32 @@
     ],
     "https://github.com/griptape-ai/ComfyUI-Griptape": [
         [
-            "Griptape Agent Config: Amazon Bedrock",
-            "Griptape Agent Config: Anthropic",
-            "Griptape Agent Config: Azure OpenAI",
+            "Griptape Agent Config: Amazon Bedrock Drivers",
+            "Griptape Agent Config: Amazon Bedrock [DEPRICATED]",
+            "Griptape Agent Config: Anthropic Drivers",
+            "Griptape Agent Config: Anthropic [DEPRICATED]",
+            "Griptape Agent Config: Azure OpenAI Drivers",
+            "Griptape Agent Config: Azure OpenAI [DEPRICATED]",
+            "Griptape Agent Config: Cohere Drivers",
             "Griptape Agent Config: Custom Structure",
             "Griptape Agent Config: Environment Variables",
-            "Griptape Agent Config: Google",
-            "Griptape Agent Config: HuggingFace",
-            "Griptape Agent Config: LM Studio",
-            "Griptape Agent Config: Ollama",
-            "Griptape Agent Config: OpenAI",
-            "Griptape Agent Config: OpenAI Compatible",
+            "Griptape Agent Config: Expand",
+            "Griptape Agent Config: Google Drivers",
+            "Griptape Agent Config: Google [DEPRICATED]",
+            "Griptape Agent Config: HuggingFace Drivers",
+            "Griptape Agent Config: HuggingFace [DEPRICATED]",
+            "Griptape Agent Config: LM Studio Drivers",
+            "Griptape Agent Config: LM Studio [DEPRICATED]",
+            "Griptape Agent Config: Ollama Drivers",
+            "Griptape Agent Config: Ollama [DEPRICATED]",
+            "Griptape Agent Config: OpenAI Compatible Drivers",
+            "Griptape Agent Config: OpenAI Compatible [DEPRICATED]",
+            "Griptape Agent Config: OpenAI Drivers",
+            "Griptape Agent Config: OpenAI [DEPRICATED]",
             "Griptape Audio Transcription Driver: OpenAI",
             "Griptape Combine: Merge Inputs",
             "Griptape Combine: Merge Texts",
+            "Griptape Combine: RAG Module List",
             "Griptape Combine: Rules List",
             "Griptape Combine: Tool List",
             "Griptape Config: Environment Variables",
@@ -11822,6 +11873,7 @@
             "Griptape Driver: Amazon Bedrock Titan",
             "Griptape Driver: Azure OpenAI Image Generation",
             "Griptape Driver: Leonardo.AI",
+            "Griptape Driver: OpenAI Compatible Image Generation",
             "Griptape Driver: OpenAI Image Generation",
             "Griptape Embedding Driver: Amazon Bedrock Titan",
             "Griptape Embedding Driver: Amazon SageMaker Jumpstart",
@@ -11829,6 +11881,7 @@
             "Griptape Embedding Driver: Cohere",
             "Griptape Embedding Driver: Google",
             "Griptape Embedding Driver: HuggingFace",
+            "Griptape Embedding Driver: LM Studio",
             "Griptape Embedding Driver: Ollama",
             "Griptape Embedding Driver: OpenAI",
             "Griptape Embedding Driver: OpenAI Compatible",
@@ -11850,8 +11903,17 @@
             "Griptape Prompt Driver: Ollama",
             "Griptape Prompt Driver: OpenAI",
             "Griptape Prompt Driver: OpenAI Compatible",
+            "Griptape RAG Query: Translate Module",
+            "Griptape RAG Rerank: Text Chunks Module",
+            "Griptape RAG Response: Footnote Prompt Module",
+            "Griptape RAG Response: Prompt Module",
+            "Griptape RAG Response: Text Chunks Module",
+            "Griptape RAG Retrieve: Text Loader Module",
+            "Griptape RAG Retrieve: Vector Store Module",
+            "Griptape RAG: Engine",
             "Griptape Replace: Rulesets on Agent",
             "Griptape Replace: Tools on Agent",
+            "Griptape Rerank Driver: Cohere",
             "Griptape Run: Agent",
             "Griptape Run: Audio Transcription",
             "Griptape Run: Image Description",
@@ -11874,6 +11936,7 @@
             "Griptape Tool: Griptape Cloud KnowledgeBase",
             "Griptape Tool: Prompt Summary",
             "Griptape Tool: Query",
+            "Griptape Tool: RAG",
             "Griptape Tool: Text to Speech",
             "Griptape Tool: VectorStore",
             "Griptape Tool: WebScraper",
@@ -15164,14 +15227,17 @@
     "https://github.com/lucafoscili/comfyui-lf": [
         [
             "LF_BlurImages",
+            "LF_Boolean",
             "LF_CharacterImpersonator",
             "LF_ControlPanel",
             "LF_DisplayJSON",
+            "LF_Float",
             "LF_GetRandomKeyFromJSON",
             "LF_GetValueFromJSON",
             "LF_ImageClassifier",
             "LF_ImageHistogram",
             "LF_ImageResizeByEdge",
+            "LF_Integer",
             "LF_LLMChat",
             "LF_LoadImages",
             "LF_LoadLocalJSON",
@@ -15578,6 +15644,7 @@
     ],
     "https://github.com/miaoshouai/ComfyUI-Miaoshouai-Tagger": [
         [
+            "Miaoshouai_Flux_CLIPTextEncode",
             "Miaoshouai_SaveTags",
             "Miaoshouai_Tagger"
         ],
@@ -16990,6 +17057,7 @@
             "FlexImageEdgeDetect",
             "FlexImageGlitch",
             "FlexImageKaleidoscope",
+            "FlexImageParallax",
             "FlexImagePixelate",
             "FlexImagePosterize",
             "FlexImageTiltShift",
@@ -17592,6 +17660,16 @@
         ],
         {
             "title_aux": "ComfyUI_AnyDoor"
+        }
+    ],
+    "https://github.com/smthemex/ComfyUI_CSGO_Wrapper": [
+        [
+            "Blip_Loader",
+            "CSGO_Loader",
+            "CSGO_Sampler"
+        ],
+        {
+            "title_aux": "ComfyUI_CSGO_Wrapper"
         }
     ],
     "https://github.com/smthemex/ComfyUI_ChatGLM_API": [
@@ -18629,13 +18707,19 @@
             "BackgroundSelect",
             "ChannelSelector",
             "DownloadAndLoadFlorence2Model",
+            "DownloadAndLoadSAM2Model",
             "FalDifferentialDiffusion",
             "FalDiffusion",
             "FetchFromRedis",
             "FetchJsonFromSurreal",
             "Florence2Run",
+            "Florence2toCoordinates",
             "ForegroundMask",
             "MaskImage",
+            "Sam2AutoSegmentation",
+            "Sam2Segmentation",
+            "Sam2VideoSegmentation",
+            "Sam2VideoSegmentationAddPoints",
             "SaveImageToS3",
             "SaveJsonToSurreal",
             "SaveTextToSurreal",
@@ -19332,7 +19416,10 @@
             "OllamaImageToText",
             "OllamaPromptExtractor",
             "OllamaTextToText",
+            "PaliGemma3bCaptioner",
             "PromptExtractorNode",
+            "Qwen2VLCaption",
+            "Qwen2VLLocalCaption",
             "SD3LongCaptionerV2",
             "SDPromptAgent",
             "dwimage2"
