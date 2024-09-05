@@ -199,7 +199,7 @@ export class OpenArtShareDialog extends ComfyDialog {
       color: "white",
       style: {
         'text-align': 'center',
-        color: 'white',
+        color: 'var(--input-text)',
         margin: '0 0 10px 0',
       }
     });
@@ -733,7 +733,7 @@ export class OpenArtShareDialog extends ComfyDialog {
         size: 2,
         color: "white",
         style: {
-          color: 'white',
+          color: 'var(--input-text)',
           margin: '0 0 5px 0',
           fontSize: '12px',
         },

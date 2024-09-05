@@ -1095,7 +1095,7 @@ class ManagerMenuDialog extends ComfyDialog {
 						textContent: 'Workflow Gallery',
 						style: {
 							'text-align': 'center',
-							'color': 'white',
+							'color': 'var(--input-text)',
 							'font-size': '18px',
 							'margin': 0,
 							'padding': 0,
@@ -1106,7 +1106,7 @@ class ManagerMenuDialog extends ComfyDialog {
 							textContent: `(${localStorage.getItem("wg_last_visited") ? localStorage.getItem("wg_last_visited").split('/')[2] : ''})`,
 							style: {
 								'text-align': 'center',
-								'color': 'white',
+								'color': 'var(--input-text)',
 								'font-size': '12px',
 								'margin': 0,
 								'padding': 0,
