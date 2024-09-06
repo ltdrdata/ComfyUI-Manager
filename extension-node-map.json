@@ -2790,7 +2790,12 @@
     ],
     "https://github.com/Hellrunner2k/ComfyUI-HellrunnersMagicalNodes": [
         [
+            "AdjustMojo",
+            "LoadMaskMap",
             "MagicalSaveNode",
+            "MojoLoader",
+            "MojoMaker",
+            "SaveMojo",
             "ThermalLatenator"
         ],
         {
@@ -4189,7 +4194,7 @@
         ],
         {
             "author": "NakamuraShippo",
-            "description": "Custom node to manage prompts in YAML format.|YAML\u3067\u30d7\u30ed\u30f3\u30d7\u30c8\u3092\u7ba1\u7406\u3059\u308b\u30ce\u30fc\u30c9",
+            "description": "Custom node to manage prompts in YAML format.",
             "title": "ComfyUI-PromptList",
             "title_aux": "ComfyUI-PromptList"
         }
@@ -4535,7 +4540,10 @@
     ],
     "https://github.com/Pheat-AI/Remade_nodes": [
         [
-            "Batch Image Blend by Mask"
+            "Batch Enlarged Overlay",
+            "Batch Image Blend by Mask",
+            "Batch Image Overlay",
+            "Remove Black To Transparent"
         ],
         {
             "title_aux": "Remade_nodes"
@@ -6303,6 +6311,37 @@
         ],
         {
             "title_aux": "ComfyUI-Visionatrix"
+        }
+    ],
+    "https://github.com/VykosX/ControlFlowUtils": [
+        [
+            "CheckpointSelector",
+            "Cycle",
+            "CycleContinue",
+            "CycleEnd",
+            "DataMonitor",
+            "FallbackImagePreviewer",
+            "FolderSearch",
+            "GarbageCollector",
+            "HaltExecution",
+            "IfConditionSelector",
+            "ImageResolutionAdjust",
+            "InvertCondition",
+            "LoraSelector",
+            "MemoryStorage",
+            "NullInput",
+            "NullOutput",
+            "ReadTextFile",
+            "SaveTextFile",
+            "SimpleToggle",
+            "StringOperation",
+            "UniversalSwitch",
+            "UnloadModels",
+            "VAESelector",
+            "Wait"
+        ],
+        {
+            "title_aux": "ControlFlowUtils"
         }
     ],
     "https://github.com/WASasquatch/ASTERR": [
@@ -10192,7 +10231,6 @@
         [
             "APNLatent",
             "ApplyBloom",
-            "CFGSkimming",
             "CustomPromptLoader",
             "DynamicStringCombinerNode",
             "FileReaderNode",
@@ -12111,7 +12149,6 @@
             "AmapWeatherTool",
             "CLIPTextEncode_party",
             "ChatTTS_Node",
-            "CosyVoice",
             "Dingding",
             "Dingding_tool",
             "FeishuDownloadAudio",
@@ -14581,7 +14618,7 @@
     ],
     "https://github.com/lldacing/ComfyUI_BiRefNet_ll": [
         [
-            "LoadBiRefNetModelByName",
+            "AutoDownloadBiRefNetModel",
             "LoadRembgByBiRefNetModel",
             "RembgByBiRefNet"
         ],
@@ -15245,6 +15282,7 @@
             "LF_Lora2Prompt",
             "LF_LoraTag2Prompt",
             "LF_MultipleImageResizeForWeb",
+            "LF_RandomBoolean",
             "LF_SequentialSeedsGenerator",
             "LF_SetValueInJSON",
             "LF_Something2Number",
@@ -15255,6 +15293,7 @@
             "LF_SwitchInteger",
             "LF_SwitchJSON",
             "LF_SwitchString",
+            "LF_UrandomSeedGenerator",
             "LF_WallOfText",
             "LF_WorkflowSettings",
             "LF_WriteJSON"
@@ -15386,6 +15425,7 @@
             "ServingMultiImageOutput",
             "ServingOutput",
             "ServingTextOutput",
+            "TelegramServing",
             "WebSocketServing"
         ],
         {
@@ -18200,7 +18240,9 @@
         [
             "FoxBatchImageFromList",
             "FoxChineseCLIPEncode",
+            "FoxColorCorrect",
             "FoxColorMatch",
+            "FoxColorTint",
             "FoxCreateBlurBord",
             "FoxCreateFaceMask",
             "FoxFaceAlign",
@@ -18218,6 +18260,7 @@
             "FoxGetImageScaleBySize",
             "FoxGrowMaskWithBlur",
             "FoxImageAdd",
+            "FoxImageBlendingMode",
             "FoxImageConcanate",
             "FoxImageExtractFromBatch",
             "FoxImageResizeBySpecialSide",
@@ -18226,6 +18269,7 @@
             "FoxImageTileBatch",
             "FoxLoadImageList",
             "FoxLoadImagePlus",
+            "FoxLoraLoaderPlus",
             "FoxMaskAddMask",
             "FoxMaskAndMask",
             "FoxMaskSubMask",
@@ -18235,6 +18279,7 @@
             "FoxRegTextFind",
             "FoxSDXLPromptStyler",
             "FoxSDXLPromptStylerAdvanced",
+            "FoxSDXLPromptStylerByName",
             "FoxSaveImagePlus",
             "FoxSelectFace",
             "FoxShowText",
@@ -19481,6 +19526,7 @@
             "easy controlnetLoaderADV",
             "easy controlnetNames",
             "easy controlnetStack",
+            "easy controlnetStackApply",
             "easy convertAnything",
             "easy detailerFix",
             "easy dynamiCrafterLoader",
@@ -19552,6 +19598,7 @@
             "easy latentNoisy",
             "easy loadImageBase64",
             "easy loraStack",
+            "easy loraStackApply",
             "easy mathFloat",
             "easy mathInt",
             "easy mathString",
@@ -19801,9 +19848,9 @@
     ],
     "https://github.com/yvann-ba/ComfyUI_Yvann-Nodes": [
         [
-            "Audio Analysis | YVANN",
+            "Audio Analysis Advanced | YVANN",
             "Audio Frequency Analysis | YVANN",
-            "Show Text | YVANN"
+            "Audio Reactive IPAdapter | YVANN"
         ],
         {
             "title_aux": "ComfyUI_Yvann-Nodes"
@@ -19896,6 +19943,7 @@
             "LoadImageWithSwitch",
             "LoadImageWithoutListDir",
             "MaskAutoSelector",
+            "MaskCoverFourCorners",
             "MaskFastGrow",
             "MaskFromFaceModel",
             "MatchImageRatioToPreset",
