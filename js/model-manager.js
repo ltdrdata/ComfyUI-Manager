@@ -235,7 +235,7 @@ const pageHtml = `
 <div class="cmm-manager-selection"></div>
 <div class="cmm-manager-message"></div>
 <div class="cmm-manager-footer">
-	<button class="cmm-manager-close">Close</button>
+	<button class="cmm-manager-back">Back</button>
 	<div class="cmm-flex-auto"></div>
 </div>
 `;
@@ -365,10 +365,12 @@ export class ModelManager {
 				}
 			},
 
-			".cmm-manager-close": {
-				click: (e) => this.close()
+			".cmm-manager-back": {
+				click: (e) => {
+				    this.close()
+				    manager_instance.show();
+				}
 			},
-
 		};
 		Object.keys(eventsMap).forEach(selector => {
 			const target = this.element.querySelector(selector);

@@ -325,7 +325,7 @@ const pageHtml = `
 <div class="cn-manager-selection"></div>
 <div class="cn-manager-message"></div>
 <div class="cn-manager-footer">
-	<button class="cn-manager-close">Close</button>
+	<button class="cn-manager-back">◀ Back</button>
 	<button class="cn-manager-restart">Restart</button>
 	<div class="cn-flex-auto"></div>
 	<button class="cn-manager-check-update">Check Update</button>
@@ -720,8 +720,11 @@ export class CustomNodesManager {
 				}
 			},
 
-			".cn-manager-close": {
-				click: (e) => this.close()
+			".cn-manager-back": {
+				click: (e) => {
+				    this.close()
+				    manager_instance.show();
+				}
 			},
 
 			".cn-manager-restart": {
