@@ -940,6 +940,8 @@
             "FLATTEN (JOV) \u2b07\ufe0f",
             "GLSL (JOV) \ud83c\udf69",
             "GLSL BLEND LINEAR (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL CONICAL GRADIENT (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL DIRECTIONAL WARP (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL GRAYSCALE (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL HSV-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL HSV-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
@@ -948,9 +950,11 @@
             "GLSL LAB-2-XYZ (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL NORMAL (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL NORMAL BLEND (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL POSTERIZE (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL RGB-2-HSV (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL RGB-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL RGB-2-XYZ (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL TRANSFORM (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL XYZ-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL XYZ-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
             "GRADIENT MAP (JOV) \ud83c\uddf2\ud83c\uddfa",
@@ -7355,12 +7359,14 @@
         [
             "AK_AdjustListSize",
             "AK_AnimatedDilationMaskLinear",
+            "AK_AudioFramesyncSchedule",
             "AK_AudioreactiveDilationMask",
             "AK_AudioreactiveDynamicDilationMask",
             "AK_BinaryAmplitudeGate",
             "AK_ConvertAudioToSaltAudio",
             "AK_ConvertListToFloatList",
             "AK_ConvertSaltAudioToAudio",
+            "AK_DilateMaskLinearInfinite",
             "AK_IPAdapterCustomWeights",
             "AK_LagChop",
             "AK_ListToNumpyFloatArray",
@@ -7481,6 +7487,17 @@
             "nickname": "alexgenovese",
             "title": "Huggingface Api Serverless",
             "title_aux": "Huggingface Api Serverless"
+        }
+    ],
+    "https://github.com/alexisrolland/ComfyUI-Phi": [
+        [
+            "DownloadAndLoadPhi",
+            "DownloadAndLoadPhiVision",
+            "RunPhi",
+            "RunPhiVision"
+        ],
+        {
+            "title_aux": "ComfyUI-Phi"
         }
     ],
     "https://github.com/alexopus/ComfyUI-Image-Saver": [
@@ -12301,6 +12318,7 @@
             "text2json",
             "text2parameters",
             "text_iterator",
+            "text_writing",
             "time_tool",
             "tool_combine",
             "tool_combine_plus",
