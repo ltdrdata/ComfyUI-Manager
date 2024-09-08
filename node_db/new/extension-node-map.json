@@ -556,6 +556,18 @@
             "title_aux": "DiffMorpher-ComfyUI"
         }
     ],
+    "https://github.com/AIFSH/DiffSynth-ComfyUI": [
+        [
+            "CogVideoNode",
+            "DownloadModelsNode",
+            "LoadVideo",
+            "PreViewVideo",
+            "TextEncode"
+        ],
+        {
+            "title_aux": "DiffSynth-ComfyUI"
+        }
+    ],
     "https://github.com/AIFSH/FancyVideo-ComfyUI": [
         [
             "FancyVideoNode",
@@ -583,6 +595,14 @@
         ],
         {
             "title_aux": "GSTTS-ComfyUI"
+        }
+    ],
+    "https://github.com/AIFSH/HivisionIDPhotos-ComfyUI": [
+        [
+            "HivisionNode"
+        ],
+        {
+            "title_aux": "HivisionIDPhotos-ComfyUI"
         }
     ],
     "https://github.com/AIFSH/SenseVoice-ComfyUI": [
@@ -1897,6 +1917,16 @@
             "title_aux": "Gecco Discord Autosend"
         }
     ],
+    "https://github.com/Extraltodeus/CLIP-Token-Injection": [
+        [
+            "CLIP load custom tokens",
+            "CLIP save custom tokens",
+            "CLIP token injection"
+        ],
+        {
+            "title_aux": "CLIP-Token-Injection"
+        }
+    ],
     "https://github.com/Extraltodeus/ComfyUI-AutomaticCFG": [
         [
             "Automatic CFG",
@@ -2927,7 +2957,9 @@
     "https://github.com/Isi-dev/ComfyUI-UniAnimate-W": [
         [
             "Gen_align_pose",
-            "UniAnimateImage"
+            "ReposeImage",
+            "UniAnimateImage",
+            "UniAnimateImageLong"
         ],
         {
             "title_aux": "UniAnimate Nodes for ComfyUI"
@@ -4664,7 +4696,7 @@
             "LatteVideoGenerator"
         ],
         {
-            "title_aux": "ComfyUI-Latte"
+            "title_aux": "ComfyUI-CLIPSlider"
         }
     ],
     "https://github.com/RodrigoSKohl/ComfyUI-Panoramic-ImgStitcher": [
@@ -6315,7 +6347,6 @@
     ],
     "https://github.com/VykosX/ControlFlowUtils": [
         [
-            "CheckpointSelector",
             "Cycle",
             "CycleContinue",
             "CycleEnd",
@@ -6329,6 +6360,7 @@
             "InvertCondition",
             "LoraSelector",
             "MemoryStorage",
+            "ModelSelector",
             "NullInput",
             "NullOutput",
             "ReadTextFile",
@@ -8052,7 +8084,9 @@
     ],
     "https://github.com/blackcodetavern/ComfyUI-Benripack": [
         [
-            "CharacterPipe"
+            "AnimationExtractor",
+            "CharacterPipe",
+            "Load3DModel"
         ],
         {
             "title_aux": "ComfyUI-Benripack"
@@ -10063,8 +10097,11 @@
             "ConditioningCombineMultiple+",
             "ConsoleDebug+",
             "DebugTensorShape+",
+            "DisplayAny",
             "DrawText+",
             "ExtractKeyframes+",
+            "FluxAttentionSeeker+",
+            "FluxBlocksBuster+",
             "FluxSamplerParams+",
             "GetImageSize+",
             "ImageApplyLUT+",
@@ -10118,6 +10155,8 @@
             "PlotParameters+",
             "RemBGSession+",
             "RemoveLatentMask+",
+            "SD3AttentionSeekerLG+",
+            "SD3AttentionSeekerT5+",
             "SD3NegativeConditioning+",
             "SDXLEmptyLatentSizePicker+",
             "SamplerSelectHelper+",
@@ -11480,8 +11519,9 @@
     ],
     "https://github.com/geocine/geocine-comfyui": [
         [
-            "Image Scale (geocine)",
-            "Image Selector (geocine)"
+            "Image Scale",
+            "Image Selector",
+            "Seed to Noise"
         ],
         {
             "title_aux": "geocine-comfyui"
@@ -15279,9 +15319,11 @@
             "LF_ImageHistogram",
             "LF_ImageResizeByEdge",
             "LF_Integer",
+            "LF_KeywordCounter",
             "LF_LLMChat",
             "LF_LoadImages",
             "LF_LoadLocalJSON",
+            "LF_LoadMetadata",
             "LF_Lora2Prompt",
             "LF_LoraTag2Prompt",
             "LF_MultipleImageResizeForWeb",
@@ -17186,6 +17228,8 @@
         [
             "FlipStreamLoader",
             "FlipStreamOption",
+            "FlipStreamSetMode",
+            "FlipStreamSwitchVFI",
             "FlipStreamUpdate",
             "FlipStreamViewer"
         ],
@@ -17747,6 +17791,15 @@
             "title_aux": "ComfyUI_CustomNet"
         }
     ],
+    "https://github.com/smthemex/ComfyUI_DeepFakeDefenders": [
+        [
+            "DeepFakeDefender_Loader",
+            "DeepFakeDefender_Sampler"
+        ],
+        {
+            "title_aux": "ComfyUI_DeepFakeDefenders"
+        }
+    ],
     "https://github.com/smthemex/ComfyUI_Diffree": [
         [
             "Diffree_Model_Loader",
@@ -18248,6 +18301,7 @@
             "FoxColorTint",
             "FoxCreateBlurBord",
             "FoxCreateFaceMask",
+            "FoxDepth2Mask",
             "FoxFaceAlign",
             "FoxFaceAlignCacul",
             "FoxFaceAlignSimple",
@@ -19851,9 +19905,9 @@
     ],
     "https://github.com/yvann-ba/ComfyUI_Yvann-Nodes": [
         [
-            "Audio Analysis Advanced | YVANN",
-            "Audio Frequency Analysis | YVANN",
-            "Audio Reactive IPAdapter | YVANN"
+            "Audio Analysis | Yvann",
+            "Audio Drums Analysis | Yvann",
+            "Audio Vocals Analysis | Yvann"
         ],
         {
             "title_aux": "ComfyUI_Yvann-Nodes"
