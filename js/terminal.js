@@ -9,11 +9,13 @@ app.registerExtension({
 	name: "Comfy.Manager.Terminal",
 
 	registerCustomNodes() {
-		class TerminalNode {
+		class TerminalNode extends LiteGraph.LGraphNode {
 			color = "#222222";
 			bgcolor = "#000000";
 			groupcolor = LGraphCanvas.node_colors.black.groupcolor;
 			constructor() {
+				super();
+				this.title = "Terminal Log (Manager)";
 				this.logs = [];
 
 				if (!this.properties) {
