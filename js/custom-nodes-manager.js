@@ -338,6 +338,7 @@ const ShowMode = {
 	NORMAL: "Normal",
 	UPDATE: "Update",
 	MISSING: "Missing",
+	FAVORITES: "Favorites",
 	ALTERNATIVES: "Alternatives"
 };
 
@@ -553,6 +554,10 @@ export class CustomNodesManager {
 			value: ShowMode.MISSING,
 			hasData: false
 		}, {
+			label: "Favorites",
+			value: ShowMode.FAVORITES,
+			hasData: false
+		}, {
 			label: "Alternatives of A1111",
 			value: ShowMode.ALTERNATIVES,
 			hasData: false
@@ -633,7 +638,7 @@ export class CustomNodesManager {
 		}
 
 		if (rowItem?.title === "ComfyUI-Manager") {
-			installGroups.enabled = installGroups.enabled.filter(it => it !== "disable");
+			installGroups.enabled = installGroups.enabled.filter(it => it !== "disable" && it !== "uninstall" && it !== "switch");
 		}
 
 		let list = installGroups[action];
@@ -1461,8 +1466,18 @@ export class CustomNodesManager {
 		return hashMap;
 	}
 
-	async getAlternatives() {
+	async getFavorites() {
+		const hashMap = {};
+		for(let k in this.custom_nodes) {
+			let item = this.custom_nodes[k];
+			if(item.is_favorite)
+			    hashMap[item.hash] = true;
+		}
 
+		return hashMap;
+	}
+
+	async getAlternatives() {
 		const mode = manager_instance.datasrc_combo.value;
 		this.showStatus(`Loading alternatives (${mode}) ...`);
 		const res = await fetchData(`/customnode/alternatives?mode=${mode}`);
@@ -1545,6 +1560,8 @@ export class CustomNodesManager {
 				hashMap = await this.getMissingNodes();
 			} else if(this.show_mode == ShowMode.ALTERNATIVES) {
 				hashMap = await this.getAlternatives();
+			} else if(this.show_mode == ShowMode.FAVORITES) {
+				hashMap = await this.getFavorites();
 			}
 			filterItem.hashMap = hashMap;
 			filterItem.hasData = true;

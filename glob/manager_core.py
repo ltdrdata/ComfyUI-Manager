@@ -2592,6 +2592,15 @@ def populate_github_stats(node_packs, json_obj_github):
             v['trust'] = False
 
 
+def populate_favorites(node_packs, json_obj_extras):
+    favorites = set(json_obj_extras['favorites'])
+
+    for k, v in node_packs.items():
+        if v.get('version') != 'unknown':
+            if k in favorites:
+                v['is_favorite'] = True
+
+
 async def restore_snapshot(snapshot_path, git_helper_extras=None):
     cloned_repos = []
     checkout_repos = []

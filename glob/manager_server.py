@@ -513,8 +513,11 @@ async def fetch_customnode_list(request):
         channel = core.get_config()['channel_url']
 
     node_packs = await core.get_unified_total_nodes(channel, request.rel_url.query["mode"])
-    json_obj_github = await core.get_data_by_mode(request.rel_url.query["mode"], 'github-stats.json', 'default')
-    core.populate_github_stats(node_packs, json_obj_github)
+    json_obj_github = core.get_data_by_mode(request.rel_url.query["mode"], 'github-stats.json', 'default')
+    json_obj_extras = core.get_data_by_mode(request.rel_url.query["mode"], 'extras.json', 'default')
+
+    core.populate_github_stats(node_packs, await json_obj_github)
+    core.populate_favorites(node_packs, await json_obj_extras)
 
     check_state_of_git_node_pack(node_packs, False, do_update_check=not skip_update)
 
