@@ -780,13 +780,9 @@ export class CustomNodesManager {
 		
 		let prevViewRowsLength = -1;
 		grid.bind('onUpdated', (e, d) => {
-
 			const viewRows = grid.viewRows;
-			if (viewRows.length !== prevViewRowsLength) {
-				prevViewRowsLength = viewRows.length;
-				this.showStatus(`${prevViewRowsLength.toLocaleString()} custom nodes`);
-			}
-
+            prevViewRowsLength = viewRows.length;
+            this.showStatus(`${prevViewRowsLength.toLocaleString()} custom nodes`);
 		});
 
 		grid.bind('onSelectChanged', (e, changes) => {

@@ -1499,7 +1499,6 @@ app.registerExtension({
 
 		try {
 			// new style Manager buttons
-
 			// unload models button into new style Manager button
 			let cmGroup = new (await import("../../scripts/ui/components/buttonGroup.js")).ComfyButtonGroup(
 				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
@@ -1512,6 +1511,19 @@ app.registerExtension({
 					tooltip: "ComfyUI Manager",
 					content: "Manager",
 					classList: "comfyui-button comfyui-menu-mobile-collapse primary"
+				}).element,
+				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+					icon: "star",
+					action: () => {
+						if(!manager_instance)
+							setManagerInstance(new ManagerMenuDialog());
+
+                        if(!CustomNodesManager.instance) {
+                            CustomNodesManager.instance = new CustomNodesManager(app, self);
+                        }
+                        CustomNodesManager.instance.show(CustomNodesManager.ShowMode.FAVORITES);
+					},
+					tooltip: "Show favorite custom node list"
 				}).element,
 				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
 					icon: "vacuum-outline",
