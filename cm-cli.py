@@ -109,7 +109,7 @@ class Ctx:
             install_script_path = os.path.join(repo_path, 'install.py')
 
             if os.path.exists(requirements_path):
-                with (open(requirements_path, 'r', encoding="UTF-8", errors="ignore") as file):
+                with open(requirements_path, 'r', encoding="UTF-8", errors="ignore") as file:
                     for line in file:
                         package_name = core.remap_pip_package(line.strip())
                         if package_name and not core.is_installed(package_name):
