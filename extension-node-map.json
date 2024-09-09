@@ -940,23 +940,16 @@
             "FLATTEN (JOV) \u2b07\ufe0f",
             "GLSL (JOV) \ud83c\udf69",
             "GLSL BLEND LINEAR (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL COLOR CONVERSION (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL COLOR PALETTE (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL CONICAL GRADIENT (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL DIRECTIONAL WARP (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL GRAYSCALE (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL HSV-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL HSV-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL LAB-2-HSV (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL LAB-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL LAB-2-XYZ (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL HSV ADJUST (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL NORMAL (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL NORMAL BLEND (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL POSTERIZE (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL RGB-2-HSV (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL RGB-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL RGB-2-XYZ (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL TRANSFORM (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL XYZ-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL XYZ-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
             "GRADIENT MAP (JOV) \ud83c\uddf2\ud83c\uddfa",
             "GRAPH (JOV) \ud83d\udcc8",
             "IMAGE INFO (JOV) \ud83d\udcda",
@@ -4579,6 +4572,7 @@
             "Batch Enlarged Overlay",
             "Batch Image Blend by Mask",
             "Batch Image Overlay",
+            "Canny Shrink Recenter",
             "Remove Black To Transparent"
         ],
         {
@@ -5531,6 +5525,8 @@
             "CXH_Florence2Run",
             "CXH_HG_Model_Load",
             "CXH_Min2_6_prompt_Run",
+            "CXH_MinCP3_4B_Chat",
+            "CXH_MinCP3_4B_Load",
             "Joy_caption",
             "Joy_caption_load"
         ],
@@ -7474,6 +7470,14 @@
             "title_aux": "OpenPose Node"
         }
     ],
+    "https://github.com/alexcong/ComfyUI_QwenVL": [
+        [
+            "Qwen2VL"
+        ],
+        {
+            "title_aux": "Qwen2-VL wrapper for ComfyUI"
+        }
+    ],
     "https://github.com/alexgenovese/ComfyUI_HF_Servelress_Inference": [
         [
             "HF_QuestionAnswer",
@@ -7908,6 +7912,7 @@
             "CivitaiPrompts",
             "FaceScatter",
             "FaceScatter2",
+            "FluxInspireLbwBatch",
             "GodnessMerger_Apply",
             "GodnessMerger_InputBlocks",
             "GodnessMerger_InputBlocksExperimental",
@@ -7923,6 +7928,7 @@
             "ImageMonitor",
             "ImgMetaValueExtractor",
             "LoraLoaderByPath",
+            "LoraLoaderFromFolder",
             "LoraLoaderOnlyModelByPath",
             "PreviewImageWEBP",
             "PromptChecker",
@@ -9023,6 +9029,7 @@
             "chaosaiart_Any_Switch",
             "chaosaiart_Any_Switch_Big_Number",
             "chaosaiart_Any_Switch_small",
+            "chaosaiart_AutoNone_Switch_small",
             "chaosaiart_CheckpointLoader",
             "chaosaiart_CheckpointPrompt",
             "chaosaiart_CheckpointPrompt2",
@@ -10455,6 +10462,18 @@
             "nickname": "ComfyUI-JDCN",
             "title": "ComfyUI-JDCN",
             "title_aux": "ComfyUI-JDCN"
+        }
+    ],
+    "https://github.com/daxcay/ComfyUI-WA": [
+        [
+            "WA_ImageSaver"
+        ],
+        {
+            "author": "Daxton Caylor",
+            "description": "This node enables someone to run any nodejs application alongside comfyui.",
+            "nickname": "ComfyUI-WA",
+            "title": "ComfyUI-WA",
+            "title_aux": "ComfyUI-WA"
         }
     ],
     "https://github.com/daxthin/DZ-FaceDetailer": [
@@ -12114,6 +12133,7 @@
             "ACE_ImageFaceCrop",
             "ACE_ImageGetSize",
             "ACE_ImageLoadFromCloud",
+            "ACE_ImagePixelate",
             "ACE_ImageQA",
             "ACE_ImageRemoveBackground",
             "ACE_ImageSaveToCloud",
@@ -13398,6 +13418,7 @@
     ],
     "https://github.com/justUmen/Bjornulf_custom_nodes": [
         [
+            "Bjornulf_CharacterDescriptionGenerator",
             "Bjornulf_CheckBlackImage",
             "Bjornulf_ClearVRAM",
             "Bjornulf_CombineBackgroundOverlay",
@@ -13429,6 +13450,7 @@
             "Bjornulf_ShowFloat",
             "Bjornulf_ShowInt",
             "Bjornulf_ShowText",
+            "Bjornulf_TextToSpeech",
             "Bjornulf_TextToStringAndSeed",
             "Bjornulf_VideoPingPong",
             "Bjornulf_WriteImageAllInOne",
@@ -13837,6 +13859,7 @@
         [
             "ExtractFluxLoRA",
             "FluxKohyaInferenceSampler",
+            "FluxTrainBlockSelect",
             "FluxTrainEnd",
             "FluxTrainLoop",
             "FluxTrainModelSelect",
@@ -15346,6 +15369,7 @@
             "LF_LoraTag2Prompt",
             "LF_MultipleImageResizeForWeb",
             "LF_RandomBoolean",
+            "LF_SaveImageForCivitAI",
             "LF_SequentialSeedsGenerator",
             "LF_SetValueInJSON",
             "LF_Something2Number",
@@ -19671,6 +19695,7 @@
             "easy kolorsLoader",
             "easy latentCompositeMaskedWithCond",
             "easy latentNoisy",
+            "easy lengthAnything",
             "easy loadImageBase64",
             "easy loraStack",
             "easy loraStackApply",

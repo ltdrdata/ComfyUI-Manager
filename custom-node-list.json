@@ -10709,7 +10709,7 @@
                 "https://github.com/portu-sim/comfyui_bmab"
             ],
             "install_type": "git-clone",
-            "description": "BMAB for ComfyUI\n[w/comfyui-bmab is changed to comfyui_bmab. Remove 'custom_nodes/comyui-bmab' in your directory and then reinstall this.]"
+            "description": "BMAB for ComfyUI. BMAB is an custom nodes of ComfyUI and has the function of post-processing the generated image according to settings. If necessary, you can find and redraw people, faces, and hands, or perform functions such as resize, resample, and add noise. You can composite two images or perform the Upscale function."
         },
         {
             "author": "griptape-ai",
@@ -13320,7 +13320,7 @@
                 "https://github.com/Pheat-AI/Remade_nodes"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:Batch Image Blend by Mask, Batch Enlarged Overlay, Batch Image Overlay, Remove Black Pixels to Transparent"
+            "description": "Nodes:Batch Image Blend by Mask, Batch Enlarged Overlay, Batch Image Overlay, Remove Black Pixels to Transparent, Canny Shrink and Recenter"
         },
         {
             "author": "OgreLemonSoup",
@@ -14315,6 +14315,17 @@
             "install_type": "git-clone",
             "description": "New UI on the sidebar that allows for quick and easy navigation of images to help build styles, characters, backgrounds, etc. or even entire random prompts."
         },
+        {
+            "author": "alexcong",
+            "title": "Qwen2-VL wrapper for ComfyUI",
+            "id": "comfyui-qwen2-vl",
+            "reference": "https://github.com/alexcong/ComfyUI_QwenVL",
+            "files": [
+                "https://github.com/alexcong/ComfyUI_QwenVL"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI Qwen2-VL wrapper that supports text-based and single-image queries."
+        },
 
 
 
@@ -14700,15 +14711,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-          "author": "alexcong",
-          "title": "Qwen2-VL wrapper for ComfyUI",
-          "id": "comfyui-qwen2-vl",
-          "reference": "https://github.com/alexcong/ComfyUI_QwenVL",
-          "files": ["https://github.com/alexcong/ComfyUI_QwenVL"],
-          "install_type": "git-clone",
-          "description": "ComfyUI Qwen2-VL wrapper that supports text-based and single-image queries."
         }
     ]
 }
