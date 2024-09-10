@@ -599,7 +599,12 @@
     ],
     "https://github.com/AIFSH/HivisionIDPhotos-ComfyUI": [
         [
-            "HivisionNode"
+            "AddBackgroundNode",
+            "AddWaterMarkNode",
+            "ENHivisionParamsNode",
+            "HivisionLayOutNode",
+            "HivisionNode",
+            "ZHHivisionParamsNode"
         ],
         {
             "title_aux": "HivisionIDPhotos-ComfyUI"
@@ -1642,9 +1647,11 @@
             "PrimereMetaHandler",
             "PrimereMetaRead",
             "PrimereMetaSave",
+            "PrimereMetaTupleCollector",
             "PrimereMidjourneyStyles",
             "PrimereModelConceptSelector",
             "PrimereModelKeyword",
+            "PrimereNetworkDataCollector",
             "PrimereNetworkTagLoader",
             "PrimerePreviewImage",
             "PrimerePrompt",
@@ -3183,6 +3190,7 @@
         [
             "BK_ColorContrast",
             "BK_ColorLimit",
+            "BK_ColorLuminance",
             "BK_ColorSelector",
             "BK_GradientImage",
             "BK_ImageFilterByAspectRatio",
@@ -4572,8 +4580,11 @@
             "Batch Enlarged Overlay",
             "Batch Image Blend by Mask",
             "Batch Image Overlay",
-            "Canny Shrink Recenter",
-            "Remove Black To Transparent"
+            "CannyImageCropper",
+            "MaskBoundingBox",
+            "Place Canny On Canvas",
+            "Remove Black To Transparent",
+            "Shrink Canny Image"
         ],
         {
             "title_aux": "Remade_nodes"
@@ -7356,6 +7367,7 @@
             "AK_AdjustListSize",
             "AK_AnimatedDilationMaskLinear",
             "AK_AudioFramesyncSchedule",
+            "AK_AudioreactiveDilateMaskInfinite",
             "AK_AudioreactiveDilationMask",
             "AK_AudioreactiveDynamicDilationMask",
             "AK_BinaryAmplitudeGate",
@@ -12046,6 +12058,9 @@
             "Griptape Tool: VectorStore",
             "Griptape Tool: WebScraper",
             "Griptape Tool: WebSearch",
+            "Griptape Util: Create Agent Modelfile",
+            "Griptape Util: Create Model from Modelfile",
+            "Griptape Util: Remove Ollama Model",
             "Griptape Vector Store Driver: Amazon OpenSearch",
             "Griptape Vector Store Driver: Azure MongoDB",
             "Griptape Vector Store Driver: Griptape Cloud KnowledgeBase",
@@ -12329,6 +12344,7 @@
             "save_ebd_database",
             "save_openai_ebd",
             "show_text_party",
+            "sql_tool",
             "start_dialog",
             "start_workflow",
             "story_json_tool",
@@ -12671,8 +12687,12 @@
             "Light-Tool: LoadImage",
             "Light-Tool: LoadImageFromURL",
             "Light-Tool: MaskBoundingBoxCropping",
+            "Light-Tool: MaskContourExtractor",
             "Light-Tool: MaskImageToTransparent",
-            "Light-Tool: MaskToImage"
+            "Light-Tool: MaskToImage",
+            "Light-Tool: PhantomTankEffect",
+            "Light-Tool: ResizeImage",
+            "Light-Tool: SolidColorBackground"
         ],
         {
             "author": "Hmily",
@@ -13423,7 +13443,9 @@
             "Bjornulf_ClearVRAM",
             "Bjornulf_CombineBackgroundOverlay",
             "Bjornulf_CombineTexts",
+            "Bjornulf_CombineTextsByLines",
             "Bjornulf_CustomStringType",
+            "Bjornulf_FreeVRAM",
             "Bjornulf_GrayscaleTransform",
             "Bjornulf_GreenScreenToTransparency",
             "Bjornulf_ImageMaskCutter",
@@ -13458,6 +13480,7 @@
             "Bjornulf_WriteImageCharacters",
             "Bjornulf_WriteImageEnvironment",
             "Bjornulf_WriteText",
+            "Bjornulf_WriteTextInConsole",
             "Bjornulf_imagesToVideo",
             "Bjornulf_ollamaLoader"
         ],
@@ -13875,6 +13898,7 @@
             "OptimizerConfigProdigy",
             "TrainDatasetAdd",
             "TrainDatasetGeneralConfig",
+            "TrainDatasetRegularization",
             "UploadToHuggingFace",
             "VisualizeLoss"
         ],
@@ -16416,6 +16440,7 @@
             "LatentUpscaleFactorSimple _O",
             "LatentUpscaleMultiply",
             "Note _O",
+            "QOL Split String",
             "RandomNSP _O",
             "Replace Text _O",
             "String _O",
@@ -16756,6 +16781,7 @@
             "BMAB Square",
             "BMAB Subframe Hand Detailer",
             "BMAB Text",
+            "BMAB ToBind",
             "BMAB Upscale With Model",
             "BMAB Upscaler",
             "BMAB Watermark",
@@ -17169,6 +17195,7 @@
     ],
     "https://github.com/ryanontheinside/ComfyUI_RyanOnTheInside": [
         [
+            "AreaFeatureNode",
             "AudioFeatureExtractor",
             "AudioFeatureVisualizer",
             "AudioFilter",
@@ -17177,13 +17204,16 @@
             "ColorFeatureNode",
             "DepthBasedMaskOpacity",
             "DepthFeatureNode",
+            "DepthShapeModifier",
             "DownloadOpenUnmixModel",
             "DyeImage",
             "EmitterMovement",
+            "FeatureCombine",
             "FeatureFade",
             "FeatureMath",
             "FeatureMixer",
             "FeatureOscillator",
+            "FeatureRebase",
             "FeatureScaler",
             "FeatureSmoothing",
             "FeatureToWeightsStrategy",
@@ -17216,7 +17246,11 @@
             "ImageChunk",
             "ImageDifference",
             "ImageInterval",
+            "ImageIntervalSelectPercentage",
             "ImageShuffle",
+            "LocationFromMask",
+            "LocationFromPoint",
+            "LocationTransform",
             "MIDILoadAndExtract",
             "MaskMath",
             "MaskMorph",
@@ -17233,6 +17267,9 @@
             "ParticleEmitter",
             "ParticleSizeModulation",
             "ParticleSpeedModulation",
+            "PreviewFeature",
+            "ProximityFeatureNode",
+            "ProximityVisualizer",
             "SpringJointSetting",
             "StaticBody",
             "SwapDevice",
