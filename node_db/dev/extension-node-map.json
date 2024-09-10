@@ -206,7 +206,12 @@
     ],
     "https://github.com/AIFSH/HivisionIDPhotos-ComfyUI": [
         [
-            "HivisionNode"
+            "AddBackgroundNode",
+            "AddWaterMarkNode",
+            "ENHivisionParamsNode",
+            "HivisionLayOutNode",
+            "HivisionNode",
+            "ZHHivisionParamsNode"
         ],
         {
             "title_aux": "HivisionIDPhotos-ComfyUI"
@@ -676,9 +681,8 @@
     ],
     "https://github.com/LyazS/comfyui-nettools": [
         [
-            "NTL_LoadImageBase64",
-            "NTL_LoadMaskBase64",
-            "NTL_SendImageWebSocket"
+            "NTL_LoadImagesBase64",
+            "NTL_SendImagesWebSocket"
         ],
         {
             "title_aux": "comfyui-nettools"
@@ -1844,27 +1848,28 @@
             "title_aux": "ie-comfyui-color-nodes"
         }
     ],
+    "https://github.com/jazhang00/ComfyUI-Slicedit": [
+        [
+            "BackgroundScaler",
+            "CalculateNormalsFromImages",
+            "DetailTransfer",
+            "ICLightConditioning",
+            "LightSource",
+            "LoadAndApplyICLightUnet",
+            "LoadHDRImage",
+            "SaveImageWebsocket",
+            "VideoEffects"
+        ],
+        {
+            "title_aux": "ComfyUI Node for Slicedit"
+        }
+    ],
     "https://github.com/jgbrblmd/ComfyUI-ComfyFluxSize": [
         [
             "ComfyFluxSize"
         ],
         {
             "title_aux": "ComfyUI-ComfyFluxSize [WIP]"
-        }
-    ],
-    "https://github.com/jh-leon-kim/ComfyUI-JHK-utils": [
-        [
-            "JHK_Utils_ImageRemoveBackground",
-            "JHK_Utils_LargestImageSelector",
-            "JHK_Utils_LoadEmbed",
-            "JHK_Utils_LoadImageFromPath",
-            "JHK_Utils_RandomImageSelector",
-            "JHK_Utils_SelectSingleImageFromPath",
-            "JHK_Utils_string_filter",
-            "JHK_Utils_string_merge"
-        ],
-        {
-            "title_aux": "ComfyUI-JHK-utils"
         }
     ],
     "https://github.com/jimmm-ai/TimeUi-a-ComfyUi-Timeline-Node": [
@@ -1895,6 +1900,7 @@
     "https://github.com/jinljin/ComfyUI-ElevenlabsAndDID-Combine": [
         [
             "BatchTalkingHeadRun",
+            "\ud83d\ude80AudioAdjust",
             "\ud83d\ude80SingleTalkingHeadRun"
         ],
         {

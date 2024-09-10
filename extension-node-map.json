@@ -599,7 +599,12 @@
     ],
     "https://github.com/AIFSH/HivisionIDPhotos-ComfyUI": [
         [
-            "HivisionNode"
+            "AddBackgroundNode",
+            "AddWaterMarkNode",
+            "ENHivisionParamsNode",
+            "HivisionLayOutNode",
+            "HivisionNode",
+            "ZHHivisionParamsNode"
         ],
         {
             "title_aux": "HivisionIDPhotos-ComfyUI"
@@ -940,19 +945,16 @@
             "FLATTEN (JOV) \u2b07\ufe0f",
             "GLSL (JOV) \ud83c\udf69",
             "GLSL BLEND LINEAR (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL COLOR CONVERSION (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL COLOR PALETTE (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL CONICAL GRADIENT (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL DIRECTIONAL WARP (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL GRAYSCALE (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL HSV-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL HSV-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL LAB-2-HSV (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL LAB-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL LAB-2-XYZ (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL HSV ADJUST (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL NORMAL (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL NORMAL BLEND (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL RGB-2-HSV (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL RGB-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL RGB-2-XYZ (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL XYZ-2-LAB (JOV) \ud83e\uddd9\ud83c\udffd",
-            "GLSL XYZ-2-RGB (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL POSTERIZE (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL TRANSFORM (JOV) \ud83e\uddd9\ud83c\udffd",
             "GRADIENT MAP (JOV) \ud83c\uddf2\ud83c\uddfa",
             "GRAPH (JOV) \ud83d\udcc8",
             "IMAGE INFO (JOV) \ud83d\udcda",
@@ -1645,9 +1647,11 @@
             "PrimereMetaHandler",
             "PrimereMetaRead",
             "PrimereMetaSave",
+            "PrimereMetaTupleCollector",
             "PrimereMidjourneyStyles",
             "PrimereModelConceptSelector",
             "PrimereModelKeyword",
+            "PrimereNetworkDataCollector",
             "PrimereNetworkTagLoader",
             "PrimerePreviewImage",
             "PrimerePrompt",
@@ -3186,6 +3190,7 @@
         [
             "BK_ColorContrast",
             "BK_ColorLimit",
+            "BK_ColorLuminance",
             "BK_ColorSelector",
             "BK_GradientImage",
             "BK_ImageFilterByAspectRatio",
@@ -4575,7 +4580,11 @@
             "Batch Enlarged Overlay",
             "Batch Image Blend by Mask",
             "Batch Image Overlay",
-            "Remove Black To Transparent"
+            "CannyImageCropper",
+            "MaskBoundingBox",
+            "Place Canny On Canvas",
+            "Remove Black To Transparent",
+            "Shrink Canny Image"
         ],
         {
             "title_aux": "Remade_nodes"
@@ -5527,6 +5536,8 @@
             "CXH_Florence2Run",
             "CXH_HG_Model_Load",
             "CXH_Min2_6_prompt_Run",
+            "CXH_MinCP3_4B_Chat",
+            "CXH_MinCP3_4B_Load",
             "Joy_caption",
             "Joy_caption_load"
         ],
@@ -7355,12 +7366,15 @@
         [
             "AK_AdjustListSize",
             "AK_AnimatedDilationMaskLinear",
+            "AK_AudioFramesyncSchedule",
+            "AK_AudioreactiveDilateMaskInfinite",
             "AK_AudioreactiveDilationMask",
             "AK_AudioreactiveDynamicDilationMask",
             "AK_BinaryAmplitudeGate",
             "AK_ConvertAudioToSaltAudio",
             "AK_ConvertListToFloatList",
             "AK_ConvertSaltAudioToAudio",
+            "AK_DilateMaskLinearInfinite",
             "AK_IPAdapterCustomWeights",
             "AK_LagChop",
             "AK_ListToNumpyFloatArray",
@@ -7468,6 +7482,14 @@
             "title_aux": "OpenPose Node"
         }
     ],
+    "https://github.com/alexcong/ComfyUI_QwenVL": [
+        [
+            "Qwen2VL"
+        ],
+        {
+            "title_aux": "Qwen2-VL wrapper for ComfyUI"
+        }
+    ],
     "https://github.com/alexgenovese/ComfyUI_HF_Servelress_Inference": [
         [
             "HF_QuestionAnswer",
@@ -7481,6 +7503,17 @@
             "nickname": "alexgenovese",
             "title": "Huggingface Api Serverless",
             "title_aux": "Huggingface Api Serverless"
+        }
+    ],
+    "https://github.com/alexisrolland/ComfyUI-Phi": [
+        [
+            "DownloadAndLoadPhi",
+            "DownloadAndLoadPhiVision",
+            "RunPhi",
+            "RunPhiVision"
+        ],
+        {
+            "title_aux": "ComfyUI-Phi"
         }
     ],
     "https://github.com/alexopus/ComfyUI-Image-Saver": [
@@ -7891,6 +7924,7 @@
             "CivitaiPrompts",
             "FaceScatter",
             "FaceScatter2",
+            "FluxInspireLbwBatch",
             "GodnessMerger_Apply",
             "GodnessMerger_InputBlocks",
             "GodnessMerger_InputBlocksExperimental",
@@ -7906,6 +7940,7 @@
             "ImageMonitor",
             "ImgMetaValueExtractor",
             "LoraLoaderByPath",
+            "LoraLoaderFromFolder",
             "LoraLoaderOnlyModelByPath",
             "PreviewImageWEBP",
             "PromptChecker",
@@ -9006,6 +9041,7 @@
             "chaosaiart_Any_Switch",
             "chaosaiart_Any_Switch_Big_Number",
             "chaosaiart_Any_Switch_small",
+            "chaosaiart_AutoNone_Switch_small",
             "chaosaiart_CheckpointLoader",
             "chaosaiart_CheckpointPrompt",
             "chaosaiart_CheckpointPrompt2",
@@ -10438,6 +10474,18 @@
             "nickname": "ComfyUI-JDCN",
             "title": "ComfyUI-JDCN",
             "title_aux": "ComfyUI-JDCN"
+        }
+    ],
+    "https://github.com/daxcay/ComfyUI-WA": [
+        [
+            "WA_ImageSaver"
+        ],
+        {
+            "author": "Daxton Caylor",
+            "description": "This node enables someone to run any nodejs application alongside comfyui.",
+            "nickname": "ComfyUI-WA",
+            "title": "ComfyUI-WA",
+            "title_aux": "ComfyUI-WA"
         }
     ],
     "https://github.com/daxthin/DZ-FaceDetailer": [
@@ -12010,6 +12058,9 @@
             "Griptape Tool: VectorStore",
             "Griptape Tool: WebScraper",
             "Griptape Tool: WebSearch",
+            "Griptape Util: Create Agent Modelfile",
+            "Griptape Util: Create Model from Modelfile",
+            "Griptape Util: Remove Ollama Model",
             "Griptape Vector Store Driver: Amazon OpenSearch",
             "Griptape Vector Store Driver: Azure MongoDB",
             "Griptape Vector Store Driver: Griptape Cloud KnowledgeBase",
@@ -12097,6 +12148,7 @@
             "ACE_ImageFaceCrop",
             "ACE_ImageGetSize",
             "ACE_ImageLoadFromCloud",
+            "ACE_ImagePixelate",
             "ACE_ImageQA",
             "ACE_ImageRemoveBackground",
             "ACE_ImageSaveToCloud",
@@ -12292,6 +12344,7 @@
             "save_ebd_database",
             "save_openai_ebd",
             "show_text_party",
+            "sql_tool",
             "start_dialog",
             "start_workflow",
             "story_json_tool",
@@ -12301,6 +12354,7 @@
             "text2json",
             "text2parameters",
             "text_iterator",
+            "text_writing",
             "time_tool",
             "tool_combine",
             "tool_combine_plus",
@@ -12633,8 +12687,12 @@
             "Light-Tool: LoadImage",
             "Light-Tool: LoadImageFromURL",
             "Light-Tool: MaskBoundingBoxCropping",
+            "Light-Tool: MaskContourExtractor",
             "Light-Tool: MaskImageToTransparent",
-            "Light-Tool: MaskToImage"
+            "Light-Tool: MaskToImage",
+            "Light-Tool: PhantomTankEffect",
+            "Light-Tool: ResizeImage",
+            "Light-Tool: SolidColorBackground"
         ],
         {
             "author": "Hmily",
@@ -13380,11 +13438,14 @@
     ],
     "https://github.com/justUmen/Bjornulf_custom_nodes": [
         [
+            "Bjornulf_CharacterDescriptionGenerator",
             "Bjornulf_CheckBlackImage",
             "Bjornulf_ClearVRAM",
             "Bjornulf_CombineBackgroundOverlay",
             "Bjornulf_CombineTexts",
+            "Bjornulf_CombineTextsByLines",
             "Bjornulf_CustomStringType",
+            "Bjornulf_FreeVRAM",
             "Bjornulf_GrayscaleTransform",
             "Bjornulf_GreenScreenToTransparency",
             "Bjornulf_ImageMaskCutter",
@@ -13411,6 +13472,7 @@
             "Bjornulf_ShowFloat",
             "Bjornulf_ShowInt",
             "Bjornulf_ShowText",
+            "Bjornulf_TextToSpeech",
             "Bjornulf_TextToStringAndSeed",
             "Bjornulf_VideoPingPong",
             "Bjornulf_WriteImageAllInOne",
@@ -13418,6 +13480,7 @@
             "Bjornulf_WriteImageCharacters",
             "Bjornulf_WriteImageEnvironment",
             "Bjornulf_WriteText",
+            "Bjornulf_WriteTextInConsole",
             "Bjornulf_imagesToVideo",
             "Bjornulf_ollamaLoader"
         ],
@@ -13819,6 +13882,7 @@
         [
             "ExtractFluxLoRA",
             "FluxKohyaInferenceSampler",
+            "FluxTrainBlockSelect",
             "FluxTrainEnd",
             "FluxTrainLoop",
             "FluxTrainModelSelect",
@@ -13834,6 +13898,7 @@
             "OptimizerConfigProdigy",
             "TrainDatasetAdd",
             "TrainDatasetGeneralConfig",
+            "TrainDatasetRegularization",
             "UploadToHuggingFace",
             "VisualizeLoss"
         ],
@@ -15328,6 +15393,7 @@
             "LF_LoraTag2Prompt",
             "LF_MultipleImageResizeForWeb",
             "LF_RandomBoolean",
+            "LF_SaveImageForCivitAI",
             "LF_SequentialSeedsGenerator",
             "LF_SetValueInJSON",
             "LF_Something2Number",
@@ -16374,6 +16440,7 @@
             "LatentUpscaleFactorSimple _O",
             "LatentUpscaleMultiply",
             "Note _O",
+            "QOL Split String",
             "RandomNSP _O",
             "Replace Text _O",
             "String _O",
@@ -16714,6 +16781,7 @@
             "BMAB Square",
             "BMAB Subframe Hand Detailer",
             "BMAB Text",
+            "BMAB ToBind",
             "BMAB Upscale With Model",
             "BMAB Upscaler",
             "BMAB Watermark",
@@ -17127,6 +17195,7 @@
     ],
     "https://github.com/ryanontheinside/ComfyUI_RyanOnTheInside": [
         [
+            "AreaFeatureNode",
             "AudioFeatureExtractor",
             "AudioFeatureVisualizer",
             "AudioFilter",
@@ -17135,13 +17204,16 @@
             "ColorFeatureNode",
             "DepthBasedMaskOpacity",
             "DepthFeatureNode",
+            "DepthShapeModifier",
             "DownloadOpenUnmixModel",
             "DyeImage",
             "EmitterMovement",
+            "FeatureCombine",
             "FeatureFade",
             "FeatureMath",
             "FeatureMixer",
             "FeatureOscillator",
+            "FeatureRebase",
             "FeatureScaler",
             "FeatureSmoothing",
             "FeatureToWeightsStrategy",
@@ -17174,7 +17246,11 @@
             "ImageChunk",
             "ImageDifference",
             "ImageInterval",
+            "ImageIntervalSelectPercentage",
             "ImageShuffle",
+            "LocationFromMask",
+            "LocationFromPoint",
+            "LocationTransform",
             "MIDILoadAndExtract",
             "MaskMath",
             "MaskMorph",
@@ -17191,6 +17267,9 @@
             "ParticleEmitter",
             "ParticleSizeModulation",
             "ParticleSpeedModulation",
+            "PreviewFeature",
+            "ProximityFeatureNode",
+            "ProximityVisualizer",
             "SpringJointSetting",
             "StaticBody",
             "SwapDevice",
@@ -19653,6 +19732,7 @@
             "easy kolorsLoader",
             "easy latentCompositeMaskedWithCond",
             "easy latentNoisy",
+            "easy lengthAnything",
             "easy loadImageBase64",
             "easy loraStack",
             "easy loraStackApply",
