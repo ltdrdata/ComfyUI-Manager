@@ -1414,6 +1414,21 @@
             "title_aux": "ComfyUI-Path-Helper"
         }
     ],
+    "https://github.com/Bin-sam/DynamicPose-ComfyUI": [
+        [
+            "DynamicPose_Sampler",
+            "Load_Pose_Guider",
+            "Load_denoising_unet",
+            "Load_reference_unet",
+            "Pose_Guider_Encode",
+            "align",
+            "load_pose_model",
+            "pose_extraction"
+        ],
+        {
+            "title_aux": "DynamicPose-ComfyUI"
+        }
+    ],
     "https://github.com/BlakeOne/ComfyUI-CustomScheduler": [
         [
             "CustomScheduler"
@@ -7345,6 +7360,7 @@
     ],
     "https://github.com/aidenli/ComfyUI_NYJY": [
         [
+            "CivitaiPrompt",
             "JoyCaption",
             "JoyTag",
             "LoadLlamaModel",
@@ -7922,9 +7938,11 @@
         [
             "BoolSwitchOutStr",
             "CivitaiPrompts",
+            "ComfyuiRuntimeArgs",
             "FaceScatter",
             "FaceScatter2",
-            "FluxInspireLbwBatch",
+            "FluxInspireLbw_Batch",
+            "FluxInspireLbw_BlockVectorPreset",
             "GodnessMerger_Apply",
             "GodnessMerger_InputBlocks",
             "GodnessMerger_InputBlocksExperimental",
@@ -7957,7 +7975,6 @@
             "ScatterParamsBatch",
             "SendTelegramChatBot",
             "StrToCombo",
-            "TESTER",
             "TextSplitJoinByDelimiter"
         ],
         {
@@ -10374,6 +10391,7 @@
     ],
     "https://github.com/darkpixel/darkprompts": [
         [
+            "DarkAnyToString",
             "DarkCheckpointRandomizer",
             "DarkCheckpointSwitcher",
             "DarkCombine",
@@ -10919,6 +10937,7 @@
             "Eden_IMG_padder",
             "Eden_IMG_unpadder",
             "Eden_Int",
+            "Eden_MaskBoundingBox",
             "Eden_String",
             "Eden_gpt4_node",
             "FolderScanner",
@@ -14783,6 +14802,15 @@
             "title_aux": "ComfyUI-4DHumans"
         }
     ],
+    "https://github.com/logtd/ComfyUI-DiLightNet": [
+        [
+            "LoadDiLightControlNet",
+            "PrepareDiLightCond"
+        ],
+        {
+            "title_aux": "ComfyUI-DiLightNet"
+        }
+    ],
     "https://github.com/logtd/ComfyUI-FLATTEN": [
         [
             "ApplyFlattenAttentionNode",
@@ -15375,6 +15403,7 @@
             "LF_BlurImages",
             "LF_Boolean",
             "LF_CharacterImpersonator",
+            "LF_CivitAIMetadataSetup",
             "LF_ControlPanel",
             "LF_DisplayJSON",
             "LF_Float",
@@ -15479,6 +15508,7 @@
     ],
     "https://github.com/marduk191/comfyui-marnodes": [
         [
+            "ImageToDevice",
             "marduk191_5_text_string",
             "marduk191_5way_text_switch",
             "marduk191_s_random_latent",
@@ -19609,6 +19639,7 @@
             "OllamaPromptExtractor",
             "OllamaTextToText",
             "PaliGemma3bCaptioner",
+            "PromptEngineeringNode",
             "PromptExtractorNode",
             "Qwen2VLCaption",
             "Qwen2VLLocalCaption",
@@ -19695,14 +19726,17 @@
             "easy imageRatio",
             "easy imageRemBg",
             "easy imageSave",
+            "easy imageSaveWithText",
             "easy imageScaleDown",
             "easy imageScaleDownBy",
             "easy imageScaleDownToSize",
+            "easy imageScaleToNormPixels",
             "easy imageSize",
             "easy imageSizeByLongerSide",
             "easy imageSizeBySide",
             "easy imageSplitGrid",
             "easy imageSplitList",
+            "easy imageSplitTiles",
             "easy imageSwitch",
             "easy imageToBase64",
             "easy imageToMask",
@@ -19724,6 +19758,7 @@
             "easy isSDXL",
             "easy joinImageBatch",
             "easy kSampler",
+            "easy kSamplerCustom",
             "easy kSamplerDownscaleUnet",
             "easy kSamplerInpainting",
             "easy kSamplerLayerDiffusion",
@@ -19748,6 +19783,7 @@
             "easy pipeOut",
             "easy pipeToBasicPipe",
             "easy pixArtLoader",
+            "easy pixels",
             "easy portraitMaster",
             "easy poseEditor",
             "easy positive",
@@ -19983,16 +20019,6 @@
             "title_aux": "ComfyUI YoloNasPose Tensorrt"
         }
     ],
-    "https://github.com/yvann-ba/ComfyUI_Yvann-Nodes": [
-        [
-            "Audio Analysis | Yvann",
-            "Audio Drums Analysis | Yvann",
-            "Audio Vocals Analysis | Yvann"
-        ],
-        {
-            "title_aux": "ComfyUI_Yvann-Nodes"
-        }
-    ],
     "https://github.com/za-wa-n-go/ComfyUI_Zwng_Nodes": [
         [
             "ZwngLoadImagePathOrURL",
@@ -20114,6 +20140,7 @@
     ],
     "https://github.com/zhulu111/ComfyUI_Bxb": [
         [
+            "bxbSwitch",
             "sdBxb",
             "sdBxb_saveImage",
             "sdBxb_textInput"
