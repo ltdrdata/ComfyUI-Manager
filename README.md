@@ -150,13 +150,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
       * Channel settings have a broad impact, affecting not only the node list but also all functions like "Update all."
     * Conflicted Nodes with a yellow background show a list of nodes conflicting with other extensions in the respective extension. This issue needs to be addressed by the developer, and users should be aware that due to these conflicts, some nodes may not function correctly and may need to be installed accordingly.
 
-4. If you set the `Badge:` item in the menu as `Badge: Nickname`, `Badge: Nickname (hide built-in)`, `Badge: #ID Nickname`, `Badge: #ID Nickname (hide built-in)` the information badge will be displayed on the node.
-    * When selecting (hide built-in), it hides the 🦊 icon, which signifies built-in nodes.
-      * Nodes without any indication on the badge are custom nodes that Manager cannot recognize.
-    * `Badge: Nickname` displays the nickname of custom nodes, while `Badge: #ID Nickname` also includes the internal ID of the node.
-
-    ![model-install-dialog](misc/nickname.jpg)
-
+4. Node badge is moved to ComfyUI core since frontend v1.2.49. Now you should configure badge options in the settings dialog.
 
 5. Share
   ![menu](misc/main.jpg) ![share](misc/share.jpg) 
@@ -220,14 +214,10 @@ NODE_CLASS_MAPPINGS.update({
 ```
 
 * When you write a docstring in the header of the .py file for the Node as follows, it will be used for managing the database in the Manager.
-  * Currently, only the `nickname` is being used, but other parts will also be utilized in the future.
-  * The `nickname` will be the name displayed on the badge of the node.
-  * If there is no `nickname`, it will be truncated to 20 characters from the arbitrarily written title and used.
 ```
 """
 @author: Dr.Lt.Data
 @title: Impact Pack
-@nickname: Impact Pack
 @description: This extension offers various detector nodes and detailer nodes that allow you to configure a workflow that automatically enhances facial details. And provide iterative upscaler.
 """
 ```

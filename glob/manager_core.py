@@ -206,7 +206,6 @@ def write_config():
     config = configparser.ConfigParser()
     config['default'] = {
         'preview_method': manager_funcs.get_current_preview_method(),
-        'badge_mode': get_config()['badge_mode'],
         'git_exe':  get_config()['git_exe'],
         'channel_url': get_config()['channel_url'],
         'share_option': get_config()['share_option'],
@@ -241,7 +240,6 @@ def read_config():
 
         return {
                     'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else manager_funcs.get_current_preview_method(),
-                    'badge_mode': default_conf['badge_mode'] if 'badge_mode' in default_conf else 'none',
                     'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
@@ -259,7 +257,6 @@ def read_config():
     except Exception:
         return {
             'preview_method': manager_funcs.get_current_preview_method(),
-            'badge_mode': 'none',
             'git_exe': '',
             'channel_url': 'https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main',
             'share_option': 'all',
