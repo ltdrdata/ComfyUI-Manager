@@ -150,7 +150,8 @@ This repository provides Colab notebooks that allow you to install and use Comfy
       * Channel settings have a broad impact, affecting not only the node list but also all functions like "Update all."
     * Conflicted Nodes with a yellow background show a list of nodes conflicting with other extensions in the respective extension. This issue needs to be addressed by the developer, and users should be aware that due to these conflicts, some nodes may not function correctly and may need to be installed accordingly.
 
-4. Node badge is moved to ComfyUI core since frontend v1.2.49. Now you should configure badge options in the settings dialog.
+4. Node badge is moved to ComfyUI core since frontend v1.2.49. Now you should configure badge options in the settings dialog. ![image](https://github.com/user-attachments/assets/59db03f6-87f1-44ee-a1c1-ad4ad114319e)
+
 
 5. Share
   ![menu](misc/main.jpg) ![share](misc/share.jpg) 
