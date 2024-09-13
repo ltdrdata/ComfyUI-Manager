@@ -607,6 +607,8 @@
             "ZHHivisionParamsNode"
         ],
         {
+            "author": "cuny",
+            "description": "",
             "title_aux": "HivisionIDPhotos-ComfyUI"
         }
     ],
@@ -3763,6 +3765,15 @@
         ],
         {
             "title_aux": "Anime Character Segmentation node for comfyui"
+        }
+    ],
+    "https://github.com/LyazS/comfyui-nettools": [
+        [
+            "NTL_LoadImagesBase64",
+            "NTL_SendImagesWebSocket"
+        ],
+        {
+            "title_aux": "net tool node for comfyui"
         }
     ],
     "https://github.com/M1kep/ComfyLiterals": [
@@ -7400,6 +7411,14 @@
             "title_aux": "ComfyUI_NYJY"
         }
     ],
+    "https://github.com/aimerib/ComfyUI_HigherBitDepthSaveImage": [
+        [
+            "SaveImageHigherBitDepth"
+        ],
+        {
+            "title_aux": "ComfyUI-HigherBitDepthSaveImage"
+        }
+    ],
     "https://github.com/aisabervisionlab/ComfyUI_merge_ASVL": [
         [
             "ASVL"
@@ -7417,15 +7436,19 @@
             "AK_AudioreactiveDilationMask",
             "AK_AudioreactiveDynamicDilationMask",
             "AK_BinaryAmplitudeGate",
+            "AK_BrightnessToFloatList",
             "AK_ConvertAudioToSaltAudio",
             "AK_ConvertListToFloatList",
             "AK_ConvertSaltAudioToAudio",
             "AK_DilateMaskLinearInfinite",
+            "AK_FloatListToDilateMaskSchedule",
             "AK_IPAdapterCustomWeights",
+            "AK_KeyframeScheduler",
             "AK_LagChop",
             "AK_ListToNumpyFloatArray",
             "AK_NormalizeMaskImage",
             "AK_RescaleFloatList",
+            "AK_ScheduledBinaryComparison",
             "AK_ShrinkNumSequence",
             "AK_VideoSpeedAdjust"
         ],
@@ -10048,6 +10071,14 @@
             "title_aux": "Cozy Reference Pose Generator"
         }
     ],
+    "https://github.com/cr7Por/ComfyUI_DepthFlow": [
+        [
+            "DepthFlowSimple"
+        ],
+        {
+            "title_aux": "ComfyUI_DepthFlow"
+        }
+    ],
     "https://github.com/crystian/ComfyUI-Crystools": [
         [],
         {
@@ -10529,13 +10560,25 @@
             "title_aux": "ComfyUI-JDCN"
         }
     ],
+    "https://github.com/daxcay/ComfyUI-TG": [
+        [
+            "TG_ImageSaver"
+        ],
+        {
+            "author": "Daxton Caylor",
+            "description": "This node enables someone to run comfyui in telegram.",
+            "nickname": "ComfyUI-TG",
+            "title": "ComfyUI-TG",
+            "title_aux": "ComfyUI-TG"
+        }
+    ],
     "https://github.com/daxcay/ComfyUI-WA": [
         [
             "WA_ImageSaver"
         ],
         {
             "author": "Daxton Caylor",
-            "description": "This node enables someone to run any nodejs application alongside comfyui.",
+            "description": "This node enables someone to run comfyui in whatsapp.",
             "nickname": "ComfyUI-WA",
             "title": "ComfyUI-WA",
             "title_aux": "ComfyUI-WA"
@@ -12384,6 +12427,7 @@
             "load_persona",
             "load_url",
             "load_wikipedia",
+            "md_to_html",
             "none2false",
             "omost_decode",
             "omost_json2py",
@@ -15470,9 +15514,9 @@
             "LF_GetValueFromJSON",
             "LF_ImageClassifier",
             "LF_ImageHistogram",
-            "LF_ImageResizeByEdge",
             "LF_Integer",
             "LF_KeywordCounter",
+            "LF_KeywordToggleFromJSON",
             "LF_LLMChat",
             "LF_LoadImages",
             "LF_LoadLocalJSON",
@@ -15481,6 +15525,8 @@
             "LF_LoraTag2Prompt",
             "LF_MultipleImageResizeForWeb",
             "LF_RandomBoolean",
+            "LF_ResizeImageByEdge",
+            "LF_ResizeImageToSquare",
             "LF_SaveImageForCivitAI",
             "LF_SequentialSeedsGenerator",
             "LF_SetValueInJSON",
@@ -16186,6 +16232,16 @@
         ],
         {
             "title_aux": "ComfyUI-NegiTools"
+        }
+    ],
+    "https://github.com/nchenevey1/comfyui-gimp-nodes": [
+        [
+            "NC_LoadImageGIMP",
+            "NC_LoadMaskGIMP",
+            "NC_SendImageWebSocketGIMP"
+        ],
+        {
+            "title_aux": "comfyui-gimp-nodes"
         }
     ],
     "https://github.com/neverbiasu/ComfyUI-Image-Captioner": [
