@@ -204,7 +204,6 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Please submit a pull request to update either the custom-node-list.json or model-list.json file.
 
 * The scanner currently provides a detection function for missing nodes, which is capable of detecting nodes described by the following two patterns.
-  * Or you can provide manually `node_list.json` file.
 
 ```
 NODE_CLASS_MAPPINGS = {
@@ -218,6 +217,7 @@ NODE_CLASS_MAPPINGS.update({
     "SemSegPreprocessor": Uniformer_SemSegPreprocessor,
 })
 ```
+  * Or you can provide manually `node_list.json` file.
 
 * When you write a docstring in the header of the .py file for the Node as follows, it will be used for managing the database in the Manager.
   * Currently, only the `nickname` is being used, but other parts will also be utilized in the future.
