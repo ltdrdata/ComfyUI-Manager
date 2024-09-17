@@ -624,6 +624,14 @@
             "title_aux": "RealisDance-ComfyUI"
         }
     ],
+    "https://github.com/AIFSH/SeedVC-ComfyUI": [
+        [
+            "SeedVCNode"
+        ],
+        {
+            "title_aux": "SeedVC-ComfyUI"
+        }
+    ],
     "https://github.com/AIFSH/SenseVoice-ComfyUI": [
         [
             "SenseVoiceNode",
@@ -1779,7 +1787,8 @@
             "VoxelVideoLoader",
             "VoxelVideoPreview",
             "VoxelVideoViewer",
-            "VoxelViewer"
+            "VoxelViewer",
+            "VoxelizeMesh"
         ],
         {
             "title_aux": "ComfyUI-Voxels"
@@ -1807,7 +1816,9 @@
     "https://github.com/Dayuppy/ComfyUI-DiscordWebhook": [
         [
             "DiscordPostViaWebhook",
-            "DiscordSetWebhook"
+            "DiscordSetWebhook",
+            "Set Discord Webhook",
+            "Use Discord Webhook"
         ],
         {
             "author": "Dayuppy",
@@ -1982,16 +1993,6 @@
         ],
         {
             "title_aux": "Gecco Discord Autosend"
-        }
-    ],
-    "https://github.com/Extraltodeus/CLIP-Token-Injection": [
-        [
-            "CLIP load custom tokens",
-            "CLIP save custom tokens",
-            "CLIP token injection"
-        ],
-        {
-            "title_aux": "CLIP-Token-Injection"
         }
     ],
     "https://github.com/Extraltodeus/ComfyUI-AutomaticCFG": [
@@ -3370,7 +3371,7 @@
     ],
     "https://github.com/Julian-adv/WildDivide": [
         [
-            "Attention couple",
+            "Attention couple wild divide",
             "Comfy Divide",
             "WildcardEncode"
         ],
@@ -3963,6 +3964,15 @@
             "MaraScottAnyBus_v2",
             "MaraScottDisplayInfoNode",
             "MaraScottDisplayInfo_v1",
+            "MaraScottForLoopClose_v1",
+            "MaraScottForLoopIntMathOperation_v1",
+            "MaraScottForLoopOpen_v1",
+            "MaraScottForLoopToBoolNode_v1",
+            "MaraScottForLoopWhileClose_v1",
+            "MaraScottForLoopWhileOpen_v1",
+            "MaraScottIsEmpty",
+            "MaraScottIsEmptyOrNone",
+            "MaraScottIsNone",
             "MaraScottMcBoatyRefiner_v4",
             "MaraScottMcBoatyRefiner_v5",
             "MaraScottMcBoatyTilePrompter_v4",
@@ -4992,6 +5002,7 @@
         [
             "Any2ListNode",
             "AudioBatchValueNode",
+            "AudioInfoNode",
             "AudioTranscriptionNode",
             "BatchedTranscriptionEncoderNode",
             "DownloadAudio",
@@ -10448,7 +10459,6 @@
     "https://github.com/dagthomas/comfyui_dagthomas": [
         [
             "APNLatent",
-            "ApplyBloom",
             "CustomPromptLoader",
             "DynamicStringCombinerNode",
             "FileReaderNode",
@@ -10458,14 +10468,12 @@
             "GeminiCustomVision",
             "Gpt4CustomVision",
             "Gpt4VisionCloner",
-            "MedianOppositeColorNode",
             "OllamaNode",
             "OllamaVisionNode",
             "PGSD3LatentGenerator",
             "PhiCustomModelInference",
             "PhiModelInference",
             "PhiModelLoader",
-            "ProminentOppositeColorNode",
             "PromptGenerator",
             "RandomIntegerNode",
             "SentenceMixerNode",
@@ -11128,8 +11136,11 @@
     ],
     "https://github.com/erosDiffusion/ComfyUI-enricos-nodes": [
         [
+            "Alignment",
             "Compositor",
-            "CompositorConfig"
+            "Compositor3",
+            "CompositorConfig",
+            "CompositorConfig3"
         ],
         {
             "title_aux": "Compositor Node"
@@ -13643,6 +13654,7 @@
             "Bjornulf_SaveImageToFolder",
             "Bjornulf_SaveText",
             "Bjornulf_SaveTmpImage",
+            "Bjornulf_SelectImageFromList",
             "Bjornulf_ShowFloat",
             "Bjornulf_ShowInt",
             "Bjornulf_ShowText",
@@ -14619,8 +14631,6 @@
     ],
     "https://github.com/latenightlabs/ComfyUI-LNL": [
         [
-            "LNL_FrameSelector",
-            "LNL_FrameSelectorV2",
             "LNL_FrameSelectorV3"
         ],
         {
@@ -19149,6 +19159,7 @@
             "Florence2Run",
             "Florence2toCoordinates",
             "ForegroundMask",
+            "GetLayerMask",
             "MaskImage",
             "Sam2AutoSegmentation",
             "Sam2Segmentation",
@@ -19157,7 +19168,9 @@
             "SaveImageToS3",
             "SaveJsonToSurreal",
             "SaveTextToSurreal",
-            "SaveToRedis"
+            "SaveToRedis",
+            "SendImageOnWebSocket",
+            "SendJsonOnWebSocket"
         ],
         {
             "title_aux": "comfyui-tensorop"
