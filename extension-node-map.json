@@ -4580,6 +4580,27 @@
             "title_aux": "ComfyUI-N-Nodes"
         }
     ],
+    "https://github.com/NyaamZ/efficiency-nodes-ED": [
+        [
+            "Apply LoRA Stack \ud83d\udcacED",
+            "Control Net Script \ud83d\udcacED",
+            "Efficient Loader \ud83d\udcacED",
+            "Embedding Stacker \ud83d\udcacED",
+            "Int Holder \ud83d\udcacED",
+            "KSampler (Efficient) \ud83d\udcacED",
+            "KSampler TEXT (Eff.) \ud83d\udcacED",
+            "LoRA Stacker \ud83d\udcacED",
+            "Load Image \ud83d\udcacED",
+            "Save Image \ud83d\udd14ED"
+        ],
+        {
+            "author": "NyaamZ",
+            "description": "Expansion of Efficiency Nodes for ComfyUI. Significant UX improvements.",
+            "nickname": "Efficiency Nodes ED",
+            "title": "Efficiency Nodes ExtendeD",
+            "title_aux": "Efficiency Nodes ExtendeD"
+        }
+    ],
     "https://github.com/Off-Live/ComfyUI-off-suite": [
         [
             "Apply CLAHE",
@@ -6484,6 +6505,7 @@
             "CycleContinue",
             "CycleEnd",
             "DataMonitor",
+            "FallbackAnyBatch",
             "FallbackImagePreviewer",
             "FolderSearch",
             "GarbageCollector",
@@ -6491,6 +6513,8 @@
             "IfConditionSelector",
             "ImageResolutionAdjust",
             "InvertCondition",
+            "LoopClose",
+            "LoopOpen",
             "LoraSelector",
             "MemoryStorage",
             "ModelSelector",
@@ -9355,6 +9379,7 @@
             "LayerMask: SegmentAnythingUltra",
             "LayerMask: SegmentAnythingUltra V2",
             "LayerMask: Shadow & Highlight Mask",
+            "LayerMask: ShadowHighlightMaskV2",
             "LayerMask: TransparentBackgroundUltra",
             "LayerMask: YoloV8Detect",
             "LayerStyle: ColorOverlay",
@@ -9432,6 +9457,7 @@
             "LayerUtility: LoadVQAModel",
             "LayerUtility: NumberCalculator",
             "LayerUtility: NumberCalculatorV2",
+            "LayerUtility: PhiPrompt",
             "LayerUtility: PrintInfo",
             "LayerUtility: PromptEmbellish",
             "LayerUtility: PromptTagger",
@@ -9453,6 +9479,8 @@
             "LayerUtility: TextImage",
             "LayerUtility: TextImage V2",
             "LayerUtility: TextJoin",
+            "LayerUtility: UserPromptGeneratorReplaceWord",
+            "LayerUtility: UserPromptGeneratorTxt2ImgPrompt",
             "LayerUtility: VQAPrompt",
             "LayerUtility: XY to Percent"
         ],
@@ -11603,6 +11631,14 @@
             "title_aux": "comfyui-fofr-toolkit"
         }
     ],
+    "https://github.com/folkghost/comfyui_search_csv/raw/main/search_csv_node.py": [
+        [
+            "Search CSV"
+        ],
+        {
+            "title_aux": "CSV Search Node"
+        }
+    ],
     "https://github.com/forever22777/comfyui-self-guidance": [
         [
             "CLIPConditioning",
@@ -13614,7 +13650,6 @@
     ],
     "https://github.com/justUmen/Bjornulf_custom_nodes": [
         [
-            "Bjoenulf_RandomCheckpoint",
             "Bjornulf_CharacterDescriptionGenerator",
             "Bjornulf_CheckBlackImage",
             "Bjornulf_ClearVRAM",
@@ -13645,6 +13680,7 @@
             "Bjornulf_RandomImage",
             "Bjornulf_RandomLineFromInput",
             "Bjornulf_RandomModelClipVae",
+            "Bjornulf_RandomModelSelector",
             "Bjornulf_RandomTexts",
             "Bjornulf_RemoveTransparency",
             "Bjornulf_ResizeImage",
@@ -14062,6 +14098,12 @@
             "Florence2Run"
         ],
         {
+            "preemptions": [
+                "DownloadAndLoadFlorence2Lora",
+                "DownloadAndLoadFlorence2Model",
+                "Florence2ModelLoader",
+                "Florence2Run"
+            ],
             "title_aux": "ComfyUI-Florence2"
         }
     ],
@@ -14157,6 +14199,7 @@
             "DownloadAndLoadCLIPSeg",
             "DrawInstanceDiffusionTracking",
             "DummyOut",
+            "EmptyLatentImageCustomPresets",
             "EmptyLatentImagePresets",
             "FilterZeroMasksAndCorrespondingImages",
             "FlipSigmasAdjusted",
@@ -14396,6 +14439,14 @@
             "Sam2VideoSegmentationAddPoints"
         ],
         {
+            "preemptions": [
+                "DownloadAndLoadSAM2Model",
+                "Florence2toCoordinates",
+                "Sam2AutoSegmentation",
+                "Sam2Segmentation",
+                "Sam2VideoSegmentation",
+                "Sam2VideoSegmentationAddPoints"
+            ],
             "title_aux": "ComfyUI-segment-anything-2"
         }
     ],
@@ -17423,7 +17474,10 @@
             "BrightnessFeatureNode",
             "ColorFeatureNode",
             "DepthBasedMaskOpacity",
+            "DepthBlender",
             "DepthFeatureNode",
+            "DepthInjection",
+            "DepthRippleEffect",
             "DepthShapeModifier",
             "DownloadCREPEModel",
             "DownloadOpenUnmixModel",
@@ -19676,10 +19730,13 @@
     ],
     "https://github.com/wujm424606/ComfyUi-Ollama-YN": [
         [
-            "OllamaGenerate",
-            "OllamaGenerateAdvance",
-            "OllamaSpecialGenerateAdvance",
-            "OllamaVision"
+            "MyOllamaDeleteModel",
+            "MyOllamaGenerate",
+            "MyOllamaGenerateAdvance",
+            "MyOllamaLoadContext",
+            "MyOllamaSaveContext",
+            "MyOllamaSpecialGenerateAdvance",
+            "MyOllamaVision"
         ],
         {
             "title_aux": "ComfyUi-Ollama-YN"

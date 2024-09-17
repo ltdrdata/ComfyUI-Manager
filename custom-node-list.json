@@ -3061,6 +3061,12 @@
             "files": [
                 "https://github.com/kijai/ComfyUI-Florence2"
             ],
+            "preemptions":[
+                "DownloadAndLoadFlorence2Lora",
+                "DownloadAndLoadFlorence2Model",
+                "Florence2ModelLoader",
+                "Florence2Run"
+            ],
             "install_type": "git-clone",
             "description": "Nodes to use Florence2 VLM for image vision tasks: object detection, captioning, segmentation and ocr"
         },
@@ -3126,6 +3132,14 @@
             "reference": "https://github.com/kijai/ComfyUI-segment-anything-2",
             "files": [
                 "https://github.com/kijai/ComfyUI-segment-anything-2"
+            ],
+            "preemptions":[
+                "DownloadAndLoadSAM2Model",
+                "Florence2toCoordinates",
+                "Sam2AutoSegmentation",
+                "Sam2Segmentation",
+                "Sam2VideoSegmentation",
+                "Sam2VideoSegmentationAddPoints"
             ],
             "install_type": "git-clone",
             "description": "Nodes to use [a/segment-anything-2](https://github.com/facebookresearch/segment-anything-2) for image or video segmentation."
@@ -14502,6 +14516,28 @@
             "install_type": "git-clone",
             "description": "NODES:Directory Loader, Filter Images Without Faces, Detect Faces and Draw Detection Box"
         },
+        {
+            "author": "NyaamZ",
+            "title": "Efficiency Nodes ExtendeD",
+            "id": "efficiency-ed",
+            "reference": "https://github.com/NyaamZ/efficiency-nodes-ED",
+            "files": [
+                "https://github.com/NyaamZ/efficiency-nodes-ED"
+            ],
+            "install_type": "git-clone",
+            "description": "Expansion of Efficiency Nodes for ComfyUI. Significant UX improvements.[w/NOTE: This node requires [a/Efficiency Nodes for ComfyUI Version 2.0+](https://github.com/jags111/efficiency-nodes-comfyui) and [a/ComfyUI-Custom-Scripts](https://github.com/pythongosssss/ComfyUI-Custom-Scripts). Also, this node makes changes to user.css.]"
+        },
+        {
+            "author": "NyaamZ",
+            "title": "ComfyUI ImageGallery ExtendeD",
+            "id": "image-gallery-ed",
+            "reference": "https://github.com/NyaamZ/ComfyUI-ImageGallery-ED",
+            "files": [
+                "https://github.com/NyaamZ/ComfyUI-ImageGallery-ED"
+            ],
+            "install_type": "git-clone",
+            "description": "Custom javascript extensions for better UX for ComfyUI. Double click on image to open. It's convenient for checking images."
+        },
 
 
 
@@ -14851,6 +14887,16 @@
             "install_type": "copy",
             "description": "A ComfyUI custom node for face comparison. This node utilizes Face++'s facial recognition and comparison algorithms by directly calling the Face++ API. Its usage in the workflow is as follows:"
         },
+        {
+            "author": "folkghost",
+            "title": "CSV Search Node",
+            "reference": "https://github.com/folkghost/comfyui_search_csv",
+            "files": [
+                "https://github.com/folkghost/comfyui_search_csv/raw/main/search_csv_node.py"
+            ],
+            "install_type": "copy",
+            "description": "This repository contains a custom node for ComfyUI that allows searching for a keyword in the first column of a CSV file and returning a value from a specified column in that row. The node is designed to be modular and fit within the node-based workflow of ComfyUI."
+        },
 
         {
             "author": "theally",
@@ -14898,28 +14944,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-	{
-            "author": "NyaamZ",
-            "title": "Efficiency Nodes ExtendeD",
-            "id": "efficiency-ed",
-            "reference": "https://github.com/NyaamZ/efficiency-nodes-ED",
-            "files": [
-                "https://github.com/NyaamZ/efficiency-nodes-ED"
-            ],
-            "install_type": "git-clone",
-            "description": "Expansion of Efficiency Nodes for ComfyUI. Significant UX improvements.[w/NOTE: This node requires [a/Efficiency Nodes for ComfyUI Version 2.0+](https://github.com/jags111/efficiency-nodes-comfyui) and [a/ComfyUI-Custom-Scripts](https://github.com/pythongosssss/ComfyUI-Custom-Scripts). Also, this node makes changes to user.css.]"
-        },
-        {
-            "author": "NyaamZ",
-            "title": "ComfyUI ImageGallery ExtendeD",
-            "id": "image-gallery-ed",
-            "reference": "https://github.com/NyaamZ/ComfyUI-ImageGallery-ED",
-            "files": [
-                "https://github.com/NyaamZ/ComfyUI-ImageGallery-ED"
-            ],
-            "install_type": "git-clone",
-            "description": "Custom javascript extensions for better UX for ComfyUI. Double click on image to open. It's convenient for checking images."
         }
     ]
 }
