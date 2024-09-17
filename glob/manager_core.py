@@ -861,7 +861,7 @@ class UnifiedManager:
             for line in f:
                 prev_files.add(line.strip())
         garbage = prev_files.difference(extracted)
-        garbage = [os.path.join(custom_nodes_path, x) for x in garbage]
+        garbage = [os.path.join(install_path, x) for x in garbage]
 
         # 4-1. remove garbage files
         for x in garbage:
