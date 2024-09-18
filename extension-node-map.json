@@ -748,6 +748,7 @@
             "> Bloom",
             "> Blur",
             "> Brightness",
+            "> Char Count",
             "> Clear Text",
             "> Combine Channels",
             "> Contrast",
@@ -11176,7 +11177,8 @@
             "Compositor",
             "Compositor3",
             "CompositorConfig",
-            "CompositorConfig3"
+            "CompositorConfig3",
+            "CompositorTransformsOutV3"
         ],
         {
             "title_aux": "Compositor Node"
@@ -11750,6 +11752,7 @@
             "FaceShaper",
             "FaceShaperComposite",
             "FaceShaperCropper",
+            "FaceShaperFaceMask",
             "FaceShaperLoadInsightFaceCropper",
             "FaceShaperLoadMediaPipeCropper",
             "FaceShaperMatchV2",
@@ -12301,10 +12304,13 @@
         [
             "BooleanBasic",
             "BooleanReverse",
+            "ChooseUpscaleModel",
             "FluxControlNetApply",
             "FluxResolutionNode",
             "FluxSampler",
-            "GetImageSizeRatio"
+            "GetImageSizeRatio",
+            "IntegerSettings",
+            "NoisePlusBlend"
         ],
         {
             "title_aux": "ControlAltAI Nodes"
@@ -13668,6 +13674,7 @@
             "Bjornulf_FreeVRAM",
             "Bjornulf_GrayscaleTransform",
             "Bjornulf_GreenScreenToTransparency",
+            "Bjornulf_IfElse",
             "Bjornulf_ImageMaskCutter",
             "Bjornulf_LoadImageWithTransparency",
             "Bjornulf_LoadImagesFromSelectedFolder",
@@ -15632,6 +15639,7 @@
             "LF_CivitAIMetadataSetup",
             "LF_ControlPanel",
             "LF_DisplayJSON",
+            "LF_DisplayPrimitiveAsJSON",
             "LF_Float",
             "LF_GetRandomKeyFromJSON",
             "LF_GetValueFromJSON",
@@ -15658,6 +15666,7 @@
             "LF_Something2String",
             "LF_String",
             "LF_StringToJSON",
+            "LF_SwitchFloat",
             "LF_SwitchImage",
             "LF_SwitchInteger",
             "LF_SwitchJSON",
@@ -17261,6 +17270,18 @@
             "nickname": "ComfyUI-Prediction",
             "title": "ComfyUI-Prediction",
             "title_aux": "ComfyUI-Prediction"
+        }
+    ],
+    "https://github.com/revirevy/Comfyui_saveimage_imgbb": [
+        [
+            "ImgBBUploader"
+        ],
+        {
+            "author": "N.RHEVI",
+            "description": "This custom node allow save image to imgbb.",
+            "nickname": "save image to imgbb",
+            "title": "save image to imgbb",
+            "title_aux": "Comfyui_saveimage_imgbb"
         }
     ],
     "https://github.com/rgthree/rgthree-comfy": [
