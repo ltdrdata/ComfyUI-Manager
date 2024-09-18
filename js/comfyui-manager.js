@@ -202,6 +202,40 @@ docStyle.innerHTML = `
 }
 `;
 
+function is_legacy_front() {
+    let compareVersion = '1.2.49';
+    try {
+        const frontendVersion = window['__COMFYUI_FRONTEND_VERSION__'];
+        if (typeof frontendVersion !== 'string') {
+            return false;
+        }
+
+        function parseVersion(versionString) {
+            const parts = versionString.split('.').map(Number);
+            return parts.length === 3 && parts.every(part => !isNaN(part)) ? parts : null;
+        }
+
+        const currentVersion = parseVersion(frontendVersion);
+        const comparisonVersion = parseVersion(compareVersion);
+
+        if (!currentVersion || !comparisonVersion) {
+            return false;
+        }
+
+        for (let i = 0; i < 3; i++) {
+            if (currentVersion[i] > comparisonVersion[i]) {
+                return false;
+            } else if (currentVersion[i] < comparisonVersion[i]) {
+                return true;
+            }
+        }
+
+        return false;
+    } catch {
+        return true;
+    }
+}
+
 document.head.appendChild(docStyle);
 
 var update_comfyui_button = null;
@@ -842,24 +876,27 @@ class ManagerMenuDialog extends ComfyDialog {
 		});
 
 		// nickname
-		let badge_combo = document.createElement("select");
-		badge_combo.setAttribute("title", "Configure the content to be displayed on the badge at the top right corner of the node. The ID is the identifier of the node. If 'hide built-in' is selected, both unknown nodes and built-in nodes will be omitted, making them indistinguishable");
-		badge_combo.className = "cm-menu-combo";
-		badge_combo.appendChild($el('option', { value: 'none', text: 'Badge: None' }, []));
-		badge_combo.appendChild($el('option', { value: 'nick', text: 'Badge: Nickname' }, []));
-		badge_combo.appendChild($el('option', { value: 'nick_hide', text: 'Badge: Nickname (hide built-in)' }, []));
-		badge_combo.appendChild($el('option', { value: 'id_nick', text: 'Badge: #ID Nickname' }, []));
-		badge_combo.appendChild($el('option', { value: 'id_nick_hide', text: 'Badge: #ID Nickname (hide built-in)' }, []));
+		let badge_combo = "";
+		if(is_legacy_front()) {
+            badge_combo = document.createElement("select");
+            badge_combo.setAttribute("title", "Configure the content to be displayed on the badge at the top right corner of the node. The ID is the identifier of the node. If 'hide built-in' is selected, both unknown nodes and built-in nodes will be omitted, making them indistinguishable");
+            badge_combo.className = "cm-menu-combo";
+            badge_combo.appendChild($el('option', { value: 'none', text: 'Badge: None' }, []));
+            badge_combo.appendChild($el('option', { value: 'nick', text: 'Badge: Nickname' }, []));
+            badge_combo.appendChild($el('option', { value: 'nick_hide', text: 'Badge: Nickname (hide built-in)' }, []));
+            badge_combo.appendChild($el('option', { value: 'id_nick', text: 'Badge: #ID Nickname' }, []));
+            badge_combo.appendChild($el('option', { value: 'id_nick_hide', text: 'Badge: #ID Nickname (hide built-in)' }, []));
 
-		api.fetchApi('/manager/badge_mode')
-			.then(response => response.text())
-			.then(data => { badge_combo.value = data; badge_mode = data; });
+            api.fetchApi('/manager/badge_mode')
+                .then(response => response.text())
+                .then(data => { badge_combo.value = data; badge_mode = data; });
 
-		badge_combo.addEventListener('change', function (event) {
-			api.fetchApi(`/manager/badge_mode?value=${event.target.value}`);
-			badge_mode = event.target.value;
-			app.graph.setDirtyCanvas(true);
-		});
+            badge_combo.addEventListener('change', function (event) {
+                api.fetchApi(`/manager/badge_mode?value=${event.target.value}`);
+                badge_mode = event.target.value;
+                app.graph.setDirtyCanvas(true);
+            });
+		}
 
 		// channel
 		let channel_combo = document.createElement("select");
@@ -1411,24 +1448,28 @@ app.registerExtension({
 	},
 
 	async nodeCreated(node, app) {
-		if(!node.badge_enabled) {
-			node.getNickname = function () { return getNickname(node, node.comfyClass.trim()) };
-			let orig = node.onDrawForeground;
-			if(!orig)
-				orig = node.__proto__.onDrawForeground;
+	    if(is_legacy_front()) {
+            if(!node.badge_enabled) {
+                node.getNickname = function () { return getNickname(node, node.comfyClass.trim()) };
+                let orig = node.onDrawForeground;
+                if(!orig)
+                    orig = node.__proto__.onDrawForeground;
 
-			node.onDrawForeground = function (ctx) {
-				drawBadge(node, orig, arguments)
-			};
-			node.badge_enabled = true;
+                node.onDrawForeground = function (ctx) {
+                    drawBadge(node, orig, arguments)
+                };
+                node.badge_enabled = true;
+            }
 		}
 	},
 
 	async loadedGraphNode(node, app) {
-		if(!node.badge_enabled) {
-			const orig = node.onDrawForeground;
-			node.getNickname = function () { return getNickname(node, node.type.trim()) };
-			node.onDrawForeground = function (ctx) { drawBadge(node, orig, arguments) };
+	    if(is_legacy_front()) {
+            if(!node.badge_enabled) {
+                const orig = node.onDrawForeground;
+                node.getNickname = function () { return getNickname(node, node.type.trim()) };
+                node.onDrawForeground = function (ctx) { drawBadge(node, orig, arguments) };
+            }
 		}
 	},
 
