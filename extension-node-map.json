@@ -626,6 +626,7 @@
     ],
     "https://github.com/AIFSH/SeedVC-ComfyUI": [
         [
+            "SeedVC4SingNode",
             "SeedVCNode"
         ],
         {
@@ -662,6 +663,7 @@
     ],
     "https://github.com/AIFSH/VocalSeparation-ComfyUI": [
         [
+            "CombineAudioNode",
             "VocalSeparationNode"
         ],
         {
@@ -748,6 +750,7 @@
             "> Bloom",
             "> Blur",
             "> Brightness",
+            "> Char Count",
             "> Clear Text",
             "> Combine Channels",
             "> Contrast",
@@ -971,8 +974,10 @@
             "GLSL COLOR PALETTE (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL CONICAL GRADIENT (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL DIRECTIONAL WARP (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL FILTER RANGE (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL GRAYSCALE (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL HSV ADJUST (JOV) \ud83e\uddd9\ud83c\udffd",
+            "GLSL INVERT (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL NORMAL (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL NORMAL BLEND (JOV) \ud83e\uddd9\ud83c\udffd",
             "GLSL POSTERIZE (JOV) \ud83e\uddd9\ud83c\udffd",
@@ -5471,7 +5476,7 @@
     ],
     "https://github.com/ShmuelRonen/ComfyUI_wav2lip": [
         [
-            "AudioPath",
+            "LoadAudio",
             "Wav2Lip"
         ],
         {
@@ -9622,6 +9627,14 @@
             "title_aux": "Use Everywhere (UE Nodes)"
         }
     ],
+    "https://github.com/chrissy0/chris-comfyui-nodes": [
+        [
+            "PadImageSquare"
+        ],
+        {
+            "title_aux": "chris-comfyui-nodes"
+        }
+    ],
     "https://github.com/christian-byrne/audio-separation-nodes-comfyui": [
         [
             "AudioCombine",
@@ -11112,6 +11125,7 @@
             "Eden_IMG_unpadder",
             "Eden_Int",
             "Eden_MaskBoundingBox",
+            "Eden_Seed",
             "Eden_String",
             "Eden_gpt4_node",
             "FolderScanner",
@@ -11168,7 +11182,8 @@
             "Compositor",
             "Compositor3",
             "CompositorConfig",
-            "CompositorConfig3"
+            "CompositorConfig3",
+            "CompositorTransformsOutV3"
         ],
         {
             "title_aux": "Compositor Node"
@@ -11742,6 +11757,7 @@
             "FaceShaper",
             "FaceShaperComposite",
             "FaceShaperCropper",
+            "FaceShaperFaceMask",
             "FaceShaperLoadInsightFaceCropper",
             "FaceShaperLoadMediaPipeCropper",
             "FaceShaperMatchV2",
@@ -12293,10 +12309,13 @@
         [
             "BooleanBasic",
             "BooleanReverse",
+            "ChooseUpscaleModel",
             "FluxControlNetApply",
             "FluxResolutionNode",
             "FluxSampler",
-            "GetImageSizeRatio"
+            "GetImageSizeRatio",
+            "IntegerSettings",
+            "NoisePlusBlend"
         ],
         {
             "title_aux": "ControlAltAI Nodes"
@@ -12551,6 +12570,7 @@
             "replace_string",
             "save_ebd_database",
             "save_openai_ebd",
+            "selenium_tool",
             "show_text_party",
             "sql_tool",
             "start_anything",
@@ -13660,6 +13680,7 @@
             "Bjornulf_FreeVRAM",
             "Bjornulf_GrayscaleTransform",
             "Bjornulf_GreenScreenToTransparency",
+            "Bjornulf_IfElse",
             "Bjornulf_ImageMaskCutter",
             "Bjornulf_LoadImageWithTransparency",
             "Bjornulf_LoadImagesFromSelectedFolder",
@@ -14014,6 +14035,8 @@
             "CogVideoImageEncode",
             "CogVideoSampler",
             "CogVideoTextEncode",
+            "CogVideoXFunSampler",
+            "CogVideoXFunVid2VidSampler",
             "DownloadAndLoadCogVideoModel"
         ],
         {
@@ -15624,6 +15647,7 @@
             "LF_CivitAIMetadataSetup",
             "LF_ControlPanel",
             "LF_DisplayJSON",
+            "LF_DisplayPrimitiveAsJSON",
             "LF_Float",
             "LF_GetRandomKeyFromJSON",
             "LF_GetValueFromJSON",
@@ -15650,6 +15674,7 @@
             "LF_Something2String",
             "LF_String",
             "LF_StringToJSON",
+            "LF_SwitchFloat",
             "LF_SwitchImage",
             "LF_SwitchInteger",
             "LF_SwitchJSON",
@@ -17255,6 +17280,18 @@
             "title_aux": "ComfyUI-Prediction"
         }
     ],
+    "https://github.com/revirevy/Comfyui_saveimage_imgbb": [
+        [
+            "ImgBBUploader"
+        ],
+        {
+            "author": "N.RHEVI",
+            "description": "This custom node allow save image to imgbb.",
+            "nickname": "save image to imgbb",
+            "title": "save image to imgbb",
+            "title_aux": "Comfyui_saveimage_imgbb"
+        }
+    ],
     "https://github.com/rgthree/rgthree-comfy": [
         [],
         {
@@ -17345,15 +17382,6 @@
         ],
         {
             "title_aux": "comfyUI_FrequencySeparation_RGB-HSV"
-        }
-    ],
-    "https://github.com/rklaffehn/rk-comfy-nodes": [
-        [
-            "RK_CivitAIAddHashes",
-            "RK_CivitAIMetaChecker"
-        ],
-        {
-            "title_aux": "rk-comfy-nodes"
         }
     ],
     "https://github.com/romeobuilderotti/ComfyUI-PNG-Metadata": [
