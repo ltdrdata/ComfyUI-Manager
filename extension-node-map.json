@@ -661,6 +661,16 @@
             "title_aux": "VideoSys-ComfyUI"
         }
     ],
+    "https://github.com/AIFSH/ViewCrafter-ComfyUI": [
+        [
+            "LoadVideo",
+            "PreViewVideo",
+            "ViewCrafterTxTNode"
+        ],
+        {
+            "title_aux": "ViewCrafter-ComfyUI"
+        }
+    ],
     "https://github.com/AIFSH/VocalSeparation-ComfyUI": [
         [
             "CombineAudioNode",
@@ -750,7 +760,6 @@
             "> Bloom",
             "> Blur",
             "> Brightness",
-            "> Char Count",
             "> Clear Text",
             "> Combine Channels",
             "> Contrast",
@@ -783,6 +792,7 @@
             "> Sharpen",
             "> Text",
             "> Text Combine",
+            "> Text Count",
             "> Text Pick Line by Index",
             "> Text Pick Random Line",
             "> Text Random Weights",
@@ -992,6 +1002,7 @@
             "MIDI READER (JOV) \ud83c\udfb9",
             "OP BINARY (JOV) \ud83c\udf1f",
             "OP UNARY (JOV) \ud83c\udfb2",
+            "PASSTHRU (JOV) \ud83d\ude8c",
             "PIXEL MERGE (JOV) \ud83e\udec2",
             "PIXEL SPLIT (JOV) \ud83d\udc94",
             "PIXEL SWAP (JOV) \ud83d\udd03",
@@ -1330,6 +1341,7 @@
             "ComfyDeployWebscoketImageOutput",
             "ComfyUIDeployExternalBoolean",
             "ComfyUIDeployExternalCheckpoint",
+            "ComfyUIDeployExternalFaceModel",
             "ComfyUIDeployExternalImage",
             "ComfyUIDeployExternalImageAlpha",
             "ComfyUIDeployExternalImageBatch",
@@ -1751,6 +1763,7 @@
         [
             "Image Judgment",
             "ImageMinusMask",
+            "Light or Dark",
             "Yuan",
             "Yuan Transfer",
             "YuanBW"
@@ -3045,6 +3058,15 @@
         ],
         {
             "title_aux": "ComfyUI-Img2DrawingAssistants"
+        }
+    ],
+    "https://github.com/Isi-dev/ComfyUI-Img2PaintingAssistant": [
+        [
+            "Painting",
+            "ProcessInspyrenetRembg"
+        ],
+        {
+            "title_aux": "Image to Painting and Inspyrenet Assistant Nodes"
         }
     ],
     "https://github.com/Isi-dev/ComfyUI-UniAnimate-W": [
@@ -5548,6 +5570,16 @@
         ],
         {
             "title_aux": "ComfyUI-DeepCache-Fix"
+        }
+    ],
+    "https://github.com/SoftMeng/ComfyUI-PIL": [
+        [
+            "PIL Effects (Mexx)",
+            "PIL Merge Image (Mexx)",
+            "PIL TITLE (Mexx)"
+        ],
+        {
+            "title_aux": "ComfyUI-PIL"
         }
     ],
     "https://github.com/SoftMeng/ComfyUI_ImageToText": [
@@ -11415,6 +11447,7 @@
             "FL_HF_Character",
             "FL_HalftonePattern",
             "FL_HexagonalPattern",
+            "FL_ImageAdjuster",
             "FL_ImageCaptionLayout",
             "FL_ImageCaptionLayoutPDF",
             "FL_ImageCaptionSaver",
@@ -12032,6 +12065,7 @@
             "HFHubEmbeddingLoader",
             "HFHubLoraLoader",
             "ImageToMultipleOf",
+            "LoraLoaderFromURL",
             "SDXLAspectRatio"
         ],
         {
@@ -12487,6 +12521,7 @@
             "LLM_local_loader",
             "LLavaLoader",
             "Lorebook",
+            "SpeedChange",
             "URL2IMG",
             "VAEDecode_party",
             "accuweather_tool",
@@ -14032,6 +14067,7 @@
     "https://github.com/kijai/ComfyUI-CogVideoXWrapper": [
         [
             "CogVideoDecode",
+            "CogVideoDualTextEncode_311",
             "CogVideoImageEncode",
             "CogVideoSampler",
             "CogVideoTextEncode",
@@ -14217,6 +14253,7 @@
             "CreateTextOnPath",
             "CreateVoronoiMask",
             "CrossFadeImages",
+            "CustomControlNetWeightsFluxFromList",
             "CustomSigmas",
             "DifferentialDiffusionAdvanced",
             "DownloadAndLoadCLIPSeg",
@@ -15009,6 +15046,7 @@
             "IntToNumber",
             "JoinList",
             "ListMerge",
+            "ListUnWrapper",
             "ListWrapper",
             "LoadImageFromURL",
             "LoadImageToBase64",
@@ -15811,6 +15849,7 @@
             "ServingInputImageAsLatent",
             "ServingInputNumber",
             "ServingInputText",
+            "ServingInputTextImage",
             "ServingMultiImageOutput",
             "ServingOutput",
             "ServingTextOutput",
@@ -18691,9 +18730,15 @@
         [
             "Detect Faces and Draw Detection Box",
             "Directory Loader",
-            "Filter Images Without Faces"
+            "Directory Selector",
+            "Filter Images Without Faces",
+            "Filter Images Without Specific Face"
         ],
         {
+            "author": "svdC1",
+            "description": "This custom node provides quality of life functionalities for",
+            "nickname": "LDT",
+            "title": "LoRaDatasetTools",
             "title_aux": "LoRa Dataset Tools"
         }
     ],
