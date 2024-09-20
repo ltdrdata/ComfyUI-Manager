@@ -153,6 +153,14 @@
             "title_aux": "ComfyUI-UltraPixel"
         }
     ],
+    "https://github.com/311-code/ComfyUI-MagicClip_Strength": [
+        [
+            "CLIPTextEncodeSDXL_311_code"
+        ],
+        {
+            "title_aux": "ComfyUI MagicClip_Strength for SDXL"
+        }
+    ],
     "https://github.com/42lux/ComfyUI-safety-checker": [
         [
             "Safety Checker"
@@ -661,6 +669,16 @@
             "title_aux": "VideoSys-ComfyUI"
         }
     ],
+    "https://github.com/AIFSH/ViewCrafter-ComfyUI": [
+        [
+            "LoadVideo",
+            "PreViewVideo",
+            "ViewCrafterTxTNode"
+        ],
+        {
+            "title_aux": "ViewCrafter-ComfyUI"
+        }
+    ],
     "https://github.com/AIFSH/VocalSeparation-ComfyUI": [
         [
             "CombineAudioNode",
@@ -750,7 +768,6 @@
             "> Bloom",
             "> Blur",
             "> Brightness",
-            "> Char Count",
             "> Clear Text",
             "> Combine Channels",
             "> Contrast",
@@ -783,6 +800,7 @@
             "> Sharpen",
             "> Text",
             "> Text Combine",
+            "> Text Count",
             "> Text Pick Line by Index",
             "> Text Pick Random Line",
             "> Text Random Weights",
@@ -992,6 +1010,7 @@
             "MIDI READER (JOV) \ud83c\udfb9",
             "OP BINARY (JOV) \ud83c\udf1f",
             "OP UNARY (JOV) \ud83c\udfb2",
+            "PASSTHRU (JOV) \ud83d\ude8c",
             "PIXEL MERGE (JOV) \ud83e\udec2",
             "PIXEL SPLIT (JOV) \ud83d\udc94",
             "PIXEL SWAP (JOV) \ud83d\udd03",
@@ -1330,6 +1349,7 @@
             "ComfyDeployWebscoketImageOutput",
             "ComfyUIDeployExternalBoolean",
             "ComfyUIDeployExternalCheckpoint",
+            "ComfyUIDeployExternalFaceModel",
             "ComfyUIDeployExternalImage",
             "ComfyUIDeployExternalImageAlpha",
             "ComfyUIDeployExternalImageBatch",
@@ -1751,6 +1771,7 @@
         [
             "Image Judgment",
             "ImageMinusMask",
+            "Light or Dark",
             "Yuan",
             "Yuan Transfer",
             "YuanBW"
@@ -2626,13 +2647,14 @@
     ],
     "https://github.com/Fuwuffyi/ComfyUI-VisualArea-Nodes": [
         [
-            "VisualAreaPrompt"
+            "VisualAreaPrompt",
+            "VisualAreaPromptAdvanced"
         ],
         {
             "author": "Fuwuffy",
-            "description": "Nodes used for more comfortable area prompting design.",
-            "nickname": "AreaPrompts",
-            "title": "Area Prompts",
+            "description": "This is a collection of nodes created to aid when managing area conditionings.",
+            "nickname": "comfy-visual-area",
+            "title": "ComfyUI Visual Area Nodes",
             "title_aux": "ComfyUI Visual Area Nodes"
         }
     ],
@@ -3045,6 +3067,15 @@
         ],
         {
             "title_aux": "ComfyUI-Img2DrawingAssistants"
+        }
+    ],
+    "https://github.com/Isi-dev/ComfyUI-Img2PaintingAssistant": [
+        [
+            "Painting",
+            "ProcessInspyrenetRembg"
+        ],
+        {
+            "title_aux": "Image to Painting and Inspyrenet Assistant Nodes"
         }
     ],
     "https://github.com/Isi-dev/ComfyUI-UniAnimate-W": [
@@ -3965,19 +3996,18 @@
     ],
     "https://github.com/MaraScott/ComfyUI_MaraScott_Nodes": [
         [
-            "MaraScottAnyBusNode",
             "MaraScottAnyBus_v2",
-            "MaraScottDisplayInfoNode",
-            "MaraScottDisplayInfo_v1",
+            "MaraScottDisplayInfo_v2",
             "MaraScottForLoopClose_v1",
             "MaraScottForLoopIntMathOperation_v1",
             "MaraScottForLoopOpen_v1",
             "MaraScottForLoopToBoolNode_v1",
             "MaraScottForLoopWhileClose_v1",
             "MaraScottForLoopWhileOpen_v1",
-            "MaraScottIsEmpty",
-            "MaraScottIsEmptyOrNone",
-            "MaraScottIsNone",
+            "MaraScottIsEmptyOrNone_v1",
+            "MaraScottIsEmpty_v1",
+            "MaraScottIsEqual_v1",
+            "MaraScottIsNone_v1",
             "MaraScottMcBoatyRefiner_v4",
             "MaraScottMcBoatyRefiner_v5",
             "MaraScottMcBoatyTilePrompter_v4",
@@ -3988,7 +4018,6 @@
             "MaraScottPasteInpaintingByMask_v1",
             "MaraScottPromptFromImage_v1",
             "MaraScottSetInpaintingByMask_v1",
-            "MaraScottUpscalerRefinerNode_v2",
             "MaraScottUpscalerRefinerNode_v3",
             "MaraScott_Kijai_TokenCounter_v1"
         ],
@@ -4596,6 +4625,7 @@
             "KSampler TEXT (Eff.) \ud83d\udcacED",
             "LoRA Stacker \ud83d\udcacED",
             "Load Image \ud83d\udcacED",
+            "Refiner Script \ud83d\udcacED",
             "Save Image \ud83d\udd14ED"
         ],
         {
@@ -5548,6 +5578,17 @@
         ],
         {
             "title_aux": "ComfyUI-DeepCache-Fix"
+        }
+    ],
+    "https://github.com/SoftMeng/ComfyUI-PIL": [
+        [
+            "PIL Effects (Mexx)",
+            "PIL Merge Image (Mexx)",
+            "PIL Remove Black Dots (Mexx)",
+            "PIL TITLE (Mexx)"
+        ],
+        {
+            "title_aux": "ComfyUI-PIL"
         }
     ],
     "https://github.com/SoftMeng/ComfyUI_ImageToText": [
@@ -9920,6 +9961,7 @@
             "KSamplerAdvanced",
             "KSamplerSelect",
             "KarrasScheduler",
+            "LaplaceScheduler",
             "LatentAdd",
             "LatentBatch",
             "LatentBatchSeedBehavior",
@@ -10200,6 +10242,15 @@
             "nodename_pattern": " \\[Crystools\\]$",
             "title": "Crystools",
             "title_aux": "Crystools"
+        }
+    ],
+    "https://github.com/cubiq/Block_Patcher_ComfyUI": [
+        [
+            "FluxBlockPatcherSampler",
+            "PlotBlockParams"
+        ],
+        {
+            "title_aux": "Flux blocks patcher sampler"
         }
     ],
     "https://github.com/cubiq/ComfyUI_FaceAnalysis": [
@@ -10487,6 +10538,18 @@
             "description": "Calculate the steps for the refiner",
             "title": "D2 Steps",
             "title_aux": "D2 Steps"
+        }
+    ],
+    "https://github.com/da2el-ai/ComfyUI-d2-xyplot-utils": [
+        [
+            "D2 Multi Output",
+            "D2 Prompt S/R"
+        ],
+        {
+            "author": "da2el",
+            "description": "A parameter output node compatible with qq-nodes-comfyui. It outputs parameters such as Prompt S/R and seed.",
+            "title": "D2 XYPlot Utils",
+            "title_aux": "D2 XYPlot Utils"
         }
     ],
     "https://github.com/dadoirie/ComfyUI_Dados_Nodes": [
@@ -11415,6 +11478,7 @@
             "FL_HF_Character",
             "FL_HalftonePattern",
             "FL_HexagonalPattern",
+            "FL_ImageAdjuster",
             "FL_ImageCaptionLayout",
             "FL_ImageCaptionLayoutPDF",
             "FL_ImageCaptionSaver",
@@ -12032,6 +12096,7 @@
             "HFHubEmbeddingLoader",
             "HFHubLoraLoader",
             "ImageToMultipleOf",
+            "LoraLoaderFromURL",
             "SDXLAspectRatio"
         ],
         {
@@ -12061,6 +12126,33 @@
         ],
         {
             "title_aux": "nsfwrecog-comfyui"
+        }
+    ],
+    "https://github.com/godmt/ComfyUI-List-Utils": [
+        [
+            "GODMT_AnyToDict",
+            "GODMT_BatchSelectByIndex",
+            "GODMT_BatchSlice",
+            "GODMT_BatchToList",
+            "GODMT_BatchToStringList",
+            "GODMT_CreateBatch",
+            "GODMT_CreateList",
+            "GODMT_CreateStringList",
+            "GODMT_GetLength",
+            "GODMT_GetShape",
+            "GODMT_GetWidgetsValues",
+            "GODMT_ListSelectByIndex",
+            "GODMT_ListSlice",
+            "GODMT_ListToBatch",
+            "GODMT_Pack",
+            "GODMT_SplitString",
+            "GODMT_StringListSelectByIndex",
+            "GODMT_StringListSlice",
+            "GODMT_StringListToBatch",
+            "GODMT_Unpack"
+        ],
+        {
+            "title_aux": "ComfyUI-List-Utils"
         }
     ],
     "https://github.com/godspede/ComfyUI_Substring": [
@@ -12487,6 +12579,7 @@
             "LLM_local_loader",
             "LLavaLoader",
             "Lorebook",
+            "SpeedChange",
             "URL2IMG",
             "VAEDecode_party",
             "accuweather_tool",
@@ -14032,11 +14125,14 @@
     "https://github.com/kijai/ComfyUI-CogVideoXWrapper": [
         [
             "CogVideoDecode",
+            "CogVideoDualTextEncode_311",
             "CogVideoImageEncode",
             "CogVideoSampler",
             "CogVideoTextEncode",
+            "CogVideoTextEncodeCombine",
             "CogVideoXFunSampler",
             "CogVideoXFunVid2VidSampler",
+            "DownloadAndLoadCogVideoGGUFModel",
             "DownloadAndLoadCogVideoModel"
         ],
         {
@@ -14217,6 +14313,7 @@
             "CreateTextOnPath",
             "CreateVoronoiMask",
             "CrossFadeImages",
+            "CustomControlNetWeightsFluxFromList",
             "CustomSigmas",
             "DifferentialDiffusionAdvanced",
             "DownloadAndLoadCLIPSeg",
@@ -15004,11 +15101,14 @@
             "ImageEqual",
             "ImageToBase64",
             "ImageToBase64Advanced",
+            "IndexOfList",
+            "IndexesOfList",
             "InsightFaceBBOXDetect",
             "IntToList",
             "IntToNumber",
             "JoinList",
             "ListMerge",
+            "ListUnWrapper",
             "ListWrapper",
             "LoadImageFromURL",
             "LoadImageToBase64",
@@ -15026,6 +15126,8 @@
             "ShowInt",
             "ShowNumber",
             "ShowString",
+            "SplitStringToList",
+            "StringArea",
             "StringToList"
         ],
         {
@@ -15653,6 +15755,7 @@
             "LF_GetValueFromJSON",
             "LF_ImageClassifier",
             "LF_ImageHistogram",
+            "LF_ImageListFromJSON",
             "LF_Integer",
             "LF_KeywordCounter",
             "LF_KeywordToggleFromJSON",
@@ -15811,6 +15914,7 @@
             "ServingInputImageAsLatent",
             "ServingInputNumber",
             "ServingInputText",
+            "ServingInputTextImage",
             "ServingMultiImageOutput",
             "ServingOutput",
             "ServingTextOutput",
@@ -18689,11 +18793,20 @@
     ],
     "https://github.com/svdC1/comfy-ui-lora-dataset-tools": [
         [
+            "Delete Duplicates",
             "Detect Faces and Draw Detection Box",
             "Directory Loader",
-            "Filter Images Without Faces"
+            "Directory Selector",
+            "Filter Images With Multiple Faces",
+            "Filter Images Without Faces",
+            "Filter Images Without Specific Face",
+            "Save As HTML Image Gallery"
         ],
         {
+            "author": "svdC1",
+            "description": "This custom node provides quality of life functionalities for",
+            "nickname": "LDT",
+            "title": "LoRaDatasetTools",
             "title_aux": "LoRa Dataset Tools"
         }
     ],
@@ -19942,6 +20055,7 @@
             "ErrorLogNode",
             "ExecutionTime",
             "FileBasedChatNode",
+            "FluxPromptEngineeringNode",
             "Gemini1_5Text",
             "Gemini1_5Vision",
             "GeminiFluxPrompt",
