@@ -153,6 +153,14 @@
             "title_aux": "ComfyUI-UltraPixel"
         }
     ],
+    "https://github.com/311-code/ComfyUI-MagicClip_Strength": [
+        [
+            "CLIPTextEncodeSDXL_311_code"
+        ],
+        {
+            "title_aux": "ComfyUI MagicClip_Strength for SDXL"
+        }
+    ],
     "https://github.com/42lux/ComfyUI-safety-checker": [
         [
             "Safety Checker"
@@ -2639,13 +2647,14 @@
     ],
     "https://github.com/Fuwuffyi/ComfyUI-VisualArea-Nodes": [
         [
-            "VisualAreaPrompt"
+            "VisualAreaPrompt",
+            "VisualAreaPromptAdvanced"
         ],
         {
             "author": "Fuwuffy",
-            "description": "Nodes used for more comfortable area prompting design.",
-            "nickname": "AreaPrompts",
-            "title": "Area Prompts",
+            "description": "This is a collection of nodes created to aid when managing area conditionings.",
+            "nickname": "comfy-visual-area",
+            "title": "ComfyUI Visual Area Nodes",
             "title_aux": "ComfyUI Visual Area Nodes"
         }
     ],
@@ -3987,19 +3996,18 @@
     ],
     "https://github.com/MaraScott/ComfyUI_MaraScott_Nodes": [
         [
-            "MaraScottAnyBusNode",
             "MaraScottAnyBus_v2",
-            "MaraScottDisplayInfoNode",
-            "MaraScottDisplayInfo_v1",
+            "MaraScottDisplayInfo_v2",
             "MaraScottForLoopClose_v1",
             "MaraScottForLoopIntMathOperation_v1",
             "MaraScottForLoopOpen_v1",
             "MaraScottForLoopToBoolNode_v1",
             "MaraScottForLoopWhileClose_v1",
             "MaraScottForLoopWhileOpen_v1",
-            "MaraScottIsEmpty",
-            "MaraScottIsEmptyOrNone",
-            "MaraScottIsNone",
+            "MaraScottIsEmptyOrNone_v1",
+            "MaraScottIsEmpty_v1",
+            "MaraScottIsEqual_v1",
+            "MaraScottIsNone_v1",
             "MaraScottMcBoatyRefiner_v4",
             "MaraScottMcBoatyRefiner_v5",
             "MaraScottMcBoatyTilePrompter_v4",
@@ -4010,7 +4018,6 @@
             "MaraScottPasteInpaintingByMask_v1",
             "MaraScottPromptFromImage_v1",
             "MaraScottSetInpaintingByMask_v1",
-            "MaraScottUpscalerRefinerNode_v2",
             "MaraScottUpscalerRefinerNode_v3",
             "MaraScott_Kijai_TokenCounter_v1"
         ],
@@ -4618,6 +4625,7 @@
             "KSampler TEXT (Eff.) \ud83d\udcacED",
             "LoRA Stacker \ud83d\udcacED",
             "Load Image \ud83d\udcacED",
+            "Refiner Script \ud83d\udcacED",
             "Save Image \ud83d\udd14ED"
         ],
         {
@@ -5576,6 +5584,7 @@
         [
             "PIL Effects (Mexx)",
             "PIL Merge Image (Mexx)",
+            "PIL Remove Black Dots (Mexx)",
             "PIL TITLE (Mexx)"
         ],
         {
@@ -9952,6 +9961,7 @@
             "KSamplerAdvanced",
             "KSamplerSelect",
             "KarrasScheduler",
+            "LaplaceScheduler",
             "LatentAdd",
             "LatentBatch",
             "LatentBatchSeedBehavior",
@@ -10519,6 +10529,18 @@
             "description": "Calculate the steps for the refiner",
             "title": "D2 Steps",
             "title_aux": "D2 Steps"
+        }
+    ],
+    "https://github.com/da2el-ai/ComfyUI-d2-xyplot-utils": [
+        [
+            "D2 Multi Output",
+            "D2 Prompt S/R"
+        ],
+        {
+            "author": "da2el",
+            "description": "A parameter output node compatible with qq-nodes-comfyui. It outputs parameters such as Prompt S/R and seed.",
+            "title": "D2 XYPlot Utils",
+            "title_aux": "D2 XYPlot Utils"
         }
     ],
     "https://github.com/dadoirie/ComfyUI_Dados_Nodes": [
@@ -12095,6 +12117,33 @@
         ],
         {
             "title_aux": "nsfwrecog-comfyui"
+        }
+    ],
+    "https://github.com/godmt/ComfyUI-List-Utils": [
+        [
+            "GODMT_AnyToDict",
+            "GODMT_BatchSelectByIndex",
+            "GODMT_BatchSlice",
+            "GODMT_BatchToList",
+            "GODMT_BatchToStringList",
+            "GODMT_CreateBatch",
+            "GODMT_CreateList",
+            "GODMT_CreateStringList",
+            "GODMT_GetLength",
+            "GODMT_GetShape",
+            "GODMT_GetWidgetsValues",
+            "GODMT_ListSelectByIndex",
+            "GODMT_ListSlice",
+            "GODMT_ListToBatch",
+            "GODMT_Pack",
+            "GODMT_SplitString",
+            "GODMT_StringListSelectByIndex",
+            "GODMT_StringListSlice",
+            "GODMT_StringListToBatch",
+            "GODMT_Unpack"
+        ],
+        {
+            "title_aux": "ComfyUI-List-Utils"
         }
     ],
     "https://github.com/godspede/ComfyUI_Substring": [
@@ -14071,8 +14120,10 @@
             "CogVideoImageEncode",
             "CogVideoSampler",
             "CogVideoTextEncode",
+            "CogVideoTextEncodeCombine",
             "CogVideoXFunSampler",
             "CogVideoXFunVid2VidSampler",
+            "DownloadAndLoadCogVideoGGUFModel",
             "DownloadAndLoadCogVideoModel"
         ],
         {
@@ -15041,6 +15092,8 @@
             "ImageEqual",
             "ImageToBase64",
             "ImageToBase64Advanced",
+            "IndexOfList",
+            "IndexesOfList",
             "InsightFaceBBOXDetect",
             "IntToList",
             "IntToNumber",
@@ -15064,6 +15117,8 @@
             "ShowInt",
             "ShowNumber",
             "ShowString",
+            "SplitStringToList",
+            "StringArea",
             "StringToList"
         ],
         {
@@ -15691,6 +15746,7 @@
             "LF_GetValueFromJSON",
             "LF_ImageClassifier",
             "LF_ImageHistogram",
+            "LF_ImageListFromJSON",
             "LF_Integer",
             "LF_KeywordCounter",
             "LF_KeywordToggleFromJSON",
@@ -18728,11 +18784,14 @@
     ],
     "https://github.com/svdC1/comfy-ui-lora-dataset-tools": [
         [
+            "Delete Duplicates",
             "Detect Faces and Draw Detection Box",
             "Directory Loader",
             "Directory Selector",
+            "Filter Images With Multiple Faces",
             "Filter Images Without Faces",
-            "Filter Images Without Specific Face"
+            "Filter Images Without Specific Face",
+            "Save As HTML Image Gallery"
         ],
         {
             "author": "svdC1",
