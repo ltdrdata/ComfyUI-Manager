@@ -1,21 +1,22 @@
-# ComfyUI Manager
+# ComfyUI Manager (Extension)
 
-**ComfyUI-Manager** is an extension designed to enhance the usability of [ComfyUI](https://github.com/comfyanonymous/ComfyUI). It offers management functions to **install, remove, disable, and enable** various custom nodes of ComfyUI. Furthermore, this extension provides a hub feature and convenience functions to access a wide range of information within ComfyUI.
+**ComfyUI-Manager (Extension)** expands the functionality of [manager-core](https://github.com/Comfy-Org/manager-core), allowing users to access the existing ComfyUI-Manager features.
 
 ![menu](misc/menu.jpg)
 
+
 ## NOTICE
-* V2.48.1: Security policy has been changed. Downloads of models in the list are allowed under the 'normal' security level.
-* V2.47: Security policy has been changed. The former 'normal' is now 'normal-', and 'normal' no longer allows high-risk features, even if your ComfyUI is local.
-* V2.37 Show a ✅ mark to accounts that have been active on GitHub for more than six months.
-* V2.33 Security policy is applied.
-* V2.21 [cm-cli](docs/en/cm-cli.md) tool is added.
-* V2.18 to V2.18.3 is not functioning due to a severe bug. Users on these versions are advised to promptly update to V2.18.4. Please navigate to the `ComfyUI/custom_nodes/ComfyUI-Manager` directory and execute `git pull` to update.
-* You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
+* V3.0: ComfyUI-Manager (Extension)
+
 
 ## Installation
 
-### Installation[method1] (General installation method: ComfyUI-Manager only)
+### Installation[method1] installation via manager-core (Recommended)
+
+Search for ComfyUI-Manager in the custom node installation feature of manager-core and install it.
+
+
+### Installation[method1] manual (Not Recommended)
 
 To install ComfyUI-Manager in addition to an existing installation of ComfyUI, you can follow the following steps:
 
@@ -23,49 +24,6 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 2. `git clone https://github.com/ltdrdata/ComfyUI-Manager.git`
 3. Restart ComfyUI
 
-
-### Installation[method2] (Installation for portable ComfyUI version: ComfyUI-Manager only)
-1. install git 
-- https://git-scm.com/download/win
-- standalone version  
-- select option: use windows default console window
-2. Download [scripts/install-manager-for-portable-version.bat](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-manager-for-portable-version.bat) into installed `"ComfyUI_windows_portable"` directory
-3. double click `install-manager-for-portable-version.bat` batch file
-
-![portable-install](misc/portable-install.png)
-
-
-### Installation[method3] (Installation through comfy-cli: install ComfyUI and ComfyUI-Manager at once.)  
-> RECOMMENDED: comfy-cli provides various features to manage ComfyUI from the CLI.
-
-* **prerequisite: python 3, git**
-
-Windows:
-```commandline
-python -m venv venv
-venv\Scripts\activate
-pip install comfy-cli
-comfy install
-```
-
-Linux/OSX:
-```commandline
-python -m venv venv
-. venv/bin/activate
-pip install comfy-cli
-comfy install
-```
-
-
-### Installation[method4] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
-
-To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you can follow these steps:
-* **prerequisite: python-is-python3, python3-venv, git**
-
-1. Download [scripts/install-comfyui-venv-linux.sh](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-comfyui-venv-linux.sh) into empty install directory
-- ComfyUI will be installed in the subdirectory of the specified directory, and the directory will contain the generated executable script.
-2. `chmod +x install-comfyui-venv-linux.sh`
-3. `./install-comfyui-venv-linux.sh`
 
 ### Installation Precautions
 * **DO**: `ComfyUI-Manager` files must be accurately located in the path `ComfyUI/custom_nodes/ComfyUI-Manager`
@@ -79,38 +37,12 @@ To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you c
   * You have to rename `ComfyUI/custom_nodes/ComfyUI-Manager-main` to `ComfyUI/custom_nodes/ComfyUI-Manager`
 
 
-You can execute ComfyUI by running either `./run_gpu.sh` or `./run_cpu.sh` depending on your system configuration.
 
 ## Colab Notebook
 This repository provides Colab notebooks that allow you to install and use ComfyUI, including ComfyUI-Manager. To use ComfyUI, [click on this link](https://colab.research.google.com/github/ltdrdata/ComfyUI-Manager/blob/main/notebooks/comfyui_colab_with_manager.ipynb).
 * Support for installing ComfyUI
 * Support for basic installation of ComfyUI-Manager
 * Support for automatically installing dependencies of custom nodes upon restarting Colab notebooks.
-
-## Changes
-* **2.38** `Install Custom Nodes` menu is changed to `Custom Nodes Manager`.
-* **2.21** [cm-cli](docs/en/cm-cli.md) tool is added.
-* **2.4** Copy the connections of the nearest node by double-clicking.
-* **2.2.3** Support Components System
-* **0.29** Add `Update all` feature
-* **0.25** support db channel
-  * You can directly modify the db channel settings in the `config.ini` file.
-  * If you want to maintain a new DB channel, please modify the `channels.list` and submit a PR.
-* **0.23** support multiple selection
-* **0.18.1** `skip update check` feature added.
-  * A feature that allows quickly opening windows in environments where update checks take a long time.
-* **0.17.1** Bug fix for the issue where enable/disable of the web extension was not working. Compatibility patch for StableSwarmUI.
-  * Requires latest version of ComfyUI (Revision: 1240)
-* **0.17** Support preview method setting feature.
-* **0.14** Support robust update.
-* **0.13** Support additional 'pip' section for install spec.
-* **0.12** Better installation support for Windows.
-* **0.9** Support keyword search in installer menu.
-* **V0.7.1** Bug fix for the issue where updates were not being applied on Windows.
-  * **For those who have been using versions 0.6, please perform a manual git pull in the custom_nodes/ComfyUI-Manager directory.**
-* **V0.7** To address the issue of a slow list refresh, separate the fetch update and update check processes.
-* **V0.6** Support extension installation for missing nodes.
-* **V0.5** Removed external git program dependencies.
 
 
 ## How To Use
@@ -323,6 +255,7 @@ NODE_CLASS_MAPPINGS.update({
 * If you add the item `skip_migration_check = True` to `config.ini`, it will not check whether there are nodes that can be migrated at startup.
   * This option can be used if performance issues occur in a Colab+GDrive environment.
 
+
 ## Scanner
 When you run the `scan.sh` script:
 
@@ -376,42 +309,6 @@ When you run the `scan.sh` script:
   
   * `low` level risky features
     * Update ComfyUI
-
-
-## TODO: Unconventional form of custom node list
-
-* https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
-* https://github.com/senshilabs/NINJA-plugin
-* https://github.com/MockbaTheBorg/Nodes
-* https://github.com/StartHua/Comfyui_GPT_Story
-* https://github.com/NielsGercama/comfyui_customsampling
-* https://github.com/wrightdaniel2017/ComfyUI-VideoLipSync
-* https://github.com/bxdsjs/ComfyUI-Image-preprocessing
-* https://github.com/SMUELDigital/ComfyUI-ONSET
-* https://github.com/SimithWang/comfyui-renameImages
-* https://github.com/icefairy64/comfyui-model-tilt
-* https://github.com/andrewharp/ComfyUI-EasyNodes
-* https://github.com/SimithWang/comfyui-renameImages
-* https://github.com/Tcheko243/ComfyUI-Photographer-Alpha7-Nodes
-* https://github.com/Limbicnation/ComfyUINodeToolbox
-* https://github.com/chenpipi0807/pip_longsize
-* https://github.com/APZmedia/ComfyUI-APZmedia-srtTools
-
-## Roadmap
-
-- [x] System displaying information about failed custom nodes import.
-- [x] Guide for missing nodes in ComfyUI vanilla nodes.
-- [x] Collision checking system for nodes with the same ID across extensions.
-- [x] Template sharing system. (-> Component system based on Group Nodes)
-- [x] 3rd party API system.
-- [ ] Auto migration for custom nodes with changed structures.
-- [ ] Version control feature for nodes.
-- [ ] List of currently used custom nodes.
-- [x] Download support multiple model download.
-- [x] Model download via url.
-- [x] List sorting (custom nodes).
-- [x] List sorting (model).
-- [ ] Provides description of node.
 
 
 # Disclaimer
