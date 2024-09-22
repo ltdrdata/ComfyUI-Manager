@@ -101,24 +101,6 @@ docStyle.innerHTML = `
 	vertical-align: middle;
 }
 
-#cm-channel-badge {
-	color: white;
-	background-color: #AA0000;
-	width: 220px;
-	height: 23px;
-	font-size: 13px;
-	border-radius: 5px;
-	left: 5px;
-	top: 5px;
-	align-content: center;
-	justify-content: center;
-	text-align: center;
-	font-weight: bold;
-	float: left;
-	vertical-align: middle;
-	position: relative;
-}
-
 #custom-nodes-grid a {
 	color: #5555FF;
 	font-weight: bold;
@@ -242,7 +224,6 @@ var update_comfyui_button = null;
 var switch_comfyui_button = null;
 var fetch_updates_button = null;
 var update_all_button = null;
-var badge_mode = "none";
 let share_option = 'all';
 
 // copied style from https://github.com/pythongosssss/ComfyUI-Custom-Scripts
@@ -409,10 +390,10 @@ const style = `
 .pysssss-workflow-arrow-2:after {
 	content: "▼";
  }
- .pysssss-workflow-arrow-2:hover {
+.pysssss-workflow-arrow-2:hover {
 	filter: brightness(1.6);
 	background-color: var(--comfy-menu-bg);
- }
+}
 .pysssss-workflow-popup-2 ~ .litecontextmenu {
 	transform: scale(1.3);
 }
@@ -424,13 +405,6 @@ const style = `
 }
 `;
 
-
-
-async function init_badge_mode() {
-	api.fetchApi('/manager/badge_mode')
-		.then(response => response.text())
-		.then(data => { badge_mode = data; })
-}
 
 async function init_share_option() {
 	api.fetchApi('/manager/share_option')
@@ -448,7 +422,6 @@ async function init_notice(notice) {
 		})
 }
 
-await init_badge_mode();
 await init_share_option();
 
 async function fetchNicknames() {
@@ -1511,7 +1484,7 @@ class ManagerMenuDialog extends ComfyDialog {
 
 
 app.registerExtension({
-	name: "Comfy.ManagerMenu",
+	name: "Comfy.ManagerExtMenu",
 	init() {
 		$el("style", {
 			textContent: style,
@@ -1538,30 +1511,30 @@ app.registerExtension({
 			// new style Manager buttons
 			// unload models button into new style Manager button
 			let cmGroup = new (await import("../../scripts/ui/components/buttonGroup.js")).ComfyButtonGroup(
-				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
-					icon: "puzzle",
-					action: () => {
-						if(!manager_instance)
-							setManagerInstance(new ManagerMenuDialog());
-						manager_instance.show();
-					},
-					tooltip: "ComfyUI Manager",
-					content: "Manager",
-					classList: "comfyui-button comfyui-menu-mobile-collapse primary"
-				}).element,
-				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
-					icon: "star",
-					action: () => {
-						if(!manager_instance)
-							setManagerInstance(new ManagerMenuDialog());
+                new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+                    icon: "star",
+                    action: () => {
+                        if(!manager_instance)
+                            setManagerInstance(new ManagerMenuDialog());
 
                         if(!CustomNodesManager.instance) {
                             CustomNodesManager.instance = new CustomNodesManager(app, self);
                         }
                         CustomNodesManager.instance.show(CustomNodesManager.ShowMode.FAVORITES);
-					},
-					tooltip: "Show favorite custom node list"
-				}).element,
+                    },
+                    tooltip: "Show favorite custom node list",
+                    content: "Manager",
+                    classList: "comfyui-button comfyui-menu-mobile-collapse primary"
+                }).element,
+                new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+                    icon: "puzzle",
+                    action: () => {
+                        if(!manager_instance)
+                            setManagerInstance(new ManagerMenuDialog());
+                        manager_instance.show();
+                    },
+                    tooltip: "ComfyUI Manager",
+                }).element,
 				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
 					icon: "vacuum-outline",
 					action: () => {
