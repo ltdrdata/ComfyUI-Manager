@@ -4010,6 +4010,7 @@
             "MaraScottPasteInpaintingByMask_v1",
             "MaraScottPromptFromImage_v1",
             "MaraScottSetInpaintingByMask_v1",
+            "MaraScottTextConcatenate_v1",
             "MaraScottUpscalerRefinerNode_v3",
             "MaraScott_Kijai_TokenCounter_v1"
         ],
@@ -7699,6 +7700,7 @@
     ],
     "https://github.com/alexcong/ComfyUI_QwenVL": [
         [
+            "Qwen2.5",
             "Qwen2VL"
         ],
         {
@@ -9500,6 +9502,7 @@
             "LayerUtility: GetMainColors",
             "LayerUtility: GradientImage",
             "LayerUtility: GradientImage V2",
+            "LayerUtility: GrayValue",
             "LayerUtility: HLFrequencyDetailRestore",
             "LayerUtility: HSV Value",
             "LayerUtility: If",
@@ -10801,7 +10804,10 @@
             "ConditioningCompress",
             "DStack",
             "DavchaCLIPMergeSimple",
+            "DavchaCLIPTextEncode",
             "DavchaConditioningConcat",
+            "DavchaEmptyLatentImage",
+            "DavchaLoadVideo",
             "DavchaModelMergeSD1",
             "DavchaModelMergeSDXL",
             "DavchaModelMergeSimple",
@@ -10883,6 +10889,15 @@
         ],
         {
             "title_aux": "demofusion-comfyui"
+        }
+    ],
+    "https://github.com/dfghsdh/ComfyUI_FluxPromptGen": [
+        [
+            "FluxImageCaptionNode",
+            "FluxPromptGeneratorNode"
+        ],
+        {
+            "title_aux": "ComfyUI_FluxPromptGen"
         }
     ],
     "https://github.com/dfl/comfyui-clip-with-break": [
@@ -12614,6 +12629,8 @@
             "FileOnlineDelete_gitee",
             "FileOnlineStorage_gitee",
             "FilePathExists",
+            "FolderCleaner",
+            "GGUFLoader",
             "GeocodeTool",
             "Image2Video",
             "Images2Image",
@@ -12703,6 +12720,7 @@
             "load_wikipedia",
             "md_to_excel",
             "md_to_html",
+            "mini_party",
             "none2false",
             "omost_decode",
             "omost_json2py",
@@ -13759,6 +13777,14 @@
             "title_aux": "ComfyUI-sampler-lcm-alternative"
         }
     ],
+    "https://github.com/jordancoult/ComfyUI_HelpfulNodes/raw/refs/heads/main/prep_crop_around_kps.py": [
+        [
+            "CropAroundKPS"
+        ],
+        {
+            "title_aux": "ComfyUI_HelpfulNodes"
+        }
+    ],
     "https://github.com/jordoh/ComfyUI-Deepface": [
         [
             "DeepfaceExtractFaces",
@@ -13818,13 +13844,10 @@
     "https://github.com/justUmen/Bjornulf_custom_nodes": [
         [
             "Bjornulf_CharacterDescriptionGenerator",
-            "Bjornulf_CheckBlackImage",
-            "Bjornulf_ClearVRAM",
             "Bjornulf_CombineBackgroundOverlay",
             "Bjornulf_CombineImages",
             "Bjornulf_CombineTexts",
             "Bjornulf_CombineTextsByLines",
-            "Bjornulf_CustomStringType",
             "Bjornulf_FreeVRAM",
             "Bjornulf_GrayscaleTransform",
             "Bjornulf_GreenScreenToTransparency",
@@ -13854,24 +13877,16 @@
             "Bjornulf_RandomTexts",
             "Bjornulf_RemoveTransparency",
             "Bjornulf_ResizeImage",
-            "Bjornulf_SaveApiImage",
             "Bjornulf_SaveBjornulfLobeChat",
             "Bjornulf_SaveImagePath",
             "Bjornulf_SaveImageToFolder",
             "Bjornulf_SaveText",
             "Bjornulf_SaveTmpImage",
             "Bjornulf_SelectImageFromList",
-            "Bjornulf_ShowFloat",
-            "Bjornulf_ShowInt",
             "Bjornulf_ShowText",
-            "Bjornulf_ShowWhatever",
             "Bjornulf_TextToSpeech",
             "Bjornulf_TextToStringAndSeed",
             "Bjornulf_VideoPingPong",
-            "Bjornulf_WriteImageAllInOne",
-            "Bjornulf_WriteImageCharacter",
-            "Bjornulf_WriteImageCharacters",
-            "Bjornulf_WriteImageEnvironment",
             "Bjornulf_WriteText",
             "Bjornulf_WriteTextAdvanced",
             "Bjornulf_imagesToVideo",
@@ -14183,9 +14198,11 @@
             "CogVideoDecode",
             "CogVideoDualTextEncode_311",
             "CogVideoImageEncode",
+            "CogVideoPABConfig",
             "CogVideoSampler",
             "CogVideoTextEncode",
             "CogVideoTextEncodeCombine",
+            "CogVideoTransformerEdit",
             "CogVideoXFunSampler",
             "CogVideoXFunVid2VidSampler",
             "DownloadAndLoadCogVideoGGUFModel",
@@ -15055,6 +15072,14 @@
             "title_aux": "comfyui-remote-tools"
         }
     ],
+    "https://github.com/liushuchun/ComfyUI_Lora_List_With_Url_Loader": [
+        [
+            "LoraListUrlLoader"
+        ],
+        {
+            "title_aux": "ComfyUI_Lora_List_With_Url_Loader"
+        }
+    ],
     "https://github.com/liusida/ComfyUI-AutoCropFaces": [
         [
             "AutoCropFaces"
@@ -15349,6 +15374,16 @@
         ],
         {
             "title_aux": "Tracking Nodes for Videos"
+        }
+    ],
+    "https://github.com/logtd/ComfyUI-ViewCrafter": [
+        [
+            "ApplyViewCrafter",
+            "LoadViewCrafter",
+            "ScaleImages"
+        ],
+        {
+            "title_aux": "ComfyUI-ViewCrafter"
         }
     ],
     "https://github.com/longgui0318/comfyui-common-util": [
@@ -15841,6 +15876,7 @@
             "LF_ResizeImageByEdge",
             "LF_ResizeImageToSquare",
             "LF_SaveImageForCivitAI",
+            "LF_SaveJSON",
             "LF_SequentialSeedsGenerator",
             "LF_SetValueInJSON",
             "LF_Something2Number",
