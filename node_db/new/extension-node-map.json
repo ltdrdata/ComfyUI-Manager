@@ -1821,6 +1821,16 @@
             "title_aux": "ComfyUI-Depth2Mask"
         }
     ],
+    "https://github.com/DareFail/ComfyUI-Roboflow": [
+        [
+            "CustomWorkflow_1image",
+            "LabelEmotions",
+            "RemoveBackground"
+        ],
+        {
+            "title_aux": "ComfyUI-Roboflow"
+        }
+    ],
     "https://github.com/DataCTE/prompt_injection": [
         [
             "AdvancedPromptInjection",
@@ -4013,7 +4023,8 @@
             "MaraScottSetInpaintingByMask_v1",
             "MaraScottTextConcatenate_v1",
             "MaraScottUpscalerRefinerNode_v3",
-            "MaraScott_Kijai_TokenCounter_v1"
+            "MaraScott_Kijai_TokenCounter_v1",
+            "TextConversion_StringToList_v1"
         ],
         {
             "title_aux": "\ud83d\udc30 MaraScott Nodes"
@@ -5138,6 +5149,17 @@
             "title_aux": "ComfyUI-Long-CLIP"
         }
     ],
+    "https://github.com/SeanScripts/ComfyUI-Pixtral": [
+        [
+            "PixtralGenerateText",
+            "PixtralImageEncode",
+            "PixtralModelLoader",
+            "PixtralTextEncode"
+        ],
+        {
+            "title_aux": "ComfyUI-Pixtral"
+        }
+    ],
     "https://github.com/SeanScripts/ComfyUI-Unload-Model": [
         [
             "UnloadAllModels",
@@ -5508,7 +5530,8 @@
     ],
     "https://github.com/ShmuelRonen/ComfyUI_pixtral_vision": [
         [
-            "ComfyUIPixtralVision"
+            "ComfyUIPixtralVision",
+            "MultiImagesInput"
         ],
         {
             "title_aux": "ComfyUI_pixtral_vision"
@@ -6394,6 +6417,7 @@
         [
             "ttN KSampler_v2",
             "ttN advPlot combo",
+            "ttN advPlot images",
             "ttN advPlot range",
             "ttN advPlot string",
             "ttN advanced xyPlot",
@@ -11262,6 +11286,7 @@
             "Eden_IMG_unpadder",
             "Eden_Int",
             "Eden_MaskBoundingBox",
+            "Eden_RepeatLatentBatch",
             "Eden_Seed",
             "Eden_String",
             "Eden_gpt4_node",
@@ -12630,6 +12655,7 @@
             "About_us",
             "AmapRegeoTool",
             "AmapWeatherTool",
+            "Browser_display",
             "CLIPTextEncode_party",
             "CombineVideos",
             "Dingding",
@@ -12750,6 +12776,7 @@
             "omost_decode",
             "omost_json2py",
             "omost_setting",
+            "open_url_function",
             "open_url_tool",
             "openai_ebd_tool",
             "openai_tts",
@@ -13900,6 +13927,7 @@
             "Bjornulf_SaveImageToFolder",
             "Bjornulf_SaveText",
             "Bjornulf_SaveTmpImage",
+            "Bjornulf_ScramblerCharacter",
             "Bjornulf_SelectImageFromList",
             "Bjornulf_ShowText",
             "Bjornulf_TextToSpeech",
@@ -14463,6 +14491,7 @@
             "MaskOrImageToWeight",
             "MergeImageChannels",
             "ModelPassThrough",
+            "ModelSaveKJ",
             "NormalizedAmplitudeToFloatList",
             "NormalizedAmplitudeToMask",
             "OffsetMask",
@@ -15210,12 +15239,17 @@
             "BboxesToBboxes",
             "ColorPicker",
             "CropImageByBbox",
+            "ForEachClose",
+            "ForEachOpen",
             "GetImageBatchSize",
             "ImageEqual",
             "ImageToBase64",
             "ImageToBase64Advanced",
             "IndexOfList",
             "IndexesOfList",
+            "InnerIntCompare",
+            "InnerIntMathOperation",
+            "InnerLoopClose",
             "InsightFaceBBOXDetect",
             "IntToList",
             "IntToNumber",
@@ -17540,7 +17574,8 @@
     ],
     "https://github.com/revirevy/Comfyui_saveimage_imgbb": [
         [
-            "ImgBBUploader"
+            "ImgBBUploader",
+            "LLM_prompt_generator"
         ],
         {
             "author": "N.RHEVI",
@@ -19619,8 +19654,11 @@
     ],
     "https://github.com/veighnsche/comfyui_gr85": [
         [
+            "GR85_BatchRectMaskGenerator",
             "GR85_ContainsWord",
             "GR85_ElementsConcatenator",
+            "GR85_FluxAttentionSeeker2",
+            "GR85_GenerateDefaultClipValues",
             "GR85_ImageDimensionResizer",
             "GR85_ImageSizer",
             "GR85_ImageSizerAll",
@@ -19636,7 +19674,9 @@
             "GR85_RandomWildcardTagPicker",
             "GR85_ShowText",
             "GR85_StrSafe",
-            "GR85_TagInjector"
+            "GR85_StringListSelector",
+            "GR85_TagInjector",
+            "GR85_UpdateT5Blocks"
         ],
         {
             "title_aux": "comfyui_gr85"
@@ -20216,9 +20256,15 @@
         [
             "FalAPIFluxControlNetConfigNode",
             "FalAPIFluxControlNetUnionConfigNode",
+            "FalAPIFluxDevImageToImageNode",
+            "FalAPIFluxDevNode",
+            "FalAPIFluxDevWithLoraAndControlNetImageToImageNode",
+            "FalAPIFluxDevWithLoraAndControlNetInpaintNode",
+            "FalAPIFluxDevWithLoraAndControlNetNode",
+            "FalAPIFluxDevWithLoraImageToImageNode",
+            "FalAPIFluxDevWithLoraInpaintNode",
+            "FalAPIFluxDevWithLoraNode",
             "FalAPIFluxLoraConfigNode",
-            "FalAPIFluxNode",
-            "FalAPIFluxNodeWithControlNet",
             "FalAPIFluxProNode"
         ],
         {
