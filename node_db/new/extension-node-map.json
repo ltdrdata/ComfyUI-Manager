@@ -966,9 +966,11 @@
             "ADJUST (JOV) \ud83d\udd78\ufe0f",
             "AKASHIC (JOV) \ud83d\udcd3",
             "ARRAY (JOV) \ud83d\udcda",
+            "BIT SPLIT (JOV) \u2b44",
             "BLEND (JOV) \u2697\ufe0f",
             "COLOR BLIND (JOV) \ud83d\udc41\u200d\ud83d\udde8",
             "COLOR MATCH (JOV) \ud83d\udc9e",
+            "COLOR MEANS (JOV) \u3030\ufe0f",
             "COLOR THEORY (JOV) \ud83d\udede",
             "COMPARISON (JOV) \ud83d\udd75\ud83c\udffd",
             "CONSTANT (JOV) \ud83d\udfea",
@@ -1023,8 +1025,7 @@
             "TICK (JOV) \u23f1",
             "TRANSFORM (JOV) \ud83c\udfdd\ufe0f",
             "VALUE (JOV) \ud83e\uddec",
-            "WAVE GEN (JOV) \ud83c\udf0a",
-            "WAVE GRAPH (JOV) \u25b6 \u0131l\u0131\u0131l\u0131"
+            "WAVE GEN (JOV) \ud83c\udf0a"
         ],
         {
             "author": "amorano",
@@ -1818,6 +1819,16 @@
         ],
         {
             "title_aux": "ComfyUI-Depth2Mask"
+        }
+    ],
+    "https://github.com/DareFail/ComfyUI-Roboflow": [
+        [
+            "CustomWorkflow_1image",
+            "LabelEmotions",
+            "RemoveBackground"
+        ],
+        {
+            "title_aux": "ComfyUI-Roboflow"
         }
     ],
     "https://github.com/DataCTE/prompt_injection": [
@@ -4012,7 +4023,8 @@
             "MaraScottSetInpaintingByMask_v1",
             "MaraScottTextConcatenate_v1",
             "MaraScottUpscalerRefinerNode_v3",
-            "MaraScott_Kijai_TokenCounter_v1"
+            "MaraScott_Kijai_TokenCounter_v1",
+            "TextConversion_StringToList_v1"
         ],
         {
             "title_aux": "\ud83d\udc30 MaraScott Nodes"
@@ -5137,6 +5149,17 @@
             "title_aux": "ComfyUI-Long-CLIP"
         }
     ],
+    "https://github.com/SeanScripts/ComfyUI-Pixtral": [
+        [
+            "PixtralGenerateText",
+            "PixtralImageEncode",
+            "PixtralModelLoader",
+            "PixtralTextEncode"
+        ],
+        {
+            "title_aux": "ComfyUI-Pixtral"
+        }
+    ],
     "https://github.com/SeanScripts/ComfyUI-Unload-Model": [
         [
             "UnloadAllModels",
@@ -5507,7 +5530,8 @@
     ],
     "https://github.com/ShmuelRonen/ComfyUI_pixtral_vision": [
         [
-            "ComfyUIPixtralVision"
+            "ComfyUIPixtralVision",
+            "MultiImagesInput"
         ],
         {
             "title_aux": "ComfyUI_pixtral_vision"
@@ -6393,6 +6417,7 @@
         [
             "ttN KSampler_v2",
             "ttN advPlot combo",
+            "ttN advPlot images",
             "ttN advPlot range",
             "ttN advPlot string",
             "ttN advanced xyPlot",
@@ -10809,6 +10834,7 @@
     ],
     "https://github.com/dchatel/comfyui_davcha": [
         [
+            "ApplyMask",
             "ConditioningCompress",
             "DStack",
             "DavchaCLIPMergeSimple",
@@ -11260,6 +11286,7 @@
             "Eden_IMG_unpadder",
             "Eden_Int",
             "Eden_MaskBoundingBox",
+            "Eden_RepeatLatentBatch",
             "Eden_Seed",
             "Eden_String",
             "Eden_gpt4_node",
@@ -11534,6 +11561,7 @@
             "FL_BatchAlign",
             "FL_BulkPDFLoader",
             "FL_BulletHellGame",
+            "FL_CaptionSaver_V2",
             "FL_CaptionToCSV",
             "FL_CodeNode",
             "FL_ColorPicker",
@@ -11577,6 +11605,7 @@
             "FL_PDFToImages",
             "FL_PaperDrawn",
             "FL_PasteOnCanvas",
+            "FL_PathTypeChecker",
             "FL_PixelArtShader",
             "FL_PixelSort",
             "FL_PromptSelector",
@@ -12200,25 +12229,27 @@
     ],
     "https://github.com/godmt/ComfyUI-List-Utils": [
         [
+            "GODMT_AnyCast",
             "GODMT_AnyToDict",
-            "GODMT_BatchSelectByIndex",
+            "GODMT_BatchGetByIndex",
+            "GODMT_BatchItemCast",
             "GODMT_BatchSlice",
             "GODMT_BatchToList",
-            "GODMT_BatchToStringList",
+            "GODMT_CreateArange",
             "GODMT_CreateBatch",
+            "GODMT_CreateLinspace",
             "GODMT_CreateList",
-            "GODMT_CreateStringList",
+            "GODMT_CreateRange",
             "GODMT_GetLength",
             "GODMT_GetShape",
             "GODMT_GetWidgetsValues",
-            "GODMT_ListSelectByIndex",
+            "GODMT_ListGetByIndex",
             "GODMT_ListSlice",
             "GODMT_ListToBatch",
+            "GODMT_MergeBatch",
+            "GODMT_MergeList",
             "GODMT_Pack",
             "GODMT_SplitString",
-            "GODMT_StringListSelectByIndex",
-            "GODMT_StringListSlice",
-            "GODMT_StringListToBatch",
             "GODMT_Unpack"
         ],
         {
@@ -12624,6 +12655,7 @@
             "About_us",
             "AmapRegeoTool",
             "AmapWeatherTool",
+            "Browser_display",
             "CLIPTextEncode_party",
             "CombineVideos",
             "Dingding",
@@ -12655,6 +12687,8 @@
             "LLM_local_loader",
             "LLavaLoader",
             "Lorebook",
+            "RSS_loader",
+            "RSS_tool",
             "SpeedChange",
             "URL2IMG",
             "VAEDecode_party",
@@ -12728,16 +12762,22 @@
             "load_wikipedia",
             "md_to_excel",
             "md_to_html",
+            "mini_error_correction",
             "mini_flux_prompt",
             "mini_flux_tag",
+            "mini_ocr",
             "mini_party",
             "mini_sd_prompt",
             "mini_sd_tag",
+            "mini_story",
+            "mini_summary",
             "mini_translate",
             "none2false",
             "omost_decode",
             "omost_json2py",
             "omost_setting",
+            "open_url_function",
+            "open_url_tool",
             "openai_ebd_tool",
             "openai_tts",
             "openai_whisper",
@@ -13887,6 +13927,7 @@
             "Bjornulf_SaveImageToFolder",
             "Bjornulf_SaveText",
             "Bjornulf_SaveTmpImage",
+            "Bjornulf_ScramblerCharacter",
             "Bjornulf_SelectImageFromList",
             "Bjornulf_ShowText",
             "Bjornulf_TextToSpeech",
@@ -14359,6 +14400,7 @@
         [
             "AddLabel",
             "AppendInstanceDiffusionTracking",
+            "BOOLConstant",
             "BatchCLIPSeg",
             "BatchCropFromMask",
             "BatchCropFromMaskAdvanced",
@@ -14449,6 +14491,7 @@
             "MaskOrImageToWeight",
             "MergeImageChannels",
             "ModelPassThrough",
+            "ModelSaveKJ",
             "NormalizedAmplitudeToFloatList",
             "NormalizedAmplitudeToMask",
             "OffsetMask",
@@ -14463,6 +14506,7 @@
             "ReverseImageBatch",
             "RoundMask",
             "SV3D_BatchSchedule",
+            "SaveImageKJ",
             "SaveImageWithAlpha",
             "ScaleBatchPromptSchedule",
             "Screencap_mss",
@@ -15195,12 +15239,17 @@
             "BboxesToBboxes",
             "ColorPicker",
             "CropImageByBbox",
+            "ForEachClose",
+            "ForEachOpen",
             "GetImageBatchSize",
             "ImageEqual",
             "ImageToBase64",
             "ImageToBase64Advanced",
             "IndexOfList",
             "IndexesOfList",
+            "InnerIntCompare",
+            "InnerIntMathOperation",
+            "InnerLoopClose",
             "InsightFaceBBOXDetect",
             "IntToList",
             "IntToNumber",
@@ -15523,6 +15572,7 @@
     "https://github.com/ltdrdata/ComfyUI-Impact-Pack": [
         [
             "AddMask",
+            "AnyPipeToBasic",
             "BasicPipeToDetailerPipe",
             "BasicPipeToDetailerPipeSDXL",
             "BboxDetectorCombined",
@@ -15601,6 +15651,7 @@
             "ImpactLatentInfo",
             "ImpactLogger",
             "ImpactLogicalOperators",
+            "ImpactMakeAnyList",
             "ImpactMakeImageBatch",
             "ImpactMakeImageList",
             "ImpactMakeMaskBatch",
@@ -17523,7 +17574,8 @@
     ],
     "https://github.com/revirevy/Comfyui_saveimage_imgbb": [
         [
-            "ImgBBUploader"
+            "ImgBBUploader",
+            "LLM_prompt_generator"
         ],
         {
             "author": "N.RHEVI",
@@ -19406,6 +19458,14 @@
             "title_aux": "Hakkun-ComfyUI-nodes"
         }
     ],
+    "https://github.com/turkyden/ComfyUI-SmartCrop": [
+        [
+            "ImageSmartCrop"
+        ],
+        {
+            "title_aux": "ComfyUI-SmartCrop"
+        }
+    ],
     "https://github.com/tusharbhutt/Endless-Nodes": [
         [
             "ESS Aesthetic Scoring",
@@ -19594,8 +19654,11 @@
     ],
     "https://github.com/veighnsche/comfyui_gr85": [
         [
+            "GR85_BatchRectMaskGenerator",
             "GR85_ContainsWord",
             "GR85_ElementsConcatenator",
+            "GR85_FluxAttentionSeeker2",
+            "GR85_GenerateDefaultClipValues",
             "GR85_ImageDimensionResizer",
             "GR85_ImageSizer",
             "GR85_ImageSizerAll",
@@ -19611,7 +19674,9 @@
             "GR85_RandomWildcardTagPicker",
             "GR85_ShowText",
             "GR85_StrSafe",
-            "GR85_TagInjector"
+            "GR85_StringListSelector",
+            "GR85_TagInjector",
+            "GR85_UpdateT5Blocks"
         ],
         {
             "title_aux": "comfyui_gr85"
@@ -20191,9 +20256,16 @@
         [
             "FalAPIFluxControlNetConfigNode",
             "FalAPIFluxControlNetUnionConfigNode",
+            "FalAPIFluxDevImageToImageNode",
+            "FalAPIFluxDevNode",
+            "FalAPIFluxDevWithLoraAndControlNetImageToImageNode",
+            "FalAPIFluxDevWithLoraAndControlNetInpaintNode",
+            "FalAPIFluxDevWithLoraAndControlNetNode",
+            "FalAPIFluxDevWithLoraImageToImageNode",
+            "FalAPIFluxDevWithLoraInpaintNode",
+            "FalAPIFluxDevWithLoraNode",
             "FalAPIFluxLoraConfigNode",
-            "FalAPIFluxNode",
-            "FalAPIFluxNodeWithControlNet"
+            "FalAPIFluxProNode"
         ],
         {
             "title_aux": "ComfyUI-Fal-API-Flux"
@@ -20686,6 +20758,7 @@
             "CheckpointLoaderSimpleWithSwitch",
             "ColorCorrectOfUtils",
             "ConcatTextOfUtils",
+            "DetectorForNSFW",
             "GenderControlOutput",
             "ImageBatchOneOrMore",
             "ImageCompositeMaskedWithSwitch",
