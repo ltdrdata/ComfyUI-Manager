@@ -5149,17 +5149,6 @@
             "title_aux": "ComfyUI-Long-CLIP"
         }
     ],
-    "https://github.com/SeanScripts/ComfyUI-Pixtral": [
-        [
-            "PixtralGenerateText",
-            "PixtralImageEncode",
-            "PixtralModelLoader",
-            "PixtralTextEncode"
-        ],
-        {
-            "title_aux": "ComfyUI-Pixtral"
-        }
-    ],
     "https://github.com/SeanScripts/ComfyUI-Unload-Model": [
         [
             "UnloadAllModels",
@@ -7620,7 +7609,10 @@
             "AK_ConvertListToFloatList",
             "AK_ConvertSaltAudioToAudio",
             "AK_DilateMaskLinearInfinite",
+            "AK_FadeBetweenBatches",
+            "AK_FlexFeatureToFloatList",
             "AK_FloatListToDilateMaskSchedule",
+            "AK_FloatListToFlexFeature",
             "AK_IPAdapterCustomWeights",
             "AK_KeyframeScheduler",
             "AK_LagChop",
@@ -7629,6 +7621,7 @@
             "AK_RescaleFloatList",
             "AK_ScheduledBinaryComparison",
             "AK_ShrinkNumSequence",
+            "AK_SplitImageBatch",
             "AK_VideoSpeedAdjust"
         ],
         {
@@ -14939,6 +14932,22 @@
             "title_aux": "Head Orientation Node"
         }
     ],
+    "https://github.com/lazniak/comfyui-google-photos-loader": [
+        [
+            "ContentFilter",
+            "DatePicker",
+            "Google Photos Album Lister",
+            "Google Photos Album Loader",
+            "Google Photos Album Selector",
+            "Google Photos Cache Manager",
+            "Google Photos Clear Cache",
+            "Google Photos Images Loader",
+            "Google Photos Login/Logout"
+        ],
+        {
+            "title_aux": "Google Photos Loader - by PabloGFX"
+        }
+    ],
     "https://github.com/leeguandong/ComfyUI_CompareModelWeights": [
         [
             "CheckPointLoader_Compare",
@@ -15907,8 +15916,12 @@
             "LF_CharacterImpersonator",
             "LF_CivitAIMetadataSetup",
             "LF_ControlPanel",
+            "LF_DisplayBoolean",
+            "LF_DisplayFloat",
+            "LF_DisplayInteger",
             "LF_DisplayJSON",
             "LF_DisplayPrimitiveAsJSON",
+            "LF_DisplayString",
             "LF_Extractor",
             "LF_Float",
             "LF_GetRandomKeyFromJSON",
@@ -15931,6 +15944,7 @@
             "LF_RandomBoolean",
             "LF_ResizeImageByEdge",
             "LF_ResizeImageToSquare",
+            "LF_ResolutionSwitcher",
             "LF_SaveImageForCivitAI",
             "LF_SaveJSON",
             "LF_SequentialSeedsGenerator",
