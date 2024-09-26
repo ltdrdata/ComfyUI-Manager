@@ -101,8 +101,7 @@ def get_current_preview_method(self):
 
 from manager_downloader import download_url
 
-core.comfy_path = os.path.dirname(folder_paths.__file__)
-components_path = os.path.join(core.comfyui_manager_path, 'components')
+components_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'components'))
 
 
 def set_preview_method(method):
