@@ -1082,6 +1082,10 @@ class ManagerMenuDialog extends ComfyDialog {
 							const menu = new LiteGraph.ContextMenu(
 								[
 									{
+										title: "ComfyUI Docs",
+										callback: () => { window.open("https://docs.comfy.org/", "comfyui-official-manual"); },
+									},
+									{
 										title: "Comfy Custom Node How To",
 										callback: () => { window.open("https://github.com/chrisgoringe/Comfy-Custom-Node-How-To/wiki/aaa_index", "comfyui-community-manual1"); },
 									},
