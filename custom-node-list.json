@@ -3184,6 +3184,16 @@
             "description": "Nodes to use the OneVision LLaVA models: [a/https://github.com/LLaVA-VL/LLaVA-NeXT](https://github.com/LLaVA-VL/LLaVA-NeXT)"
         },
         {
+            "author": "kijai",
+            "title": "ComfyUI wrapper nodes for LVCD",
+            "reference": "https://github.com/kijai/ComfyUI-LVCDWrapper",
+            "files": [
+                "https://github.com/kijai/ComfyUI-LVCDWrapper"
+            ],
+            "install_type": "git-clone",
+            "description": "Original repo: [a/https://github.com/luckyhzt/LVCD](https://github.com/luckyhzt/LVCD)"
+        },
+        {
             "author": "hhhzzyang",
             "title": "Comfyui-Lama",
             "id": "lama",
@@ -4408,13 +4418,13 @@
         },
         {
             "author": "discopixel-studio",
-            "title": "ComfyUI Discopixel Nodes",
+            "title": "PhotoRoom Nodes by Discopixel",
             "reference": "https://github.com/discopixel-studio/comfyui-discopixel",
             "files": [
                 "https://github.com/discopixel-studio/comfyui-discopixel"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:TransformTemplateOntoFaceMask, ... A small collection of custom nodes for use with ComfyUI, by Discopixel"
+            "description": "A small collection of custom nodes for use with ComfyUI, by [a/Discopixel](https://discopixel.studio)"
         },
         {
             "author": "zcfrank1st",
@@ -6822,6 +6832,16 @@
             ],
             "install_type": "git-clone",
             "description": "NODES:CXH_DeepLX_Free, CXH_DeepLX_translate"
+        },
+        {
+            "author": "StartHua",
+            "title": "Comfyui_CXH_FluxLoraMerge",
+            "reference": "https://github.com/StartHua/Comfyui_CXH_FluxLoraMerge",
+            "files": [
+                "https://github.com/StartHua/Comfyui_CXH_FluxLoraMerge"
+            ],
+            "install_type": "git-clone",
+            "description": "flux lora merge.\nadaptive Merge (uses tensor norms and weight), manual Merge (uses fixed weights you specify), additive Merge (uses 100% of the first and adds a percentage of the second)"
         },
         {
             "author": "ricklove",
@@ -12621,6 +12641,26 @@
             "description": "Match two faces' shape before using other face swap nodes\nFace-swapping tools typically only replace facial features during the swap, without altering the facial shape. When there is a significant difference in facial shape between the target person and the person in the original photo, the result of the face swap is less satisfactory.\nThis project is a small script that can first liquefy and stretch the face in the original photo according to the horizontal and vertical proportions of the target person's facial contour. The resulting image can be used as input for other face-swapping nodes."
         },
         {
+            "author": "fssorc",
+            "title": "ComfyUI_pose_inter",
+            "reference": "https://github.com/fssorc/ComfyUI_pose_inter",
+            "files": [
+                "https://github.com/fssorc/ComfyUI_pose_inter"
+            ],
+            "install_type": "git-clone",
+            "description": "Generate transition frames between two character posture images. The prerequisite for running is to have installed comfyui_controlnet_aux, using its Open Pose or DWPose preprocessor"
+        },
+        {
+            "author": "fssorc",
+            "title": "ComfyUI_FFT",
+            "reference": "https://github.com/fssorc/ComfyUI_FFT",
+            "files": [
+                "https://github.com/fssorc/ComfyUI_FFT"
+            ],
+            "install_type": "git-clone",
+            "description": "Perform a Fast Fourier Transform on the image, and then users can freely select the filtering range to filter the image. The main function is to remove the grid patterns on the image, and it can also perform high-pass filtering and low-pass filtering. The detailed workflow is shown in the figure below. The PNG file contains the ComfyUI workflow.The working principle is similar to the FFT filter in Photoshop."
+        },
+        {
             "author": "BetaDoggo",
             "title": "ComfyUI YetAnotherSafetyChecker",
             "id": "yetanothersafetychecker",
@@ -14168,16 +14208,6 @@
             "description": "NODES:ImageMask2PNG"
         },
         {
-            "author": "fssorc",
-            "title": "ComfyUI_pose_inter",
-            "reference": "https://github.com/fssorc/ComfyUI_pose_inter",
-            "files": [
-                "https://github.com/fssorc/ComfyUI_pose_inter"
-            ],
-            "install_type": "git-clone",
-            "description": "Generate transition frames between two character posture images. The prerequisite for running is to have installed comfyui_controlnet_aux, using its Open Pose or DWPose preprocessor"
-        },
-        {
             "author": "souki202",
             "title": "ComfyUI-LoadImage-Advanced",
             "reference": "https://github.com/souki202/ComfyUI-LoadImage-Advanced",
@@ -14960,6 +14990,78 @@
             "install_type": "git-clone",
             "description": "Custom nodes for ComfyUI using BRIA's API."
         },
+        {
+            "author": "L.HC",
+            "title": "SimpleToolsNodes",
+            "reference": "https://github.com/Mcmillian/ComfyUI-SimpleToolsNodes",
+            "files": [
+                "https://github.com/Mcmillian/ComfyUI-SimpleToolsNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Two simple nodes: 1. Get the steps based on the model name, 2. Generate prompts using chatglm."
+        },
+        {
+            "author": "creeper",
+            "title": "comfyui_nai_api",
+            "reference": "https://github.com/Creeper-MZ/comfyui_nai_api",
+            "files": [
+                "https://github.com/Creeper-MZ/comfyui_nai_api"
+            ],
+            "install_type": "git-clone",
+            "description": "A node that can use Nai in Comfyui"
+        },
+        {
+            "author": "syaofox",
+            "title": "ComfyUI_fnodes",
+            "reference": "https://github.com/syaofox/ComfyUI_fnodes",
+            "files": [
+                "https://github.com/syaofox/ComfyUI_fnodes"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI_fnodes is a collection of custom nodes designed for ComfyUI. These nodes provide additional functionality that can enhance your ComfyUI workflows.\nFile manipulation tools, Image resizing tools, IPAdapter tools, Image processing tools, Mask tools, Face analysis tools, Sampler tools, Miscellaneous tools"
+        },
+        {
+            "author": "guyaton",
+            "title": "guy-nodes-comfyui",
+            "reference": "https://github.com/guyaton/guy-nodes-comfyui",
+            "files": [
+                "https://github.com/guyaton/guy-nodes-comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "These are designed to be custom nodes i found usefulness to that hopefully others can share."
+        },
+        {
+            "author": "thoddnn",
+            "title": "ComfyUI MLX Nodes",
+            "reference": "https://github.com/thoddnn/ComfyUI-MLX",
+            "files": [
+                "https://github.com/thoddnn/ComfyUI-MLX"
+            ],
+            "install_type": "git-clone",
+            "description": "Faster workflows for ComfyUI users on Mac with Apple silicon"
+        },
+        {
+            "author": "acorderob",
+            "title": "Prompt PostProcessor",
+            "reference": "https://github.com/acorderob/sd-webui-prompt-postprocessor",
+            "files": [
+                "https://github.com/acorderob/sd-webui-prompt-postprocessor"
+            ],
+            "install_type": "git-clone",
+            "description": "The Prompt PostProcessor (PPP), formerly known as 'sd-webui-sendtonegative', is an extension designed to process the prompt, possibly after other extensions have modified it."
+        },
+        {
+            "author": "Moooonet",
+            "title": "ComfyUI-ArteMoon",
+            "reference": "https://github.com/Moooonet/ComfyUI-ArteMoon",
+            "files": [
+                "https://github.com/Moooonet/ComfyUI-ArteMoon"
+            ],
+            "install_type": "git-clone",
+            "description": "This plugin works with [a/IF_AI_Tools](https://github.com/if-ai/ComfyUI-IF_AI_tools) to build a workflow in ComfyUI that uses AI to assist in generating prompts."
+        },
+
+
 
 
 
@@ -15369,16 +15471,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "L.HC",
-            "title": "SimpleToolsNodes",
-            "reference": "https://github.com/Mcmillian/ComfyUI-SimpleToolsNodes",
-            "files": [
-                "https://github.com/Mcmillian/ComfyUI-SimpleToolsNodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Two simple nodes: 1. Get the steps based on the model name, 2. Generate prompts using chatglm."
         }
     ]
 }
