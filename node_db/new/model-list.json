@@ -1,6 +1,40 @@
 {
   "models": [
     {
+      "name": "jasperai/FLUX.1-dev-Controlnet-Upscaler",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "controlnet/FLUX.1/jasperai-dev-Upscaler",
+      "description": "This is Flux.1-dev ControlNet for low resolution images developed by Jasper research team.",
+      "reference": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Upscaler",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Upscaler/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "3.58GB"
+    },
+    {
+      "name": "jasperai/FLUX.1-dev-Controlnet-Depth",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "controlnet/FLUX.1/jasperai-dev-Depth",
+      "description": "This is Flux.1-dev ControlNet for Depth map developed by Jasper research team.",
+      "reference": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Depth",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Depth/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "3.58GB"
+    },
+    {
+      "name": "jasperai/Flux.1-dev-Controlnet-Surface-Normals",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "controlnet/FLUX.1/jasperai-dev-Surface-Normals",
+      "description": "This is Flux.1-dev ControlNet for Surface Normals map developed by Jasper research team.",
+      "reference": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Surface-Normals",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Surface-Normals/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "3.58GB"
+    },
+
+    {
       "name": "Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro (fp8_e4m3fn) by Kijai",
       "type": "controlnet",
       "base": "FLUX.1",
@@ -667,63 +701,6 @@
       "filename": "photomaker-v2.bin",
       "url": "https://huggingface.co/TencentARC/PhotoMaker-V2/resolve/main/photomaker-v2.bin",
       "size": "1.8GB"
-    },
-    
-    {
-      "name": "hunyuan_dit_1.2.safetensors",
-      "type": "checkpoint",
-      "base": "Hunyuan-DiT",
-      "save_path": "checkpoints/hunyuan_dit_comfyui",
-      "description": "Different versions of HunyuanDIT packaged for ComfyUI use.",
-      "reference": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui",
-      "filename": "hunyuan_dit_1.2.safetensors",
-      "url": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui/resolve/main/hunyuan_dit_1.2.safetensors",
-      "size": "8.24GB"
-    },
-    {
-      "name": "hunyuan_dit_1.1.safetensors",
-      "type": "checkpoint",
-      "base": "Hunyuan-DiT",
-      "save_path": "checkpoints/hunyuan_dit_comfyui",
-      "description": "Different versions of HunyuanDIT packaged for ComfyUI use.",
-      "reference": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui",
-      "filename": "hunyuan_dit_1.1.safetensors",
-      "url": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui/resolve/main/hunyuan_dit_1.1.safetensors",
-      "size": "8.24GB"
-    },
-    {
-      "name": "hunyuan_dit_1.0.safetensors",
-      "type": "checkpoint",
-      "base": "Hunyuan-DiT",
-      "save_path": "checkpoints/hunyuan_dit_comfyui",
-      "description": "Different versions of HunyuanDIT packaged for ComfyUI use.",
-      "reference": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui",
-      "filename": "hunyuan_dit_1.0.safetensors",
-      "url": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui/resolve/main/hunyuan_dit_1.0.safetensors",
-      "size": "8.24GB"
-    },
-
-    {
-      "name": "xinsir/ControlNet++: All-in-one ControlNet (ProMax model)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-union-sdxl-1.0",
-      "description": "All-in-one ControlNet for image generations and editing! (ProMax model)",
-      "reference": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0",
-      "filename": "diffusion_pytorch_model_promax.safetensors",
-      "url": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/resolve/main/diffusion_pytorch_model_promax.safetensors",
-      "size": "2.50GB"
-    },
-    {
-      "name": "xinsir/ControlNet++: All-in-one ControlNet",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-union-sdxl-1.0",
-      "description": "All-in-one ControlNet for image generations and editing!",
-      "reference": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "2.50GB"
     }
   ]
 }
