@@ -1483,7 +1483,7 @@ app.registerExtension({
 		node.prototype.getExtraMenuOptions = function (_, options) {
 			origGetExtraMenuOptions?.apply?.(this, arguments);
 
-			if (node.category.startsWith('group nodes/')) {
+			if (node.category.startsWith('group nodes>')) {
 				options.push({
 					content: "Save As Component",
 					callback: (obj) => {

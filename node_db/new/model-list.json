@@ -1,6 +1,18 @@
 {
   "models": [
     {
+      "name": "Depth Pro model",
+      "type": "depth-pro",
+      "base": "depth-pro",
+      "save_path": "depth/ml-depth-pro",
+      "description": "Depth pro model for [a/ComfyUI-Depth-Pro](https://github.com/spacepxl/ComfyUI-Depth-Pro)",
+      "reference": "https://huggingface.co/spacepxl/ml-depth-pro",
+      "filename": "depth_pro.fp16.safetensors",
+      "url": "https://huggingface.co/spacepxl/ml-depth-pro/resolve/main/depth_pro.fp16.safetensors",
+      "size": "1.9GB"
+    },
+
+    {
       "name": "jasperai/FLUX.1-dev-Controlnet-Upscaler",
       "type": "controlnet",
       "base": "FLUX.1",
@@ -666,41 +678,6 @@
       "filename": "ae.sft",
       "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors",
       "size": "335MB"
-    },
-
-    {
-      "name": "kijai/FLUX.1 [schnell] Diffusion model (float8_e4m3fn)",
-      "type": "unet",
-      "base": "FLUX.1",
-      "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [Schnell] Diffusion model (float8_e4m3fn)",
-      "reference": "https://huggingface.co/Kijai/flux-fp8",
-      "filename": "flux1-schnell-fp8.safetensors",
-      "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8.safetensors",
-      "size": "11.9GB"
-    },
-    {
-      "name": "kijai/FLUX.1 [dev] Diffusion model (float8_e4m3fn)",
-      "type": "unet",
-      "base": "FLUX.1",
-      "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [dev] Diffusion model (float8_e4m3fn)",
-      "reference": "https://huggingface.co/Kijai/flux-fp8",
-      "filename": "flux1-dev-fp8.safetensors",
-      "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors",
-      "size": "11.9GB"
-    },
-
-    {
-      "name": "photomaker-v2.bin",
-      "type": "photomaker",
-      "base": "SDXL",
-      "save_path": "photomaker",
-      "description": "PhotoMaker model. This model is compatible with SDXL.",
-      "reference": "https://huggingface.co/TencentARC/PhotoMaker-V2",
-      "filename": "photomaker-v2.bin",
-      "url": "https://huggingface.co/TencentARC/PhotoMaker-V2/resolve/main/photomaker-v2.bin",
-      "size": "1.8GB"
     }
   ]
 }
