@@ -364,9 +364,10 @@ When you run the `scan.sh` script:
     * `Install via git url`, `pip install`
     * Installation of custom nodes registered not in the `default channel`.
     * Display terminal log
+    * Fix custom nodes
   
   * `middle` level risky features
-    * Uninstall/Update/Fix custom nodes
+    * Uninstall/Update
     * Installation of custom nodes registered in the `default channel`.
     * Restore/Remove Snapshot
     * Restart

@@ -843,7 +843,7 @@ async def install_custom_node(request):
 
 @PromptServer.instance.routes.post("/customnode/fix")
 async def fix_custom_node(request):
-    if not is_allowed_security_level('middle'):
+    if not is_allowed_security_level('high'):
         print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
