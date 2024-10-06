@@ -8,6 +8,27 @@
             "description": "If you see this message, your ComfyUI-Manager is outdated.\nRecent channel provides only the list of the latest nodes. If you want to find the complete node list, please go to the Default channel.\nMaking LoRA has never been easier!"
         },
 
+
+        {
+            "author": "logtd",
+            "title": "ComfyUI-APGScaling",
+            "reference": "https://github.com/logtd/ComfyUI-APGScaling",
+            "files": [
+                "https://github.com/logtd/ComfyUI-APGScaling"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI nodes to use [a/APG scaling](https://huggingface.co/papers/2410.02416) for CFG, allowing for better image quality with higher CFG."
+        },
+        {
+            "author": "gelasdev",
+            "title": "ComfyUI-FLUX-BFL-API",
+            "reference": "https://github.com/gelasdev/ComfyUI-FLUX-BFL-API",
+            "files": [
+                "https://github.com/gelasdev/ComfyUI-FLUX-BFL-API"
+            ],
+            "install_type": "git-clone",
+            "description": "Custom nodes for integrating Flux models with the BFL API."
+        },
         {
             "author": "chrisgoringe",
             "title": "Comfy Controller",
@@ -383,13 +404,13 @@
         },
         {
             "author": "asaddi",
-            "title": "Yet Another LLM Node (for ComfyUI)",
+            "title": "YALLM-LlamaVision",
             "reference": "https://github.com/asaddi/ComfyUI-YALLM-node",
             "files": [
                 "https://github.com/asaddi/ComfyUI-YALLM-node"
             ],
             "install_type": "git-clone",
-            "description": "Yet another set of LLM nodes for ComfyUI. This one only supports OpenAI-like APIs, but of course can be used with local LLM providers such as [a/llama.cpp](https://github.com/ggerganov/llama.cpp) (and, I believe, ollama and LMStudio, among others)."
+            "description": "A set of nodes for basic Llama 3.2 Vision support in ComfyUI. Give it an image and query and it will output a text response."
         },
         {
             "author": "CRT",
@@ -674,27 +695,6 @@
             ],
             "install_type": "git-clone",
             "description": "LIST and BATCH utilities which support: create, convert, get or slice items"
-        },
-        {
-            "author": "AIFSH",
-            "title": "ViewCrafter-ComfyUI",
-            "reference": "https://github.com/AIFSH/ViewCrafter-ComfyUI",
-            "files": [
-                "https://github.com/AIFSH/ViewCrafter-ComfyUI"
-            ],
-            "install_type": "git-clone",
-            "description": "a custom node for [a/ViewCrafter](https://github.com/Drexubery/ViewCrafter)"
-        },
-        {
-            "author": "Isi-dev",
-            "title": "Image to Painting and Inspyrenet Assistant Nodes",
-            "id": "ComfyUI-Img2PaintingAssistant",
-            "reference": "https://github.com/Isi-dev/ComfyUI-Img2PaintingAssistant",
-            "files": [
-                "https://github.com/Isi-dev/ComfyUI-Img2PaintingAssistant"
-            ],
-            "install_type": "git-clone",
-            "description": "These are ComfyUI nodes to assist in converting images to paintings and to assist the Inspyrenet Rembg node to totally remove, or replace with a color, the original background from images so that the background does not reappear in videos or in nodes that do not retain the alpha channel in rgba images."
         }
     ]
 }

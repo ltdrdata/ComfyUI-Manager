@@ -632,6 +632,15 @@
             "title_aux": "RealisDance-ComfyUI"
         }
     ],
+    "https://github.com/AIFSH/SenseVoice-ComfyUI": [
+        [
+            "SenseVoiceNode",
+            "ShowTextNode"
+        ],
+        {
+            "title_aux": "SenseVoice-ComfyUI"
+        }
+    ],
     "https://github.com/AIFSH/StyleShot-ComfyUI": [
         [
             "StyleShotNode",
@@ -4221,7 +4230,6 @@
         [
             "FluxModelSave_v2",
             "IntegratedRandomPromptGenerator",
-            "MilitantMergeNodev2",
             "ModelAnalyserNode",
             "TextAppender_v2"
         ],
@@ -6206,6 +6214,7 @@
             "MakeFrameDataset",
             "MixConsistencyMaps",
             "OffsetNumber",
+            "RenderVideo",
             "ResizeToFit",
             "SaveFrame",
             "WarpFrame"
@@ -8217,7 +8226,7 @@
             "LLMTopP"
         ],
         {
-            "title_aux": "(Yet Another) Llama Vision Node for ComfyUI"
+            "title_aux": "YALLM-LlamaVision"
         }
     ],
     "https://github.com/asagi4/ComfyUI-Adaptive-Guidance": [
@@ -12289,6 +12298,16 @@
             "title_aux": "ComfyUI_pose_inter"
         }
     ],
+    "https://github.com/gelasdev/ComfyUI-FLUX-BFL-API": [
+        [
+            "FluxDev_BFL",
+            "FluxPro11_BFL",
+            "FluxPro_BFL"
+        ],
+        {
+            "title_aux": "ComfyUI-FLUX-BFL-API"
+        }
+    ],
     "https://github.com/gemell1/ComfyUI_GMIC": [
         [
             "GmicCliWrapper",
@@ -13069,6 +13088,7 @@
             "clear_file",
             "clear_model",
             "custom_persona",
+            "custom_string_format",
             "dall_e_tool",
             "discord_bot",
             "discord_file_monitor",
@@ -13149,6 +13169,7 @@
             "parameter_combine_plus",
             "parameter_function",
             "path2img_tool",
+            "red_book_text_persona",
             "replace_string",
             "save_ebd_database",
             "save_openai_ebd",
@@ -13157,6 +13178,7 @@
             "send_to_wechat_official",
             "show_text_party",
             "sql_tool",
+            "srt2txt",
             "start_anything",
             "start_dialog",
             "start_workflow",
@@ -13175,6 +13197,7 @@
             "tool_combine",
             "tool_combine_plus",
             "translate_persona",
+            "txt2srt",
             "url2img_tool",
             "vlmLoader",
             "weather_tool",
@@ -13689,6 +13712,7 @@
             "Base Image Parameters Extract JK",
             "Base Model Parameters Extract JK",
             "Base Model Parameters JK",
+            "Base Model Parameters SD3API JK",
             "Base Model Pipe Extract JK",
             "Base Model Pipe JK",
             "CM_BoolBinaryOperation JK",
@@ -13764,6 +13788,7 @@
             "CR Pipe Input Switch JK",
             "CR Ply Input Switch JK",
             "CR SD1.5 Aspect Ratio JK",
+            "CR SD3 Aspect Ratio JK",
             "CR SDXL Aspect Ratio JK",
             "CR Switch Model and CLIP JK",
             "CR Text Input Switch JK",
@@ -13850,6 +13875,21 @@
             "Sampler Loader JK",
             "Save Image with Metadata Flow JK",
             "Save Image with Metadata JK",
+            "Stability Conservative Upscale",
+            "Stability Control Skech",
+            "Stability Control Structure",
+            "Stability Control Style",
+            "Stability Creative Upscale",
+            "Stability Erase",
+            "Stability Fast Upscale",
+            "Stability Image Core",
+            "Stability Image Ultra",
+            "Stability Inpainting",
+            "Stability Outpainting",
+            "Stability Remove Background",
+            "Stability SD3",
+            "Stability Search And Recolor",
+            "Stability Search and Replace",
             "Upscale Model Loader JK",
             "Upscale Model Parameters Extract JK",
             "Upscale Model Parameters JK",
@@ -14620,6 +14660,7 @@
     ],
     "https://github.com/kijai/ComfyUI-CogVideoXWrapper": [
         [
+            "CogVideoContextOptions",
             "CogVideoControlImageEncode",
             "CogVideoDecode",
             "CogVideoDualTextEncode_311",
@@ -15705,6 +15746,14 @@
             "title_aux": "ComfyUI-4DHumans"
         }
     ],
+    "https://github.com/logtd/ComfyUI-APGScaling": [
+        [
+            "APGFunction"
+        ],
+        {
+            "title_aux": "ComfyUI-APGScaling"
+        }
+    ],
     "https://github.com/logtd/ComfyUI-DiLightNet": [
         [
             "LoadDiLightControlNet",
@@ -16352,12 +16401,15 @@
             "LF_LoraSelector",
             "LF_LoraTag2Prompt",
             "LF_MultipleImageResizeForWeb",
+            "LF_Notify",
             "LF_RandomBoolean",
             "LF_ResizeImageByEdge",
             "LF_ResizeImageToSquare",
             "LF_ResolutionSwitcher",
+            "LF_SamplerSelector",
             "LF_SaveImageForCivitAI",
             "LF_SaveJSON",
+            "LF_SchedulerSelector",
             "LF_SequentialSeedsGenerator",
             "LF_SetValueInJSON",
             "LF_Something2Number",
@@ -20405,7 +20457,8 @@
     "https://github.com/willchil/ComfyUI-Environment-Visualizer": [
         [
             "EnvironmentVisualizer",
-            "InterpolateEdges"
+            "InterpolateEdges",
+            "MapEquirectangular"
         ],
         {
             "title_aux": "ComfyUI-Environment-Visualizer"
@@ -20931,7 +20984,6 @@
             "easy imageRatio",
             "easy imageRemBg",
             "easy imageSave",
-            "easy imageSaveWithText",
             "easy imageScaleDown",
             "easy imageScaleDownBy",
             "easy imageScaleDownToSize",
@@ -20959,6 +21011,7 @@
             "easy ipadapterApplyFromParams",
             "easy ipadapterApplyRegional",
             "easy ipadapterStyleComposition",
+            "easy isFileExist",
             "easy isNone",
             "easy isSDXL",
             "easy joinImageBatch",
@@ -20974,6 +21027,7 @@
             "easy latentNoisy",
             "easy lengthAnything",
             "easy loadImageBase64",
+            "easy loadImagesForLoop",
             "easy loraStack",
             "easy loraStackApply",
             "easy mathFloat",
@@ -21014,6 +21068,7 @@
             "easy rangeInt",
             "easy removeLocalImage",
             "easy samLoaderPipe",
+            "easy saveText",
             "easy seed",
             "easy showAnything",
             "easy showLoaderSettingsNames",
