@@ -982,6 +982,7 @@ class ManagerMenuDialog extends ComfyDialog {
 		dbl_click_policy_combo.className = "cm-menu-combo";
 		dbl_click_policy_combo.appendChild($el('option', { value: 'none', text: 'Double-Click: None' }, []));
 		dbl_click_policy_combo.appendChild($el('option', { value: 'copy-all', text: 'Double-Click: Copy All Connections' }, []));
+		dbl_click_policy_combo.appendChild($el('option', { value: 'copy-full', text: 'Double-Click: Copy All Connections and shapes' }, []));
 		dbl_click_policy_combo.appendChild($el('option', { value: 'copy-input', text: 'Double-Click: Copy Input Connections' }, []));
 		dbl_click_policy_combo.appendChild($el('option', { value: 'possible-input', text: 'Double-Click: Possible Input Connections' }, []));
 		dbl_click_policy_combo.appendChild($el('option', { value: 'dual', text: 'Double-Click: Possible(left) + Copy(right)' }, []));
