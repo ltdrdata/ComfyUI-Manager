@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 50, 3]
+version = [2, 51, 6]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 
@@ -1135,7 +1135,7 @@ async def extract_nodes_from_workflow(filepath, mode='local', channel_url='defau
             if node_name in ['Reroute', 'Note']:
                 continue
 
-            if node_name is not None and not node_name.startswith('workflow/'):
+            if node_name is not None and not (node_name.startswith('workflow/') or node_name.startswith('workflow>')):
                 used_nodes.add(node_name)
 
     if 'nodes' in workflow:

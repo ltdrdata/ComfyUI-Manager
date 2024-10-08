@@ -1106,7 +1106,7 @@ export class CustomNodesManager {
 
 		for (let i in nodes) {
 			const node_type = nodes[i].type;
-			if(node_type.startsWith('workflow/'))
+			if(node_type.startsWith('workflow/') || node_type.startsWith('workflow>'))
 				continue;
 
 			if (!registered_nodes.has(node_type)) {
