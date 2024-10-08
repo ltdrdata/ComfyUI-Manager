@@ -820,7 +820,14 @@ async def install_custom_node(request):
         res = unzip_install(json_data['files'])
 
     if install_type == "copy":
-        js_path_name = json_data['js_path'] if 'js_path' in json_data else '.'
+        if 'js_path' in json_data:
+            if '.' in json_data['js_path'] or ':' in json_data['js_path'] or json_data['js_path'].startswith('/'):
+                print(f"[ComfyUI Manager] An abnormal JS path has been transmitted. This could be the result of a security attack.\n{json_data['js_path']}")
+                return web.Response(status=400)
+            else:
+                js_path_name = json_data['js_path']
+        else:
+            js_path_name = '.'
         res = copy_install(json_data['files'], js_path_name)
 
     elif install_type == "git-clone":
