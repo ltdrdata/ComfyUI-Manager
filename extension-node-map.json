@@ -241,7 +241,8 @@
             "Load_OBJ",
             "Mesh_Clean_Data",
             "Mesh_Cleanup",
-            "Mesh_Data",
+            "Mesh_Data_Get",
+            "Mesh_Data_Set",
             "Mesh_Data_Statistics",
             "Mesh_Optimization",
             "Mesh_Subdivide",
@@ -574,6 +575,17 @@
         ],
         {
             "title_aux": "DiffSynth-ComfyUI"
+        }
+    ],
+    "https://github.com/AIFSH/EzAudio-ComfyUI": [
+        [
+            "EzAudioControlNetNode",
+            "EzAudioEditNode",
+            "EzAudioNode",
+            "TextPromptNode"
+        ],
+        {
+            "title_aux": "EzAudio-ComfyUI"
         }
     ],
     "https://github.com/AIFSH/FancyVideo-ComfyUI": [
@@ -3370,6 +3382,7 @@
             "JNodes_LoadVideo",
             "JNodes_LoadVisualMediaFromPath",
             "JNodes_LoadVisualMediaFromPath_Batch",
+            "JNodes_LoadVisualMediaFromPath_List",
             "JNodes_LoraExtractor",
             "JNodes_MediaInfoToString",
             "JNodes_ModelInOut",
@@ -3453,6 +3466,42 @@
         ],
         {
             "title_aux": "ComfyUI_TGate"
+        }
+    ],
+    "https://github.com/JichaoLiang/Immortal_comfyUI": [
+        [
+            "AppendNode",
+            "ApplyVoiceConversion",
+            "CombineVideos",
+            "ImAppendFreeChatAction",
+            "ImAppendImageActionNode",
+            "ImAppendQuickbackNode",
+            "ImAppendQuickbackVideoNode",
+            "ImAppendVideoNode",
+            "ImApplyWav2lip",
+            "ImDumpEntity",
+            "ImDumpNode",
+            "ImLoadPackage",
+            "ImNodeTitleOverride",
+            "ImSetActionKeywordMapping",
+            "MergeNode",
+            "NewNode",
+            "Node2String",
+            "OllamaChat",
+            "SaveImagePath",
+            "SaveToDirectory",
+            "SetEvent",
+            "SetNodeMapping",
+            "SetProperties",
+            "String2Node",
+            "TurnOnOffNodeOnEnter",
+            "batchNodes",
+            "grepNodeByText",
+            "mergeEntityAndPointer",
+            "redirectToNode"
+        ],
+        {
+            "title_aux": "Immortal_comfyUI"
         }
     ],
     "https://github.com/Jordach/comfy-plasma": [
@@ -4365,6 +4414,19 @@
         ],
         {
             "title_aux": "ComfyUI-BiRefNet-Hugo"
+        }
+    ],
+    "https://github.com/MoonHugo/ComfyUI-FFmpeg": [
+        [
+            "AddImgWatermark",
+            "AddTextWatermark",
+            "ExtractAudio",
+            "Frames2Video",
+            "Video2Frames",
+            "VideoFlip"
+        ],
+        {
+            "title_aux": "ComfyUI-FFmpeg"
         }
     ],
     "https://github.com/Moooonet/ComfyUI-ArteMoon": [
@@ -9011,6 +9073,14 @@
             "title_aux": "ImageProcessing"
         }
     ],
+    "https://github.com/bvhari/ComfyUI_PerpCFG": [
+        [
+            "PerpCFG"
+        ],
+        {
+            "title_aux": "ComfyUI_PerpCFG"
+        }
+    ],
     "https://github.com/bvhari/ComfyUI_PerpWeight": [
         [
             "CLIPTextEncodePerpWeight"
@@ -10875,6 +10945,7 @@
             "D2 Checkpoint Loader",
             "D2 KSampler",
             "D2 KSampler(Advanced)",
+            "D2 Load Image",
             "D2 Multi Output",
             "D2 Prompt SR",
             "D2 Refiner Steps",
@@ -10908,6 +10979,7 @@
             "GPT4MiniNode",
             "GPT4VisionNode",
             "GeminiCustomVision",
+            "GeminiTextOnly",
             "Gpt4CustomVision",
             "Gpt4VisionCloner",
             "OllamaNode",
@@ -11930,6 +12002,7 @@
             "FL_ImageNotes",
             "FL_ImagePixelator",
             "FL_ImageRandomizer",
+            "FL_ImageSlicer",
             "FL_ImagesToPDF",
             "FL_InfiniteZoom",
             "FL_InpaintCrop",
@@ -11940,6 +12013,7 @@
             "FL_KsamplerSettings",
             "FL_LoadImage",
             "FL_MadLibGenerator",
+            "FL_Math",
             "FL_MirrorAndAppendCaptions",
             "FL_NFTGenerator",
             "FL_OllamaCaptioner",
@@ -12444,6 +12518,15 @@
         ],
         {
             "title_aux": "SaltAI_Language_Toolkit"
+        }
+    ],
+    "https://github.com/ggarra13/ComfyUI-mrv2": [
+        [
+            "mrv2AnnotationsImageNode",
+            "mrv2SaveEXRImage"
+        ],
+        {
+            "title_aux": "ComfyUI-mrv2"
         }
     ],
     "https://github.com/giriss/comfy-image-saver": [
@@ -13173,6 +13256,7 @@
             "replace_string",
             "save_ebd_database",
             "save_openai_ebd",
+            "savepersona",
             "searxng_tool",
             "selenium_tool",
             "send_to_wechat_official",
@@ -15359,7 +15443,8 @@
     ],
     "https://github.com/latenightlabs/ComfyUI-LNL": [
         [
-            "LNL_FrameSelectorV3"
+            "LNL_FrameSelectorV3",
+            "LNL_FrameSelectorV4"
         ],
         {
             "title_aux": "LNL Frame Selector"
@@ -16421,7 +16506,11 @@
             "LF_SwitchInteger",
             "LF_SwitchJSON",
             "LF_SwitchString",
+            "LF_UpdateUsageStatistics",
+            "LF_UpscaleModelSelector",
             "LF_UrandomSeedGenerator",
+            "LF_UsageStatistics",
+            "LF_VAESelector",
             "LF_WallOfText",
             "LF_WorkflowSettings",
             "LF_WriteJSON"
@@ -16901,7 +16990,9 @@
             "AddWaterMarkNode",
             "AdjustBrightnessContrastSaturationNode",
             "BaiduTranslateNode",
+            "ColorBalanceNode",
             "ConvertGrayChannelNode",
+            "HSLColorNode",
             "HighlightShadowBrightnessNode",
             "ImitationHueNode",
             "LightShapeNode"
@@ -19197,7 +19288,6 @@
         [
             "Comic_Type",
             "Pre_Translate_prompt",
-            "Story_Easy_Function",
             "Storydiffusion_Model_Loader",
             "Storydiffusion_Sampler"
         ],
@@ -19592,6 +19682,7 @@
             "DisplayAny-",
             "ExtractBoundingBox-",
             "FaceCutout-",
+            "FaceMorph-",
             "FacePaste-",
             "FilePathAnalyzer-",
             "FillMaskedImageArea-",
@@ -19810,10 +19901,8 @@
         [
             "MLXClipTextEncoder",
             "MLXDecoder",
-            "MLXFluxCLIPLoader",
             "MLXLoadFlux",
-            "MLXSampler",
-            "MLXSaveImage"
+            "MLXSampler"
         ],
         {
             "title_aux": "ComfyUI MLX Nodes"
@@ -21069,8 +21158,10 @@
             "easy removeLocalImage",
             "easy samLoaderPipe",
             "easy saveText",
+            "easy saveTextLazy",
             "easy seed",
             "easy showAnything",
+            "easy showAnythingLazy",
             "easy showLoaderSettingsNames",
             "easy showSpentTime",
             "easy showTensorShape",
@@ -21395,6 +21486,15 @@
         ],
         {
             "title_aux": "zhangp365/ComfyUI-utils-nodes"
+        }
+    ],
+    "https://github.com/zhangp365/ComfyUI_photomakerV2_native": [
+        [
+            "PhotoMakerEncodeV2",
+            "PhotoMakerLoaderV2"
+        ],
+        {
+            "title_aux": "ComfyUI_photomakerV2_native"
         }
     ],
     "https://github.com/zhiselfly/ComfyUI-Alimama-ControlNet-compatible": [
