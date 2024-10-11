@@ -512,17 +512,6 @@
             "description": "This is a low-dependency node pack primarily dealing with masks. The author recommends using Impact-Pack instead (unless you specifically have trouble installing dependencies)."
         },
         {
-            "author": "guoyk93",
-            "title": "y.k.'s ComfyUI node suite",
-            "id": "yks",
-            "reference": "https://github.com/guoyk93/yk-node-suite-comfyui",
-            "files": [
-                "https://github.com/guoyk93/yk-node-suite-comfyui"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: YKImagePadForOutpaint, YKMaskToImage"
-        },
-        {
             "author": "Jcd1230",
             "title": "Rembg Background Removal Node for ComfyUI",
             "id": "rembg",
@@ -700,18 +689,6 @@
         },
         {
             "author": "Zuellni",
-            "title": "ComfyUI-ExLlama",
-            "id": "exllama",
-            "reference": "https://github.com/Zuellni/ComfyUI-ExLlama",
-            "files": [
-                "https://github.com/Zuellni/ComfyUI-ExLlama"
-            ],
-            "pip": ["sentencepiece", "https://github.com/jllllll/exllama/releases/download/0.0.17/exllama-0.0.17+cu118-cp310-cp310-win_amd64.whl"],
-            "install_type": "git-clone",
-            "description": "Nodes: ExLlama Loader, ExLlama Generator.\nUsed to load 4-bit GPTQ Llama/2 models. You can find a lot of them over at [a/https://huggingface.co/TheBloke](https://huggingface.co/TheBloke)[w/NOTE: You need to manually install a pip package that suits your system. For example. If your system is 'Python3.10 + Windows + CUDA 11.8' then you need to install 'exllama-0.0.17+cu118-cp310-cp310-win_amd64.whl'. Available package files are [a/here](https://github.com/jllllll/exllama/releases)]"
-        },
-        {
-            "author": "Zuellni",
             "title": "ComfyUI ExLlamaV2 Nodes",
             "id": "exllamav2",
             "reference": "https://github.com/Zuellni/ComfyUI-ExLlama-Nodes",
@@ -769,13 +746,13 @@
             "author": "strimmlarn",
             "title": "ComfyUI_Strimmlarns_aesthetic_score",
             "id": "aesthetic-score",
-            "reference": "https://github.com/strimmlarn/ComfyUI_Strimmlarns_aesthetic_score",
+            "reference": "https://github.com/strimmlarn/ComfyUI-Strimmlarns-Aesthetic-Score",
             "js_path": "strimmlarn",
             "files": [
-                "https://github.com/strimmlarn/ComfyUI_Strimmlarns_aesthetic_score"
+                "https://github.com/strimmlarn/ComfyUI-Strimmlarns-Aesthetic-Score"
             ],
             "install_type": "git-clone",
-            "description": "Nodes: CalculateAestheticScore, LoadAesteticModel, AesthetlcScoreSorter, ScoreToNumber"
+            "description": "Nodes: CalculateAestheticScore, LoadAesteticModel, AesthetlcScoreSorter, ScoreToNumber.\nAesthetic score for ComfyUI"
         },
         {
             "author": "TinyTerra",
@@ -1374,14 +1351,14 @@
         },
         {
             "author": "civitai",
-            "title": "comfy-nodes",
+            "title": "Civitai Comfy Nodes",
             "id": "civitai",
-            "reference": "https://github.com/civitai/comfy-nodes",
+            "reference": "https://github.com/civitai/civitai_comfy_nodes",
             "files": [
-                "https://github.com/civitai/comfy-nodes"
+                "https://github.com/civitai/civitai_comfy_nodes"
             ],
             "install_type": "git-clone",
-            "description": "Nodes: CivitAI_Loaders. Load Checkpoints, and LORA models directly from CivitAI API."
+            "description": "Tired of manually downloading and moving models, LoRAs, and more to the right places?\nSick of scouring Civitai for that one mystical LoRA someone was using to make that cool image?\nWant to be share a fully reproducable workflow?"
         },
         {
             "author": "andersxa",
@@ -1443,9 +1420,9 @@
             "author": "daxthin",
             "title": "DZ-FaceDetailer",
             "id": "dz-facedetailer",
-            "reference": "https://github.com/daxthin/DZ-FaceDetailer",
+            "reference": "https://github.com/nicofdga/DZ-FaceDetailer",
             "files": [
-                "https://github.com/daxthin/DZ-FaceDetailer"
+                "https://github.com/nicofdga/DZ-FaceDetailer"
             ],
             "install_type": "git-clone",
             "description": "Face Detailer is a custom node for the 'ComfyUI' framework inspired by !After Detailer extension from auto1111, it allows you to detect faces using Mediapipe and YOLOv8n to create masks for the detected faces."
@@ -1716,15 +1693,14 @@
             "description": "This node manipulates the pixel art image in ways that it should look pixel perfect (downscales, changes palette, upscales etc.)."
         },
         {
-            "author": "dimtoneff",
-            "title": "Eagle PNGInfo",
-            "id": "eaglepnginfo",
-            "reference": "https://github.com/hylarucoder/ComfyUI-Eagle-PNGInfo",
+            "author": "hylarucoder",
+            "title": "comfyui-copilot",
+            "reference": "https://github.com/hylarucoder/comfyui-copilot",
             "files": [
-                "https://github.com/hylarucoder/ComfyUI-Eagle-PNGInfo"
+                "https://github.com/hylarucoder/comfyui-copilot"
             ],
             "install_type": "git-clone",
-            "description": "Nodes: EagleImageNode"
+            "description": "NODES:Eagle Image Node for PNGInfo, SDXL Resolution Presets (ws), SDXL Prompt Styler, SDXL Prompt Styler Advanced"
         },
         {
             "author": "theUpsider",
@@ -1857,17 +1833,6 @@
             ],
             "install_type": "git-clone",
             "description": "A set of custom nodes to perform image 2 image functions in ComfyUI."
-        },
-        {
-            "author": "mpiquero7164",
-            "title": "SaveImgPrompt",
-            "id": "save-imgprompt",
-            "reference": "https://github.com/mpiquero7164/ComfyUI-SaveImgPrompt",
-            "files": [
-                "https://github.com/mpiquero7164/ComfyUI-SaveImgPrompt"
-            ],
-            "install_type": "git-clone",
-            "description": "Save a png or jpeg and option to save prompt/workflow in a text or json file for each image in Comfy + Workflow loading."
         },
         {
             "author": "m-sokes",
@@ -2530,9 +2495,9 @@
             "author": "ealkanat",
             "title": "ComfyUI Easy Padding",
             "id": "easy-padding",
-            "reference": "https://github.com/ealkanat/comfyui_easy_padding",
+            "reference": "https://github.com/ealkanat/comfyui-easy-padding",
             "files": [
-                "https://github.com/ealkanat/comfyui_easy_padding"
+                "https://github.com/ealkanat/comfyui-easy-padding"
             ],
             "install_type": "git-clone",
             "description": "ComfyUI Easy Padding is a simple custom ComfyUI node that helps you to add padding to images on ComfyUI."
@@ -3652,9 +3617,9 @@
             "author": "taabata",
             "title": "LCM_Inpaint-Outpaint_Comfy",
             "id": "lcm-inpaint-outpaint",
-            "reference": "https://github.com/taabata/LCM_Inpaint-Outpaint_Comfy",
+            "reference": "https://github.com/taabata/LCM_Inpaint_Outpaint_Comfy",
             "files": [
-                "https://github.com/taabata/LCM_Inpaint-Outpaint_Comfy"
+                "https://github.com/taabata/LCM_Inpaint_Outpaint_Comfy"
             ],
             "install_type": "git-clone",
             "description": "ComfyUI custom nodes for inpainting/outpainting using the new latent consistency model (LCM)"
@@ -3825,12 +3790,12 @@
             "description": "Nodes:FEImagePadForOutpaint, FEColorOut, FEColor2Image, FERandomizedColor2Image"
         },
         {
-            "author": "AbyssYuan0",
+            "author": "AbyssBadger0",
             "title": "ComfyUI_BadgerTools",
             "id": "badger",
-            "reference": "https://github.com/AbyssYuan0/ComfyUI_BadgerTools",
+            "reference": "https://github.com/AbyssBadger0/ComfyUI_BadgerTools",
             "files": [
-                "https://github.com/AbyssYuan0/ComfyUI_BadgerTools"
+                "https://github.com/AbyssBadger0/ComfyUI_BadgerTools"
             ],
             "install_type": "git-clone",
             "description": "Nodes:ImageOverlap-badger, FloatToInt-badger, IntToString-badger, FloatToString-badger, ImageNormalization-badger, ImageScaleToSide-badger, NovelToFizz-badger."
@@ -4073,17 +4038,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:File Padding, Image Info, VAE Loader With Name"
-        },
-        {
-            "author": "ansonkao",
-            "title": "comfyui-geometry",
-            "id": "geometry",
-            "reference": "https://github.com/ansonkao/comfyui-geometry",
-            "files": [
-                "https://github.com/ansonkao/comfyui-geometry"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: Mask to Centroid, Mask to Eigenvector. A small collection of custom nodes for use with ComfyUI, for geometry calculations"
         },
         {
             "author": "bronkula",
@@ -4398,14 +4352,14 @@
         },
         {
             "author": "ZHO-ZHO-ZHO",
-            "title": "ComfyUI-Qwen-2",
-            "id": "qwen-2",
-            "reference": "https://github.com/ZHO-ZHO-ZHO/ComfyUI-Qwen-2",
+            "title": "Qwen-2.5 in ComfyUI",
+            "id": "qwen",
+            "reference": "https://github.com/ZHO-ZHO-ZHO/ComfyUI-Qwen",
             "files": [
-                "https://github.com/ZHO-ZHO-ZHO/ComfyUI-Qwen-2"
+                "https://github.com/ZHO-ZHO-ZHO/ComfyUI-Qwen"
             ],
             "install_type": "git-clone",
-            "description": "Using Qwen-2 in ComfyUI"
+            "description": "Using Qwen-2.5 in ComfyUI"
         },
         {
             "author": "ZHO-ZHO-ZHO",
@@ -15440,6 +15394,28 @@
             "install_type": "git-clone",
             "description": "Implementation of PMRF on ComfyUI"
         },
+        {
+            "author": "dionren",
+            "title": "Export Workflow With Cyuai Api Available Nodes",
+            "id": "comfyUI-Pro-Export-Tool",
+            "reference": "https://github.com/dionren/ComfyUI-Pro-Export-Tool",
+            "files": [
+                "https://github.com/dionren/ComfyUI-Pro-Export-Tool"
+            ],
+            "install_type": "git-clone",
+            "description": "This is a node to convert workflows to cyuai api available nodes."
+        },
+        {
+            "author": "l1yongch1",
+            "title": "ComfyUI_PhiCaption",
+            "reference": "https://github.com/l1yongch1/ComfyUI_PhiCaption",
+            "files": [
+                "https://github.com/l1yongch1/ComfyUI_PhiCaption"
+            ],
+            "install_type": "git-clone",
+            "description": "In addition to achieving conventional single-image, single-round reverse engineering, it can also achieve single-image multi-round and multi-image single-round reverse engineering. Moreover, the Phi model has a better understanding of prompts."
+        },
+
 
 
 
@@ -15833,17 +15809,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "dionren",
-            "title": "Export Workflow With Cyuai Api Available Nodes",
-            "id": "comfyUI-Pro-Export-Tool",
-            "reference": "https://github.com/dionren/ComfyUI-Pro-Export-Tool",
-            "files": [
-                "https://github.com/dionren/ComfyUI-Pro-Export-Tool"
-            ],
-            "install_type": "git-clone",
-            "description": "This is a node to convert workflows to cyuai api available nodes."
         }
     ]
 }
