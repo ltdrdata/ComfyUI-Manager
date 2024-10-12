@@ -1,6 +1,200 @@
 {
   "models": [
     {
+      "name": "kijai/lotus depth d model v1.1 (fp16)",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus depth d model v1.1 (fp16). This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-depth-d-v-1-1-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-depth-d-v-1-1-fp16.safetensors",
+      "size": "1.74GB"
+    },
+    {
+      "name": "kijai/lotus depth g model v1.0 (fp16)",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus depth g model v1.0 (fp16). This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-depth-g-v1-0-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-depth-g-v1-0-fp16.safetensors",
+      "size": "1.74GB"
+    },
+    {
+      "name": "kijai/lotus depth g model v1.0",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus depth g model v1.0. This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-depth-g-v1-0.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-depth-g-v1-0.safetensors",
+      "size": "3.47GB"
+    },
+    {
+      "name": "kijai/lotus normal d model v1.0 (fp16)",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus normal d model v1.0 (fp16). This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-normal-d-v1-0-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-normal-d-v1-0-fp16.safetensors",
+      "size": "1.74GB"
+    },
+    {
+      "name": "kijai/lotus normal d model v1.0",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus normal d model v1.0. This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-normal-d-v1-0.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-normal-d-v1-0.safetensors",
+      "size": "3.47GB"
+    },
+    {
+      "name": "kijai/lotus normal g model v1.0 (fp16)",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus normal g model v1.0 (fp16). This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-normal-g-v1-0-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-normal-g-v1-0-fp16.safetensors",
+      "size": "1.74GB"
+    },
+    {
+      "name": "kijai/lotus normal g model v1.0",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus normal g model v1.0. This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-normal-g-v1-0.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-normal-g-v1-0.safetensors",
+      "size": "3.47GB"
+    },
+
+    {
+      "name": "Depth Pro model",
+      "type": "depth-pro",
+      "base": "depth-pro",
+      "save_path": "depth/ml-depth-pro",
+      "description": "Depth pro model for [a/ComfyUI-Depth-Pro](https://github.com/spacepxl/ComfyUI-Depth-Pro)",
+      "reference": "https://huggingface.co/spacepxl/ml-depth-pro",
+      "filename": "depth_pro.fp16.safetensors",
+      "url": "https://huggingface.co/spacepxl/ml-depth-pro/resolve/main/depth_pro.fp16.safetensors",
+      "size": "1.9GB"
+    },
+
+    {
+      "name": "jasperai/FLUX.1-dev-Controlnet-Upscaler",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "controlnet/FLUX.1/jasperai-dev-Upscaler",
+      "description": "This is Flux.1-dev ControlNet for low resolution images developed by Jasper research team.",
+      "reference": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Upscaler",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Upscaler/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "3.58GB"
+    },
+    {
+      "name": "jasperai/FLUX.1-dev-Controlnet-Depth",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "controlnet/FLUX.1/jasperai-dev-Depth",
+      "description": "This is Flux.1-dev ControlNet for Depth map developed by Jasper research team.",
+      "reference": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Depth",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Depth/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "3.58GB"
+    },
+    {
+      "name": "jasperai/Flux.1-dev-Controlnet-Surface-Normals",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "controlnet/FLUX.1/jasperai-dev-Surface-Normals",
+      "description": "This is Flux.1-dev ControlNet for Surface Normals map developed by Jasper research team.",
+      "reference": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Surface-Normals",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Surface-Normals/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "3.58GB"
+    },
+
+    {
+      "name": "Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro (fp8_e4m3fn) by Kijai",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "controlnet/FLUX.1",
+      "description": "FLUX.1 [Dev] Union Controlnet. Supports Canny, Tile, Depth, Blur, Pose, Gray, Low Quality\nVersion quantized to fp8_e4m3fn by Kijai",
+      "reference": "https://huggingface.co/Kijai/flux-fp8",
+      "filename": "flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors",
+      "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors",
+      "size": "3.3GB"
+    },
+    
+    {
+      "name": "ViT-L-14-TEXT-detail-improved-hiT-GmP-HF.safetensors [Long CLIP L]",
+      "type": "clip",
+      "base": "clip",
+      "save_path": "clip/long_clip",
+      "description": "Greatly improved TEXT + Detail (as CLIP-L for Flux.1)",
+      "reference": "https://huggingface.co/zer0int",
+      "filename": "ViT-L-14-TEXT-detail-improved-hiT-GmP-HF.safetensors",
+      "url": "https://huggingface.co/zer0int/CLIP-GmP-ViT-L-14/resolve/main/ViT-L-14-TEXT-detail-improved-hiT-GmP-HF.safetensors",
+      "size": "931MB"
+    },
+    {
+      "name": "ViT-L-14-TEXT-detail-improved-hiT-GmP-HF.safetensors [Long CLIP L]",
+      "type": "clip",
+      "base": "clip",
+      "save_path": "clip/long_clip",
+      "description": "Greatly improved TEXT + Detail (as CLIP-L for Flux.1)",
+      "reference": "https://huggingface.co/zer0int",
+      "filename": "ViT-L-14-TEXT-detail-improved-hiT-GmP-TE-only-HF.safetensors",
+      "url": "https://huggingface.co/zer0int/CLIP-GmP-ViT-L-14/resolve/main/ViT-L-14-TEXT-detail-improved-hiT-GmP-TE-only-HF.safetensors",
+      "size": "323MB"
+    },
+
+    {
+      "name": "Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "controlnet/FLUX.1/Shakker-Labs-ControlNet-Union-Pro",
+      "description": "FLUX.1 [Dev] Union Controlnet. Supports Canny, Tile, Depth, Blur, Pose, Gray, Low Quality",
+      "reference": "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors",
+      "size": "6.6GB"
+    },
+    
+    {
+      "name": "Hyper-SD LoRA (8steps) - FLUX.1 [Dev]",
+      "type": "lora",
+      "base": "FLUX.1",
+      "save_path": "loras/HyperSD/FLUX.1",
+      "description": "Hyper-SD LoRA (8steps) - FLUX.1 [Dev]",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-FLUX.1-dev-8steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-8steps-lora.safetensors",
+      "size": "1.39GB"
+    },
+    {
+      "name": "Hyper-SD LoRA (16steps) - FLUX.1 [Dev]",
+      "type": "lora",
+      "base": "FLUX.1",
+      "save_path": "loras/HyperSD/FLUX.1",
+      "description": "Hyper-SD LoRA (16steps) - FLUX.1 [Dev]",
+      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
+      "filename": "Hyper-FLUX.1-dev-16steps-lora.safetensors",
+      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-16steps-lora.safetensors",
+      "size": "1.39GB"
+    },
+
+    {
       "name": "BAAI/SegGPT",
       "type": "SegGPT",
       "base": "SegGPT",
@@ -492,203 +686,6 @@
       "filename": "clip_l.safetensors",
       "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors",
       "size": "246MB"
-    },
-
-    {
-      "name": "Comfy Org/FLUX.1 [dev] Checkpoint model (fp8)",
-      "type": "checkpoint",
-      "base": "FLUX.1",
-      "save_path": "checkpoints/FLUX1",
-      "description": "FLUX.1 [dev] Checkpoint model (fp8)",
-      "reference": "https://huggingface.co/Comfy-Org/flux1-dev/tree/main",
-      "filename": "flux1-dev-fp8.safetensors",
-      "url": "https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors",
-      "size": "17.2GB"
-    },
-    {
-      "name": "Comfy Org/FLUX.1 [schnell] Checkpoint model (fp8)",
-      "type": "checkpoint",
-      "base": "FLUX.1",
-      "save_path": "checkpoints/FLUX1",
-      "description": "FLUX.1 [schnell] Checkpoint model (fp8)",
-      "reference": "https://huggingface.co/Comfy-Org/flux1-dev/tree/main",
-      "filename": "flux1-schnell-fp8.safetensors",
-      "url": "https://huggingface.co/Comfy-Org/flux1-schnell/resolve/main/flux1-schnell-fp8.safetensors",
-      "size": "17.2GB"
-    },
-    
-    {
-      "name": "google-t5/t5-v1_1-xxl_encoderonly-fp16",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "The encoder part of https://huggingface.co/google/t5-v1_1-xxl, used with SD3 and Flux1",
-      "reference": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly",
-      "filename": "google_t5-v1_1-xxl_encoderonly-fp16.safetensors",
-      "url": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/pytorch_model.safetensors",
-      "size": "10.1GB"
-    },
-    {
-      "name": "google-t5/t5-v1_1-xxl_encoderonly-fp8_e4m3fn",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "The encoder part of https://huggingface.co/google/t5-v1_1-xxl, used with SD3 and Flux1",
-      "reference": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly",
-      "filename": "google_t5-v1_1-xxl_encoderonly-fp8_e4m3fn.safetensors",
-      "url": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/t5xxl_fp8_e4m3fn.safetensors",
-      "size": "4.89GB"
-    },
-
-    {
-      "name": "FLUX.1 [schnell] Diffusion model",
-      "type": "unet",
-      "base": "FLUX.1",
-      "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [Schnell] Diffusion model (a.k.a. FLUX.1 turbo model)[w/Due to the large size of the model, it is recommended to download it through a browser if possible.]",
-      "reference": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
-      "filename": "flux1-schnell.safetensors",
-      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors",
-      "size": "23.8GB"
-    },
-
-    {
-      "name": "FLUX.1 VAE model",
-      "type": "VAE",
-      "base": "FLUX.1",
-      "save_path": "vae/FLUX1",
-      "description": "FLUX.1 VAE model",
-      "reference": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
-      "filename": "ae.sft",
-      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors",
-      "size": "335MB"
-    },
-
-    {
-      "name": "kijai/FLUX.1 [schnell] Diffusion model (float8_e4m3fn)",
-      "type": "unet",
-      "base": "FLUX.1",
-      "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [Schnell] Diffusion model (float8_e4m3fn)",
-      "reference": "https://huggingface.co/Kijai/flux-fp8",
-      "filename": "flux1-schnell-fp8.safetensors",
-      "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8.safetensors",
-      "size": "11.9GB"
-    },
-    {
-      "name": "kijai/FLUX.1 [dev] Diffusion model (float8_e4m3fn)",
-      "type": "unet",
-      "base": "FLUX.1",
-      "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [dev] Diffusion model (float8_e4m3fn)",
-      "reference": "https://huggingface.co/Kijai/flux-fp8",
-      "filename": "flux1-dev-fp8.safetensors",
-      "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors",
-      "size": "11.9GB"
-    },
-
-    {
-      "name": "photomaker-v2.bin",
-      "type": "photomaker",
-      "base": "SDXL",
-      "save_path": "photomaker",
-      "description": "PhotoMaker model. This model is compatible with SDXL.",
-      "reference": "https://huggingface.co/TencentARC/PhotoMaker-V2",
-      "filename": "photomaker-v2.bin",
-      "url": "https://huggingface.co/TencentARC/PhotoMaker-V2/resolve/main/photomaker-v2.bin",
-      "size": "1.8GB"
-    },
-    
-    {
-      "name": "hunyuan_dit_1.2.safetensors",
-      "type": "checkpoint",
-      "base": "Hunyuan-DiT",
-      "save_path": "checkpoints/hunyuan_dit_comfyui",
-      "description": "Different versions of HunyuanDIT packaged for ComfyUI use.",
-      "reference": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui",
-      "filename": "hunyuan_dit_1.2.safetensors",
-      "url": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui/resolve/main/hunyuan_dit_1.2.safetensors",
-      "size": "8.24GB"
-    },
-    {
-      "name": "hunyuan_dit_1.1.safetensors",
-      "type": "checkpoint",
-      "base": "Hunyuan-DiT",
-      "save_path": "checkpoints/hunyuan_dit_comfyui",
-      "description": "Different versions of HunyuanDIT packaged for ComfyUI use.",
-      "reference": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui",
-      "filename": "hunyuan_dit_1.1.safetensors",
-      "url": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui/resolve/main/hunyuan_dit_1.1.safetensors",
-      "size": "8.24GB"
-    },
-    {
-      "name": "hunyuan_dit_1.0.safetensors",
-      "type": "checkpoint",
-      "base": "Hunyuan-DiT",
-      "save_path": "checkpoints/hunyuan_dit_comfyui",
-      "description": "Different versions of HunyuanDIT packaged for ComfyUI use.",
-      "reference": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui",
-      "filename": "hunyuan_dit_1.0.safetensors",
-      "url": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui/resolve/main/hunyuan_dit_1.0.safetensors",
-      "size": "8.24GB"
-    },
-
-    {
-      "name": "xinsir/ControlNet++: All-in-one ControlNet (ProMax model)",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-union-sdxl-1.0",
-      "description": "All-in-one ControlNet for image generations and editing! (ProMax model)",
-      "reference": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0",
-      "filename": "diffusion_pytorch_model_promax.safetensors",
-      "url": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/resolve/main/diffusion_pytorch_model_promax.safetensors",
-      "size": "2.50GB"
-    },
-    {
-      "name": "xinsir/ControlNet++: All-in-one ControlNet",
-      "type": "controlnet",
-      "base": "SDXL",
-      "save_path": "controlnet/SDXL/controlnet-union-sdxl-1.0",
-      "description": "All-in-one ControlNet for image generations and editing!",
-      "reference": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "2.50GB"
-    },
-
-
-    {
-      "name": "InstantX/SD3-Controlnet-Canny",
-      "type": "controlnet",
-      "base": "SD3",
-      "save_path": "controlnet/SD3/InstantX-Controlnet-Canny",
-      "description": "Controlnet SD3 Canny model.",
-      "reference": "https://huggingface.co/InstantX/SD3-Controlnet-Canny",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/InstantX/SD3-Controlnet-Canny/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "1.19GB"
-    },
-    {
-      "name": "InstantX/SD3-Controlnet-Pose",
-      "type": "controlnet",
-      "base": "SD3",
-      "save_path": "controlnet/SD3/InstantX-Controlnet-Pose",
-      "description": "Controlnet SD3 Pose model.",
-      "reference": "https://huggingface.co/InstantX/SD3-Controlnet-Pose",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/InstantX/SD3-Controlnet-Pose/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "1.19GB"
-    },
-    {
-      "name": "InstantX/SD3-Controlnet-Tile",
-      "type": "controlnet",
-      "base": "SD3",
-      "save_path": "controlnet/SD3/InstantX-Controlnet-Tile",
-      "description": "Controlnet SD3 Tile model.",
-      "reference": "https://huggingface.co/InstantX/SD3-Controlnet-Tile",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/InstantX/SD3-Controlnet-Tile/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "1.19GB"
     }
   ]
 }

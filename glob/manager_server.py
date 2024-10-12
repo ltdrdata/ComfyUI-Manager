@@ -47,7 +47,9 @@ is_local_mode = args.listen.startswith('127.') or args.listen.startswith('local.
 
 
 def is_allowed_security_level(level):
-    if level == 'high':
+    if level == 'block':
+        return False
+    elif level == 'high':
         if is_local_mode:
             return core.get_config()['security_level'].lower() in ['weak', 'normal-']
         else:
@@ -58,7 +60,7 @@ def is_allowed_security_level(level):
         return True
 
 
-async def get_risky_level(files):
+async def get_risky_level(files, pip_packages):
     json_data1 = await core.get_data_by_mode('local', 'custom-node-list.json')
     json_data2 = await core.get_data_by_mode('cache', 'custom-node-list.json', channel_url='https://github.com/ltdrdata/ComfyUI-Manager/raw/main')
 
@@ -69,6 +71,15 @@ async def get_risky_level(files):
     for x in files:
         if x not in all_urls:
             return "high"
+
+    all_pip_packages = set()
+    for x in json_data1['custom_nodes'] + json_data2['custom_nodes']:
+        if "pip" in x:
+            all_pip_packages.update(x['pip'])
+
+    for p in pip_packages:
+        if p not in all_pip_packages:
+            return "block"
 
     return "middle"
 
@@ -791,7 +802,7 @@ async def install_custom_node(request):
 
     json_data = await request.json()
 
-    risky_level = await get_risky_level(json_data['files'])
+    risky_level = await get_risky_level(json_data['files'], json_data.get('pip', []))
     if not is_allowed_security_level(risky_level):
         print(SECURITY_MESSAGE_GENERAL)
         return web.Response(status=404)
@@ -809,7 +820,14 @@ async def install_custom_node(request):
         res = unzip_install(json_data['files'])
 
     if install_type == "copy":
-        js_path_name = json_data['js_path'] if 'js_path' in json_data else '.'
+        if 'js_path' in json_data:
+            if '.' in json_data['js_path'] or ':' in json_data['js_path'] or json_data['js_path'].startswith('/'):
+                print(f"[ComfyUI Manager] An abnormal JS path has been transmitted. This could be the result of a security attack.\n{json_data['js_path']}")
+                return web.Response(status=400)
+            else:
+                js_path_name = json_data['js_path']
+        else:
+            js_path_name = '.'
         res = copy_install(json_data['files'], js_path_name)
 
     elif install_type == "git-clone":
@@ -832,8 +850,8 @@ async def install_custom_node(request):
 
 @PromptServer.instance.routes.post("/customnode/fix")
 async def fix_custom_node(request):
-    if not is_allowed_security_level('middle'):
-        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
+    if not is_allowed_security_level('high'):
+        print(SECURITY_MESSAGE_GENERAL)
         return web.Response(status=403)
 
     json_data = await request.json()
