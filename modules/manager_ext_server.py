@@ -88,17 +88,6 @@ async def get_risky_level(files, pip_packages):
     return "middle"
 
 
-def get_current_preview_method(self):
-    if args.preview_method == latent_preview.LatentPreviewMethod.Auto:
-        return "auto"
-    elif args.preview_method == latent_preview.LatentPreviewMethod.Latent2RGB:
-        return "latent2rgb"
-    elif args.preview_method == latent_preview.LatentPreviewMethod.TAESD:
-        return "taesd"
-    else:
-        return "none"
-
-
 from manager_downloader import download_url
 
 components_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'components'))
@@ -114,35 +103,25 @@ def set_preview_method(method):
     else:
         args.preview_method = latent_preview.LatentPreviewMethod.NoPreviews
 
-    core.get_config()['preview_method'] = args.preview_method
+    ext_core.get_config()['preview_method'] = args.preview_method
 
 
-set_preview_method(core.get_config()['preview_method'])
+set_preview_method(ext_core.get_config()['preview_method'])
 
 
 def set_default_ui_mode(mode):
-    core.get_config()['default_ui'] = mode
+    ext_core.get_config()['default_ui'] = mode
 
 
 def set_component_policy(mode):
-    core.get_config()['component_policy'] = mode
+    ext_core.get_config()['component_policy'] = mode
 
 
 def set_double_click_policy(mode):
-    core.get_config()['double_click_policy'] = mode
+    ext_core.get_config()['double_click_policy'] = mode
 
-
-def setup_environment():
-    git_exe = core.get_config()['git_exe']
-
-    if git_exe != '':
-        git.Git().update_environment(GIT_PYTHON_GIT_EXECUTABLE=git_exe)
-
-
-setup_environment()
 
 # Expand Server api
-
 import server
 from aiohttp import web
 import aiohttp
@@ -738,9 +717,9 @@ async def terminal_mode(request):
 async def preview_method(request):
     if "value" in request.rel_url.query:
         set_preview_method(request.rel_url.query['value'])
-        core.write_config()
+        ext_core.write_config()
     else:
-        return web.Response(text=core.manager_funcs.get_current_preview_method(), status=200)
+        return web.Response(text=ext_core.get_current_preview_method(), status=200)
 
     return web.Response(status=200)
 
@@ -749,9 +728,9 @@ async def preview_method(request):
 async def default_ui_mode(request):
     if "value" in request.rel_url.query:
         set_default_ui_mode(request.rel_url.query['value'])
-        core.write_config()
+        ext_core.write_config()
     else:
-        return web.Response(text=core.get_config()['default_ui'], status=200)
+        return web.Response(text=ext_core.get_config()['default_ui'], status=200)
 
     return web.Response(status=200)
 
@@ -760,9 +739,9 @@ async def default_ui_mode(request):
 async def component_policy(request):
     if "value" in request.rel_url.query:
         set_component_policy(request.rel_url.query['value'])
-        core.write_config()
+        ext_core.write_config()
     else:
-        return web.Response(text=core.get_config()['component_policy'], status=200)
+        return web.Response(text=ext_core.get_config()['component_policy'], status=200)
 
     return web.Response(status=200)
 
@@ -771,33 +750,9 @@ async def component_policy(request):
 async def dbl_click_policy(request):
     if "value" in request.rel_url.query:
         set_double_click_policy(request.rel_url.query['value'])
-        core.write_config()
+        ext_core.write_config()
     else:
-        return web.Response(text=core.get_config()['double_click_policy'], status=200)
-
-    return web.Response(status=200)
-
-
-@routes.get("/manager/channel_url_list")
-async def channel_url_list(request):
-    channels = core.get_channel_dict()
-    if "value" in request.rel_url.query:
-        channel_url = channels.get(request.rel_url.query['value'])
-        if channel_url is not None:
-            core.get_config()['channel_url'] = channel_url
-            core.write_config()
-    else:
-        selected = 'custom'
-        selected_url = core.get_config()['channel_url']
-
-        for name, url in channels.items():
-            if url == selected_url:
-                selected = name
-                break
-
-        res = {'selected': selected,
-               'list': core.get_channel_list()}
-        return web.json_response(res, status=200)
+        return web.Response(text=ext_core.get_config()['double_click_policy'], status=200)
 
     return web.Response(status=200)
 
@@ -945,9 +900,9 @@ if hasattr(PromptServer.instance, "app"):
 def sanitize(data):
     return data.replace("<", "&lt;").replace(">", "&gt;")
 
-if not os.path.exists(core.config_path):
-    core.get_config()
-    core.write_config()
+if not os.path.exists(ext_core.manager_core_config_path):
+    ext_core.get_config()
+    ext_core.write_config()
 
 cm_global.register_extension('ComfyUI-Manager',
                              {'version': core.version,
