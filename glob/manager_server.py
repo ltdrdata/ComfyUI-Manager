@@ -876,7 +876,7 @@ async def install_custom_node(request):
 
 @routes.post("/customnode/fix")
 async def fix_custom_node(request):
-    if not is_allowed_security_level('high'):
+    if not is_allowed_security_level('middle'):
         print(SECURITY_MESSAGE_GENERAL)
         return web.Response(status=403)
 
