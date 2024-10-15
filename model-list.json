@@ -1494,8 +1494,19 @@
       "save_path": "clip_vision",
       "description": "CLIPVision model (needed for styles model)",
       "reference": "https://huggingface.co/openai/clip-vit-large-patch14",
-      "filename": "clip-vit-large-patch14.bin",
+      "filename": "clip-vit-large-patch14.safetensors",
       "url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/main/model.safetensors",
+      "size": "1.71GB"
+    },
+    {
+      "name": "CLIPVision model (Kwai-Kolors/Kolors-IP-Adapter-Plus/clip-vit-large)",
+      "type": "clip_vision",
+      "base": "ViT-L",
+      "save_path": "clip_vision",
+      "description": "CLIPVision model (needed for IP-Adapter)",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus",
+      "filename": "clip-vit-large-patch14-336.bin",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus/resolve/main/image_encoder/pytorch_model.bin",
       "size": "1.71GB"
     },
     {
@@ -2664,6 +2675,31 @@
       "url": "https://huggingface.co/ostris/ip-composition-adapter/resolve/main/ip_plus_composition_sdxl.safetensors",
       "size": "847.5MB"
     },
+    {
+      "name": "Kolors-IP-Adapter-Plus.bin (Kwai-Kolors/Kolors-IP-Adapter-Plus)",
+      "type": "IP-Adapter",
+      "base": "Kolors",
+      "save_path": "ipadapter",
+      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus",
+      "filename": "Kolors-IP-Adapter-Plus.bin",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus/resolve/main/ip_adapter_plus_general.bin",
+      "size": "1.01GB"
+    },
+    {
+      "name": "Kolors-IP-Adapter-FaceID-Plus.bin (Kwai-Kolors/Kolors-IP-Adapter-Plus)",
+      "type": "IP-Adapter",
+      "base": "Kolors",
+      "save_path": "ipadapter",
+      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-FaceID-Plus",
+      "filename": "Kolors-IP-Adapter-FaceID-Plus.bin",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-FaceID-Plus/resolve/main/ipa-faceid-plus.bin",
+      "size": "2.39GB"
+    },
+
+
+
     {
       "name": "pfg-novel-n10.pt",
       "type": "PFG",
@@ -4205,6 +4241,152 @@
       "filename": "ViT-L-14-TEXT-detail-improved-hiT-GmP-TE-only-HF.safetensors",
       "url": "https://huggingface.co/zer0int/CLIP-GmP-ViT-L-14/resolve/main/ViT-L-14-TEXT-detail-improved-hiT-GmP-TE-only-HF.safetensors",
       "size": "323MB"
+    },
+
+    {
+      "name": "Depth Pro model",
+      "type": "depth-pro",
+      "base": "depth-pro",
+      "save_path": "depth/ml-depth-pro",
+      "description": "Depth pro model for [a/ComfyUI-Depth-Pro](https://github.com/spacepxl/ComfyUI-Depth-Pro)",
+      "reference": "https://huggingface.co/spacepxl/ml-depth-pro",
+      "filename": "depth_pro.fp16.safetensors",
+      "url": "https://huggingface.co/spacepxl/ml-depth-pro/resolve/main/depth_pro.fp16.safetensors",
+      "size": "1.9GB"
+    },
+
+    {
+      "name": "kijai/lotus depth d model v1.1 (fp16)",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus depth d model v1.1 (fp16). This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-depth-d-v-1-1-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-depth-d-v-1-1-fp16.safetensors",
+      "size": "1.74GB"
+    },
+    {
+      "name": "kijai/lotus depth g model v1.0 (fp16)",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus depth g model v1.0 (fp16). This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-depth-g-v1-0-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-depth-g-v1-0-fp16.safetensors",
+      "size": "1.74GB"
+    },
+    {
+      "name": "kijai/lotus depth g model v1.0",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus depth g model v1.0. This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-depth-g-v1-0.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-depth-g-v1-0.safetensors",
+      "size": "3.47GB"
+    },
+    {
+      "name": "kijai/lotus normal d model v1.0 (fp16)",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus normal d model v1.0 (fp16). This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-normal-d-v1-0-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-normal-d-v1-0-fp16.safetensors",
+      "size": "1.74GB"
+    },
+    {
+      "name": "kijai/lotus normal d model v1.0",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus normal d model v1.0. This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-normal-d-v1-0.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-normal-d-v1-0.safetensors",
+      "size": "3.47GB"
+    },
+    {
+      "name": "kijai/lotus normal g model v1.0 (fp16)",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus normal g model v1.0 (fp16). This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-normal-g-v1-0-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-normal-g-v1-0-fp16.safetensors",
+      "size": "1.74GB"
+    },
+    {
+      "name": "kijai/lotus normal g model v1.0",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus normal g model v1.0. This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-normal-g-v1-0.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-normal-g-v1-0.safetensors",
+      "size": "3.47GB"
+    },
+
+    {
+      "name": "Kolors UNet model",
+      "type": "diffusion_model",
+      "base": "Kolors",
+      "save_path": "diffusion_models/kolors",
+      "description": "Kolors UNet model",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors",
+      "filename": "diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors/resolve/main/unet/diffusion_pytorch_model.safetensors",
+      "size": "10.3GB"
+    },
+    {
+      "name": "Kolors UNet model (fp16)",
+      "type": "diffusion_model",
+      "base": "Kolors",
+      "save_path": "diffusion_models/kolors",
+      "description": "Kolors UNet model",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors",
+      "filename": "diffusion_pytorch_model.fp16.safetensors",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors/resolve/main/unet/diffusion_pytorch_model.fp16.safetensors",
+      "size": "5.16GB"
+    },
+    {
+      "name": "Kijai/ChatGLM3 (4bit)",
+      "type": "LLM",
+      "base": "ChatGLM3",
+      "save_path": "LLM",
+      "description": "This is required for Kolors",
+      "reference": "https://huggingface.co/Kijai/ChatGLM3-safetensors/tree/main",
+      "filename": "chatglm3-4bit.safetensors",
+      "url": "https://huggingface.co/Kijai/ChatGLM3-safetensors/resolve/main/chatglm3-4bit.safetensors",
+      "size": "3.92GB"
+    },
+    {
+      "name": "Kijai/ChatGLM3 (8bit)",
+      "type": "LLM",
+      "base": "ChatGLM3",
+      "save_path": "LLM",
+      "description": "This is required for Kolors",
+      "reference": "https://huggingface.co/Kijai/ChatGLM3-safetensors/tree/main",
+      "filename": "chatglm3-8bit.safetensors",
+      "url": "https://huggingface.co/Kijai/ChatGLM3-safetensors/resolve/main/chatglm3-8bit.safetensors",
+      "size": "3.92GB"
+    },
+    {
+      "name": "Kijai/ChatGLM3 (16bit)",
+      "type": "LLM",
+      "base": "ChatGLM3",
+      "save_path": "LLM",
+      "description": "This is required for Kolors",
+      "reference": "https://huggingface.co/Kijai/ChatGLM3-safetensors/tree/main",
+      "filename": "chatglm3-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/ChatGLM3-safetensors/resolve/main/chatglm3-fp16.safetensors",
+      "size": "12.52GB"
     }
   ]
 }

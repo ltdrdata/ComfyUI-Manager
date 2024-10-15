@@ -1,6 +1,130 @@
 {
   "models": [
     {
+      "name": "Kolors-IP-Adapter-Plus.bin (Kwai-Kolors/Kolors-IP-Adapter-Plus)",
+      "type": "IP-Adapter",
+      "base": "Kolors",
+      "save_path": "ipadapter",
+      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus",
+      "filename": "Kolors-IP-Adapter-Plus.bin",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus/resolve/main/ip_adapter_plus_general.bin",
+      "size": "1.01GB"
+    },
+    {
+      "name": "Kolors-IP-Adapter-FaceID-Plus.bin (Kwai-Kolors/Kolors-IP-Adapter-Plus)",
+      "type": "IP-Adapter",
+      "base": "Kolors",
+      "save_path": "ipadapter",
+      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-FaceID-Plus",
+      "filename": "Kolors-IP-Adapter-FaceID-Plus.bin",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-FaceID-Plus/resolve/main/ipa-faceid-plus.bin",
+      "size": "2.39GB"
+    },
+    {
+      "name": "CLIPVision model (Kwai-Kolors/Kolors-IP-Adapter-Plus/clip-vit-large)",
+      "type": "clip_vision",
+      "base": "ViT-L",
+      "save_path": "clip_vision",
+      "description": "CLIPVision model (This is required in cubiq/ComfyUI_IPAdapter_plus)",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus",
+      "filename": "clip-vit-large-patch14-336.bin",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus/resolve/main/image_encoder/pytorch_model.bin",
+      "size": "1.71GB"
+    },
+
+    {
+      "name": "kijai/lotus depth d model v1.1 (fp16)",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus depth d model v1.1 (fp16). This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-depth-d-v-1-1-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-depth-d-v-1-1-fp16.safetensors",
+      "size": "1.74GB"
+    },
+    {
+      "name": "kijai/lotus depth g model v1.0 (fp16)",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus depth g model v1.0 (fp16). This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-depth-g-v1-0-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-depth-g-v1-0-fp16.safetensors",
+      "size": "1.74GB"
+    },
+    {
+      "name": "kijai/lotus depth g model v1.0",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus depth g model v1.0. This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-depth-g-v1-0.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-depth-g-v1-0.safetensors",
+      "size": "3.47GB"
+    },
+    {
+      "name": "kijai/lotus normal d model v1.0 (fp16)",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus normal d model v1.0 (fp16). This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-normal-d-v1-0-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-normal-d-v1-0-fp16.safetensors",
+      "size": "1.74GB"
+    },
+    {
+      "name": "kijai/lotus normal d model v1.0",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus normal d model v1.0. This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-normal-d-v1-0.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-normal-d-v1-0.safetensors",
+      "size": "3.47GB"
+    },
+    {
+      "name": "kijai/lotus normal g model v1.0 (fp16)",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus normal g model v1.0 (fp16). This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-normal-g-v1-0-fp16.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-normal-g-v1-0-fp16.safetensors",
+      "size": "1.74GB"
+    },
+    {
+      "name": "kijai/lotus normal g model v1.0",
+      "type": "diffusion_model",
+      "base": "lotus",
+      "save_path": "diffusion_models",
+      "description": "lotus normal g model v1.0. This model can be used in ComfyUI-Lotus custom nodes.",
+      "reference": "https://huggingface.co/Kijai/lotus-comfyui",
+      "filename": "lotus-normal-g-v1-0.safetensors",
+      "url": "https://huggingface.co/Kijai/lotus-comfyui/resolve/main/lotus-normal-g-v1-0.safetensors",
+      "size": "3.47GB"
+    },
+
+    {
+      "name": "Depth Pro model",
+      "type": "depth-pro",
+      "base": "depth-pro",
+      "save_path": "depth/ml-depth-pro",
+      "description": "Depth pro model for [a/ComfyUI-Depth-Pro](https://github.com/spacepxl/ComfyUI-Depth-Pro)",
+      "reference": "https://huggingface.co/spacepxl/ml-depth-pro",
+      "filename": "depth_pro.fp16.safetensors",
+      "url": "https://huggingface.co/spacepxl/ml-depth-pro/resolve/main/depth_pro.fp16.safetensors",
+      "size": "1.9GB"
+    },
+
+    {
       "name": "jasperai/FLUX.1-dev-Controlnet-Upscaler",
       "type": "controlnet",
       "base": "FLUX.1",
@@ -561,146 +685,6 @@
       "filename": "flux1-schnell-Q8_0.gguf",
       "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q8_0.gguf",
       "size": "12.7GB"
-    },
-
-    {
-      "name": "TAEF1 Decoder",
-      "type": "TAESD",
-      "base": "FLUX.1",
-      "save_path": "vae_approx",
-      "description": "(FLUX.1 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
-      "reference": "https://github.com/madebyollin/taesd",
-      "filename": "taef1_decoder.pth",
-      "url": "https://github.com/madebyollin/taesd/raw/main/taef1_decoder.pth",
-      "size": "4.71MB"
-    },
-    {
-      "name": "TAEF1 Encoder",
-      "type": "TAESD",
-      "base": "FLUX.1",
-      "save_path": "vae_approx",
-      "description": "(FLUX.1 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
-      "reference": "https://github.com/madebyollin/taesd",
-      "filename": "taef1_encoder.pth",
-      "url": "https://github.com/madebyollin/taesd/raw/main/taef1_encoder.pth",
-      "size": "4.71MB"
-    },
-
-    {
-      "name": "comfyanonymous/clip_l",
-      "type": "clip",
-      "base": "clip",
-      "save_path": "default",
-      "description": "clip_l model",
-      "reference": "https://huggingface.co/comfyanonymous/flux_text_encoders/tree/main",
-      "filename": "clip_l.safetensors",
-      "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors",
-      "size": "246MB"
-    },
-
-    {
-      "name": "Comfy Org/FLUX.1 [dev] Checkpoint model (fp8)",
-      "type": "checkpoint",
-      "base": "FLUX.1",
-      "save_path": "checkpoints/FLUX1",
-      "description": "FLUX.1 [dev] Checkpoint model (fp8)",
-      "reference": "https://huggingface.co/Comfy-Org/flux1-dev/tree/main",
-      "filename": "flux1-dev-fp8.safetensors",
-      "url": "https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors",
-      "size": "17.2GB"
-    },
-    {
-      "name": "Comfy Org/FLUX.1 [schnell] Checkpoint model (fp8)",
-      "type": "checkpoint",
-      "base": "FLUX.1",
-      "save_path": "checkpoints/FLUX1",
-      "description": "FLUX.1 [schnell] Checkpoint model (fp8)",
-      "reference": "https://huggingface.co/Comfy-Org/flux1-dev/tree/main",
-      "filename": "flux1-schnell-fp8.safetensors",
-      "url": "https://huggingface.co/Comfy-Org/flux1-schnell/resolve/main/flux1-schnell-fp8.safetensors",
-      "size": "17.2GB"
-    },
-    
-    {
-      "name": "google-t5/t5-v1_1-xxl_encoderonly-fp16",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "The encoder part of https://huggingface.co/google/t5-v1_1-xxl, used with SD3 and Flux1",
-      "reference": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly",
-      "filename": "google_t5-v1_1-xxl_encoderonly-fp16.safetensors",
-      "url": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/pytorch_model.safetensors",
-      "size": "10.1GB"
-    },
-    {
-      "name": "google-t5/t5-v1_1-xxl_encoderonly-fp8_e4m3fn",
-      "type": "clip",
-      "base": "t5",
-      "save_path": "clip/t5",
-      "description": "The encoder part of https://huggingface.co/google/t5-v1_1-xxl, used with SD3 and Flux1",
-      "reference": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly",
-      "filename": "google_t5-v1_1-xxl_encoderonly-fp8_e4m3fn.safetensors",
-      "url": "https://huggingface.co/mcmonkey/google_t5-v1_1-xxl_encoderonly/resolve/main/t5xxl_fp8_e4m3fn.safetensors",
-      "size": "4.89GB"
-    },
-
-    {
-      "name": "FLUX.1 [schnell] Diffusion model",
-      "type": "unet",
-      "base": "FLUX.1",
-      "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [Schnell] Diffusion model (a.k.a. FLUX.1 turbo model)[w/Due to the large size of the model, it is recommended to download it through a browser if possible.]",
-      "reference": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
-      "filename": "flux1-schnell.safetensors",
-      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors",
-      "size": "23.8GB"
-    },
-
-    {
-      "name": "FLUX.1 VAE model",
-      "type": "VAE",
-      "base": "FLUX.1",
-      "save_path": "vae/FLUX1",
-      "description": "FLUX.1 VAE model",
-      "reference": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
-      "filename": "ae.sft",
-      "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors",
-      "size": "335MB"
-    },
-
-    {
-      "name": "kijai/FLUX.1 [schnell] Diffusion model (float8_e4m3fn)",
-      "type": "unet",
-      "base": "FLUX.1",
-      "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [Schnell] Diffusion model (float8_e4m3fn)",
-      "reference": "https://huggingface.co/Kijai/flux-fp8",
-      "filename": "flux1-schnell-fp8.safetensors",
-      "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8.safetensors",
-      "size": "11.9GB"
-    },
-    {
-      "name": "kijai/FLUX.1 [dev] Diffusion model (float8_e4m3fn)",
-      "type": "unet",
-      "base": "FLUX.1",
-      "save_path": "unet/FLUX1",
-      "description": "FLUX.1 [dev] Diffusion model (float8_e4m3fn)",
-      "reference": "https://huggingface.co/Kijai/flux-fp8",
-      "filename": "flux1-dev-fp8.safetensors",
-      "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors",
-      "size": "11.9GB"
-    },
-
-    {
-      "name": "photomaker-v2.bin",
-      "type": "photomaker",
-      "base": "SDXL",
-      "save_path": "photomaker",
-      "description": "PhotoMaker model. This model is compatible with SDXL.",
-      "reference": "https://huggingface.co/TencentARC/PhotoMaker-V2",
-      "filename": "photomaker-v2.bin",
-      "url": "https://huggingface.co/TencentARC/PhotoMaker-V2/resolve/main/photomaker-v2.bin",
-      "size": "1.8GB"
     }
   ]
 }

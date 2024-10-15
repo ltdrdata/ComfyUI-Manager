@@ -820,7 +820,14 @@ async def install_custom_node(request):
         res = unzip_install(json_data['files'])
 
     if install_type == "copy":
-        js_path_name = json_data['js_path'] if 'js_path' in json_data else '.'
+        if 'js_path' in json_data:
+            if '.' in json_data['js_path'] or ':' in json_data['js_path'] or json_data['js_path'].startswith('/'):
+                print(f"[ComfyUI Manager] An abnormal JS path has been transmitted. This could be the result of a security attack.\n{json_data['js_path']}")
+                return web.Response(status=400)
+            else:
+                js_path_name = json_data['js_path']
+        else:
+            js_path_name = '.'
         res = copy_install(json_data['files'], js_path_name)
 
     elif install_type == "git-clone":
@@ -844,7 +851,7 @@ async def install_custom_node(request):
 @PromptServer.instance.routes.post("/customnode/fix")
 async def fix_custom_node(request):
     if not is_allowed_security_level('middle'):
-        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
+        print(SECURITY_MESSAGE_GENERAL)
         return web.Response(status=403)
 
     json_data = await request.json()
@@ -864,6 +871,10 @@ async def fix_custom_node(request):
         return web.Response(status=400)
 
     if 'pip' in json_data:
+        if not is_allowed_security_level('high'):
+            print(SECURITY_MESSAGE_GENERAL)
+            return web.Response(status=403)
+
         for pname in json_data['pip']:
             install_cmd = [sys.executable, "-m", "pip", "install", '-U', pname]
             core.try_install_script(json_data['files'][0], ".", install_cmd)
