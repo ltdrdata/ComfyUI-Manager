@@ -1494,8 +1494,19 @@
       "save_path": "clip_vision",
       "description": "CLIPVision model (needed for styles model)",
       "reference": "https://huggingface.co/openai/clip-vit-large-patch14",
-      "filename": "clip-vit-large-patch14.bin",
+      "filename": "clip-vit-large-patch14.safetensors",
       "url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/main/model.safetensors",
+      "size": "1.71GB"
+    },
+    {
+      "name": "CLIPVision model (Kwai-Kolors/Kolors-IP-Adapter-Plus/clip-vit-large)",
+      "type": "clip_vision",
+      "base": "ViT-L",
+      "save_path": "clip_vision",
+      "description": "CLIPVision model (needed for IP-Adapter)",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus",
+      "filename": "clip-vit-large-patch14-336.bin",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus/resolve/main/image_encoder/pytorch_model.bin",
       "size": "1.71GB"
     },
     {
@@ -2664,6 +2675,31 @@
       "url": "https://huggingface.co/ostris/ip-composition-adapter/resolve/main/ip_plus_composition_sdxl.safetensors",
       "size": "847.5MB"
     },
+    {
+      "name": "Kolors-IP-Adapter-Plus.bin (Kwai-Kolors/Kolors-IP-Adapter-Plus)",
+      "type": "IP-Adapter",
+      "base": "Kolors",
+      "save_path": "ipadapter",
+      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus",
+      "filename": "Kolors-IP-Adapter-Plus.bin",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus/resolve/main/ip_adapter_plus_general.bin",
+      "size": "1.01GB"
+    },
+    {
+      "name": "Kolors-IP-Adapter-FaceID-Plus.bin (Kwai-Kolors/Kolors-IP-Adapter-Plus)",
+      "type": "IP-Adapter",
+      "base": "Kolors",
+      "save_path": "ipadapter",
+      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-FaceID-Plus",
+      "filename": "Kolors-IP-Adapter-FaceID-Plus.bin",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-FaceID-Plus/resolve/main/ipa-faceid-plus.bin",
+      "size": "2.39GB"
+    },
+
+
+
     {
       "name": "pfg-novel-n10.pt",
       "type": "PFG",
