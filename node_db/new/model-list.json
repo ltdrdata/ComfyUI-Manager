@@ -1,6 +1,40 @@
 {
   "models": [
     {
+      "name": "Kolors-IP-Adapter-Plus.bin (Kwai-Kolors/Kolors-IP-Adapter-Plus)",
+      "type": "IP-Adapter",
+      "base": "Kolors",
+      "save_path": "ipadapter",
+      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus",
+      "filename": "Kolors-IP-Adapter-Plus.bin",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus/resolve/main/ip_adapter_plus_general.bin",
+      "size": "1.01GB"
+    },
+    {
+      "name": "Kolors-IP-Adapter-FaceID-Plus.bin (Kwai-Kolors/Kolors-IP-Adapter-Plus)",
+      "type": "IP-Adapter",
+      "base": "Kolors",
+      "save_path": "ipadapter",
+      "description": "You can use this model in the [a/ComfyUI IPAdapter plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus) extension.",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-FaceID-Plus",
+      "filename": "Kolors-IP-Adapter-FaceID-Plus.bin",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-FaceID-Plus/resolve/main/ipa-faceid-plus.bin",
+      "size": "2.39GB"
+    },
+    {
+      "name": "CLIPVision model (Kwai-Kolors/Kolors-IP-Adapter-Plus/clip-vit-large)",
+      "type": "clip_vision",
+      "base": "ViT-L",
+      "save_path": "clip_vision",
+      "description": "CLIPVision model (This is required in cubiq/ComfyUI_IPAdapter_plus)",
+      "reference": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus",
+      "filename": "clip-vit-large-patch14-336.bin",
+      "url": "https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus/resolve/main/image_encoder/pytorch_model.bin",
+      "size": "1.71GB"
+    },
+
+    {
       "name": "kijai/lotus depth d model v1.1 (fp16)",
       "type": "diffusion_model",
       "base": "lotus",
@@ -651,41 +685,6 @@
       "filename": "flux1-schnell-Q8_0.gguf",
       "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q8_0.gguf",
       "size": "12.7GB"
-    },
-
-    {
-      "name": "TAEF1 Decoder",
-      "type": "TAESD",
-      "base": "FLUX.1",
-      "save_path": "vae_approx",
-      "description": "(FLUX.1 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
-      "reference": "https://github.com/madebyollin/taesd",
-      "filename": "taef1_decoder.pth",
-      "url": "https://github.com/madebyollin/taesd/raw/main/taef1_decoder.pth",
-      "size": "4.71MB"
-    },
-    {
-      "name": "TAEF1 Encoder",
-      "type": "TAESD",
-      "base": "FLUX.1",
-      "save_path": "vae_approx",
-      "description": "(FLUX.1 Verison) To view the preview in high quality while running samples in ComfyUI, you will need this model.",
-      "reference": "https://github.com/madebyollin/taesd",
-      "filename": "taef1_encoder.pth",
-      "url": "https://github.com/madebyollin/taesd/raw/main/taef1_encoder.pth",
-      "size": "4.71MB"
-    },
-
-    {
-      "name": "comfyanonymous/clip_l",
-      "type": "clip",
-      "base": "clip",
-      "save_path": "default",
-      "description": "clip_l model",
-      "reference": "https://huggingface.co/comfyanonymous/flux_text_encoders/tree/main",
-      "filename": "clip_l.safetensors",
-      "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors",
-      "size": "246MB"
     }
   ]
 }
