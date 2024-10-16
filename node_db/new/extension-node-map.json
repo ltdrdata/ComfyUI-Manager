@@ -6146,6 +6146,7 @@
             "CXH_MinCP3_4B_Chat",
             "CXH_MinCP3_4B_Load",
             "Joy_caption",
+            "Joy_caption_alpha_batch",
             "Joy_caption_alpha_load",
             "Joy_caption_alpha_prompt",
             "Joy_caption_alpha_run",
@@ -8085,6 +8086,19 @@
             "nickname": "Akatz Custom Nodes",
             "title": "Akatz Custom Nodes",
             "title_aux": "Akatz Custom Nodes"
+        }
+    ],
+    "https://github.com/akatz-ai/ComfyUI-DepthCrafter-Nodes": [
+        [
+            "DepthCrafter",
+            "DownloadAndLoadDepthCrafterModel"
+        ],
+        {
+            "author": "akatz",
+            "description": "Custom nodes for use with DepthCrafter. Create consistent depth maps for your videos.",
+            "nickname": "DepthCrafter Nodes",
+            "title": "DepthCrafter Nodes",
+            "title_aux": "DepthCrafter Nodes"
         }
     ],
     "https://github.com/akatz-ai/ComfyUI-Depthflow-Nodes": [
@@ -10539,6 +10553,8 @@
             "KarrasScheduler",
             "LaplaceScheduler",
             "LatentAdd",
+            "LatentApplyOperation",
+            "LatentApplyOperationCFG",
             "LatentBatch",
             "LatentBatchSeedBehavior",
             "LatentBlend",
@@ -10549,6 +10565,7 @@
             "LatentFromBatch",
             "LatentInterpolate",
             "LatentMultiply",
+            "LatentOperationTonemapReinhard",
             "LatentRotate",
             "LatentSubtract",
             "LatentUpscale",
@@ -12183,11 +12200,13 @@
             "FL_HalftonePattern",
             "FL_HexagonalPattern",
             "FL_ImageAdjuster",
+            "FL_ImageBatchToImageList",
             "FL_ImageCaptionLayout",
             "FL_ImageCaptionLayoutPDF",
             "FL_ImageCaptionSaver",
             "FL_ImageCollage",
             "FL_ImageDimensionDisplay",
+            "FL_ImageListToImageBatch",
             "FL_ImageNotes",
             "FL_ImagePixelator",
             "FL_ImageRandomizer",
@@ -15196,6 +15215,7 @@
             "ImageConcanate",
             "ImageConcatFromBatch",
             "ImageConcatMulti",
+            "ImageCropByMaskAndResize",
             "ImageGrabPIL",
             "ImageGridComposite2x2",
             "ImageGridComposite3x3",
@@ -15206,6 +15226,7 @@
             "ImagePass",
             "ImageResizeKJ",
             "ImageTransformByNormalizedAmplitude",
+            "ImageUncropByMask",
             "ImageUpscaleWithModelBatched",
             "InjectNoiseToLatent",
             "InsertImageBatchByIndexes",
@@ -17243,7 +17264,8 @@
             "HSLColorNode",
             "HighlightShadowBrightnessNode",
             "ImitationHueNode",
-            "LightShapeNode"
+            "LightShapeNode",
+            "RemoveWatermarkNode"
         ],
         {
             "title_aux": "ComfyUI-MingNodes"
@@ -17382,6 +17404,14 @@
         ],
         {
             "title_aux": "Preset Dimensions"
+        }
+    ],
+    "https://github.com/moustafa-nasr/ComfyUI-SimpleLogger": [
+        [
+            "Log Image"
+        ],
+        {
+            "title_aux": "ComfyUI-SimpleLogger"
         }
     ],
     "https://github.com/moyi7712/ComfyUI_Seamless_Patten": [
@@ -18372,6 +18402,8 @@
     "https://github.com/raysers/Mflux-ComfyUI": [
         [
             "MfluxControlNetLoader",
+            "MfluxLorasLoader",
+            "MfluxModelsLoader",
             "QuickMfluxNode"
         ],
         {
@@ -19996,6 +20028,14 @@
             "title_aux": "LoRa Dataset Tools"
         }
     ],
+    "https://github.com/sweetndata/ComfyUI-googletrans": [
+        [
+            "googletrans"
+        ],
+        {
+            "title_aux": "ComfyUI-googletrans"
+        }
+    ],
     "https://github.com/syaofox/ComfyUI_fnodes": [
         [
             "AddImageBorder-",
@@ -21127,6 +21167,73 @@
             "title_aux": "ComfyUI-MuseTalkUtils"
         }
     ],
+    "https://github.com/yanlang0123/ComfyUI_Lam": [
+        [
+            "AspectRatio",
+            "AutioPath",
+            "DoWhileEnd",
+            "DoWhileStart",
+            "EasyPromptSelecto",
+            "FaceFusion",
+            "ForEnd",
+            "ForInnerEnd",
+            "ForInnerStart",
+            "ForStart",
+            "GLM3Prompt",
+            "IdentifyingQR",
+            "IfInnerExecute",
+            "Image2Video",
+            "ImageAddMask",
+            "ImageBlank",
+            "ImageClone",
+            "ImageCropFaces",
+            "ImageLama",
+            "ImageToMasks",
+            "LAM.OpenPoseEditorPlus",
+            "LamCommonNames",
+            "LamCommonPrint",
+            "LamCommonPrintNoOutput",
+            "LamGetPngInfo",
+            "LamLoadPathImage",
+            "LamLoadVideo",
+            "LamSaveOnly",
+            "LamSwitcherCase",
+            "LoadDirImgPaths",
+            "LoadReplaceImage",
+            "LongTextToList",
+            "MultiControlNetApply",
+            "MultiGLIGENTextBoxApply",
+            "MultiIPAdapterRegional",
+            "MultiIntFormula",
+            "MultiParamFormula",
+            "MultiTextConcatenate",
+            "MultiTextEncode",
+            "MultiTextEncodeAdvanced",
+            "MultiTextSelelct",
+            "MultiTextSetArea",
+            "MultiTextSetGligen",
+            "MultiTextSetMask",
+            "OutDoWhileEnd",
+            "OutDoWhileStart",
+            "PreviewImageLam",
+            "PromptTranslator",
+            "QRCode",
+            "SaveImageLam",
+            "SectionEnd",
+            "SectionStart",
+            "StyleSelecto",
+            "Text2AutioEdgeTts",
+            "TextListSelelct",
+            "VideoAddAudio",
+            "VideoFaceFusion",
+            "VideoPath",
+            "WaitImagSelector",
+            "ZhPromptTranslator"
+        ],
+        {
+            "title_aux": "ComfyUI_Lam"
+        }
+    ],
     "https://github.com/ycchanau/ComfyUI_Preview_Magnifier": [
         [
             "YC.ImageComparerMagnifier",
@@ -21601,10 +21708,11 @@
     ],
     "https://github.com/yvann-ba/ComfyUI_Yvann-Nodes": [
         [
-            "Audio Reactive IPAdapter | Yvann",
+            "Audio Prompt Schedule | Yvann",
             "Audio Reactive | Yvann",
             "Floats To Weights Strategy | Yvann",
             "Floats Visualizer | Yvann",
+            "IPAdapter Audio Reactive | Yvann",
             "Invert Floats | Yvann",
             "Mask To Float | Yvann"
         ],
