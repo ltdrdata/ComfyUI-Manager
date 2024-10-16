@@ -900,7 +900,7 @@ if hasattr(PromptServer.instance, "app"):
 def sanitize(data):
     return data.replace("<", "&lt;").replace(">", "&gt;")
 
-if not os.path.exists(ext_core.manager_core_config_path):
+if not os.path.exists(ext_core.manager_ext_config_path):
     ext_core.get_config()
     ext_core.write_config()
 

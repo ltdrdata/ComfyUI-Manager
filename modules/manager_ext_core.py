@@ -15,7 +15,7 @@ version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' i
 
 DEFAULT_CHANNEL = "https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main"
 
-manager_core_config_path = os.path.abspath(os.path.join(folder_paths.get_user_directory(), 'default', 'manager-ext.ini'))
+manager_ext_config_path = os.path.abspath(os.path.join(folder_paths.get_user_directory(), 'default', 'manager-ext.ini'))
 cached_config = None
 
 
@@ -41,14 +41,19 @@ def write_config():
         'model_download_by_agent': get_config()['model_download_by_agent'],
         'security_level': get_config()['security_level'],
     }
-    with open(manager_core_config_path, 'w') as configfile:
+
+    directory = os.path.dirname(manager_ext_config_path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    with open(manager_ext_config_path, 'w') as configfile:
         config.write(configfile)
 
 
 def read_config():
     try:
         config = configparser.ConfigParser()
-        config.read(manager_core_config_path)
+        config.read(manager_ext_config_path)
         default_conf = config['default']
 
         # policy migration: disable_unsecure_features -> security_level
