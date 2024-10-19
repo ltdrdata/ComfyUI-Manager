@@ -7,6 +7,8 @@ def check_json_syntax(file_path):
             json_str = file.read()
             json.loads(json_str)
             print(f"[ OK ] {file_path}")
+    except UnicodeDecodeError as e:
+        print(f"Unicode decode error: {e}")
     except json.JSONDecodeError as e:
         print(f"[FAIL] {file_path}\n\n       {e}\n")
     except FileNotFoundError:
