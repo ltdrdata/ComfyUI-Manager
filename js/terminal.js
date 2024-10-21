@@ -53,7 +53,7 @@ app.registerExtension({
 
 		// Load default visibility
 		LiteGraph.registerNodeType(
-			"Terminal Log //CM",
+			"Terminal Log",
 			Object.assign(TerminalNode, {
 				title_mode: LiteGraph.NORMAL_TITLE,
 				title: "Terminal Log (Manager)",
