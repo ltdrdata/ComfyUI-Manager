@@ -543,8 +543,9 @@
     ],
     "https://github.com/AIFSH/ComfyUI-WhisperX": [
         [
-            "LoadAudio",
+            "LoadAudioPath",
             "PreViewSRT",
+            "SRTToString",
             "WhisperX"
         ],
         {
@@ -646,6 +647,14 @@
         ],
         {
             "title_aux": "FancyVideo-ComfyUI"
+        }
+    ],
+    "https://github.com/AIFSH/FireRedTTS-ComfyUI": [
+        [
+            "FireRedTTSNode"
+        ],
+        {
+            "title_aux": "FireRedTTS-ComfyUI"
         }
     ],
     "https://github.com/AIFSH/GSTTS-ComfyUI": [
@@ -898,6 +907,14 @@
             "title_aux": "APZmedia Clean Name"
         }
     ],
+    "https://github.com/ARZUMATA/ComfyUI-ARZUMATA": [
+        [
+            "CachingCLIPTextEncodeFlux"
+        ],
+        {
+            "title_aux": "ComfyUI-ARZUMATA"
+        }
+    ],
     "https://github.com/Aaron-CHM/ComfyUI-z-a1111-sd-webui-DanTagGen": [
         [
             "DanTagGen"
@@ -1055,6 +1072,15 @@
             "title_aux": "ComfyUI-Aimidi-nodes"
         }
     ],
+    "https://github.com/AkashKarnatak/ComfyUI_faishme": [
+        [
+            "Faishme Debug",
+            "Load Fashion Model"
+        ],
+        {
+            "title_aux": "ComfyUI_faishme"
+        }
+    ],
     "https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet": [
         [
             "ArgosTranslateCLIPTextEncodeNode",
@@ -1153,6 +1179,7 @@
             "BlockLayerStringGenerator",
             "CheckpointLoaderBNB",
             "EasyResolutionPicker",
+            "ModelMergeSD3_Large",
             "ModelSave",
             "UNETLoaderBNB"
         ],
@@ -1193,13 +1220,24 @@
     ],
     "https://github.com/ArdeniusAI/ComfyUI-Ardenius": [
         [
+            "ARD 4crop Latent",
+            "ARD 4img Combine",
+            "ARD 4latent Upscale",
+            "ARD 4vae Decode",
             "ARD Control Box",
             "ARD Dual Prompt",
-            "ard_float",
-            "ard_integer",
-            "ard_integer_to_float",
-            "ard_math",
-            "ard_text_box"
+            "ARD Empty Latent Image",
+            "ARD Float",
+            "ARD Integer",
+            "ARD Integer To Float",
+            "ARD Load Image",
+            "ARD Math",
+            "ARD Position",
+            "ARD Remainder",
+            "ARD Resize",
+            "ARD Save Image",
+            "ARD Text Box",
+            "ARD XY Scripts"
         ],
         {
             "title_aux": "ComfyUI-Ardenius"
@@ -2104,6 +2142,15 @@
             "nickname": "cre8Nodes",
             "title": "cr8SerialPrompter",
             "title_aux": "ComfyUI-Cre8it-Nodes"
+        }
+    ],
+    "https://github.com/DrMWeigand/ComfyUI-StereoVision": [
+        [
+            "AutostereogramGenerator",
+            "StereoscopicGenerator"
+        ],
+        {
+            "title_aux": "StereoVision Plugin for ComfyUI"
         }
     ],
     "https://github.com/DrMWeigand/ComfyUI_ColorImageDetection": [
@@ -3020,7 +3067,6 @@
             "GR Counter",
             "GR Flip Tile Random Inverted",
             "GR Flip Tile Random Red Ring",
-            "GR Floats for AnimateDiff",
             "GR Image Details Displayer",
             "GR Image Details Saver",
             "GR Image Paste",
@@ -3029,6 +3075,7 @@
             "GR Image Resize Methods",
             "GR Image Size",
             "GR Image/Depth Mask",
+            "GR Mask",
             "GR Mask Create",
             "GR Mask Create Random",
             "GR Mask Create Random Multi",
@@ -3038,6 +3085,7 @@
             "GR Prompt HUB",
             "GR Prompt Selector",
             "GR Prompt Selector Multi",
+            "GR Prompty",
             "GR Scroller",
             "GR Stack Image",
             "GR Text Overlay",
@@ -3668,14 +3716,6 @@
         ],
         {
             "title_aux": "Immortal_comfyUI"
-        }
-    ],
-    "https://github.com/Jonseed/ComfyUI-Detail-Daemon": [
-        [
-            "DetailDaemonNode"
-        ],
-        {
-            "title_aux": "ComfyUI-Detail-Daemon"
         }
     ],
     "https://github.com/Jordach/comfy-plasma": [
@@ -5366,6 +5406,14 @@
         ],
         {
             "title_aux": "ComfyUI Compression and Encryption Node"
+        }
+    ],
+    "https://github.com/Rinsanga1/comfyui-florence2xy": [
+        [
+            "Florence2toCoordinatesButxy"
+        ],
+        {
+            "title_aux": "comfyui-florence2xy"
         }
     ],
     "https://github.com/RodrigoSKohl/ComfyUI-Panoramic-ImgStitcher": [
@@ -8676,12 +8724,13 @@
             "LLMChat",
             "LLMMinP",
             "LLMModel",
+            "LLMProvider",
             "LLMTemperature",
             "LLMTopK",
             "LLMTopP"
         ],
         {
-            "title_aux": "YALLM-LlamaVision"
+            "title_aux": "ComfyUI-YALLM-node"
         }
     ],
     "https://github.com/asagi4/ComfyUI-Adaptive-Guidance": [
@@ -8894,6 +8943,8 @@
             "SP-CheckpointSave",
             "SP-UnetSave",
             "SP_FluxFastMergePatchFP8 [Experimental]",
+            "SP_FluxKSampler",
+            "SP_FluxLoader",
             "SP_HiresGen",
             "SP_HiresGen_Dynamic",
             "SP_HiresGen_HiresCfg",
@@ -8901,6 +8952,9 @@
             "SP_KoboldCpp",
             "SP_KoboldCppWithContext",
             "SP_KoboldCpp_OverrideCfg",
+            "SP_Pipe",
+            "SP_SDKSampler",
+            "SP_SDLoader",
             "SP_WebsocketSendImage",
             "ScatterParams",
             "ScatterParamsBatch",
@@ -10809,6 +10863,7 @@
             "ModelMergeFlux1",
             "ModelMergeSD1",
             "ModelMergeSD2",
+            "ModelMergeSD35_Large",
             "ModelMergeSD3_2B",
             "ModelMergeSDXL",
             "ModelMergeSimple",
@@ -11379,6 +11434,7 @@
     "https://github.com/da2el-ai/D2-nodes-ComfyUI": [
         [
             "D2 Checkpoint Loader",
+            "D2 Folder Image Queue",
             "D2 KSampler",
             "D2 KSampler(Advanced)",
             "D2 Load Image",
@@ -11387,6 +11443,7 @@
             "D2 Refiner Steps",
             "D2 Refiner Steps A1111",
             "D2 Refiner Steps Tester",
+            "D2 Regex Replace",
             "D2 Regex Switcher",
             "D2 Size Slector"
         ],
@@ -13425,6 +13482,22 @@
             "title_aux": "ControlAltAI Nodes"
         }
     ],
+    "https://github.com/gt732/ComfyUI-DreamWaltz-G": [
+        [
+            "DataConfigNode",
+            "DreamWaltzGStageOneTrainer",
+            "GuideConfigNode",
+            "LogConfigNode",
+            "NeRFConfigNode",
+            "OptimConfigNode",
+            "PromptConfigNode",
+            "RenderConfigNode",
+            "TrainConfigNode"
+        ],
+        {
+            "title_aux": "ComfyUI-DreamWaltz-G"
+        }
+    ],
     "https://github.com/guill/abracadabra-comfyui": [
         [
             "AbracadabraNode",
@@ -13719,7 +13792,7 @@
             "parameter_combine_plus",
             "parameter_function",
             "path2img_tool",
-            "red_book",
+            "red_book_text_persona",
             "replace_string",
             "save_ebd_database",
             "save_openai_ebd",
@@ -16303,7 +16376,9 @@
             "BboxesToBboxes",
             "ColorPicker",
             "ConvertTypeToAny",
+            "CopyAndRenameFiles",
             "CropImageByBbox",
+            "CropTargetSizeImageByBbox",
             "EmptyOutputNode",
             "FilterValueForList",
             "ForEachClose",
@@ -16340,6 +16415,9 @@
             "MaskToBase64Image",
             "SDBaseVerNumber",
             "SamAutoMaskSEGS",
+            "SaveImagesWithoutOutput",
+            "SaveSingleImageWithoutOutput",
+            "SaveTextToFileByImagePath",
             "SelectBbox",
             "SelectBboxes",
             "ShowBoolean",
@@ -17379,12 +17457,20 @@
     ],
     "https://github.com/mephisto83/petty-paint-comfyui-node": [
         [
+            "ConvertWhiteToAlpha",
+            "PPGenerateRandomFloat",
+            "PPGenerateRandomNumber",
+            "PPKSamplerAdvanced",
+            "PPSelectRandomValue",
             "PettyImageImageColorToMask",
             "PettyPaintAppend",
             "PettyPaintApplyLoRAStack",
+            "PettyPaintArguments",
             "PettyPaintBlurs",
+            "PettyPaintCheckpointLoaderSimple",
             "PettyPaintComponent",
             "PettyPaintConditioningSetMaskAndCombine",
+            "PettyPaintControlNetToMasking",
             "PettyPaintConvert",
             "PettyPaintCountFiles",
             "PettyPaintEnsureDirectory",
@@ -17420,7 +17506,8 @@
             "PettyPaintText",
             "PettyPaintTexts_to_Conditioning",
             "PettyPaintToJson",
-            "PettyPaintVAEDecode"
+            "PettyPaintVAEDecode",
+            "SkippableVAEEncode"
         ],
         {
             "title_aux": "petty-paint-comfyui-node"
@@ -20106,6 +20193,9 @@
     "https://github.com/spacepxl/ComfyUI-Depth-Pro": [
         [
             "DepthPro",
+            "FocalFromList",
+            "FocalMMtoPX",
+            "FocalPXtoMM",
             "LoadDepthPro",
             "MetricDepthToInverse",
             "MetricDepthToRelative"
@@ -20579,8 +20669,7 @@
             "\ud83c\udfac Action",
             "\ud83d\udc55 Clothes",
             "\ud83d\udc64 Character",
-            "\ud83d\udcf9 Composition",
-            "\ud83d\udd1e Action (NSFW)"
+            "\ud83d\udcf9 Composition"
         ],
         {
             "title_aux": "ComfyUI Scene Composer"
@@ -20780,6 +20869,7 @@
     "https://github.com/toyxyz/ComfyUI_toyxyz_test_nodes": [
         [
             "CaptureWebcam",
+            "Depth to normal",
             "Direct Screen Capture",
             "ImageResize_Padding",
             "LatentDelay",
@@ -21004,6 +21094,7 @@
             "ChannelSelector",
             "DownloadAndLoadFlorence2Model",
             "DownloadAndLoadSAM2Model",
+            "FaceSwap",
             "FalDifferentialDiffusion",
             "FalDiffusion",
             "FetchFromRedis",
@@ -21823,6 +21914,7 @@
             "easy imageToMask",
             "easy imageUncropFromBBOX",
             "easy imagesSplitImage",
+            "easy indexAnything",
             "easy injectNoiseToLatent",
             "easy instantIDApply",
             "easy instantIDApplyADV",
