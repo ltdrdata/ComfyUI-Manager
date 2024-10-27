@@ -1382,6 +1382,7 @@
             "EmptyImage",
             "EmptyLatentAudio",
             "EmptyLatentImage",
+            "EmptyMochiLatentVideo",
             "EmptySD3LatentImage",
             "ExponentialScheduler",
             "FeatherMask",
@@ -2412,6 +2413,14 @@
             "title_aux": "comfyui-Kwtoolset"
         }
     ],
+    "https://github.com/kylegrover/comfyui-python-cowboy": [
+        [
+            "PythonScript"
+        ],
+        {
+            "title_aux": "ComfyUI-MochiWrapper [UNSAFE]"
+        }
+    ],
     "https://github.com/laksjdjf/ssd-1b-comfyui": [
         [
             "SSD-1B-Loader"
@@ -2638,10 +2647,13 @@
     ],
     "https://github.com/mfg637/ComfyUI-ScheduledGuider-Ext": [
         [
+            "Add zSNR Sigma max",
             "ConcatSigmas",
             "CosineScheduler",
             "InvertSigmas",
-            "SheduledCFGGuider"
+            "OffsetSigmas",
+            "PerpNegScheduledCFGGuider",
+            "ScheduledCFGGuider"
         ],
         {
             "title_aux": "ComfyUI-ScheduledGuider-Ext"
@@ -2686,6 +2698,14 @@
         ],
         {
             "title_aux": "ComfyUI GLIGEN GUI Node"
+        }
+    ],
+    "https://github.com/neeltheninja/ComfyUI-TempFileDeleter": [
+        [
+            "TempCleaner"
+        ],
+        {
+            "title_aux": "ComfyUI-TempFileDeleter [UNSAFE]"
         }
     ],
     "https://github.com/neeltheninja/ComfyUI-TextOverlay": [
