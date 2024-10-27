@@ -4,6 +4,7 @@ import configparser
 import manager_core as core
 import cm_global
 from manager_util import *
+import shutil
 
 import folder_paths
 from comfy.cli_args import args
@@ -17,6 +18,26 @@ DEFAULT_CHANNEL = "https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/ma
 
 manager_ext_config_path = os.path.abspath(os.path.join(folder_paths.get_user_directory(), 'default', 'manager-ext.ini'))
 cached_config = None
+
+manager_ext_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+channel_list_path = os.path.join(manager_ext_path, 'channels.list')
+
+
+def update_channel_dict():
+    if not os.path.exists(channel_list_path):
+        shutil.copy(channel_list_path+'.template', channel_list_path)
+
+    core.get_channel_dict() # for the loading
+
+    with open(os.path.join(manager_ext_path, 'channels.list'), 'r') as file:
+        channels = file.read()
+        for x in channels.split('\n'):
+            channel_info = x.split("::")
+            if len(channel_info) == 2:
+                core.channel_dict[channel_info[0]] = channel_info[1]
+
+
+update_channel_dict()
 
 
 def get_current_preview_method():
