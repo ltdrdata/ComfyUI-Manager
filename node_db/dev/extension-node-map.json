@@ -537,20 +537,6 @@
             "title_aux": "ComfyUI-AppIO"
         }
     ],
-    "https://github.com/Firetheft/ComfyUI-Flux-Prompt-Tools": [
-        [
-            "ColorPaletteExtractorNode",
-            "ColorPalettePickerNode",
-            "ColorPaletteTransferNode",
-            "FluxPromptEnhanceNode",
-            "GeminiFlashNode",
-            "MiniCPM_V_2_6_Int4_Node",
-            "PromptGeneratorNode"
-        ],
-        {
-            "title_aux": "ComfyUI-Flux-Prompt-Tools"
-        }
-    ],
     "https://github.com/Fucci-Mateo/ComfyUI-Airtable": [
         [
             "Push pose to Airtable"
@@ -969,9 +955,7 @@
             "Clip Tokens Encode (Shinsplat)",
             "Green Box (Shinsplat)",
             "Hex To Other (Shinsplat)",
-            "KSampler (Shinsplat)",
             "Lora Loader (Shinsplat)",
-            "Nupoma (Shinsplat)",
             "Seed (Shinsplat)",
             "String Interpolated (Shinsplat)",
             "Sum Wrap (Shinsplat)",
@@ -1206,7 +1190,8 @@
         [
             "PyExec",
             "PyExec_Output",
-            "PyExec_OutputIsList"
+            "PyExec_OutputIsList",
+            "PyExec_OutputIsValue"
         ],
         {
             "author": "SeniorPioner",
@@ -1395,6 +1380,7 @@
             "EmptyImage",
             "EmptyLatentAudio",
             "EmptyLatentImage",
+            "EmptyMochiLatentVideo",
             "EmptySD3LatentImage",
             "ExponentialScheduler",
             "FeatherMask",
@@ -1468,6 +1454,7 @@
             "ModelMergeFlux1",
             "ModelMergeSD1",
             "ModelMergeSD2",
+            "ModelMergeSD35_Large",
             "ModelMergeSD3_2B",
             "ModelMergeSDXL",
             "ModelMergeSimple",
@@ -1522,6 +1509,7 @@
             "SelfAttentionGuidance",
             "SetLatentNoiseMask",
             "SetUnionControlNetType",
+            "SkipLayerGuidanceSD3",
             "SolidMask",
             "SplitImageWithAlpha",
             "SplitSigmas",
@@ -1705,6 +1693,20 @@
             "title_aux": "ComfyUI_WcpD_Utility_Kit"
         }
     ],
+    "https://github.com/downlifted/ComfyUI_BWiZ_Nodes": [
+        [
+            "BWIZInteractiveLogMonitor",
+            "BWIZ_AdvancedLoadImageBatch",
+            "BWIZ_CaptainWebhook",
+            "BWIZ_ComfyEmail",
+            "BWIZ_ErrorDetector",
+            "BWIZ_HFRepoBatchLoader",
+            "BWIZ_NotificationSound"
+        ],
+        {
+            "title_aux": "ComfyUI_BWiZ_Nodes [WIP]"
+        }
+    ],
     "https://github.com/eigenpunk/ComfyUI-audio": [
         [
             "ApplyVoiceFixer",
@@ -1834,6 +1836,7 @@
             "GNI_HEX_TO_COLOR",
             "GNI_RGB_TO_COLOR",
             "GN_COLOR_TO_INT",
+            "GN_IO_GET_FILENAME",
             "GN_MASK_TO_IMAGE",
             "GN_SNAP_RESIZE"
         ],
@@ -2328,6 +2331,21 @@
             "title_aux": "ComfyUI-FollowYourEmojiWrapper [WIP]"
         }
     ],
+    "https://github.com/kijai/ComfyUI-MochiWrapper": [
+        [
+            "DownloadAndLoadMochiModel",
+            "MochiDecode",
+            "MochiDecodeSpatialTiling",
+            "MochiModelLoader",
+            "MochiSampler",
+            "MochiTextEncode",
+            "MochiTorchCompileSettings",
+            "MochiVAELoader"
+        ],
+        {
+            "title_aux": "ComfyUI-MochiWrapper [WIP]"
+        }
+    ],
     "https://github.com/kijai/ComfyUI-VEnhancer": [
         [
             "DownloadAndLoadVEnhancerModel",
@@ -2336,6 +2354,15 @@
         ],
         {
             "title_aux": "ComfyUI nodes for VEnhancer [WIP]"
+        }
+    ],
+    "https://github.com/kk8bit/KayTool": [
+        [
+            "Color_Adjustment",
+            "Custom_Save_Image"
+        ],
+        {
+            "title_aux": "KayTool"
         }
     ],
     "https://github.com/komojini/ComfyUI_Prompt_Template_CustomNodes/raw/main/prompt_with_template.py": [
@@ -2385,12 +2412,28 @@
             "title_aux": "comfyui-Kwtoolset"
         }
     ],
+    "https://github.com/kylegrover/comfyui-python-cowboy": [
+        [
+            "PythonScript"
+        ],
+        {
+            "title_aux": "ComfyUI-MochiWrapper [UNSAFE]"
+        }
+    ],
     "https://github.com/laksjdjf/ssd-1b-comfyui": [
         [
             "SSD-1B-Loader"
         ],
         {
             "title_aux": "ssd-1b-comfyui"
+        }
+    ],
+    "https://github.com/leadbreak/comfyui-faceaging": [
+        [
+            "AgeTransformationNode"
+        ],
+        {
+            "title_aux": "Face Aging [WIP]"
         }
     ],
     "https://github.com/leeguandong/ComfyUI_AliControlnetInpainting": [
@@ -2603,10 +2646,13 @@
     ],
     "https://github.com/mfg637/ComfyUI-ScheduledGuider-Ext": [
         [
+            "Add zSNR Sigma max",
             "ConcatSigmas",
             "CosineScheduler",
             "InvertSigmas",
-            "SheduledCFGGuider"
+            "OffsetSigmas",
+            "PerpNegScheduledCFGGuider",
+            "ScheduledCFGGuider"
         ],
         {
             "title_aux": "ComfyUI-ScheduledGuider-Ext"
@@ -2651,6 +2697,14 @@
         ],
         {
             "title_aux": "ComfyUI GLIGEN GUI Node"
+        }
+    ],
+    "https://github.com/neeltheninja/ComfyUI-TempFileDeleter": [
+        [
+            "TempCleaner"
+        ],
+        {
+            "title_aux": "ComfyUI-TempFileDeleter [UNSAFE]"
         }
     ],
     "https://github.com/neeltheninja/ComfyUI-TextOverlay": [

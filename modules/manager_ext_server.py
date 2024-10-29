@@ -687,33 +687,7 @@ async def install_model(request):
     return web.Response(status=400)
 
 
-class ManagerTerminalHook:
-    def write_stderr(self, msg):
-        PromptServer.instance.send_sync("manager-terminal-feedback", {"data": msg})
-
-    def write_stdout(self, msg):
-        PromptServer.instance.send_sync("manager-terminal-feedback", {"data": msg})
-
-
-manager_terminal_hook = ManagerTerminalHook()
-
-
-@routes.get("/manager/terminal")
-async def terminal_mode(request):
-    if not is_allowed_security_level('high'):
-        print(SECURITY_MESSAGE_NORMAL_MINUS)
-        return web.Response(status=403)
-
-    if "mode" in request.rel_url.query:
-        if request.rel_url.query['mode'] == 'true':
-            sys.__comfyui_manager_terminal_hook.add_hook('cm', manager_terminal_hook)
-        else:
-            sys.__comfyui_manager_terminal_hook.remove_hook('cm')
-
-    return web.Response(status=200)
-
-
-@routes.get("/manager/preview_method")
+@PromptServer.instance.routes.get("/manager/preview_method")
 async def preview_method(request):
     if "value" in request.rel_url.query:
         set_preview_method(request.rel_url.query['value'])
@@ -907,7 +881,7 @@ if not os.path.exists(ext_core.manager_ext_config_path):
 cm_global.register_extension('ComfyUI-Manager',
                              {'version': core.version,
                               'name': 'ComfyUI Manager (Extension)',
-                              'nodes': {'Terminal Log //CM'},
+                              'nodes': {},
                               'description': 'ComfyUI-Manager (Extension)', })
 
 cm_global.variables['manager-core.show_menu'] = False
