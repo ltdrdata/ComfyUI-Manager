@@ -130,59 +130,6 @@ import zipfile
 import urllib.request
 
 
-def get_model_dir(data):
-    if data['save_path'] != 'default':
-        if '..' in data['save_path'] or data['save_path'].startswith('/'):
-            print(f"[WARN] '{data['save_path']}' is not allowed path. So it will be saved into 'models/etc'.")
-            base_model = os.path.join(folder_paths.models_dir, "etc")
-        else:
-            if data['save_path'].startswith("custom_nodes"):
-                base_model = os.path.join(core.comfy_path, data['save_path'])
-            else:
-                base_model = os.path.join(folder_paths.models_dir, data['save_path'])
-    else:
-        model_type = data['type']
-        if model_type == "checkpoints" or model_type == "checkpoint":
-            base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
-        elif model_type == "unclip":
-            base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
-        elif model_type == "clip":
-            base_model = folder_paths.folder_names_and_paths["clip"][0][0]
-        elif model_type == "VAE":
-            base_model = folder_paths.folder_names_and_paths["vae"][0][0]
-        elif model_type == "lora":
-            base_model = folder_paths.folder_names_and_paths["loras"][0][0]
-        elif model_type == "T2I-Adapter":
-            base_model = folder_paths.folder_names_and_paths["controlnet"][0][0]
-        elif model_type == "T2I-Style":
-            base_model = folder_paths.folder_names_and_paths["controlnet"][0][0]
-        elif model_type == "controlnet":
-            base_model = folder_paths.folder_names_and_paths["controlnet"][0][0]
-        elif model_type == "clip_vision":
-            base_model = folder_paths.folder_names_and_paths["clip_vision"][0][0]
-        elif model_type == "gligen":
-            base_model = folder_paths.folder_names_and_paths["gligen"][0][0]
-        elif model_type == "upscale":
-            base_model = folder_paths.folder_names_and_paths["upscale_models"][0][0]
-        elif model_type == "embeddings":
-            base_model = folder_paths.folder_names_and_paths["embeddings"][0][0]
-        elif model_type == "unet" or model_type == "diffusion_model":
-            if folder_paths.folder_names_and_paths.get("diffusion_models"):
-                base_model = folder_paths.folder_names_and_paths["diffusion_models"][0][1]
-            else:
-                print(f"[ComfyUI-Manager] Your ComfyUI is outdated version.")
-                base_model = folder_paths.folder_names_and_paths["unet"][0][0]  # outdated version
-        else:
-            base_model = os.path.join(folder_paths.models_dir, "etc")
-
-    return base_model
-
-
-def get_model_path(data):
-    base_model = get_model_dir(data)
-    return os.path.join(base_model, data['filename'])
-
-
 def check_state_of_git_node_pack(node_packs, do_fetch=False, do_update_check=True, do_update=False):
     if do_fetch:
         print("Start fetching...", end="")
@@ -448,39 +395,6 @@ async def fetch_customnode_alternatives(request):
     return web.json_response(res, content_type='application/json')
 
 
-def check_model_installed(json_obj):
-    def process_model(item):
-        model_path = get_model_path(item)
-        item['installed'] = 'None'
-
-        if model_path is not None:
-            if model_path.endswith('.zip'):
-                if os.path.exists(model_path[:-4]):
-                    item['installed'] = 'True'
-                else:
-                    item['installed'] = 'False'
-            elif os.path.exists(model_path):
-                item['installed'] = 'True'
-            else:
-                item['installed'] = 'False'
-
-    with concurrent.futures.ThreadPoolExecutor(8) as executor:
-        for item in json_obj['models']:
-            executor.submit(process_model, item)
-
-
-@routes.get("/externalmodel/getlist")
-async def fetch_externalmodel_list(request):
-    json_obj = await core.get_data_by_mode(request.rel_url.query["mode"], 'model-list.json')
-
-    check_model_installed(json_obj)
-
-    for x in json_obj['models']:
-        populate_markdown(x)
-
-    return web.json_response(json_obj, content_type='application/json')
-
-
 @PromptServer.instance.routes.get("/snapshot/getlist")
 async def get_snapshot_list(request):
     snapshots_directory = os.path.join(core.comfyui_manager_path, 'snapshots')
@@ -627,62 +541,6 @@ async def comfyui_switch_version(request):
         return web.Response(status=200)
     except Exception as e:
         print(f"ComfyUI update fail: {e}", file=sys.stderr)
-
-    return web.Response(status=400)
-
-
-@routes.post("/model/install")
-async def install_model(request):
-    json_data = await request.json()
-
-    model_path = get_model_path(json_data)
-
-    if not is_allowed_security_level('middle'):
-        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
-        return web.Response(status=403)
-
-    if not json_data['filename'].endswith('.safetensors') and not is_allowed_security_level('high'):
-        models_json = await core.get_data_by_mode('cache', 'model-list.json')
-
-        is_belongs_to_whitelist = False
-        for x in models_json['models']:
-            if x.get('url') == json_data['url']:
-                is_belongs_to_whitelist = True
-                break
-
-        if not is_belongs_to_whitelist:
-            print(SECURITY_MESSAGE_NORMAL_MINUS)
-            return web.Response(status=403)
-
-    res = False
-
-    try:
-        if model_path is not None:
-            print(f"Install model '{json_data['name']}' into '{model_path}'")
-
-            model_url = json_data['url']
-            if not core.get_config()['model_download_by_agent'] and (
-                    model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de')):
-                model_dir = get_model_dir(json_data)
-                download_url(model_url, model_dir, filename=json_data['filename'])
-                if model_path.endswith('.zip'):
-                    res = core.unzip(model_path)
-                else:
-                    res = True
-
-                if res:
-                    return web.json_response({}, content_type='application/json')
-            else:
-                res = download_url_with_agent(model_url, model_path)
-                if res and model_path.endswith('.zip'):
-                    res = core.unzip(model_path)
-        else:
-            print(f"Model installation error: invalid model type - {json_data['type']}")
-
-        if res:
-            return web.json_response({}, content_type='application/json')
-    except Exception as e:
-        print(f"[ERROR] {e}", file=sys.stderr)
 
     return web.Response(status=400)
 

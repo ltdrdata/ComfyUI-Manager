@@ -59,7 +59,6 @@ def write_config():
         'default_ui': get_config()['default_ui'],
         'component_policy': get_config()['component_policy'],
         'double_click_policy': get_config()['double_click_policy'],
-        'model_download_by_agent': get_config()['model_download_by_agent'],
         'security_level': get_config()['security_level'],
     }
 
@@ -86,7 +85,6 @@ def read_config():
                     'default_ui': default_conf['default_ui'] if 'default_ui' in default_conf else 'none',
                     'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
                     'double_click_policy': default_conf['double_click_policy'] if 'double_click_policy' in default_conf else 'copy-all',
-                    'model_download_by_agent': default_conf['model_download_by_agent'].lower() == 'true' if 'model_download_by_agent' in default_conf else False,
                     'security_level': security_level
                }
 
@@ -97,7 +95,6 @@ def read_config():
             'default_ui': 'none',
             'component_policy': 'workflow',
             'double_click_policy': 'copy-all',
-            'model_download_by_agent': False,
             'security_level': 'normal',
         }
 
