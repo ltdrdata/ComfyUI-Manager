@@ -20,12 +20,12 @@
             "title_aux": "Latent Consistency Model for ComfyUI"
         }
     ],
-    "https://github.com/1038lab/ComfyUI-GPT2P": [
+    "https://github.com/1038lab/ComfyUI-OmniGen": [
         [
-            "GPT2PNode"
+            "ailab_OmniGen"
         ],
         {
-            "title_aux": "ComfyUI-GPT2P"
+            "title_aux": "ComfyUI-OmniGen"
         }
     ],
     "https://github.com/11dogzi/ComfUI-EGAdapterMadAssistant": [
@@ -709,6 +709,14 @@
             "title_aux": "JoyHallo-ComfyUI"
         }
     ],
+    "https://github.com/AIFSH/MaskGCT-ComfyUI": [
+        [
+            "MaskGCTNode"
+        ],
+        {
+            "title_aux": "MaskGCT-ComfyUI"
+        }
+    ],
     "https://github.com/AIFSH/OmniGen-ComfyUI": [
         [
             "OmniGenNode"
@@ -1063,15 +1071,20 @@
             "BillBum_Modified_Base64_Url2Data_Node",
             "BillBum_Modified_Base64_Url2Img_Node",
             "BillBum_Modified_Dalle_API_Node",
+            "BillBum_Modified_DropoutToken_Node",
             "BillBum_Modified_Flux_API_Node",
             "BillBum_Modified_ImageSplit_Node",
+            "BillBum_Modified_Image_API_Call_Node",
             "BillBum_Modified_LLM_API_Node",
+            "BillBum_Modified_Recraft_API_Node",
             "BillBum_Modified_RegText_Node",
             "BillBum_Modified_SD3_API_Node",
             "BillBum_Modified_Structured_LLM_Node(Imperfect)",
             "BillBum_Modified_Together_API_Node",
             "BillBum_Modified_VisionLM_API_Node",
-            "BillBum_Modified_img2b64_url_Node"
+            "BillBum_Modified_img2b64_url_Node",
+            "Input_Text",
+            "Text_Concat"
         ],
         {
             "nodename_pattern": "\\(BillBum\\)$",
@@ -3288,6 +3301,21 @@
             "title_aux": "comfyui-enhanced-save-node"
         }
     ],
+    "https://github.com/HelloVision/ComfyUI_HelloMeme": [
+        [
+            "GetImageDriveParams",
+            "GetReferenceImageRT",
+            "GetVideoDriveParams",
+            "HMFaceToolkitsLoader",
+            "HMImagePipelineLoader",
+            "HMPipelineImage",
+            "HMPipelineVideo",
+            "HMVideoPipelineLoader"
+        ],
+        {
+            "title_aux": "ComfyUI_HelloMeme"
+        }
+    ],
     "https://github.com/Hellrunner2k/ComfyUI-HellrunnersMagicalNodes": [
         [
             "AdjustMojo",
@@ -3930,6 +3958,14 @@
             "title_aux": "ComfyUI-kewky_tools"
         }
     ],
+    "https://github.com/KohakuBlueleaf/z-tipo-extension": [
+        [
+            "TIPO"
+        ],
+        {
+            "title_aux": "TIPO-extension"
+        }
+    ],
     "https://github.com/KoreTeknology/ComfyUI-Compositing-Nodes-Pack": [
         [
             "Brightness Image",
@@ -4261,6 +4297,40 @@
             "title_aux": "Canvas Tab"
         }
     ],
+    "https://github.com/LevelPixel/ComfyUI-LevelPixel": [
+        [
+            "FastCheckerPattern|LP",
+            "FileCounter|LP",
+            "HardModelUnloader|LP",
+            "ImageLoaderFromPath|LP",
+            "LLMAdvanced|LP",
+            "LLMLoader|LP",
+            "LLMSampler|LP",
+            "LLavaAdvanced|LP",
+            "LLavaClipLoader|LP",
+            "LLavaLoader|LP",
+            "LLavaSamplerAdvanced|LP",
+            "LLavaSamplerSimple|LP",
+            "LLavaSimple|LP",
+            "LoadImage|LP",
+            "ModelUnloader|LP",
+            "ShowText|LP",
+            "SimpleFloatSlider|LP",
+            "SoftModelUnloader|LP",
+            "TagCategoryFilter|LP",
+            "TagCategoryKeeper|LP",
+            "TagCategoryRemover|LP",
+            "TagCategory|LP",
+            "TagMerger|LP",
+            "TagRemover|LP",
+            "TagReplace|LP",
+            "TagSwitcher|LP",
+            "TextChoiceParser|LP"
+        ],
+        {
+            "title_aux": "ComfyUI_LevelPixel"
+        }
+    ],
     "https://github.com/Lhyejin/ComfyUI-Fill-Image-for-Outpainting": [
         [
             "FillImageForOutpainting"
@@ -4531,6 +4601,7 @@
             "MaraScottForLoopToBoolNode_v1",
             "MaraScottForLoopWhileClose_v1",
             "MaraScottForLoopWhileOpen_v1",
+            "MaraScottGetModelBlocks_v1",
             "MaraScottImageToGradient_v1",
             "MaraScottIsEmptyOrNone_v1",
             "MaraScottIsEmpty_v1",
@@ -4893,6 +4964,7 @@
             "AspectSize",
             "AspectSizeV2",
             "DJZ-LoadLatent",
+            "DJZ-LoadLatentV2",
             "ImageSizeAdjuster",
             "ImageSizeAdjusterV2",
             "ImageSizeAdjusterV3",
@@ -7994,7 +8066,8 @@
             "TextFieldNode",
             "TileCheckpointPatchNode",
             "UpscaleImageWithModel",
-            "VTracerImageVectorizerNode"
+            "VTracerImageVectorizerNode",
+            "WeldInpaintNode"
         ],
         {
             "title_aux": "ComfyUI-NeuralMedia"
@@ -12440,6 +12513,7 @@
             "Eden_Image_Math",
             "Eden_Int",
             "Eden_MaskBoundingBox",
+            "Eden_MaskCombiner",
             "Eden_Math",
             "Eden_RepeatLatentBatch",
             "Eden_Seed",
@@ -13569,6 +13643,7 @@
             "MiniCPMNode",
             "MoonDream",
             "Moondream2model",
+            "Paligemma",
             "PlayMusic",
             "PromptGenerateAPI",
             "Qwen2VLNode",
@@ -13810,6 +13885,25 @@
         ],
         {
             "title_aux": "ComfyUI-Image-Matting"
+        }
+    ],
+    "https://github.com/hanoixan/ComfyUI-DataBeast": [
+        [
+            "DBConvertToFloat //DataBeast",
+            "DBConvertToInt //DataBeast",
+            "DBConvertToString //DataBeast",
+            "DBFloatExpression //DataBeast",
+            "DBGetBatchList //DataBeast",
+            "DBGetValue //DataBeast",
+            "DBLoadData //DataBeast",
+            "DBStringExpression //DataBeast"
+        ],
+        {
+            "author": "hanoixan",
+            "description": "This extension provides nodes for controlling data-driven processing in Comfy-UI",
+            "nickname": "DataBeast",
+            "title": "DataBeast",
+            "title_aux": "ComfyUI DataBeast"
         }
     ],
     "https://github.com/haohaocreates/ComfyUI-HH-Image-Selector": [
@@ -15880,6 +15974,7 @@
             "NormalizedAmplitudeToMask",
             "OffsetMask",
             "OffsetMaskByNormalizedAmplitude",
+            "PatchModelPatcherOrder",
             "PlotCoordinates",
             "PointsEditor",
             "PreviewAnimation",
@@ -16730,6 +16825,7 @@
             "BboxToCropData",
             "BboxesToBboxes",
             "ColorPicker",
+            "ConvertToJsonStr",
             "ConvertTypeToAny",
             "CopyAndRenameFiles",
             "CropImageByBbox",
@@ -16768,8 +16864,11 @@
             "MaskImageToBase64",
             "MaskToBase64",
             "MaskToBase64Image",
+            "MaskToRle",
+            "RleToMask",
             "SDBaseVerNumber",
             "SamAutoMaskSEGS",
+            "SamAutoMaskSEGSAdvanced",
             "SaveImagesWithoutOutput",
             "SaveSingleImageWithoutOutput",
             "SaveTextToFileByImagePath",
@@ -17976,6 +18075,7 @@
     ],
     "https://github.com/miaoshouai/ComfyUI-Miaoshouai-Tagger": [
         [
+            "Miaoshouai_Caption_Analyzer",
             "Miaoshouai_Flux_CLIPTextEncode",
             "Miaoshouai_SaveTags",
             "Miaoshouai_Tagger"
@@ -19315,6 +19415,15 @@
             "title_aux": "SD Prompt Reader"
         }
     ],
+    "https://github.com/recraft-ai/ComfyUI-RecraftAI": [
+        [
+            "RecraftClient",
+            "RecraftImageGenerator"
+        ],
+        {
+            "title_aux": "ComfyUI-RecraftAI"
+        }
+    ],
     "https://github.com/redhottensors/ComfyUI-Prediction": [
         [
             "AvoidErasePrediction",
@@ -20259,7 +20368,8 @@
             "SeedSelector",
             "StringToInt",
             "StringToNumber",
-            "TextRandomMultiline"
+            "TextRandomMultiline",
+            "TextSwitchCase"
         ],
         {
             "title_aux": "comfyui-art-venture"
@@ -22086,8 +22196,9 @@
             "OllamaModelSelect",
             "OllamaTextGen",
             "ShowText_xO",
-            "xO_Ascii",
             "xO_ComfyUIPortRunner",
+            "xO_GetImageFilename",
+            "xO_LoadRecentFile",
             "xO_TestScriptRunner",
             "xO_WorkflowRunner"
         ],
@@ -22222,7 +22333,8 @@
             "FalAPIFluxDevWithLoraInpaintNode",
             "FalAPIFluxDevWithLoraNode",
             "FalAPIFluxLoraConfigNode",
-            "FalAPIFluxProNode"
+            "FalAPIFluxProNode",
+            "FalAPIFluxProV11Node"
         ],
         {
             "title_aux": "ComfyUI-Fal-API-Flux"
