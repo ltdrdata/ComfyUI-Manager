@@ -15,6 +15,46 @@
 
 
         {
+            "author": "KoreTeknology",
+            "title": "ComfyUI Production Nodes Pack [WIP]",
+            "reference": "https://github.com/KoreTeknology/ComfyUI-Nai-Production-Nodes-Pack",
+            "files": [
+               "https://github.com/KoreTeknology/ComfyUI-Nai-Production-Nodes-Pack"
+            ],
+            "description": "This is set of custom nodes for your ComfyUI1 production setup. It offers the very basic nodes that are missing in the official 'Vanilla' package. It is a research Node based project on Artificial Intelligence using ComfyUI visual editor. This repository also includes a set of workflows to test the nodes.",
+            "install_type": "git-clone"
+        },
+        {
+            "author": "DoctorDiffusion",
+            "title": "ComfyUI-Flashback",
+            "reference": "https://github.com/DoctorDiffusion/ComfyUI-Flashback",
+            "files": [
+               "https://github.com/DoctorDiffusion/ComfyUI-Flashback"
+            ],
+            "description": "NODES:Latent Export, Latent Import, Latent Loop",
+            "install_type": "git-clone"
+        },
+        {
+            "author": "sswink",
+            "title": "comfyui-lingshang",
+            "reference": "https://github.com/sswink/comfyui-lingshang",
+            "files": [
+               "https://github.com/sswink/comfyui-lingshang"
+            ],
+            "description": "NODES:LS_SaveImageToOss, LS_LoadMaskFromUrl, LS_DigImageByMask, LS_ALY_Seg_Utils, LS_ALY_UploadToOssAndGetUrl, LS_GrowMaskWithBlur, LS_ALY_Seg_Body_Utils, LS_ALY_Seg_Common_Utils, LS_ALY_Seg_Clothes_Utils, LS_ALY_Seg_Body_Utils_Return_crop, ...",
+            "install_type": "git-clone"
+        },
+        {
+            "author": "AICodeFactory",
+            "title": "ComfyUI-Viva",
+            "reference": "https://github.com/AICodeFactory/ComfyUI-Viva",
+            "files": [
+               "https://github.com/AICodeFactory/ComfyUI-Viva"
+            ],
+            "description": "NODES:HttpTrigger (Viva), HttpTrigger (Image), HttpTrigger (Common)",
+            "install_type": "git-clone"
+        },
+        {
             "author": "LogicAI",
             "title": "ComfyUI-MagicAI [UNSAFE]",
             "reference": "https://github.com/lcolok/ComfyUI-MagicAI",
@@ -132,7 +172,7 @@
                 "https://github.com/oshtz/ComfyUI-oshtz-nodes"
             ],
             "install_type": "git-clone",
-            "description": "NODES:LoRASwitcherNode, LoRASwitcherNode20, LoRASwitcherNode40, LLMAIONode, ImageOverlayNode, StringSplitterNode\nNOTE: The files in the repo are not organized."
+            "description": "Custom nodes for ComfyUI created for some of my workflows.\nLLM All-in-One Node, String Splitter Node, LoRA Switcher Node, Image Overlay Node"
         },
         {
             "author": "DoctorDiffusion",
@@ -429,7 +469,7 @@
             "title": "VLLMVisionChatNode",
             "reference": "https://github.com/okg21/VLLMVisionChatNode",
             "files": [
-                "https://github.com/okg21/VLLMVisionChatNode/raw/refs/heads/main/VLLMVisionChatNode.py"
+                "https://raw.githubusercontent.com/okg21/VLLMVisionChatNode/refs/heads/main/VLLMVisionChatNode.py"
             ],
             "pip": ["openai", "numpy"],
             "install_type": "copy",
@@ -726,16 +766,6 @@
             ],
             "install_type": "git-clone",
             "description": "NODES:image select, Load AnyLLM, Ask LLM, OpenAI DAlle Node, SK Text_String, SK Random File Name"
-        },
-        {
-            "author": "Cardoso-topdev",
-            "title": "comfyui_meshanything_v1 [WIP]",
-            "reference": "https://github.com/Cardoso-topdev/comfyui_meshanything_v1",
-            "files": [
-                "https://github.com/Cardoso-topdev/comfyui_meshanything_v1"
-            ],
-            "install_type": "git-clone",
-            "description": "MeshAnything V2: Artist-Created Mesh Generation With Adjacent Mesh Tokenization"
         },
         {
             "author": "Lilien86",
@@ -1202,17 +1232,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:LoadImgFromInputUrl"
-        },        
-        {
-            "author": "LevelPixel",
-            "title": "ComfyUI-LevelPixel",
-            "id": "levelpixel",
-            "reference": "https://github.com/LevelPixel/ComfyUI-LevelPixel",
-            "files": [
-                "https://github.com/LevelPixel/ComfyUI-LevelPixel"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:Model Unloader, LLM Optional Memory Free Advanced"
         },
         {
             "author": "StartHua",
@@ -1357,8 +1376,8 @@
             "title": "ComfyUI-Waveform-Extensions",
             "reference": "https://github.com/NeuralNotW0rk/ComfyUI-Waveform-Extensions",
             "files": [
-                "https://github.com/NeuralNotW0rk/ComfyUI-Waveform-Extensions/raw/main/EXT_VariationUtils.py",
-                "https://github.com/NeuralNotW0rk/ComfyUI-Waveform-Extensions/raw/main/EXT_AudioManipulation.py"
+                "https://raw.githubusercontent.com/NeuralNotW0rk/ComfyUI-Waveform-Extensions/main/EXT_VariationUtils.py",
+                "https://raw.githubusercontent.com/NeuralNotW0rk/ComfyUI-Waveform-Extensions/main/EXT_AudioManipulation.py"
             ],
             "install_type": "copy",
             "description": "Some additional audio utilites for use on top of Sample Diffusion ComfyUI Extension"
@@ -1844,8 +1863,8 @@
             "title": "comfyUI_padding-resize_node",
             "reference": "https://github.com/jp0215/comfyUI_padding-resize_node",
             "files": [
-                "https://github.com/jp0215/comfyUI_padding-resize_node/raw/main/PaddingNode.py",
-                "https://github.com/jp0215/comfyUI_padding-resize_node/raw/main/ResizeNode.py"
+                "https://raw.githubusercontent.com/jp0215/comfyUI_padding-resize_node/main/PaddingNode.py",
+                "https://raw.githubusercontent.com/jp0215/comfyUI_padding-resize_node/main/ResizeNode.py"
             ],
             "install_type": "copy",
             "description": "Padding image to 8x: input image and mask, if the side length is not an integer multiple of 8, expand the side length to the smallest multiple of 8 greater than the original side length. Output padding image and mask. Resize to the origin: input the generated image and the original image, crop the generated image to the size of the original image, output the cropped image."
@@ -2550,7 +2569,7 @@
             "title": "ComfyUI_Prompt_Template_CustomNodes",
             "reference": "https://github.com/komojini/ComfyUI_Prompt_Template_CustomNodes",
             "files": [
-                "https://github.com/komojini/ComfyUI_Prompt_Template_CustomNodes/raw/main/prompt_with_template.py"
+                "https://raw.githubusercontent.com/komojini/ComfyUI_Prompt_Template_CustomNodes/main/prompt_with_template.py"
             ],
             "install_type": "copy",
             "description": "Nodes:Prompt with Template"
