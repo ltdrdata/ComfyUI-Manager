@@ -28,11 +28,12 @@ version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) 
 
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, '..'))
 
 comfy_path = os.environ.get('COMFYUI_PATH')
 if comfy_path is None:
-    comfy_path = os.path.abspath(os.path.join(custom_nodes_path, '..'))
+    comfy_path = os.path.abspath(os.path.join(comfyui_manager_path, '..', '..'))
+
+custom_nodes_path = os.path.abspath(os.path.join(comfy_path, 'custom_nodes'))
 
 channel_list_path = os.path.join(comfyui_manager_path, 'channels.list')
 config_path = os.path.join(comfyui_manager_path, "config.ini")
