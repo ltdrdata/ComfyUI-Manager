@@ -11,7 +11,7 @@ from comfy.cli_args import args
 import latent_preview
 
 
-version_code = [3, 0]
+version_code = [3, 0, 1]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 DEFAULT_CHANNEL = "https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main"

@@ -16,10 +16,9 @@ import cm_global
 from . import manager_ext_core as ext_core
 from . import manager_ext_util
 
-print(f"### Loading: ComfyUI-Manager ({core.version_str})")
+print(f"### Loading: ComfyUI-Manager (ext) ({ext_core.version_str})")
 
 comfy_ui_hash = "-"
-comfyui_tag = None
 
 SECURITY_MESSAGE_MIDDLE_OR_BELOW = f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
 SECURITY_MESSAGE_NORMAL_MINUS = f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
@@ -618,12 +617,13 @@ async def get_notice(request):
 
                 if match:
                     markdown_content = match.group(1)
-                    if comfyui_tag:
-                        markdown_content += f"<HR>ComfyUI: {comfyui_tag}<BR>Commit Date: {core.comfy_ui_commit_datetime.date()}"
+                    if core.comfyui_tag:
+                        markdown_content += f"<HR>ComfyUI: <b>{core.comfyui_tag}</b><BR>Commit Date: {core.comfy_ui_commit_datetime.date()}"
                     else:
-                        markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
+                        markdown_content += f"<HR>ComfyUI: <b>{core.comfy_ui_revision}</b>[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
                     # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
-                    markdown_content += f"<BR>Manager: {core.version_str}"
+                    markdown_content += f"<BR>manager-core: {core.version_str}"
+                    markdown_content += f"<BR>manager-ext: {ext_core.version_str}"
 
                     markdown_content = add_target_blank(markdown_content)
 
