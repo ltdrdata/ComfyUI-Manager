@@ -323,6 +323,7 @@
             "Add Human Styler",
             "ConcaveHullImage",
             "Convert Monochrome",
+            "Inpaint Crop Xo",
             "Mask Aligned bbox for ConcaveHull",
             "Mask Aligned bbox for Inpainting",
             "Mask Aligned bbox for Inpainting2",
@@ -335,7 +336,7 @@
             "Upscale RT4SR"
         ],
         {
-            "title_aux": "ComfyUI-Xorbis-nodes"
+            "title_aux": "ComfyUI-Xorbis-nodes [WIP]"
         }
     ],
     "https://github.com/Anze-/ComfyUI_deepDeband": [
@@ -566,6 +567,7 @@
             "AppIO_ImageInputFromID",
             "AppIO_ImageOutput",
             "AppIO_IntegerInput",
+            "AppIO_ResizeInstanceImageMask",
             "AppIO_StringInput",
             "AppIO_StringOutput"
         ],
@@ -1695,8 +1697,10 @@
             "MaskComposite",
             "MaskToImage",
             "ModelMergeAdd",
+            "ModelMergeAuraflow",
             "ModelMergeBlocks",
             "ModelMergeFlux1",
+            "ModelMergeMochiPreview",
             "ModelMergeSD1",
             "ModelMergeSD2",
             "ModelMergeSD35_Large",
@@ -2719,8 +2723,9 @@
         [
             "AddFluxFlow",
             "ApplyFluxRaveAttention",
-            "ApplyRefFlux",
-            "ConfigureRefFlux",
+            "ConfigureModifiedFlux",
+            "FlowEditForwardSampler",
+            "FlowEditReverseSampler",
             "FluxDeGuidance",
             "FluxForwardODESampler",
             "FluxInverseSampler",
@@ -2728,7 +2733,10 @@
             "FluxReverseODESampler",
             "InFluxFlipSigmas",
             "InFluxModelSamplingPred",
-            "OutFluxModelSamplingPred"
+            "OutFluxModelSamplingPred",
+            "PrepareAttnBank",
+            "RFDoubleBlocksOverride",
+            "RFSingleBlocksOverride"
         ],
         {
             "title_aux": "ComfyUI-Fluxtapoz [WIP]"
@@ -2763,8 +2771,12 @@
     ],
     "https://github.com/lordwedggie/xcpNodes": [
         [
-            "xcpFloatSlider",
-            "xcpIntSlider"
+            "derpBaseAlpha",
+            "derpSlider",
+            "xcpDerpBool",
+            "xcpDerpFloat",
+            "xcpDerpINT",
+            "xcpDerpSeed"
         ],
         {
             "title_aux": "xcpNodes [WIP]"
@@ -3423,6 +3435,14 @@
             "title_aux": "comfyui-p5js-node"
         }
     ],
+    "https://github.com/trashgraphicard/Albedo-Sampler-for-ComfyUI": [
+        [
+            "Sample Image"
+        ],
+        {
+            "title_aux": "Albedo-Sampler-for-ComfyUI"
+        }
+    ],
     "https://github.com/tuckerdarby/ComfyUI-TDNodes": [
         [
             "HandTrackerNode",
@@ -3474,6 +3494,16 @@
         ],
         {
             "title_aux": "VoidCustomNodes"
+        }
+    ],
+    "https://github.com/vuongminh1907/ComfyUI_ZenID": [
+        [
+            "ApplyZenID",
+            "InstantIDFaceAnalysis",
+            "InstantIDModelLoader"
+        ],
+        {
+            "title_aux": "ComfyUI_ZenID"
         }
     ],
     "https://github.com/walterFeng/ComfyUI-Image-Utils": [

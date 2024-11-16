@@ -28,6 +28,14 @@
             "title_aux": "ComfyUI-OmniGen"
         }
     ],
+    "https://github.com/1038lab/ComfyUI-RMBG": [
+        [
+            "AILAB_RMBG"
+        ],
+        {
+            "title_aux": "ComfyUI-RMBG"
+        }
+    ],
     "https://github.com/11dogzi/ComfUI-EGAdapterMadAssistant": [
         [
             "EGIPAdapter_Mad_Assistant",
@@ -3262,6 +3270,7 @@
     ],
     "https://github.com/GrvBdgr/comfyui-negativewildcardsprocessor": [
         [
+            "custom_token_processor",
             "neg_wildcard_processor"
         ],
         {
@@ -3388,16 +3397,16 @@
     ],
     "https://github.com/HelloVision/ComfyUI_HelloMeme": [
         [
-            "CropReferenceImage",
-            "GetImageDriveParams",
-            "GetReferenceImageRT",
-            "GetVideoDriveParams",
+            "CropPortrait",
+            "GetDriveExpression",
+            "GetDriveExpression2",
+            "GetDrivePose",
+            "GetFaceLandmarks",
             "HMFaceToolkitsLoader",
             "HMImagePipelineLoader",
             "HMPipelineImage",
             "HMPipelineVideo",
-            "HMVideoPipelineLoader",
-            "HMVideoSimplePipelineLoader"
+            "HMVideoPipelineLoader"
         ],
         {
             "title_aux": "ComfyUI_HelloMeme"
@@ -4770,6 +4779,7 @@
             "MaraScottIsEmpty_v1",
             "MaraScottIsEqual_v1",
             "MaraScottIsNone_v1",
+            "MaraScottLoadImage_v1",
             "MaraScottMcBoatyRefiner_v4",
             "MaraScottMcBoatyRefiner_v5",
             "MaraScottMcBoatyTilePrompter_v4",
@@ -5831,8 +5841,8 @@
     ],
     "https://github.com/Rinsanga1/comfyui-florence2xy": [
         [
-            "BlipImgCaptioning",
-            "Florence2toCoordinatesButxy"
+            "Florence2toCoordinatesButxy",
+            "Phi35VisionInstruct"
         ],
         {
             "title_aux": "comfyui-florence2xy"
@@ -6625,6 +6635,7 @@
             "CSV Reader",
             "CSV Writer",
             "Empty Images",
+            "Get Most Common Image Colors",
             "Image Batch Process Switch",
             "Image List Loader",
             "Image Overlay",
@@ -6640,6 +6651,8 @@
             "Range(Step) - Float",
             "Range(Step) - Int",
             "String Replacer",
+            "Text Contains (Return Bool)",
+            "Text Contains (Return String)",
             "Variable Image Builder",
             "XY Any",
             "XY Image"
@@ -7049,6 +7062,7 @@
     "https://github.com/Sxela/ComfyWarp": [
         [
             "ExtractOpticalFlow",
+            "FixedQueue",
             "LoadFrame",
             "LoadFrameFromDataset",
             "LoadFrameFromFolder",
@@ -7242,6 +7256,15 @@
             "title_aux": "Comfyui_JC2"
         }
     ],
+    "https://github.com/TTPlanetPig/Comfyui_Object_Migration": [
+        [
+            "TTP_Expand_And_Mask",
+            "TTP_text_mix"
+        ],
+        {
+            "title_aux": "Clothing Migration Kit"
+        }
+    ],
     "https://github.com/TTPlanetPig/Comfyui_TTP_CN_Preprocessor": [
         [
             "TTPlanet_Tile_Preprocessor_GF",
@@ -7256,11 +7279,14 @@
     "https://github.com/TTPlanetPig/Comfyui_TTP_Toolset": [
         [
             "TTP_CoordinateSplitter",
+            "TTP_Expand_And_Mask",
             "TTP_Image_Assy",
             "TTP_Image_Tile_Batch",
             "TTP_Tile_image_size",
             "TTP_condsetarea_merge",
+            "TTP_condsetarea_merge_test",
             "TTP_condtobatch",
+            "TTP_text_mix",
             "TTPlanet_Tile_Preprocessor_Simple"
         ],
         {
@@ -7442,7 +7468,8 @@
     ],
     "https://github.com/ThereforeGames/ComfyUI-Unprompted": [
         [
-            "Unprompted"
+            "Unprompted",
+            "UnpromptedSetRack"
         ],
         {
             "title_aux": "ComfyUI-Unprompted"
@@ -8228,6 +8255,7 @@
             "BiRefNetNode",
             "InpaintConditioningNode",
             "InpaintNode",
+            "LoadImagesFromFolderNode",
             "MultiControlnet",
             "MultiControlnetApply",
             "MultiControlnetUnion",
@@ -8926,7 +8954,7 @@
             "BBoxCrop"
         ],
         {
-            "title_aux": "Bounding Box Crop Node for ComfyUI"
+            "title_aux": "ComfyUI-CenterNode"
         }
     ],
     "https://github.com/alessandrozonta/ComfyUI-Layers": [
@@ -10538,6 +10566,20 @@
             "title_aux": "Chaosaiart-Nodes"
         }
     ],
+    "https://github.com/chenbaiyujason/ComfyUI_StepFun": [
+        [
+            "CombineStrings",
+            "JSONParser",
+            "OSSClient",
+            "OSSUploader",
+            "StepFunClient",
+            "TextImageChat",
+            "VideoChat"
+        ],
+        {
+            "title_aux": "ComfyUI-SCStepFun"
+        }
+    ],
     "https://github.com/chesnokovivan/ComfyUI-Novakid": [
         [
             "Novakid Styler"
@@ -11268,8 +11310,10 @@
             "MaskComposite",
             "MaskToImage",
             "ModelMergeAdd",
+            "ModelMergeAuraflow",
             "ModelMergeBlocks",
             "ModelMergeFlux1",
+            "ModelMergeMochiPreview",
             "ModelMergeSD1",
             "ModelMergeSD2",
             "ModelMergeSD35_Large",
@@ -11844,6 +11888,7 @@
     "https://github.com/da2el-ai/D2-nodes-ComfyUI": [
         [
             "D2 Checkpoint Loader",
+            "D2 Controlnet Loader",
             "D2 EmptyImage Alpha",
             "D2 Folder Image Queue",
             "D2 Image Resize",
@@ -11852,7 +11897,6 @@
             "D2 List To String",
             "D2 Load Image",
             "D2 Multi Output",
-            "D2 Prompt SR",
             "D2 Refiner Steps",
             "D2 Refiner Steps A1111",
             "D2 Refiner Steps Tester",
@@ -11866,7 +11910,8 @@
             "D2 XY List To Plot",
             "D2 XY Lora List",
             "D2 XY Plot",
-            "D2 XY Prompt SR"
+            "D2 XY Prompt SR",
+            "D2 XY Seed"
         ],
         {
             "author": "da2el",
@@ -13748,6 +13793,14 @@
             "title_aux": "\ud83d\ude38 YFG Comical Nodes"
         }
     ],
+    "https://github.com/gorillaframeai/GF_nodes": [
+        [
+            "GFrbmg2"
+        ],
+        {
+            "title_aux": "GFrbmg2"
+        }
+    ],
     "https://github.com/griptape-ai/ComfyUI-Griptape": [
         [
             "Griptape Agent Config: Amazon Bedrock Drivers",
@@ -14175,6 +14228,7 @@
             "feishu_tool",
             "file_combine",
             "file_combine_plus",
+            "file_path_iterator",
             "flux_persona",
             "genai_api_loader",
             "get_string",
@@ -14591,9 +14645,10 @@
             "IF_ChatPrompt",
             "IF_DisplayOmni",
             "IF_DisplayText",
+            "IF_DisplayTextWildcard",
             "IF_ImagePrompt",
             "IF_JoinText",
-            "IF_LoadImages",
+            "IF_LoadImagesS",
             "IF_PromptMkr",
             "IF_SaveText",
             "IF_StepCounter",
@@ -17047,8 +17102,9 @@
         [
             "AddFluxFlow",
             "ApplyFluxRaveAttention",
-            "ApplyRefFlux",
-            "ConfigureRefFlux",
+            "ConfigureModifiedFlux",
+            "FlowEditForwardSampler",
+            "FlowEditReverseSampler",
             "FluxDeGuidance",
             "FluxForwardODESampler",
             "FluxInverseSampler",
@@ -17056,7 +17112,10 @@
             "FluxReverseODESampler",
             "InFluxFlipSigmas",
             "InFluxModelSamplingPred",
-            "OutFluxModelSamplingPred"
+            "OutFluxModelSamplingPred",
+            "PrepareAttnBank",
+            "RFDoubleBlocksOverride",
+            "RFSingleBlocksOverride"
         ],
         {
             "title_aux": "ComfyUI-Fluxtapoz"
@@ -17294,6 +17353,25 @@
             "title_aux": "ComfyUI-Inpaint-CropAndStitch"
         }
     ],
+    "https://github.com/lquesada/ComfyUI-Interactive": [
+        [
+            "InteractiveFloat",
+            "InteractiveInteger",
+            "InteractiveReset",
+            "InteractiveSave",
+            "InteractiveSeed",
+            "InteractiveSelector",
+            "InteractiveSelectorWithParameters",
+            "InteractiveString",
+            "InteractiveStringAppend",
+            "InteractiveStringMultiline",
+            "InteractiveSwitch",
+            "InteractiveSwitchWithParameters"
+        ],
+        {
+            "title_aux": "ComfyUI-Interactive"
+        }
+    ],
     "https://github.com/lquesada/ComfyUI-Prompt-Combinator": [
         [
             "PromptCombinator",
@@ -17303,6 +17381,14 @@
         ],
         {
             "title_aux": "ComfyUI-Prompt-Combinator"
+        }
+    ],
+    "https://github.com/lrzjason/Comfyui-In-Context-Lora-Utils": [
+        [
+            "AddMaskForICLora"
+        ],
+        {
+            "title_aux": "Comfyui-In-Context-Lora-Utils"
         }
     ],
     "https://github.com/lrzjason/Comfyui-Kolors-Utils": [
@@ -17674,6 +17760,7 @@
             "LF_ImageClassifier",
             "LF_ImageHistogram",
             "LF_ImageListFromJSON",
+            "LF_ImagesEditingBreakpoint",
             "LF_ImagesSlideshow",
             "LF_Integer",
             "LF_IsLandscape",
@@ -18386,12 +18473,13 @@
     ],
     "https://github.com/morino-kumasan/comfyui-toml-prompt": [
         [
+            "MultipartCLIPTextEncode",
             "MultipleLoraTagLoader",
             "PromptLoader",
             "StringConcat",
             "StringSub",
             "StringViewer",
-            "TomlPromptEncoder"
+            "TomlPromptDecode"
         ],
         {
             "title_aux": "comfyui-toml-prompt"
@@ -19219,10 +19307,15 @@
     "https://github.com/playbook3d/playbook3d-comfyui-nodes": [
         [
             "Playbook Beauty",
+            "Playbook Boolean",
             "Playbook Depth",
+            "Playbook Float",
+            "Playbook Image",
             "Playbook Mask",
+            "Playbook Number",
             "Playbook Outline",
-            "Playbook Render Result"
+            "Playbook Render Result",
+            "Playbook Text"
         ],
         {
             "title_aux": "Playbook Nodes"
@@ -21331,12 +21424,12 @@
     ],
     "https://github.com/taches-ai/comfyui-scene-composer": [
         [
-            "\u26c5\ufe0f Environment",
-            "\ud83c\udf9e\ufe0f Scene",
-            "\ud83c\udfac Action",
-            "\ud83d\udc55 Clothes",
-            "\ud83d\udc64 Character",
-            "\ud83d\udcf9 Composition"
+            "Action",
+            "Character",
+            "Clothes",
+            "Composition",
+            "Environment",
+            "Scene"
         ],
         {
             "title_aux": "ComfyUI Scene Composer"
@@ -21532,6 +21625,7 @@
             "Export glb",
             "ImageResize_Padding",
             "LatentDelay",
+            "Load Random Text From File",
             "LoadWebcamImage",
             "Remove noise",
             "SaveImagetoPath"
@@ -22749,6 +22843,16 @@
             "title_aux": "Image to Text Node"
         }
     ],
+    "https://github.com/yondonfu/ComfyUI-Background-Edit": [
+        [
+            "BackgroundColor",
+            "Composite",
+            "GaussianBlur"
+        ],
+        {
+            "title_aux": "ComfyUI-Background-Edit"
+        }
+    ],
     "https://github.com/youyegit/tdxh_node_comfyui": [
         [
             "TdxhBoolNumber",
@@ -22879,13 +22983,19 @@
     ],
     "https://github.com/yvann-ba/ComfyUI_Yvann-Nodes": [
         [
-            "Audio Prompt Schedule | Yvann",
-            "Audio Reactive | Yvann",
-            "Floats To Weights Strategy | Yvann",
-            "Floats Visualizer | Yvann",
-            "IPAdapter Audio Reactive | Yvann",
-            "Invert Floats | Yvann",
-            "Mask To Float | Yvann"
+            "Audio Analysis",
+            "Audio IPAdapter Transitions",
+            "Audio Peaks Detection",
+            "Audio Prompt Schedule",
+            "Audio Remixer",
+            "Edit Audio Weights",
+            "Float to Int",
+            "Floats To Weights Strategy",
+            "Floats Visualizer",
+            "Invert Floats",
+            "Load Audio Separation Model",
+            "Mask To Float",
+            "Repeat Image To Count"
         ],
         {
             "title_aux": "ComfyUI_Yvann-Nodes"
