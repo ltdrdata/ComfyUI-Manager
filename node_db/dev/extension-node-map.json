@@ -323,6 +323,7 @@
             "Add Human Styler",
             "ConcaveHullImage",
             "Convert Monochrome",
+            "Inpaint Crop Xo",
             "Mask Aligned bbox for ConcaveHull",
             "Mask Aligned bbox for Inpainting",
             "Mask Aligned bbox for Inpainting2",
@@ -335,7 +336,7 @@
             "Upscale RT4SR"
         ],
         {
-            "title_aux": "ComfyUI-Xorbis-nodes"
+            "title_aux": "ComfyUI-Xorbis-nodes [WIP]"
         }
     ],
     "https://github.com/Anze-/ComfyUI_deepDeband": [
@@ -463,6 +464,14 @@
             "title_aux": "ComfyUI-Inpaint_with_Detailer"
         }
     ],
+    "https://github.com/Clybius/ComfyUI-FluxDeCLIP": [
+        [
+            "FluxDeCLIPCheckpointLoader"
+        ],
+        {
+            "title_aux": "ComfyUI-FluxDeCLIP"
+        }
+    ],
     "https://github.com/Comfy-Org/ComfyUI_devtools": [
         [
             "DevToolsDeprecatedNode",
@@ -566,6 +575,7 @@
             "AppIO_ImageInputFromID",
             "AppIO_ImageOutput",
             "AppIO_IntegerInput",
+            "AppIO_ResizeInstanceImageMask",
             "AppIO_StringInput",
             "AppIO_StringOutput"
         ],
@@ -1163,6 +1173,15 @@
             "title_aux": "ComfyUI-AuraSR-ZHO"
         }
     ],
+    "https://github.com/ZHO-ZHO-ZHO/ComfyUI-BiRefNet-ZHO": [
+        [
+            "BiRefNet_ModelLoader_Zho",
+            "BiRefNet_Zho"
+        ],
+        {
+            "title_aux": "ComfyUI-BiRefNet-ZHO [BROKEN]"
+        }
+    ],
     "https://github.com/ZHO-ZHO-ZHO/ComfyUI-PuLID-ZHO": [
         [
             "PuLID_Zho"
@@ -1695,8 +1714,10 @@
             "MaskComposite",
             "MaskToImage",
             "ModelMergeAdd",
+            "ModelMergeAuraflow",
             "ModelMergeBlocks",
             "ModelMergeFlux1",
+            "ModelMergeMochiPreview",
             "ModelMergeSD1",
             "ModelMergeSD2",
             "ModelMergeSD35_Large",
@@ -2025,6 +2046,7 @@
         [
             "AlignFace",
             "GenerateTimestamp",
+            "GetMostCommonColors",
             "ReadImage",
             "RenderOpenStreetMapTile"
         ],
@@ -2719,8 +2741,9 @@
         [
             "AddFluxFlow",
             "ApplyFluxRaveAttention",
-            "ApplyRefFlux",
-            "ConfigureRefFlux",
+            "ConfigureModifiedFlux",
+            "FlowEditForwardSampler",
+            "FlowEditReverseSampler",
             "FluxDeGuidance",
             "FluxForwardODESampler",
             "FluxInverseSampler",
@@ -2728,7 +2751,10 @@
             "FluxReverseODESampler",
             "InFluxFlipSigmas",
             "InFluxModelSamplingPred",
-            "OutFluxModelSamplingPred"
+            "OutFluxModelSamplingPred",
+            "PrepareAttnBank",
+            "RFDoubleBlocksOverride",
+            "RFSingleBlocksOverride"
         ],
         {
             "title_aux": "ComfyUI-Fluxtapoz [WIP]"
@@ -2763,8 +2789,12 @@
     ],
     "https://github.com/lordwedggie/xcpNodes": [
         [
-            "xcpFloatSlider",
-            "xcpIntSlider"
+            "derpBaseAlpha",
+            "derpSlider",
+            "xcpDerpBool",
+            "xcpDerpFloat",
+            "xcpDerpINT",
+            "xcpDerpSeed"
         ],
         {
             "title_aux": "xcpNodes [WIP]"
@@ -3069,14 +3099,15 @@
             "CLIPNegPip",
             "CLIPTextEncodeBREAK",
             "CLIPTokenCounter",
+            "ConditioningZeroOutCombine",
             "DynSamplerSelect",
             "EmptyLatentImageAR",
-            "EmptyLatentImageARAdvanced",
+            "FreeU2PPM",
             "Guidance Limiter",
+            "LatentOperationTonemapLuminance",
             "LatentToMaskBB",
             "LatentToWidthHeight",
-            "RandomPromptGenerator",
-            "StableCascade_AutoCompLatent"
+            "PPMSamplerSelect"
         ],
         {
             "title_aux": "ComfyUI-ppm"
@@ -3423,6 +3454,14 @@
             "title_aux": "comfyui-p5js-node"
         }
     ],
+    "https://github.com/trashgraphicard/Albedo-Sampler-for-ComfyUI": [
+        [
+            "Sample Image"
+        ],
+        {
+            "title_aux": "Albedo-Sampler-for-ComfyUI"
+        }
+    ],
     "https://github.com/tuckerdarby/ComfyUI-TDNodes": [
         [
             "HandTrackerNode",
@@ -3474,6 +3513,16 @@
         ],
         {
             "title_aux": "VoidCustomNodes"
+        }
+    ],
+    "https://github.com/vuongminh1907/ComfyUI_ZenID": [
+        [
+            "ApplyZenID",
+            "InstantIDFaceAnalysis",
+            "InstantIDModelLoader"
+        ],
+        {
+            "title_aux": "ComfyUI_ZenID"
         }
     ],
     "https://github.com/walterFeng/ComfyUI-Image-Utils": [
