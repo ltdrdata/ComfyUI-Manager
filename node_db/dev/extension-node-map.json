@@ -1775,6 +1775,7 @@
             "SelfAttentionGuidance",
             "SetLatentNoiseMask",
             "SetUnionControlNetType",
+            "SkipLayerGuidanceDiT",
             "SkipLayerGuidanceSD3",
             "SolidMask",
             "SplitImageWithAlpha",
@@ -2605,6 +2606,15 @@
             "title_aux": "ComfyUI nodes for VEnhancer [WIP]"
         }
     ],
+    "https://github.com/kimara-ai/ComfyUI-Kimara-AI-Advanced-Watermarks": [
+        [
+            "KimaraAIBatchImages",
+            "KimaraAIWatermarker"
+        ],
+        {
+            "title_aux": "Advanced Watermarking Tools [WIP]"
+        }
+    ],
     "https://github.com/kk8bit/KayTool": [
         [
             "Color_Adjustment",
@@ -2741,9 +2751,11 @@
         [
             "AddFluxFlow",
             "ApplyFluxRaveAttention",
+            "ApplyRefFlux",
             "ConfigureModifiedFlux",
             "FlowEditForwardSampler",
             "FlowEditReverseSampler",
+            "FluxAttnOverride",
             "FluxDeGuidance",
             "FluxForwardODESampler",
             "FluxInverseSampler",
@@ -2752,9 +2764,11 @@
             "InFluxFlipSigmas",
             "InFluxModelSamplingPred",
             "OutFluxModelSamplingPred",
+            "PAGAttention",
             "PrepareAttnBank",
             "RFDoubleBlocksOverride",
-            "RFSingleBlocksOverride"
+            "RFSingleBlocksOverride",
+            "SEGAttention"
         ],
         {
             "title_aux": "ComfyUI-Fluxtapoz [WIP]"
@@ -2820,12 +2834,18 @@
     ],
     "https://github.com/lu64k/SK-Nodes": [
         [
+            "Ask LLM",
+            "Color Transfer",
             "Image Tracing Node",
+            "Load LLM",
             "Load_Nemotron",
             "Natural Saturation",
+            "OpenAI DAlle Node",
             "OpenAI Text Node",
             "SK Random File Name",
+            "SK Save Text",
             "SK Text_String",
+            "SK load text",
             "Tone Layer Quantize",
             "grey_scale blend"
         ],
@@ -3513,16 +3533,6 @@
         ],
         {
             "title_aux": "VoidCustomNodes"
-        }
-    ],
-    "https://github.com/vuongminh1907/ComfyUI_ZenID": [
-        [
-            "ApplyZenID",
-            "InstantIDFaceAnalysis",
-            "InstantIDModelLoader"
-        ],
-        {
-            "title_aux": "ComfyUI_ZenID"
         }
     ],
     "https://github.com/walterFeng/ComfyUI-Image-Utils": [
