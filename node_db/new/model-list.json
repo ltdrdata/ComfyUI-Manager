@@ -1,6 +1,52 @@
 {
   "models": [
     {
+      "name": "Comfy-Org/sigclip_vision_384 (patch14_384)",
+      "type": "clip_vision",
+      "base": "sigclip",
+      "save_path": "clip_vision",
+      "description": "This clip vision model is required for FLUX.1 Redux.",
+      "reference": "https://huggingface.co/Comfy-Org/sigclip_vision_384/tree/main",
+      "filename": "sigclip_vision_patch14_384.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/sigclip_vision_384/resolve/main/sigclip_vision_patch14_384.safetensors",
+      "size": "857MB"
+    },
+
+    {
+      "name": "comfyanonymous/flux_text_encoders - t5xxl (fp16)",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "text_encoders/t5",
+      "description": "Text Encoders for FLUX (fp16)",
+      "reference": "https://huggingface.co/comfyanonymous/flux_text_encoders",
+      "filename": "t5xxl_fp16.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors",
+      "size": "9.79GB"
+    },
+    {
+      "name": "comfyanonymous/flux_text_encoders - t5xxl (fp8_e4m3fn)",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "text_encoders/t5",
+      "description": "Text Encoders for FLUX (fp8_e4m3fn)",
+      "reference": "https://huggingface.co/comfyanonymous/flux_text_encoders",
+      "filename": "t5xxl_fp8_e4m3fn.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors",
+      "size": "4.89GB"
+    },
+    {
+      "name": "comfyanonymous/flux_text_encoders - t5xxl (fp8_e4m3fn_scaled)",
+      "type": "clip",
+      "base": "t5",
+      "save_path": "text_encoders/t5",
+      "description": "Text Encoders for FLUX (fp16)",
+      "reference": "https://huggingface.co/comfyanonymous/flux_text_encoders",
+      "filename": "t5xxl_fp8_e4m3fn_scaled.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn_scaled.safetensors",
+      "size": "5.16GB"
+    },
+
+    {
       "name": "FLUX.1 [Dev] Diffusion model (scaled fp8)",
       "type": "diffusion_model",
       "base": "FLUX.1",
@@ -633,116 +679,6 @@
       "filename": "flux1-schnell-F16.gguf",
       "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-F16.gguf",
       "size": "23.8GB"
-    },
-    {
-      "name": "city96/flux1-schnell-Q2_K.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q2_K/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
-      "filename": "flux1-schnell-Q2_K.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q2_K.gguf",
-      "size": "4.01GB"
-    },
-    {
-      "name": "city96/flux1-schnell-Q3_K_S.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q3_K_S/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
-      "filename": "flux1-schnell-Q3_K_S.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q3_K_S.gguf",
-      "size": "5.21GB"
-    },
-    {
-      "name": "city96/flux1-schnell-Q4_0.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q4_0/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
-      "filename": "flux1-schnell-Q4_0.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q4_0.gguf",
-      "size": "6.77GB"
-    },
-    {
-      "name": "city96/flux1-schnell-Q4_1.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q4_1/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
-      "filename": "flux1-schnell-Q4_1.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q4_1.gguf",
-      "size": "7.51GB"
-    },
-    {
-      "name": "city96/flux1-schnell-Q4_K_S.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q4_K_S/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
-      "filename": "flux1-schnell-Q4_K_S.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q4_K_S.gguf",
-      "size": "6.78GB"
-    },
-    {
-      "name": "city96/flux1-schnell-Q5_0.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q5_0/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
-      "filename": "flux1-schnell-Q5_0.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q5_0.gguf",
-      "size": "8.25GB"
-    },
-    {
-      "name": "city96/flux1-schnell-Q5_1.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q5_1/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
-      "filename": "flux1-schnell-Q5_1.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q5_1.gguf",
-      "size": "8.99GB"
-    },
-    {
-      "name": "city96/flux1-schnell-Q5_K_S.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q5_K_S/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
-      "filename": "flux1-schnell-Q5_K_S.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q5_K_S.gguf",
-      "size": "8.26GB"
-    },
-    {
-      "name": "city96/flux1-schnell-Q6_K.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q6_K/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
-      "filename": "flux1-schnell-Q6_K.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q6_K.gguf",
-      "size": "9.83GB"
-    },
-    {
-      "name": "city96/flux1-schnell-Q8_0.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q8_0/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
-      "filename": "flux1-schnell-Q8_0.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q8_0.gguf",
-      "size": "12.7GB"
     }
   ]
 }
