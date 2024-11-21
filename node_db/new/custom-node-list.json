@@ -12,6 +12,36 @@
         
         
         {
+            "author": "xuhongming251",
+            "title": "ComfyUI_Camera",
+            "reference": "https://github.com/xuhongming251/ComfyUI_Camera",
+            "files": [
+                "https://github.com/xuhongming251/ComfyUI_Camera"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI processes local real-time camera feed and provides real-time preview of the result."
+        },
+        {
+            "author": "bombax-xiaoice",
+            "title": "ComfyUI-Allegro",
+            "reference": "https://github.com/bombax-xiaoice/ComfyUI-Allegro",
+            "files": [
+                "https://github.com/bombax-xiaoice/ComfyUI-Allegro"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI supports over [a/rhymes-ai/Allegro](https://huggingface.co/rhymes-ai/Allegro), which uses text prompt to generate short video in relatively high quality, especially comparing to other open source solutions available for now."
+        },
+        {
+            "author": "pschroedl",
+            "title": "ComfyUI-SAM2-Realtime",
+            "reference": "https://github.com/pschroedl/ComfyUI-SAM2-Realtime",
+            "files": [
+                "https://github.com/pschroedl/ComfyUI-SAM2-Realtime"
+            ],
+            "install_type": "git-clone",
+            "description": "NODES:(Down)Load SAM2-Realtime Model, Sam2RealtimeSegmentation"
+        },
+        {
             "author": "tuohe",
             "title": "ComfyUI-HaiperAI-API",
             "id": "haiperai-api",
@@ -32,6 +62,16 @@
             ],
             "install_type": "git-clone",
             "description": "This is a custom node to convert image to ascii art string."
+        },
+        {
+            "author": "tuohe",
+            "title": "Comfyui_face_restorer",
+            "reference": "https://github.com/tungdop2/Comfyui_face_restorer",
+            "files": [
+                "https://github.com/tungdop2/Comfyui_face_restorer"
+            ],
+            "install_type": "git-clone",
+            "description": "NODES:Face Restorer Loader, Face Restorer"
         },
         {
             "author": "Horizon Team",
@@ -63,7 +103,7 @@
                 "https://github.com/AIPOQUE/ComfyUI-APQNodes"
             ],
             "install_type": "git-clone",
-            "description": "NODES:ColorPalette, ...\nuseful custom nodes for ComfyUI"
+            "description": "Without fine-tuning, FLUX.1 Dev model cannot understand exact color codes. However, it is known that FLUX.1 Dev can repeatedly produce certain colors with certain prompt(color name). Fortunately, on CIVITAI, [a/“novuschroma” shared 155 pre-tested color names](https://civitai.com/models/879997/color-wildcards-for-flux-and-sdxl) that FLUX.1 Dev can handle. Thanks to his resource, color palette consists exclusively of 155 colors can be configured. ‘ColorPalette’ node from ComfyUI APQNodes converts input hex color code to the most similar color name(from pre-tested 155 color names) of which FLUX.1 Dev is aware."
         },
         {
             "author": "lo-th",
@@ -651,128 +691,6 @@
             ],
             "description": "ComfyUI Interface Definition Language",
             "install_type": "git-clone"
-        },
-        {
-            "author": "807502278",
-            "title": "ComfyUI_MaskGCT",
-            "reference": "https://github.com/807502278/ComfyUI_MaskGCT",
-            "files": [
-                "https://github.com/807502278/ComfyUI_MaskGCT"
-            ],
-            "install_type": "git-clone",
-            "description": "Suitable for Windows - MaskGCT ComfyUI Node Wrapping"
-        },
-        {
-            "author": "Poseidon-fan",
-            "title": "ComfyUI-RabbitMQ-Publisher",
-            "reference": "https://github.com/Poseidon-fan/ComfyUI-RabbitMQ-Publisher",
-            "files": [
-               "https://github.com/Poseidon-fan/ComfyUI-RabbitMQ-Publisher"
-            ],
-            "description": "ComfyUI custom_node that publish output image to rabbit_mq",
-            "install_type": "git-clone"
-        },
-        {
-            "author": "Blonicx",
-            "title": "ComfyUI-Rework-X",
-            "id": "rework-x",
-            "reference": "https://github.com/Blonicx/ComfyUI-X-Rework",
-            "files": [
-                "https://github.com/Blonicx/ComfyUI-X-Rework"
-            ],
-            "install_type": "git-clone",
-            "description": "This is a plugin for ComfyUI that adds new Util Nodes and makes Lora training in ComfyUI abel. Except that it adds a new Features for Images."
-        },
-        {
-            "author": "morino-kumasan",
-            "title": "comfyui-toml-prompt",
-            "reference": "https://github.com/morino-kumasan/comfyui-toml-prompt",
-            "files": [
-               "https://github.com/morino-kumasan/comfyui-toml-prompt"
-            ],
-            "description": "Encode Prompt in TOML for ComfyUI.",
-            "install_type": "git-clone"
-        },
-        {
-            "author": "CY-CHENYUE",
-            "title": "ComfyUI-OmniGenX",
-            "id": "ComfyUI-OmniGenX",
-            "reference": "https://github.com/CY-CHENYUE/ComfyUI-OmniGenX",
-            "files": [
-               "https://github.com/CY-CHENYUE/ComfyUI-OmniGenX"
-            ],
-            "description": "OmniGen Unified Image Generation Model Integration.",
-            "install_type": "git-clone"
-        },
-        {
-            "author": "HelloVision",
-            "title": "ComfyUI_HelloMeme",
-            "reference": "https://github.com/HelloVision/ComfyUI_HelloMeme",
-            "files": [
-                "https://github.com/HelloVision/ComfyUI_HelloMeme"
-            ],
-            "install_type": "git-clone",
-            "description": "This repository is the official implementation of the [a/HelloMeme](https://arxiv.org/pdf/2410.22901) ComfyUI interface, featuring both image and video generation functionalities. Example workflow files can be found in the ComfyUI_HelloMeme/workflows directory. Test images and videos are saved in the ComfyUI_HelloMeme/examples directory. Below are screenshots of the interfaces for image and video generation.\nNOTE: 'HelloMeme: Integrating Spatial Knitting Attentions to Embed High-Level and Fidelity-Rich Conditions in Diffusion Models'"
-        },
-        {
-            "author": "taabata",
-            "title": "ComfyCanvas",
-            "reference": "https://github.com/taabata/ComfyCanvas",
-            "files": [
-                "https://github.com/taabata/ComfyCanvas"
-            ],
-            "install_type": "git-clone",
-            "description": "Canvas to use with ComfyUI"
-        },
-        {
-            "author": "AIFSH",
-            "title": "MaskGCT-ComfyUI",
-            "reference": "https://github.com/AIFSH/MaskGCT-ComfyUI",
-            "files": [
-                "https://github.com/AIFSH/MaskGCT-ComfyUI"
-            ],
-            "install_type": "git-clone",
-            "description": "a custom node for [a/MaskGCT](https://github.com/open-mmlab/Amphion/blob/main/models/tts/maskgct/README.md) to Zero-Shot Text-to-Speech"
-        },
-        {
-            "author": "Level Pixel",
-            "title": "ComfyUI_LevelPixel",
-            "reference": "https://github.com/LevelPixel/ComfyUI-LevelPixel",
-            "files": [
-                "https://github.com/LevelPixel/ComfyUI-LevelPixel"
-            ],
-            "install_type": "git-clone",
-            "description": "Various nodes of the Level Pixel company. Includes convenient advanced nodes for working with images from folders; counting files in a folder; cleaning memory; tag filters. Model Unloader, LLM Unloader (GGUF unloaders), Free memory, Tag Filters, Tag Category Filters, Tag Choice Parser, File counter, Image Loader From Path (with counters)."
-        },
-        {
-            "author": "1038lab",
-            "title": "ComfyUI-OmniGen",
-            "reference": "https://github.com/1038lab/ComfyUI-OmniGen",
-            "files": [
-                "https://github.com/1038lab/ComfyUI-OmniGen"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI custom node implementation of OmniGen"
-        },
-        {
-            "author": "hanoixan",
-            "title": "ComfyUI DataBeast",
-            "reference": "https://github.com/hanoixan/ComfyUI-DataBeast",
-            "files": [
-                "https://github.com/hanoixan/ComfyUI-DataBeast"
-            ],
-            "install_type": "git-clone",
-            "description": "This extension provides convenience nodes for batch processing."
-        },
-        {
-            "author": "KohakuBlueleaf",
-            "title": "TIPO-extension",
-            "reference": "https://github.com/KohakuBlueleaf/z-tipo-extension",
-            "files": [
-                "https://github.com/KohakuBlueleaf/z-tipo-extension"
-            ],
-            "install_type": "git-clone",
-            "description": "A general extension to utilize TIPO or DanTagGen to do 'text-presampling' based on KGen library: [a/https://github.com/KohakuBlueleaf/KGen](https://github.com/KohakuBlueleaf/KGen)"
         }
     ]
 }

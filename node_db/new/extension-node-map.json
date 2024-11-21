@@ -3231,7 +3231,8 @@
             "ReActorMaskHelper",
             "ReActorOptions",
             "ReActorRestoreFace",
-            "ReActorSaveFaceModel"
+            "ReActorSaveFaceModel",
+            "ReActorUnload"
         ],
         {
             "title_aux": "ReActor Node for ComfyUI"
@@ -3324,6 +3325,17 @@
         ],
         {
             "title_aux": "ComfyUI-FilePathCreator"
+        }
+    ],
+    "https://github.com/Haiper-ai/ComfyUI-HaiperAI-API": [
+        [
+            "HaiperImage2Video",
+            "HaiperText2Image",
+            "HaiperText2Video",
+            "ImgBBUpload"
+        ],
+        {
+            "title_aux": "ComfyUI-HaiperAI-API"
         }
     ],
     "https://github.com/Hangover3832/ComfyUI-Hangover-Moondream": [
@@ -3470,6 +3482,22 @@
             "nickname": "HNodes",
             "title": "Hiero-Nodes",
             "title_aux": "Hiero-Nodes"
+        }
+    ],
+    "https://github.com/Hopping-Mad-Games/ComfyUI_LiteLLM": [
+        [
+            "AgentMemoryProvider",
+            "AgentNode",
+            "BasicRecursionFilterNode",
+            "DocumentProcessor",
+            "LinuxMemoryDirectory",
+            "QueryNode"
+        ],
+        {
+            "description": "Nodes for interfacing with LiteLLM",
+            "nickname": "Tasha",
+            "title": "ComfyUI_LiteLLM",
+            "title_aux": "ComfyUI_LiteLLM"
         }
     ],
     "https://github.com/IDGallagher/ComfyUI-IG-Motion-I2V": [
@@ -4829,6 +4857,7 @@
             "MaraScottTextConversion_StringToList_v1",
             "MaraScottUpscalerRefinerNode_v3",
             "MaraScott_Kijai_TokenCounter_v1",
+            "MaraScott_YoloDetection_v1",
             "MaraScott_laksjdjf_Hires_v1"
         ],
         {
@@ -9263,6 +9292,8 @@
             "Sage_CheckpointLoaderSimple",
             "Sage_ConstructMetadata",
             "Sage_DualCLIPTextEncode",
+            "Sage_GetFileHash",
+            "Sage_GetModelJSONFromHash",
             "Sage_KSampler",
             "Sage_LoraStack",
             "Sage_LoraStackDebugString",
@@ -9283,6 +9314,7 @@
             "LLMChat",
             "LLMMinP",
             "LLMModel",
+            "LLMPrependAppend",
             "LLMProvider",
             "LLMTemperature",
             "LLMTextLatch",
@@ -9888,6 +9920,18 @@
             "title_aux": "ComfyKit Custom Nodes"
         }
     ],
+    "https://github.com/bombax-xiaoice/ComfyUI-Allegro": [
+        [
+            "AllegroDecoder",
+            "AllegroEncoder",
+            "AllegroSampler",
+            "AllegroTextEncoder",
+            "LoadAllegroModel"
+        ],
+        {
+            "title_aux": "ComfyUI-Allegro"
+        }
+    ],
     "https://github.com/bombax-xiaoice/ComfyUI-MagicDance": [
         [
             "LoadMagicDanceModel",
@@ -10029,8 +10073,17 @@
         [
             "SignalProcessingFilter",
             "SignalProcessingLoadAudio",
+            "SignalProcessingMixdown",
+            "SignalProcessingMultiBandEQExperimental",
+            "SignalProcessingMultibandEQ",
             "SignalProcessingPadSynth",
-            "SignalProcessingPaulStretch"
+            "SignalProcessingPadSynthChoir",
+            "SignalProcessingPadSynthChoir2",
+            "SignalProcessingPaulStretch",
+            "SignalProcessingSpectrogram",
+            "SignalProcessingStereoWidening",
+            "SignalProcessingVolumeControl",
+            "SignalProcessingWaveform"
         ],
         {
             "title_aux": "ComfyUI Signal Processing"
@@ -14312,6 +14365,7 @@
             "file_combine",
             "file_combine_plus",
             "file_path_iterator",
+            "files_read_tool",
             "flux_persona",
             "genai_api_loader",
             "get_string",
@@ -17166,7 +17220,9 @@
     ],
     "https://github.com/lodestone-rock/ComfyUI_FluxMod": [
         [
-            "FluxModCheckpointLoader"
+            "FluxModCheckpointLoader",
+            "KSamplerMod",
+            "SkipLayerForward"
         ],
         {
             "title_aux": "ComfyUI_FluxMod"
@@ -19569,6 +19625,15 @@
             "title_aux": "Comfyui-Yolov8-JSON"
         }
     ],
+    "https://github.com/pschroedl/ComfyUI-SAM2-Realtime": [
+        [
+            "DownloadAndLoadSAM2RealtimeModel",
+            "Sam2RealtimeSegmentation"
+        ],
+        {
+            "title_aux": "ComfyUI-SAM2-Realtime"
+        }
+    ],
     "https://github.com/pythongosssss/ComfyUI-Custom-Scripts": [
         [
             "CheckpointLoader|pysssss",
@@ -19893,11 +19958,22 @@
     "https://github.com/robertvoy/ComfyUI-Flux-Continuum": [
         [
             "BatchSlider",
+            "BooleanToEnabled",
             "ControlNetSlider",
             "DenoiseSlider",
+            "GPUSlider",
             "GuidanceSlider",
+            "ImpactControlBridgeFix",
+            "LatentPass",
             "MaxShiftSlider",
-            "StepSlider"
+            "PipePass",
+            "ResolutionPicker",
+            "SEGSPass",
+            "SamplerParameterPacker",
+            "SamplerParameterUnpacker",
+            "SelectFromBatch",
+            "StepSlider",
+            "TextVersions"
         ],
         {
             "title_aux": "ComfyUI Flux Continuum: Modular Interface"
@@ -21758,6 +21834,18 @@
             "title_aux": "ComfyUI-AudioReactor"
         }
     ],
+    "https://github.com/tomudo/ComfyUI-ascii-art": [
+        [
+            "ImageToAscii"
+        ],
+        {
+            "author": "Tomudo",
+            "description": "Convert Image to ascii art to use. May be use to decorate terminal apps like Neofetch",
+            "nickname": "Image To Ascii",
+            "title": "Image To Ascii",
+            "title_aux": "ComfyUI-ascii-art"
+        }
+    ],
     "https://github.com/tooldigital/ComfyUI-Yolo-Cropper": [
         [
             "ToolYoloCropper"
@@ -21896,6 +21984,15 @@
         ],
         {
             "title_aux": "ComfyUI-Tensor-Operations"
+        }
+    ],
+    "https://github.com/tungdop2/Comfyui_face_restorer": [
+        [
+            "FaceRestorer",
+            "FaceRestorerLoader"
+        ],
+        {
+            "title_aux": "Comfyui_face_restorer"
         }
     ],
     "https://github.com/turkyden/ComfyUI-SmartCrop": [
@@ -22589,6 +22686,15 @@
         ],
         {
             "title_aux": "ComfyUI-MuseTalkUtils"
+        }
+    ],
+    "https://github.com/xuhongming251/ComfyUI_Camera": [
+        [
+            "Load Image From Local Camera",
+            "Save Image To Local Camera"
+        ],
+        {
+            "title_aux": "ComfyUI_Camera"
         }
     ],
     "https://github.com/yanlang0123/ComfyUI_Lam": [
