@@ -1,6 +1,17 @@
 {
   "models": [
     {
+      "name": "LTX-Video 2B v0.9 Checkpoint",
+      "type": "checkpoint",
+      "base": "LTX-Video",
+      "save_path": "checkpoints/ltx-video",
+      "description": "LTX-Video is the first DiT-based video generation model capable of generating high-quality videos in real-time. It produces 24 FPS videos at a 768x512 resolution faster than they can be watched. Trained on a large-scale dataset of diverse videos, the model generates high-resolution videos with realistic and varied content.",
+      "reference": "https://huggingface.co/Lightricks/LTX-Video",
+      "filename": "ltx-video-2b-v0.9.safetensors",
+      "url": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltx-video-2b-v0.9.safetensors",
+      "size": "9.37GB"
+    },
+    {
       "name": "InstantX/FLUX.1-dev-IP-Adapter",
       "type": "IP-Adapter",
       "base": "FLUX.1",
@@ -679,18 +690,6 @@
       "filename": "flux1-dev-Q8_0.gguf",
       "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf",
       "size": "12.7GB"
-    },
-
-    {
-      "name": "city96/flux1-schnell-F16.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (f16/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-schnell-gguf",
-      "filename": "flux1-schnell-F16.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-F16.gguf",
-      "size": "23.8GB"
     }
   ]
 }
