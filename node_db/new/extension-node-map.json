@@ -1782,6 +1782,15 @@
             "title_aux": "DynamicPose-ComfyUI"
         }
     ],
+    "https://github.com/Black-Lioness/ComfyUI-PromptUtils": [
+        [
+            "FilenameGenerator",
+            "KeywordGenerator"
+        ],
+        {
+            "title_aux": "ComfyUI-PromptUtils"
+        }
+    ],
     "https://github.com/BlackVortexAI/ComfyUI-BVortexNodes": [
         [
             "BV Conditional ImagePipe Splitter",
@@ -2085,8 +2094,9 @@
             "PrimereCKPT",
             "PrimereCKPTLoader",
             "PrimereCLIPEncoder",
-            "PrimereClearPrompt",
+            "PrimereClearNetworkTagsPrompt",
             "PrimereConceptDataTuple",
+            "PrimereDiTPurifyPrompt",
             "PrimereDynamicParser",
             "PrimereEmbedding",
             "PrimereEmbeddingHandler",
@@ -2132,7 +2142,6 @@
             "PrimereUpscaleModel",
             "PrimereVAE",
             "PrimereVAELoader",
-            "PrimereVAESelector",
             "PrimereVisualCKPT",
             "PrimereVisualEmbedding",
             "PrimereVisualHypernetwork",
@@ -3262,6 +3271,7 @@
             "GR Onomatopoeia",
             "GR Pan Or Zoom",
             "GR Prompt Generator",
+            "GR Prompt Generator Extended",
             "GR Prompt HUB",
             "GR Prompt Selector",
             "GR Prompt Selector Multi",
@@ -6468,6 +6478,15 @@
             "title_aux": "Eagleshadow Custom Nodes"
         }
     ],
+    "https://github.com/Shakker-Labs/ComfyUI-IPAdapter-Flux": [
+        [
+            "ApplyIPAdapterFlux",
+            "IPAdapterFluxLoader"
+        ],
+        {
+            "title_aux": "ComfyUI-IPAdapter-Flux"
+        }
+    ],
     "https://github.com/SherryXieYuchen/ComfyUI-Image-Inpainting": [
         [
             "CropImageByRect",
@@ -6606,6 +6625,14 @@
             "title_aux": "ComfyUI_Textarea_Loaders"
         }
     ],
+    "https://github.com/SimonHeese/ComfyUI_AnimationNodes/raw/refs/heads/main/animated_offset_pad.py": [
+        [
+            "AnimatedOffsetPadding"
+        ],
+        {
+            "title_aux": "ComfyUI_AnimationNodes"
+        }
+    ],
     "https://github.com/Smirnov75/ComfyUI-mxToolkit": [
         [
             "mxSeed",
@@ -6733,6 +6760,14 @@
         ],
         {
             "title_aux": "Text to video for Stable Video Diffusion in ComfyUI"
+        }
+    ],
+    "https://github.com/SparknightLLC/ComfyUI-LatentClamp": [
+        [
+            "LatentClamp"
+        ],
+        {
+            "title_aux": "ComfyUI-LatentClamp"
         }
     ],
     "https://github.com/SpenserCai/ComfyUI-FunAudioLLM": [
@@ -9561,6 +9596,8 @@
             "SP_SupirSampler_DPMPP2M",
             "SP_SupirSampler_EDM",
             "SP_WebsocketSendImage",
+            "SP_XYGrid",
+            "SP_XYValues",
             "ScatterParams",
             "ScatterParamsBatch",
             "SendTelegramChatBot",
@@ -9706,9 +9743,11 @@
     ],
     "https://github.com/bentoml/ComfyUI-IDL": [
         [
+            "CPackInputAny",
             "CPackInputFile",
             "CPackInputImage",
-            "CPackInputValue",
+            "CPackInputInt",
+            "CPackInputString",
             "CPackOutputFile",
             "CPackOutputImage"
         ],
@@ -14713,6 +14752,14 @@
             "title_aux": "comfyui-undistort"
         }
     ],
+    "https://github.com/iamandeepsandhu/ComfyUI-NSFW-Check": [
+        [
+            "NSFWScore"
+        ],
+        {
+            "title_aux": "ComfyUI-NSFW-Check"
+        }
+    ],
     "https://github.com/icesun963/ComfyUI_HFDownLoad": [
         [
             "Apply EasyOCR V2",
@@ -15619,6 +15666,7 @@
     ],
     "https://github.com/justUmen/Bjornulf_custom_nodes": [
         [
+            "Bjornulf_AddLineNumbers",
             "Bjornulf_AudioVideoSync",
             "Bjornulf_CharacterDescriptionGenerator",
             "Bjornulf_CombineBackgroundOverlay",
@@ -15653,6 +15701,11 @@
             "Bjornulf_LoopWriteText",
             "Bjornulf_MergeImagesHorizontally",
             "Bjornulf_MergeImagesVertically",
+            "Bjornulf_OllamaConfig",
+            "Bjornulf_OllamaImageVision",
+            "Bjornulf_OllamaSystemJobSelector",
+            "Bjornulf_OllamaSystemPersonaSelector",
+            "Bjornulf_OllamaTalk",
             "Bjornulf_PassPreviewImage",
             "Bjornulf_PauseResume",
             "Bjornulf_PickInput",
@@ -15672,6 +15725,8 @@
             "Bjornulf_ScramblerCharacter",
             "Bjornulf_SelectImageFromList",
             "Bjornulf_ShowText",
+            "Bjornulf_SpeechToText",
+            "Bjornulf_TextToAnything",
             "Bjornulf_TextToSpeech",
             "Bjornulf_TextToStringAndSeed",
             "Bjornulf_VideoPingPong",
@@ -16307,6 +16362,7 @@
             "StableZero123_BatchSchedule",
             "StringConstant",
             "StringConstantMultiline",
+            "StyleModelApplyAdvanced",
             "Superprompt",
             "TorchCompileControlNet",
             "TorchCompileModelFluxAdvanced",
@@ -17010,6 +17066,27 @@
         ],
         {
             "title_aux": "comfyui-loadimagewithsubfolder"
+        }
+    ],
+    "https://github.com/licyk/ComfyUI-HakuImg": [
+        [
+            "BlendImage",
+            "Blur",
+            "Chromatic",
+            "Color",
+            "Curve",
+            "CustomExif",
+            "Flip",
+            "Glow",
+            "InOutPaint",
+            "LenDistortion",
+            "PixelOE",
+            "Pixelize",
+            "Sketch",
+            "TiltShift"
+        ],
+        {
+            "title_aux": "ComfyUI-HakuImg"
         }
     ],
     "https://github.com/linshier/comfyui-remote-tools": [
@@ -17813,6 +17890,8 @@
             "DWPreprocessor_Provider_for_SEGS //Inspire",
             "FakeScribblePreprocessor_Provider_for_SEGS //Inspire",
             "FloatRange //Inspire",
+            "ForeachListBegin //Inspire",
+            "ForeachListEnd //Inspire",
             "FromIPAdapterPipe //Inspire",
             "GlobalSampler //Inspire",
             "GlobalSeed //Inspire",
@@ -17881,13 +17960,14 @@
             "ToIPAdapterPipe //Inspire",
             "UnzipPrompt //Inspire",
             "WildcardEncode //Inspire",
+            "WorklistToItemList //Inspire",
             "XY Input: Lora Block Weight //Inspire",
             "ZipPrompt //Inspire",
             "Zoe_DepthMap_Preprocessor_Provider_for_SEGS //Inspire"
         ],
         {
             "author": "Dr.Lt.Data",
-            "description": "This extension provides various nodes to support Lora Block Weight and the Impact Pack.",
+            "description": "This extension provides various nodes to support Lora Block Weight, Regional Nodes, Backend Cache, Prompt Utils, List Utils and the Impact Pack.",
             "nickname": "Inspire Pack",
             "nodename_pattern": "Inspire$",
             "title": "Inspire Pack",
@@ -17919,6 +17999,7 @@
             "LF_Clarity",
             "LF_ColorAnalysis",
             "LF_CompareImages",
+            "LF_Contrast",
             "LF_ControlPanel",
             "LF_Desaturation",
             "LF_DisplayBoolean",
