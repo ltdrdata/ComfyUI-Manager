@@ -563,11 +563,11 @@ def gitclone_install(files, instant_execution=False, msg_prefix=''):
 
             # Clone the repository from the remote URL
             if not instant_execution and platform.system() == 'Windows':
-                res = manager_funcs.run_script([sys.executable, git_script_path, "--clone", custom_nodes_path, url], cwd=custom_nodes_path)
+                res = manager_funcs.run_script([sys.executable, git_script_path, "--clone --depth=1 --single-branch --recurse-submodules", custom_nodes_path, url], cwd=custom_nodes_path)
                 if res != 0:
                     return False
             else:
-                repo = git.Repo.clone_from(url, repo_path, recursive=True, progress=GitProgress())
+                repo = git.Repo.clone_from(url, repo_path,  multi_options = ["--depth=1", "--single-branch", "--recurse-submodules"], progress=GitProgress())
                 repo.git.clear_cache()
                 repo.close()
 
