@@ -2297,8 +2297,8 @@
     "https://github.com/DoctorDiffusion/ComfyUI-MediaMixer": [
         [
             "FinalFrameSelector",
+            "PromptJournal",
             "VideoMerge",
-            "VideoPromptGenerator",
             "YouTubeVideoDownloader"
         ],
         {
@@ -6537,6 +6537,14 @@
             "title_aux": "Shibiko AI ComfyUI Tools"
         }
     ],
+    "https://github.com/ShmuelRonen/ComfyUI-Apply_Style_Model_Adjust": [
+        [
+            "ApplyStyleModelAdjust"
+        ],
+        {
+            "title_aux": "Apply Style Model Adjust for ComfyUI"
+        }
+    ],
     "https://github.com/ShmuelRonen/ComfyUI-AstralAnimator": [
         [
             "AstralAnimator"
@@ -6739,6 +6747,7 @@
             "Multiline Concatenate Strings",
             "Output Filename",
             "Prompt Cache",
+            "Prompt X Lora",
             "Range(Num Steps) - Float",
             "Range(Num Steps) - Int",
             "Range(Step) - Float",
@@ -8855,6 +8864,7 @@
             "CustomLatentImageSimple",
             "FloatSlider-NYJY",
             "JoyCaption",
+            "JoyCaptionAlpha1Online",
             "JoyCaptionAlpha2Online",
             "JoyTag",
             "Translate"
@@ -9130,6 +9140,8 @@
     "https://github.com/alisson-anjos/ComfyUI-Ollama-Describer": [
         [
             "InputText",
+            "OllamaCaptionerExtraOptions",
+            "OllamaImageCaptioner",
             "OllamaImageDescriber",
             "OllamaTextDescriber",
             "ShowText",
@@ -9363,6 +9375,7 @@
     "https://github.com/asagi4/ComfyUI-Adaptive-Guidance": [
         [
             "AdaptiveGuidance",
+            "AdaptiveProjectedGuidance",
             "PerpNegAdaptiveGuidanceGuider"
         ],
         {
@@ -9796,6 +9809,7 @@
             "BlehDisableNoise",
             "BlehDiscardPenultimateSigma",
             "BlehForceSeedSampler",
+            "BlehGlobalSageAttention",
             "BlehHyperTile",
             "BlehInsaneChainSampler",
             "BlehLatentOps",
@@ -9803,6 +9817,7 @@
             "BlehModelPatchConditional",
             "BlehPlug",
             "BlehRefinerAfter",
+            "BlehSageAttentionSampler",
             "BlehSetSamplerPreset"
         ],
         {
@@ -11396,6 +11411,7 @@
             "DualCFGGuider",
             "DualCLIPLoader",
             "EmptyImage",
+            "EmptyLTXVLatentVideo",
             "EmptyLatentAudio",
             "EmptyLatentImage",
             "EmptyMochiLatentVideo",
@@ -11438,6 +11454,9 @@
             "KSamplerAdvanced",
             "KSamplerSelect",
             "KarrasScheduler",
+            "LTXVConditioning",
+            "LTXVImgToVideo",
+            "LTXVScheduler",
             "LaplaceScheduler",
             "LatentAdd",
             "LatentApplyOperation",
@@ -11484,6 +11503,7 @@
             "ModelSamplingContinuousV",
             "ModelSamplingDiscrete",
             "ModelSamplingFlux",
+            "ModelSamplingLTXV",
             "ModelSamplingSD3",
             "ModelSamplingStableCascade",
             "ModelSave",
@@ -12073,6 +12093,7 @@
             "D2 XY Grid Image",
             "D2 XY List To Plot",
             "D2 XY Lora List",
+            "D2 XY Model List",
             "D2 XY Plot",
             "D2 XY Prompt SR",
             "D2 XY Prompt SR2",
@@ -13138,6 +13159,7 @@
             "FL_FractalKSampler",
             "FL_GPT_Vision",
             "FL_Glitch",
+            "FL_GoogleDriveDownloader",
             "FL_GradGenerator",
             "FL_HFHubModelUploader",
             "FL_HF_Character",
@@ -14443,6 +14465,7 @@
             "load_int",
             "load_keyword",
             "load_llm_lora",
+            "load_memo",
             "load_name",
             "load_openai_ebd",
             "load_persona",
@@ -14478,6 +14501,7 @@
             "red_book_text_persona",
             "replace_string",
             "save_ebd_database",
+            "save_memo",
             "save_openai_ebd",
             "savepersona",
             "searxng_tool",
@@ -15803,6 +15827,16 @@
             "title_aux": "ComfyUI-YOLO"
         }
     ],
+    "https://github.com/kaibioinfo/ComfyUI_AdvancedRefluxControl": [
+        [
+            "StyleModelApplyAdvanced",
+            "StyleModelApplyInterpolation",
+            "StyleModelApplySimple"
+        ],
+        {
+            "title_aux": "Advanced Reflux control"
+        }
+    ],
     "https://github.com/kale4eat/ComfyUI-path-util": [
         [
             "path_util_PathAbspath",
@@ -16365,6 +16399,7 @@
             "StyleModelApplyAdvanced",
             "Superprompt",
             "TorchCompileControlNet",
+            "TorchCompileLTXModel",
             "TorchCompileModelFluxAdvanced",
             "TorchCompileVAE",
             "TransitionImagesInBatch",
@@ -17099,6 +17134,15 @@
             "title_aux": "comfyui-remote-tools"
         }
     ],
+    "https://github.com/liuqianhonga/ComfyUI-Html2Image": [
+        [
+            "CameraWatermark",
+            "WebpageScreenshot"
+        ],
+        {
+            "title_aux": "ComfyUI-Html2Image"
+        }
+    ],
     "https://github.com/liuqianhonga/ComfyUI-Image-Compressor": [
         [
             "ImageCompressor"
@@ -17394,6 +17438,19 @@
         ],
         {
             "title_aux": "ComfyUI-InversedNoise"
+        }
+    ],
+    "https://github.com/logtd/ComfyUI-LTXTricks": [
+        [
+            "AddLatentGuide",
+            "LTXForwardModelSamplingPred",
+            "LTXRFForwardODESampler",
+            "LTXRFReverseODESampler",
+            "LTXReverseModelSamplingPred",
+            "ModifyLTXModel"
+        ],
+        {
+            "title_aux": "ComfyUI-LTXTricks"
         }
     ],
     "https://github.com/logtd/ComfyUI-MochiEdit": [
@@ -17993,6 +18050,7 @@
         [
             "LF_BlurImages",
             "LF_Boolean",
+            "LF_Brightness",
             "LF_CharacterImpersonator",
             "LF_CheckpointSelector",
             "LF_CivitAIMetadataSetup",
@@ -18012,6 +18070,7 @@
             "LF_ExtractPromptFromLoraTag",
             "LF_ExtractString",
             "LF_Float",
+            "LF_GaussianBlur",
             "LF_GetRandomKeyFromJSON",
             "LF_GetValueFromJSON",
             "LF_ImageClassifier",
@@ -19759,6 +19818,15 @@
         ],
         {
             "title_aux": "queuetools"
+        }
+    ],
+    "https://github.com/ramesh-x90/ComfyUI_pyannote": [
+        [
+            "Speaker Diarization",
+            "Whisper Segments to Speaker"
+        ],
+        {
+            "title_aux": "ComfyUI_pyannote"
         }
     ],
     "https://github.com/ramyma/A8R8_ComfyUI_nodes": [
