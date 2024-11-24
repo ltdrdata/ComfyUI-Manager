@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 51, 9]
+version = [2, 52]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 
@@ -408,6 +408,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
     else:
         if os.path.exists(requirements_path):
             print("Install: pip packages")
+            pip_fixer = PIPFixer(get_installed_packages())
             with open(requirements_path, "r") as requirements_file:
                 for line in requirements_file:
                     #handle comments
@@ -429,6 +430,8 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
 
                         if package_name.strip() != "" and not package_name.startswith('#'):
                             try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
+
+            pip_fixer.fix_broken()
 
         if os.path.exists(install_script_path):
             print(f"Install: install script")
