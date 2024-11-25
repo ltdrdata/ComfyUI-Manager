@@ -7206,6 +7206,16 @@
             "description": "A custom node that provides enhanced control over style transfer balance when using FLUX style models in ComfyUI. This node offers better control over the influence of text prompts versus style reference images."
         },
         {
+            "author": "ShmuelRonen",
+            "title": "ComfyUI Pixtral Large Extension",
+            "reference": "https://github.com/ShmuelRonen/ComfyUI_pixtral_large",
+            "files": [
+                "https://github.com/ShmuelRonen/ComfyUI_pixtral_large"
+            ],
+            "install_type": "git-clone",
+            "description": "A ComfyUI custom node that integrates Mistral AI's Pixtral Large vision model, enabling powerful multimodal AI capabilities within ComfyUI. Pixtral Large is a 124B parameter model (123B decoder + 1B vision encoder) that can analyze up to 30 high-resolution images simultaneously."
+        },
+        {
             "author": "redhottensors",
             "title": "ComfyUI-Prediction",
             "id": "prediction",
@@ -14462,7 +14472,7 @@
                 "https://github.com/Steudio/ComfyUI_Steudio"
             ],
             "install_type": "git-clone",
-            "description": "Nodes: Make_Tile_Calc, Make_Tiles, Unmake_Tiles, Make_Size, Make_Size_Latent"
+            "description": "Nodes: Divide and Conquer Algorithm, Divide Image, Combine Tiles, Make_Size"
         },
         {
             "author": "Assistant",
@@ -16138,6 +16148,16 @@
             "description": "A custom node for ComfyUI that allows you to create iPhone-compatible Live Photos from videos. This node can convert video sequences into Live Photo format, with the ability to select key frames and customize the output."
         },
         {
+            "author": "stormcenter",
+            "title": "ComfyUI-SVGFullfill",
+            "reference": "https://github.com/stormcenter/ComfyUI-SVGFullfill",
+            "files": [
+                "https://github.com/stormcenter/ComfyUI-SVGFullfill"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI-SVGFullfill is a custom node for ComfyUI that handles SVG file processing. Key features: - SVG file upload and preview - Replace images (up to 3) and text elements (up to 10) in SVG - Chinese font support - Real-time canvas preview - PNG export"
+        },
+        {
             "author": "AkashKarnatak",
             "title": "ComfyUI_faishme",
             "reference": "https://github.com/AkashKarnatak/ComfyUI_faishme",
@@ -17159,7 +17179,7 @@
                 "https://github.com/kaibioinfo/ComfyUI_AdvancedRefluxControl"
             ],
             "install_type": "git-clone",
-            "description": "This extension offers a new Apply-Style node for Reflux that allows for changing the influence of the conditioning image on the final outcome. This effectively allows for changing the style or content of an image using a prompt while using Reflux."
+            "description": "This extension offers a new Apply-Style node for Redux that allows for changing the influence of the conditioning image on the final outcome. This effectively allows for changing the style or content of an image using a prompt while using Redux."
         },
         {
             "author": "ramesh-x90",
@@ -17170,6 +17190,36 @@
             ],
             "install_type": "git-clone",
             "description": "This repository provides custom nodes for ComfyUI designed to process audio files, performing speaker diarization and integrating speaker data into whisper-transcribed segments. These nodes utilize the PyAnnote library for speaker identification and pandas for efficient data handling."
+        },
+        {
+            "author": "wu12023",
+            "title": "ComfyUI-Image-Evaluation",
+            "reference": "https://github.com/wu12023/ComfyUI-Image-Evaluation",
+            "files": [
+                "https://github.com/wu12023/ComfyUI-Image-Evaluation"
+            ],
+            "install_type": "git-clone",
+            "description": "An extension to ComfyUI that evaluates images using multiple models."
+        },
+        {
+            "author": "windfancy",
+            "title": "zsq_prompt",
+            "reference": "https://github.com/windfancy/zsq_prompt",
+            "files": [
+                "https://github.com/windfancy/zsq_prompt"
+            ],
+            "install_type": "git-clone",
+            "description": "NODES: PromptStyler, PromptLatent, PromptCLIPEncode, PromptSelector"
+        },
+        {
+            "author": "c0ffymachyne",
+            "title": "Bytebeat Synthesizer: Composing with Operators",
+            "reference": "https://github.com/c0ffymachyne/ComfyUI_BeatByte",
+            "files": [
+                "https://github.com/c0ffymachyne/ComfyUI_BeatByte"
+            ],
+            "install_type": "git-clone",
+            "description": "Bytebeat is like composing music with the tools of a programmer’s toolkit. Instead of piano keys, you have operators like >>, |, and &. It’s like giving your CPU a guitar and letting it shred! 🤘"
         },
 
 
@@ -17531,14 +17581,14 @@
             "description": "This repository contains a custom node for ComfyUI that allows searching for a keyword in the first column of a CSV file and returning a value from a specified column in that row. The node is designed to be modular and fit within the node-based workflow of ComfyUI."
         },
         {
-            "author": "BobsBlazed",
-            "title": "Bobs_FLUX_SDXL_Latent_Optimizer",
-            "reference": "https://github.com/BobsBlazed/Bobs_FLUX_SDXL_Latent_Optimizer",
+            "author": "bobsblazed",
+            "title": "Bobs_Latent_Optimizer",
+            "reference": "https://github.com/BobsBlazed/Bobs_Latent_Optimizer",
             "files": [
-                "https://raw.githubusercontent.com/BobsBlazed/Bobs_Latent_Optimizer/refs/heads/main/Bobs_Latent_Optimizer.py"
+                "https://github.com/BobsBlazed/Bobs_Latent_Optimizer/raw/refs/heads/main/Bobs_Latent_Optimizer.py"
             ],
             "install_type": "copy",
-            "description": "This custom node for ComfyUI is designed to optimize latent generation for use with both FLUX and SDXL modes. It provides flexible control over aspect ratios, megapixel sizes, and upscale factors, allowing users to dynamically create latents that fit specific tiling and resolution needs."
+            "description": "This custom node for ComfyUI is designed to optimize latent generation for use with FLUX, SDXL and SD3. It provides flexible control over aspect ratios, megapixel sizes, and upscale factors, allowing users to dynamically create latents that fit specific tiling and resolution needs."
         },
         {
             "author": "SimonHeese",

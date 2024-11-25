@@ -1898,6 +1898,14 @@
             "title_aux": "ComfyUI-Rework-X"
         }
     ],
+    "https://github.com/BobsBlazed/Bobs_Latent_Optimizer/raw/refs/heads/main/Bobs_Latent_Optimizer.py": [
+        [
+            "BobsFluxSDXLLatentNode"
+        ],
+        {
+            "title_aux": "Bobs_Latent_Optimizer"
+        }
+    ],
     "https://github.com/Bria-AI/ComfyUI-BRIA-API": [
         [
             "BriaEraser"
@@ -2298,6 +2306,7 @@
         [
             "FinalFrameSelector",
             "PromptJournal",
+            "ReverseFrameSequence",
             "VideoMerge",
             "YouTubeVideoDownloader"
         ],
@@ -5888,7 +5897,8 @@
         [
             "Florence2toCoordinatesButxy",
             "LoadImageWithName",
-            "Phi35VisionInstruct"
+            "LoadPhi35VisionModel",
+            "Phi35VisionRun"
         ],
         {
             "title_aux": "comfyui-florence2xy"
@@ -6551,6 +6561,16 @@
             "title_aux": "ComfyUI_Gemini_Flash"
         }
     ],
+    "https://github.com/ShmuelRonen/ComfyUI_pixtral_large": [
+        [
+            "ComfyUIPixtralLarge",
+            "MultiImagesInput",
+            "preview_text"
+        ],
+        {
+            "title_aux": "ComfyUI Pixtral Large Extension"
+        }
+    ],
     "https://github.com/ShmuelRonen/ComfyUI_pixtral_vision": [
         [
             "ComfyUIPixtralVision",
@@ -6889,10 +6909,10 @@
     ],
     "https://github.com/Steudio/ComfyUI_Steudio": [
         [
-            "Make Size",
-            "Make Tiles",
-            "Make Tiles Math",
-            "Unmake Tiles"
+            "Combine Tiles",
+            "Divide Image",
+            "Divide and Conquer Algorithm",
+            "Make Size"
         ],
         {
             "title_aux": "ComfyUI_Steudio"
@@ -8338,21 +8358,19 @@
     "https://github.com/YarvixPA/ComfyUI-NeuralMedia": [
         [
             "ApplyControlNet",
-            "BiRefNetNode",
+            "CLIPVisionStyleApply",
             "InpaintConditioningNode",
-            "InpaintNode",
             "LoadImagesFromFolderNode",
             "MultiControlnet",
             "MultiControlnetApply",
             "MultiControlnetUnion",
-            "OutpaintNode",
+            "RemoveBackgroundNode",
             "SDXLTextEncoderSimpleNode",
             "SaveCaptionsImages",
             "TextFieldNode",
             "TileCheckpointPatchNode",
             "UpscaleImageWithModel",
-            "VTracerImageVectorizerNode",
-            "WeldInpaintNode"
+            "VTracerImageVectorizerNode"
         ],
         {
             "title_aux": "ComfyUI-NeuralMedia"
@@ -9321,6 +9339,7 @@
             "Sage_LoraStack",
             "Sage_LoraStackDebugString",
             "Sage_LoraStackLoader",
+            "Sage_PonyPrefix",
             "Sage_SamplerInfo",
             "Sage_SaveImageWithMetadata",
             "Sage_SetFloat",
@@ -10097,6 +10116,14 @@
         ],
         {
             "title_aux": "ComfyUI_SUNoise"
+        }
+    ],
+    "https://github.com/c0ffymachyne/ComfyUI_BeatByte": [
+        [
+            "BytebeatSynth"
+        ],
+        {
+            "title_aux": "Bytebeat Synthesizer: Composing with Operators"
         }
     ],
     "https://github.com/c0ffymachyne/ComfyUI_SingalProcessing": [
@@ -12788,6 +12815,7 @@
             "Eden_DetermineFrameCount",
             "Eden_Float",
             "Eden_FloatToInt",
+            "Eden_GPTPromptEnhancer",
             "Eden_IMG_padder",
             "Eden_IMG_unpadder",
             "Eden_Image_Math",
@@ -13523,6 +13551,9 @@
             "FluxDev_BFL",
             "FluxPro11Ultra_BFL",
             "FluxPro11_BFL",
+            "FluxProCanny_BFL",
+            "FluxProDepth_BFL",
+            "FluxProFill_BFL",
             "FluxPro_BFL"
         ],
         {
@@ -13796,6 +13827,7 @@
     "https://github.com/glifxyz/ComfyUI-GlifNodes": [
         [
             "FilmGrain",
+            "FluxReduxFloatRamp",
             "GlifConsistencyDecoder",
             "GlifPatchConsistencyDecoderTiled",
             "GlifVariable",
@@ -15807,8 +15839,7 @@
     ],
     "https://github.com/kaibioinfo/ComfyUI_AdvancedRefluxControl": [
         [
-            "StyleModelApplyAdvanced",
-            "StyleModelApplyInterpolation",
+            "ReduxAdvanced",
             "StyleModelApplySimple"
         ],
         {
@@ -16283,6 +16314,7 @@
             "CustomControlNetWeightsFluxFromList",
             "CustomSigmas",
             "DifferentialDiffusionAdvanced",
+            "DiffusionModelLoaderKJ",
             "DownloadAndLoadCLIPSeg",
             "DrawInstanceDiffusionTracking",
             "DummyOut",
@@ -16645,18 +16677,13 @@
     "https://github.com/klinter007/klinter_nodes": [
         [
             "ExtraPadding",
-            "Filter",
-            "Florence2Captions2IPA",
-            "FluxSizeSelector",
             "FolderLoader",
-            "PresentString",
-            "SingleString",
+            "LoadImagePlus",
             "SizeSelector",
-            "TextAppendNode",
             "YellowBus",
-            "YellowBusV2",
             "ZoomOutComposer",
-            "concat"
+            "concat",
+            "filter"
         ],
         {
             "title_aux": "Klinter_nodes"
@@ -17373,7 +17400,9 @@
             "AddFluxFlow",
             "ApplyFluxRaveAttention",
             "ApplyRefFlux",
+            "ApplyRegionalConds",
             "ConfigureModifiedFlux",
+            "CreateRegionalCond",
             "FlowEditForwardSampler",
             "FlowEditReverseSampler",
             "FluxAttnOverride",
@@ -17389,6 +17418,7 @@
             "PrepareAttnBank",
             "RFDoubleBlocksOverride",
             "RFSingleBlocksOverride",
+            "RegionalStyleModelApply",
             "SEGAttention"
         ],
         {
@@ -18772,12 +18802,16 @@
     ],
     "https://github.com/morino-kumasan/comfyui-toml-prompt": [
         [
+            "IntSelector",
+            "LatentSelector",
             "MultipartCLIPTextEncode",
             "MultipleLoraTagLoader",
             "PromptLoader",
             "StringConcat",
+            "StringSelector",
             "StringSub",
             "StringViewer",
+            "SummaryReader",
             "TomlPromptDecode"
         ],
         {
@@ -21550,6 +21584,15 @@
             "title_aux": "ComfyUI LivePhoto Creator"
         }
     ],
+    "https://github.com/stormcenter/ComfyUI-SVGFullfill": [
+        [
+            "SVGEditor",
+            "SVGUploader"
+        ],
+        {
+            "title_aux": "ComfyUI-SVGFullfill"
+        }
+    ],
     "https://github.com/storyicon/comfyui_musev_evolved": [
         [
             "AnimationZoom (comfyui_musev_evolved)",
@@ -22126,6 +22169,14 @@
             "title_aux": "Face Restorer for ComfyUI"
         }
     ],
+    "https://github.com/tungdop2/Comfyui_joy-caption-alpha-two": [
+        [
+            "JoyCaptioner"
+        ],
+        {
+            "title_aux": "Joy Caption Alpha Two for ComfyUI"
+        }
+    ],
     "https://github.com/turkyden/ComfyUI-SmartCrop": [
         [
             "ImageSmartCrop"
@@ -22578,6 +22629,17 @@
             "title_aux": "ComfyUI-Environment-Visualizer"
         }
     ],
+    "https://github.com/windfancy/zsq_prompt": [
+        [
+            "PromptCLIPEncode",
+            "PromptLatent",
+            "PromptSelector",
+            "PromptStyler"
+        ],
+        {
+            "title_aux": "zsq_prompt"
+        }
+    ],
     "https://github.com/wmatson/easy-comfy-nodes": [
         [
             "EZAssocDictNode",
@@ -22654,6 +22716,14 @@
             "nickname": "ComfyUI-RK-Sampler",
             "title": "ComfyUI-RK-Sampler",
             "title_aux": "ComfyUI-RK-Sampler"
+        }
+    ],
+    "https://github.com/wu12023/ComfyUI-Image-Evaluation": [
+        [
+            "Clip_Score-\ud83d\udd2c"
+        ],
+        {
+            "title_aux": "ComfyUI-Image-Evaluation"
         }
     ],
     "https://github.com/wujm424606/ComfyUi-Ollama-YN": [
@@ -23648,14 +23718,6 @@
         ],
         {
             "title_aux": "Hayo comfyui nodes"
-        }
-    ],
-    "https://raw.githubusercontent.com/BobsBlazed/Bobs_Latent_Optimizer/refs/heads/main/Bobs_Latent_Optimizer.py": [
-        [
-            "BobsFluxSDXLLatentNode"
-        ],
-        {
-            "title_aux": "Bobs_FLUX_SDXL_Latent_Optimizer"
         }
     ],
     "https://raw.githubusercontent.com/CaptainGrock/ComfyUIInvisibleWatermark/main/Invisible%20Watermark.py": [
