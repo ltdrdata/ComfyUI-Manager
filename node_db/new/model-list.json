@@ -1,6 +1,40 @@
 {
   "models": [
     {
+      "name": "stabilityai/SD3.5-Large-Controlnet-Blur",
+      "type": "controlnet",
+      "base": "SD3.5",
+      "save_path": "controlnet/SD3.5",
+      "description": "Blur Controlnet model for SD3.5 Large",
+      "reference": "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets",
+      "filename": "sd3.5_large_controlnet_blur.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets/resolve/main/sd3.5_large_controlnet_blur.safetensors",
+      "size": "8.65GB"
+    },
+    {
+      "name": "stabilityai/SD3.5-Large-Controlnet-Canny",
+      "type": "controlnet",
+      "base": "SD3.5",
+      "save_path": "controlnet/SD3.5",
+      "description": "Canny Controlnet model for SD3.5 Large",
+      "reference": "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets",
+      "filename": "sd3.5_large_controlnet_canny.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets/resolve/main/sd3.5_large_controlnet_canny.safetensors",
+      "size": "8.65GB"
+    },
+    {
+      "name": "stabilityai/SD3.5-Large-Controlnet-Depth",
+      "type": "controlnet",
+      "base": "SD3.5",
+      "save_path": "controlnet/SD3.5",
+      "description": "Depth Controlnet model for SD3.5 Large",
+      "reference": "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets",
+      "filename": "sd3.5_large_controlnet_depth.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets/resolve/main/sd3.5_large_controlnet_depth.safetensors",
+      "size": "8.65GB"
+    },
+
+    {
       "name": "LTX-Video 2B v0.9 Checkpoint",
       "type": "checkpoint",
       "base": "LTX-Video",
@@ -646,50 +680,6 @@
       "filename": "flux1-dev-Q5_0.gguf",
       "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_0.gguf",
       "size": "8.27GB"
-    },
-    {
-      "name": "city96/flux1-dev-Q5_1.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q5_1/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
-      "filename": "flux1-dev-Q5_1.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_1.gguf",
-      "size": "9.01GB"
-    },
-    {
-      "name": "city96/flux1-dev-Q5_K_S.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q5_K_S/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
-      "filename": "flux1-dev-Q5_K_S.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_K_S.gguf",
-      "size": "8.29GB"
-    },
-    {
-      "name": "city96/flux1-dev-Q6_K.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q6_K/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
-      "filename": "flux1-dev-Q6_K.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q6_K.gguf",
-      "size": "9.86GB"
-    },
-    {
-      "name": "city96/flux1-dev-Q8_0.gguf",
-      "type": "diffusion_model",
-      "base": "FLUX.1",
-      "save_path": "diffusion_models/FLUX1",
-      "description": "FLUX.1 [Dev] Diffusion model (Q8_0/.gguf)",
-      "reference": "https://huggingface.co/city96/FLUX.1-dev-gguf",
-      "filename": "flux1-dev-Q8_0.gguf",
-      "url": "https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf",
-      "size": "12.7GB"
     }
   ]
 }
