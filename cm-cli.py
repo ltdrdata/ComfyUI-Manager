@@ -54,7 +54,7 @@ def check_comfyui_hash():
     core.comfy_ui_commit_datetime = repo.head.commit.committed_datetime
 
 
-check_comfyui_hash()  # This is a preparation step for manager_core
+# check_comfyui_hash()  # This is a preparation step for manager_core
 
 
 def read_downgrade_blacklist():
@@ -202,10 +202,11 @@ class Ctx:
 cm_ctx = Ctx()
 
 
-def install_node(node_name, is_all=False, cnt_msg=''):
+def install_node(node_name, is_all=False, cnt_msg='', install_path=None):
     if core.is_valid_url(node_name):
         # install via urls
-        res = core.gitclone_install([node_name])
+        print(f"Installing {node_name} to {install_path}")
+        res = core.gitclone_install([node_name], install_path=install_path)
         if not res:
             print(f"[bold red]ERROR: An error occurred while installing '{node_name}'.[/bold red]")
         else:
@@ -219,7 +220,7 @@ def install_node(node_name, is_all=False, cnt_msg=''):
         elif os.path.exists(node_path + '.disabled'):
             enable_node(node_name)
         else:
-            res = core.gitclone_install(node_item['files'], instant_execution=True, msg_prefix=f"[{cnt_msg}] ")
+            res = core.gitclone_install(node_item['files'], instant_execution=True, msg_prefix=f"[{cnt_msg}] ", install_path=install_path)
             if not res:
                 print(f"[bold red]ERROR: An error occurred while installing '{node_name}'.[/bold red]")
             else:
@@ -469,7 +470,7 @@ def auto_save_snapshot():
     print(f"Current snapshot is saved as `{path}`")
 
 
-def for_each_nodes(nodes, act, allow_all=True):
+def for_each_nodes(nodes, act, allow_all=True, install_path=None):
     is_all = False
     if allow_all and 'all' in nodes:
         is_all = True
@@ -481,7 +482,7 @@ def for_each_nodes(nodes, act, allow_all=True):
     i = 1
     for x in nodes:
         try:
-            act(x, is_all=is_all, cnt_msg=f'{i}/{total}')
+            act(x, is_all=is_all, cnt_msg=f'{i}/{total}', install_path=install_path)
         except Exception as e:
             print(f"ERROR: {e}")
             traceback.print_exc()
@@ -513,9 +514,13 @@ def install(
             None,
             help="[remote|local|cache]"
         ),
+        install_path: str = typer.Option(
+            None,
+            help="Specify the installation path"
+        ),
 ):
     cm_ctx.set_channel_mode(channel, mode)
-    for_each_nodes(nodes, act=install_node)
+    for_each_nodes(nodes, act=install_node, install_path=install_path)
 
 
 @app.command(help="Reinstall custom nodes")

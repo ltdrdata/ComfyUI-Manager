@@ -572,7 +572,7 @@ def is_valid_url(url):
     return False
 
 
-def gitclone_install(files, instant_execution=False, msg_prefix=''):
+def gitclone_install(files, instant_execution=False, msg_prefix='', install_path=None):
     print(f"{msg_prefix}Install: {files}")
     for url in files:
         if not is_valid_url(url):
@@ -582,9 +582,9 @@ def gitclone_install(files, instant_execution=False, msg_prefix=''):
         if url.endswith("/"):
             url = url[:-1]
         try:
-            print(f"Download: git clone '{url}'")
+            print(f"Download: git clone '{url}' to {install_path}")
             repo_name = os.path.splitext(os.path.basename(url))[0]
-            repo_path = os.path.join(get_default_custom_nodes_path(), repo_name)
+            repo_path = os.path.join(install_path or get_default_custom_nodes_path(), repo_name)
 
             # Clone the repository from the remote URL
             if not instant_execution and platform.system() == 'Windows':
