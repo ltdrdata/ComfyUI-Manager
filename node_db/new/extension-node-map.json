@@ -2313,6 +2313,7 @@
     "https://github.com/DoctorDiffusion/ComfyUI-MediaMixer": [
         [
             "FinalFrameSelector",
+            "FirstFrameSelector",
             "PromptJournal",
             "ReverseFrameSequence",
             "VideoMerge",
@@ -2329,6 +2330,14 @@
         ],
         {
             "title_aux": "Schedulizer"
+        }
+    ],
+    "https://github.com/DoctorDiffusion/ComfyUI-SnakeOil": [
+        [
+            "SnakeOil"
+        ],
+        {
+            "title_aux": "ComfyUI-SnakeOil"
         }
     ],
     "https://github.com/DrMWeigand/ComfyUI-StereoVision": [
@@ -3485,8 +3494,6 @@
     "https://github.com/Hopping-Mad-Games/ComfyUI_LiteLLM": [
         [
             "AgentMemoryProvider",
-            "AgentNode",
-            "BasicRecursionFilterNode",
             "DocumentProcessor",
             "LinuxMemoryDirectory",
             "QueryNode"
@@ -3659,6 +3666,7 @@
     ],
     "https://github.com/Isulion/ComfyUI_Isulion": [
         [
+            "IsuCollage_Node",
             "IsulionActionGenerator",
             "IsulionAlienWorldGenerator",
             "IsulionAnimalBehaviorGenerator",
@@ -3670,6 +3678,7 @@
             "IsulionEmotionGenerator",
             "IsulionFantasyRaceGenerator",
             "IsulionHabitatGenerator",
+            "IsulionLoadImagesNode",
             "IsulionMagicalEffectGenerator",
             "IsulionMegaPromptGenerator",
             "IsulionMythicalLocationGenerator",
@@ -8208,7 +8217,9 @@
             "InstaCSaveImageToS3",
             "InstaCSeed",
             "InstaCText",
-            "InstaCTextML"
+            "InstaCTextML",
+            "InstaPromptMultipleStyleSelector",
+            "InstaPromptStyleSelector"
         ],
         {
             "title_aux": "InstaSD nodes for ComfyUI"
@@ -13670,8 +13681,10 @@
     ],
     "https://github.com/gelasdev/ComfyUI-FLUX-BFL-API": [
         [
+            "FluxDevRedux_BFL",
             "FluxDev_BFL",
             "FluxPro11Redux_BFL",
+            "FluxPro11UltraRedux_BFL",
             "FluxPro11Ultra_BFL",
             "FluxPro11_BFL",
             "FluxProCanny_BFL",
@@ -14181,7 +14194,6 @@
             "Griptape Driver: Amazon Bedrock Stable Diffusion",
             "Griptape Driver: Amazon Bedrock Titan",
             "Griptape Driver: Azure OpenAI Image Generation",
-            "Griptape Driver: Black Forest Labs Image Generation",
             "Griptape Driver: Leonardo.AI",
             "Griptape Driver: OpenAI Compatible Image Generation",
             "Griptape Driver: OpenAI Image Generation",
@@ -15797,6 +15809,7 @@
     "https://github.com/justUmen/Bjornulf_custom_nodes": [
         [
             "Bjornulf_AddLineNumbers",
+            "Bjornulf_AnythingToText",
             "Bjornulf_AudioVideoSync",
             "Bjornulf_CharacterDescriptionGenerator",
             "Bjornulf_CombineBackgroundOverlay",
@@ -15805,6 +15818,9 @@
             "Bjornulf_CombineTextsByLines",
             "Bjornulf_CombineVideoAudio",
             "Bjornulf_ConcatVideos",
+            "Bjornulf_ConcatVideosFromList",
+            "Bjornulf_ConvertVideo",
+            "Bjornulf_FFmpegConfig",
             "Bjornulf_FreeVRAM",
             "Bjornulf_GrayscaleTransform",
             "Bjornulf_GreenScreenToTransparency",
@@ -15847,6 +15863,7 @@
             "Bjornulf_RandomTexts",
             "Bjornulf_RemoveTransparency",
             "Bjornulf_ResizeImage",
+            "Bjornulf_ResizeImagePercentage",
             "Bjornulf_SaveBjornulfLobeChat",
             "Bjornulf_SaveImagePath",
             "Bjornulf_SaveImageToFolder",
@@ -15854,11 +15871,17 @@
             "Bjornulf_SaveTmpImage",
             "Bjornulf_ScramblerCharacter",
             "Bjornulf_SelectImageFromList",
+            "Bjornulf_ShowFloat",
+            "Bjornulf_ShowInt",
+            "Bjornulf_ShowJson",
+            "Bjornulf_ShowStringText",
             "Bjornulf_ShowText",
             "Bjornulf_SpeechToText",
+            "Bjornulf_TextReplace",
             "Bjornulf_TextToAnything",
             "Bjornulf_TextToSpeech",
             "Bjornulf_TextToStringAndSeed",
+            "Bjornulf_VideoDetails",
             "Bjornulf_VideoPingPong",
             "Bjornulf_VideoPreview",
             "Bjornulf_VideoToImagesList",
@@ -16198,6 +16221,7 @@
             "CogVideoImageEncodeFunInP",
             "CogVideoLatentPreview",
             "CogVideoLoraSelect",
+            "CogVideoLoraSelectComfy",
             "CogVideoSampler",
             "CogVideoTextEncode",
             "CogVideoTextEncodeCombine",
@@ -16772,10 +16796,12 @@
     ],
     "https://github.com/klinter007/klinter_nodes": [
         [
+            "AspectSelector",
             "ExtraPadding",
             "FolderLoader",
             "LoadImagePlus",
             "SizeSelector",
+            "SpeedRamp",
             "YellowBus",
             "ZoomOutComposer",
             "concat",
@@ -19606,12 +19632,13 @@
     "https://github.com/pamparamm/sd-perturbed-attention": [
         [
             "PerturbedAttention",
+            "SlidingWindowGuidanceAdvanced",
             "SmoothedEnergyGuidanceAdvanced",
             "TRTAttachPag",
             "TRTPerturbedAttention"
         ],
         {
-            "title_aux": "Perturbed-Attention Guidance"
+            "title_aux": "sd-perturbed-attention"
         }
     ],
     "https://github.com/pants007/comfy-pants": [
@@ -19897,6 +19924,23 @@
             "title_aux": "ComfyUI-SAM2-Realtime"
         }
     ],
+    "https://github.com/purpen/ComfyUI-AIRedoon": [
+        [
+            "AIRedoonImageCaptioning",
+            "AIRedoonTranslator"
+        ],
+        {
+            "title_aux": "AIRedoon"
+        }
+    ],
+    "https://github.com/purpen/ComfyUI-ImageTagger": [
+        [
+            "AIRedoonImageCaptioning"
+        ],
+        {
+            "title_aux": "ComfyUI-ImageTagger"
+        }
+    ],
     "https://github.com/pythongosssss/ComfyUI-Custom-Scripts": [
         [
             "CheckpointLoader|pysssss",
@@ -19995,7 +20039,7 @@
         [
             "MfluxControlNetLoader",
             "MfluxCustomModels",
-            "MfluxLoadImage",
+            "MfluxImg2Img",
             "MfluxLorasLoader",
             "MfluxModelsDownloader",
             "MfluxModelsLoader",
@@ -20231,19 +20275,27 @@
         [
             "BatchSlider",
             "BooleanToEnabled",
+            "ConfigurableDrawText",
             "ControlNetSlider",
             "DenoiseSlider",
+            "DrawTextConfig",
+            "FluxContinuumModelRouter",
             "GPUSlider",
             "GuidanceSlider",
+            "IPAdapterSlider",
+            "ImageBatchBoolean",
             "ImpactControlBridgeFix",
             "LatentPass",
             "MaxShiftSlider",
+            "OutputGetString",
             "PipePass",
             "ResolutionPicker",
             "SEGSPass",
             "SamplerParameterPacker",
             "SamplerParameterUnpacker",
             "SelectFromBatch",
+            "SimpleTextTruncate",
+            "SplitVec3",
             "StepSlider",
             "TextVersions"
         ],
@@ -20326,6 +20378,15 @@
         ],
         {
             "title_aux": "ComfyUI-BiRefNet-lite"
+        }
+    ],
+    "https://github.com/rubi-du/ComfyUI-Flux-Inpainting": [
+        [
+            "Flux Inpaint",
+            "Flux Inpainting"
+        ],
+        {
+            "title_aux": "ComfyUI-Flux-Inpainting"
         }
     ],
     "https://github.com/rui40000/RUI-Nodes": [
@@ -21942,6 +22003,16 @@
             "title_aux": "ComfyUI Scene Composer"
         }
     ],
+    "https://github.com/takemetosiberia/ComfyUI-SAMURAI--SAM2-": [
+        [
+            "SAMURAIBoxInputNode",
+            "SAMURAIPointsInputNode",
+            "SAMURAIRefineNode"
+        ],
+        {
+            "title_aux": "SAMURAI Nodes for ComfyUI"
+        }
+    ],
     "https://github.com/talesofai/comfyui-browser": [
         [
             "DifyTextGenerator //Browser",
@@ -23318,11 +23389,13 @@
             "easy loadImagesForLoop",
             "easy loraStack",
             "easy loraStackApply",
+            "easy makeImageForICLora",
             "easy mathFloat",
             "easy mathInt",
             "easy mathString",
             "easy mochiLoader",
             "easy negative",
+            "easy ominiControlApply",
             "easy outputToList",
             "easy pipeBatchIndex",
             "easy pipeEdit",
