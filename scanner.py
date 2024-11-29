@@ -2,7 +2,8 @@ import ast
 import re
 import os
 import json
-from git import Repo
+import sys
+from glob import git_wrapper
 import concurrent
 import datetime
 import concurrent.futures
@@ -243,25 +244,27 @@ def get_py_urls_from_json(json_file):
 
     return py_files
 
-
+import traceback
 def clone_or_pull_git_repository(git_url):
     repo_name = git_url.split("/")[-1].split(".")[0]
     repo_dir = os.path.join(temp_dir, repo_name)
 
     if os.path.exists(repo_dir):
         try:
-            repo = Repo(repo_dir)
+            repo = git_wrapper.Repo(repo_dir)
             origin = repo.remote(name="origin")
             origin.pull()
-            repo.git.submodule('update', '--init', '--recursive')
+            repo.update_recursive()
             print(f"Pulling {repo_name}...")
         except Exception as e:
+            traceback.print_exc()
             print(f"Pulling {repo_name} failed: {e}")
     else:
         try:
-            Repo.clone_from(git_url, repo_dir, recursive=True)
+            git_wrapper.clone_from(git_url, repo_dir, recursive=True)
             print(f"Cloning {repo_name}...")
         except Exception as e:
+            traceback.print_exc()
             print(f"Cloning {repo_name} failed: {e}")
 
 
