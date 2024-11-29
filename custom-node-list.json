@@ -4059,13 +4059,23 @@
         {
             "author": "toyxyz",
             "title": "ComfyUI_toyxyz_test_nodes",
-            "id": "toyxyz",
+            "id": "comfyui_toyxyz_test_nodes",
             "reference": "https://github.com/toyxyz/ComfyUI_toyxyz_test_nodes",
             "files": [
                 "https://github.com/toyxyz/ComfyUI_toyxyz_test_nodes"
             ],
             "install_type": "git-clone",
             "description": "This node was created to send a webcam to ComfyUI in real time. This node is recommended for use with LCM."
+        },
+        {
+            "author": "toyxyz",
+            "title": "ComfyUI_rgbx_Wrapper",
+            "reference": "https://github.com/toyxyz/ComfyUI_rgbx_Wrapper",
+            "files": [
+                "https://github.com/toyxyz/ComfyUI_rgbx_Wrapper"
+            ],
+            "install_type": "git-clone",
+            "description": "This is the rgb2x wrapper node for ComfyUI. The required models are automatically downloaded on the first run.\noriginal project : [a/https://github.com/zheng95z/rgbx](original project : https://github.com/zheng95z/rgbx)"
         },
         {
             "author": "thecooltechguy",
@@ -12953,7 +12963,7 @@
                 "https://github.com/lrzjason/Comfyui-In-Context-Lora-Utils"
             ],
             "install_type": "git-clone",
-            "description": "NODES: Add Mask For IC Lora"
+            "description": "NODES: Add Mask For IC Lora, Create Context Window, Concatenate Context Window"
         },
         {
             "author": "lrzjason",
@@ -15059,16 +15069,6 @@
             ],
             "install_type": "git-clone",
             "description": "This is a collection of nodes created to aid when managing area conditionings."
-        },
-        {
-            "author": "HentaiGirlfriendDotCom",
-            "title": "comfyui-highlight-connections",
-            "reference": "https://github.com/HentaiGirlfriendDotCom/comfyui-highlight-connections",
-            "files": [
-                "https://github.com/HentaiGirlfriendDotCom/comfyui-highlight-connections"
-            ],
-            "install_type": "git-clone",
-            "description": "A node that can be dropped into a group. When a node is then clicked within that group, all nodes and connections in that group get greyed out and the connections from the clicked node go bright red."
         },
         {
             "author": "Cyber-BCat",
@@ -17203,16 +17203,6 @@
             "description": "ComfyUI nodes for LTXVideo model."
         },
         {
-            "author": "Yuan-ManX",
-            "title": "ComfyUI-LLaMA-Mesh",
-            "reference": "https://github.com/Yuan-ManX/ComfyUI-LLaMA-Mesh",
-            "files": [
-                "https://github.com/Yuan-ManX/ComfyUI-LLaMA-Mesh"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI nodes for LLaMA-Mesh model."
-        },
-        {
             "author": "Kai Duehrkop",
             "title": "Advanced Reflux control",
             "id": "advancedRefluxControl",
@@ -17345,7 +17335,7 @@
                 "https://github.com/dymokomi/comfyui_dygen"
             ],
             "install_type": "git-clone",
-            "description": "NODES: DY Image Quantize, DY Image Cluster, DY Image Palette, DY Image Masks, Image List to Grid"
+            "description": "NODES: DY Image Quantize, DY Image Cluster, DY Image Palette, DY Image Masks, Image List to Grid, DY Image Scaler, DY Random Lines, DY Adaptive Color Lines, DY Adaptive Color Circles, DY Adaptive Color Rectangles, DY Binary Pattern Stamper"
         },
         {
             "author": "bananasss00",
@@ -17366,6 +17356,16 @@
             ],
             "install_type": "git-clone",
             "description": "ComfyUI-SoundHub is a collection of audio processing nodes designed for ComfyUI, enabling seamless audio processing and generation within your ComfyUI workflows."
+        },
+        {
+            "author": "Yuan-ManX",
+            "title": "ComfyUI-LLaMA-Mesh",
+            "reference": "https://github.com/Yuan-ManX/ComfyUI-LLaMA-Mesh",
+            "files": [
+                "https://github.com/Yuan-ManX/ComfyUI-LLaMA-Mesh"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI nodes for LLaMA-Mesh model."
         },
         {
             "author": "Starnodes2024",
@@ -17418,6 +17418,50 @@
             "install_type": "git-clone",
             "description": "NODES:AIRedoon Image Caption.\nAnalyze image tagger"
         },
+        {
+            "author": "zefu-lu",
+            "title": "ComfyUI_InstantX_SD35_Large_IPAdapter",
+            "id": "comfyui-instantx-sd3-5-large-ipadapter",
+            "reference": "https://github.com/zefu-lu/ComfyUI-InstantX-SD3_5-Large-IPAdapter",
+            "files": [
+                "https://github.com/zefu-lu/ComfyUI-InstantX-SD3_5-Large-IPAdapter"
+            ],
+            "install_type": "git-clone",
+            "description": "Custom ComfyUI node for using InstantX SD3.5-Large IPAdapter"
+        },
+        {
+            "author": "Regi E",
+            "title": "Easy Pony",
+            "id": "comfyui-easy-pony",
+            "reference": "https://github.com/regiellis/ComfyUI-EasyPony",
+            "files": [
+                "https://github.com/regiellis/ComfyUI-EasyPony"
+            ],
+            "install_type": "git-clone",
+            "description": "Simple node to assits with prompting for Pony models"
+        },
+        {
+            "author": "steelan9199",
+            "title": "ComfyUI-Teeth",
+            "reference": "https://github.com/steelan9199/ComfyUI-Teeth",
+            "files": [
+                "https://github.com/steelan9199/ComfyUI-Teeth"
+            ],
+            "install_type": "git-clone",
+            "description": "NODES: Index List, TextSplitByDelimiter"
+        },
+        {
+            "author": "mrhan1993",
+            "title": "ComfyUI-Fooocus",
+            "reference": "https://github.com/mrhan1993/ComfyUI-Fooocus",
+            "files": [
+                "https://github.com/mrhan1993/ComfyUI-Fooocus"
+            ],
+            "install_type": "git-clone",
+            "description": "This extension provides image generation features based on Fooocus."
+        },
+
+
 
 
 
