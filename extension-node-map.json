@@ -30,7 +30,7 @@
     ],
     "https://github.com/1038lab/ComfyUI-RMBG": [
         [
-            "AILAB_RMBG"
+            "RMBG"
         ],
         {
             "title_aux": "ComfyUI-RMBG"
@@ -3617,6 +3617,7 @@
     ],
     "https://github.com/Isi-dev/ComfyUI-Animation_Nodes_and_Workflows": [
         [
+            "CLIPTextEncodeStyles",
             "JoinVideos",
             "MakeDrivingVideoForLivePortrait",
             "MakePortraitWalk",
@@ -6888,7 +6889,9 @@
             "OllamaModelChooser",
             "SD35StartSettings",
             "SDXLStartSettings",
-            "StarNode"
+            "StarFiveWildcards",
+            "StarNode",
+            "Starupscale"
         ],
         {
             "title_aux": "ComfyUI_StarNodes"
@@ -9939,7 +9942,11 @@
             "SamplerSonarDPMPPSDE",
             "SamplerSonarEuler",
             "SamplerSonarEulerA",
+            "SonarAdvanced1fNoise",
+            "SonarAdvancedPowerLawNoise",
             "SonarAdvancedPyramidNoise",
+            "SonarBlendedNoise",
+            "SonarChannelNoise",
             "SonarCompositeNoise",
             "SonarCustomNoise",
             "SonarGuidanceConfig",
@@ -13136,6 +13143,7 @@
         [
             "ETInspectTextNode",
             "ETIntBoxNode",
+            "ETPresentImageNode",
             "ETShowDataNode",
             "ETStringBoxNode",
             "ETTextBoxNode",
@@ -16853,7 +16861,9 @@
             "YellowBus",
             "ZoomOutComposer",
             "concat",
-            "filter"
+            "filter",
+            "nodevalue2string",
+            "string_contact_multi"
         ],
         {
             "title_aux": "Klinter_nodes"
@@ -17443,6 +17453,17 @@
         ],
         {
             "title_aux": "ComfyUI_StableDelight_ll"
+        }
+    ],
+    "https://github.com/lldacing/ComfyUI_StableHair_ll": [
+        [
+            "ApplyHairRemover",
+            "ApplyHairTransfer",
+            "LoadStableHairRemoverModel",
+            "LoadStableHairTransferModel"
+        ],
+        {
+            "title_aux": "ComfyUI_StableHair_ll"
         }
     ],
     "https://github.com/lldacing/comfyui-easyapi-nodes": [
@@ -18132,6 +18153,7 @@
             "CacheBackendDataList //Inspire",
             "CacheBackendDataNumberKey //Inspire",
             "CacheBackendDataNumberKeyList //Inspire",
+            "CacheBridge //Inspire",
             "Canny_Preprocessor_Provider_for_SEGS //Inspire",
             "ChangeImageBatchSize //Inspire",
             "ChangeLatentBatchSize //Inspire",
@@ -18156,6 +18178,7 @@
             "IPAdapterModelHelper //Inspire",
             "ImageBatchSplitter //Inspire",
             "InpaintPreprocessor_Provider_for_SEGS //Inspire",
+            "IsCached //Inspire",
             "KSampler //Inspire",
             "KSamplerAdvanced //Inspire",
             "KSamplerAdvancedPipe //Inspire",
@@ -18335,6 +18358,15 @@
         ],
         {
             "title_aux": "LF Nodes"
+        }
+    ],
+    "https://github.com/lujiazho/ComfyUI-CatvtonFluxWrapper": [
+        [
+            "CatvtonFluxSampler",
+            "LoadCatvtonFlux"
+        ],
+        {
+            "title_aux": "ComfyUI-CatvtonFluxWrapper"
         }
     ],
     "https://github.com/lumalabs/ComfyUI-LumaAI-API": [
@@ -18740,7 +18772,9 @@
             "Add zSNR Sigma max",
             "ConcatSigmas",
             "CosineScheduler",
+            "GaussianScheduler",
             "InvertSigmas",
+            "LogNormal Scheduler",
             "OffsetSigmas",
             "PerpNegScheduledCFGGuider",
             "ScheduledCFGGuider"
@@ -20364,7 +20398,7 @@
             "EasyPony"
         ],
         {
-            "title_aux": "Easy Pony"
+            "title_aux": "ComfyUI-EasyPony"
         }
     ],
     "https://github.com/revirevy/Comfyui_saveimage_imgbb": [
@@ -23978,14 +24012,6 @@
             "title_aux": "comfyui_visual_anagram"
         }
     ],
-    "https://github.com/zefu-lu/ComfyUI-InstantX-SD3_5-Large-IPAdapter": [
-        [
-            "SD35LargeIPAdapterLoader"
-        ],
-        {
-            "title_aux": "ComfyUI_InstantX_SD35_Large_IPAdapter"
-        }
-    ],
     "https://github.com/zer0TF/cute-comfy": [
         [
             "Cute.Placeholder"
@@ -24165,6 +24191,14 @@
         ],
         {
             "title_aux": "ComfyUIInvisibleWatermark"
+        }
+    ],
+    "https://raw.githubusercontent.com/Limbicnation/ComfyUIDepthEstimation/main/depth_estimation_node.py": [
+        [
+            "DepthEstimationNode"
+        ],
+        {
+            "title_aux": "ComfyUIDepthEstimation"
         }
     ],
     "https://raw.githubusercontent.com/NeuralNotW0rk/ComfyUI-Waveform-Extensions/main/EXT_AudioManipulation.py": [
