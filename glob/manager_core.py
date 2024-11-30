@@ -420,7 +420,7 @@ def __win_check_git_pull(path):
     process.wait()
 
 
-def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=False):
+def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=False, no_deps=False):
     install_script_path = os.path.join(repo_path, "install.py")
     requirements_path = os.path.join(repo_path, "requirements.txt")
 
@@ -428,7 +428,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
         install_cmd = ["#LAZY-INSTALL-SCRIPT",  sys.executable]
         try_install_script(url, repo_path, install_cmd)
     else:
-        if os.path.exists(requirements_path):
+        if os.path.exists(requirements_path) and not no_deps:
             print("Install: pip packages")
             pip_fixer = PIPFixer(get_installed_packages())
             with open(requirements_path, "r") as requirements_file:
@@ -572,7 +572,7 @@ def is_valid_url(url):
     return False
 
 
-def gitclone_install(files, instant_execution=False, msg_prefix='', install_path=None):
+def gitclone_install(files, instant_execution=False, msg_prefix='', install_path=None, no_deps=False):
     print(f"{msg_prefix}Install: {files}")
     for url in files:
         if not is_valid_url(url):
@@ -596,7 +596,7 @@ def gitclone_install(files, instant_execution=False, msg_prefix='', install_path
                 repo.git.clear_cache()
                 repo.close()
 
-            if not execute_install_script(url, repo_path, instant_execution=instant_execution):
+            if not execute_install_script(url, repo_path, instant_execution=instant_execution, no_deps=no_deps):
                 return False
 
         except Exception as e:
