@@ -181,7 +181,7 @@ def print_comfyui_version():
 
         try:
             if core.comfy_ui_commit_datetime.date() < core.comfy_ui_required_commit_datetime.date():
-                print(f"\n\n## [WARN] ComfyUI-Manager: Your ComfyUI version ({core.comfy_ui_revision})[{core.comfy_ui_commit_datetime.date()}] is too old. Please update to the latest version. ##\n\n")
+                print(f"\n\n## [WARN] ComfyUI-Manager: Your ComfyUI version ({core.get_comfyui_tag()})[{core.comfy_ui_commit_datetime.date()}] is too old. Please update to the latest version. ##\n\n")
         except:
             pass
 
@@ -200,7 +200,11 @@ def print_comfyui_version():
         # <--
 
         if current_branch == "master":
-            print(f"### ComfyUI Revision: {core.comfy_ui_revision} [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
+            version_tag = core.get_comfyui_tag()
+            if version_tag is None:
+                print(f"### ComfyUI Revision: {core.comfy_ui_revision} [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
+            else:
+                print(f"### ComfyUI Version: {core.get_comfyui_tag()} | Released on '{core.comfy_ui_commit_datetime.date()}'")
         else:
             print(f"### ComfyUI Revision: {core.comfy_ui_revision} on '{current_branch}' [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
     except:
@@ -1203,14 +1207,21 @@ async def get_notice(request):
 
                 if match:
                     markdown_content = match.group(1)
-                    markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
+                    version_tag = core.get_comfyui_tag()
+                    if version_tag is None:
+                        markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
+                    else:
+                        markdown_content += (f"<HR>ComfyUI: {version_tag}<BR>"
+                                             f"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;({core.comfy_ui_commit_datetime.date()})")
                     # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
                     markdown_content += f"<BR>Manager: {core.version_str}"
 
                     markdown_content = add_target_blank(markdown_content)
 
                     try:
-                        if core.comfy_ui_required_commit_datetime.date() > core.comfy_ui_commit_datetime.date():
+                        if core.comfy_ui_commit_datetime == datetime(1900, 1, 1, 0, 0, 0):
+                            markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI isn\'t git repo.</P>' + markdown_content
+                        elif core.comfy_ui_required_commit_datetime.date() > core.comfy_ui_commit_datetime.date():
                             markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
                     except:
                         pass

@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 54]
+version = [2, 55]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 
@@ -52,9 +52,21 @@ def get_custom_nodes_paths():
             return [custom_nodes_path]
 
 
+def get_comfyui_tag():
+    repo = git.Repo(comfy_path)
+    try:
+        return repo.git.describe('--tags')
+    except:
+        return None
+
+
 comfy_path = os.environ.get('COMFYUI_PATH')
 if comfy_path is None:
-    comfy_path = os.path.abspath(os.path.join(custom_nodes_path, '..'))
+    try:
+        import folder_paths
+        comfy_path = os.path.join(os.path.dirname(folder_paths.__file__))
+    except:
+        comfy_path = os.path.abspath(os.path.join(custom_nodes_path, '..'))
 
 channel_list_path = os.path.join(comfyui_manager_path, 'channels.list')
 config_path = os.path.join(comfyui_manager_path, "config.ini")
