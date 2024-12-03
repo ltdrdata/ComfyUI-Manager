@@ -265,16 +265,23 @@
             "Comflowy_Clarity_Upscale",
             "Comflowy_Extract_JSON",
             "Comflowy_Flux",
+            "Comflowy_Flux_Dev_Lora",
+            "Comflowy_Flux_Pro_Ultra",
+            "Comflowy_Hailuo",
             "Comflowy_Http_Request",
             "Comflowy_Ideogram",
+            "Comflowy_Kling",
             "Comflowy_LLM",
             "Comflowy_Load_JSON",
+            "Comflowy_Luma",
             "Comflowy_Omost_LLM",
             "Comflowy_Omost_Load_Canvas_Conditioning",
             "Comflowy_Omost_Load_Canvas_Python_Code",
             "Comflowy_Omost_Preview",
             "Comflowy_Omost_To_Conditioning",
             "Comflowy_Preview_JSON",
+            "Comflowy_Preview_Video",
+            "Comflowy_Recraft",
             "Comflowy_Set_API_Key"
         ],
         {
@@ -1927,7 +1934,7 @@
     "https://github.com/Bria-AI/ComfyUI-BRIA-API": [
         [
             "BriaEraser",
-            "BriaGenerativeFill"
+            "BriaGenFill"
         ],
         {
             "title_aux": "BRIA AI API nodes"
@@ -3796,13 +3803,14 @@
             "IsulionPromptEnhancer",
             "IsulionPromptGenerator",
             "IsulionSceneComposition",
-            "IsulionShutdown",
             "IsulionSpacecraftGenerator",
             "IsulionStyleMixer",
             "IsulionTechGenerator",
             "IsulionTimeOfDayGenerator",
             "IsulionWeatherGenerator",
-            "MegaPromptV3"
+            "MegaPromptV3",
+            "ResourceMonitor",
+            "\u23fb IsulionShutdown"
         ],
         {
             "title_aux": "ComfyUI_Isulion Random Prompt Generator"
@@ -4302,14 +4310,20 @@
         [
             "ACN_AdvancedControlNetApply",
             "ACN_AdvancedControlNetApplySingle",
+            "ACN_AdvancedControlNetApplySingle_v2",
+            "ACN_AdvancedControlNetApply_v2",
             "ACN_ControlNet++InputNode",
             "ACN_ControlNet++LoaderAdvanced",
             "ACN_ControlNet++LoaderSingle",
+            "ACN_ControlNetLoaderAdvanced",
             "ACN_ControlNetLoaderWithLoraAdvanced",
+            "ACN_CtrLoRALoader",
             "ACN_CustomControlNetWeightsFlux",
             "ACN_CustomControlNetWeightsSD15",
             "ACN_CustomT2IAdapterWeights",
             "ACN_DefaultUniversalWeights",
+            "ACN_DiffControlNetLoaderAdvanced",
+            "ACN_ExtrasMiddleMult",
             "ACN_ReferenceControlNet",
             "ACN_ReferenceControlNetFinetune",
             "ACN_ReferencePreprocessor",
@@ -4434,6 +4448,7 @@
             "ADE_MultivalDynamicFloatInput",
             "ADE_MultivalDynamicFloats",
             "ADE_MultivalScaledMask",
+            "ADE_NoiseCalibration",
             "ADE_NoiseLayerAdd",
             "ADE_NoiseLayerAddWeighted",
             "ADE_NoiseLayerReplace",
@@ -5873,10 +5888,12 @@
     ],
     "https://github.com/PnthrLeo/comfyUI-image-search": [
         [
+            "AreasGenerator",
+            "BatchImageGetter",
             "CloseImagesSearcher"
         ],
         {
-            "title_aux": "comfyUI-image-search"
+            "title_aux": "comfyUI-PL-data-tools"
         }
     ],
     "https://github.com/Pos13/comfyui-cyclist": [
@@ -7006,6 +7023,7 @@
         [
             "SDVN API chatbot",
             "SDVN Checkpoint Download",
+            "SDVN DALL-E Generate Image",
             "SDVN Easy IPAdapter weight",
             "SDVN Load Checkpoint",
             "SDVN Load Image",
@@ -7014,7 +7032,8 @@
             "SDVN Lora Download",
             "SDVN Merge Flux",
             "SDVN Merge SD1",
-            "SDVN Merge SDXL"
+            "SDVN Merge SDXL",
+            "SDVN Run Python Code"
         ],
         {
             "title_aux": "SDVN Comfy node"
@@ -9646,6 +9665,8 @@
             "FilterSchedule",
             "LoRAScheduler",
             "PCApplySettings",
+            "PCEncodeSchedule",
+            "PCLoraHooksFromSchedule",
             "PCPromptFromSchedule",
             "PCScheduleAddMasks",
             "PCScheduleSettings",
@@ -14709,6 +14730,7 @@
             "LLM_local",
             "LLM_local_loader",
             "LLavaLoader",
+            "LorapathLoader",
             "Lorebook",
             "RSS_loader",
             "RSS_tool",
@@ -17029,7 +17051,7 @@
             "ZoomOutComposer",
             "concat",
             "filter",
-            "nodevalue2string",
+            "nodevalue2stringmulti",
             "string_contact_multi"
         ],
         {
@@ -17498,6 +17520,7 @@
     ],
     "https://github.com/liuqianhonga/ComfyUI-Image-Compressor": [
         [
+            "BatchImageCompressor",
             "ImageCompressor"
         ],
         {
@@ -17824,7 +17847,9 @@
             "AddLatentGuide",
             "LTXAttentioOverride",
             "LTXAttentionBank",
+            "LTXAttnOverride",
             "LTXForwardModelSamplingPred",
+            "LTXPerturbedAttention",
             "LTXPrepareAttnInjections",
             "LTXRFForwardODESampler",
             "LTXRFReverseODESampler",
@@ -23999,6 +24024,7 @@
     "https://github.com/yorkane/ComfyUI-KYNode": [
         [
             "AdvancedLyingSigmaSampler",
+            "KY_OpenAICaptionImage",
             "KY_SaveImageToPath"
         ],
         {
