@@ -84,6 +84,7 @@ if os.path.exists(pip_overrides_path):
     with open(pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
         cm_global.pip_overrides = json.load(json_file)
         cm_global.pip_overrides['numpy'] = 'numpy<2'
+        cm_global.pip_overrides['ultralytics'] = 'ultralytics==8.3.40'  # for security
 
 
 def remap_pip_package(pkg):
