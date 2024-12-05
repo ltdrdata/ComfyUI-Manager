@@ -33,9 +33,17 @@ Detailed information: https://old.reddit.com/r/comfyui/comments/1dbls5n/psa_if_y
     "ultralytics==8.3.41": f"""
 Execute following commands:
     {sys.executable} -m pip uninstall ultralytics
-    {sys.executable} -m pip install ultralytics
+    {sys.executable} -m pip install ultralytics==8.3.40
 
-The version 8.3.41 of the Ultralytics package you installed is compromised. Please uninstall that version and reinstall the latest version.
+The version 8.3.41 to 8.3.42 of the Ultralytics package you installed is compromised. Please uninstall that version and reinstall the latest version.
+https://github.com/ltdrdata/ComfyUI-Impact-Pack/issues/843
+    """,
+    "ultralytics==8.3.42": f"""
+Execute following commands:
+    {sys.executable} -m pip uninstall ultralytics
+    {sys.executable} -m pip install ultralytics==8.3.40
+
+The version 8.3.41 to 8.3.42 of the Ultralytics package you installed is compromised. Please uninstall that version and reinstall the latest version.
 https://github.com/ltdrdata/ComfyUI-Impact-Pack/issues/843
     """
              }
