@@ -259,7 +259,7 @@ def get_model_dir(data):
 
     def resolve_custom_node(save_path):
         save_path = save_path[13:] # remove 'custom_nodes/'
-        repo_name = os.path.dirname(save_path) # get custom node repo name
+        repo_name = save_path.replace('\\','/').split('/')[0] # get custom node repo name
         repo_path = core.lookup_installed_custom_nodes(repo_name)
         if repo_path is not None and repo_path[0]:
             # Returns the retargeted path based on the actually installed repository
