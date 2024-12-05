@@ -175,14 +175,6 @@
             "title_aux": "ComfyUI_AC_FUNV8Beta1"
         }
     ],
-    "https://github.com/ACE-innovate/seg-node": [
-        [
-            "HumanParseNode"
-        ],
-        {
-            "title_aux": "seg-node [WIP]"
-        }
-    ],
     "https://github.com/AICodeFactory/ComfyUI-Viva": [
         [
             "HttpTrigger_Common",
@@ -835,6 +827,14 @@
             "title_aux": "comfy-consistency-vae"
         }
     ],
+    "https://github.com/Junst/ComfyUI-PNG2SVG2PNG": [
+        [
+            "PNG2SVG2PNG"
+        ],
+        {
+            "title_aux": "ComfyUI-PNG2SVG2PNG"
+        }
+    ],
     "https://github.com/KoreTeknology/ComfyUI-Nai-Production-Nodes-Pack": [
         [
             "Brightness Image",
@@ -1158,6 +1158,17 @@
             "title_aux": "ComfyUI-SeedV-Nodes [UNSAFE]"
         }
     ],
+    "https://github.com/ShahFaisalWani/ComfyUI-Mojen-Nodeset": [
+        [
+            "MojenAnalyzeProcessor",
+            "MojenLogPercent",
+            "MojenStyleExtractor",
+            "MojenTagProcessor"
+        ],
+        {
+            "title_aux": "ComfyUI-Mojen-Nodeset"
+        }
+    ],
     "https://github.com/Shinsplat/ComfyUI-Shinsplat": [
         [
             "Clip Text Encode (Shinsplat)",
@@ -1407,6 +1418,14 @@
         ],
         {
             "title_aux": "Dream Project Video Batches [WIP]"
+        }
+    ],
+    "https://github.com/animEEEmpire/ComfyUI-Animemory-Loader": [
+        [
+            "AnimemoryNode"
+        ],
+        {
+            "title_aux": "ComfyUI-Animemory-Loader"
         }
     ],
     "https://github.com/aria1th/ComfyUI-SkipCFGSigmas": [
@@ -1739,11 +1758,10 @@
         [
             "CombineStrings",
             "JSONParser",
-            "OSSClient",
-            "OSSUploader",
             "StepFunClient",
             "TextImageChat",
-            "VideoChat"
+            "VideoChat",
+            "VideoFileUploader"
         ],
         {
             "title_aux": "ComfyUI_StepFun"
@@ -2822,10 +2840,13 @@
     "https://github.com/kijai/ComfyUI-HunyuanVideoWrapper": [
         [
             "DownloadAndLoadHyVideoTextEncoder",
+            "HyVideoBlockSwap",
             "HyVideoDecode",
+            "HyVideoEncode",
             "HyVideoModelLoader",
             "HyVideoSampler",
             "HyVideoTextEncode",
+            "HyVideoTorchCompileSettings",
             "HyVideoVAELoader"
         ],
         {
@@ -2890,12 +2911,15 @@
             "JKEasyCheckpointLoader",
             "JKEasyDetailer",
             "JKEasyDetailer_Context",
+            "JKEasyKSampler_Context",
             "JKInspireSchedulerAdapter",
             "JKLilContext",
+            "JKMultiModelSamplerUnpatch",
             "JKStringEmpty",
             "JKStringEquals",
             "JKStringNotEmpty",
-            "JKStringNotEquals"
+            "JKStringNotEquals",
+            "JKStringToSamplerAdapter"
         ],
         {
             "title_aux": "comfyui-jk-easy-nodes"
@@ -3949,6 +3973,8 @@
     ],
     "https://github.com/xiaoyumu/ComfyUI-XYNodes": [
         [
+            "AdjustImageColor",
+            "AppyColorToImage",
             "PrimitiveBBOX",
             "StringToBBOX"
         ],
