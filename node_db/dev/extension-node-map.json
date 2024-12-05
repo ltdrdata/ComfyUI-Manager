@@ -175,6 +175,14 @@
             "title_aux": "ComfyUI_AC_FUNV8Beta1"
         }
     ],
+    "https://github.com/ACE-innovate/seg-node": [
+        [
+            "HumanParseNode"
+        ],
+        {
+            "title_aux": "seg-node [WIP]"
+        }
+    ],
     "https://github.com/AICodeFactory/ComfyUI-Viva": [
         [
             "HttpTrigger_Common",
@@ -671,6 +679,7 @@
             "AppIO_ImageInputFromID",
             "AppIO_ImageOutput",
             "AppIO_IntegerInput",
+            "AppIO_ResizeInstanceAndPaste",
             "AppIO_ResizeInstanceImageMask",
             "AppIO_StringInput",
             "AppIO_StringOutput"
@@ -971,6 +980,16 @@
             "title_aux": "ComfyUI Nodes for Inference.Core"
         }
     ],
+    "https://github.com/Matrix-King-Studio/ComfyUI-MoviePy": [
+        [
+            "AudioDurationNode",
+            "ImageClipNode",
+            "SaveVideo"
+        ],
+        {
+            "title_aux": "ComfyUI-MoviePy"
+        }
+    ],
     "https://github.com/MrAdamBlack/CheckProgress": [
         [
             "CHECK_PROGRESS"
@@ -998,6 +1017,8 @@
     ],
     "https://github.com/PnthrLeo/comfyUI-image-search": [
         [
+            "AreasGenerator",
+            "BatchImageGetter",
             "CloseImagesSearcher"
         ],
         {
@@ -1063,6 +1084,14 @@
         ],
         {
             "title_aux": "ComfyUI-QuasimondoNodes [WIP]"
+        }
+    ],
+    "https://github.com/RicherdLee/comfyui-oss-image-save": [
+        [
+            "SaveImageOSS"
+        ],
+        {
+            "title_aux": "comfyui-oss-image-save [WIP]"
         }
     ],
     "https://github.com/RobeSantoro/ComfyUI-RobeNodes": [
@@ -1192,22 +1221,6 @@
         ],
         {
             "title_aux": "ComfyUI_Remaker_FaceSwap"
-        }
-    ],
-    "https://github.com/StableDiffusionVN/SDVN_Comfy_node": [
-        [
-            "SDVN Checkpoint Download",
-            "SDVN Load Checkpoint",
-            "SDVN Load Image",
-            "SDVN Load Image Url",
-            "SDVN Load Lora",
-            "SDVN Lora Download",
-            "SDVN Merge Flux",
-            "SDVN Merge SD1",
-            "SDVN Merge SDXL"
-        ],
-        {
-            "title_aux": "SDVN_Comfy_node"
         }
     ],
     "https://github.com/StartHua/Comfyui_CSDMT_CXH": [
@@ -2315,6 +2328,15 @@
             "title_aux": "ComfyUI-Tools-Video-Combine [WIP]"
         }
     ],
+    "https://github.com/grimli333/ComfyUI_Grim": [
+        [
+            "GenerateFileName",
+            "TwoStringsFormat"
+        ],
+        {
+            "title_aux": "ComfyUI_Grim"
+        }
+    ],
     "https://github.com/haodman/ComfyUI_Rain": [
         [
             "Rain_ImageSize",
@@ -2797,6 +2819,19 @@
             "title_aux": "ComfyUI-FollowYourEmojiWrapper [WIP]"
         }
     ],
+    "https://github.com/kijai/ComfyUI-HunyuanVideoWrapper": [
+        [
+            "DownloadAndLoadHyVideoTextEncoder",
+            "HyVideoDecode",
+            "HyVideoModelLoader",
+            "HyVideoSampler",
+            "HyVideoTextEncode",
+            "HyVideoVAELoader"
+        ],
+        {
+            "title_aux": "ComfyUI-HunyuanVideoWrapper [WIP]"
+        }
+    ],
     "https://github.com/kijai/ComfyUI-MochiWrapper": [
         [
             "DownloadAndLoadMochiModel",
@@ -2848,9 +2883,19 @@
     "https://github.com/kostenickj/comfyui-jk-easy-nodes": [
         [
             "EasyHRFix",
+            "EasyHRFix_Context",
             "JKAnythingToString",
+            "JKBigContext",
+            "JKDynamicThresholdingMultiModel",
+            "JKEasyCheckpointLoader",
             "JKEasyDetailer",
-            "JKInspireSchedulerAdapter"
+            "JKEasyDetailer_Context",
+            "JKInspireSchedulerAdapter",
+            "JKLilContext",
+            "JKStringEmpty",
+            "JKStringEquals",
+            "JKStringNotEmpty",
+            "JKStringNotEquals"
         ],
         {
             "title_aux": "comfyui-jk-easy-nodes"
@@ -3488,6 +3533,15 @@
             "title_aux": "ComfyUI-ODE"
         }
     ],
+    "https://github.com/risunobushi/ComfyUI_FocusMask": [
+        [
+            "FocusMaskExtractor",
+            "FocusOutlineExtractor"
+        ],
+        {
+            "title_aux": "ComfyUI_FocusMask"
+        }
+    ],
     "https://github.com/rouxianmantou/comfyui-rxmt-nodes": [
         [
             "CheckValueTypeNode"
@@ -3868,13 +3922,16 @@
     ],
     "https://github.com/wilzamguerrero/Comfyui-zZzZz": [
         [
+            "CaptureZNode",
             "CompressFolderNode",
             "CreateZNode",
             "DeleteZNode",
             "DownloadFileNode",
             "InfiniteZNode",
             "MoveZNode",
-            "RenameZNode"
+            "RenameZNode",
+            "VideoZNode",
+            "ZFShareScreen"
         ],
         {
             "title_aux": "Comfyui-zZzZz [UNSAFE]"
@@ -3942,6 +3999,7 @@
             "UL_SanaModelLoader",
             "UL_SanaSampler",
             "UL_SanaTextEncode",
+            "UL_SanaVAELoader",
             "UL_SanaVAEProcess"
         ],
         {

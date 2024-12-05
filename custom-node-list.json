@@ -19,7 +19,7 @@
             "files": [
                 "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
             ],
-            "pip": ["ultralytics"],
+            "pip": ["ultralytics==8.3.40"],
             "install_type": "git-clone",
             "description": "This extension offers various detector nodes and detailer nodes that allow you to configure a workflow that automatically enhances facial details. And provide iterative upscaler.",
             "preemptions":["SAMLoader"]
@@ -11692,14 +11692,13 @@
         },
         {
             "author": "PnthrLeo",
-            "title": "comfyUI-image-search",
-            "id": "image-search",
+            "title": "comfyUI-PL-data-tools",
             "reference": "https://github.com/PnthrLeo/comfyUI-image-search",
             "files": [
                 "https://github.com/PnthrLeo/comfyUI-image-search"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:Close Images Searcher"
+            "description": "Nodes:Close Images Searcher, Areas Generator,Batch Image Getter"
         },
         {
             "author": "l20richo",
@@ -12974,7 +12973,7 @@
                 "https://github.com/lrzjason/Comfyui-In-Context-Lora-Utils"
             ],
             "install_type": "git-clone",
-            "description": "NODES: Add Mask For IC Lora, Create Context Window, Concatenate Context Window"
+            "description": "NODES: Add Mask For IC Lora, Create Context Window, Concatenate Context Window, Auto Patch"
         },
         {
             "author": "lrzjason",
@@ -13334,6 +13333,17 @@
             ],
             "install_type": "git-clone",
             "description": "a simple reimgsize node(s) in comfyui."
+        },
+        {
+            "author": "Makki_Shizu",
+            "title": "ComfyUI-Prompt-Wildcards",
+            "id": "Prompt-Wildcards",
+            "reference": "https://github.com/MakkiShizu/ComfyUI-Prompt-Wildcards",
+            "files": [
+                "https://github.com/MakkiShizu/ComfyUI-Prompt-Wildcards"
+            ],
+            "install_type": "git-clone",
+            "description": "Optional wildcards in ComfyUI"
         },
         {
             "author": "JosefKuchar",
@@ -14477,6 +14487,16 @@
             "description": "this node contains a lot of small little helpers like switches, passers and selectors that i use a lot to build my workflows."
         },
         {
+            "author": "Rvage0815",
+            "title": "RvTComfyUI-RvTools_v2",
+            "reference": "https://github.com/Rvage0815/ComfyUI-RvTools_v2",
+            "files": [
+                "https://github.com/Rvage0815/ComfyUI-RvTools_v2"
+            ],
+            "install_type": "git-clone",
+            "description": "this node contains a lot of small little helpers like switches, passers and selectors that i use a lot to build my workflows."
+        },
+        {
             "author": "erosDiffusion",
             "title": "Compositor Node",
             "reference": "https://github.com/erosDiffusion/ComfyUI-enricos-nodes",
@@ -14488,13 +14508,14 @@
         },
         {
             "author": "Steudio",
-            "title": "ComfyUI_Steudio",
+            "title": "ComfyUI Steudio",
+            "id": "Steudio",
             "reference": "https://github.com/Steudio/ComfyUI_Steudio",
             "files": [
                 "https://github.com/Steudio/ComfyUI_Steudio"
             ],
             "install_type": "git-clone",
-            "description": "Nodes: Divide and Conquer Algorithm, Divide Image, Combine Tiles, Make_Size"
+            "description": "Divide and Conquer Node Suite: It calculates the optimal upscale resolution and seamlessly divides the image into tiles, ready for individual processing using your preferred workflow. After processing, the tiles are seamlessly merged into a larger image, offering sharper and more detailed visuals."
         },
         {
             "author": "Assistant",
@@ -16061,7 +16082,7 @@
                 "https://github.com/sousakujikken/ComfyUI-PixydustQuantizer"
             ],
             "install_type": "git-clone",
-            "description": "Pixydust Quantizer is a custom node extension for ComfyUI that allows for the simplified recreation of tile patterns used in 1990s 16-color PC graphics, offering advanced color quantization and palette optimization features."
+            "description": "Pixydust Quantizer is a custom node extension for ComfyUI that allows for the simplified recreation of tile patterns used in 1990s 16-color PC graphics, offering advanced color quantization and palette optimization features.Additionally, it includes a CRT-like effect node that mimics the phosphor glow and slight color bleeding of old CRT displays, adding a nostalgic aesthetic.With version 2.0.0, it now supports batch image processing, enabling efficient handling of video frames and image sequences."
         },
         {
             "author": "hoveychen",
@@ -16467,17 +16488,6 @@
            ],
            "install_type": "git-clone",
            "description": "This extension integrates ebsynth_utility into comfyui, and I've written some of my own nodes for secondary use."
-       },
-       {
-           "author": "Makki_Shizu",
-           "title": "ComfyUI-Prompt-Wildcards",
-           "id": "Prompt-Wildcards",
-           "reference": "https://github.com/MakkiShizu/ComfyUI-Prompt-Wildcards",
-           "files": [
-               "https://github.com/MakkiShizu/ComfyUI-Prompt-Wildcards"
-           ],
-           "install_type": "git-clone",
-           "description": "Optional wildcards in ComfyUI"
        },
        {
            "author": "zubenelakrab",
@@ -17480,6 +17490,59 @@
             "install_type": "git-clone",
             "description": "ComfyUI-CatvtonFluxWrapper provides ComfyUI nodes for diffusers implementation of Catvton-Flux."
         },
+        {
+            "author": "Stable Diffusion VN",
+            "title": "SDVN Comfy node",
+            "id": "SDVN",
+            "reference": "https://github.com/StableDiffusionVN/SDVN_Comfy_node",
+            "files": [
+                "https://github.com/StableDiffusionVN/SDVN_Comfy_node"
+            ],
+            "install_type": "git-clone",
+            "description": "Collection of nodes supports using comfyUi more quickly and conveniently (Auto download model, image, easy merger ...)"
+        },
+        {
+            "author": "Eugene (JEONG-JIWOO)",
+            "title": "ComfyUI_Eugene_Nodes",
+            "reference": "https://github.com/JEONG-JIWOO/ComfyUI_Eugene_Nodes",
+            "files": [
+                "https://github.com/JEONG-JIWOO/ComfyUI_Eugene_Nodes"
+            ],
+            "install_type": "git-clone",
+            "description": "A collection of utility nodes using Dictionary designed to optimize and manage workflows in ComfyUI."
+        },
+        {
+            "author": "xs315431",
+            "title": "Comfyui_Get_promptId",
+            "reference": "https://github.com/xs315431/Comfyui_Get_promptId",
+            "files": [
+                "https://github.com/xs315431/Comfyui_Get_promptId"
+            ],
+            "install_type": "git-clone",
+            "description": "NODES: Get Prompt_Id, Success Callback\nget comfyui task id and Callback for successful image generation, in conjunction with the back-end"
+        },
+        {
+            "author": "5x00",
+            "title": "ComfyUI-VLM_Captions",
+            "reference": "https://github.com/5x00/ComfyUI-VLM_Captions",
+            "files": [
+                "https://github.com/5x00/ComfyUI-VLM_Captions"
+            ],
+            "install_type": "git-clone",
+            "description": "A simple ComfyUI node that let's you use Claude or ChatGPT 4o's VLM capabilities to generate captions/tags for images."
+        },
+        {
+            "author": "ClownsharkBatwing",
+            "title": "RES4LYF",
+            "id": "res4lyf",
+            "reference": "https://github.com/ClownsharkBatwing/RES4LYF",
+            "files": [
+                "https://github.com/ClownsharkBatwing/RES4LYF"
+            ],
+            "install_type": "git-clone",
+            "description": "Advanced samplers with new noise scaling math to enable SDE sampling with all publicly available rectified flow models; new unsampling/noise inversion methods and other advanced techniques for inpainting and/or guiding the sampling process with latent images. 40 sampler types, 20 noise types, 7 noise scaling modes, in a single node. Also includes a wide variety of QoF and other utility nodes for manipulating sigmas, latents, images, and more."
+        },
+
 
 
 
@@ -17863,6 +17926,17 @@
             "install_type": "copy",
             "description": "NODES:Animated Offset Padding, Animated Rotation & Zoom"
         },
+        {
+            "author": "duskfallcrew",
+            "title": "Embedding Merge for ComfyUI",
+            "reference": "https://github.com/duskfallcrew/Comfyui_EmbeddingMerge_Node",
+            "files": [
+                "https://github.com/duskfallcrew/Comfyui_EmbeddingMerge_Node/raw/refs/heads/main/merge_embed.py"
+            ],
+            "install_type": "copy",
+            "description": "Extremely inspired and forked from: [a/https://github.com/klimaleksus/stable-diffusion-webui-embedding-merge](https://github.com/klimaleksus/stable-diffusion-webui-embedding-merge)"
+        },
+
 
 
 
@@ -17902,6 +17976,17 @@
             "install_type": "unzip",
             "description": "Various image processing nodes."
         },
+         {
+    "author": "mithamunda",
+    "title": "Together Vision Node",
+    "id": "comfyui_together_vision",
+    "reference": "https://github.com/mithamunda/ComfyUI-TogetherVision",
+    "files": [
+        "https://github.com/mithamunda/ComfyUI-TogetherVision"
+    ],
+    "install_type": "git-clone",
+    "description": "A custom ComfyUI node for generating AI-powered image descriptions using Together AI's Vision models (both free and paid versions). Features include customizable prompts, advanced generation parameters, and robust image handling with comprehensive error management."
+       },
         {
             "author": "aimingfail",
             "title": "Image2Halftone Node for ComfyUI",
@@ -17912,6 +17997,17 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
+        },
+        {
+            "author": "NeoGriever",
+            "title": "ComfyUI - NeoGriever",
+            "id": "neogrievernodes",
+            "reference": "https://github.com/NeoGriever/ComfyUI-NeoGriever",
+            "files": [
+                "https://github.com/NeoGriever/ComfyUI-NeoGriever"
+            ],
+            "install_type": "git-clone",
+            "description": "NeoGriever's helper nodes. Better CLIP Text Encoder, Resolution Provider,  Multimask Write/Read,  TextBoxes Simple/Join/x2/x3, Sliders INT/FLOAT/STEPPER, String Tool/Squisher/Cutter, Create Solid Color, Fill with Color, Checkerboard Generator, Image Progress Bar"
         }
     ]
 }
