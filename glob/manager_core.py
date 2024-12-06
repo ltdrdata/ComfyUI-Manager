@@ -82,6 +82,7 @@ comfy_ui_required_commit_datetime = datetime(2024, 1, 24, 0, 0, 0)
 comfy_ui_revision = "Unknown"
 comfy_ui_commit_datetime = datetime(1900, 1, 1, 0, 0, 0)
 
+is_electron = os.environ.get("ORIGINAL_XDG_CURRENT_DESKTOP") != None
 
 cache_lock = threading.Lock()
 
