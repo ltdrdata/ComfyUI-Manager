@@ -53,8 +53,8 @@ def get_custom_nodes_paths():
 
 
 def get_comfyui_tag():
-    repo = git.Repo(comfy_path)
     try:
+        repo = git.Repo(comfy_path)
         return repo.git.describe('--tags')
     except:
         return None
