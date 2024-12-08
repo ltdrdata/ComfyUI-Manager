@@ -23,16 +23,50 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import *
 
-version = [2, 51, 7]
+version = [2, 55, 4]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, '..'))
 
+default_custom_nodes_path = None
+
+def get_default_custom_nodes_path():
+    global default_custom_nodes_path
+    if default_custom_nodes_path is None:
+        try:
+            import folder_paths
+            default_custom_nodes_path = folder_paths.get_folder_paths("custom_nodes")[0]
+        except:
+            default_custom_nodes_path = custom_nodes_path
+
+    return default_custom_nodes_path
+
+
+def get_custom_nodes_paths():
+        try:
+            import folder_paths
+            return folder_paths.get_folder_paths("custom_nodes")
+        except:
+            return [custom_nodes_path]
+
+
+def get_comfyui_tag():
+    repo = git.Repo(comfy_path)
+    try:
+        return repo.git.describe('--tags')
+    except:
+        return None
+
+
 comfy_path = os.environ.get('COMFYUI_PATH')
 if comfy_path is None:
-    comfy_path = os.path.abspath(os.path.join(custom_nodes_path, '..'))
+    try:
+        import folder_paths
+        comfy_path = os.path.join(os.path.dirname(folder_paths.__file__))
+    except:
+        comfy_path = os.path.abspath(os.path.join(custom_nodes_path, '..'))
 
 channel_list_path = os.path.join(comfyui_manager_path, 'channels.list')
 config_path = os.path.join(comfyui_manager_path, "config.ini")
@@ -340,7 +374,7 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
 
     new_env = os.environ.copy()
     new_env["COMFYUI_PATH"] = comfy_path
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=custom_nodes_path)
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=get_default_custom_nodes_path())
     output, _ = process.communicate()
     output = output.decode('utf-8').strip()
 
@@ -367,13 +401,13 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
     if do_update:
         if "CUSTOM NODE PULL: Success" in output:
             process.wait()
-            print(f"\rUpdated: {path}")
+            print(f"\x1b[2K\rUpdated: {path}")
             return True, True    # updated
         elif "CUSTOM NODE PULL: None" in output:
             process.wait()
             return False, True   # there is no update
         else:
-            print(f"\rUpdate error: {path}")
+            print(f"\x1b[2K\rUpdate error: {path}")
             process.wait()
             return False, False  # update failed
     else:
@@ -384,7 +418,7 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
             process.wait()
             return False, True
         else:
-            print(f"\rFetch error: {path}")
+            print(f"\x1b[2K\rFetch error: {path}")
             print(f"\n{output}\n")
             process.wait()
             return False, True
@@ -394,7 +428,7 @@ def __win_check_git_pull(path):
     new_env = os.environ.copy()
     new_env["COMFYUI_PATH"] = comfy_path
     command = [sys.executable, git_script_path, "--pull", path]
-    process = subprocess.Popen(command, env=new_env, cwd=custom_nodes_path)
+    process = subprocess.Popen(command, env=new_env, cwd=get_default_custom_nodes_path())
     process.wait()
 
 
@@ -408,6 +442,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
     else:
         if os.path.exists(requirements_path):
             print("Install: pip packages")
+            pip_fixer = PIPFixer(get_installed_packages())
             with open(requirements_path, "r") as requirements_file:
                 for line in requirements_file:
                     #handle comments
@@ -429,6 +464,8 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
 
                         if package_name.strip() != "" and not package_name.startswith('#'):
                             try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
+
+            pip_fixer.fix_broken()
 
         if os.path.exists(install_script_path):
             print(f"Install: install script")
@@ -559,11 +596,11 @@ def gitclone_install(files, instant_execution=False, msg_prefix=''):
         try:
             print(f"Download: git clone '{url}'")
             repo_name = os.path.splitext(os.path.basename(url))[0]
-            repo_path = os.path.join(custom_nodes_path, repo_name)
+            repo_path = os.path.join(get_default_custom_nodes_path(), repo_name)
 
             # Clone the repository from the remote URL
             if not instant_execution and platform.system() == 'Windows':
-                res = manager_funcs.run_script([sys.executable, git_script_path, "--clone", custom_nodes_path, url], cwd=custom_nodes_path)
+                res = manager_funcs.run_script([sys.executable, git_script_path, "--clone", get_default_custom_nodes_path(), url], cwd=get_default_custom_nodes_path())
                 if res != 0:
                     return False
             else:
@@ -687,6 +724,22 @@ async def get_data_by_mode(mode, filename, channel_url=None):
     return json_obj
 
 
+def lookup_installed_custom_nodes(repo_name):
+    try:
+        import folder_paths
+        base_paths = folder_paths.get_folder_paths("custom_nodes")
+    except:
+        base_paths = [custom_nodes_path]
+
+    for base_path in base_paths:
+        repo_path = os.path.join(base_path, repo_name)
+        if os.path.exists(repo_path):
+            return True, repo_path
+        elif os.path.exists(repo_path+'.disabled'):
+            return False, repo_path
+        
+    return None
+
 def gitclone_fix(files, instant_execution=False):
     print(f"Try fixing: {files}")
     for url in files:
@@ -698,13 +751,15 @@ def gitclone_fix(files, instant_execution=False):
             url = url[:-1]
         try:
             repo_name = os.path.splitext(os.path.basename(url))[0]
-            repo_path = os.path.join(custom_nodes_path, repo_name)
+            repo_path = lookup_installed_custom_nodes(repo_name)
 
-            if os.path.exists(repo_path+'.disabled'):
-                repo_path = repo_path+'.disabled'
+            if repo_path is not None:
+                repo_path = repo_path[1]
 
-            if not execute_install_script(url, repo_path, instant_execution=instant_execution):
-                return False
+                if not execute_install_script(url, repo_path, instant_execution=instant_execution):
+                    return False
+            else:
+                print(f"Custom node not found: {repo_name}")
 
         except Exception as e:
             print(f"Install(git-clone) error: {url} / {e}", file=sys.stderr)
@@ -751,12 +806,12 @@ def gitclone_uninstall(files):
             url = url[:-1]
         try:
             dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
-            dir_path = os.path.join(custom_nodes_path, dir_name)
+            repo_path = lookup_installed_custom_nodes(dir_name)
 
-            # safety check
-            if dir_path == '/' or dir_path[1:] == ":/" or dir_path == '':
-                print(f"Uninstall(git-clone) error: invalid path '{dir_path}' for '{url}'")
-                return False
+            if repo_path is None:
+                continue
+            
+            dir_path = repo_path[1]
 
             install_script_path = os.path.join(dir_path, "uninstall.py")
             disable_script_path = os.path.join(dir_path, "disable.py")
@@ -772,10 +827,7 @@ def gitclone_uninstall(files):
                 if code != 0:
                     print(f"An error occurred during the execution of the disable.py script. Only the '{dir_path}' will be deleted.")
 
-            if os.path.exists(dir_path):
-                rmtree(dir_path)
-            elif os.path.exists(dir_path + ".disabled"):
-                rmtree(dir_path + ".disabled")
+            rmtree(dir_path)
         except Exception as e:
             print(f"Uninstall(git-clone) error: {url} / {e}", file=sys.stderr)
             return False
@@ -798,13 +850,13 @@ def gitclone_set_active(files, is_disable):
             url = url[:-1]
         try:
             dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
-            dir_path = os.path.join(custom_nodes_path, dir_name)
+            repo_path = lookup_installed_custom_nodes(dir_name)
 
-            # safety check
-            if dir_path == '/' or dir_path[1:] == ":/" or dir_path == '':
-                print(f"{action_name}(git-clone) error: invalid path '{dir_path}' for '{url}'")
-                return False
+            if repo_path is None:
+                continue
 
+            dir_path = repo_path[1]
+            
             if is_disable:
                 current_path = dir_path
                 new_path = dir_path + ".disabled"
@@ -840,11 +892,13 @@ def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefi
             url = url[:-1]
         try:
             repo_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
-            repo_path = os.path.join(custom_nodes_path, repo_name)
+            repo_path = lookup_installed_custom_nodes(repo_name)
 
-            if os.path.exists(repo_path+'.disabled'):
-                repo_path = repo_path+'.disabled'
+            if repo_path is None:
+                continue
 
+            repo_path = repo_path[1]
+            
             git_pull(repo_path)
 
             if not skip_script:
@@ -914,10 +968,14 @@ def lookup_customnode_by_url(data, target):
     for x in data['custom_nodes']:
         if target in x['files']:
             dir_name = os.path.splitext(os.path.basename(target))[0].replace(".git", "")
-            dir_path = os.path.join(custom_nodes_path, dir_name)
-            if os.path.exists(dir_path):
+            repo_path = lookup_installed_custom_nodes(dir_name)
+
+            if repo_path is None:
+                continue
+
+            if repo_path[0]:
                 x['installed'] = 'True'
-            elif os.path.exists(dir_path + ".disabled"):
+            else:
                 x['installed'] = 'Disabled'
             return x
 
@@ -926,13 +984,15 @@ def lookup_customnode_by_url(data, target):
 
 def simple_check_custom_node(url):
     dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
-    dir_path = os.path.join(custom_nodes_path, dir_name)
-    if os.path.exists(dir_path):
-        return 'installed'
-    elif os.path.exists(dir_path+'.disabled'):
-        return 'disabled'
+    repo_path = lookup_installed_custom_nodes(dir_name)
 
-    return 'not-installed'
+    if repo_path is None:
+        return 'not-installed'
+    
+    if repo_path[0]:
+        return 'installed'
+    else:
+        return 'disabled'
 
 
 def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do_update=False):
@@ -945,8 +1005,12 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
             url = url[:-1]
 
         dir_name = os.path.splitext(os.path.basename(url))[0].replace(".git", "")
-        dir_path = os.path.join(custom_nodes_path, dir_name)
-        if os.path.exists(dir_path):
+        repo_path = lookup_installed_custom_nodes(dir_name)
+
+        if repo_path is None:
+            item['installed'] = 'False'
+        elif repo_path[0]:
+            dir_path = repo_path[1]
             try:
                 item['installed'] = 'True'  # default
 
@@ -965,17 +1029,23 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
                 else:
                     item['installed'] = 'True'
 
-        elif os.path.exists(dir_path + ".disabled"):
-            item['installed'] = 'Disabled'
-
         else:
-            item['installed'] = 'False'
+            item['installed'] = 'Disabled'
 
     elif item['install_type'] == 'copy' and len(item['files']) == 1:
         dir_name = os.path.basename(item['files'][0])
 
         if item['files'][0].endswith('.py'):
-            base_path = custom_nodes_path
+            base_path = lookup_installed_custom_nodes(item['files'][0])
+            if base_path is None:
+                item['installed'] = 'False'
+                return
+            elif base_path[0]:
+                item['installed'] = 'True'
+            else:
+                item['installed'] = 'Disabled'
+
+            return
         elif 'js_path' in item:
             base_path = os.path.join(js_path, item['js_path'])
         else:
@@ -987,8 +1057,6 @@ def check_a_custom_node_installed(item, do_fetch=False, do_update_check=True, do
                 item['installed'] = 'Fail'
             else:
                 item['installed'] = 'True'
-        elif os.path.exists(file_path + ".disabled"):
-            item['installed'] = 'Disabled'
         else:
             item['installed'] = 'False'
 
@@ -1025,39 +1093,46 @@ def get_current_snapshot():
     git_custom_nodes = {}
     file_custom_nodes = []
 
+    try:
+        import folder_paths
+        base_paths = folder_paths.get_folder_paths("custom_nodes")
+    except:
+        base_paths = [custom_nodes_path]
+
     # Get custom nodes hash
-    for path in os.listdir(custom_nodes_path):
-        fullpath = os.path.join(custom_nodes_path, path)
+    for base_path in base_paths:
+        for path in os.listdir(base_path):
+            fullpath = os.path.join(base_path, path)
 
-        if os.path.isdir(fullpath):
-            is_disabled = path.endswith(".disabled")
+            if os.path.isdir(fullpath):
+                is_disabled = path.endswith(".disabled")
 
-            try:
-                git_dir = os.path.join(fullpath, '.git')
+                try:
+                    git_dir = os.path.join(fullpath, '.git')
 
-                if not os.path.exists(git_dir):
-                    continue
+                    if not os.path.exists(git_dir):
+                        continue
 
-                repo = git.Repo(fullpath)
-                commit_hash = repo.head.commit.hexsha
-                url = repo.remotes.origin.url
-                git_custom_nodes[url] = {
-                    'hash': commit_hash,
+                    repo = git.Repo(fullpath)
+                    commit_hash = repo.head.commit.hexsha
+                    url = repo.remotes.origin.url
+                    git_custom_nodes[url] = {
+                        'hash': commit_hash,
+                        'disabled': is_disabled
+                    }
+
+                except:
+                    print(f"Failed to extract snapshots for the custom node '{path}'.")
+
+            elif path.endswith('.py'):
+                is_disabled = path.endswith(".py.disabled")
+                filename = os.path.basename(path)
+                item = {
+                    'filename': filename,
                     'disabled': is_disabled
                 }
 
-            except:
-                print(f"Failed to extract snapshots for the custom node '{path}'.")
-
-        elif path.endswith('.py'):
-            is_disabled = path.endswith(".py.disabled")
-            filename = os.path.basename(path)
-            item = {
-                'filename': filename,
-                'disabled': is_disabled
-            }
-
-            file_custom_nodes.append(item)
+                file_custom_nodes.append(item)
 
     pip_packages = get_installed_pip_packages()
 

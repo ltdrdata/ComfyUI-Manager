@@ -62,7 +62,7 @@ def is_allowed_security_level(level):
 
 async def get_risky_level(files, pip_packages):
     json_data1 = await core.get_data_by_mode('local', 'custom-node-list.json')
-    json_data2 = await core.get_data_by_mode('cache', 'custom-node-list.json', channel_url='https://github.com/ltdrdata/ComfyUI-Manager/raw/main')
+    json_data2 = await core.get_data_by_mode('cache', 'custom-node-list.json', channel_url='https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main')
 
     all_urls = set()
     for x in json_data1['custom_nodes'] + json_data2['custom_nodes']:
@@ -181,7 +181,7 @@ def print_comfyui_version():
 
         try:
             if core.comfy_ui_commit_datetime.date() < core.comfy_ui_required_commit_datetime.date():
-                print(f"\n\n## [WARN] ComfyUI-Manager: Your ComfyUI version ({core.comfy_ui_revision})[{core.comfy_ui_commit_datetime.date()}] is too old. Please update to the latest version. ##\n\n")
+                print(f"\n\n## [WARN] ComfyUI-Manager: Your ComfyUI version ({core.get_comfyui_tag()})[{core.comfy_ui_commit_datetime.date()}] is too old. Please update to the latest version. ##\n\n")
         except:
             pass
 
@@ -200,7 +200,11 @@ def print_comfyui_version():
         # <--
 
         if current_branch == "master":
-            print(f"### ComfyUI Revision: {core.comfy_ui_revision} [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
+            version_tag = core.get_comfyui_tag()
+            if version_tag is None:
+                print(f"### ComfyUI Revision: {core.comfy_ui_revision} [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
+            else:
+                print(f"### ComfyUI Version: {core.get_comfyui_tag()} | Released on '{core.comfy_ui_commit_datetime.date()}'")
         else:
             print(f"### ComfyUI Revision: {core.comfy_ui_revision} on '{current_branch}' [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
     except:
@@ -248,23 +252,45 @@ import urllib.request
 
 
 def get_model_dir(data):
+    if 'download_model_base' in folder_paths.folder_names_and_paths:
+        models_base = folder_paths.folder_names_and_paths['download_model_base'][0][0]
+    else:
+        models_base = folder_paths.models_dir
+
+    def resolve_custom_node(save_path):
+        save_path = save_path[13:] # remove 'custom_nodes/'
+        repo_name = save_path.replace('\\','/').split('/')[0] # get custom node repo name
+        repo_path = core.lookup_installed_custom_nodes(repo_name)
+        if repo_path is not None and repo_path[0]:
+            # Returns the retargeted path based on the actually installed repository
+            return os.path.join(os.path.dirname(repo_path[1]), save_path)
+        else:
+            return None
+
     if data['save_path'] != 'default':
         if '..' in data['save_path'] or data['save_path'].startswith('/'):
             print(f"[WARN] '{data['save_path']}' is not allowed path. So it will be saved into 'models/etc'.")
-            base_model = os.path.join(folder_paths.models_dir, "etc")
+            base_model = os.path.join(models_base, "etc")
         else:
             if data['save_path'].startswith("custom_nodes"):
-                base_model = os.path.join(core.comfy_path, data['save_path'])
+                base_model = resolve_custom_node(data['save_path'])
+                if base_model is None:
+                    print(f"[ComfyUI-Manager] The target custom node for model download is not installed: {data['save_path']}")
+                    return None
             else:
-                base_model = os.path.join(folder_paths.models_dir, data['save_path'])
+                base_model = os.path.join(models_base, data['save_path'])
     else:
         model_type = data['type']
         if model_type == "checkpoints" or model_type == "checkpoint":
             base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
         elif model_type == "unclip":
             base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
-        elif model_type == "clip":
-            base_model = folder_paths.folder_names_and_paths["clip"][0][0]
+        elif model_type == "clip" or model_type == "text_encoders":
+            if folder_paths.folder_names_and_paths.get("text_encoders"):
+                base_model = folder_paths.folder_names_and_paths["text_encoders"][0][0]
+            else:
+                print(f"[ComfyUI-Manager] Your ComfyUI is outdated version.")
+                base_model = folder_paths.folder_names_and_paths["clip"][0][0]  # outdated version
         elif model_type == "VAE":
             base_model = folder_paths.folder_names_and_paths["vae"][0][0]
         elif model_type == "lora":
@@ -290,14 +316,17 @@ def get_model_dir(data):
                 print(f"[ComfyUI-Manager] Your ComfyUI is outdated version.")
                 base_model = folder_paths.folder_names_and_paths["unet"][0][0]  # outdated version
         else:
-            base_model = os.path.join(folder_paths.models_dir, "etc")
+            base_model = os.path.join(models_base, "etc")
 
     return base_model
 
 
 def get_model_path(data):
     base_model = get_model_dir(data)
-    return os.path.join(base_model, data['filename'])
+    if base_model is None:
+        return None
+    else:
+        return os.path.join(base_model, data['filename'])
 
 
 def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True, do_update=False):
@@ -850,7 +879,7 @@ async def install_custom_node(request):
 
 @PromptServer.instance.routes.post("/customnode/fix")
 async def fix_custom_node(request):
-    if not is_allowed_security_level('high'):
+    if not is_allowed_security_level('middle'):
         print(SECURITY_MESSAGE_GENERAL)
         return web.Response(status=403)
 
@@ -871,6 +900,10 @@ async def fix_custom_node(request):
         return web.Response(status=400)
 
     if 'pip' in json_data:
+        if not is_allowed_security_level('high'):
+            print(SECURITY_MESSAGE_GENERAL)
+            return web.Response(status=403)
+
         for pname in json_data['pip']:
             install_cmd = [sys.executable, "-m", "pip", "install", '-U', pname]
             core.try_install_script(json_data['files'][0], ".", install_cmd)
@@ -1066,32 +1099,6 @@ async def install_model(request):
     return web.Response(status=400)
 
 
-class ManagerTerminalHook:
-    def write_stderr(self, msg):
-        PromptServer.instance.send_sync("manager-terminal-feedback", {"data": msg})
-
-    def write_stdout(self, msg):
-        PromptServer.instance.send_sync("manager-terminal-feedback", {"data": msg})
-
-
-manager_terminal_hook = ManagerTerminalHook()
-
-
-@PromptServer.instance.routes.get("/manager/terminal")
-async def terminal_mode(request):
-    if not is_allowed_security_level('high'):
-        print(SECURITY_MESSAGE_NORMAL_MINUS)
-        return web.Response(status=403)
-
-    if "mode" in request.rel_url.query:
-        if request.rel_url.query['mode'] == 'true':
-            sys.__comfyui_manager_terminal_hook.add_hook('cm', manager_terminal_hook)
-        else:
-            sys.__comfyui_manager_terminal_hook.remove_hook('cm')
-
-    return web.Response(status=200)
-
-
 @PromptServer.instance.routes.get("/manager/preview_method")
 async def preview_method(request):
     if "value" in request.rel_url.query:
@@ -1200,14 +1207,21 @@ async def get_notice(request):
 
                 if match:
                     markdown_content = match.group(1)
-                    markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
+                    version_tag = core.get_comfyui_tag()
+                    if version_tag is None:
+                        markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
+                    else:
+                        markdown_content += (f"<HR>ComfyUI: {version_tag}<BR>"
+                                             f"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;({core.comfy_ui_commit_datetime.date()})")
                     # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
                     markdown_content += f"<BR>Manager: {core.version_str}"
 
                     markdown_content = add_target_blank(markdown_content)
 
                     try:
-                        if core.comfy_ui_required_commit_datetime.date() > core.comfy_ui_commit_datetime.date():
+                        if core.comfy_ui_commit_datetime == datetime(1900, 1, 1, 0, 0, 0):
+                            markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI isn\'t git repo.</P>' + markdown_content
+                        elif core.comfy_ui_required_commit_datetime.date() > core.comfy_ui_commit_datetime.date():
                             markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
                     except:
                         pass
@@ -1238,6 +1252,11 @@ def restart(self):
         exit(0)
 
     print(f"\nRestarting... [Legacy Mode]\n\n")
+
+    sys_argv = sys.argv.copy()
+    if '--windows-standalone-build' in sys_argv:
+        sys_argv.remove('--windows-standalone-build')
+
     if sys.platform.startswith('win32'):
         return os.execv(sys.executable, ['"' + sys.executable + '"', '"' + sys.argv[0] + '"'] + sys.argv[1:])
     else:
@@ -1368,6 +1387,6 @@ if not os.path.exists(core.config_path):
 cm_global.register_extension('ComfyUI-Manager',
                              {'version': core.version,
                                  'name': 'ComfyUI Manager',
-                                 'nodes': {'Terminal Log //CM'},
+                                 'nodes': {},
                                  'description': 'It provides the ability to manage custom nodes in ComfyUI.', })
 

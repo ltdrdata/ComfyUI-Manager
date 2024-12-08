@@ -29,12 +29,37 @@ Detailed information: https://old.reddit.com/r/comfyui/comments/1dbls5n/psa_if_y
 2. Remove files: lolMiner*, 4G_Ethash_Linux_Readme.txt, mine* in ComfyUI dir.
 
 (Reinstall ComfyUI is recommended.)
+    """,
+    "ultralytics==8.3.41": f"""
+Execute following commands:
+    {sys.executable} -m pip uninstall ultralytics
+    {sys.executable} -m pip install ultralytics==8.3.40
+    
+And kill and remove /tmp/ultralytics_runner
+
+
+The version 8.3.41 to 8.3.42 of the Ultralytics package you installed is compromised. Please uninstall that version and reinstall the latest version.
+https://blog.comfy.org/comfyui-statement-on-the-ultralytics-crypto-miner-situation/
+    """,
+    "ultralytics==8.3.42": f"""
+Execute following commands:
+    {sys.executable} -m pip uninstall ultralytics
+    {sys.executable} -m pip install ultralytics==8.3.40
+
+And kill and remove /tmp/ultralytics_runner
+
+
+The version 8.3.41 to 8.3.42 of the Ultralytics package you installed is compromised. Please uninstall that version and reinstall the latest version.
+https://blog.comfy.org/comfyui-statement-on-the-ultralytics-crypto-miner-situation/
     """
              }
 
     node_blacklist = {"ComfyUI_LLMVISION": "ComfyUI_LLMVISION"}
 
-    pip_blacklist = {"AppleBotzz": "ComfyUI_LLMVISION"}
+    pip_blacklist = {
+        "AppleBotzz": "ComfyUI_LLMVISION",
+        "ultralytics==8.3.41": "ultralytics==8.3.41"
+    }
 
     file_blacklist = {
         "ComfyUI_LLMVISION": ["%LocalAppData%\\rundll64.exe"],
