@@ -14,7 +14,7 @@
         {
             "author": "Dr.Lt.Data",
             "title": "ComfyUI Impact Pack",
-            "id": "impact",
+            "id": "impact", 
             "reference": "https://github.com/ltdrdata/ComfyUI-Impact-Pack",
             "files": [
                 "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
@@ -47,7 +47,7 @@
             "install_type": "git-clone",
             "description": "Nodes: ModelSamplerTonemapNoiseTest, TonemapNoiseWithRescaleCFG, ReferenceOnlySimple, RescaleClassifierFreeGuidanceTest, ModelMergeBlockNumber, ModelMergeSDXL, ModelMergeSDXLTransformers, ModelMergeSDXLDetailedTransformers."
         },
-        {
+        { 
             "author": "comfyanonymous",
             "title": "TensorRT Node for ComfyUI",
             "id": "tensorrt",
@@ -18122,6 +18122,58 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        }
-    ]
-}
+        },
+        {
+            "author": "Indra's Mirror",
+            "title": "ComfyUI-Documents",
+            "reference": "https://github.com/Excidos/ComfyUI-Documents",
+            "files": [
+                "https://github.com/Excidos/ComfyUI-Documents/raw/main/document_nodes.py",
+                "https://github.com/Excidos/ComfyUI-Documents/raw/main/utils.py",
+                "https://github.com/Excidos/ComfyUI-Documents/raw/main/server.py",
+                "https://github.com/Excidos/ComfyUI-Documents/raw/main/comfy_documents_utils.py",
+                "https://github.com/Excidos/ComfyUI-Documents/raw/main/web/js/documents.core.js"
+            ],
+            "install_type": "git-clone",
+            "pip": [
+                "PyMuPDF",
+                "python-docx"
+            ],
+            "description": "ComfyUI-Documents is a powerful extension for ComfyUI that enhances workflows with advanced document processing capabilities. It includes nodes for loading and parsing various document types (PDF, TXT, DOC, DOCX), converting PDF pages to images, splitting PDFs into individual pages, and selecting specific images from batches. Features include text extraction, image conversion, and seamless integration with existing ComfyUI projects."
+    }, 
+    {
+        "author": "Excidos",
+        "title": "ComfyUI-Lumina-mGPT-Wrapper",
+        "reference": "https://github.com/Excidos/ComfyUI-Lumina-mGPT-Wrapper",
+        "files": [
+            "https://github.com/Excidos/ComfyUI-Lumina-mGPT-Wrapper/raw/main/nodes.py",
+            "https://github.com/Excidos/ComfyUI-Lumina-mGPT-Wrapper/raw/main/install.py",
+            "https://github.com/Excidos/ComfyUI-Lumina-mGPT-Wrapper/raw/main/__init__.py",
+            "https://github.com/Excidos/ComfyUI-Lumina-mGPT-Wrapper/raw/main/modified_requirements.txt",
+            "https://github.com/Excidos/ComfyUI-Lumina-mGPT-Wrapper/raw/main/requirements.txt",
+            "https://github.com/Excidos/ComfyUI-Lumina-mGPT-Wrapper/raw/main/Meta Chameleon Research License.pdf",
+            "https://github.com/Excidos/ComfyUI-Lumina-mGPT-Wrapper/raw/main/Notice (Chameleon).txt"
+        ],
+        "install_type": "git-clone",
+        "pip": [
+            "pandas",
+            "tensorboard",
+            "fairscale",
+            "sentencepiece",
+            "gradio==4.19.0",
+            "packaging",
+            "transformers>=4.43.3",
+            "pyyaml",
+            "pathlib",
+            "Ninja",
+            "bitsandbytes",
+            "httpx[socks]",
+            "einops",
+            "regex",
+            "h5py",
+            "accelerate",
+            "pre-commit"
+        ],
+        "description": "ComfyUI-Lumina-mGPT-Wrapper is a custom node for ComfyUI that integrates the advanced Lumina-mGPT model. It offers high-quality image generation with support for multiple model sizes and advanced features. This node brings the power of the Lumina text-to-image pipeline directly into ComfyUI workflows, allowing for flexible and powerful image generation capabilities."
+    }
+]
