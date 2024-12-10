@@ -1357,7 +1357,6 @@
             "CheckpointLoaderBNB",
             "EasyResolutionPicker",
             "ModelMergeSD3_Large",
-            "ModelSave",
             "UNETLoaderBNB"
         ],
         {
@@ -1728,7 +1727,8 @@
             "ComfyUIDeployExternalTextAny",
             "ComfyUIDeployExternalVid",
             "ComfyUIDeployExternalVideo",
-            "ComfyUIDeployModelList"
+            "ComfyUIDeployModelList",
+            "ComfyUIDeployStringCombine"
         ],
         {
             "author": "BennyKok",
@@ -1949,9 +1949,9 @@
         [
             "ClearNode",
             "LoadImageURL",
-            "LoraTrainer",
             "UploadImage",
-            "XSampler"
+            "XSampler",
+            "XSave"
         ],
         {
             "title_aux": "ComfyUI-Rework-X"
@@ -2219,6 +2219,7 @@
             "Tan Scheduler 2 Simple",
             "TextBox1",
             "TextBox3",
+            "TorchCompileModelFluxAdv",
             "UNetSave",
             "UltraSharkSampler",
             "UltraSharkSampler Tiled",
@@ -2463,6 +2464,57 @@
             "nodename_pattern": "^DF_",
             "title": "Derfuu simple/modded Nodes",
             "title_aux": "Derfuu_ComfyUI_ModdedNodes"
+        }
+    ],
+    "https://github.com/DesertPixelAi/ComfyUI-Desert-Pixel-Nodes": [
+        [
+            "DPAspectRatioPicker",
+            "DPBrokenToken",
+            "DPImageColorAnalyzer",
+            "DPLogoAnimator",
+            "DPVideoEffectReceiver",
+            "DPVideoEffectSender",
+            "DPVideoFlicker",
+            "DP_2Floats_0_1",
+            "DP_2floats_0_1",
+            "DP_3Floats_0_1",
+            "DP_3floats_0_1",
+            "DP_Animation_Calculator_5Inputs",
+            "DP_Aspect_Ratio",
+            "DP_Big_Letters",
+            "DP_Broken_Token",
+            "DP_Clean_Prompt",
+            "DP_Crazy_Prompt",
+            "DP_Create_JSON",
+            "DP_FastSlowMotion",
+            "DP_Fast_Slow_Motion",
+            "DP_Five_Lora",
+            "DP_Five_Lora_Random",
+            "DP_Float_0_1",
+            "DP_Image_Empty_Latent_Switch",
+            "DP_Image_Loader_Big",
+            "DP_Image_Loader_Medium",
+            "DP_Image_Loader_Small",
+            "DP_Image_Slide_Show",
+            "DP_Logo_Animator",
+            "DP_Prompt_Styler",
+            "DP_Quick_Link",
+            "DP_Random_Char",
+            "DP_Random_MinMax",
+            "DP_Smart_Saver",
+            "DP_Video_Effect_Receiver",
+            "DP_Video_Effect_Sender",
+            "DP_Video_Flicker",
+            "DP_Video_Transition",
+            "DP_clean_prompt",
+            "DP_create_json_file",
+            "DP_float_0_1",
+            "DP_smart_saver",
+            "DpPromptStyler",
+            "Dp_Random_Crazy_Prompt_Generator"
+        ],
+        {
+            "title_aux": "ComfyUI-Desert-Pixel-Nodes"
         }
     ],
     "https://github.com/Dobidop/ComfyStereo": [
@@ -4715,6 +4767,7 @@
             "Autotagger|LP",
             "BoolToInt|LP",
             "BoolToString|LP",
+            "CLIPTextEncodeTranslate|LP",
             "FastCheckerPattern|LP",
             "FileCounter|LP",
             "FloatToInt|LP",
@@ -4760,6 +4813,7 @@
             "TagSwitcher|LP",
             "TenthsSimpleFloatSlider|LP",
             "TextChoiceParser|LP",
+            "TextTranslate|LP",
             "Text|LP"
         ],
         {
@@ -5428,6 +5482,7 @@
         [
             "AspectSize",
             "AspectSizeV2",
+            "BatchOffset",
             "DJZ-LoadLatent",
             "DJZ-LoadLatentV2",
             "ImageSizeAdjuster",
@@ -5548,6 +5603,7 @@
             "NGs_BetterCLIPTextEncode",
             "NGs_Checkerboard_Generator",
             "NGs_Create_Solid_Color",
+            "NGs_Discord_Webhook",
             "NGs_Fill_with_Color",
             "NGs_Image_Progress_Bar",
             "NGs_Multimask_Read",
@@ -9530,6 +9586,7 @@
             "SchedulerToString (Image Saver)",
             "Seed Generator (Image Saver)",
             "String Literal (Image Saver)",
+            "UNet loader with Name (Image Saver)",
             "Width/Height Literal (Image Saver)"
         ],
         {
@@ -9723,26 +9780,31 @@
     ],
     "https://github.com/arcum42/ComfyUI_SageUtils": [
         [
+            "Sage_AdvSamplerInfo",
             "Sage_CheckpointLoaderSimple",
             "Sage_CollectKeywordsFromLoraStack",
             "Sage_ConditioningZeroOut",
             "Sage_ConstructMetadata",
             "Sage_ConstructMetadataLite",
             "Sage_DualCLIPTextEncode",
+            "Sage_EmptyLatentImagePassthrough",
             "Sage_GetFileHash",
             "Sage_GetInfoFromHash",
             "Sage_GetModelJSONFromHash",
             "Sage_IterOverFiles",
             "Sage_JoinText",
             "Sage_KSampler",
+            "Sage_LoadImage",
             "Sage_LoraStack",
             "Sage_LoraStackLoader",
             "Sage_PonyPrefix",
             "Sage_SamplerInfo",
             "Sage_SaveImageWithMetadata",
+            "Sage_SetBool",
             "Sage_SetFloat",
             "Sage_SetInteger",
             "Sage_SetText",
+            "Sage_TripleJoinText",
             "Sage_UNETLoader",
             "Sage_ViewText"
         ],
@@ -9846,7 +9908,7 @@
             "description": "Load Image thumbnails and show input subfolders.",
             "nickname": "ComfyUI Thumbnails",
             "title": "ComfyUI Thumbnails",
-            "title_aux": "ComfyUI Thumbnails"
+            "title_aux": "ComfyUI-Thumbnails"
         }
     ],
     "https://github.com/audioscavenger/save-image-extended-comfyui": [
@@ -10555,6 +10617,7 @@
             "SignalProcessingBaxandallEQ",
             "SignalProcessingConvolutionReverb",
             "SignalProcessingFilter",
+            "SignalProcessingHarmonicsEnhancer",
             "SignalProcessingLoadAudio",
             "SignalProcessingLoudness",
             "SignalProcessingMixdown",
@@ -12208,10 +12271,13 @@
     "https://github.com/ctefer/CFE_comfyui": [
         [
             "CFE Aspect Ratio",
+            "CFE FLUX Guidance",
             "CFE FLUX Sampler",
             "CFE FLUX Sampler (Pipe)",
             "CFE Flux In Pipe",
             "CFE Flux Out Pipe",
+            "CFE Lora Params",
+            "CFE Scheduler",
             "CFE Sigma Sampler",
             "CFE Sigma Sampler Strings"
         ],
@@ -12667,6 +12733,17 @@
         ],
         {
             "title_aux": "ComfyUI-TTS"
+        }
+    ],
+    "https://github.com/daqingliu/ComfyUI-SaveImageOSS": [
+        [
+            "LoadImageS3",
+            "LoadImageURL",
+            "SaveImageS3",
+            "SaveImageURL"
+        ],
+        {
+            "title_aux": "ComfyUI-SaveImageOSS"
         }
     ],
     "https://github.com/darkpixel/darkprompts": [
@@ -13404,7 +13481,7 @@
             "ThresholdConditioning"
         ],
         {
-            "title_aux": "ConDeltas (Conditioning Deltas) for ComfyUI"
+            "title_aux": "ComfyUI-ConDelta"
         }
     ],
     "https://github.com/erosDiffusion/ComfyUI-enricos-nodes": [
@@ -14147,124 +14224,6 @@
             "title_aux": "geocine-comfyui"
         }
     ],
-    "https://github.com/get-salt-AI/SaltAI": [
-        [
-            "SAIPrimitiveConverter",
-            "SAIStringRegexSearchMatch",
-            "SAIStringRegexSearchReplace",
-            "SaltAIStableVideoDiffusion",
-            "SaltBatchCropDataExtractor",
-            "SaltCLIPSegLoader",
-            "SaltCLIPSegMasking",
-            "SaltCropImageLocation",
-            "SaltDisplayAny",
-            "SaltImagePasteCrop",
-            "SaltInfo",
-            "SaltInput",
-            "SaltLoadImageZip",
-            "SaltMaskCropRegion",
-            "SaltMasksToImages",
-            "SaltOutput",
-            "SaltRGBAFromMask",
-            "SaltWebsiteScreenshot"
-        ],
-        {
-            "title_aux": "SaltAI-Open-Resources"
-        }
-    ],
-    "https://github.com/get-salt-AI/SaltAI_Language_Toolkit": [
-        [
-            "AddTool",
-            "ChangeSystemMessage",
-            "ClearMemory",
-            "ConversableAgentCreator",
-            "ConversableAgentCreatorAdvanced",
-            "ConvertAgentAsTool",
-            "ConvertAgentToLlamaindex",
-            "CreateTavilySearchTool",
-            "Example",
-            "GenerateReply",
-            "GroupChat",
-            "GroupChatAdvanced",
-            "GroupChatManagerCreator",
-            "LLMCSVReader",
-            "LLMChat",
-            "LLMChatBot",
-            "LLMChatEngine",
-            "LLMChatMessageConcat",
-            "LLMChatMessages",
-            "LLMChatMessagesAdv",
-            "LLMComplete",
-            "LLMCustomNodeComposer",
-            "LLMDirectoryReader",
-            "LLMDocumentListAppend",
-            "LLMDocxReader",
-            "LLMEpubReader",
-            "LLMFlatReader",
-            "LLMHTMLTagReader",
-            "LLMHWPReader",
-            "LLMHtmlComposer",
-            "LLMHtmlRepair",
-            "LLMIPYNBReader",
-            "LLMImageCaptionReader",
-            "LLMImageTabularChartReader",
-            "LLMImageTextReader",
-            "LLMImageVisionLLMReader",
-            "LLMInputToDocuments",
-            "LLMJsonComposer",
-            "LLMJsonRepair",
-            "LLMLLaVANextImageEvaluator",
-            "LLMLLaVANextModelLoader",
-            "LLMMarkdownComposer",
-            "LLMMarkdownReader",
-            "LLMMarkdownRepair",
-            "LLMMboxReader",
-            "LLMMultiModalImageEvaluation",
-            "LLMNotionReader",
-            "LLMOpenAIModel",
-            "LLMOpenAIModelOpts",
-            "LLMPDFReader",
-            "LLMPagedCSVReader",
-            "LLMPandasCSVReader",
-            "LLMParquetDatasetSearcher",
-            "LLMPostProcessDocuments",
-            "LLMPptxReader",
-            "LLMPyMuPDFReader",
-            "LLMQueryEngine",
-            "LLMQueryEngineAdv",
-            "LLMQueryEngineAsTool",
-            "LLMRTFReader",
-            "LLMRegexCreator",
-            "LLMRegexRepair",
-            "LLMRssReaderNode",
-            "LLMSaltWebCrawler",
-            "LLMScaleSERPSearch",
-            "LLMSemanticSplitterNodeParser",
-            "LLMSentenceSplitterNodeCreator",
-            "LLMServiceContextAdv",
-            "LLMServiceContextDefault",
-            "LLMSimpleWebPageReader",
-            "LLMSimpleWebPageReaderAdv",
-            "LLMSummaryIndex",
-            "LLMTavilyResearch",
-            "LLMTrafilaturaWebReader",
-            "LLMTrafilaturaWebReaderAdv",
-            "LLMTreeIndex",
-            "LLMUnstructuredReader",
-            "LLMVectorStoreIndex",
-            "LLMVectorStoreIndexAdv",
-            "LLMVideoAudioReader",
-            "LLMXMLReader",
-            "LLMYamlComposer",
-            "LLMYamlRepair",
-            "SaltJSONQueryEngine",
-            "SendMessage",
-            "SimpleChat"
-        ],
-        {
-            "title_aux": "SaltAI_Language_Toolkit"
-        }
-    ],
     "https://github.com/ggarra13/ComfyUI-mrv2": [
         [
             "mrv2AnnotationsImageNode",
@@ -14625,6 +14584,7 @@
             "Griptape Driver: Amazon Bedrock Stable Diffusion",
             "Griptape Driver: Amazon Bedrock Titan",
             "Griptape Driver: Azure OpenAI Image Generation",
+            "Griptape Driver: Black Forest Labs Image Generation",
             "Griptape Driver: Leonardo.AI",
             "Griptape Driver: OpenAI Compatible Image Generation",
             "Griptape Driver: OpenAI Image Generation",
@@ -15214,7 +15174,8 @@
             "DiffusersVaeLoader",
             "ImagePreprocessor",
             "LdmPipelineLoader",
-            "LdmVaeLoader"
+            "LdmVaeLoader",
+            "LoraModelLoader"
         ],
         {
             "title_aux": "ComfyUI-MVAdapter"
@@ -15444,6 +15405,15 @@
         ],
         {
             "title_aux": "ComfyUI-IF_AI_tools"
+        }
+    ],
+    "https://github.com/if-ai/ComfyUI-IF_MemoAvatar": [
+        [
+            "IF_MemoAvatar",
+            "IF_MemoCheckpointLoader"
+        ],
+        {
+            "title_aux": "ComfyUI-IF_MemoAvatar"
         }
     ],
     "https://github.com/ihmily/ComfyUI-Light-Tool": [
@@ -16014,6 +15984,16 @@
         ],
         {
             "title_aux": "ComfyUI_StreamDiffusion"
+        }
+    ],
+    "https://github.com/jiaqianjing/ComfyUI-MidjourneyHub": [
+        [
+            "MidjourneyActionNode",
+            "MidjourneyBatchActionNode",
+            "MidjourneyImagineNode"
+        ],
+        {
+            "title_aux": "ComfyUI-MidjourneyHub"
         }
     ],
     "https://github.com/jiaxiangc/ComfyUI-ResAdapter": [
@@ -16858,6 +16838,7 @@
         [
             "DownloadAndLoadHyVideoTextEncoder",
             "HyVideoBlockSwap",
+            "HyVideoCustomPromptTemplate",
             "HyVideoDecode",
             "HyVideoEncode",
             "HyVideoModelLoader",
@@ -17791,6 +17772,15 @@
         ],
         {
             "title_aux": "ComfyUI-Image-Compressor"
+        }
+    ],
+    "https://github.com/liuqianhonga/ComfyUI-String-Helper": [
+        [
+            "StringFormatter",
+            "StringList"
+        ],
+        {
+            "title_aux": "ComfyUI-String-Helper"
         }
     ],
     "https://github.com/liushuchun/ComfyUI_Lora_List_With_Url_Loader": [
@@ -18753,6 +18743,7 @@
             "LF_EmbeddingSelector",
             "LF_ExtractPromptFromLoraTag",
             "LF_ExtractString",
+            "LF_FilmGrain",
             "LF_Float",
             "LF_GaussianBlur",
             "LF_GetRandomKeyFromJSON",
@@ -18785,6 +18776,7 @@
             "LF_Notify",
             "LF_ParsePromptWithLoraTags",
             "LF_RandomBoolean",
+            "LF_RegexReplace",
             "LF_RegionExtractor",
             "LF_ResizeImageByEdge",
             "LF_ResizeImageToDimension",
@@ -18795,6 +18787,7 @@
             "LF_SaveJSON",
             "LF_SaveMarkdown",
             "LF_SchedulerSelector",
+            "LF_Sepia",
             "LF_SequentialSeedsGenerator",
             "LF_SetValueInJSON",
             "LF_ShuffleJSONKeys",
@@ -18802,6 +18795,8 @@
             "LF_Something2String",
             "LF_SortJSONKeys",
             "LF_String",
+            "LF_StringReplace",
+            "LF_StringTemplate",
             "LF_StringToJSON",
             "LF_SwitchFloat",
             "LF_SwitchImage",
@@ -19410,8 +19405,10 @@
             "TextBox",
             "TextCombinerSix",
             "TextCombinerTwo",
+            "TextLoopCombiner",
             "TextSwitcherThreeWays",
             "TextSwitcherTwoWays",
+            "TextWildcardSeprator",
             "TextWithBooleanSwitchAndCommonTextInput",
             "TwoBooleanTrigger",
             "TwoFloats"
@@ -19547,6 +19544,14 @@
         ],
         {
             "title_aux": "ComfyUI_Seamless_Patten"
+        }
+    ],
+    "https://github.com/mrchipset/ComfyUI-SaveImageS3": [
+        [
+            "SaveImageS3"
+        ],
+        {
+            "title_aux": "ComfyUI-SaveImageS3"
         }
     ],
     "https://github.com/mrhan1993/ComfyUI-Fooocus": [
@@ -19705,6 +19710,15 @@
             "title_aux": "ComfyUI-Fooocus"
         }
     ],
+    "https://github.com/muhammederem/blip-comfyui": [
+        [
+            "Blip Processor Node",
+            "List to Text Node"
+        ],
+        {
+            "title_aux": "BLIP Vision-Language Model Integration"
+        }
+    ],
     "https://github.com/mullakhmetov/comfyui_dynamic_util_nodes": [
         [
             "ConcatStrings",
@@ -19749,6 +19763,7 @@
     ],
     "https://github.com/myshell-ai/ComfyUI-ShellAgent-Plugin": [
         [
+            "ShellAgentPluginInputAudio",
             "ShellAgentPluginInputBoolean",
             "ShellAgentPluginInputFloat",
             "ShellAgentPluginInputImage",
@@ -19759,6 +19774,8 @@
             "ShellAgentPluginOutputFloat",
             "ShellAgentPluginOutputInteger",
             "ShellAgentPluginOutputText",
+            "ShellAgentPluginSaveAudio",
+            "ShellAgentPluginSaveAudios",
             "ShellAgentPluginSaveImage",
             "ShellAgentPluginSaveImages",
             "ShellAgentPluginSaveVideoVHS"
@@ -21127,7 +21144,9 @@
     ],
     "https://github.com/rubi-du/ComfyUI-BiRefNet-lite": [
         [
-            "BiRefNet_Lite"
+            "BiRefNet_Lite",
+            "BiRefNet_Super",
+            "BiRefNet_onnx"
         ],
         {
             "title_aux": "ComfyUI-BiRefNet-lite"
@@ -22123,6 +22142,15 @@
         ],
         {
             "title_aux": "ComfyUI_OmniParser"
+        }
+    ],
+    "https://github.com/smthemex/ComfyUI_PBR_Maker": [
+        [
+            "Load_MatForger",
+            "MatForger_Sampler"
+        ],
+        {
+            "title_aux": "ComfyUI_PBR_Maker"
         }
     ],
     "https://github.com/smthemex/ComfyUI_ParlerTTS": [
