@@ -54,7 +54,7 @@ def check_comfyui_hash():
     core.comfy_ui_commit_datetime = repo.head.commit.committed_datetime
 
 
-# check_comfyui_hash()  # This is a preparation step for manager_core
+check_comfyui_hash()  # This is a preparation step for manager_core
 
 
 def read_downgrade_blacklist():
@@ -83,10 +83,6 @@ class Ctx:
         self.mode = 'remote'
         self.processed_install = set()
         self.custom_node_map_cache = None
-        self.no_deps = False
-
-    def set_no_deps(self, no_deps):
-        self.no_deps = no_deps
 
     def set_channel_mode(self, channel, mode):
         if mode is not None:
@@ -206,11 +202,10 @@ class Ctx:
 cm_ctx = Ctx()
 
 
-def install_node(node_name, is_all=False, cnt_msg='', install_path=None, no_deps=False):
+def install_node(node_name, is_all=False, cnt_msg=''):
     if core.is_valid_url(node_name):
         # install via urls
-        print(f"Installing {node_name} to {install_path}")
-        res = core.gitclone_install([node_name], install_path=install_path)
+        res = core.gitclone_install([node_name])
         if not res:
             print(f"[bold red]ERROR: An error occurred while installing '{node_name}'.[/bold red]")
         else:
@@ -224,7 +219,7 @@ def install_node(node_name, is_all=False, cnt_msg='', install_path=None, no_deps
         elif os.path.exists(node_path + '.disabled'):
             enable_node(node_name)
         else:
-            res = core.gitclone_install(node_item['files'], instant_execution=True, msg_prefix=f"[{cnt_msg}] ", install_path=install_path, no_deps=no_deps)
+            res = core.gitclone_install(node_item['files'], instant_execution=True, msg_prefix=f"[{cnt_msg}] ")
             if not res:
                 print(f"[bold red]ERROR: An error occurred while installing '{node_name}'.[/bold red]")
             else:
@@ -474,7 +469,7 @@ def auto_save_snapshot():
     print(f"Current snapshot is saved as `{path}`")
 
 
-def for_each_nodes(nodes, act, allow_all=True, install_path=None, no_deps=False):
+def for_each_nodes(nodes, act, allow_all=True):
     is_all = False
     if allow_all and 'all' in nodes:
         is_all = True
@@ -486,7 +481,7 @@ def for_each_nodes(nodes, act, allow_all=True, install_path=None, no_deps=False)
     i = 1
     for x in nodes:
         try:
-            act(x, is_all=is_all, cnt_msg=f'{i}/{total}', install_path=install_path, no_deps=no_deps)
+            act(x, is_all=is_all, cnt_msg=f'{i}/{total}')
         except Exception as e:
             print(f"ERROR: {e}")
             traceback.print_exc()
@@ -518,22 +513,9 @@ def install(
             None,
             help="[remote|local|cache]"
         ),
-        install_path: str = typer.Option(
-            None,
-            help="Specify the installation path"
-        ),
-        no_deps: Annotated[
-            Optional[bool],
-            typer.Option(
-                "--no-deps",
-                show_default=False,
-                help="Skip installing any Python dependencies",
-            ),
-        ] = False,
 ):
     cm_ctx.set_channel_mode(channel, mode)
-    cm_ctx.set_no_deps(no_deps)
-    for_each_nodes(nodes, act=install_node, install_path=install_path, no_deps=no_deps)
+    for_each_nodes(nodes, act=install_node)
 
 
 @app.command(help="Reinstall custom nodes")

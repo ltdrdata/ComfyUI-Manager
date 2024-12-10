@@ -238,6 +238,7 @@ function is_legacy_front() {
 
 document.head.appendChild(docStyle);
 
+var update_comfyui_button = null;
 var fetch_updates_button = null;
 var update_all_button = null;
 var badge_mode = "none";
@@ -560,6 +561,40 @@ function drawBadge(node, orig, restArgs) {
 }
 
 
+async function updateComfyUI() {
+	let prev_text = update_comfyui_button.innerText;
+	update_comfyui_button.innerText = "Updating ComfyUI...";
+	update_comfyui_button.disabled = true;
+	update_comfyui_button.style.backgroundColor = "gray";
+
+	try {
+		const response = await api.fetchApi('/comfyui_manager/update_comfyui');
+
+		if (response.status == 400) {
+			show_message('Failed to update ComfyUI.');
+			return false;
+		}
+
+		if (response.status == 201) {
+			show_message('ComfyUI has been successfully updated.');
+		}
+		else {
+			show_message('ComfyUI is already up to date with the latest version.');
+		}
+
+		return true;
+	}
+	catch (exception) {
+		show_message(`Failed to update ComfyUI / ${exception}`);
+		return false;
+	}
+	finally {
+		update_comfyui_button.disabled = false;
+		update_comfyui_button.innerText = prev_text;
+		update_comfyui_button.style.backgroundColor = "";
+	}
+}
+
 async function fetchUpdates(update_check_checkbox) {
 	let prev_text = fetch_updates_button.innerText;
 	fetch_updates_button.innerText = "Fetching updates...";
@@ -612,13 +647,15 @@ async function fetchUpdates(update_check_checkbox) {
 
 async function updateAll(update_check_checkbox, manager_dialog) {
 	let prev_text = update_all_button.innerText;
-	update_all_button.innerText = "Updating all...";
+	update_all_button.innerText = "Updating all...(ComfyUI)";
 	update_all_button.disabled = true;
 	update_all_button.style.backgroundColor = "gray";
 
 	try {
 		var mode = manager_instance.datasrc_combo.value;
 
+		update_all_button.innerText = "Updating all...";
+		const response1 = await api.fetchApi('/comfyui_manager/update_comfyui');
 		const response2 = await api.fetchApi(`/customnode/update_all?mode=${mode}`);
 
 		if (response2.status == 403) {
@@ -626,12 +663,12 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 			return false;
 		}
 
-		if (response2.status == 400) {
-			show_message('Failed to update several extensions.<BR><BR>See terminal log.<BR>');
+		if (response1.status == 400 || response2.status == 400) {
+			show_message('Failed to update ComfyUI or several extensions.<BR><BR>See terminal log.<BR>');
 			return false;
 		}
 
-		if(response2.status == 201) {
+		if(response1.status == 201 || response2.status == 201) {
 			const update_info = await response2.json();
 
 			let failed_list = "";
@@ -645,7 +682,7 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 			}
 
 			show_message(
-				"All extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button class='cm-small-button' id='cm-reboot-button5'>RESTART</button> ComfyUI. And refresh browser.<BR>"
+				"ComfyUI and all extensions have been updated to the latest version.<BR>To apply the updated custom node, please <button class='cm-small-button' id='cm-reboot-button5'>RESTART</button> ComfyUI. And refresh browser.<BR>"
 				+failed_list
 				+updated_list
 				);
@@ -659,13 +696,13 @@ async function updateAll(update_check_checkbox, manager_dialog) {
 				});
 		}
 		else {
-			show_message('All extensions are already up-to-date with the latest versions.');
+			show_message('ComfyUI and all extensions are already up-to-date with the latest versions.');
 		}
 
 		return true;
 	}
 	catch (exception) {
-		show_message(`Failed to update several extensions / ${exception}`);
+		show_message(`Failed to update ComfyUI or several extensions / ${exception}`);
 		return false;
 	}
 	finally {
@@ -700,6 +737,14 @@ class ManagerMenuDialog extends ComfyDialog {
 	createControlsMid() {
 		let self = this;
 
+		update_comfyui_button =
+			$el("button.cm-button", {
+				type: "button",
+				textContent: "Update ComfyUI",
+				onclick:
+					() => updateComfyUI()
+			});
+
 		fetch_updates_button =
 			$el("button.cm-button", {
 				type: "button",
@@ -711,7 +756,7 @@ class ManagerMenuDialog extends ComfyDialog {
 		update_all_button =
 			$el("button.cm-button", {
 				type: "button",
-				textContent: "Update All Nodes",
+				textContent: "Update All",
 				onclick:
 					() => updateAll(this.update_check_checkbox, self)
 			});
@@ -769,7 +814,21 @@ class ManagerMenuDialog extends ComfyDialog {
 
 				$el("br", {}, []),
 				update_all_button,
+				update_comfyui_button,
 				fetch_updates_button,
+
+				$el("br", {}, []),
+				$el("button.cm-button", {
+					type: "button",
+					textContent: "Alternatives of A1111",
+					onclick:
+						() => {
+							if(!CustomNodesManager.instance) {
+								CustomNodesManager.instance = new CustomNodesManager(app, self);
+							}
+							CustomNodesManager.instance.show(CustomNodesManager.ShowMode.ALTERNATIVES);
+						}
+				}),
 
 				$el("br", {}, []),
 				$el("button.cm-button-red", {
@@ -977,6 +1036,28 @@ class ManagerMenuDialog extends ComfyDialog {
 					$el("legend.cm-experimental-legend", {}, ["EXPERIMENTAL"]),
 					$el("button.cm-experimental-button", {
 						type: "button",
+						textContent: "Snapshot Manager",
+						onclick:
+							() => {
+								if(!SnapshotManager.instance)
+								SnapshotManager.instance = new SnapshotManager(app, self);
+								SnapshotManager.instance.show();
+							}
+					}),
+					$el("button.cm-experimental-button", {
+						type: "button",
+						textContent: "Install PIP packages",
+						onclick:
+							() => {
+								var url = prompt("Please enumerate the pip packages to be installed.\n\nExample: insightface opencv-python-headless>=4.1.1\n", "");
+
+								if (url !== null) {
+									install_pip(url, self);
+								}
+							}
+					}),
+					$el("button.cm-experimental-button", {
+						type: "button",
 						textContent: "Unload models",
 						onclick: () => { free_models(); }
 					})
@@ -990,7 +1071,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					id: 'cm-manual-button',
 					type: "button",
 					textContent: "Community Manual",
-					onclick: () => { window.open("https://docs.comfy.org/", "comfyui-community-manual"); }
+					onclick: () => { window.open("https://blenderneko.github.io/ComfyUI-docs/", "comfyui-community-manual"); }
 				}, [
 					$el("div.pysssss-workflow-arrow-2", {
 						id: `cm-manual-button-arrow`,
@@ -1002,8 +1083,8 @@ class ManagerMenuDialog extends ComfyDialog {
 							const menu = new LiteGraph.ContextMenu(
 								[
 									{
-										title: "ComfyUI Examples",
-										callback: () => { window.open("https://comfyanonymous.github.io/ComfyUI_examples", "comfyui-community-manual3"); },
+										title: "ComfyUI Docs",
+										callback: () => { window.open("https://docs.comfy.org/", "comfyui-official-manual"); },
 									},
 									{
 										title: "Comfy Custom Node How To",
@@ -1012,6 +1093,10 @@ class ManagerMenuDialog extends ComfyDialog {
 									{
 										title: "ComfyUI Guide To Making Custom Nodes",
 										callback: () => { window.open("https://github.com/Suzie1/ComfyUI_Guide_To_Making_Custom_Nodes/wiki", "comfyui-community-manual2"); },
+									},
+									{
+										title: "ComfyUI Examples",
+										callback: () => { window.open("https://comfyanonymous.github.io/ComfyUI_examples", "comfyui-community-manual3"); },
 									},
 									{
 										title: "Close",
@@ -1030,6 +1115,49 @@ class ManagerMenuDialog extends ComfyDialog {
 							menu.root.id = "cm-manual-button-menu";
 							menu.root.classList.add("pysssss-workflow-popup-2");
 						},
+					})
+				]),
+
+				$el("button", {
+					id: 'workflowgallery-button',
+					type: "button",
+					style: {
+						...(localStorage.getItem("wg_last_visited") ? {height: '50px'} : {})
+					},
+					onclick: (e) => {
+						const last_visited_site = localStorage.getItem("wg_last_visited")
+						if (!!last_visited_site) {
+							window.open(last_visited_site, last_visited_site);
+						} else {
+							this.handleWorkflowGalleryButtonClick(e)
+						}
+					},
+				}, [
+					$el("p", {
+						textContent: 'Workflow Gallery',
+						style: {
+							'text-align': 'center',
+							'color': 'var(--input-text)',
+							'font-size': '18px',
+							'margin': 0,
+							'padding': 0,
+						}
+					}, [
+						$el("p", {
+							id: 'workflowgallery-button-last-visited-label',
+							textContent: `(${localStorage.getItem("wg_last_visited") ? localStorage.getItem("wg_last_visited").split('/')[2] : ''})`,
+							style: {
+								'text-align': 'center',
+								'color': 'var(--input-text)',
+								'font-size': '12px',
+								'margin': 0,
+								'padding': 0,
+							}
+						})
+					]),
+					$el("div.pysssss-workflow-arrow-2", {
+						id: `comfyworkflows-button-arrow`,
+						onclick: this.handleWorkflowGalleryButtonClick
 					})
 				]),
 
@@ -1083,6 +1211,105 @@ class ManagerMenuDialog extends ComfyDialog {
 
 	show() {
 		this.element.style.display = "block";
+	}
+
+	handleWorkflowGalleryButtonClick(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		LiteGraph.closeAllContextMenus();
+
+		// Modify the style of the button so that the UI can indicate the last
+		// visited site right away.
+		const modifyButtonStyle = (url) => {
+			const workflowGalleryButton = document.getElementById('workflowgallery-button');
+			workflowGalleryButton.style.height = '50px';
+			const lastVisitedLabel = document.getElementById('workflowgallery-button-last-visited-label');
+			lastVisitedLabel.textContent = `(${url.split('/')[2]})`;
+		}
+
+		const menu = new LiteGraph.ContextMenu(
+			[
+				{
+					title: "Share your art",
+					callback: () => {
+						if (share_option === 'openart') {
+							showOpenArtShareDialog();
+							return;
+						} else if (share_option === 'matrix' || share_option === 'comfyworkflows') {
+							showShareDialog(share_option);
+							return;
+						} else if (share_option === 'youml') {
+							showYouMLShareDialog();
+							return;
+						}
+
+						if (!ShareDialogChooser.instance) {
+							ShareDialogChooser.instance = new ShareDialogChooser();
+						}
+						ShareDialogChooser.instance.show();
+					},
+				},
+				{
+					title: "Open 'openart.ai'",
+					callback: () => {
+						const url = "https://openart.ai/workflows/dev";
+						localStorage.setItem("wg_last_visited", url);
+						window.open(url, url);
+						modifyButtonStyle(url);
+					},
+				},
+				{
+					title: "Open 'youml.com'",
+					callback: () => {
+						const url = "https://youml.com/?from=comfyui-share";
+						localStorage.setItem("wg_last_visited", url);
+						window.open(url, url);
+						modifyButtonStyle(url);
+					},
+				},
+				{
+					title: "Open 'comfyworkflows.com'",
+					callback: () => {
+						const url = "https://comfyworkflows.com/";
+						localStorage.setItem("wg_last_visited", url);
+						window.open(url, url);
+						modifyButtonStyle(url);
+					},
+				},
+				{
+					title: "Open 'esheep'",
+					callback: () => {
+						const url = "https://www.esheep.com";
+						localStorage.setItem("wg_last_visited", url);
+						window.open(url, url);
+						modifyButtonStyle(url);
+					},
+				},
+				{
+					title: "Open 'Copus.io'",
+					callback: () => {
+						const url = "https://www.copus.io";
+						localStorage.setItem("wg_last_visited", url);
+						window.open(url, url);
+						modifyButtonStyle(url);
+					},
+				},
+				{
+					title: "Close",
+					callback: () => {
+						LiteGraph.closeAllContextMenus();
+					},
+				}
+			],
+			{
+				event: e,
+				scale: 1.3,
+			},
+			window
+		);
+		// set the id so that we can override the context menu's z-index to be above the comfyui manager menu
+		menu.root.id = "workflowgallery-button-menu";
+		menu.root.classList.add("pysssss-workflow-popup-2");
 	}
 }
 
