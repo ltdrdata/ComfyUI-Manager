@@ -53,8 +53,8 @@ def get_custom_nodes_paths():
 
 
 def get_comfyui_tag():
+    repo = git.Repo(comfy_path)
     try:
-        repo = git.Repo(comfy_path)
         return repo.git.describe('--tags')
     except:
         return None
@@ -82,7 +82,6 @@ comfy_ui_required_commit_datetime = datetime(2024, 1, 24, 0, 0, 0)
 comfy_ui_revision = "Unknown"
 comfy_ui_commit_datetime = datetime(1900, 1, 1, 0, 0, 0)
 
-is_electron = os.environ.get("ORIGINAL_XDG_CURRENT_DESKTOP") != None
 
 cache_lock = threading.Lock()
 
@@ -433,7 +432,7 @@ def __win_check_git_pull(path):
     process.wait()
 
 
-def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=False, no_deps=False):
+def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=False):
     install_script_path = os.path.join(repo_path, "install.py")
     requirements_path = os.path.join(repo_path, "requirements.txt")
 
@@ -441,7 +440,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
         install_cmd = ["#LAZY-INSTALL-SCRIPT",  sys.executable]
         try_install_script(url, repo_path, install_cmd)
     else:
-        if os.path.exists(requirements_path) and not no_deps:
+        if os.path.exists(requirements_path):
             print("Install: pip packages")
             pip_fixer = PIPFixer(get_installed_packages())
             with open(requirements_path, "r") as requirements_file:
@@ -585,7 +584,7 @@ def is_valid_url(url):
     return False
 
 
-def gitclone_install(files, instant_execution=False, msg_prefix='', install_path=None, no_deps=False):
+def gitclone_install(files, instant_execution=False, msg_prefix=''):
     print(f"{msg_prefix}Install: {files}")
     for url in files:
         if not is_valid_url(url):
@@ -595,9 +594,9 @@ def gitclone_install(files, instant_execution=False, msg_prefix='', install_path
         if url.endswith("/"):
             url = url[:-1]
         try:
-            print(f"Download: git clone '{url}' to {install_path}")
+            print(f"Download: git clone '{url}'")
             repo_name = os.path.splitext(os.path.basename(url))[0]
-            repo_path = os.path.join(install_path or get_default_custom_nodes_path(), repo_name)
+            repo_path = os.path.join(get_default_custom_nodes_path(), repo_name)
 
             # Clone the repository from the remote URL
             if not instant_execution and platform.system() == 'Windows':
@@ -609,7 +608,7 @@ def gitclone_install(files, instant_execution=False, msg_prefix='', install_path
                 repo.git.clear_cache()
                 repo.close()
 
-            if not execute_install_script(url, repo_path, instant_execution=instant_execution, no_deps=no_deps):
+            if not execute_install_script(url, repo_path, instant_execution=instant_execution):
                 return False
 
         except Exception as e:
