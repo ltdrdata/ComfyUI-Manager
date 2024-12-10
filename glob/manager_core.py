@@ -132,7 +132,7 @@ def clear_pip_cache():
 def is_blacklisted(name):
     name = name.strip()
 
-    pattern = r'([^<>!=]+)([<>!=]=?)([^ ]*)'
+    pattern = r'([^<>!~=]+)([<>!~=]=?)([^ ]*)'
     match = re.search(pattern, name)
 
     if match:
@@ -147,7 +147,7 @@ def is_blacklisted(name):
         if match is None:
             if name in pips:
                 return True
-        elif match.group(2) in ['<=', '==', '<']:
+        elif match.group(2) in ['<=', '==', '~=', '<']:
             if name in pips:
                 if StrictVersion(pips[name]) >= StrictVersion(match.group(3)):
                     return True
@@ -161,7 +161,7 @@ def is_installed(name):
     if name.startswith('#'):
         return True
 
-    pattern = r'([^<>!=]+)([<>!=]=?)([0-9.a-zA-Z]*)'
+    pattern = r'([^<>!~=]+)([<>!~=]=?)([0-9.a-zA-Z]*)'
     match = re.search(pattern, name)
 
     if match:
@@ -176,7 +176,7 @@ def is_installed(name):
         if match is None:
             if name in pips:
                 return True
-        elif match.group(2) in ['<=', '==', '<']:
+        elif match.group(2) in ['<=', '==', '~=', '<']:
             if name in pips:
                 if StrictVersion(pips[name]) >= StrictVersion(match.group(3)):
                     print(f"[ComfyUI-Manager] skip black listed pip installation: '{name}'")
