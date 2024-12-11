@@ -786,14 +786,12 @@
     "https://github.com/JichaoLiang/Immortal_comfyUI": [
         [
             "AppendNode",
-            "ApplyVoiceConversion",
             "CombineVideos",
             "ImAppendFreeChatAction",
             "ImAppendImageActionNode",
             "ImAppendQuickbackNode",
             "ImAppendQuickbackVideoNode",
             "ImAppendVideoNode",
-            "ImApplyWav2lip",
             "ImDumpEntity",
             "ImDumpNode",
             "ImLoadPackage",
@@ -2891,6 +2889,17 @@
             "title_aux": "ComfyUI-HunyuanVideoWrapper [WIP]"
         }
     ],
+    "https://github.com/kijai/ComfyUI-MMAudio": [
+        [
+            "MMAudioFeatureUtilsLoader",
+            "MMAudioModelLoader",
+            "MMAudioSampler",
+            "MMAudioVoCoderLoader"
+        ],
+        {
+            "title_aux": "ComfyUI-MMAudio"
+        }
+    ],
     "https://github.com/kijai/ComfyUI-MochiWrapper": [
         [
             "DownloadAndLoadMochiModel",
@@ -3586,16 +3595,15 @@
     ],
     "https://github.com/pschroedl/ComfyUI-StreamDiffusion": [
         [
-            "DownloadAndLoadStreamDiffusionModel",
-            "StreamDiffusion",
             "StreamDiffusionAccelerationConfig",
             "StreamDiffusionAccelerationSampler",
+            "StreamDiffusionCheckpointLoader",
             "StreamDiffusionConfig",
-            "StreamDiffusionLcmLoraLoader",
+            "StreamDiffusionDeviceConfig",
             "StreamDiffusionLoraLoader",
-            "StreamDiffusionModelLoader",
+            "StreamDiffusionPrebuiltConfig",
             "StreamDiffusionSimilarityFilterConfig",
-            "StreamDiffusionVaeLoader"
+            "StreamDiffusionTensorRTEngineLoader"
         ],
         {
             "title_aux": "ComfyUI-StreamDiffusion"

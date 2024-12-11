@@ -14,15 +14,25 @@
         {
             "author": "Dr.Lt.Data",
             "title": "ComfyUI Impact Pack",
-            "id": "impact",
+            "id": "comfyui-impact-pack",
             "reference": "https://github.com/ltdrdata/ComfyUI-Impact-Pack",
             "files": [
                 "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
             ],
-            "pip": ["ultralytics==8.3.40"],
             "install_type": "git-clone",
-            "description": "This extension offers various detector nodes and detailer nodes that allow you to configure a workflow that automatically enhances facial details. And provide iterative upscaler.",
+            "description": "This node pack offers various detector nodes and detailer nodes that allow you to configure a workflow that automatically enhances facial details. And provide iterative upscaler.\nNOTE: To use the UltralyticsDetectorProvider, you must install the ComfyUI Impact Subpack separately.",
             "preemptions":["SAMLoader"]
+        },
+        {
+            "author": "Dr.Lt.Data",
+            "title": "ComfyUI Impact Subpack",
+            "id": "comfyui-impact-subpack",
+            "reference": "https://github.com/ltdrdata/ComfyUI-Impact-Subpack",
+            "files": [
+                "https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
+            ],
+            "install_type": "git-clone",
+            "description": "This node pack provides nodes that complement the Impact Pack, such as the UltralyticsDetectorProvider."
         },
         {
             "author": "Dr.Lt.Data",
@@ -7257,6 +7267,16 @@
             "description": "A ComfyUI custom node that integrates Mistral AI's Pixtral Large vision model, enabling powerful multimodal AI capabilities within ComfyUI. Pixtral Large is a 124B parameter model (123B decoder + 1B vision encoder) that can analyze up to 30 high-resolution images simultaneously."
         },
         {
+            "author": "ShmuelRonen",
+            "title": "ComfyUI Coherent Video Sampler Node",
+            "reference": "https://github.com/ShmuelRonen/ComfyUI-CohernetVideoSampler",
+            "files": [
+                "https://github.com/ShmuelRonen/ComfyUI-CohernetVideoSampler"
+            ],
+            "install_type": "git-clone",
+            "description": "A custom node for ComfyUI that enables coherent video generation while maintaining efficient memory usage, specifically optimized for heavy models like Flux."
+        },
+        {
             "author": "redhottensors",
             "title": "ComfyUI-Prediction",
             "id": "prediction",
@@ -14198,16 +14218,6 @@
             "description": "A simple minimap in the bottom-right of the window showing the full workflow, left click to navigate"
         },
         {
-            "author": "doomy23",
-            "title": "ComfyUI-D00MYsNodes",
-            "reference": "https://github.com/doomy23/ComfyUI-D00MYsNodes",
-            "files": [
-                "https://github.com/doomy23/ComfyUI-D00MYsNodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes: Images_Converter, Show_Text, Strings_From_List, Save_Text, Random_Images, Load_Images_From_Paths, JSPaint."
-        },
-        {
             "author": "Sieyalixnet",
             "title": "ComfyUI_Textarea_Loaders",
             "reference": "https://github.com/Sieyalixnet/ComfyUI_Textarea_Loaders",
@@ -17497,7 +17507,7 @@
                 "https://github.com/purpen/ComfyUI-AIRedoon"
             ],
             "install_type": "git-clone",
-            "description": "NODES:AIRedoon Translator, AIRedoon Image Caption.\nRedoonAi Tool Kit"
+            "description": "NODES:AIRedoon Qwen Model Loader, AIRedoon Translator, AIRedoon Image Caption, AIRedoon LoRA Stack, AIRedoon Image RGBA2RGB, AIRedoon Preview Text, AIRedoon Save Text, ...\nRedoonAi Tool Kit"
         },
         {
             "author": "purpen",
@@ -17857,6 +17867,16 @@
             ],
             "install_type": "git-clone",
             "description": "A ComfyUI custom node for integrating with Midjourney API."
+        },
+        {
+            "author": "SlackinJack",
+            "title": "distrifuser_comfyui",
+            "reference": "https://github.com/SlackinJack/distrifuser_comfyui",
+            "files": [
+                "https://github.com/SlackinJack/distrifuser_comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "[a/Distrifuser](https://github.com/mit-han-lab/distrifuser) sampler node for ComfyUI\n"
         },
 
 

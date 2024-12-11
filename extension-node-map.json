@@ -1354,10 +1354,7 @@
     "https://github.com/Anibaaal/ComfyUI-UX-Nodes": [
         [
             "BlockLayerStringGenerator",
-            "CheckpointLoaderBNB",
-            "EasyResolutionPicker",
-            "ModelMergeSD3_Large",
-            "UNETLoaderBNB"
+            "EasyResolutionPicker"
         ],
         {
             "title_aux": "ComfyUI UX Nodes"
@@ -2470,7 +2467,6 @@
         [
             "DPAspectRatioPicker",
             "DPBrokenToken",
-            "DPImageColorAnalyzer",
             "DPLogoAnimator",
             "DPVideoEffectReceiver",
             "DPVideoEffectSender",
@@ -2491,6 +2487,7 @@
             "DP_Five_Lora",
             "DP_Five_Lora_Random",
             "DP_Float_0_1",
+            "DP_Image_Color_Analyzer",
             "DP_Image_Empty_Latent_Switch",
             "DP_Image_Loader_Big",
             "DP_Image_Loader_Medium",
@@ -4203,14 +4200,12 @@
     "https://github.com/JichaoLiang/Immortal_comfyUI": [
         [
             "AppendNode",
-            "ApplyVoiceConversion",
             "CombineVideos",
             "ImAppendFreeChatAction",
             "ImAppendImageActionNode",
             "ImAppendQuickbackNode",
             "ImAppendQuickbackVideoNode",
             "ImAppendVideoNode",
-            "ImApplyWav2lip",
             "ImDumpEntity",
             "ImDumpNode",
             "ImLoadPackage",
@@ -6877,6 +6872,14 @@
             "title_aux": "ComfyUI-AstralAnimator"
         }
     ],
+    "https://github.com/ShmuelRonen/ComfyUI-CohernetVideoSampler": [
+        [
+            "CohernetVideoSampler"
+        ],
+        {
+            "title_aux": "ComfyUI Coherent Video Sampler Node"
+        }
+    ],
     "https://github.com/ShmuelRonen/ComfyUI-FreeMemory": [
         [
             "FreeMemoryCLIP",
@@ -6894,6 +6897,14 @@
         ],
         {
             "title_aux": "ComfyUI-SVDResizer"
+        }
+    ],
+    "https://github.com/ShmuelRonen/ComfyUI_Flux_1.1_RAW_API": [
+        [
+            "FluxPro11"
+        ],
+        {
+            "title_aux": "ComfyUI Flux 1.1 Ultra & Raw Node"
         }
     ],
     "https://github.com/ShmuelRonen/ComfyUI_Gemini_Flash": [
@@ -6973,6 +6984,14 @@
         ],
         {
             "title_aux": "ComfyUI_AnimationNodes"
+        }
+    ],
+    "https://github.com/SlackinJack/distrifuser_comfyui": [
+        [
+            "DistrifuserSampler"
+        ],
+        {
+            "title_aux": "distrifuser_comfyui"
         }
     ],
     "https://github.com/SleeeepyZhou/ComfyUI-CNtranslator": [
@@ -7293,6 +7312,17 @@
         ],
         {
             "title_aux": "Comfyui_CXH_FluxLoraMerge"
+        }
+    ],
+    "https://github.com/StartHua/Comfyui_CXH_Phi_3.5": [
+        [
+            "CXH_Phi_Run",
+            "CXH_Phi_chat_load",
+            "CXH_Phi_chat_min",
+            "CXH_Phi_load"
+        ],
+        {
+            "title_aux": "Comfyui_CXH_Phi_3.5"
         }
     ],
     "https://github.com/StartHua/Comfyui_CXH_joy_caption": [
@@ -9791,6 +9821,7 @@
             "Sage_GetFileHash",
             "Sage_GetInfoFromHash",
             "Sage_GetModelJSONFromHash",
+            "Sage_GetPicturesFromHash",
             "Sage_IterOverFiles",
             "Sage_JoinText",
             "Sage_KSampler",
@@ -10068,6 +10099,7 @@
             "SP_KoboldCppWithContext",
             "SP_KoboldCpp_BannedTokens",
             "SP_KoboldCpp_OverrideCfg",
+            "SP_ListAny",
             "SP_Pipe",
             "SP_Pipe_ToBasicPipe",
             "SP_SD3Loader",
@@ -10230,7 +10262,7 @@
             "title_aux": "ComfyUI_NAIDGenerator"
         }
     ],
-    "https://github.com/bentoml/ComfyUI-IDL": [
+    "https://github.com/bentoml/comfy-pack": [
         [
             "CPackInputAny",
             "CPackInputFile",
@@ -10241,7 +10273,7 @@
             "CPackOutputImage"
         ],
         {
-            "title_aux": "ComfyUI-IDL"
+            "title_aux": "Comfy Pack"
         }
     ],
     "https://github.com/bilal-arikan/ComfyUI_TextAssets": [
@@ -11466,6 +11498,8 @@
             "LayerUtility: LlamaVision",
             "LayerUtility: LoadJoyCaption2Model",
             "LayerUtility: LoadPSD",
+            "LayerUtility: LoadSmolLM2Model",
+            "LayerUtility: LoadSmolVLMModel",
             "LayerUtility: PhiPrompt",
             "LayerUtility: PromptEmbellish",
             "LayerUtility: PromptTagger",
@@ -11473,6 +11507,8 @@
             "LayerUtility: SD3NegativeConditioning",
             "LayerUtility: SaveImagePlus",
             "LayerUtility: ShowBlindWaterMark",
+            "LayerUtility: SmolLM2",
+            "LayerUtility: SmolVLM",
             "LayerUtility: UserPromptGeneratorReplaceWord",
             "LayerUtility: UserPromptGeneratorTxt2ImgPrompt",
             "LayerUtility: UserPromptGeneratorTxt2ImgPromptWithReference"
@@ -13242,21 +13278,6 @@
         ],
         {
             "title_aux": "ComfyUI-Keyframed"
-        }
-    ],
-    "https://github.com/doomy23/ComfyUI-D00MYsNodes": [
-        [
-            "Images_Converter|D00MYs",
-            "JSPaint|D00MYs",
-            "Load_Images_From_Paths|D00MYs",
-            "Random_Images|D00MYs",
-            "Save_Images|D00MYs",
-            "Save_Text|D00MYs",
-            "Show_Text|D00MYs",
-            "Strings_From_List|D00MYs"
-        ],
-        {
-            "title_aux": "ComfyUI-D00MYsNodes"
         }
     ],
     "https://github.com/drago87/ComfyUI_Dragos_Nodes": [
@@ -15935,7 +15956,8 @@
     ],
     "https://github.com/jax-explorer/comfyui-model-dynamic-loader": [
         [
-            "LoadLoraFromCivitAI"
+            "LoadLoraFromCivitAI",
+            "LoadLoraFromHF"
         ],
         {
             "title_aux": "comfyui-model-dynamic-loader"
@@ -17696,11 +17718,9 @@
     ],
     "https://github.com/leoleelxh/ComfyUI-LLMs": [
         [
-            "\ud83d\uddbc\ufe0f LLMs_Vison_Ali",
-            "\ud83d\uddbc\ufe0f LLMs_Vison_GLM4",
-            "\ud83d\uddbc\ufe0f LLMs_Vison_Gemini",
-            "\ud83d\ude00 LLMs_Chat",
-            "\ud83d\ude00 LLMs_Chat_GLM4_Only"
+            "LLMs Chat",
+            "LLMs Vision Unified",
+            "LLMs_Vision_Unified"
         ],
         {
             "title_aux": "ComfyUI-LLMs"
@@ -17776,6 +17796,7 @@
     ],
     "https://github.com/liuqianhonga/ComfyUI-String-Helper": [
         [
+            "ShowTranslateString",
             "StringFormatter",
             "StringList"
         ],
@@ -18591,6 +18612,18 @@
             ],
             "title": "Impact Pack",
             "title_aux": "ComfyUI Impact Pack"
+        }
+    ],
+    "https://github.com/ltdrdata/ComfyUI-Impact-Subpack": [
+        [
+            "UltralyticsDetectorProvider"
+        ],
+        {
+            "author": "Dr.Lt.Data",
+            "description": "This extension provides UltralyticsDetectorProvider node",
+            "nickname": "Impact Subpack",
+            "title": "Impact Subpack",
+            "title_aux": "ComfyUI Impact Subpack"
         }
     ],
     "https://github.com/ltdrdata/ComfyUI-Inspire-Pack": [
@@ -19433,6 +19466,14 @@
         ],
         {
             "title_aux": "MLTask_ComfyUI"
+        }
+    ],
+    "https://github.com/mithamunda/ComfyUI-SD3.5-Latent-Size-Picker": [
+        [
+            "SD3_5EmptyLatent"
+        ],
+        {
+            "title_aux": "SD3.5 Empty Latent Size Picker"
         }
     ],
     "https://github.com/mithamunda/ComfyUI-TogetherVision": [
@@ -20688,7 +20729,16 @@
     ],
     "https://github.com/purpen/ComfyUI-AIRedoon": [
         [
+            "AIRedoonApplyLoRAStack",
+            "AIRedoonCheckLoraFile",
+            "AIRedoonCheckModelFile",
+            "AIRedoonConcatText",
             "AIRedoonImageCaptioning",
+            "AIRedoonImageRGBA2RGB",
+            "AIRedoonLoRAStack",
+            "AIRedoonPreviewText",
+            "AIRedoonQwenModelLoader",
+            "AIRedoonSaveText",
             "AIRedoonTranslator"
         ],
         {
@@ -21154,8 +21204,11 @@
     ],
     "https://github.com/rubi-du/ComfyUI-Flux-Inpainting": [
         [
-            "Flux Inpaint",
-            "Flux Inpainting"
+            "Flux Inpainting",
+            "FluxInpainting",
+            "FluxSimpleInpainting",
+            "FluxTransformerInpainting",
+            "FluxVAELoader"
         ],
         {
             "title_aux": "ComfyUI-Flux-Inpainting"
