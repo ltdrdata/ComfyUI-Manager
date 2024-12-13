@@ -1321,13 +1321,6 @@ async def load_components(request):
         return web.Response(status=400)
 
 
-args.enable_cors_header = "*"
-if hasattr(PromptServer.instance, "app"):
-    app = PromptServer.instance.app
-    cors_middleware = server.create_cors_middleware(args.enable_cors_header)
-    app.middlewares.append(cors_middleware)
-
-
 def sanitize(data):
     return data.replace("<", "&lt;").replace(">", "&gt;")
 
