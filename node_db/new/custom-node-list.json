@@ -11,6 +11,16 @@
         
         
         {
+            "author": "codeprimate",
+            "title": "ComfyUI Mask Contour Processor",
+            "reference": "https://github.com/codeprimate/ComfyUI-MaskContourProcessor",
+            "files": [
+                "https://github.com/codeprimate/ComfyUI-MaskContourProcessor"
+            ],
+            "install_type": "git-clone",
+            "description": "A ComfyUI node that improves inpainting results by extending mask boundaries with geometric patterns, helping create smoother transitions and better context for AI-driven image completion."
+        },
+        {
             "author": "LiJT",
             "title": "Gemini prompt generator JT version",
             "reference": "https://github.com/LiJT/ComfyUI-Gemini-Prompt-Generator-JT",
@@ -19,6 +29,46 @@
             ],
             "install_type": "git-clone",
             "description": "Custom node to use Gemini 1.5 and above for Comfyui to generates theme related prompts for image generators"
+        },
+        {
+            "author": "Miyuutsu",
+            "title": "comfyui-save-vpred",
+            "reference": "https://github.com/Miyuutsu/comfyui-save-vpred",
+            "files": [
+                "https://github.com/Miyuutsu/comfyui-save-vpred"
+            ],
+            "install_type": "git-clone",
+            "description": "Simple ComfyUI Custom Node to enable saving checkpoints with V-Pred ZTSNR tensors and metadata."
+        },
+        {
+            "author": "Doctor Diffusion",
+            "title": "ComfyUI BEN - Background Erase Network",
+            "reference": "https://github.com/DoctorDiffusion/ComfyUI-BEN",
+            "files": [
+                "https://github.com/DoctorDiffusion/ComfyUI-BEN"
+            ],
+            "install_type": "git-clone",
+            "description": "Remove backgrounds from images with [a/BEN](https://huggingface.co/PramaLLC/BEN) in ComfyUI"
+        },
+        {
+            "author": "ryanontheinside",
+            "title": "ComfyUI Control Nodes",
+            "reference": "https://github.com/ryanontheinside/ComfyUI_RealTimeNodes",
+            "files": [
+                "https://github.com/ryanontheinside/ComfyUI_RealTimeNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "Simple control nodes that generate changing values over separate executions of a workflow. Each time the workflow is executed, the value will be updated. This is useful for animating parameters in systems like ComfyStream that execute the workflow for each frame."
+        },
+        {
+            "author": "kostenickj",
+            "title": "comfyui-jk-easy-nodes",
+            "reference": "https://github.com/kostenickj/jk-comfyui-helpers",
+            "files": [
+                "https://github.com/kostenickj/jk-comfyui-helpers"
+            ],
+            "install_type": "git-clone",
+            "description": "NODES: EasyHRFix, EasyHRFix_Context, JKAnythingToString, JKBigContext, JKDynamicThresholdingMultiModel, JKEasyCheckpointLoader, JKEasyDetailer, JKEasyDetailer_Context, JKEasyKSampler_Context, JKEasyWatermark, JKInspireSchedulerAdapter, JKLilContext, JKMultiModelSamplerUnpatch, JKStringEmpty, JKStringEquals, JKStringNotEmpty, JKStringNotEquals, JKStringToSamplerAdapter"
         },
         {
             "author": "smthemex",
@@ -646,67 +696,6 @@
             ],
             "install_type": "git-clone",
             "description": "Easy Pony is a helper node that simplifies the process of adding scoring and other attributes to prompts when using Pony models."
-        },
-        {
-            "author": "Yuan-ManX",
-            "title": "ComfyUI-LLaMA-Mesh",
-            "reference": "https://github.com/Yuan-ManX/ComfyUI-LLaMA-Mesh",
-            "files": [
-                "https://github.com/Yuan-ManX/ComfyUI-LLaMA-Mesh"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI nodes for LLaMA-Mesh model."
-        },
-        {
-            "author": "mrhan1993",
-            "title": "ComfyUI-Fooocus",
-            "reference": "https://github.com/mrhan1993/ComfyUI-Fooocus",
-            "files": [
-                "https://github.com/mrhan1993/ComfyUI-Fooocus"
-            ],
-            "install_type": "git-clone",
-            "description": "This extension provides image generation features based on Fooocus."
-        },
-        {
-            "author": "steelan9199",
-            "title": "ComfyUI-Teeth",
-            "reference": "https://github.com/steelan9199/ComfyUI-Teeth",
-            "files": [
-                "https://github.com/steelan9199/ComfyUI-Teeth"
-            ],
-            "install_type": "git-clone",
-            "description": "NODES: Index List, TextSplitByDelimiter"
-        },
-        {
-            "author": "takemetosiberia",
-            "title": "SAMURAI Nodes for ComfyUI",
-            "reference": "https://github.com/takemetosiberia/ComfyUI-SAMURAI--SAM2-",
-            "files": [
-                "https://github.com/takemetosiberia/ComfyUI-SAMURAI--SAM2-"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI nodes for video object segmentation using [a/SAMURAI](https://github.com/yangchris11/samurai) model."
-        },
-        {
-            "author": "motivated3",
-            "title": "ComfyUI MiaoShua Creator",
-            "id": "comfyui-shua-creator",
-            "reference": "https://github.com/motivated3/comfyui-shua-creator",
-            "files": [
-                "https://github.com/motivated3/comfyui-shua-creator"
-            ],
-            "install_type": "git-clone",
-            "description": "With the MiaoShua creator's end, you can use this plugin to upload debugged workflows for consumer end users to use."
-        },
-        {
-            "author": "DoctorDiffusion",
-            "title": "ComfyUI-SnakeOil",
-            "reference": "https://github.com/DoctorDiffusion/ComfyUI-SnakeOil",
-            "files": [
-                "https://github.com/DoctorDiffusion/ComfyUI-SnakeOil"
-            ],
-            "install_type": "git-clone",
-            "description": "Use [a/Doctor Diffusion's snake oil nLoRAs](https://civitai.com/models/987843) as well as [a/other negative LoRAs](https://civitai.com/models/186617/doctor-diffusions-negative-xl-lora) easily within ComfyUI."
         }
     ]
 }
