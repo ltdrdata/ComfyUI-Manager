@@ -11,10 +11,6 @@
 
 
 
-
-
-
-
         {
             "author": "watarika",
             "title": "ComfyUI-exit [UNSAFE]",
@@ -470,16 +466,6 @@
             "description": "In production environments, images are usually saved on storage servers such as S3, rather than local folders. So the method of placing images in local folders using ComfyUI's native LoadImage and SaveImage nodes cannot be used as a deployment service method, but can only be used as a temporary storage place for images. This requires a way to delete images from the input and output folders.\nThis node is used to delete images from the input and output folders. It is recommended to use this node through api call in the backend after the image processing is completed.[w/Users can use the file deletion feature through the workflow.]"
         },
         {
-            "author": "kostenickj",
-            "title": "comfyui-jk-easy-nodes",
-            "reference": "https://github.com/kostenickj/comfyui-jk-easy-nodes",
-            "files": [
-                "https://github.com/kostenickj/comfyui-jk-easy-nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "NODES:JK Easy Prompt, JK Easy HiRes Fix"
-        },
-        {
             "author": "yorkane",
             "title": "Comfy UI Robe Nodes [UNSAFE]",
             "reference": "https://github.com/RobeSantoro/ComfyUI-RobeNodes",
@@ -662,16 +648,6 @@
             "description": "NODES:CFGControl_SKIPCFG"
         },
         {
-            "author": "PnthrLeo",
-            "title": "comfyUI-image-search",
-            "reference": "https://github.com/PnthrLeo/comfyUI-image-search",
-            "files": [
-                "https://github.com/PnthrLeo/comfyUI-image-search"
-            ],
-            "install_type": "git-clone",
-            "description": "NODES:CloseImagesSearcher"
-        },
-        {
             "author": "Clelstyn",
             "title": "ComfyUI-Inpaint_with_Detailer",
             "reference": "https://github.com/Clelstyn/ComfyUI-Inpaint_with_Detailer",
@@ -720,16 +696,6 @@
             ],
             "install_type": "git-clone",
             "description": "Custom nodes for ComfyUI created for some of my workflows.\nLLM All-in-One Node, String Splitter Node, LoRA Switcher Node, Image Overlay Node"
-        },
-        {
-            "author": "DoctorDiffusion",
-            "title": "DoctorDiffusion [WIP]",
-            "reference": "https://github.com/DoctorDiffusion/Doctor-Tools",
-            "files": [
-                "https://github.com/DoctorDiffusion/Doctor-Tools"
-            ],
-            "install_type": "git-clone",
-            "description": "NODES:Final Frame Selector, Video Merge.\nNOTE: The files in the repo are not organized."
         },
         {
             "author": "m-ai-studio",
@@ -2593,10 +2559,10 @@
         },
         {
             "author": "nat-chan",
-            "title": "comfyui-in-memory-transceiver",
-            "reference": "https://github.com/nat-chan/comfyui-in-memory-transceiver",
+            "title": "Transceiver📡",
+            "reference": "https://github.com/nat-chan/transceiver",
             "files": [
-                "https://github.com/nat-chan/comfyui-in-memory-transceiver"
+                "https://github.com/nat-chan/transceiver"
             ],
             "install_type": "git-clone",
             "description": "Why? When processing a large number of requests, the SaveImage and LoadImage nodes may be IO-limited, and using shared memory improves performance by passing images only through memory access, not through IO."
