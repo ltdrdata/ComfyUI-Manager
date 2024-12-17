@@ -2481,7 +2481,10 @@
             "DP_2Floats_0_1",
             "DP_2floats_0_1",
             "DP_3Floats_0_1",
+            "DP_3Parts_Line_Cycler",
             "DP_3floats_0_1",
+            "DP_5Floats_0_1",
+            "DP_5floats_0_1",
             "DP_Animation_Calculator_5Inputs",
             "DP_Aspect_Ratio",
             "DP_Big_Letters",
@@ -2489,7 +2492,8 @@
             "DP_Clean_Prompt",
             "DP_Crazy_Prompt",
             "DP_Create_JSON",
-            "DP_Dual_CLIP_Loader_Optimized",
+            "DP_Diff_Int_8step_selector",
+            "DP_Diff_Int_transition_selector",
             "DP_FastSlowMotion",
             "DP_Fast_Slow_Motion",
             "DP_Five_Lora",
@@ -2500,6 +2504,7 @@
             "DP_Image_Loader_Big",
             "DP_Image_Loader_Medium",
             "DP_Image_Loader_Small",
+            "DP_Image_Loader_With_Resize",
             "DP_Image_Slide_Show",
             "DP_Logo_Animator",
             "DP_Prompt_Random_Switch",
@@ -2508,18 +2513,17 @@
             "DP_Random_Char",
             "DP_Random_MinMax",
             "DP_Smart_Saver",
-            "DP_UNET_Loader_Optimized",
-            "DP_VAE_Decode_Optimized",
-            "DP_VAE_Encode_Optimized",
-            "DP_VAE_Loader_Optimized",
+            "DP_String_With_Switch",
             "DP_Video_Effect_Receiver",
             "DP_Video_Effect_Sender",
             "DP_Video_Flicker",
+            "DP_Video_Looper",
             "DP_Video_Transition",
             "DP_clean_prompt",
             "DP_create_json_file",
             "DP_float_0_1",
             "DP_smart_saver",
+            "DP_txt_img2img_Switch",
             "DpPromptStyler",
             "Dp_Random_Crazy_Prompt_Generator"
         ],
@@ -3913,6 +3917,9 @@
     ],
     "https://github.com/Isi-dev/ComfyUI-UniAnimate-W": [
         [
+            "Animate_X_Image",
+            "Animate_X_Image_Long",
+            "Animate_X_ReposeImage",
             "Gen_align_pose",
             "ReposeImage",
             "UniAnimateImage",
@@ -7346,10 +7353,14 @@
             "SDVN Merge SD1",
             "SDVN Merge SDXL",
             "SDVN Model Merge",
+            "SDVN Pipe In",
+            "SDVN Pipe Out",
+            "SDVN Pipe Out All",
             "SDVN Run Python Code",
             "SDVN Run Test",
             "SDVN Seed",
             "SDVN StyleModel Download",
+            "SDVN Styles",
             "SDVN Switch",
             "SDVN Translate",
             "SDVN UNET Download",
@@ -11813,7 +11824,8 @@
             "Batch Noise Simulate",
             "Mix Noise",
             "Seperable Batch Noise",
-            "Shape Noise"
+            "Shape Noise",
+            "Split Sigmas with Rewind"
         ],
         {
             "title_aux": "Noise variation and batch noise tools"
@@ -12137,6 +12149,7 @@
             "DisableNoise",
             "DualCFGGuider",
             "DualCLIPLoader",
+            "EmptyHunyuanLatentVideo",
             "EmptyImage",
             "EmptyLTXVLatentVideo",
             "EmptyLatentAudio",
@@ -15631,6 +15644,16 @@
             "title_aux": "ComfyUI-IF_MemoAvatar"
         }
     ],
+    "https://github.com/if-ai/ComfyUI-IF_Trellis": [
+        [
+            "IF_Preview_3D",
+            "IF_TrellisCheckpointLoader",
+            "IF_TrellisImageTo3D"
+        ],
+        {
+            "title_aux": "ComfyUI-IF_Trellis"
+        }
+    ],
     "https://github.com/ihmily/ComfyUI-Light-Tool": [
         [
             "Light-Tool: AddBackground",
@@ -17076,6 +17099,7 @@
             "HyVideoTextEmbedsLoad",
             "HyVideoTextEmbedsSave",
             "HyVideoTextEncode",
+            "HyVideoTextImageEncode",
             "HyVideoTorchCompileSettings",
             "HyVideoVAELoader"
         ],
@@ -21230,6 +21254,18 @@
             "title_aux": "ComfyUI-Prediction"
         }
     ],
+    "https://github.com/regiellis/ComfyUI-EasyNoobai": [
+        [
+            "EasyNoobai",
+            "NoobaiArtists",
+            "NoobaiCharacters",
+            "NoobaiE621Artists",
+            "NoobaiE621Characters"
+        ],
+        {
+            "title_aux": "ComfyUI-EasyNoobai"
+        }
+    ],
     "https://github.com/regiellis/ComfyUI-EasyPony": [
         [
             "EasyPony"
@@ -21573,10 +21609,11 @@
     "https://github.com/ryanontheinside/ComfyUI_RealTimeNodes": [
         [
             "FloatControl",
-            "IntControl"
+            "IntControl",
+            "QuickShapeMask"
         ],
         {
-            "title_aux": "ComfyUI Control Nodes"
+            "title_aux": "Nodes for use with real-time applications of ComfyUI"
         }
     ],
     "https://github.com/ryanontheinside/ComfyUI_RyanOnTheInside": [
