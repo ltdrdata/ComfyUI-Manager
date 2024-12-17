@@ -11,6 +11,7 @@ import threading
 import re
 import shutil
 import git
+from datetime import datetime
 
 from server import PromptServer
 import manager_core as core
@@ -20,9 +21,9 @@ print(f"### Loading: ComfyUI-Manager ({core.version_str})")
 
 comfy_ui_hash = "-"
 
-SECURITY_MESSAGE_MIDDLE_OR_BELOW = f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
-SECURITY_MESSAGE_NORMAL_MINUS = f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
-SECURITY_MESSAGE_GENERAL = f"ERROR: This installation is not allowed in this security_level. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
+SECURITY_MESSAGE_MIDDLE_OR_BELOW = "ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
+SECURITY_MESSAGE_NORMAL_MINUS = "ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
+SECURITY_MESSAGE_GENERAL = "ERROR: This installation is not allowed in this security_level. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
 
 def handle_stream(stream, prefix):
     stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
@@ -196,7 +197,7 @@ def print_comfyui_version():
 
             del cm_global.variables['cm.on_revision_detected_handler']
         else:
-            print(f"[ComfyUI-Manager] Some features are restricted due to your ComfyUI being outdated.")
+            print("[ComfyUI-Manager] Some features are restricted due to your ComfyUI being outdated.")
         # <--
 
         if current_branch == "master":
@@ -243,7 +244,6 @@ setup_environment()
 
 # Expand Server api
 
-import server
 from aiohttp import web
 import aiohttp
 import json
@@ -289,7 +289,7 @@ def get_model_dir(data):
             if folder_paths.folder_names_and_paths.get("text_encoders"):
                 base_model = folder_paths.folder_names_and_paths["text_encoders"][0][0]
             else:
-                print(f"[ComfyUI-Manager] Your ComfyUI is outdated version.")
+                print("[ComfyUI-Manager] Your ComfyUI is outdated version.")
                 base_model = folder_paths.folder_names_and_paths["clip"][0][0]  # outdated version
         elif model_type == "VAE":
             base_model = folder_paths.folder_names_and_paths["vae"][0][0]
@@ -313,7 +313,7 @@ def get_model_dir(data):
             if folder_paths.folder_names_and_paths.get("diffusion_models"):
                 base_model = folder_paths.folder_names_and_paths["diffusion_models"][0][1]
             else:
-                print(f"[ComfyUI-Manager] Your ComfyUI is outdated version.")
+                print("[ComfyUI-Manager] Your ComfyUI is outdated version.")
                 base_model = folder_paths.folder_names_and_paths["unet"][0][0]  # outdated version
         else:
             base_model = os.path.join(models_base, "etc")
@@ -345,15 +345,15 @@ def check_custom_nodes_installed(json_obj, do_fetch=False, do_update_check=True,
             executor.submit(process_custom_node, item)
 
     if do_fetch:
-        print(f"\x1b[2K\rFetching done.")
+        print("\x1b[2K\rFetching done.")
     elif do_update:
         update_exists = any(item['installed'] == 'Update' for item in json_obj['custom_nodes'])
         if update_exists:
-            print(f"\x1b[2K\rUpdate done.")
+            print("\x1b[2K\rUpdate done.")
         else:
-            print(f"\x1b[2K\rAll extensions are already up-to-date.")
+            print("\x1b[2K\rAll extensions are already up-to-date.")
     elif do_update_check:
-        print(f"\x1b[2K\rUpdate check done.")
+        print("\x1b[2K\rUpdate check done.")
 
 
 def nickname_filter(json_obj):
@@ -655,7 +655,7 @@ async def remove_snapshot(request):
 
 
 @PromptServer.instance.routes.get("/snapshot/restore")
-async def remove_snapshot(request):
+async def restore_snapshot(request):
     if not is_allowed_security_level('middle'):
         print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
@@ -871,7 +871,7 @@ async def install_custom_node(request):
     core.clear_pip_cache()
 
     if res:
-        print(f"After restarting ComfyUI, please refresh the browser.")
+        print("After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
     return web.Response(status=400)
@@ -913,7 +913,7 @@ async def fix_custom_node(request):
     core.try_install_script(json_data['files'][0], ".", install_cmd)
 
     if res:
-        print(f"After restarting ComfyUI, please refresh the browser.")
+        print("After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
     return web.Response(status=400)
@@ -929,14 +929,14 @@ async def install_custom_node_git_url(request):
     res = core.gitclone_install([url])
 
     if res:
-        print(f"After restarting ComfyUI, please refresh the browser.")
+        print("After restarting ComfyUI, please refresh the browser.")
         return web.Response(status=200)
 
     return web.Response(status=400)
 
 
 @PromptServer.instance.routes.post("/customnode/install/pip")
-async def install_custom_node_git_url(request):
+async def install_custom_node_pip(request):
     if not is_allowed_security_level('high'):
         print(SECURITY_MESSAGE_NORMAL_MINUS)
         return web.Response(status=403)
@@ -969,7 +969,7 @@ async def uninstall_custom_node(request):
         res = core.gitclone_uninstall(json_data['files'])
 
     if res:
-        print(f"After restarting ComfyUI, please refresh the browser.")
+        print("After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
     return web.Response(status=400)
@@ -995,7 +995,7 @@ async def update_custom_node(request):
     core.clear_pip_cache()
 
     if res:
-        print(f"After restarting ComfyUI, please refresh the browser.")
+        print("After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
     return web.Response(status=400)
@@ -1003,13 +1003,13 @@ async def update_custom_node(request):
 
 @PromptServer.instance.routes.get("/comfyui_manager/update_comfyui")
 async def update_comfyui(request):
-    print(f"Update ComfyUI")
+    print("Update ComfyUI")
 
     try:
         repo_path = os.path.dirname(folder_paths.__file__)
         res = core.update_path(repo_path)
         if res == "fail":
-            print(f"ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
+            print("ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
             return web.Response(status=400)
         elif res == "updated":
             return web.Response(status=201)
@@ -1220,9 +1220,9 @@ async def get_notice(request):
 
                     try:
                         if core.comfy_ui_commit_datetime == datetime(1900, 1, 1, 0, 0, 0):
-                            markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI isn\'t git repo.</P>' + markdown_content
+                            markdown_content = '<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI isn\'t git repo.</P>' + markdown_content
                         elif core.comfy_ui_required_commit_datetime.date() > core.comfy_ui_commit_datetime.date():
-                            markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
+                            markdown_content = '<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
                     except:
                         pass
 
@@ -1241,17 +1241,17 @@ def restart(self):
 
     try:
         sys.stdout.close_log()
-    except Exception as e:
+    except Exception:
         pass
 
     if '__COMFY_CLI_SESSION__' in os.environ:
-        with open(os.path.join(os.environ['__COMFY_CLI_SESSION__'] + '.reboot'), 'w') as file:
+        with open(os.path.join(os.environ['__COMFY_CLI_SESSION__'] + '.reboot'), 'w'):
             pass
 
-        print(f"\nRestarting...\n\n")
+        print("\nRestarting...\n\n")
         exit(0)
 
-    print(f"\nRestarting... [Legacy Mode]\n\n")
+    print("\nRestarting... [Legacy Mode]\n\n")
 
     sys_argv = sys.argv.copy()
     if '--windows-standalone-build' in sys_argv:

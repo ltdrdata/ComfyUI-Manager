@@ -178,8 +178,6 @@ async def api_get_comfyworkflows_auth(request):
 @PromptServer.instance.routes.post("/manager/set_esheep_workflow_and_images")
 async def set_esheep_workflow_and_images(request):
     json_data = await request.json()
-    current_workflow = json_data['workflow']
-    images = json_data['images']
     with open(os.path.join(core.comfyui_manager_path, "esheep_share_message.json"), "w", encoding='utf-8') as file:
         json.dump(json_data, file, indent=4)
         return web.Response(status=200)
@@ -368,9 +366,9 @@ async def share_art(request):
                 text_content += f"{description}\n"
             if credits:
                 text_content += f"\ncredits: {credits}\n"
-            response = matrix.send_message(comfyui_share_room_id, text_content)
-            response = matrix.send_content(comfyui_share_room_id, mxc_url, filename, 'm.image')
-            response = matrix.send_content(comfyui_share_room_id, workflow_json_mxc_url, 'workflow.json', 'm.file')
+            matrix.send_message(comfyui_share_room_id, text_content)
+            matrix.send_content(comfyui_share_room_id, mxc_url, filename, 'm.image')
+            matrix.send_content(comfyui_share_room_id, workflow_json_mxc_url, 'workflow.json', 'm.file')
         except:
             import traceback
             traceback.print_exc()

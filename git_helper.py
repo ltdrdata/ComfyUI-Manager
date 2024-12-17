@@ -41,7 +41,7 @@ nodelist_path = os.path.join(os.path.dirname(__file__), "custom-node-list.json")
 working_directory = os.getcwd()
 
 if os.path.basename(working_directory) != 'custom_nodes':
-    print(f"WARN: This script should be executed in custom_nodes dir")
+    print("WARN: This script should be executed in custom_nodes dir")
     print(f"DBG: INFO {working_directory}")
     print(f"DBG: INFO {sys.argv}")
     # exit(-1)

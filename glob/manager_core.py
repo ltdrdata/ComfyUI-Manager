@@ -21,7 +21,7 @@ glob_path = os.path.join(os.path.dirname(__file__))  # ComfyUI-Manager/glob
 sys.path.append(glob_path)
 
 import cm_global
-from manager_util import *
+from manager_util import PIPFixer, StrictVersion
 
 version = [2, 55, 5]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
@@ -116,8 +116,8 @@ def get_installed_packages():
                         continue
 
                     pip_map[y[0]] = y[1]
-        except subprocess.CalledProcessError as e:
-            print(f"[ComfyUI-Manager] Failed to retrieve the information of installed pip packages.")
+        except subprocess.CalledProcessError:
+            print("[ComfyUI-Manager] Failed to retrieve the information of installed pip packages.")
             return set()
 
     return pip_map
@@ -351,7 +351,7 @@ def try_install_script(url, repo_path, install_cmd, instant_execution=False):
                 if comfy_ui_commit_datetime.date() < comfy_ui_required_commit_datetime.date():
                     print("\n\n###################################################################")
                     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version ({comfy_ui_revision})[{comfy_ui_commit_datetime.date()}] is too old. Please update to the latest version.")
-                    print(f"[WARN] The extension installation feature may not work properly in the current installed ComfyUI version on Windows environment.")
+                    print("[WARN] The extension installation feature may not work properly in the current installed ComfyUI version on Windows environment.")
                     print("###################################################################\n\n")
             except:
                 pass
@@ -390,7 +390,7 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
             output, _ = process.communicate()
             output = output.decode('utf-8').strip()
         except Exception:
-            print(f'[ComfyUI-Manager] failed to fixing')
+            print('[ComfyUI-Manager] failed to fixing')
 
         if 'detected dubious' in output:
             print(f'\n[ComfyUI-Manager] Failed to fixing repository setup. Please execute this command on cmd: \n'
@@ -468,7 +468,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
             pip_fixer.fix_broken()
 
         if os.path.exists(install_script_path):
-            print(f"Install: install script")
+            print("Install: install script")
             install_cmd = [sys.executable, "install.py"]
             try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
@@ -663,7 +663,7 @@ async def get_data(uri, silent=False):
 
     json_obj = json.loads(json_text)
     if not silent:
-        print(f" [DONE]")
+        print(" [DONE]")
     return json_obj
 
 
@@ -942,7 +942,7 @@ def update_path(repo_path, instant_execution=False):
         remote.fetch()
     except Exception as e:
         if 'detected dubious' in str(e):
-            print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
+            print("[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
             safedir_path = comfy_path.replace('\\', '/')
             subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', safedir_path])
             try:
@@ -1084,7 +1084,7 @@ def get_current_snapshot():
     repo_path = comfy_path
 
     if not os.path.exists(os.path.join(repo_path, '.git')):
-        print(f"ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
+        print("ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
         return {}
 
     repo = git.Repo(repo_path)
