@@ -1125,17 +1125,6 @@ export class CustomNodesManager {
 			}
 		}
 
-		const resUnresolved = await fetchData(`/component/get_unresolved`);
-		const unresolved = resUnresolved.data;
-		if (unresolved && unresolved.nodes) {
-			unresolved.nodes.forEach(node_type => {
-				const url = name_to_urls[node_type];
-				if(url) {
-					missing_nodes.add(url);
-				}
-			});
-		}
-
 		const hashMap = {};
 		this.custom_nodes.forEach(item => {
 			if (item.files.some(file => missing_nodes.has(file))) {
