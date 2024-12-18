@@ -188,6 +188,16 @@
             "title_aux": "ComfyUI MagicClip_Strength for SDXL"
         }
     ],
+    "https://github.com/42lux/ComfyUI-42lux": [
+        [
+            "FluxEmptyLatentSizePicker",
+            "ModelSamplingFluxNormalized",
+            "PromptWithTokenCounter"
+        ],
+        {
+            "title_aux": "Just a bunch of QOL nodes by 42lux"
+        }
+    ],
     "https://github.com/42lux/ComfyUI-safety-checker": [
         [
             "Safety Checker"
@@ -1188,6 +1198,7 @@
     "https://github.com/Aerse/ComfyUI-Seed-Nodes": [
         [
             "Seed-Nodes: ImagePixelator",
+            "Seed-Nodes: ImageTo3D",
             "Seed-Nodes: LoadImage",
             "Seed-Nodes: LoadMultipleImages",
             "Seed-Nodes: SLICPixelator"
@@ -1319,7 +1330,6 @@
             "MIDI READER (JOV) \ud83c\udfb9",
             "OP BINARY (JOV) \ud83c\udf1f",
             "OP UNARY (JOV) \ud83c\udfb2",
-            "PASSTHRU (JOV) \ud83d\ude8c",
             "PIXEL MERGE (JOV) \ud83e\udec2",
             "PIXEL SPLIT (JOV) \ud83d\udc94",
             "PIXEL SWAP (JOV) \ud83d\udd03",
@@ -2224,7 +2234,8 @@
             "UNetSave",
             "UltraSharkSampler",
             "UltraSharkSampler Tiled",
-            "VGG19StyleTransfer"
+            "VGG19StyleTransfer",
+            "Zampler_Test"
         ],
         {
             "title_aux": "RES4LYF"
@@ -5167,44 +5178,6 @@
             "title_aux": "ComfyI2I"
         }
     ],
-    "https://github.com/MaraScott/ComfyUI_MaraScott_Nodes": [
-        [
-            "MaraScottAnyBus_v2",
-            "MaraScottDisplayInfo_v2",
-            "MaraScottForLoopClose_v1",
-            "MaraScottForLoopIntMathOperation_v1",
-            "MaraScottForLoopOpen_v1",
-            "MaraScottForLoopToBoolNode_v1",
-            "MaraScottForLoopWhileClose_v1",
-            "MaraScottForLoopWhileOpen_v1",
-            "MaraScottGetModelBlocks_v1",
-            "MaraScottImageToGradient_v1",
-            "MaraScottIsEmptyOrNone_v1",
-            "MaraScottIsEmpty_v1",
-            "MaraScottIsEqual_v1",
-            "MaraScottIsNone_v1",
-            "MaraScottLoadImage_v1",
-            "MaraScottMcBoatyRefiner_v4",
-            "MaraScottMcBoatyRefiner_v5",
-            "MaraScottMcBoatyTilePrompter_v4",
-            "MaraScottMcBoatyTilePrompter_v5",
-            "MaraScottMcBoatyUpscalerRefiner_v5",
-            "MaraScottMcBoatyUpscaler_v4",
-            "MaraScottMcBoatyUpscaler_v5",
-            "MaraScottPasteInpaintingByMask_v1",
-            "MaraScottPromptFromImage_v1",
-            "MaraScottSetInpaintingByMask_v1",
-            "MaraScottTextConcatenate_v1",
-            "MaraScottTextConversion_StringToList_v1",
-            "MaraScottUpscalerRefinerNode_v3",
-            "MaraScott_Kijai_TokenCounter_v1",
-            "MaraScott_YoloDetection_v1",
-            "MaraScott_laksjdjf_Hires_v1"
-        ],
-        {
-            "title_aux": "\ud83d\udc30 MaraScott Nodes"
-        }
-    ],
     "https://github.com/MarcusNyne/m9-prompts-comfyui": [
         [
             "ScramblePrompts_m9",
@@ -6366,6 +6339,8 @@
             "Runware ControlNet",
             "Runware ControlNet Combine",
             "Runware ControlNet PreProcessor",
+            "Runware Embedding Search",
+            "Runware Embeddings Combine",
             "Runware Image Caption",
             "Runware Image Inference",
             "Runware Image Masking",
@@ -6374,7 +6349,8 @@
             "Runware Lora Search",
             "Runware Model Search",
             "Runware PhotoMaker V2",
-            "Runware Refiner"
+            "Runware Refiner",
+            "Runware VAE Search"
         ],
         {
             "title_aux": "Runware.ai ComfyUI Inference API Integration"
@@ -10931,7 +10907,6 @@
             "RemapRange",
             "ResizeByImage",
             "SplitImageChannels",
-            "TextFileLineIterator",
             "VidDirIterator"
         ],
         {
@@ -11637,6 +11612,7 @@
             "LayerMask: MaskByDifferent",
             "LayerMask: MediapipeFacialSegment",
             "LayerMask: ObjectDetectorFL2",
+            "LayerMask: ObjectDetectorGemini",
             "LayerMask: ObjectDetectorMask",
             "LayerMask: ObjectDetectorYOLO8",
             "LayerMask: ObjectDetectorYOLOWorld",
@@ -11652,6 +11628,7 @@
             "LayerUtility: CreateQRCode",
             "LayerUtility: DecodeQRCode",
             "LayerUtility: Florence2Image2Prompt",
+            "LayerUtility: Gemini",
             "LayerUtility: GetColorTone",
             "LayerUtility: GetColorToneV2",
             "LayerUtility: ImageAutoCrop",
@@ -12260,6 +12237,7 @@
             "PhotoMakerLoader",
             "PolyexponentialScheduler",
             "PorterDuffImageComposite",
+            "Preview3D",
             "PreviewAudio",
             "PreviewImage",
             "RandomNoise",
@@ -16178,6 +16156,7 @@
             "ComfyOnlineSaveFile",
             "ComfyOnlineUploadAnything",
             "LoadHunyuanLoraFromCivitAI",
+            "LoadHunyuanLoraFromHF",
             "LoadLoraFromCivitAI",
             "LoadLoraFromHF"
         ],
@@ -16509,10 +16488,24 @@
     ],
     "https://github.com/justUmen/Bjornulf_custom_nodes": [
         [
+            "Bjornulf_APIGenerateCivitAI",
+            "Bjornulf_APIGenerateCivitAIAddLORA",
+            "Bjornulf_APIGenerateFalAI",
+            "Bjornulf_APIGenerateFlux",
+            "Bjornulf_APIGenerateStability",
             "Bjornulf_AddLineNumbers",
             "Bjornulf_AnythingToText",
             "Bjornulf_AudioVideoSync",
             "Bjornulf_CharacterDescriptionGenerator",
+            "Bjornulf_CivitAILoraSelector",
+            "Bjornulf_CivitAILoraSelectorPONY",
+            "Bjornulf_CivitAILoraSelectorSD15",
+            "Bjornulf_CivitAILoraSelectorSDXL",
+            "Bjornulf_CivitAIModelSelectorFLUX_D",
+            "Bjornulf_CivitAIModelSelectorFLUX_S",
+            "Bjornulf_CivitAIModelSelectorPony",
+            "Bjornulf_CivitAIModelSelectorSD15",
+            "Bjornulf_CivitAIModelSelectorSDXL",
             "Bjornulf_CombineBackgroundOverlay",
             "Bjornulf_CombineImages",
             "Bjornulf_CombineTexts",
@@ -16525,10 +16518,19 @@
             "Bjornulf_FreeVRAM",
             "Bjornulf_GrayscaleTransform",
             "Bjornulf_GreenScreenToTransparency",
+            "Bjornulf_HiResFix",
             "Bjornulf_IfElse",
+            "Bjornulf_ImageBlend",
             "Bjornulf_ImageDetails",
             "Bjornulf_ImageMaskCutter",
             "Bjornulf_ImagesListToVideo",
+            "Bjornulf_LatentResolutionSelector",
+            "Bjornulf_ListLooper",
+            "Bjornulf_ListLooperCharacter",
+            "Bjornulf_ListLooperOutfitFemale",
+            "Bjornulf_ListLooperOutfitMale",
+            "Bjornulf_ListLooperScene",
+            "Bjornulf_ListLooperStyle",
             "Bjornulf_LoadImageWithTransparency",
             "Bjornulf_LoadImagesFromSelectedFolder",
             "Bjornulf_LoopAllLines",
@@ -16578,6 +16580,16 @@
             "Bjornulf_ShowStringText",
             "Bjornulf_ShowText",
             "Bjornulf_SpeechToText",
+            "Bjornulf_TextGenerator",
+            "Bjornulf_TextGeneratorCharacterCreature",
+            "Bjornulf_TextGeneratorCharacterFemale",
+            "Bjornulf_TextGeneratorCharacterMale",
+            "Bjornulf_TextGeneratorCharacterObject",
+            "Bjornulf_TextGeneratorCharacterPose",
+            "Bjornulf_TextGeneratorOutfitFemale",
+            "Bjornulf_TextGeneratorOutfitMale",
+            "Bjornulf_TextGeneratorScene",
+            "Bjornulf_TextGeneratorStyle",
             "Bjornulf_TextReplace",
             "Bjornulf_TextToAnything",
             "Bjornulf_TextToSpeech",
@@ -18357,7 +18369,9 @@
             "ConfigureModifiedFlux",
             "CreateRegionalCond",
             "FlowEditForwardSampler",
+            "FlowEditGuider",
             "FlowEditReverseSampler",
+            "FlowEditSampler",
             "FluxAttnOverride",
             "FluxDeGuidance",
             "FluxForwardODESampler",
@@ -18407,6 +18421,8 @@
             "LTXAttentioOverride",
             "LTXAttentionBank",
             "LTXAttnOverride",
+            "LTXFlowEditCFGGuider",
+            "LTXFlowEditSampler",
             "LTXForwardModelSamplingPred",
             "LTXPerturbedAttention",
             "LTXPrepareAttnInjections",
@@ -20694,6 +20710,7 @@
             "CLIPTextEncodeBREAK",
             "CLIPTokenCounter",
             "ConditioningZeroOutCombine",
+            "ConvertTimestepToSigma",
             "DynSamplerSelect",
             "EmptyLatentImageAR",
             "FreeU2PPM",
@@ -21610,7 +21627,8 @@
         [
             "FloatControl",
             "IntControl",
-            "QuickShapeMask"
+            "QuickShapeMask",
+            "StringControl"
         ],
         {
             "title_aux": "Nodes for use with real-time applications of ComfyUI"
@@ -22934,6 +22952,7 @@
             "teeth FindContours",
             "teeth GetFirstSeg",
             "teeth GetValueByIndexFromList",
+            "teeth RunPythonCode",
             "teeth TextSplitByDelimiter"
         ],
         {
