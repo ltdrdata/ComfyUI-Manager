@@ -15,7 +15,7 @@ glob_path = os.path.join(os.path.dirname(__file__), "glob")
 sys.path.append(glob_path)
 
 import security_check
-from manager_util import *
+from manager_util import PIPFixer, StrictVersion, get_installed_packages, clear_pip_cache
 import cm_global
 
 security_check.security_check()
@@ -309,27 +309,26 @@ except Exception as e:
 
 
 try:
-    import git
+    import git  # noqa: F401
 except ModuleNotFoundError:
     my_path = os.path.dirname(__file__)
     requirements_path = os.path.join(my_path, "requirements.txt")
 
-    print(f"## ComfyUI-Manager: installing dependencies. (GitPython)")
+    print("## ComfyUI-Manager: installing dependencies. (GitPython)")
     try:
         result = subprocess.check_output([sys.executable, '-s', '-m', 'pip', 'install', '-r', requirements_path])
-    except subprocess.CalledProcessError as e:
-        print(f"## [ERROR] ComfyUI-Manager: Attempting to reinstall dependencies using an alternative method.")
+    except subprocess.CalledProcessError:
+        print("## [ERROR] ComfyUI-Manager: Attempting to reinstall dependencies using an alternative method.")
         try:
             result = subprocess.check_output([sys.executable, '-s', '-m', 'pip', 'install', '--user', '-r', requirements_path])
-        except subprocess.CalledProcessError as e:
-            print(f"## [ERROR] ComfyUI-Manager: Failed to install the GitPython package in the correct Python environment. Please install it manually in the appropriate environment. (You can seek help at https://app.element.io/#/room/%23comfyui_space%3Amatrix.org)")
+        except subprocess.CalledProcessError:
+            print("## [ERROR] ComfyUI-Manager: Failed to install the GitPython package in the correct Python environment. Please install it manually in the appropriate environment. (You can seek help at https://app.element.io/#/room/%23comfyui_space%3Amatrix.org)")
 
 try:
-    import git
-    print(f"## ComfyUI-Manager: installing dependencies done.")
+    print("## ComfyUI-Manager: installing dependencies done.")
 except:
     # maybe we should sys.exit() here? there is at least two screens worth of error messages still being pumped after our error messages
-    print(f"## [ERROR] ComfyUI-Manager: GitPython package seems to be installed, but failed to load somehow. Make sure you have a working git client installed")
+    print("## [ERROR] ComfyUI-Manager: GitPython package seems to be installed, but failed to load somehow. Make sure you have a working git client installed")
 
 
 print("** ComfyUI startup time:", datetime.datetime.now())
@@ -374,7 +373,7 @@ def check_bypass_ssl():
         default_conf = config['default']
 
         if 'bypass_ssl' in default_conf and default_conf['bypass_ssl'].lower() == 'true':
-            print(f"[ComfyUI-Manager] WARN: Unsafe - SSL verification bypass option is Enabled. (see ComfyUI-Manager/config.ini)")
+            print("[ComfyUI-Manager] WARN: Unsafe - SSL verification bypass option is Enabled. (see ComfyUI-Manager/config.ini)")
             ssl._create_default_https_context = ssl._create_unverified_context  # SSL certificate error fix.
     except Exception:
         pass
@@ -457,7 +456,7 @@ if os.path.exists(restore_snapshot_path):
                     else:
                         print(prefix, msg, end="")
 
-        print(f"[ComfyUI-Manager] Restore snapshot.")
+        print("[ComfyUI-Manager] Restore snapshot.")
         cmd_str = [sys.executable, git_script_path, '--apply-snapshot', restore_snapshot_path]
 
         new_env = os.environ.copy()
@@ -507,13 +506,13 @@ if os.path.exists(restore_snapshot_path):
                 print(f"[ComfyUI-Manager] Restoring '{repository_name}' is failed.")
 
         if exit_code != 0:
-            print(f"[ComfyUI-Manager] Restore snapshot failed.")
+            print("[ComfyUI-Manager] Restore snapshot failed.")
         else:
-            print(f"[ComfyUI-Manager] Restore snapshot done.")
+            print("[ComfyUI-Manager] Restore snapshot done.")
 
     except Exception as e:
         print(e)
-        print(f"[ComfyUI-Manager] Restore snapshot failed.")
+        print("[ComfyUI-Manager] Restore snapshot failed.")
 
     os.remove(restore_snapshot_path)
 
@@ -618,7 +617,7 @@ def check_windows_event_loop_policy():
                 import asyncio
                 import asyncio.windows_events
                 asyncio.set_event_loop_policy(asyncio.windows_events.WindowsSelectorEventLoopPolicy())
-                print(f"[ComfyUI-Manager] Windows event loop policy mode enabled")
+                print("[ComfyUI-Manager] Windows event loop policy mode enabled")
             except Exception as e:
                 print(f"[ComfyUI-Manager] WARN: Windows initialization fail: {e}")
     except Exception:

@@ -69,7 +69,7 @@ def extract_nodes(code_text):
 
     try:
         if parse_cnt % 100 == 0:
-            print(f".", end="", flush=True)
+            print(".", end="", flush=True)
         parse_cnt += 1
 
         code_text = re.sub(r'\\[^"\']', '', code_text)
@@ -515,7 +515,7 @@ def gen_json(node_info):
             nodes.sort()
             data[git_url] = (nodes, metadata_in_url)
 
-    json_path = f"extension-node-map.json"
+    json_path = "extension-node-map.json"
     with open(json_path, "w", encoding='utf-8') as file:
         json.dump(data, file, indent=4, sort_keys=True)
 
