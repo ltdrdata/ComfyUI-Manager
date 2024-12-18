@@ -336,7 +336,7 @@ export class ShareDialogChooser extends ComfyDialog {
 				key: "Copus",
 				textContent: "Copus",
 				website: "https://www.copus.io",
-				description: "🔴 Permanently store and secure ownership of your workflow on the open-source platform: <a style='color:var(--input-text);' href='https://copus.io' target='_blank'>Copus.io</a>",
+				description: "🔴 Earn simple. Get paid from your ComfyUI workflows—no revenue sharing. Ever.",
 				onclick: () => {
 					showCopusShareDialog();
 				  this.close();
@@ -356,7 +356,8 @@ export class ShareDialogChooser extends ComfyDialog {
 			});
 
 			buttons.forEach(b => {
-				const button = $el("button", {
+				const button = $el("button", 
+					{
 					type: "button",
 					textContent: b.textContent,
 					onclick: b.onclick,
@@ -369,8 +370,14 @@ export class ShareDialogChooser extends ComfyDialog {
 						'padding': '5px 5px',
 						'margin-bottom': '5px',
 						'transition': 'background-color 0.3s',
+						'position':'relative'
 					}
-				});
+				},
+				[
+					$el("span", { style: { 
+					 } }),
+				]
+			);
 				button.addEventListener('mouseover', () => {
 					button.style.backgroundColor = '#007BFF'; // Change color on hover
 				});
@@ -387,6 +394,28 @@ export class ShareDialogChooser extends ComfyDialog {
 						'margin-bottom': '0',
 					},
 				});
+
+				const copus_ui =$el("div", { style: { 
+					'position': 'absolute',
+					'height': '100%',
+					'left': '-25px',
+					'top': '-26px',
+					'width': '100%',
+					'z-index':'-1',
+					'background':'url("https://static.copus.io/images/client/202412/test/f28ac6ef8f4c6f3d5d50856a272ed02c.png")',
+					'background-repeat': 'no-repeat',
+				} });
+				const copus_ui_bottom =$el("div", { style: { 
+					'position': 'absolute',
+					'height': '100%',
+					'left': '25px',
+					'bottom': '-26px',
+					'width': '100%',
+					'transform':'scale(-1, -1)',
+					'z-index':'-1',
+					'background':'url("https://static.copus.io/images/client/202412/test/f28ac6ef8f4c6f3d5d50856a272ed02c.png")',
+					'background-repeat': 'no-repeat',
+				} });
 
 				const websiteLink = $el("a", {
 					textContent: "🌐 Website",
@@ -417,7 +446,6 @@ export class ShareDialogChooser extends ComfyDialog {
 						'margin-bottom': '10px',
 					}
 				}, [button, websiteLink]);
-
 				const column = $el("div", {
 					style: {
 						'flex-basis': '100%',
@@ -426,8 +454,17 @@ export class ShareDialogChooser extends ComfyDialog {
 						'border': '1px solid #ddd',
 						'border-radius': '5px',
 						'box-shadow': '0 2px 4px rgba(0, 0, 0, 0.1)',
+						'position':'relative'
 					}
-				}, [buttonLinkContainer, description]);
+				}, [buttonLinkContainer, description
+					, 
+					b.key ==='Copus' ?
+					copus_ui
+					:'',
+					b.key ==='Copus' ?
+					copus_ui_bottom
+					:'',
+				]);
 
 				container.appendChild(column);
 			});
