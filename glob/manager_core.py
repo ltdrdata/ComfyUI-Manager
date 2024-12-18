@@ -1141,7 +1141,7 @@ class UnifiedManager:
 
         manager_util.download_url(node_info.download_url, custom_nodes_path, archive_name)
         os.makedirs(install_path, exist_ok=True)
-        extracted = cnr_utils.extract_package_as_zip(download_path, install_path)
+        extracted = manager_util.extract_package_as_zip(download_path, install_path)
         os.remove(download_path)
         result.to_path = install_path
 
@@ -1694,6 +1694,7 @@ def git_repo_update_check_with(path, do_fetch=False, do_update=False, no_deps=Fa
     :param path: path to git custom node
     :param do_fetch: do fetch during check
     :param do_update: do update during check
+    :param no_deps: don't install dependencies
     :return: update state * success
     """
     if do_fetch:
@@ -1816,7 +1817,7 @@ def is_valid_url(url):
             return True
     finally:
         # Check for SSH git URL format
-        pattern = re.compile(r"^(.+@|ssh:\/\/).+:.+$")
+        pattern = re.compile(r"^(.+@|ssh://).+:.+$")
         if pattern.match(url):
             return True
     return False

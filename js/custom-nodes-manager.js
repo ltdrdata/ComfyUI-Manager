@@ -1167,14 +1167,14 @@ export class CustomNodesManager {
 			let version_cnt = 0;
 
 			if(!is_enable) {
-				if(rowItem.cnr_latest != rowItem.originalData.active_version) {
-					versions.push('latest');
-				}
-
 				if(rowItem.originalData.active_version != 'nightly') {
 					versions.push('nightly');
 					default_version = 'nightly';
 					version_cnt++;
+				}
+
+				if(rowItem.cnr_latest != rowItem.originalData.active_version) {
+					versions.push('latest');
 				}
 			}
 
@@ -1186,15 +1186,9 @@ export class CustomNodesManager {
 				}
 			}
 
-			if(version_cnt == 1) {
-				// if only one version is available
-				this.installNodes([hash], btn, title, default_version);
-			}
-			else {
-				this.showVersionSelectorDialog(versions, (selected_version) => {
-					this.installNodes([hash], btn, title, selected_version);
-				});
-			}
+            this.showVersionSelectorDialog(versions, (selected_version) => {
+                this.installNodes([hash], btn, title, selected_version);
+            });
 		}
 		else {
 			show_message('Failed to fetch versions from ComfyRegistry.');
