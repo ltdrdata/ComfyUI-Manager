@@ -618,7 +618,7 @@ export class CustomNodesManager {
 			},
 
 			"switch": {
-				label: "Switch",
+				label: "Switch Ver",
 				mode: "switch"
 			}
 		}

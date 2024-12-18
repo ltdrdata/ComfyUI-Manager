@@ -876,7 +876,7 @@ class UnifiedManager:
 
         # 2. extract files into <node_id>@<cur_ver>
         install_path = self.active_nodes[node_id][1]
-        extracted = cnr_utils.extract_package_as_zip(download_path, install_path)
+        extracted = manager_util.extract_package_as_zip(download_path, install_path)
         os.remove(download_path)
 
         if extracted is None:
@@ -1144,7 +1144,7 @@ class UnifiedManager:
 
         manager_util.download_url(node_info.download_url, get_default_custom_nodes_path(), archive_name)
         os.makedirs(install_path, exist_ok=True)
-        extracted = cnr_utils.extract_package_as_zip(download_path, install_path)
+        extracted = manager_util.extract_package_as_zip(download_path, install_path)
         os.remove(download_path)
         result.to_path = install_path
 
