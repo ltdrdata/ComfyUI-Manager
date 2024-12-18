@@ -26,7 +26,7 @@ comfyui_manager_path = os.path.abspath(os.path.dirname(__file__))
 comfy_path = os.environ.get('COMFYUI_PATH')
 
 if comfy_path is None:
-    print(f"\n[bold yellow]WARN: The `COMFYUI_PATH` environment variable is not set. Assuming `custom_nodes/ComfyUI-Manager/../../` as the ComfyUI path.[/bold yellow]", file=sys.stderr)
+    print("\n[bold yellow]WARN: The `COMFYUI_PATH` environment variable is not set. Assuming `custom_nodes/ComfyUI-Manager/../../` as the ComfyUI path.[/bold yellow]", file=sys.stderr)
     comfy_path = os.path.abspath(os.path.join(comfyui_manager_path, '..', '..'))
 
 startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
@@ -50,7 +50,6 @@ def check_comfyui_hash():
     repo = git.Repo(comfy_path)
     core.comfy_ui_revision = len(list(repo.iter_commits('HEAD')))
 
-    comfy_ui_hash = repo.head.commit.hexsha
     cm_global.variables['comfyui.revision'] = core.comfy_ui_revision
 
     core.comfy_ui_commit_datetime = repo.head.commit.committed_datetime
@@ -827,13 +826,13 @@ def cli_only_mode(
         )):
     cli_mode_flag = os.path.join(os.path.dirname(__file__), '.enable-cli-only-mode')
     if mode.lower() == 'enable':
-        with open(cli_mode_flag, 'w') as file:
+        with open(cli_mode_flag, 'w'):
             pass
-        print(f"\nINFO: `cli-only-mode` is enabled\n")
+        print("\nINFO: `cli-only-mode` is enabled\n")
     elif mode.lower() == 'disable':
         if os.path.exists(cli_mode_flag):
             os.remove(cli_mode_flag)
-        print(f"\nINFO: `cli-only-mode` is disabled\n")
+        print("\nINFO: `cli-only-mode` is disabled\n")
     else:
         print(f"\n[bold red]Invalid value for cli-only-mode: {mode}[/bold red]\n")
         exit(1)
@@ -962,7 +961,7 @@ def restore_dependencies():
     total = len(node_paths)
     i = 1
     for x in node_paths:
-        print(f"----------------------------------------------------------------------------------------------------")
+        print("----------------------------------------------------------------------------------------------------")
         print(f"Restoring [{i}/{total}]: {x}")
         unified_manager.execute_install_script('', x, instant_execution=True)
         i += 1
@@ -1075,4 +1074,4 @@ if __name__ == '__main__':
     sys.exit(app())
 
 
-print(f"")
+print("")

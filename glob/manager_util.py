@@ -192,8 +192,8 @@ def get_installed_packages(renew=False):
                         continue
 
                     pip_map[y[0]] = y[1]
-        except subprocess.CalledProcessError as e:
-            print(f"[ComfyUI-Manager] Failed to retrieve the information of installed pip packages.")
+        except subprocess.CalledProcessError:
+            print("[ComfyUI-Manager] Failed to retrieve the information of installed pip packages.")
             return set()
 
     return pip_map
@@ -262,9 +262,9 @@ class PIPFixer:
                 cmd = [sys.executable, '-m', 'pip', 'uninstall', 'comfy']
                 subprocess.check_output(cmd, universal_newlines=True)
 
-                print(f"[manager-core] 'comfy' python package is uninstalled.\nWARN: The 'comfy' package is completely unrelated to ComfyUI and should never be installed as it causes conflicts with ComfyUI.")
+                print("[manager-core] 'comfy' python package is uninstalled.\nWARN: The 'comfy' package is completely unrelated to ComfyUI and should never be installed as it causes conflicts with ComfyUI.")
         except Exception as e:
-            print(f"[manager-core] Failed to uninstall `comfy` python package")
+            print("[manager-core] Failed to uninstall `comfy` python package")
             print(e)
 
         # fix torch - reinstall torch packages if version is changed
@@ -274,7 +274,7 @@ class PIPFixer:
                 or self.prev_pip_versions['torchaudio'] != new_pip_versions['torchaudio']:
                     self.torch_rollback()
         except Exception as e:
-            print(f"[manager-core] Failed to restore PyTorch")
+            print("[manager-core] Failed to restore PyTorch")
             print(e)
 
         # fix opencv
@@ -308,7 +308,7 @@ class PIPFixer:
 
                     print(f"[manager-core] 'opencv' dependencies were fixed: {targets}")
         except Exception as e:
-            print(f"[manager-core] Failed to restore opencv")
+            print("[manager-core] Failed to restore opencv")
             print(e)
 
         # fix numpy
@@ -316,7 +316,7 @@ class PIPFixer:
             np = new_pip_versions.get('numpy')
             if np is not None:
                 if StrictVersion(np) >= StrictVersion('2'):
-                    subprocess.check_output([sys.executable, '-m', 'pip', 'install', f"numpy<2"], universal_newlines=True)
+                    subprocess.check_output([sys.executable, '-m', 'pip', 'install', "numpy<2"], universal_newlines=True)
         except Exception as e:
-            print(f"[manager-core] Failed to restore numpy")
+            print("[manager-core] Failed to restore numpy")
             print(e)

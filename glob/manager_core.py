@@ -6,6 +6,7 @@ import re
 import shutil
 import configparser
 import platform
+from datetime import datetime
 
 import git
 from git.remote import RemoteProgress
@@ -14,6 +15,7 @@ from tqdm.auto import tqdm
 import time
 import yaml
 import zipfile
+import traceback
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 orig_print = print
@@ -28,8 +30,7 @@ sys.path.append(glob_path)
 
 import cm_global
 import cnr_utils
-from manager_util import *
-
+import manager_util
 
 version_code = [3, 0]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
@@ -38,7 +39,7 @@ version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' i
 DEFAULT_CHANNEL = "https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main"
 
 
-custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, '..'))
+custom_nodes_path = os.path.abspath(os.path.join(manager_util.comfyui_manager_path, '..'))
 
 default_custom_nodes_path = None
 
@@ -128,10 +129,10 @@ if comfy_path is None:
     except:
         comfy_path = os.path.abspath(os.path.join(custom_nodes_path, '..'))
 
-channel_list_path = os.path.join(comfyui_manager_path, 'channels.list')
-config_path = os.path.join(comfyui_manager_path, "config.ini")
-startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
-git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
+channel_list_path = os.path.join(manager_util.comfyui_manager_path, 'channels.list')
+config_path = os.path.join(manager_util.comfyui_manager_path, "config.ini")
+startup_script_path = os.path.join(manager_util.comfyui_manager_path, "startup-scripts")
+git_script_path = os.path.join(manager_util.comfyui_manager_path, "git_helper.py")
 cached_config = None
 js_path = None
 
@@ -171,8 +172,8 @@ def get_installed_packages():
                         continue
 
                     pip_map[y[0]] = y[1]
-        except subprocess.CalledProcessError as e:
-            print(f"[ComfyUI-Manager] Failed to retrieve the information of installed pip packages.")
+        except subprocess.CalledProcessError:
+            print("[ComfyUI-Manager] Failed to retrieve the information of installed pip packages.")
             return set()
 
     return pip_map
@@ -203,7 +204,7 @@ def is_blacklisted(name):
                 return True
         elif match.group(2) in ['<=', '==', '<']:
             if name in pips:
-                if StrictVersion(pips[name]) >= StrictVersion(match.group(3)):
+                if manager_util.StrictVersion(pips[name]) >= manager_util.StrictVersion(match.group(3)):
                     return True
 
     return False
@@ -232,7 +233,7 @@ def is_installed(name):
                 return True
         elif match.group(2) in ['<=', '==', '<']:
             if name in pips:
-                if StrictVersion(pips[name]) >= StrictVersion(match.group(3)):
+                if manager_util.StrictVersion(pips[name]) >= manager_util.StrictVersion(match.group(3)):
                     print(f"[ComfyUI-Manager] skip black listed pip installation: '{name}'")
                     return True
 
@@ -875,7 +876,7 @@ class UnifiedManager:
 
         archive_name = f"CNR_temp_{str(uuid.uuid4())}.zip"  # should be unpredictable name - security precaution
         download_path = os.path.join(custom_nodes_path, archive_name)
-        download_url(node_info.download_url, custom_nodes_path, archive_name)
+        manager_util.download_url(node_info.download_url, custom_nodes_path, archive_name)
 
         # 2. extract files into <node_id>@<cur_ver>
         install_path = self.active_nodes[node_id][1]
@@ -1138,7 +1139,7 @@ class UnifiedManager:
         if os.path.exists(install_path):
             return result.fail(f'Install path already exists: {install_path}')
 
-        download_url(node_info.download_url, custom_nodes_path, archive_name)
+        manager_util.download_url(node_info.download_url, custom_nodes_path, archive_name)
         os.makedirs(install_path, exist_ok=True)
         extracted = cnr_utils.extract_package_as_zip(download_path, install_path)
         os.remove(download_path)
@@ -1399,7 +1400,7 @@ def get_channel_dict():
         if not os.path.exists(channel_list_path):
             shutil.copy(channel_list_path+'.template', channel_list_path)
 
-        with open(os.path.join(comfyui_manager_path, 'channels.list'), 'r') as file:
+        with open(os.path.join(manager_util.comfyui_manager_path, 'channels.list'), 'r') as file:
             channels = file.read()
             for x in channels.split('\n'):
                 channel_info = x.split("::")
@@ -1557,7 +1558,7 @@ def try_install_script(url, repo_path, install_cmd, instant_execution=False):
                 if comfy_ui_commit_datetime.date() < comfy_ui_required_commit_datetime.date():
                     print("\n\n###################################################################")
                     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version ({comfy_ui_revision})[{comfy_ui_commit_datetime.date()}] is too old. Please update to the latest version.")
-                    print(f"[WARN] The extension installation feature may not work properly in the current installed ComfyUI version on Windows environment.")
+                    print("[WARN] The extension installation feature may not work properly in the current installed ComfyUI version on Windows environment.")
                     print("###################################################################\n\n")
             except:
                 pass
@@ -1598,7 +1599,7 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
             output, _ = process.communicate()
             output = output.decode('utf-8').strip()
         except Exception:
-            print(f'[ComfyUI-Manager] failed to fixing')
+            print('[ComfyUI-Manager] failed to fixing')
 
         if 'detected dubious' in output:
             print(f'\n[ComfyUI-Manager] Failed to fixing repository setup. Please execute this command on cmd: \n'
@@ -1651,7 +1652,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
     else:
         if os.path.exists(requirements_path) and not no_deps:
             print("Install: pip packages")
-            pip_fixer = PIPFixer(get_installed_packages())
+            pip_fixer = manager_util.PIPFixer(get_installed_packages())
             with open(requirements_path, "r") as requirements_file:
                 for line in requirements_file:
                     #handle comments
@@ -1677,7 +1678,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
             pip_fixer.fix_broken()
 
         if os.path.exists(install_script_path):
-            print(f"Install: install script")
+            print("Install: install script")
             install_cmd = [sys.executable, "install.py"]
             try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
@@ -1918,34 +1919,34 @@ async def get_data_by_mode(mode, filename, channel_url=None):
 
     try:
         if mode == "local":
-            uri = os.path.join(comfyui_manager_path, filename)
-            json_obj = await get_data(uri)
+            uri = os.path.join(manager_util.comfyui_manager_path, filename)
+            json_obj = await manager_util.get_data(uri)
         else:
             if channel_url is None:
                 uri = get_config()['channel_url'] + '/' + filename
             else:
                 uri = channel_url + '/' + filename
 
-            cache_uri = str(simple_hash(uri))+'_'+filename
-            cache_uri = os.path.join(cache_dir, cache_uri)
+            cache_uri = str(manager_util.simple_hash(uri))+'_'+filename
+            cache_uri = os.path.join(manager_util.cache_dir, cache_uri)
 
             if mode == "cache":
-                if is_file_created_within_one_day(cache_uri):
-                    json_obj = await get_data(cache_uri)
+                if manager_util.is_file_created_within_one_day(cache_uri):
+                    json_obj = await manager_util.get_data(cache_uri)
                 else:
-                    json_obj = await get_data(uri)
-                    with cache_lock:
+                    json_obj = await manager_util.get_data(uri)
+                    with manager_util.cache_lock:
                         with open(cache_uri, "w", encoding='utf-8') as file:
                             json.dump(json_obj, file, indent=4, sort_keys=True)
             else:
-                json_obj = await get_data(uri)
-                with cache_lock:
+                json_obj = await manager_util.get_data(uri)
+                with manager_util.cache_lock:
                     with open(cache_uri, "w", encoding='utf-8') as file:
                         json.dump(json_obj, file, indent=4, sort_keys=True)
     except Exception as e:
         print(f"[ComfyUI-Manager] Due to a network error, switching to local mode.\n=> {filename}\n=> {e}")
-        uri = os.path.join(comfyui_manager_path, filename)
-        json_obj = await get_data(uri)
+        uri = os.path.join(manager_util.comfyui_manager_path, filename)
+        json_obj = await manager_util.get_data(uri)
 
     return json_obj
 
@@ -2169,7 +2170,7 @@ def update_path(repo_path, instant_execution=False, no_deps=False):
         remote.fetch()
     except Exception as e:
         if 'detected dubious' in str(e):
-            print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
+            print("[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
             safedir_path = comfy_path.replace('\\', '/')
             subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', safedir_path])
             try:
@@ -2263,7 +2264,7 @@ def get_current_snapshot():
     repo_path = comfy_path
 
     if not os.path.exists(os.path.join(repo_path, '.git')):
-        print(f"ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
+        print("ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
         return {}
 
     repo = git.Repo(repo_path)
@@ -2340,7 +2341,7 @@ def save_snapshot_with_postfix(postfix, path=None):
         date_time_format = now.strftime("%Y-%m-%d_%H-%M-%S")
         file_name = f"{date_time_format}_{postfix}"
 
-        path = os.path.join(comfyui_manager_path, 'snapshots', f"{file_name}.json")
+        path = os.path.join(manager_util.comfyui_manager_path, 'snapshots', f"{file_name}.json")
     else:
         file_name = path.replace('\\', '/').split('/')[-1]
         file_name = file_name.split('.')[-2]

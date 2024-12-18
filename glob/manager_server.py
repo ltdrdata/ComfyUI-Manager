@@ -11,6 +11,7 @@ import threading
 import re
 import shutil
 import git
+from datetime import datetime
 
 from server import PromptServer
 import manager_core as core
@@ -23,9 +24,9 @@ print(f"### Loading: ComfyUI-Manager ({core.version_str})")
 comfy_ui_hash = "-"
 comfyui_tag = None
 
-SECURITY_MESSAGE_MIDDLE_OR_BELOW = f"ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
-SECURITY_MESSAGE_NORMAL_MINUS = f"ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
-SECURITY_MESSAGE_GENERAL = f"ERROR: This installation is not allowed in this security_level. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
+SECURITY_MESSAGE_MIDDLE_OR_BELOW = "ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
+SECURITY_MESSAGE_NORMAL_MINUS = "ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
+SECURITY_MESSAGE_GENERAL = "ERROR: This installation is not allowed in this security_level. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
 
 routes = PromptServer.instance.routes
 
@@ -129,11 +130,11 @@ from manager_downloader import download_url
 core.comfy_path = os.path.dirname(folder_paths.__file__)
 core.js_path = os.path.join(core.comfy_path, "web", "extensions")
 
-local_db_model = os.path.join(core.comfyui_manager_path, "model-list.json")
-local_db_alter = os.path.join(core.comfyui_manager_path, "alter-list.json")
-local_db_custom_node_list = os.path.join(core.comfyui_manager_path, "custom-node-list.json")
-local_db_extension_node_mappings = os.path.join(core.comfyui_manager_path, "extension-node-map.json")
-components_path = os.path.join(core.comfyui_manager_path, 'components')
+local_db_model = os.path.join(manager_util.comfyui_manager_path, "model-list.json")
+local_db_alter = os.path.join(manager_util.comfyui_manager_path, "alter-list.json")
+local_db_custom_node_list = os.path.join(manager_util.comfyui_manager_path, "custom-node-list.json")
+local_db_extension_node_mappings = os.path.join(manager_util.comfyui_manager_path, "extension-node-map.json")
+components_path = os.path.join(manager_util.comfyui_manager_path, 'components')
 
 
 def set_preview_method(method):
@@ -208,7 +209,7 @@ def print_comfyui_version():
 
             del cm_global.variables['cm.on_revision_detected_handler']
         else:
-            print(f"[ComfyUI-Manager] Some features are restricted due to your ComfyUI being outdated.")
+            print("[ComfyUI-Manager] Some features are restricted due to your ComfyUI being outdated.")
         # <--
 
         if current_branch == "master":
@@ -241,7 +242,6 @@ setup_environment()
 
 # Expand Server api
 
-import server
 from aiohttp import web
 import aiohttp
 import json
@@ -287,7 +287,7 @@ def get_model_dir(data):
             if folder_paths.folder_names_and_paths.get("text_encoders"):
                 base_model = folder_paths.folder_names_and_paths["text_encoders"][0][0]
             else:
-                print(f"[ComfyUI-Manager] Your ComfyUI is outdated version.")
+                print("[ComfyUI-Manager] Your ComfyUI is outdated version.")
                 base_model = folder_paths.folder_names_and_paths["clip"][0][0]  # outdated version
         elif model_type == "VAE":
             base_model = folder_paths.folder_names_and_paths["vae"][0][0]
@@ -311,7 +311,7 @@ def get_model_dir(data):
             if folder_paths.folder_names_and_paths.get("diffusion_models"):
                 base_model = folder_paths.folder_names_and_paths["diffusion_models"][0][1]
             else:
-                print(f"[ComfyUI-Manager] Your ComfyUI is outdated version.")
+                print("[ComfyUI-Manager] Your ComfyUI is outdated version.")
                 base_model = folder_paths.folder_names_and_paths["unet"][0][0]  # outdated version
         else:
             base_model = os.path.join(models_base, "etc")
@@ -344,15 +344,15 @@ def check_state_of_git_node_pack(node_packs, do_fetch=False, do_update_check=Tru
                 executor.submit(process_custom_node, v)
 
     if do_fetch:
-        print(f"\x1b[2K\rFetching done.")
+        print("\x1b[2K\rFetching done.")
     elif do_update:
         update_exists = any(item.get('updatable', False) for item in node_packs.values())
         if update_exists:
-            print(f"\x1b[2K\rUpdate done.")
+            print("\x1b[2K\rUpdate done.")
         else:
-            print(f"\x1b[2K\rAll extensions are already up-to-date.")
+            print("\x1b[2K\rAll extensions are already up-to-date.")
     elif do_update_check:
-        print(f"\x1b[2K\rUpdate check done.")
+        print("\x1b[2K\rUpdate check done.")
 
 
 def nickname_filter(json_obj):
@@ -652,7 +652,7 @@ async def remove_snapshot(request):
 
 
 @routes.get("/snapshot/restore")
-async def remove_snapshot(request):
+async def restore_snapshot(request):
     if not is_allowed_security_level('middle'):
         print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
@@ -948,7 +948,7 @@ async def install_custom_node_git_url(request):
 
 
 @routes.post("/customnode/install/pip")
-async def install_custom_node_git_url(request):
+async def install_custom_node_pip(request):
     if not is_allowed_security_level('high'):
         print(SECURITY_MESSAGE_NORMAL_MINUS)
         return web.Response(status=403)
@@ -1015,13 +1015,13 @@ async def update_custom_node(request):
 
 @routes.get("/comfyui_manager/update_comfyui")
 async def update_comfyui(request):
-    print(f"Update ComfyUI")
+    print("Update ComfyUI")
 
     try:
         repo_path = os.path.dirname(folder_paths.__file__)
         res = core.update_path(repo_path)
         if res == "fail":
-            print(f"ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
+            print("ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
             return web.Response(status=400)
         elif res == "updated":
             return web.Response(status=201)
@@ -1268,9 +1268,9 @@ async def get_notice(request):
 
                     try:
                         if core.comfy_ui_commit_datetime == datetime(1900, 1, 1, 0, 0, 0):
-                            markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI isn\'t git repo.</P>' + markdown_content
+                            markdown_content = '<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI isn\'t git repo.</P>' + markdown_content
                         elif core.comfy_ui_required_commit_datetime.date() > core.comfy_ui_commit_datetime.date():
-                            markdown_content = f'<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
+                            markdown_content = '<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
                     except:
                         pass
 
@@ -1289,17 +1289,17 @@ def restart(self):
 
     try:
         sys.stdout.close_log()
-    except Exception as e:
+    except Exception:
         pass
 
     if '__COMFY_CLI_SESSION__' in os.environ:
-        with open(os.path.join(os.environ['__COMFY_CLI_SESSION__'] + '.reboot'), 'w') as file:
+        with open(os.path.join(os.environ['__COMFY_CLI_SESSION__'] + '.reboot'), 'w'):
             pass
 
-        print(f"\nRestarting...\n\n")
+        print("\nRestarting...\n\n")
         exit(0)
 
-    print(f"\nRestarting... [Legacy Mode]\n\n")
+    print("\nRestarting... [Legacy Mode]\n\n")
 
     sys_argv = sys.argv.copy()
     if '--windows-standalone-build' in sys_argv:
@@ -1399,11 +1399,11 @@ async def default_cache_update():
     async def get_cache(filename):
         uri = f"{core.DEFAULT_CHANNEL}/{filename}"
         cache_uri = str(manager_util.simple_hash(uri)) + '_' + filename
-        cache_uri = os.path.join(core.cache_dir, cache_uri)
+        cache_uri = os.path.join(manager_util.cache_dir, cache_uri)
 
         json_obj = await manager_util.get_data(uri, True)
 
-        with core.cache_lock:
+        with manager_util.cache_lock:
             with open(cache_uri, "w", encoding='utf-8') as file:
                 json.dump(json_obj, file, indent=4, sort_keys=True)
                 print(f"[ComfyUI-Manager] default cache updated: {uri}")
