@@ -457,7 +457,7 @@ if os.path.exists(restore_snapshot_path):
                     else:
                         print(prefix, msg, end="")
 
-        print(f"[ComfyUI-Manager] Restore snapshot.")
+        print("[ComfyUI-Manager] Restore snapshot.")
         new_env = os.environ.copy()
         new_env["COMFYUI_PATH"] = comfy_path
 

@@ -3,10 +3,8 @@ import sys
 import traceback
 import json
 import asyncio
-import subprocess
 import concurrent
 import threading
-import yaml
 from typing import Optional
 
 import typer

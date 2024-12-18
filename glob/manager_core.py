@@ -112,8 +112,8 @@ def check_invalid_nodes():
             check(disabled_dir)
 
     if len(invalid_nodes):
-        print(f"\n-------------------- ComfyUI-Manager invalid nodes notice ----------------")
-        print(f"\nNodes requiring reinstallation have been detected:\n(Directly delete the corresponding path and reinstall.)\n")
+        print("\n-------------------- ComfyUI-Manager invalid nodes notice ----------------")
+        print("\nNodes requiring reinstallation have been detected:\n(Directly delete the corresponding path and reinstall.)\n")
 
         for x in invalid_nodes.values():
             print(x)
@@ -780,7 +780,7 @@ class UnifiedManager:
 
             if os.path.exists(install_script_path) and install_script_path not in self.processed_install:
                 self.processed_install.add(install_script_path)
-                print(f"Install: install script")
+                print("Install: install script")
                 install_cmd = [sys.executable, "install.py"]
                 return try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
@@ -1230,16 +1230,16 @@ class UnifiedManager:
             remote.fetch()
         except Exception as e:
             if 'detected dubious' in str(e):
-                print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
+                print("[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
                 safedir_path = comfy_path.replace('\\', '/')
                 subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', safedir_path])
                 try:
                     remote.fetch()
                 except Exception:
-                    print(f"\n[ComfyUI-Manager] Failed to fixing repository setup. Please execute this command on cmd: \n"
-                          f"-----------------------------------------------------------------------------------------\n"
+                    print("\n[ComfyUI-Manager] Failed to fixing repository setup. Please execute this command on cmd: \n"
+                          "-----------------------------------------------------------------------------------------\n"
                           f'git config --global --add safe.directory "{safedir_path}"\n'
-                          f"-----------------------------------------------------------------------------------------\n")
+                          "-----------------------------------------------------------------------------------------\n")
 
         commit_hash = repo.head.commit.hexsha
         remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
@@ -1360,7 +1360,7 @@ class UnifiedManager:
         await self.reload('cache')
         await self.get_custom_nodes('default', 'cache')
 
-        print(f"Migration: STAGE 1")
+        print("Migration: STAGE 1")
         moves = []
 
         # migrate nightly inactive
@@ -1371,7 +1371,7 @@ class UnifiedManager:
             new_path = os.path.join(custom_nodes_path, '.disabled', f"{x}@nightly")
             moves.append((v, new_path))
 
-        print(f"Migration: STAGE 2")
+        print("Migration: STAGE 2")
         # migrate active nodes
         for x, v in self.active_nodes.items():
             if v[0] not in ['nightly']:
@@ -1385,7 +1385,7 @@ class UnifiedManager:
 
         self.reserve_migration(moves)
 
-        print(f"DONE (Migration reserved)")
+        print("DONE (Migration reserved)")
 
 
 unified_manager = UnifiedManager()
@@ -2678,7 +2678,7 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
     for k, v in unified_manager.repo_cnr_map.items():
         cnr_repo_map[v['id']] = k
 
-    print(f"Restore snapshot.")
+    print("Restore snapshot.")
 
     postinstalls = []
 
@@ -2729,7 +2729,7 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
                     if hasattr(ps, 'postinstall'):
                         postinstalls.append(ps.postinstall)
                     else:
-                        print(f"cm-cli: unexpected [0001]")
+                        print("cm-cli: unexpected [0001]")
 
         # for nightly restore
         git_info = info.get('git_custom_nodes')

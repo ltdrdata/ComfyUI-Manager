@@ -1,8 +1,7 @@
-from manager_util import *
-import zipfile
 import requests
 from dataclasses import dataclass
 from typing import List
+import manager_util
 
 base_url = "https://api.comfy.org"
 
@@ -10,7 +9,7 @@ base_url = "https://api.comfy.org"
 async def get_cnr_data(page=1, limit=1000, cache_mode=True):
     try:
         uri = f'{base_url}/nodes?page={page}&limit={limit}'
-        json_obj = await get_data_with_cache(uri, cache_mode=cache_mode)
+        json_obj = await manager_util.get_data_with_cache(uri, cache_mode=cache_mode)
 
         for v in json_obj['nodes']:
             if 'latest_version' not in v:
@@ -19,7 +18,7 @@ async def get_cnr_data(page=1, limit=1000, cache_mode=True):
         return json_obj['nodes']
     except:
         res = {}
-        print(f"Cannot connect to comfyregistry.")
+        print("Cannot connect to comfyregistry.")
 
     return res
 

@@ -17,7 +17,7 @@ from server import PromptServer
 import manager_core as core
 import manager_util
 import cm_global
-from datetime import datetime
+
 
 print(f"### Loading: ComfyUI-Manager ({core.version_str})")
 
@@ -482,7 +482,7 @@ async def update_all(request):
         else:
             status = 201
 
-        print(f"\nDone.")
+        print("\nDone.")
         return web.json_response(res, status=status, content_type='application/json')
     except:
         traceback.print_exc()
@@ -920,7 +920,7 @@ async def fix_custom_node(request):
     res = core.unified_manager.unified_fix(node_name, node_ver)
 
     if res.result:
-        print(f"After restarting ComfyUI, please refresh the browser.")
+        print("After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
     print(f"ERROR: An error occurred while fixing '{node_name}@{node_ver}'.")
@@ -940,7 +940,7 @@ async def install_custom_node_git_url(request):
         print(f"Already installed: '{res.target}'")
         return web.Response(status=200)
     elif res.result:
-        print(f"After restarting ComfyUI, please refresh the browser.")
+        print("After restarting ComfyUI, please refresh the browser.")
         return web.Response(status=200)
 
     print(res.msg)
@@ -979,7 +979,7 @@ async def uninstall_custom_node(request):
     res = core.unified_manager.unified_uninstall(node_name, is_unknown)
 
     if res.result:
-        print(f"After restarting ComfyUI, please refresh the browser.")
+        print("After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
     print(f"ERROR: An error occurred while uninstalling '{node_name}'.")
@@ -1006,7 +1006,7 @@ async def update_custom_node(request):
     core.clear_pip_cache()
 
     if res.result:
-        print(f"After restarting ComfyUI, please refresh the browser.")
+        print("After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
     print(f"ERROR: An error occurred while updating '{node_name}'.")
@@ -1080,7 +1080,7 @@ async def disable_node(request):
 
 @routes.get("/manager/migrate_unmanaged_nodes")
 async def migrate_unmanaged_nodes(request):
-    print(f"[ComfyUI-Manager] Migrating unmanaged nodes...")
+    print("[ComfyUI-Manager] Migrating unmanaged nodes...")
     await core.unified_manager.migrate_unmanaged_nodes()
     print("Done.")
     return web.Response(status=200)

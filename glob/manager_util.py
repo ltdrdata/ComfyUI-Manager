@@ -1,5 +1,3 @@
-import traceback
-
 import aiohttp
 import json
 import threading
@@ -115,7 +113,7 @@ async def get_data(uri, silent=False):
     json_obj = json.loads(json_text)
 
     if not silent:
-        print(f" [DONE]")
+        print(" [DONE]")
 
     return json_obj
 
