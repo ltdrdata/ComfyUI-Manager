@@ -3517,6 +3517,19 @@
       "url": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors",
       "size": "6.6GB"
     },
+
+
+    {
+      "name": "InstantX/FLUX.1-dev-IP-Adapter",
+      "type": "IP-Adapter",
+      "base": "FLUX.1",
+      "save_path": "ipadapter-flux",
+      "description": "FLUX.1-dev-IP-Adapter",
+      "reference": "https://huggingface.co/InstantX/FLUX.1-dev-IP-Adapter",
+      "filename": "ip-adapter.bin",
+      "url": "https://huggingface.co/InstantX/FLUX.1-dev-IP-Adapter/resolve/main/ip-adapter.bin",
+      "size": "5.29GB"
+    },
     {
       "name": "Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro",
       "type": "controlnet",
@@ -3539,6 +3552,7 @@
       "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors",
       "size": "3.3GB"
     },
+
     {
       "name": "jasperai/FLUX.1-dev-Controlnet-Upscaler",
       "type": "controlnet",
@@ -3705,6 +3719,41 @@
       "filename": "diffusion_pytorch_model.safetensors",
       "url": "https://huggingface.co/InstantX/SD3-Controlnet-Tile/resolve/main/diffusion_pytorch_model.safetensors",
       "size": "1.19GB"
+    },
+
+
+    {
+      "name": "stabilityai/SD3.5-Large-Controlnet-Blur",
+      "type": "controlnet",
+      "base": "SD3.5",
+      "save_path": "controlnet/SD3.5",
+      "description": "Blur Controlnet model for SD3.5 Large",
+      "reference": "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets",
+      "filename": "sd3.5_large_controlnet_blur.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets/resolve/main/sd3.5_large_controlnet_blur.safetensors",
+      "size": "8.65GB"
+    },
+    {
+      "name": "stabilityai/SD3.5-Large-Controlnet-Canny",
+      "type": "controlnet",
+      "base": "SD3.5",
+      "save_path": "controlnet/SD3.5",
+      "description": "Canny Controlnet model for SD3.5 Large",
+      "reference": "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets",
+      "filename": "sd3.5_large_controlnet_canny.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets/resolve/main/sd3.5_large_controlnet_canny.safetensors",
+      "size": "8.65GB"
+    },
+    {
+      "name": "stabilityai/SD3.5-Large-Controlnet-Depth",
+      "type": "controlnet",
+      "base": "SD3.5",
+      "save_path": "controlnet/SD3.5",
+      "description": "Depth Controlnet model for SD3.5 Large",
+      "reference": "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets",
+      "filename": "sd3.5_large_controlnet_depth.safetensors",
+      "url": "https://huggingface.co/stabilityai/stable-diffusion-3.5-controlnets/resolve/main/sd3.5_large_controlnet_depth.safetensors",
+      "size": "8.65GB"
     },
 
     {
@@ -4450,7 +4499,7 @@
     {
       "name": "pulid_flux_v0.9.1.safetensors",
       "type": "PuLID",
-      "base": "FLUX",
+      "base": "FLUX.1",
       "save_path": "pulid",
       "description": "This is required for PuLID (FLUX)",
       "reference": "https://huggingface.co/guozinan/PuLID",
@@ -4491,6 +4540,18 @@
       "filename": "MoGe_ViT_L_fp16.safetensors",
       "url": "https://huggingface.co/Kijai/MoGe_safetensors/resolve/main/MoGe_ViT_L_fp16.safetensors",
       "size": "1.26GB"
+    },
+    
+    {
+      "name": "LTX-Video 2B v0.9 Checkpoint",
+      "type": "checkpoint",
+      "base": "LTX-Video",
+      "save_path": "checkpoints/LTXV",
+      "description": "LTX-Video is the first DiT-based video generation model capable of generating high-quality videos in real-time. It produces 24 FPS videos at a 768x512 resolution faster than they can be watched. Trained on a large-scale dataset of diverse videos, the model generates high-resolution videos with realistic and varied content.",
+      "reference": "https://huggingface.co/Lightricks/LTX-Video",
+      "filename": "ltx-video-2b-v0.9.safetensors",
+      "url": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltx-video-2b-v0.9.safetensors",
+      "size": "9.37GB"
     }
   ]
 }

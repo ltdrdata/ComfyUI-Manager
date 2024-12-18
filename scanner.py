@@ -245,7 +245,10 @@ def get_py_urls_from_json(json_file):
 
 
 def clone_or_pull_git_repository(git_url):
-    repo_name = git_url.split("/")[-1].split(".")[0]
+    repo_name = git_url.split("/")[-1]
+    if repo_name.endswith(".git"):
+        repo_name = repo_name[:-4]
+        
     repo_dir = os.path.join(temp_dir, repo_name)
 
     if os.path.exists(repo_dir):
