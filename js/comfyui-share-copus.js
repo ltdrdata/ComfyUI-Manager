@@ -191,15 +191,15 @@ export class CopusShareDialog extends ComfyDialog {
       type: "text",
       placeholder: "Subtitle (Optional)",
       style: inputStyle,
-      maxLength: "70",
+      maxLength: "350",
       oninput: () => {
         const titleNum = this.SubTitleInput.value.length;
-        subTitleNumDom.textContent = `${titleNum}/70`;
+        subTitleNumDom.textContent = `${titleNum}/350`;
       },
     });
     this.LockInput = $el("input", {
       type: "text",
-      placeholder: "$",
+      placeholder: "",
       style:  {
         width: "100px",
         padding: "7px",
@@ -324,7 +324,7 @@ export class CopusShareDialog extends ComfyDialog {
           color: "#999",
         },
       },
-      ["0/70"]
+      ["0/350"]
     );
     const descriptionNumDom = $el(
       "label",
@@ -392,7 +392,7 @@ export class CopusShareDialog extends ComfyDialog {
           this.radioButtonsCheck_lock,
           $el("div", { style: { marginLeft: "5px" ,display:'flex',alignItems:'center'} }, [
             $el("span", { style: { marginLeft: "5px" } }, ["ON"]),
-            $el("span", { style: { marginLeft: "20px",marginRight:'10px' ,color:'#fff'} }, ["Price"]),
+            $el("span", { style: { marginLeft: "20px",marginRight:'10px' ,color:'#fff'} }, ["Price US$"]),
             this.LockInput
           ]),
         ]
@@ -409,7 +409,7 @@ export class CopusShareDialog extends ComfyDialog {
       $el(
         "p",
         { style: { fontSize: "16px", color: "#fff", margin: "10px 0 0 0" } },
-        ["You can change the price and withdraw yours earning on Copus."]
+        ["Get paid from your workflow. You can change the price and withdraw your earnings on Copus."]
       ),
     ]);
 
