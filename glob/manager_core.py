@@ -31,6 +31,8 @@ sys.path.append(glob_path)
 import cm_global
 import cnr_utils
 import manager_util
+import manager_downloader
+
 
 version_code = [3, 0]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
@@ -872,7 +874,7 @@ class UnifiedManager:
 
         archive_name = f"CNR_temp_{str(uuid.uuid4())}.zip"  # should be unpredictable name - security precaution
         download_path = os.path.join(get_default_custom_nodes_path(), archive_name)
-        manager_util.download_url(node_info.download_url, get_default_custom_nodes_path(), archive_name)
+        manager_downloader.download_url(node_info.download_url, get_default_custom_nodes_path(), archive_name)
 
         # 2. extract files into <node_id>@<cur_ver>
         install_path = self.active_nodes[node_id][1]
@@ -1142,7 +1144,7 @@ class UnifiedManager:
         if os.path.exists(install_path):
             return result.fail(f'Install path already exists: {install_path}')
 
-        manager_util.download_url(node_info.download_url, get_default_custom_nodes_path(), archive_name)
+        manager_downloader.download_url(node_info.download_url, get_default_custom_nodes_path(), archive_name)
         os.makedirs(install_path, exist_ok=True)
         extracted = manager_util.extract_package_as_zip(download_path, install_path)
         os.remove(download_path)
@@ -2228,6 +2230,19 @@ def lookup_customnode_by_url(data, target):
                         continue
 
                 return x
+
+    return None
+
+
+def lookup_installed_custom_nodes_legacy(repo_name):
+    base_paths = get_custom_nodes_paths()
+
+    for base_path in base_paths:
+        repo_path = os.path.join(base_path, repo_name)
+        if os.path.exists(repo_path):
+            return True, repo_path
+        elif os.path.exists(repo_path + '.disabled'):
+            return False, repo_path
 
     return None
 

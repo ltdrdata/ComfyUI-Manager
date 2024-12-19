@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 import subprocess
 import sys
-
+import re
 
 cache_lock = threading.Lock()
 
@@ -140,27 +140,6 @@ def sanitize_tag(x):
     return x.replace('<', '&lt;').replace('>', '&gt;')
 
 
-def download_url(url, dest_folder, filename):
-    import requests
-
-    # Ensure the destination folder exists
-    if not os.path.exists(dest_folder):
-        os.makedirs(dest_folder)
-
-    # Full path to save the file
-    dest_path = os.path.join(dest_folder, filename)
-
-    # Download the file
-    response = requests.get(url, stream=True)
-    if response.status_code == 200:
-        with open(dest_path, 'wb') as file:
-            for chunk in response.iter_content(chunk_size=1024):
-                if chunk:
-                    file.write(chunk)
-    else:
-        raise Exception(f"Failed to download file from {url}")
-
-
 def extract_package_as_zip(file_path, extract_path):
     import zipfile
     try:
@@ -172,7 +151,10 @@ def extract_package_as_zip(file_path, extract_path):
     except zipfile.BadZipFile:
         print(f"File '{file_path}' is not a zip or is corrupted.")
         return None
+
+
 pip_map = None
+
 
 def get_installed_packages(renew=False):
     global pip_map
@@ -318,3 +300,12 @@ class PIPFixer:
         except Exception as e:
             print("[manager-core] Failed to restore numpy")
             print(e)
+
+
+def sanitize(data):
+    return data.replace("<", "&lt;").replace(">", "&gt;")
+
+
+def sanitize_filename(input_string):
+    result_string = re.sub(r'[^a-zA-Z0-9_]', '_', input_string)
+    return result_string
