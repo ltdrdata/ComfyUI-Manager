@@ -1,6 +1,6 @@
 import { app } from "../../scripts/app.js";
 import { $el, ComfyDialog } from "../../scripts/ui.js";
-const env = "dev";
+const env = "prod";
 
 let DEFAULT_HOMEPAGE_URL = "https://copus.io";
 
