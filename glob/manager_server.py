@@ -20,7 +20,7 @@ import cm_global
 import logging
 
 
-print(f"### Loading: ComfyUI-Manager ({core.version_str})")
+logging.info(f"### Loading: ComfyUI-Manager ({core.version_str})")
 
 comfy_ui_hash = "-"
 comfyui_tag = None
@@ -105,7 +105,7 @@ class ManagerFuncsInComfyUI(core.ManagerFuncs):
 
     def run_script(self, cmd, cwd='.'):
         if len(cmd) > 0 and cmd[0].startswith("#"):
-            print(f"[ComfyUI-Manager] Unexpected behavior: `{cmd}`")
+            logging.error(f"[ComfyUI-Manager] Unexpected behavior: `{cmd}`")
             return 0
 
         process = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
@@ -192,7 +192,7 @@ def print_comfyui_version():
 
         try:
             if core.comfy_ui_commit_datetime.date() < core.comfy_ui_required_commit_datetime.date():
-                print(f"\n\n## [WARN] ComfyUI-Manager: Your ComfyUI version ({core.comfy_ui_revision})[{core.comfy_ui_commit_datetime.date()}] is too old. Please update to the latest version. ##\n\n")
+                logging.warning(f"\n\n## [WARN] ComfyUI-Manager: Your ComfyUI version ({core.comfy_ui_revision})[{core.comfy_ui_commit_datetime.date()}] is too old. Please update to the latest version. ##\n\n")
         except:
             pass
 
@@ -202,29 +202,29 @@ def print_comfyui_version():
                 try:
                     f(core.comfy_ui_revision)
                 except Exception:
-                    print(f"[ERROR] '{k}' on_revision_detected_handler")
+                    logging.error(f"[ERROR] '{k}' on_revision_detected_handler")
                     traceback.print_exc()
 
             del cm_global.variables['cm.on_revision_detected_handler']
         else:
-            print("[ComfyUI-Manager] Some features are restricted due to your ComfyUI being outdated.")
+            logging.warning("[ComfyUI-Manager] Some features are restricted due to your ComfyUI being outdated.")
         # <--
 
         if current_branch == "master":
             if comfyui_tag:
-                print(f"### ComfyUI Version: {comfyui_tag} | Released on '{core.comfy_ui_commit_datetime.date()}'")
+                logging.info(f"### ComfyUI Version: {comfyui_tag} | Released on '{core.comfy_ui_commit_datetime.date()}'")
             else:
-                print(f"### ComfyUI Revision: {core.comfy_ui_revision} [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
+                logging.info(f"### ComfyUI Revision: {core.comfy_ui_revision} [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
         else:
             if comfyui_tag:
-                print(f"### ComfyUI Version: {comfyui_tag} on '{current_branch}' | Released on '{core.comfy_ui_commit_datetime.date()}'")
+                logging.info(f"### ComfyUI Version: {comfyui_tag} on '{current_branch}' | Released on '{core.comfy_ui_commit_datetime.date()}'")
             else:
-                print(f"### ComfyUI Revision: {core.comfy_ui_revision} on '{current_branch}' [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
+                logging.info(f"### ComfyUI Revision: {core.comfy_ui_revision} on '{current_branch}' [{comfy_ui_hash[:8]}] | Released on '{core.comfy_ui_commit_datetime.date()}'")
     except:
         if is_detached:
-            print(f"### ComfyUI Revision: {core.comfy_ui_revision} [{comfy_ui_hash[:8]}] *DETACHED | Released on '{core.comfy_ui_commit_datetime.date()}'")
+            logging.info(f"### ComfyUI Revision: {core.comfy_ui_revision} [{comfy_ui_hash[:8]}] *DETACHED | Released on '{core.comfy_ui_commit_datetime.date()}'")
         else:
-            print("### ComfyUI Revision: UNKNOWN (The currently installed ComfyUI is not a Git repository)")
+            logging.info("### ComfyUI Revision: UNKNOWN (The currently installed ComfyUI is not a Git repository)")
 
 
 print_comfyui_version()
@@ -440,9 +440,9 @@ async def fetch_updates(request):
         res = core.unified_manager.fetch_or_pull_git_repo(is_pull=False)
 
         for x in res['failed']:
-            print(f"FETCH FAILED: {x}")
+            logging.error(f"FETCH FAILED: {x}")
 
-        print("\nDone.")
+        logging.info("\nDone.")
 
         if len(res['updated']) > 0:
             return web.Response(status=201)
@@ -456,7 +456,7 @@ async def fetch_updates(request):
 @routes.get("/customnode/update_all")
 async def update_all(request):
     if not is_allowed_security_level('middle'):
-        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
+        logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
     try:
@@ -482,14 +482,14 @@ async def update_all(request):
         res['updated'] += updated_cnr
 
         for x in res['failed']:
-            print(f"PULL FAILED: {x}")
+            logging.error(f"PULL FAILED: {x}")
 
         if len(res['updated']) == 0 and len(res['failed']) == 0:
             status = 200
         else:
             status = 201
 
-        print("\nDone.")
+        logging.info("\nDone.")
         return web.json_response(res, status=status, content_type='application/json')
     except:
         traceback.print_exc()
@@ -642,7 +642,7 @@ async def get_snapshot_list(request):
 @routes.get("/snapshot/remove")
 async def remove_snapshot(request):
     if not is_allowed_security_level('middle'):
-        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
+        logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
     try:
@@ -660,7 +660,7 @@ async def remove_snapshot(request):
 @routes.get("/snapshot/restore")
 async def restore_snapshot(request):
     if not is_allowed_security_level('middle'):
-        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
+        logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
     try:
@@ -674,10 +674,10 @@ async def restore_snapshot(request):
             target_path = os.path.join(core.manager_startup_script_path, "restore-snapshot.json")
             shutil.copy(path, target_path)
 
-            print(f"Snapshot restore scheduled: `{target}`")
+            logging.info(f"Snapshot restore scheduled: `{target}`")
             return web.Response(status=200)
 
-        print(f"Snapshot file not found: `{path}`")
+        logging.error(f"Snapshot file not found: `{path}`")
         return web.Response(status=400)
     except:
         return web.Response(status=400)
@@ -721,10 +721,10 @@ def unzip_install(files):
 
             os.remove(temp_filename)
         except Exception as e:
-            print(f"Install(unzip) error: {url} / {e}", file=sys.stderr)
+            logging.error(f"Install(unzip) error: {url} / {e}", file=sys.stderr)
             return False
 
-    print("Installation was successful.")
+    logging.info("Installation was successful.")
     return True
 
 
@@ -743,10 +743,10 @@ def copy_install(files, js_path_name=None):
                 download_url(url, path, filename)
 
         except Exception as e:
-            print(f"Install(copy) error: {url} / {e}", file=sys.stderr)
+            logging.error(f"Install(copy) error: {url} / {e}", file=sys.stderr)
             return False
 
-    print("Installation was successful.")
+    logging.info("Installation was successful.")
     return True
 
 
@@ -764,10 +764,10 @@ def copy_uninstall(files, js_path_name='.'):
             elif os.path.exists(file_path + ".disabled"):
                 os.remove(file_path + ".disabled")
         except Exception as e:
-            print(f"Uninstall(copy) error: {url} / {e}", file=sys.stderr)
+            logging.error(f"Uninstall(copy) error: {url} / {e}", file=sys.stderr)
             return False
 
-    print("Uninstallation was successful.")
+    logging.info("Uninstallation was successful.")
     return True
 
 
@@ -795,11 +795,11 @@ def copy_set_active(files, is_disable, js_path_name='.'):
             os.rename(current_name, new_name)
 
         except Exception as e:
-            print(f"{action_name}(copy) error: {url} / {e}", file=sys.stderr)
+            logging.error(f"{action_name}(copy) error: {url} / {e}", file=sys.stderr)
 
             return False
 
-    print(f"{action_name} was successful.")
+    logging.info(f"{action_name} was successful.")
     return True
 
 
@@ -839,7 +839,7 @@ async def reinstall_custom_node(request):
 @routes.post("/customnode/install")
 async def install_custom_node(request):
     if not is_allowed_security_level('middle'):
-        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
+        logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403, text="A security error has occurred. Please check the terminal logs")
 
     json_data = await request.json()
@@ -866,7 +866,7 @@ async def install_custom_node(request):
         risky_level = await get_risky_level(json_data['files'], json_data.get('pip', []))
 
     if not is_allowed_security_level(risky_level):
-        print(SECURITY_MESSAGE_GENERAL)
+        logging.error(SECURITY_MESSAGE_GENERAL)
         return web.Response(status=404, text="A security error has occurred. Please check the terminal logs")
 
     node_spec = core.unified_manager.resolve_node_spec(node_spec_str)
@@ -887,7 +887,7 @@ async def install_custom_node(request):
 @routes.post("/customnode/fix")
 async def fix_custom_node(request):
     if not is_allowed_security_level('middle'):
-        print(SECURITY_MESSAGE_GENERAL)
+        logging.error(SECURITY_MESSAGE_GENERAL)
         return web.Response(status=403, text="A security error has occurred. Please check the terminal logs")
 
     json_data = await request.json()
@@ -903,37 +903,37 @@ async def fix_custom_node(request):
     res = core.unified_manager.unified_fix(node_name, node_ver)
 
     if res.result:
-        print("After restarting ComfyUI, please refresh the browser.")
+        logging.info("After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
-    print(f"ERROR: An error occurred while fixing '{node_name}@{node_ver}'.")
+    logging.error(f"ERROR: An error occurred while fixing '{node_name}@{node_ver}'.")
     return web.Response(status=400, text=f"An error occurred while fixing '{node_name}@{node_ver}'.")
 
 
 @routes.post("/customnode/install/git_url")
 async def install_custom_node_git_url(request):
     if not is_allowed_security_level('high'):
-        print(SECURITY_MESSAGE_NORMAL_MINUS)
+        logging.error(SECURITY_MESSAGE_NORMAL_MINUS)
         return web.Response(status=403)
 
     url = await request.text()
     res = await core.gitclone_install(url)
 
     if res.action == 'skip':
-        print(f"Already installed: '{res.target}'")
+        logging.info(f"Already installed: '{res.target}'")
         return web.Response(status=200)
     elif res.result:
-        print("After restarting ComfyUI, please refresh the browser.")
+        logging.info("After restarting ComfyUI, please refresh the browser.")
         return web.Response(status=200)
 
-    print(res.msg)
+    logging.error(res.msg)
     return web.Response(status=400)
 
 
 @routes.post("/customnode/install/pip")
 async def install_custom_node_pip(request):
     if not is_allowed_security_level('high'):
-        print(SECURITY_MESSAGE_NORMAL_MINUS)
+        logging.error(SECURITY_MESSAGE_NORMAL_MINUS)
         return web.Response(status=403)
 
     packages = await request.text()
@@ -945,7 +945,7 @@ async def install_custom_node_pip(request):
 @routes.post("/customnode/uninstall")
 async def uninstall_custom_node(request):
     if not is_allowed_security_level('middle'):
-        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
+        logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403, text="A security error has occurred. Please check the terminal logs")
 
     json_data = await request.json()
@@ -962,17 +962,17 @@ async def uninstall_custom_node(request):
     res = core.unified_manager.unified_uninstall(node_name, is_unknown)
 
     if res.result:
-        print("After restarting ComfyUI, please refresh the browser.")
+        logging.info("After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
-    print(f"ERROR: An error occurred while uninstalling '{node_name}'.")
+    logging.error(f"ERROR: An error occurred while uninstalling '{node_name}'.")
     return web.Response(status=400, text=f"An error occurred while uninstalling '{node_name}'.")
 
 
 @routes.post("/customnode/update")
 async def update_custom_node(request):
     if not is_allowed_security_level('middle'):
-        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
+        logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403, text="A security error has occurred. Please check the terminal logs")
 
     json_data = await request.json()
@@ -989,29 +989,29 @@ async def update_custom_node(request):
     manager_util.clear_pip_cache()
 
     if res.result:
-        print("After restarting ComfyUI, please refresh the browser.")
+        logging.info("After restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
-    print(f"ERROR: An error occurred while updating '{node_name}'.")
+    logging.error(f"ERROR: An error occurred while updating '{node_name}'.")
     return web.Response(status=400, text=f"An error occurred while updating '{node_name}'.")
 
 
 @routes.get("/comfyui_manager/update_comfyui")
 async def update_comfyui(request):
-    print("Update ComfyUI")
+    logging.info("Update ComfyUI")
 
     try:
         repo_path = os.path.dirname(folder_paths.__file__)
         res = core.update_path(repo_path)
         if res == "fail":
-            print("ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
+            logging.error("ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
             return web.Response(status=400)
         elif res == "updated":
             return web.Response(status=201)
         else:  # skipped
             return web.Response(status=200)
     except Exception as e:
-        print(f"ComfyUI update fail: {e}", file=sys.stderr)
+        logging.error(f"ComfyUI update fail: {e}", file=sys.stderr)
 
     return web.Response(status=400)
 
@@ -1022,7 +1022,7 @@ async def comfyui_versions(request):
         res, current = core.get_comfyui_versions()
         return web.json_response({'versions': res, 'current': current}, status=200, content_type='application/json')
     except Exception as e:
-        print(f"ComfyUI update fail: {e}", file=sys.stderr)
+        logging.error(f"ComfyUI update fail: {e}", file=sys.stderr)
 
     return web.Response(status=400)
 
@@ -1035,7 +1035,7 @@ async def comfyui_switch_version(request):
 
         return web.Response(status=200)
     except Exception as e:
-        print(f"ComfyUI update fail: {e}", file=sys.stderr)
+        logging.error(f"ComfyUI update fail: {e}", file=sys.stderr)
 
     return web.Response(status=400)
 
@@ -1063,9 +1063,9 @@ async def disable_node(request):
 
 @routes.get("/manager/migrate_unmanaged_nodes")
 async def migrate_unmanaged_nodes(request):
-    print("[ComfyUI-Manager] Migrating unmanaged nodes...")
+    logging.info("[ComfyUI-Manager] Migrating unmanaged nodes...")
     await core.unified_manager.migrate_unmanaged_nodes()
-    print("Done.")
+    logging.info("Done.")
     return web.Response(status=200)
 
 
@@ -1081,7 +1081,7 @@ async def install_model(request):
     model_path = get_model_path(json_data)
 
     if not is_allowed_security_level('middle'):
-        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
+        logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
     if not json_data['filename'].endswith('.safetensors') and not is_allowed_security_level('high'):
@@ -1094,14 +1094,14 @@ async def install_model(request):
                 break
 
         if not is_belongs_to_whitelist:
-            print(SECURITY_MESSAGE_NORMAL_MINUS)
+            logging.error(SECURITY_MESSAGE_NORMAL_MINUS)
             return web.Response(status=403)
 
     res = False
 
     try:
         if model_path is not None:
-            print(f"Install model '{json_data['name']}' into '{model_path}'")
+            logging.info(f"Install model '{json_data['name']}' into '{model_path}'")
 
             model_url = json_data['url']
             if not core.get_config()['model_download_by_agent'] and (
@@ -1120,12 +1120,12 @@ async def install_model(request):
                 if res and model_path.endswith('.zip'):
                     res = core.unzip(model_path)
         else:
-            print(f"Model installation error: invalid model type - {json_data['type']}")
+            logging.error(f"Model installation error: invalid model type - {json_data['type']}")
 
         if res:
             return web.json_response({}, content_type='application/json')
     except Exception as e:
-        print(f"[ERROR] {e}", file=sys.stderr)
+        logging.error(f"[ERROR] {e}", file=sys.stderr)
 
     return web.Response(status=400)
 
@@ -1267,7 +1267,7 @@ async def get_notice(request):
 @routes.get("/manager/reboot")
 def restart(self):
     if not is_allowed_security_level('middle'):
-        print(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
+        logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403)
 
     try:
@@ -1279,10 +1279,10 @@ def restart(self):
         with open(os.path.join(os.environ['__COMFY_CLI_SESSION__'] + '.reboot'), 'w'):
             pass
 
-        print("\nRestarting...\n\n")
+        print("\nRestarting...\n\n")  # This printing should not be logging - that will be ugly
         exit(0)
 
-    print("\nRestarting... [Legacy Mode]\n\n")
+    print("\nRestarting... [Legacy Mode]\n\n")  # This printing should not be logging - that will be ugly
 
     sys_argv = sys.argv.copy()
     if '--windows-standalone-build' in sys_argv:
@@ -1338,11 +1338,11 @@ async def load_components(request):
                     # When there is a conflict between the .pack and the .json, the pack takes precedence and overrides.
                     components.update(json.load(file))
                 except json.JSONDecodeError as e:
-                    print(f"[ComfyUI-Manager] Error decoding component file in file {json_file}: {e}")
+                    logging.error(f"[ComfyUI-Manager] Error decoding component file in file {json_file}: {e}")
 
         return web.json_response(components)
     except Exception as e:
-        print(f"[ComfyUI-Manager] failed to load components\n{e}")
+        logging.error(f"[ComfyUI-Manager] failed to load components\n{e}")
         return web.Response(status=400)
 
 
@@ -1357,7 +1357,7 @@ async def _confirm_try_install(sender, custom_node_url, msg):
         PromptServer.instance.send_sync("cm-api-try-install-customnode",
                                         {"sender": sender, "target": target, "msg": msg})
     else:
-        print(f"[ComfyUI Manager API] Failed to try install - Unknown custom node url '{custom_node_url}'")
+        logging.error(f"[ComfyUI Manager API] Failed to try install - Unknown custom node url '{custom_node_url}'")
 
 
 def confirm_try_install(sender, custom_node_url, msg):
@@ -1380,7 +1380,7 @@ async def default_cache_update():
         with manager_util.cache_lock:
             with open(cache_uri, "w", encoding='utf-8') as file:
                 json.dump(json_obj, file, indent=4, sort_keys=True)
-                print(f"[ComfyUI-Manager] default cache updated: {uri}")
+                logging.info(f"[ComfyUI-Manager] default cache updated: {uri}")
 
     a = get_cache("custom-node-list.json")
     b = get_cache("extension-node-map.json")
@@ -1393,7 +1393,7 @@ async def default_cache_update():
     if not core.get_config()['skip_migration_check']:
         await core.check_need_to_migrate()
     else:
-        print("[ComfyUI-Manager] Migration check is skipped...")
+        logging.info("[ComfyUI-Manager] Migration check is skipped...")
 
 
 threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()
