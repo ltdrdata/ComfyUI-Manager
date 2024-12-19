@@ -542,6 +542,33 @@ def populate_markdown(x):
         x['title'] = manager_util.sanitize_tag(x['title'])
 
 
+@routes.get("/customnode/installed")
+async def installed_list(request):
+    result = {}
+    for x in folder_paths.get_folder_paths('custom_nodes'):
+        for y in os.listdir(x):
+            if y.endswith('.disabled') or y == '__pycache__' or y.endswith('.py') or y.endswith('.example'):
+                continue
+
+            spec = y.split('@')
+
+            if len(spec) == 2:
+                ver = spec[1].replace('_', '.')
+
+                if ver == 'nightly':
+                    ver = None
+            else:
+                ver = None
+
+            # extract commit hash
+            if ver is None:
+                ver = core.get_commit_hash(os.path.join(x, y))
+
+            result[y] = ver
+
+    return web.json_response(result, content_type='application/json')
+
+
 @routes.get("/customnode/getlist")
 async def fetch_customnode_list(request):
     """
