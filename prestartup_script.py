@@ -16,6 +16,7 @@ sys.path.append(glob_path)
 import security_check
 import manager_util
 import cm_global
+import manager_downloader
 from datetime import datetime
 
 security_check.security_check()
@@ -513,7 +514,7 @@ def execute_lazy_cnr_switch(target, zip_url, from_path, to_path, no_deps, custom
     # 1. download
     archive_name = f"CNR_temp_{str(uuid.uuid4())}.zip"  # should be unpredictable name - security precaution
     download_path = os.path.join(custom_nodes_path, archive_name)
-    manager_util.download_url(zip_url, custom_nodes_path, archive_name)
+    manager_downloader.download_url(zip_url, custom_nodes_path, archive_name)
 
     # 2. extract files into <node_id>@<cur_ver>
     extracted = manager_util.extract_package_as_zip(download_path, from_path)
