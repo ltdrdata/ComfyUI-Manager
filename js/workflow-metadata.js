@@ -40,6 +40,10 @@ class WorkflowMetadataExtension {
     const nodeVersions = {};
     for (const node of graph.nodes) {
       const nodeData = node.constructor.nodeData;
+      // Frontend only nodes don't have nodeData
+      if (!nodeData) {
+        continue;
+      }
       const modules = nodeData.python_module.split(".");
 
       if (modules[0] === "custom_nodes") {
