@@ -1975,7 +1975,9 @@
     "https://github.com/Bria-AI/ComfyUI-BRIA-API": [
         [
             "BriaEraser",
-            "BriaGenFill"
+            "BriaGenFill",
+            "ShotByImageNode",
+            "ShotByTextNode"
         ],
         {
             "title_aux": "BRIA AI API nodes"
@@ -3965,6 +3967,7 @@
             "IsulionHabitatGenerator",
             "IsulionLoadImagesNode",
             "IsulionMagicalEffectGenerator",
+            "IsulionMegaPromptV3",
             "IsulionMultiplePromptGenerator",
             "IsulionMythicalLocationGenerator",
             "IsulionNegativePromptGenerator",
@@ -3976,7 +3979,6 @@
             "IsulionTechGenerator",
             "IsulionTimeOfDayGenerator",
             "IsulionWeatherGenerator",
-            "MegaPromptV3",
             "\u23fb IsulionShutdown"
         ],
         {
@@ -6159,6 +6161,21 @@
             "title_aux": "ComfyUI-AdvancedLivePortrait"
         }
     ],
+    "https://github.com/PressWagon/ComfyUI-StringsAndThings": [
+        [
+            "DebugString",
+            "FormatConcatStrings",
+            "FormattingSingle",
+            "FourierAnalysisNode",
+            "LoraNameCollector",
+            "LoraSelector",
+            "MosaicEffectNode",
+            "TextEmbeddingsInterrogator"
+        ],
+        {
+            "title_aux": "ComfyUI-StringsAndThings"
+        }
+    ],
     "https://github.com/Pseudotools/Pseudocomfy": [
         [
             "Combiner",
@@ -7088,6 +7105,7 @@
     ],
     "https://github.com/SlackinJack/distrifuser_comfyui": [
         [
+            "DistrifuserPipelineLoader",
             "DistrifuserSampler"
         ],
         {
@@ -9477,13 +9495,18 @@
     "https://github.com/aidenli/ComfyUI_NYJY": [
         [
             "CivitaiPrompt",
+            "ConverAnyToString",
             "CustomLatentImage-NYJY",
             "CustomLatentImageSimple",
             "FloatSlider-NYJY",
+            "GetItemFromList",
             "JoyCaption",
             "JoyCaptionAlpha1Online",
             "JoyCaptionAlpha2Online",
             "JoyTag",
+            "JsonDumps",
+            "JsonLoads",
+            "SplitString",
             "Translate"
         ],
         {
@@ -9944,6 +9967,7 @@
         [
             "Sage_AdvSamplerInfo",
             "Sage_CacheMaintenance",
+            "Sage_CheckpointLoaderRecent",
             "Sage_CheckpointLoaderSimple",
             "Sage_CollectKeywordsFromLoraStack",
             "Sage_ConditioningZeroOut",
@@ -9960,6 +9984,7 @@
             "Sage_LoadImage",
             "Sage_LoraStack",
             "Sage_LoraStackLoader",
+            "Sage_LoraStackRecent",
             "Sage_ModelInfoBreakout",
             "Sage_ModelInfoFromModelId",
             "Sage_ModelReport",
@@ -11549,6 +11574,7 @@
             "LayerUtility: ImageCombineAlpha",
             "LayerUtility: ImageHub",
             "LayerUtility: ImageMaskScaleAs",
+            "LayerUtility: ImageMaskScaleAsV2",
             "LayerUtility: ImageOpacity",
             "LayerUtility: ImageReel",
             "LayerUtility: ImageReelComposit",
@@ -12113,6 +12139,7 @@
             "ConditioningSetAreaStrength",
             "ConditioningSetMask",
             "ConditioningSetTimestepRange",
+            "ConditioningStableAudio",
             "ConditioningZeroOut",
             "ControlNetApply",
             "ControlNetApplyAdvanced",
@@ -12808,6 +12835,7 @@
             "D2 Checkpoint Loader",
             "D2 Controlnet Loader",
             "D2 EmptyImage Alpha",
+            "D2 Filename Template",
             "D2 Folder Image Queue",
             "D2 Get Image Size",
             "D2 Grid Image",
@@ -12838,7 +12866,8 @@
             "D2 XY Plot Easy",
             "D2 XY Prompt SR",
             "D2 XY Prompt SR2",
-            "D2 XY Seed"
+            "D2 XY Seed",
+            "D2 XY String To Plot"
         ],
         {
             "author": "da2el",
@@ -13757,7 +13786,8 @@
         [
             "Genera.BatchPreviewer",
             "Genera.BatchTester",
-            "Genera.GCPStorageNode"
+            "Genera.GCPStorageNode",
+            "Genera.Utils"
         ],
         {
             "title_aux": "ComfyUI-GeneraNodes"
@@ -20918,6 +20948,19 @@
             "title_aux": "CRT-Nodes"
         }
     ],
+    "https://github.com/pollockjj/ComfyUI-MultiGPU": [
+        [
+            "CLIPLoaderMultiGPU",
+            "CheckpointLoaderMultiGPU",
+            "ControlNetLoaderMultiGPU",
+            "DualCLIPLoaderMultiGPU",
+            "UNETLoaderMultiGPU",
+            "VAELoaderMultiGPU"
+        ],
+        {
+            "title_aux": "ComfyUI-MultiGPU"
+        }
+    ],
     "https://github.com/portu-sim/comfyui_bmab": [
         [
             "BMAB Alpha Composit",
@@ -22207,6 +22250,7 @@
             "BizyAirUniFormer_SemSegPreprocessor",
             "BizyAirZoe_DepthMapPreprocessor",
             "BizyAir_MinusZoneChatGLM3TextEncode",
+            "LayerMask: SegmentAnythingUltra V2",
             "StableDiffusionXLControlNetUnionPipeline"
         ],
         {
@@ -22953,6 +22997,7 @@
             "teeth GetFirstSeg",
             "teeth GetValueByIndexFromList",
             "teeth RunPythonCode",
+            "teeth SplitGridImage",
             "teeth TextSplitByDelimiter"
         ],
         {
@@ -24948,6 +24993,8 @@
     ],
     "https://github.com/yuvraj108c/ComfyUI-Pronodes": [
         [
+            "ImagesSeekerNode",
+            "ImagesShufflerNode",
             "LoadImageFromOutputDirectoryNode",
             "LoadYoutubeVideoNode",
             "PreviewVHSAudioNode",
