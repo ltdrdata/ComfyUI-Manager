@@ -326,20 +326,18 @@ def invalidate_custom_node_file(file_custom_node_infos):
                     download_url(url, working_directory)
 
 
-def apply_snapshot(target):
+def apply_snapshot(path):
     try:
-        # todo: should be if target is not in snapshots dir
-        path = os.path.join(os.path.dirname(__file__), 'snapshots', f"{target}")
         if os.path.exists(path):
-            if not target.endswith('.json') and not target.endswith('.yaml'):
+            if not path.endswith('.json') and not path.endswith('.yaml'):
                 print(f"Snapshot file not found: `{path}`")
                 print("APPLY SNAPSHOT: False")
                 return None
 
             with open(path, 'r', encoding="UTF-8") as snapshot_file:
-                if target.endswith('.json'):
+                if path.endswith('.json'):
                     info = json.load(snapshot_file)
-                elif target.endswith('.yaml'):
+                elif path.endswith('.yaml'):
                     info = yaml.load(snapshot_file, Loader=yaml.SafeLoader)
                     info = info['custom_nodes']
                 else:

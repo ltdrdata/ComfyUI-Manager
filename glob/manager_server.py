@@ -634,8 +634,7 @@ async def fetch_externalmodel_list(request):
 
 @PromptServer.instance.routes.get("/snapshot/getlist")
 async def get_snapshot_list(request):
-    snapshots_directory = os.path.join(manager_util.comfyui_manager_path, 'snapshots')
-    items = [f[:-5] for f in os.listdir(snapshots_directory) if f.endswith('.json')]
+    items = [f[:-5] for f in os.listdir(core.manager_snapshot_path) if f.endswith('.json')]
     items.sort(reverse=True)
     return web.json_response({'items': items}, content_type='application/json')
 
@@ -649,7 +648,7 @@ async def remove_snapshot(request):
     try:
         target = request.rel_url.query["target"]
 
-        path = os.path.join(manager_util.comfyui_manager_path, 'snapshots', f"{target}.json")
+        path = os.path.join(core.manager_snapshot_path, f"{target}.json")
         if os.path.exists(path):
             os.remove(path)
 
@@ -667,12 +666,12 @@ async def restore_snapshot(request):
     try:
         target = request.rel_url.query["target"]
 
-        path = os.path.join(manager_util.comfyui_manager_path, 'snapshots', f"{target}.json")
+        path = os.path.join(core.manager_snapshot_path, f"{target}.json")
         if os.path.exists(path):
-            if not os.path.exists(core.startup_script_path):
-                os.makedirs(core.startup_script_path)
+            if not os.path.exists(core.manager_startup_script_path):
+                os.makedirs(core.manager_startup_script_path)
 
-            target_path = os.path.join(core.startup_script_path, "restore-snapshot.json")
+            target_path = os.path.join(core.manager_startup_script_path, "restore-snapshot.json")
             shutil.copy(path, target_path)
 
             print(f"Snapshot restore scheduled: `{target}`")
@@ -1399,7 +1398,7 @@ async def default_cache_update():
 
 threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()
 
-if not os.path.exists(core.config_path):
+if not os.path.exists(core.manager_config_path):
     core.get_config()
     core.write_config()
 
@@ -1408,5 +1407,5 @@ cm_global.register_extension('ComfyUI-Manager',
                              {'version': core.version,
                                  'name': 'ComfyUI Manager',
                                  'nodes': {},
-                                 'description': 'It provides the ability to manage custom nodes in ComfyUI.', })
+                                 'description': 'This extension provides the ability to manage custom nodes in ComfyUI.', })
 

@@ -34,7 +34,7 @@ import manager_util
 import manager_downloader
 
 
-version_code = [3, 0]
+version_code = [3, 1]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -89,7 +89,6 @@ def check_invalid_nodes():
 
     try:
         import folder_paths
-        node_paths = folder_paths.get_folder_paths("custom_nodes")
     except:
         try:
             sys.path.append(comfy_path)
@@ -140,19 +139,50 @@ if comfy_path is None:
         comfy_path = os.path.abspath(os.path.join(manager_util.comfyui_manager_path, '..', '..'))
 
 
+channel_list_template_path = os.path.join(manager_util.comfyui_manager_path, 'channels.list.template')
+git_script_path = os.path.join(manager_util.comfyui_manager_path, "git_helper.py")
+
+manager_files_path = None
+manager_config_path = None
+manager_channel_list_path = None
+manager_startup_script_path = None
+manager_snapshot_path = None
+manager_pip_overrides_path = None
+
+def update_user_directory(user_dir):
+    global manager_files_path
+    global manager_config_path
+    global manager_channel_list_path
+    global manager_startup_script_path
+    global manager_snapshot_path
+    global manager_pip_overrides_path
+
+    manager_files_path = os.path.abspath(os.path.join(user_dir, 'default', 'ComfyUI-Manager'))
+    if not os.path.exists(manager_files_path):
+        os.makedirs(manager_files_path)
+
+    manager_snapshot_path = os.path.join(manager_files_path, "snapshots")
+    if not os.path.exists(manager_snapshot_path):
+        os.makedirs(manager_snapshot_path)
+
+    manager_startup_script_path = os.path.join(manager_files_path, "startup-scripts")
+    if not os.path.exists(manager_startup_script_path):
+        os.makedirs(manager_startup_script_path)
+
+    manager_config_path = os.path.join(manager_files_path, 'config.ini')
+    manager_channel_list_path = os.path.join(manager_files_path, 'channels.list')
+    manager_pip_overrides_path = os.path.join(manager_files_path, "pip_overrides.json")
+
 try:
     import folder_paths
-    manager_core_config_path = os.path.abspath(os.path.join(folder_paths.get_user_directory(), 'default', 'manager-core.ini'))
+    update_user_directory(folder_paths.get_user_directory())
+
 except Exception:
     # fallback:
     # This case is only possible when running with cm-cli, and in practice, this case is not actually used.
-    manager_core_config_path = os.path.abspath(os.path.join(manager_util.comfyui_manager_path, 'manager-core.ini'))
+    update_user_directory(os.path.abspath(manager_util.comfyui_manager_path))
 
 
-channel_list_path = os.path.join(manager_util.comfyui_manager_path, 'channels.list')
-config_path = os.path.join(manager_util.comfyui_manager_path, "config.ini")
-startup_script_path = os.path.join(manager_util.comfyui_manager_path, "startup-scripts")
-git_script_path = os.path.join(manager_util.comfyui_manager_path, "git_helper.py")
 cached_config = None
 js_path = None
 
@@ -785,7 +815,7 @@ class UnifiedManager:
         return True
 
     def reserve_cnr_switch(self, target, zip_url, from_path, to_path, no_deps):
-        script_path = os.path.join(startup_script_path, "install-scripts.txt")
+        script_path = os.path.join(manager_startup_script_path, "install-scripts.txt")
         with open(script_path, "a") as file:
             obj = [target, "#LAZY-CNR-SWITCH-SCRIPT", zip_url, from_path, to_path, no_deps, get_default_custom_nodes_path(), sys.executable]
             file.write(f"{obj}\n")
@@ -795,7 +825,7 @@ class UnifiedManager:
         return True
 
     def reserve_migration(self, moves):
-        script_path = os.path.join(startup_script_path, "install-scripts.txt")
+        script_path = os.path.join(manager_startup_script_path, "install-scripts.txt")
         with open(script_path, "a") as file:
             obj = ["", "#LAZY-MIGRATION", moves]
             file.write(f"{obj}\n")
@@ -1402,10 +1432,10 @@ def get_channel_dict():
     if channel_dict is None:
         channel_dict = {}
 
-        if not os.path.exists(channel_list_path):
-            shutil.copy(channel_list_path+'.template', channel_list_path)
+        if not os.path.exists(manager_channel_list_path):
+            shutil.copy(channel_list_template_path, manager_channel_list_path)
 
-        with open(os.path.join(manager_util.comfyui_manager_path, 'channels.list'), 'r') as file:
+        with open(manager_channel_list_path, 'r') as file:
             channels = file.read()
             for x in channels.split('\n'):
                 channel_info = x.split("::")
@@ -1468,18 +1498,18 @@ def write_config():
         'skip_migration_check': get_config()['skip_migration_check'],
     }
 
-    directory = os.path.dirname(manager_core_config_path)
+    directory = os.path.dirname(manager_config_path)
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    with open(manager_core_config_path, 'w') as configfile:
+    with open(manager_config_path, 'w') as configfile:
         config.write(configfile)
 
 
 def read_config():
     try:
         config = configparser.ConfigParser()
-        config.read(config_path)
+        config.read(manager_config_path)
         default_conf = config['default']
 
         # policy migration: disable_unsecure_features -> security_level
@@ -1545,10 +1575,10 @@ def switch_to_default_branch(repo):
 
 def try_install_script(url, repo_path, install_cmd, instant_execution=False):
     if not instant_execution and ((len(install_cmd) > 0 and install_cmd[0].startswith('#')) or (platform.system() == "Windows" and comfy_ui_commit_datetime.date() >= comfy_ui_required_commit_datetime.date())):
-        if not os.path.exists(startup_script_path):
-            os.makedirs(startup_script_path)
+        if not os.path.exists(manager_startup_script_path):
+            os.makedirs(manager_startup_script_path)
 
-        script_path = os.path.join(startup_script_path, "install-scripts.txt")
+        script_path = os.path.join(manager_startup_script_path, "install-scripts.txt")
         with open(script_path, "a") as file:
             obj = [repo_path] + install_cmd
             file.write(f"{obj}\n")
@@ -2377,7 +2407,7 @@ def save_snapshot_with_postfix(postfix, path=None):
         date_time_format = now.strftime("%Y-%m-%d_%H-%M-%S")
         file_name = f"{date_time_format}_{postfix}"
 
-        path = os.path.join(manager_util.comfyui_manager_path, 'snapshots', f"{file_name}.json")
+        path = os.path.join(manager_snapshot_path, f"{file_name}.json")
     else:
         file_name = path.replace('\\', '/').split('/')[-1]
         file_name = file_name.split('.')[-2]

@@ -65,10 +65,10 @@ async def share_option(request):
 
 
 def get_openart_auth():
-    if not os.path.exists(os.path.join(core.comfyui_manager_path, ".openart_key")):
+    if not os.path.exists(os.path.join(core.manager_files_path, ".openart_key")):
         return None
     try:
-        with open(os.path.join(core.comfyui_manager_path, ".openart_key"), "r") as f:
+        with open(os.path.join(core.manager_files_path, ".openart_key"), "r") as f:
             openart_key = f.read().strip()
         return openart_key if openart_key else None
     except:
@@ -76,10 +76,10 @@ def get_openart_auth():
 
 
 def get_matrix_auth():
-    if not os.path.exists(os.path.join(core.comfyui_manager_path, "matrix_auth")):
+    if not os.path.exists(os.path.join(core.manager_files_path, "matrix_auth")):
         return None
     try:
-        with open(os.path.join(core.comfyui_manager_path, "matrix_auth"), "r") as f:
+        with open(os.path.join(core.manager_files_path, "matrix_auth"), "r") as f:
             matrix_auth = f.read()
             homeserver, username, password = matrix_auth.strip().split("\n")
             if not homeserver or not username or not password:
@@ -94,10 +94,10 @@ def get_matrix_auth():
 
 
 def get_comfyworkflows_auth():
-    if not os.path.exists(os.path.join(core.comfyui_manager_path, "comfyworkflows_sharekey")):
+    if not os.path.exists(os.path.join(core.manager_files_path, "comfyworkflows_sharekey")):
         return None
     try:
-        with open(os.path.join(core.comfyui_manager_path, "comfyworkflows_sharekey"), "r") as f:
+        with open(os.path.join(core.manager_files_path, "comfyworkflows_sharekey"), "r") as f:
             share_key = f.read()
             if not share_key.strip():
                 return None
@@ -107,10 +107,10 @@ def get_comfyworkflows_auth():
 
 
 def get_youml_settings():
-    if not os.path.exists(os.path.join(core.comfyui_manager_path, ".youml")):
+    if not os.path.exists(os.path.join(core.manager_files_path, ".youml")):
         return None
     try:
-        with open(os.path.join(core.comfyui_manager_path, ".youml"), "r") as f:
+        with open(os.path.join(core.manager_files_path, ".youml"), "r") as f:
             youml_settings = f.read().strip()
         return youml_settings if youml_settings else None
     except:
@@ -118,7 +118,7 @@ def get_youml_settings():
 
 
 def set_youml_settings(settings):
-    with open(os.path.join(core.comfyui_manager_path, ".youml"), "w") as f:
+    with open(os.path.join(core.manager_files_path, ".youml"), "w") as f:
         f.write(settings)
 
 
@@ -135,7 +135,7 @@ async def api_get_openart_auth(request):
 async def api_set_openart_auth(request):
     json_data = await request.json()
     openart_key = json_data['openart_key']
-    with open(os.path.join(core.comfyui_manager_path, ".openart_key"), "w") as f:
+    with open(os.path.join(core.manager_files_path, ".openart_key"), "w") as f:
         f.write(openart_key)
     return web.Response(status=200)
 
@@ -178,14 +178,14 @@ async def api_get_comfyworkflows_auth(request):
 @PromptServer.instance.routes.post("/manager/set_esheep_workflow_and_images")
 async def set_esheep_workflow_and_images(request):
     json_data = await request.json()
-    with open(os.path.join(core.comfyui_manager_path, "esheep_share_message.json"), "w", encoding='utf-8') as file:
+    with open(os.path.join(core.manager_files_path, "esheep_share_message.json"), "w", encoding='utf-8') as file:
         json.dump(json_data, file, indent=4)
         return web.Response(status=200)
 
 
 @PromptServer.instance.routes.get("/manager/get_esheep_workflow_and_images")
 async def get_esheep_workflow_and_images(request):
-    with open(os.path.join(core.comfyui_manager_path, "esheep_share_message.json"), 'r', encoding='utf-8') as file:
+    with open(os.path.join(core.manager_files_path, "esheep_share_message.json"), 'r', encoding='utf-8') as file:
         data = json.load(file)
         return web.Response(status=200, text=json.dumps(data))
 
@@ -194,12 +194,12 @@ def set_matrix_auth(json_data):
     homeserver = json_data['homeserver']
     username = json_data['username']
     password = json_data['password']
-    with open(os.path.join(core.comfyui_manager_path, "matrix_auth"), "w") as f:
+    with open(os.path.join(core.manager_files_path, "matrix_auth"), "w") as f:
         f.write("\n".join([homeserver, username, password]))
 
 
 def set_comfyworkflows_auth(comfyworkflows_sharekey):
-    with open(os.path.join(core.comfyui_manager_path, "comfyworkflows_sharekey"), "w") as f:
+    with open(os.path.join(core.manager_files_path, "comfyworkflows_sharekey"), "w") as f:
         f.write(comfyworkflows_sharekey)
 
 

@@ -18,6 +18,7 @@ import manager_util
 import cm_global
 import manager_downloader
 from datetime import datetime
+import folder_paths
 
 security_check.security_check()
 
@@ -73,17 +74,19 @@ cm_global.register_api('cm.is_import_failed_extension', is_import_failed_extensi
 
 
 comfyui_manager_path = os.path.abspath(os.path.dirname(__file__))
-custom_nodes_path = os.path.abspath(os.path.join(comfyui_manager_path, ".."))
-startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
-restore_snapshot_path = os.path.join(startup_script_path, "restore-snapshot.json")
+
+custom_nodes_base_path = folder_paths.get_folder_paths('custom_nodes')[0]
+manager_files_path = os.path.abspath(os.path.join(folder_paths.get_user_directory(), 'default', 'ComfyUI-Manager'))
+manager_pip_overrides_path = os.path.join(manager_files_path, "pip_overrides.json")
+restore_snapshot_path = os.path.join(manager_files_path, "startup-scripts", "restore-snapshot.json")
+
 git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
 cm_cli_path = os.path.join(comfyui_manager_path, "cm-cli.py")
-pip_overrides_path = os.path.join(comfyui_manager_path, "pip_overrides.json")
 
 
 cm_global.pip_overrides = {}
-if os.path.exists(pip_overrides_path):
-    with open(pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
+if os.path.exists(manager_pip_overrides_path):
+    with open(manager_pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
         cm_global.pip_overrides = json.load(json_file)
         cm_global.pip_overrides['numpy'] = 'numpy<2'
         cm_global.pip_overrides['ultralytics'] = 'ultralytics==8.3.40'  # for security
@@ -146,15 +149,18 @@ try:
         postfix = ""
 
     # Logger setup
+    log_path_base = None
     if enable_file_logging:
-        if os.path.exists(f"comfyui{postfix}.log"):
-            if os.path.exists(f"comfyui{postfix}.prev.log"):
-                if os.path.exists(f"comfyui{postfix}.prev2.log"):
-                    os.remove(f"comfyui{postfix}.prev2.log")
-                os.rename(f"comfyui{postfix}.prev.log", f"comfyui{postfix}.prev2.log")
-            os.rename(f"comfyui{postfix}.log", f"comfyui{postfix}.prev.log")
+        log_path_base = os.path.join(folder_paths.user_directory, 'comfyui')
 
-        log_file = open(f"comfyui{postfix}.log", "w", encoding="utf-8", errors="ignore")
+        if os.path.exists(f"{log_path_base}{postfix}.log"):
+            if os.path.exists(f"{log_path_base}{postfix}.prev.log"):
+                if os.path.exists(f"{log_path_base}{postfix}.prev2.log"):
+                    os.remove(f"{log_path_base}{postfix}.prev2.log")
+                os.rename(f"{log_path_base}{postfix}.prev.log", f"{log_path_base}{postfix}.prev2.log")
+            os.rename(f"{log_path_base}{postfix}.log", f"{log_path_base}{postfix}.prev.log")
+
+        log_file = open(f"{log_path_base}{postfix}.log", "w", encoding="utf-8", errors="ignore")
 
     log_lock = threading.Lock()
 
@@ -339,8 +345,8 @@ print("** Python version:", sys.version)
 print("** Python executable:", sys.executable)
 print("** ComfyUI Path:", comfy_path)
 
-if enable_file_logging:
-    print("** Log path:", os.path.abspath('comfyui.log'))
+if log_path_base is not None:
+    print("** Log path:", os.path.abspath(f'{log_path_base}.log'))
 else:
     print("** Log path: file logging is disabled")
 
@@ -386,7 +392,7 @@ check_bypass_ssl()
 
 # Perform install
 processed_install = set()
-script_list_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "startup-scripts", "install-scripts.txt")
+script_list_path = os.path.join(folder_paths.user_directory, "default", "ComfyUI-Manager", "startup-scripts", "install-scripts.txt")
 pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
 
 
@@ -463,7 +469,7 @@ if os.path.exists(restore_snapshot_path):
         new_env["COMFYUI_PATH"] = comfy_path
 
         cmd_str = [sys.executable, cm_cli_path, 'restore-snapshot', restore_snapshot_path]
-        exit_code = process_wrap(cmd_str, custom_nodes_path, handler=msg_capture, env=new_env)
+        exit_code = process_wrap(cmd_str, custom_nodes_base_path, handler=msg_capture, env=new_env)
 
         if exit_code != 0:
             print("[ComfyUI-Manager] Restore snapshot failed.")

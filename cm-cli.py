@@ -13,12 +13,29 @@ from typing_extensions import List, Annotated
 import re
 import git
 
+
 sys.path.append(os.path.dirname(__file__))
 sys.path.append(os.path.join(os.path.dirname(__file__), "glob"))
+
+import manager_util
+
+comfy_path = os.environ.get('COMFYUI_PATH')
+if comfy_path is None:
+    try:
+        import folder_paths
+        comfy_path = os.path.join(os.path.dirname(folder_paths.__file__))
+    except:
+        comfy_path = os.path.abspath(os.path.join(manager_util.comfyui_manager_path, '..', '..'))
+
+sys.path.append(comfy_path)
+
+import utils.extra_config
 import cm_global
 import manager_core as core
 from manager_core import unified_manager
 import cnr_utils
+
+
 
 comfyui_manager_path = os.path.abspath(os.path.dirname(__file__))
 comfy_path = os.environ.get('COMFYUI_PATH')
@@ -27,21 +44,14 @@ if comfy_path is None:
     print("\n[bold yellow]WARN: The `COMFYUI_PATH` environment variable is not set. Assuming `custom_nodes/ComfyUI-Manager/../../` as the ComfyUI path.[/bold yellow]", file=sys.stderr)
     comfy_path = os.path.abspath(os.path.join(comfyui_manager_path, '..', '..'))
 
-startup_script_path = os.path.join(comfyui_manager_path, "startup-scripts")
-custom_nodes_path = os.path.join(comfy_path, 'custom_nodes')
-
-script_path = os.path.join(startup_script_path, "install-scripts.txt")
-restore_snapshot_path = os.path.join(startup_script_path, "restore-snapshot.json")
-pip_overrides_path = os.path.join(comfyui_manager_path, "pip_overrides.json")
-git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
 
 cm_global.pip_blacklist = ['torch', 'torchsde', 'torchvision']
 cm_global.pip_downgrade_blacklist = ['torch', 'torchsde', 'torchvision', 'transformers', 'safetensors', 'kornia']
-cm_global.pip_overrides = {}
-if os.path.exists(pip_overrides_path):
-    with open(pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
+cm_global.pip_overrides = {'numpy': 'numpy<2'}
+
+if os.path.exists(os.path.join(manager_util.comfyui_manager_path, "pip_overrides.json")):
+    with open(os.path.join(manager_util.comfyui_manager_path, "pip_overrides.json"), 'r', encoding="UTF-8", errors="ignore") as json_file:
         cm_global.pip_overrides = json.load(json_file)
-        cm_global.pip_overrides['numpy'] = 'numpy<2'
 
 
 def check_comfyui_hash():
@@ -82,6 +92,8 @@ class Ctx:
         self.channel = 'default'
         self.no_deps = False
         self.mode = 'cache'
+        self.user_directory = None
+        self.custom_nodes_paths = [os.path.join(core.comfy_path, 'custom_nodes')]
 
     def set_channel_mode(self, channel, mode):
         if mode is not None:
@@ -104,14 +116,45 @@ class Ctx:
     def set_no_deps(self, no_deps):
         self.no_deps = no_deps
 
+    def set_user_directory(self, user_directory):
+        if user_directory is None:
+            return
 
-channel_ctx = Ctx()
+        extra_model_paths_yaml = os.path.join(user_directory, 'extra_model_paths.yaml')
+        if os.path.exists(extra_model_paths_yaml):
+            utils.extra_config.load_extra_path_config(extra_model_paths_yaml)
+
+        core.update_user_directory(user_directory)
+
+        if os.path.exists(core.manager_pip_overrides_path):
+            cm_global.pip_overrides = {'numpy': 'numpy<2'}
+            with open(core.manager_pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
+                cm_global.pip_overrides = json.load(json_file)
+
+    @staticmethod
+    def get_startup_scripts_path():
+        return os.path.join(core.manager_startup_script_path, "install-scripts.txt")
+
+    @staticmethod
+    def get_restore_snapshot_path():
+        return os.path.join(core.manager_startup_script_path, "restore-snapshot.json")
+
+    @staticmethod
+    def get_snapshot_path():
+        return core.manager_snapshot_path
+
+    @staticmethod
+    def get_custom_nodes_paths():
+        return folder_paths.get_folder_paths('custom_nodes')
+
+
+cmd_ctx = Ctx()
 
 
 def install_node(node_spec_str, is_all=False, cnt_msg=''):
     if core.is_valid_url(node_spec_str):
         # install via urls
-        res = asyncio.run(core.gitclone_install(node_spec_str, no_deps=channel_ctx.no_deps))
+        res = asyncio.run(core.gitclone_install(node_spec_str, no_deps=cmd_ctx.no_deps))
         if not res.result:
             print(res.msg)
             print(f"[bold red]ERROR: An error occurred while installing '{node_spec_str}'.[/bold red]")
@@ -129,7 +172,7 @@ def install_node(node_spec_str, is_all=False, cnt_msg=''):
         if not is_specified:
             version_spec = None
 
-        res = asyncio.run(unified_manager.install_by_id(node_name, version_spec, channel_ctx.channel, channel_ctx.mode, instant_execution=True, no_deps=channel_ctx.no_deps))
+        res = asyncio.run(unified_manager.install_by_id(node_name, version_spec, cmd_ctx.channel, cmd_ctx.mode, instant_execution=True, no_deps=cmd_ctx.no_deps))
 
         if res.action == 'skip':
             print(f"{cnt_msg} [   SKIP  ] {node_name:50} => Already installed")
@@ -175,7 +218,7 @@ def fix_node(node_spec_str, is_all=False, cnt_msg=''):
     node_name, version_spec, _ = node_spec
 
     print(f"{cnt_msg} [   FIXING  ]: {node_name:50}[{version_spec}]")
-    res = unified_manager.unified_fix(node_name, version_spec, no_deps=channel_ctx.no_deps)
+    res = unified_manager.unified_fix(node_name, version_spec, no_deps=cmd_ctx.no_deps)
 
     if not res.result:
         print(f"ERROR: f{res.msg}")
@@ -215,7 +258,7 @@ def update_node(node_spec_str, is_all=False, cnt_msg=''):
 
     node_name, version_spec, _ = node_spec
 
-    res = unified_manager.unified_update(node_name, version_spec, no_deps=channel_ctx.no_deps, return_postinstall=True)
+    res = unified_manager.unified_update(node_name, version_spec, no_deps=cmd_ctx.no_deps, return_postinstall=True)
 
     if not res.result:
         print(f"ERROR: An error occurred while updating '{node_name}'.")
@@ -333,7 +376,7 @@ def disable_node(node_spec_str: str, is_all=False, cnt_msg=''):
 
 
 def show_list(kind, simple=False):
-    custom_nodes = asyncio.run(unified_manager.get_custom_nodes(channel=channel_ctx.channel, mode=channel_ctx.mode))
+    custom_nodes = asyncio.run(unified_manager.get_custom_nodes(channel=cmd_ctx.channel, mode=cmd_ctx.mode))
 
     # collect not-installed unknown nodes
     not_installed_unknown_nodes = []
@@ -454,7 +497,7 @@ def show_snapshot(simple_mode=False):
 
 
 def show_snapshot_list(simple_mode=False):
-    snapshot_path = os.path.join(comfyui_manager_path, 'snapshots')
+    snapshot_path = cmd_ctx.get_snapshot_path()
 
     files = os.listdir(snapshot_path)
     json_files = [x for x in files if x.endswith('.json')]
@@ -463,11 +506,11 @@ def show_snapshot_list(simple_mode=False):
 
 
 def cancel():
-    if os.path.exists(script_path):
-        os.remove(script_path)
+    if os.path.exists(cmd_ctx.get_startup_scripts_path()):
+        os.remove(cmd_ctx.get_startup_scripts_path())
 
-    if os.path.exists(restore_snapshot_path):
-        os.remove(restore_snapshot_path)
+    if os.path.exists(cmd_ctx.get_restore_snapshot_path()):
+        os.remove(cmd_ctx.get_restore_snapshot_path())
 
 
 def auto_save_snapshot():
@@ -562,9 +605,14 @@ def install(
                 help="Skip installing any Python dependencies",
             ),
         ] = False,
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        ),
 ):
-    channel_ctx.set_channel_mode(channel, mode)
-    channel_ctx.set_no_deps(no_deps)
+    cmd_ctx.set_user_directory(user_directory)
+    cmd_ctx.set_channel_mode(channel, mode)
+    cmd_ctx.set_no_deps(no_deps)
     for_each_nodes(nodes, act=install_node)
 
 
@@ -592,9 +640,14 @@ def reinstall(
                 help="Skip installing any Python dependencies",
             ),
         ] = False,
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        ),
 ):
-    channel_ctx.set_channel_mode(channel, mode)
-    channel_ctx.set_no_deps(no_deps)
+    cmd_ctx.set_user_directory(user_directory)
+    cmd_ctx.set_channel_mode(channel, mode)
+    cmd_ctx.set_no_deps(no_deps)
     for_each_nodes(nodes, act=reinstall_node)
 
 
@@ -615,7 +668,7 @@ def uninstall(
             help="[remote|local|cache]"
         ),
 ):
-    channel_ctx.set_channel_mode(channel, mode)
+    cmd_ctx.set_channel_mode(channel, mode)
     for_each_nodes(nodes, act=uninstall_node)
 
 
@@ -636,8 +689,13 @@ def update(
             None,
             help="[remote|local|cache]"
         ),
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        ),
 ):
-    channel_ctx.set_channel_mode(channel, mode)
+    cmd_ctx.set_user_directory(user_directory)
+    cmd_ctx.set_channel_mode(channel, mode)
 
     if 'all' in nodes:
         auto_save_snapshot()
@@ -667,8 +725,13 @@ def disable(
             None,
             help="[remote|local|cache]"
         ),
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        ),
 ):
-    channel_ctx.set_channel_mode(channel, mode)
+    cmd_ctx.set_user_directory(user_directory)
+    cmd_ctx.set_channel_mode(channel, mode)
 
     if 'all' in nodes:
         auto_save_snapshot()
@@ -693,8 +756,13 @@ def enable(
             None,
             help="[remote|local|cache]"
         ),
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        ),
 ):
-    channel_ctx.set_channel_mode(channel, mode)
+    cmd_ctx.set_user_directory(user_directory)
+    cmd_ctx.set_channel_mode(channel, mode)
 
     if 'all' in nodes:
         auto_save_snapshot()
@@ -719,8 +787,13 @@ def fix(
             None,
             help="[remote|local|cache]"
         ),
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        ),
 ):
-    channel_ctx.set_channel_mode(channel, mode)
+    cmd_ctx.set_user_directory(user_directory)
+    cmd_ctx.set_channel_mode(channel, mode)
 
     if 'all' in nodes:
         auto_save_snapshot()
@@ -754,6 +827,10 @@ def show(
             None,
             help="[remote|local|cache]"
         ),
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        ),
 ):
     valid_commands = [
         "installed",
@@ -769,7 +846,8 @@ def show(
         typer.echo(f"Invalid command: `show {arg}`", err=True)
         exit(1)
 
-    channel_ctx.set_channel_mode(channel, mode)
+    cmd_ctx.set_user_directory(user_directory)
+    cmd_ctx.set_channel_mode(channel, mode)
     if arg == 'snapshot':
         show_snapshot()
     elif arg == 'snapshot-list':
@@ -794,6 +872,10 @@ def simple_show(
             None,
             help="[remote|local|cache]"
         ),
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        ),
 ):
     valid_commands = [
         "installed",
@@ -808,7 +890,9 @@ def simple_show(
         typer.echo(f"[bold red]Invalid command: `show {arg}`[/bold red]", err=True)
         exit(1)
 
-    channel_ctx.set_channel_mode(channel, mode)
+    cmd_ctx.set_user_directory(user_directory)
+    cmd_ctx.set_channel_mode(channel, mode)
+
     if arg == 'snapshot':
         show_snapshot(True)
     elif arg == 'snapshot-list':
@@ -821,8 +905,15 @@ def simple_show(
 def cli_only_mode(
         mode: str = typer.Argument(
             ..., help="[enable|disable]"
-        )):
-    cli_mode_flag = os.path.join(os.path.dirname(__file__), '.enable-cli-only-mode')
+        ),
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        )
+):
+    cmd_ctx.set_user_directory(user_directory)
+    cli_mode_flag = os.path.join(cmd_ctx.manager_files_directory, '.enable-cli-only-mode')
+
     if mode.lower() == 'enable':
         with open(cli_mode_flag, 'w'):
             pass
@@ -857,8 +948,13 @@ def deps_in_workflow(
             None,
             help="[remote|local|cache]"
         ),
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        )
 ):
-    channel_ctx.set_channel_mode(channel, mode)
+    cmd_ctx.set_user_directory(user_directory)
+    cmd_ctx.set_channel_mode(channel, mode)
 
     input_path = workflow
     output_path = output
@@ -867,7 +963,7 @@ def deps_in_workflow(
         print(f"[bold red]File not found: {input_path}[/bold red]")
         exit(1)
 
-    used_exts, unknown_nodes = asyncio.run(core.extract_nodes_from_workflow(input_path, mode=channel_ctx.mode, channel_url=channel_ctx.channel))
+    used_exts, unknown_nodes = asyncio.run(core.extract_nodes_from_workflow(input_path, mode=cmd_ctx.mode, channel_url=cmd_ctx.channel))
 
     custom_nodes = {}
     for x in used_exts:
@@ -894,7 +990,13 @@ def save_snapshot(
                 show_default=False, help="Specify the output file path. (.json/.yaml)"
             ),
         ] = None,
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        )
 ):
+    cmd_ctx.set_user_directory(user_directory)
+
     path = core.save_snapshot_with_postfix('snapshot', output)
     print(f"Current snapshot is saved as `{path}`")
 
@@ -920,7 +1022,13 @@ def restore_snapshot(
             is_flag=True,
             help="Restore for pip packages specified by local paths.",
         ),
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        )
 ):
+    cmd_ctx.set_user_directory(user_directory)
+
     extras = []
     if pip_non_url:
         extras.append('--pip-non-url')
@@ -936,7 +1044,7 @@ def restore_snapshot(
     if os.path.exists(snapshot_name):
         snapshot_path = os.path.abspath(snapshot_name)
     else:
-        snapshot_path = os.path.join(core.comfyui_manager_path, 'snapshots', snapshot_name)
+        snapshot_path = os.path.join(cmd_ctx.get_snapshot_path(), snapshot_name)
         if not os.path.exists(snapshot_path):
             print(f"[bold red]ERROR: `{snapshot_path}` is not exists.[/bold red]")
             exit(1)
@@ -952,9 +1060,21 @@ def restore_snapshot(
 @app.command(
     "restore-dependencies", help="Restore dependencies from whole installed custom nodes."
 )
-def restore_dependencies():
-    node_paths = [os.path.join(custom_nodes_path, name) for name in os.listdir(custom_nodes_path)
-                  if os.path.isdir(os.path.join(custom_nodes_path, name)) and not name.endswith('.disabled')]
+def restore_dependencies(
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        )
+):
+    cmd_ctx.set_user_directory(user_directory)
+
+    node_paths = []
+
+    for base_path in cmd_ctx.get_custom_nodes_paths():
+        for name in os.listdir(base_path):
+            target = os.path.join(base_path, name)
+            if os.path.isdir(target) and not name.endswith('.disabled'):
+                node_paths.append(target)
 
     total = len(node_paths)
     i = 1
@@ -971,7 +1091,8 @@ def restore_dependencies():
 def post_install(
         path: str = typer.Argument(
             help="path to custom node",
-        )):
+        )
+):
     path = os.path.expanduser(path)
     unified_manager.execute_install_script('', path, instant_execution=True)
 
@@ -995,8 +1116,13 @@ def install_deps(
             None,
             help="[remote|local|cache]"
         ),
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        ),
 ):
-    channel_ctx.set_channel_mode(channel, mode)
+    cmd_ctx.set_user_directory(user_directory)
+    cmd_ctx.set_channel_mode(channel, mode)
     auto_save_snapshot()
 
     if not os.path.exists(deps):
@@ -1040,14 +1166,20 @@ def export_custom_node_ids(
         mode: str = typer.Option(
             None,
             help="[remote|local|cache]"
-        )):
-    channel_ctx.set_channel_mode(channel, mode)
+        ),
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        ),
+):
+    cmd_ctx.set_user_directory(user_directory)
+    cmd_ctx.set_channel_mode(channel, mode)
 
     with open(path, "w", encoding='utf-8') as output_file:
         for x in unified_manager.cnr_map.keys():
             print(x, file=output_file)
 
-        custom_nodes = asyncio.run(unified_manager.get_custom_nodes(channel=channel_ctx.channel, mode=channel_ctx.mode))
+        custom_nodes = asyncio.run(unified_manager.get_custom_nodes(channel=cmd_ctx.channel, mode=cmd_ctx.mode))
         for x in custom_nodes.values():
             if 'cnr_latest' not in x:
                 if len(x['files']) == 1:
@@ -1063,7 +1195,13 @@ def export_custom_node_ids(
     "migrate",
     help="Migrate legacy node system to new node system",
 )
-def migrate():
+def migrate(
+        user_directory: str = typer.Option(
+            None,
+            help="user directory"
+        )
+):
+    cmd_ctx.set_user_directory(user_directory)
     asyncio.run(unified_manager.migrate_unmanaged_nodes())
 
 
