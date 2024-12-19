@@ -1,6 +1,14 @@
 /**
  * Attaches metadata to the workflow on save
  * - custom node pack version to all custom nodes used in the workflow
+ *
+ * Example metadata:
+ "extra": {
+    "node_versions": {
+      "comfy-core": "v0.3.8-4-g0b2eb7f",
+      "comfyui-easy-use": "1.2.5"
+    }
+  },
  */
 
 import { app } from "../../scripts/app.js";
