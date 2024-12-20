@@ -2625,6 +2625,7 @@
             "AD_BatchImageLoadFromDir",
             "AD_CSVPromptStyler",
             "AD_CSVReader",
+            "AD_DeleteLocalAny",
             "AD_FluxTrainStepMath",
             "AD_HFDownload",
             "AD_ImageColorFilter",
@@ -2633,7 +2634,16 @@
             "AD_TextListToString",
             "AD_TextSaver",
             "AD_TxtToCSVCombiner",
-            "AD_ZipSave"
+            "AD_ZipSave",
+            "RunningHubAccountStatus",
+            "RunningHubFilePreviewer",
+            "RunningHubFileSaver",
+            "RunningHubInit",
+            "RunningHubNodeInfo",
+            "RunningHubNodeInfoCollector",
+            "RunningHubNodeInfoReplace",
+            "RunningHubWorkflowExecutor",
+            "RunningHubWorkflowID"
         ],
         {
             "title_aux": "ComfyUI-Addoor"
@@ -7365,6 +7375,8 @@
             "SDVN Controlnet Apply",
             "SDVN DALL-E Generate Image",
             "SDVN Easy IPAdapter weight",
+            "SDVN Exif check",
+            "SDVN Image Info",
             "SDVN Image Size",
             "SDVN Inpaint",
             "SDVN KSampler",
@@ -7376,6 +7388,7 @@
             "SDVN Merge Flux",
             "SDVN Merge SD1",
             "SDVN Merge SDXL",
+            "SDVN Metadata Check",
             "SDVN Model Merge",
             "SDVN Pipe In",
             "SDVN Pipe Out",
@@ -10489,6 +10502,20 @@
         ],
         {
             "title_aux": "ComfyUI_HF_Inference"
+        }
+    ],
+    "https://github.com/black-forest-labs/bfl-comfy-nodes": [
+        [
+            "FLUX 1.0 [canny]",
+            "FLUX 1.0 [depth]",
+            "FLUX 1.0 [dev]",
+            "FLUX 1.0 [fill]",
+            "FLUX 1.0 [pro]",
+            "FLUX 1.1 [pro]",
+            "FLUX 1.1 [ultra]"
+        ],
+        {
+            "title_aux": "Black Forest Labs API Nodes"
         }
     ],
     "https://github.com/blackcodetavern/ComfyUI-Benripack": [
@@ -13657,10 +13684,13 @@
             "Eden_MaskBoundingBox",
             "Eden_MaskCombiner",
             "Eden_Math",
+            "Eden_RandomConditioningSamplerNode",
+            "Eden_RandomPromptFromFile",
             "Eden_RepeatLatentBatch",
             "Eden_Seed",
             "Eden_String",
             "Eden_StringHash",
+            "Eden_StringReplace",
             "Eden_gpt4_node",
             "Extend_Sequence",
             "FolderScanner",
@@ -13677,17 +13707,20 @@
             "KeyframeBlender",
             "LatentTypeConversion",
             "Linear_Combine_IP_Embeds",
+            "LoadConditioning",
             "LoadImagesByFilename",
             "LoadRandomImage",
             "Load_Embeddings_From_Folder",
             "MaskFromRGB_KMeans",
             "ParallaxZoom",
             "Random_Style_Mixture",
+            "SaveConditioning",
             "SaveImageAdvanced",
             "SavePosEmbeds",
             "VAEDecode_to_folder",
             "VideoFrameSelector",
-            "WidthHeightPicker"
+            "WidthHeightPicker",
+            "get_random_prompt_from_textfile"
         ],
         {
             "title_aux": "Eden.art nodesuite"
@@ -16884,6 +16917,14 @@
             "title_aux": "comfyUI-nsfw-detection"
         }
     ],
+    "https://github.com/kazeyori/ComfyUI-QuickImageSequenceProcess": [
+        [
+            "QuickImageSequenceProcess"
+        ],
+        {
+            "title_aux": "Quick Image Sequence Process"
+        }
+    ],
     "https://github.com/kealiu/ComfyUI-S3-Tools": [
         [
             "Load Image From S3",
@@ -18900,6 +18941,8 @@
             "MaskDetailerPipe",
             "MaskListToMaskBatch",
             "MaskPainter",
+            "MaskRectArea",
+            "MaskRectAreaAdvanced",
             "MaskToSEGS",
             "MaskToSEGS_for_AnimateDiff",
             "MasksToMaskList",
@@ -21116,6 +21159,14 @@
             "title_aux": "ComfyUI-SAM2-Realtime"
         }
     ],
+    "https://github.com/ptmaster/ComfyUI-Load-Diffusion-Model-to-Muti-GPUs/raw/refs/heads/main/Load%20Diffusion%20Model%20into%20Muti%20GPUs.py": [
+        [
+            "OverrideLoadedDiffusionDevice"
+        ],
+        {
+            "title_aux": "Embedding Merge for ComfyUI"
+        }
+    ],
     "https://github.com/purpen/ComfyUI-AIRedoon": [
         [
             "AIRedoonApplyLoRAStack",
@@ -21703,10 +21754,16 @@
     ],
     "https://github.com/ryanontheinside/ComfyUI_RealTimeNodes": [
         [
+            "DeltaControl",
+            "FPSMonitor",
             "FloatControl",
+            "FloatSequence",
             "IntControl",
+            "IntSequence",
+            "IntervalControl",
             "QuickShapeMask",
-            "StringControl"
+            "StringControl",
+            "StringSequence"
         ],
         {
             "title_aux": "Nodes for use with real-time applications of ComfyUI"
