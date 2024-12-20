@@ -32,6 +32,7 @@ import cm_global
 import cnr_utils
 import manager_util
 import manager_downloader
+from node_package import InstalledNodePackage
 
 
 version_code = [3, 1]
@@ -329,6 +330,8 @@ def get_commit_hash(fullpath):
 
 class UnifiedManager:
     def __init__(self):
+        self.installed_node_packages: dict[str, InstalledNodePackage] = {}
+
         self.cnr_inactive_nodes = {}       # node_id -> node_version -> fullpath
         self.nightly_inactive_nodes = {}   # node_id -> fullpath
         self.unknown_inactive_nodes = {}   # node_id -> repo url * fullpath
@@ -462,94 +465,26 @@ class UnifiedManager:
                 else:
                     return "unknown"
 
-    def resolve_id_from_repo(self, fullpath):
-        git_config_path = os.path.join(fullpath, '.git', 'config')
+    def update_cache_at_path(self, fullpath):
+        node_package = InstalledNodePackage.from_fullpath(fullpath)
+        self.installed_node_packages[node_package.id] = node_package
 
-        if not os.path.exists(git_config_path):
-            return None
+        if node_package.is_disabled and node_package.is_unknown:
+            # TODO: figure out where url is used.
+            self.unknown_inactive_nodes[node_package.id] = ('', node_package.fullpath)
 
-        config = configparser.ConfigParser()
-        config.read(git_config_path)
+        if node_package.is_disabled and node_package.is_nightly:
+            self.nightly_inactive_nodes[node_package.id] = node_package.fullpath
 
-        for k, v in config.items():
-            if k.startswith('remote ') and 'url' in v:
-                cnr = self.get_cnr_by_repo(v['url'])
-                if cnr:
-                    return "nightly", cnr['id'], v['url']
-                else:
-                    return "unknown", v['url'].split('/')[-1], v['url']
+        if node_package.is_enabled:
+            self.active_nodes[node_package.id] = node_package.version, node_package.fullpath
 
-    def resolve_unknown(self, node_id, fullpath):
-        res = self.resolve_id_from_repo(fullpath)
+        if node_package.is_enabled and node_package.is_unknown:
+            # TODO: figure out where url is used.
+            self.unknown_active_nodes[node_package.id] = ('', node_package.fullpath)
 
-        if res is None:
-            self.unknown_inactive_nodes[node_id] = '', fullpath
-            return
-
-        ver_spec, node_id, url = res
-
-        if ver_spec == 'nightly':
-            self.nightly_inactive_nodes[node_id] = fullpath
-        else:
-            self.unknown_inactive_nodes[node_id] = url, fullpath
-
-    def update_cache_at_path(self, fullpath, is_disabled):
-        name = os.path.basename(fullpath)
-
-        if name.endswith(".disabled"):
-            node_spec = name[:-9]
-            is_disabled = True
-        else:
-            node_spec = name
-
-        if '@' in node_spec:
-            node_spec = node_spec.split('@')
-            node_id = node_spec[0]
-            if node_id is None:
-                node_version = 'unknown'
-            else:
-                node_version = node_spec[1].replace("_", ".")
-
-            if node_version != 'unknown':
-                if node_id not in self.cnr_map:
-                    # fallback
-                    v = node_version
-
-                    self.cnr_map[node_id] = {
-                        'id': node_id,
-                        'name': node_id,
-                        'latest_version': {'version': v},
-                        'publisher': {'id': 'N/A', 'name': 'N/A'}
-                    }
-
-            elif node_version == 'unknown':
-                res = self.resolve_id_from_repo(fullpath)
-                if res is None:
-                    print(f"Custom node unresolved: {fullpath}")
-                    return
-
-                node_version, node_id, _ = res
-        else:
-            res = self.resolve_id_from_repo(fullpath)
-            if res is None:
-                print(f"Custom node unresolved: {fullpath}")
-                return
-
-            node_version, node_id, _ = res
-
-        if not is_disabled:
-            # active nodes
-            if node_version == 'unknown':
-                self.unknown_active_nodes[node_id] = node_version, fullpath
-            else:
-                self.active_nodes[node_id] = node_version, fullpath
-        else:
-            if node_version == 'unknown':
-                self.resolve_unknown(node_id, fullpath)
-            elif node_version == 'nightly':
-                self.nightly_inactive_nodes[node_id] = fullpath
-            else:
-                self.add_to_cnr_inactive_nodes(node_id, node_version, fullpath)
+        if node_package.is_from_cnr and node_package.is_disabled:
+            self.add_to_cnr_inactive_nodes(node_package.id, node_package.version, node_package.fullpath)
 
     def is_updatable(self, node_id):
         cur_ver = self.get_cnr_active_version(node_id)
@@ -722,7 +657,7 @@ class UnifiedManager:
                 fullpath = os.path.join(custom_nodes_path, x)
                 if os.path.isdir(fullpath):
                     if x not in ['__pycache__', '.disabled']:
-                        self.update_cache_at_path(fullpath, is_disabled=False)
+                        self.update_cache_at_path(fullpath)
 
         # reload node status info from custom_nodes/.disabled/*
         for custom_nodes_path in folder_paths.get_folder_paths('custom_nodes'):
@@ -731,7 +666,7 @@ class UnifiedManager:
                 for x in os.listdir(disabled_dir):
                     fullpath = os.path.join(disabled_dir, x)
                     if os.path.isdir(fullpath):
-                        self.update_cache_at_path(fullpath, is_disabled=True)
+                        self.update_cache_at_path(fullpath)
 
     @staticmethod
     async def load_nightly(channel, mode):
@@ -1112,7 +1047,7 @@ class UnifiedManager:
 
         return result
 
-    def unified_uninstall(self, node_id, is_unknown):
+    def unified_uninstall(self, node_id: str, is_unknown: bool):
         """
         Remove whole installed custom nodes including inactive nodes
         """

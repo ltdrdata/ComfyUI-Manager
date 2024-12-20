@@ -47,7 +47,7 @@ class WorkflowMetadataExtension {
       const modules = nodeData.python_module.split(".");
 
       if (modules[0] === "custom_nodes") {
-        const nodePackageName = modules[1].split("@")[0];
+        const nodePackageName = modules[1];
         const nodeVersion = this.installedNodeVersions[nodePackageName];
         nodeVersions[nodePackageName] = nodeVersion;
       } else if (["nodes", "comfy_extras"].includes(modules[0])) {

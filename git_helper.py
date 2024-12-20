@@ -437,6 +437,16 @@ def setup_environment():
         git.Git().update_environment(GIT_PYTHON_GIT_EXECUTABLE=config['default']['git_exe'])
 
 
+def is_git_repo(path: str) -> bool:
+    """ Check if the path is a git repository. """
+    try:
+        # Try to create a Repo object from the path
+        _ = git.Repo(path).git_dir
+        return True
+    except git.exc.InvalidGitRepositoryError:
+        return False
+
+
 setup_environment()
 
 
@@ -467,5 +477,5 @@ try:
 except Exception as e:
     print(e)
     sys.exit(-1)
-    
-    
+
+

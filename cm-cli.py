@@ -224,7 +224,7 @@ def fix_node(node_spec_str, is_all=False, cnt_msg=''):
         print(f"ERROR: f{res.msg}")
 
 
-def uninstall_node(node_spec_str, is_all=False, cnt_msg=''):
+def uninstall_node(node_spec_str: str, is_all: bool = False, cnt_msg: str = ''):
     spec = node_spec_str.split('@')
     if len(spec) == 2 and spec[1] == 'unknown':
         node_name = spec[0]
