@@ -806,6 +806,7 @@ class UnifiedManager:
 
         zip_url = node_info.download_url
         from_path = self.active_nodes[node_id][1]
+        # PTAL(@ltdrdata): how to redesign and drop version_spec here?
         target = f"{node_id}@{version_spec.replace('.', '_')}"
         to_path = os.path.join(get_default_custom_nodes_path(), target)
 
@@ -873,6 +874,7 @@ class UnifiedManager:
                     os.rmdir(x)
 
         # 5. rename dir name <node_id>@<prev_ver> ==> <node_id>@<cur_ver>
+        # PTAL(@ltdrdata): how to redesign and drop version_spec here
         new_install_path = os.path.join(get_default_custom_nodes_path(), f"{node_id}@{version_spec.replace('.', '_')}")
         print(f"'{install_path}' is moved to '{new_install_path}'")
         shutil.move(install_path, new_install_path)
@@ -954,6 +956,7 @@ class UnifiedManager:
 
             from_path = cnr_info[version_spec]
             base_path = extract_base_custom_nodes_dir(from_path)
+            # PTAL(@ltdrdata): how to redesign and drop version_spec here
             to_path = os.path.join(base_path, f"{node_id}@{version_spec.replace('.', '_')}")
 
         if from_path is None or not os.path.exists(from_path):
@@ -1015,6 +1018,7 @@ class UnifiedManager:
             return result.fail(f'Specified active node not exists: {node_id}')
 
         base_path = extract_base_custom_nodes_dir(ver_and_path[1])
+        # PTAL(@ltdrdata): how to redesign and drop version_spec here
         to_path = os.path.join(base_path, '.disabled', f"{node_id}@{ver_and_path[0].replace('.', '_')}")
         shutil.move(ver_and_path[1], to_path)
         result.append((ver_and_path[1], to_path))
@@ -1105,6 +1109,7 @@ class UnifiedManager:
             os.remove(download_path)
 
         # install_path
+        # PTAL(@ltdrdata): how to redesign and drop version_spec here
         install_path = os.path.join(get_default_custom_nodes_path(), f"{node_id}@{version_spec.replace('.', '_')}")
         if os.path.exists(install_path):
             return result.fail(f'Install path already exists: {install_path}')
@@ -1291,6 +1296,7 @@ class UnifiedManager:
             if version_spec == 'unknown':
                 to_path = os.path.abspath(os.path.join(get_default_custom_nodes_path(), node_id))    # don't attach @unknown
             else:
+                # PTAL(@ltdrdata): how to redesign and drop version_spec here
                 to_path = os.path.abspath(os.path.join(get_default_custom_nodes_path(), f"{node_id}@{version_spec.replace('.', '_')}"))
             res = self.repo_install(repo_url, to_path, instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall)
             if res.result:
