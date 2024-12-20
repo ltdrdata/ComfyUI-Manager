@@ -5,7 +5,7 @@ import os
 
 import toml
 
-from git_helper import is_git_repo
+from git_helper import is_git_repo, get_commit_hash
 
 
 @dataclass
@@ -36,6 +36,15 @@ class InstalledNodePackage:
     @property
     def is_disabled(self) -> bool:
         return self.disabled
+
+    def get_commit_hash(self) -> str:
+        return get_commit_hash(self.fullpath)
+
+    def isValid(self) -> bool:
+        if self.is_from_cnr:
+            return os.path.exists(os.path.join(self.fullpath, '.tracking'))
+
+        return True
 
     @staticmethod
     def from_fullpath(fullpath: str) -> InstalledNodePackage:

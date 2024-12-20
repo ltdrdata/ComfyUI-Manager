@@ -206,7 +206,7 @@ def checkout_custom_node_hash(git_custom_node_infos):
         repo_name_to_url[repo_name] = url
 
     for path in os.listdir(working_directory):
-        if '@' in path or path.endswith("ComfyUI-Manager"):
+        if path.endswith("ComfyUI-Manager"):
             continue
 
         fullpath = os.path.join(working_directory, path)
@@ -445,6 +445,25 @@ def is_git_repo(path: str) -> bool:
         return True
     except git.exc.InvalidGitRepositoryError:
         return False
+
+
+def get_commit_hash(fullpath):
+    git_head = os.path.join(fullpath, '.git', 'HEAD')
+    if os.path.exists(git_head):
+        with open(git_head) as f:
+            line = f.readline()
+
+            if line.startswith("ref: "):
+                ref = os.path.join(fullpath, '.git', line[5:].strip())
+                if os.path.exists(ref):
+                    with open(ref) as f2:
+                        return f2.readline().strip()
+                else:
+                    return "unknown"
+            else:
+                return line
+
+    return "unknown"
 
 
 setup_environment()

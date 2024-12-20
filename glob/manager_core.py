@@ -105,13 +105,13 @@ def check_invalid_nodes():
             if subdir in ['.disabled', '__pycache__']:
                 continue
 
-            if '@' in subdir:
-                spec = subdir.split('@')
-                if spec[1] in ['unknown', 'nightly']:
-                    continue
 
-                if not os.path.exists(os.path.join(root, subdir, '.tracking')):
-                    invalid_nodes[spec[0]] = os.path.join(root, subdir)
+            package = unified_manager.installed_node_packages.get(subdir)
+            if not package:
+                continue
+
+            if not package.isValid():
+                invalid_nodes[subdir] = package.fullpath
 
     node_paths = folder_paths.get_folder_paths("custom_nodes")
     for x in node_paths:
@@ -309,25 +309,6 @@ class ManagedResult:
         return self
 
 
-def get_commit_hash(fullpath):
-    git_head = os.path.join(fullpath, '.git', 'HEAD')
-    if os.path.exists(git_head):
-        with open(git_head) as f:
-            line = f.readline()
-
-            if line.startswith("ref: "):
-                ref = os.path.join(fullpath, '.git', line[5:].strip())
-                if os.path.exists(ref):
-                    with open(ref) as f2:
-                        return f2.readline().strip()
-                else:
-                    return "unknown"
-            else:
-                return line
-
-    return "unknown"
-
-
 class UnifiedManager:
     def __init__(self):
         self.installed_node_packages: dict[str, InstalledNodePackage] = {}
@@ -470,7 +451,7 @@ class UnifiedManager:
         self.installed_node_packages[node_package.id] = node_package
 
         if node_package.is_disabled and node_package.is_unknown:
-            # TODO: figure out where url is used.
+            # NOTE: unknown package does not have a url.
             self.unknown_inactive_nodes[node_package.id] = ('', node_package.fullpath)
 
         if node_package.is_disabled and node_package.is_nightly:
@@ -480,7 +461,7 @@ class UnifiedManager:
             self.active_nodes[node_package.id] = node_package.version, node_package.fullpath
 
         if node_package.is_enabled and node_package.is_unknown:
-            # TODO: figure out where url is used.
+            # NOTE: unknown package does not have a url.
             self.unknown_active_nodes[node_package.id] = ('', node_package.fullpath)
 
         if node_package.is_from_cnr and node_package.is_disabled:
