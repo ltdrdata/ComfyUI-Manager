@@ -5,7 +5,7 @@ import os
 
 import toml
 
-from git_helper import is_git_repo, get_commit_hash
+from git_utils import is_git_repo, get_commit_hash
 
 
 @dataclass
