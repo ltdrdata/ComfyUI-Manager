@@ -3,9 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import os
 
-import toml
-
-from git_utils import is_git_repo, get_commit_hash
+from git_utils import get_commit_hash
 
 
 @dataclass
