@@ -38,6 +38,8 @@ def basic_download_url(url, dest_folder, filename):
 
 
 def download_url(model_url: str, model_dir: str, filename: str):
+    if HF_ENDPOINT:
+        model_url = model_url.replace('https://huggingface.co', HF_ENDPOINT)
     if aria2:
         return aria2_download_url(model_url, model_dir, filename)
     else:
@@ -65,9 +67,6 @@ def aria2_download_url(model_url: str, model_dir: str, filename: str):
 
     if model_dir.startswith(core.comfy_path):
         model_dir = model_dir[len(core.comfy_path) :]
-
-    if HF_ENDPOINT:
-        model_url = model_url.replace('https://huggingface.co', HF_ENDPOINT)
 
     download_dir = model_dir if model_dir.startswith('/') else os.path.join('/models', model_dir)
 
