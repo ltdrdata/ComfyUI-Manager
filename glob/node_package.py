@@ -47,10 +47,9 @@ class InstalledNodePackage:
         return True
 
     @staticmethod
-    def from_fullpath(fullpath: str) -> InstalledNodePackage:
-        parent_folder_name = os.path.split(fullpath)[-2]
+    def from_fullpath(fullpath: str, resolve_from_path) -> InstalledNodePackage:
+        parent_folder_name = os.path.basename(os.path.dirname(fullpath))
         module_name = os.path.basename(fullpath)
-        pyproject_toml_path = os.path.join(fullpath, "pyproject.toml")
 
         if module_name.endswith(".disabled"):
             node_id = module_name[:-9]
@@ -63,16 +62,12 @@ class InstalledNodePackage:
             node_id = module_name
             disabled = False
 
-        if is_git_repo(fullpath):
-            version = "nightly"
-        elif os.path.exists(pyproject_toml_path):
-            # Read project.toml to get the version
-            with open(pyproject_toml_path, "r", encoding="utf-8") as f:
-                pyproject_toml = toml.load(f)
-                # Fallback to 'unknown' if project.version doesn't exist
-                version = pyproject_toml.get("project", {}).get("version", "unknown")
+        info = resolve_from_path(fullpath)
+        if info is None:
+            version = 'unknown'
         else:
-            version = "unknown"
+            node_id = info['id']    # robust module guessing
+            version = info['ver']
 
         return InstalledNodePackage(
             id=node_id, fullpath=fullpath, disabled=disabled, version=version

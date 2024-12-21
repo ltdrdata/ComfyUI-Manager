@@ -460,7 +460,7 @@ async def update_all(request):
         return web.Response(status=403)
 
     try:
-        core.save_snapshot_with_postfix('autosave')
+        await core.save_snapshot_with_postfix('autosave')
 
         if request.rel_url.query["mode"] == "local":
             channel = 'local'
@@ -546,9 +546,12 @@ def populate_markdown(x):
 async def installed_list(request):
     unified_manager = core.unified_manager
 
+    await unified_manager.reload('cache')
+    await unified_manager.get_custom_nodes('default', 'cache')
+
     return web.json_response({
         node_id: package.version if package.is_from_cnr else package.get_commit_hash()
-        for node_id, package in unified_manager.installed_node_packages.items()
+        for node_id, package in unified_manager.installed_node_packages.items() if not package.disabled
     }, content_type='application/json')
 
 
@@ -696,7 +699,7 @@ async def restore_snapshot(request):
 @routes.get("/snapshot/get_current")
 async def get_current_snapshot_api(request):
     try:
-        return web.json_response(core.get_current_snapshot(), content_type='application/json')
+        return web.json_response(await core.get_current_snapshot(), content_type='application/json')
     except:
         return web.Response(status=400)
 
@@ -704,7 +707,7 @@ async def get_current_snapshot_api(request):
 @routes.get("/snapshot/save")
 async def save_snapshot(request):
     try:
-        core.save_snapshot_with_postfix('snapshot')
+        await core.save_snapshot_with_postfix('snapshot')
         return web.Response(status=200)
     except:
         return web.Response(status=400)

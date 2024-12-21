@@ -481,8 +481,8 @@ def show_list(kind, simple=False):
             print(f"{prefix} {title:50} {short_id:30} (author: {author:20}) [UNKNOWN]")
 
 
-def show_snapshot(simple_mode=False):
-    json_obj = core.get_current_snapshot()
+async def show_snapshot(simple_mode=False):
+    json_obj = await core.get_current_snapshot()
 
     if simple_mode:
         print(f"[{json_obj['comfyui']}] comfyui")
@@ -513,8 +513,8 @@ def cancel():
         os.remove(cmd_ctx.get_restore_snapshot_path())
 
 
-def auto_save_snapshot():
-    path = core.save_snapshot_with_postfix('cli-autosave')
+async def auto_save_snapshot():
+    path = await core.save_snapshot_with_postfix('cli-autosave')
     print(f"Current snapshot is saved as `{path}`")
 
 
@@ -698,7 +698,7 @@ def update(
     cmd_ctx.set_channel_mode(channel, mode)
 
     if 'all' in nodes:
-        auto_save_snapshot()
+        asyncio.run(auto_save_snapshot())
 
     for x in nodes:
         if x.lower() in ['comfyui', 'comfy', 'all']:
@@ -734,7 +734,7 @@ def disable(
     cmd_ctx.set_channel_mode(channel, mode)
 
     if 'all' in nodes:
-        auto_save_snapshot()
+        asyncio.run(auto_save_snapshot())
 
     for_each_nodes(nodes, disable_node, allow_all=True)
 
@@ -765,7 +765,7 @@ def enable(
     cmd_ctx.set_channel_mode(channel, mode)
 
     if 'all' in nodes:
-        auto_save_snapshot()
+        asyncio.run(auto_save_snapshot())
 
     for_each_nodes(nodes, enable_node, allow_all=True)
 
@@ -796,7 +796,7 @@ def fix(
     cmd_ctx.set_channel_mode(channel, mode)
 
     if 'all' in nodes:
-        auto_save_snapshot()
+        asyncio.run(auto_save_snapshot())
 
     for_each_nodes(nodes, fix_node, allow_all=True)
 
@@ -997,7 +997,7 @@ def save_snapshot(
 ):
     cmd_ctx.set_user_directory(user_directory)
 
-    path = core.save_snapshot_with_postfix('snapshot', output)
+    path = asyncio.run(core.save_snapshot_with_postfix('snapshot', output))
     print(f"Current snapshot is saved as `{path}`")
 
 
@@ -1123,7 +1123,7 @@ def install_deps(
 ):
     cmd_ctx.set_user_directory(user_directory)
     cmd_ctx.set_channel_mode(channel, mode)
-    auto_save_snapshot()
+    asyncio.run(auto_save_snapshot())
 
     if not os.path.exists(deps):
         print(f"[bold red]File not found: {deps}[/bold red]")

@@ -317,7 +317,7 @@ async def share_art(request):
             form.add_field("shareWorkflowTitle", title)
             form.add_field("shareWorkflowDescription", description)
             form.add_field("shareWorkflowIsNSFW", str(is_nsfw).lower())
-            form.add_field("currentSnapshot", json.dumps(core.get_current_snapshot()))
+            form.add_field("currentSnapshot", json.dumps(await core.get_current_snapshot()))
             form.add_field("modelsInfo", json.dumps(models_info))
 
             async with session.post(

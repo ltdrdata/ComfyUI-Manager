@@ -2,6 +2,8 @@ import requests
 from dataclasses import dataclass
 from typing import List
 import manager_util
+import toml
+import os
 
 base_url = "https://api.comfy.org"
 
@@ -98,3 +100,32 @@ def all_versions_of_node(node_id):
     else:
         return None
 
+
+def read_cnr_info(fullpath):
+    try:
+        toml_path = os.path.join(fullpath, 'pyproject.toml')
+        tracking_path = os.path.join(fullpath, '.tracking')
+
+        if not os.path.exists(toml_path) or not os.path.exists(tracking_path):
+            return None  # not valid CNR node pack
+
+        with open(toml_path, "r", encoding="utf-8") as f:
+            data = toml.load(f)
+
+            project = data.get('project', {})
+            name = project.get('name')
+            version = project.get('version')
+
+            urls = project.get('urls', {})
+            repository = urls.get('Repository')
+
+            if name and version:  # repository is optional
+                return {
+                    "id": name,
+                    "version": version,
+                    "url": repository
+                }
+
+        return None
+    except Exception:
+        return None  # not valid CNR node pack
