@@ -1,6 +1,29 @@
 {
   "models": [
     {
+      "name": "Comfy-Org/hunyuan_video_t2v_720p_bf16.safetensors",
+      "type": "diffusion_model",
+      "base": "Hunyuan Video",
+      "save_path": "diffusion_models/hunyuan_video",
+      "description": "Huyuan Video diffusion model. repackaged version.",
+      "reference": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged",
+      "filename": "hunyuan_video_t2v_720p_bf16.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/diffusion_models/hunyuan_video_t2v_720p_bf16.safetensors",
+      "size": "25.6GB"
+    },
+    {
+      "name": "Comfy-Org/hunyuan_video_vae_bf16.safetensors",
+      "type": "VAE",
+      "base": "Hunyuan Video",
+      "save_path": "diffusion_models/hunyuan_video",
+      "description": "Huyuan Video diffusion model. repackaged version.",
+      "reference": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged",
+      "filename": "hunyuan_video_vae_bf16.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/vae/hunyuan_video_vae_bf16.safetensors",
+      "size": "493MB"
+    },
+
+    {
       "name": "LTX-Video 2B v0.9.1 Checkpoint",
       "type": "checkpoint",
       "base": "LTX-Video",
@@ -648,52 +671,6 @@
       "filename": "Hyper-SDXL-12steps-CFG-lora.safetensors",
       "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-12steps-CFG-lora.safetensors",
       "size": "787MB"
-    },
-
-    {
-      "name": "Hyper-SD CFG LoRA (4steps) - SD3",
-      "type": "lora",
-      "base": "SD3",
-      "save_path": "loras/HyperSD/SD3",
-      "description": "Hyper-SD CFG LoRA (4steps) - SD3",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SD3-4steps-CFG-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-4steps-CFG-lora.safetensors",
-      "size": "472MB"
-    },
-    {
-      "name": "Hyper-SD CFG LoRA (8steps) - SD3",
-      "type": "lora",
-      "base": "SD3",
-      "save_path": "loras/HyperSD/SD3",
-      "description": "Hyper-SD CFG LoRA (8steps) - SD3",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SD3-8steps-CFG-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-8steps-CFG-lora.safetensors",
-      "size": "472MB"
-    },
-    {
-      "name": "Hyper-SD CFG LoRA (16steps) - SD3",
-      "type": "lora",
-      "base": "SD3",
-      "save_path": "loras/HyperSD/SD3",
-      "description": "Hyper-SD CFG LoRA (16steps) - SD3",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SD3-16steps-CFG-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-16steps-CFG-lora.safetensors",
-      "size": "472MB"
-    },
-
-    {
-      "name": "InstantX/FLUX.1-dev Controlnet (Union)",
-      "type": "controlnet",
-      "base": "FLUX.1",
-      "save_path": "controlnet/FLUX.1/InstantX-FLUX1-Dev-Union",
-      "description": "FLUX.1 [Dev] Union Controlnet. Supports Canny, Depth, Pose, Tile, Blur, Gray Low Quality.",
-      "reference": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union",
-      "filename": "diffusion_pytorch_model.safetensors",
-      "url": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors",
-      "size": "6.6GB"
     }
   ]
 }
