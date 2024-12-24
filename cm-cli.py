@@ -200,6 +200,7 @@ class Ctx:
 
 cm_ctx = Ctx()
 
+# use '@@' to separate node name and commit id
 def parse_node(node: str):
     if '@@' in node:
         name, commit = node.split('@@', 1)
@@ -207,13 +208,17 @@ def parse_node(node: str):
         name, commit = node, None
     return name, commit
 
-def install_node(node_name, is_all=False, cnt_msg=''):
+def install_node(node_name, is_all=False, cnt_msg='', **kwargs):
     node_name, commit_id = parse_node(node_name)
+    exit_on_fail = kwargs.get('exit_on_fail', False)
+    print(f"exit_on_fail:{exit_on_fail}...")
     if core.is_valid_url(node_name):
         # install via urls
         res = core.gitclone_install([node_name],commits = [commit_id])
         if not res:
             print(f"[bold red]ERROR: An error occurred while installing '{node_name}'.[/bold red]")
+            if exit_on_fail:
+                sys.exit(1)
         else:
             print(f"{cnt_msg} [INSTALLED] {node_name:50} => {commit_id}")
     else:
@@ -228,6 +233,8 @@ def install_node(node_name, is_all=False, cnt_msg=''):
             res = core.gitclone_install(node_item['files'], instant_execution=True, msg_prefix=f"[{cnt_msg}] ", commits=[commit_id])
             if not res:
                 print(f"[bold red]ERROR: An error occurred while installing '{node_name}'.[/bold red]")
+                if exit_on_fail:
+                    sys.exit(1)
             else:
                 print(f"{cnt_msg} [INSTALLED] {node_name:50} => {commit_id}")
 
@@ -475,7 +482,7 @@ def auto_save_snapshot():
     print(f"Current snapshot is saved as `{path}`")
 
 
-def for_each_nodes(nodes, act, allow_all=True):
+def for_each_nodes(nodes, act, allow_all=True, **kwargs):
     is_all = False
     if allow_all and 'all' in nodes:
         is_all = True
@@ -487,7 +494,7 @@ def for_each_nodes(nodes, act, allow_all=True):
     i = 1
     for x in nodes:
         try:
-            act(x, is_all=is_all, cnt_msg=f'{i}/{total}')
+            act(x, is_all=is_all, cnt_msg=f'{i}/{total}', **kwargs)
         except Exception as e:
             print(f"ERROR: {e}")
             traceback.print_exc()
@@ -519,9 +526,13 @@ def install(
             None,
             help="[remote|local|cache]"
         ),
+        exit_on_fail: bool = typer.Option(
+            False,
+            help="Exit on failure"
+        )
 ):
     cm_ctx.set_channel_mode(channel, mode)
-    for_each_nodes(nodes, act=install_node)
+    for_each_nodes(nodes, act=install_node, exit_on_fail=exit_on_fail)
 
 
 @app.command(help="Reinstall custom nodes")
