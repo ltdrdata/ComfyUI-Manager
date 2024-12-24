@@ -200,15 +200,22 @@ class Ctx:
 
 cm_ctx = Ctx()
 
+def parse_node(node: str):
+    if '@@' in node:
+        name, commit = node.split('@@', 1)
+    else:
+        name, commit = node, None
+    return name, commit
 
 def install_node(node_name, is_all=False, cnt_msg=''):
+    node_name, commit_id = parse_node(node_name)
     if core.is_valid_url(node_name):
         # install via urls
-        res = core.gitclone_install([node_name])
+        res = core.gitclone_install([node_name],commits = [commit_id])
         if not res:
             print(f"[bold red]ERROR: An error occurred while installing '{node_name}'.[/bold red]")
         else:
-            print(f"{cnt_msg} [INSTALLED] {node_name:50}")
+            print(f"{cnt_msg} [INSTALLED] {node_name:50} => {commit_id}")
     else:
         node_path, node_item = cm_ctx.lookup_node_path(node_name)
 
@@ -218,11 +225,11 @@ def install_node(node_name, is_all=False, cnt_msg=''):
         elif os.path.exists(node_path + '.disabled'):
             enable_node(node_name)
         else:
-            res = core.gitclone_install(node_item['files'], instant_execution=True, msg_prefix=f"[{cnt_msg}] ")
+            res = core.gitclone_install(node_item['files'], instant_execution=True, msg_prefix=f"[{cnt_msg}] ", commits=[commit_id])
             if not res:
                 print(f"[bold red]ERROR: An error occurred while installing '{node_name}'.[/bold red]")
             else:
-                print(f"{cnt_msg} [INSTALLED] {node_name:50}")
+                print(f"{cnt_msg} [INSTALLED] {node_name:50} => {commit_id}")
 
 
 def reinstall_node(node_name, is_all=False, cnt_msg=''):
