@@ -3990,6 +3990,29 @@
     },
 
     {
+      "name": "Comfy-Org/hunyuan_video_t2v_720p_bf16.safetensors",
+      "type": "diffusion_model",
+      "base": "Hunyuan Video",
+      "save_path": "diffusion_models/hunyuan_video",
+      "description": "Huyuan Video diffusion model. repackaged version.",
+      "reference": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged",
+      "filename": "hunyuan_video_t2v_720p_bf16.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/diffusion_models/hunyuan_video_t2v_720p_bf16.safetensors",
+      "size": "25.6GB"
+    },
+    {
+      "name": "Comfy-Org/hunyuan_video_vae_bf16.safetensors",
+      "type": "VAE",
+      "base": "Hunyuan Video",
+      "save_path": "diffusion_models/hunyuan_video",
+      "description": "Huyuan Video diffusion model. repackaged version.",
+      "reference": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged",
+      "filename": "hunyuan_video_vae_bf16.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/vae/hunyuan_video_vae_bf16.safetensors",
+      "size": "493MB"
+    },
+
+    {
       "name": "FLUX.1 [Schnell] Diffusion model",
       "type": "diffusion_model",
       "base": "FLUX.1",
@@ -4552,6 +4575,97 @@
       "filename": "ltx-video-2b-v0.9.safetensors",
       "url": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltx-video-2b-v0.9.safetensors",
       "size": "9.37GB"
+    },
+    {
+      "name": "LTX-Video 2B v0.9.1 Checkpoint",
+      "type": "checkpoint",
+      "base": "LTX-Video",
+      "save_path": "checkpoints/LTXV",
+      "description": "LTX-Video is the first DiT-based video generation model capable of generating high-quality videos in real-time. It produces 24 FPS videos at a 768x512 resolution faster than they can be watched. Trained on a large-scale dataset of diverse videos, the model generates high-resolution videos with realistic and varied content.",
+      "reference": "https://huggingface.co/Lightricks/LTX-Video",
+      "filename": "ltx-video-2b-v0.9.1.safetensors",
+      "url": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltx-video-2b-v0.9.1.safetensors",
+      "size": "5.72GB"
+    },
+
+    {
+      "name": "XLabs-AI/flux-canny-controlnet-v3.safetensors",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "xlabs/controlnets",
+      "description": "ControlNet checkpoints for FLUX.1-dev model by Black Forest Labs.",
+      "reference": "https://huggingface.co/XLabs-AI/flux-controlnet-collections",
+      "filename": "flux-canny-controlnet-v3.safetensors",
+      "url": "https://huggingface.co/XLabs-AI/flux-controlnet-collections/resolve/main/flux-canny-controlnet-v3.safetensors",
+      "size": "1.49GB"
+    },
+    {
+      "name": "XLabs-AI/flux-depth-controlnet-v3.safetensors",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "xlabs/controlnets",
+      "description": "ControlNet checkpoints for FLUX.1-dev model by Black Forest Labs.",
+      "reference": "https://huggingface.co/XLabs-AI/flux-controlnet-collections",
+      "filename": "flux-depth-controlnet-v3.safetensors",
+      "url": "https://huggingface.co/XLabs-AI/flux-controlnet-collections/resolve/main/flux-depth-controlnet-v3.safetensors",
+      "size": "1.49GB"
+    },
+    {
+      "name": "XLabs-AI/flux-hed-controlnet-v3.safetensors",
+      "type": "controlnet",
+      "base": "FLUX.1",
+      "save_path": "xlabs/controlnets",
+      "description": "ControlNet checkpoints for FLUX.1-dev model by Black Forest Labs.",
+      "reference": "https://huggingface.co/XLabs-AI/flux-controlnet-collections",
+      "filename": "flux-hed-controlnet-v3.safetensors",
+      "url": "https://huggingface.co/XLabs-AI/flux-controlnet-collections/resolve/main/flux-hed-controlnet-v3.safetensors",
+      "size": "1.49GB"
+    },
+
+    {
+      "name": "XLabs-AI/realism_lora.safetensors",
+      "type": "lora",
+      "base": "FLUX.1",
+      "save_path": "xlabs/loras",
+      "description": "A checkpoint with trained LoRAs for FLUX.1-dev model by Black Forest Labs",
+      "reference": "https://huggingface.co/XLabs-AI/flux-lora-collection",
+      "filename": "realism_lora.safetensors",
+      "url": "https://huggingface.co/XLabs-AI/flux-lora-collection/resolve/main/realism_lora.safetensors",
+      "size": "44.8MB"
+    },
+    {
+      "name": "XLabs-AI/art_lora.safetensors",
+      "type": "lora",
+      "base": "FLUX.1",
+      "save_path": "xlabs/loras",
+      "description": "A checkpoint with trained LoRAs for FLUX.1-dev model by Black Forest Labs",
+      "reference": "https://huggingface.co/XLabs-AI/flux-lora-collection",
+      "filename": "art_lora.safetensors",
+      "url": "https://huggingface.co/XLabs-AI/flux-lora-collection/resolve/main/scenery_lora.safetensors",
+      "size": "44.8MB"
+    },
+    {
+      "name": "XLabs-AI/mjv6_lora.safetensors",
+      "type": "lora",
+      "base": "FLUX.1",
+      "save_path": "xlabs/loras",
+      "description": "A checkpoint with trained LoRAs for FLUX.1-dev model by Black Forest Labs",
+      "reference": "https://huggingface.co/XLabs-AI/flux-lora-collection",
+      "filename": "mjv6_lora.safetensors",
+      "url": "https://huggingface.co/XLabs-AI/flux-lora-collection/resolve/main/mjv6_lora.safetensors",
+      "size": "44.8MB"
+    },
+
+    {
+      "name": "XLabs-AI/flux-ip-adapter",
+      "type": "lora",
+      "base": "FLUX.1",
+      "save_path": "xlabs/ipadapters",
+      "description": "A checkpoint with trained LoRAs for FLUX.1-dev model by Black Forest Labs",
+      "reference": "https://huggingface.co/XLabs-AI/flux-ip-adapter",
+      "filename": "ip_adapter.safetensors",
+      "url": "https://huggingface.co/XLabs-AI/flux-ip-adapter/resolve/main/ip_adapter.safetensors",
+      "size": "982MB"
     }
   ]
 }

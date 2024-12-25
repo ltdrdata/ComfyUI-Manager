@@ -2632,7 +2632,7 @@ def populate_github_stats(node_packs, json_obj_github):
         if url in json_obj_github:
             v['stars'] = json_obj_github[url]['stars']
             v['last_update'] = json_obj_github[url]['last_update']
-            v['trust'] = json_obj_github[url]['author_account_age_days'] > 180
+            v['trust'] = json_obj_github[url]['author_account_age_days'] > 600
         else:
             v['stars'] = -1
             v['last_update'] = -1
