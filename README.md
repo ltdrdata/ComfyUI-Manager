@@ -168,7 +168,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 
   ![menu](misc/share-setting.jpg)
   
-  * Through the Share settings in the Manager menu, you can configure the behavior of the Share button in the Main menu or Share Ouput button on Context Menu.
+  * Through the Share settings in the Manager menu, you can configure the behavior of the Share button in the Main menu or Share Output button on Context Menu.
     * `None`: hide from Main menu
     * `All`: Show a dialog where the user can select a title for sharing.
 
