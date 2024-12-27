@@ -3678,6 +3678,16 @@
             "description": "Canvas to use with ComfyUI"
         },
         {
+            "author": "taabata",
+            "title": "SANA_LOWVRAM",
+            "reference": "https://github.com/taabata/SANA_LOWVRAM",
+            "files": [
+                "https://github.com/taabata/SANA_LOWVRAM"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI Diffusers wrapper nodes to run SANA models on low vram devices. Works on 2GB VRAM 12GB RAM laptop."
+        },
+        {
             "author": "noxinias",
             "title": "ComfyUI_NoxinNodes",
             "id": "noxin",
@@ -4766,6 +4776,17 @@
             ],
             "install_type": "git-clone",
             "description": "Automatically creates checkpoints during workflow execution. If If an workflow is canceled or ComfyUI crashes mid-execution, then these checkpoints are used when the workflow is re-queued to resume execution with minimal progress loss."
+        },
+        {
+            "author": "AustinMroz",
+            "title": "ComfyUI-MinCache",
+            "id": "comfyui-mincache",
+            "reference": "https://github.com/AustinMroz/ComfyUI-MinCache",
+            "files": [
+                "https://github.com/AustinMroz/ComfyUI-MinCache"
+            ],
+            "install_type": "git-clone",
+            "description": "Modifies execution to minimize RAM at the cost of performance"
         },
         {
             "author": "11cafe",
@@ -7334,6 +7355,16 @@
             ],
             "install_type": "git-clone",
             "description": "A ComfyUI custom node that integrates Google's Gemini Flash 2.0 Experimental model, enabling multimodal analysis of text, images, video frames, and audio directly within ComfyUI workflows."
+        },
+        {
+            "author": "ShmuelRonen",
+            "title": "ComfyUI-ImageMotionGuider",
+            "reference": "https://github.com/ShmuelRonen/ComfyUI-ImageMotionGuider",
+            "files": [
+                "https://github.com/ShmuelRonen/ComfyUI-ImageMotionGuider"
+            ],
+            "install_type": "git-clone",
+            "description": "A custom ComfyUI node designed to create seamless motion effects from single images by integrating with Hunyuan Video through latent space manipulation."
         },
         {
             "author": "redhottensors",
@@ -17075,6 +17106,16 @@
             "description": "ComfyUI supports over [a/rhymes-ai/Allegro](https://huggingface.co/rhymes-ai/Allegro), which uses text prompt to generate short video in relatively high quality, especially comparing to other open source solutions available for now."
         },
         {
+            "author": "bombax-xiaoice",
+            "title": "ComfyUI-Open-Sora-I2V",
+            "reference": "https://github.com/bombax-xiaoice/ComfyUI-Open-Sora-I2V",
+            "files": [
+                "https://github.com/bombax-xiaoice/ComfyUI-Open-Sora-I2V"
+            ],
+            "install_type": "git-clone",
+            "description": "Another comfy implementation for the short video generation project hpcaitech/Open-Sora, supporting latest V2 and V3 models as well as image to video functions, etc."
+        },
+        {
             "author": "chenbaiyujason",
             "title": "ComfyUI-SCStepFun",
             "reference": "https://github.com/chenbaiyujason/ComfyUI_StepFun",
@@ -17094,6 +17135,17 @@
             ],
             "install_type": "git-clone",
             "description": "ComfyUI nodes for editing background of images/videos with CUDA acceleration support."
+        },
+        {
+            "author": "yondonfu",
+            "title": "ComfyUI-Torch-Compile",
+            "id": "comfyui-torch-compile",
+            "reference": "https://github.com/yondonfu/ComfyUI-Torch-Compile",
+            "files": [
+                "https://github.com/yondonfu/ComfyUI-Torch-Compile"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI nodes for torch.compile."
         },
         {
             "author": "GorillaFrame",
@@ -18447,6 +18499,27 @@
             "install_type": "git-clone",
             "description": "This custom node allows you to generate logo images using Google Fonts."
         },
+        {
+            "author": "hzane",
+            "title": "OmniGen-ComfyUI",
+            "reference": "https://github.com/hzane/OmniGen-ComfyUI",
+            "files": [
+                "https://github.com/hzane/OmniGen-ComfyUI"
+            ],
+            "install_type": "git-clone",
+            "description": "A custom node for [a/OmniGen](https://github.com/VectorSpaceLab/OmniGen)."
+        },
+        {
+            "author": "SongGuo11",
+            "title": "ComfyUI SaveAnything Node (SG11)",
+            "reference": "https://github.com/SongGuo11/ComfyUI-SaveAnything-SG11",
+            "files": [
+                "https://github.com/SongGuo11/ComfyUI-SaveAnything-SG11"
+            ],
+            "install_type": "git-clone",
+            "description": "A ComfyUI custom node for saving images in various formats"
+        },
+
 
 
 
@@ -18892,17 +18965,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "yondonfu",
-            "title": "ComfyUI-Torch-Compile",
-            "id": "comfyui-torch-compile",
-            "reference": "https://github.com/yondonfu/ComfyUI-Torch-Compile",
-            "files": [
-                "https://github.com/yondonfu/ComfyUI-Torch-Compile"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI nodes for torch.compile."
         }
     ]
 }
