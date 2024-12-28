@@ -1522,6 +1522,9 @@ export class CustomNodesManager {
 		for (const k in node_packs) {
 			let item = node_packs[k];
 			item.originalData = JSON.parse(JSON.stringify(item));
+			if(item.originalData.id == undefined) {
+				item.originalData.id = k;
+			}
 			item.hash = md5(k);
 		}
 
