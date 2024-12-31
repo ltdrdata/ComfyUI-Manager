@@ -23,7 +23,7 @@ sys.path.append(glob_path)
 import cm_global
 from manager_util import PIPFixer, StrictVersion
 
-version = [2, 55, 5]
+version = [2, 56]
 version_str = f"V{version[0]}.{version[1]}" + (f'.{version[2]}' if len(version) > 2 else '')
 
 

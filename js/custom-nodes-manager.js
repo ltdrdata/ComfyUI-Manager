@@ -2,7 +2,7 @@ import { app } from "../../scripts/app.js";
 import { $el } from "../../scripts/ui.js";
 import { 
 	manager_instance, rebootAPI, install_via_git_url, 
-	fetchData, md5, icons 
+	fetchData, md5, icons, customConfirm
 } from  "./common.js";
 
 // https://cenfun.github.io/turbogrid/api.html
@@ -919,7 +919,9 @@ export class CustomNodesManager {
 
 		if(mode === "uninstall") {
 			title = title || `${list.length} custom nodes`;
-			if (!confirm(`Are you sure uninstall ${title}?`)) {
+
+			const confirmed = await customConfirm(`Are you sure uninstall ${title}?`);
+			if (!confirmed) {
 				return;
 			}
 		}
