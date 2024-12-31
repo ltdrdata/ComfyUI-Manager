@@ -367,7 +367,6 @@
     "https://github.com/807502278/ComfyUI-WJNodes": [
         [
             "AdvCrop",
-            "BboxRestoreMask",
             "ColorSegmentation",
             "ColorSegmentation_v2",
             "ComfyUIPath",
@@ -392,9 +391,11 @@
             "SelectImagesBatch",
             "SplitPath",
             "ToImageListData",
+            "VideoFade",
             "WAS_Mask_Fill_Region_batch",
             "any_data",
             "array_element_count",
+            "bbox_restore_mask",
             "load_model_value",
             "show_type",
             "sort_images_batch"
@@ -2355,6 +2356,7 @@
             "PrimereLORA",
             "PrimereLYCORIS",
             "PrimereLatentNoise",
+            "PrimereLensStyles",
             "PrimereLoraKeywordMerger",
             "PrimereLoraStackMerger",
             "PrimereLycorisKeywordMerger",
@@ -2450,12 +2452,13 @@
     ],
     "https://github.com/Cyber-Blacat/ComfyUI-Yuan": [
         [
+            "Black and white",
             "Image Judgment",
             "ImageMinusMask",
             "Light or Dark",
-            "Yuan",
-            "Yuan Transfer",
-            "YuanBW"
+            "Load Random Images",
+            "PhotoShop Transfer",
+            "Yuan"
         ],
         {
             "title_aux": "ComfyUI-Yuan"
@@ -2659,7 +2662,7 @@
     ],
     "https://github.com/DoctorDiffusion/ComfyUI-SnakeOil": [
         [
-            "SnakeOil"
+            "NegativeLoRALoader"
         ],
         {
             "title_aux": "ComfyUI-SnakeOil"
@@ -3964,6 +3967,7 @@
     "https://github.com/InstantStudioAI/ComfyUI-InstantStudio": [
         [
             "HuggingFace Classify",
+            "Moondream",
             "UploadImagesToInstantStudio"
         ],
         {
@@ -4063,7 +4067,9 @@
         [
             "Animate_X_Image",
             "Animate_X_Image_Long",
+            "Animate_X_Image_v2",
             "Animate_X_ReposeImage",
+            "Animate_X_ReposeImage_v2",
             "Gen_align_pose",
             "Gen_align_pose2",
             "ReposeImage",
@@ -5706,6 +5712,7 @@
             "ImageSizeAdjuster",
             "ImageSizeAdjusterV2",
             "ImageSizeAdjusterV3",
+            "LoadVideoDirectory",
             "ProjectFilePathNode",
             "StringWeights",
             "ZenkaiPrompt",
@@ -7071,7 +7078,9 @@
     "https://github.com/Shakker-Labs/ComfyUI-IPAdapter-Flux": [
         [
             "ApplyIPAdapterFlux",
-            "IPAdapterFluxLoader"
+            "ApplyIPAdapterFluxAdvanced",
+            "IPAdapterFluxLoader",
+            "IPAdapterFluxLoaderAdvanced"
         ],
         {
             "title_aux": "ComfyUI-IPAdapter-Flux"
@@ -7187,6 +7196,14 @@
         ],
         {
             "title_aux": "ComfyUI-Gemini_Flash_2.0_Exp"
+        }
+    ],
+    "https://github.com/ShmuelRonen/ComfyUI-HunyuanVideoStyler": [
+        [
+            "HunyuanVideoStyler"
+        ],
+        {
+            "title_aux": "ComfyUI-HunyuanVideoStyler"
         }
     ],
     "https://github.com/ShmuelRonen/ComfyUI-ImageMotionGuider": [
@@ -7545,6 +7562,7 @@
             "SDVN Any Repeat",
             "SDVN Any Show",
             "SDVN Apply Style Model",
+            "SDVN Auto Generate",
             "SDVN Boolean",
             "SDVN CLIP Download",
             "SDVN CLIP Text Encode",
@@ -7583,6 +7601,7 @@
             "SDVN Pipe In",
             "SDVN Pipe Out",
             "SDVN Pipe Out All",
+            "SDVN Quick Menu",
             "SDVN Run Python Code",
             "SDVN Run Test",
             "SDVN Save Text",
@@ -9675,6 +9694,15 @@
             "title_aux": "ComfyUI-styles-all"
         }
     ],
+    "https://github.com/ahernandezmiro/ComfyUI-GCP_Storage_tools": [
+        [
+            "GCPReadImageNode",
+            "GCPWriteImageNode"
+        ],
+        {
+            "title_aux": "ComfyUI-GCP_Storage_tools"
+        }
+    ],
     "https://github.com/ai-liam/comfyui-liam": [
         [
             "AiStoreAzureGPTLiam",
@@ -10311,6 +10339,7 @@
             "PCLazyTextEncode",
             "PCLazyTextEncodeAdvanced",
             "PCLoraHooksFromText",
+            "PCSetLogLevel",
             "PCSetPCTextEncodeSettings",
             "PCTextEncode",
             "PCTextEncodeWithRange"
@@ -11277,6 +11306,15 @@
         ],
         {
             "title_aux": "ComfyUI_EmojiOverlay"
+        }
+    ],
+    "https://github.com/changwook987/ComfyUI-Small-Utility": [
+        [
+            "Eval",
+            "RandomEmptyLatent"
+        ],
+        {
+            "title_aux": "ComfyUI-Small-Utility"
         }
     ],
     "https://github.com/chaojie/ComfyUI-AniPortrait": [
@@ -15089,27 +15127,27 @@
     "https://github.com/griptape-ai/ComfyUI-Griptape": [
         [
             "Griptape Agent Config: Amazon Bedrock Drivers",
-            "Griptape Agent Config: Amazon Bedrock [DEPRICATED]",
+            "Griptape Agent Config: Amazon Bedrock [DEPRECATED]",
             "Griptape Agent Config: Anthropic Drivers",
-            "Griptape Agent Config: Anthropic [DEPRICATED]",
+            "Griptape Agent Config: Anthropic [DEPRECATED]",
             "Griptape Agent Config: Azure OpenAI Drivers",
-            "Griptape Agent Config: Azure OpenAI [DEPRICATED]",
+            "Griptape Agent Config: Azure OpenAI [DEPRECATED]",
             "Griptape Agent Config: Cohere Drivers",
             "Griptape Agent Config: Custom Structure",
             "Griptape Agent Config: Environment Variables",
             "Griptape Agent Config: Expand",
             "Griptape Agent Config: Google Drivers",
-            "Griptape Agent Config: Google [DEPRICATED]",
+            "Griptape Agent Config: Google [DEPRECATED]",
             "Griptape Agent Config: HuggingFace Drivers",
-            "Griptape Agent Config: HuggingFace [DEPRICATED]",
+            "Griptape Agent Config: HuggingFace [DEPRECATED]",
             "Griptape Agent Config: LM Studio Drivers",
-            "Griptape Agent Config: LM Studio [DEPRICATED]",
+            "Griptape Agent Config: LM Studio [DEPRECATED]",
             "Griptape Agent Config: Ollama Drivers",
-            "Griptape Agent Config: Ollama [DEPRICATED]",
+            "Griptape Agent Config: Ollama [DEPRECATED]",
             "Griptape Agent Config: OpenAI Compatible Drivers",
-            "Griptape Agent Config: OpenAI Compatible [DEPRICATED]",
+            "Griptape Agent Config: OpenAI Compatible [DEPRECATED]",
             "Griptape Agent Config: OpenAI Drivers",
-            "Griptape Agent Config: OpenAI [DEPRICATED]",
+            "Griptape Agent Config: OpenAI [DEPRECATED]",
             "Griptape Audio Transcription Driver: OpenAI",
             "Griptape Combine: Merge Inputs",
             "Griptape Combine: Merge Texts",
@@ -15126,7 +15164,6 @@
             "Griptape Create: Image Inpainting Variation",
             "Griptape Create: Image Variation",
             "Griptape Create: Image from Text",
-            "Griptape Create: Pipeline",
             "Griptape Create: Rules",
             "Griptape Create: Text",
             "Griptape Display: Artifact",
@@ -15155,8 +15192,6 @@
             "Griptape Load: Audio",
             "Griptape Load: Image From URL",
             "Griptape Load: Text",
-            "Griptape Pipeline: Add Task",
-            "Griptape Pipeline: Insert Task",
             "Griptape Prompt Driver: Amazon Bedrock",
             "Griptape Prompt Driver: Amazon SageMaker Jumpstart",
             "Griptape Prompt Driver: Anthropic",
@@ -15184,7 +15219,6 @@
             "Griptape Run: Image Description",
             "Griptape Run: Parallel Image Description",
             "Griptape Run: Prompt Task",
-            "Griptape Run: Structure",
             "Griptape Run: Task",
             "Griptape Run: Text Extraction",
             "Griptape Run: Text Summary",
@@ -15226,8 +15260,7 @@
             "Griptape WebSearch Driver: DuckDuckGo",
             "Griptape WebSearch Driver: Exa",
             "Griptape WebSearch Driver: Google",
-            "Griptape WebSearch Driver: Tavily",
-            "Gt Run Agent"
+            "Griptape WebSearch Driver: Tavily"
         ],
         {
             "author": "Jason Schleifer",
@@ -15347,6 +15380,14 @@
         ],
         {
             "title_aux": "ComfyUI Hallo"
+        }
+    ],
+    "https://github.com/hay86/ComfyUI_LatentSync": [
+        [
+            "D_LatentSyncNode"
+        ],
+        {
+            "title_aux": "ComfyUI LatentSync"
         }
     ],
     "https://github.com/hay86/ComfyUI_MiniCPM-V": [
@@ -21893,6 +21934,14 @@
             "title_aux": "comfyui-ricklove"
         }
     ],
+    "https://github.com/risunobushi/ComfyUI-Similarity-Score": [
+        [
+            "ImageSimilarityScores"
+        ],
+        {
+            "title_aux": "ComfyUI-Similarity-Score"
+        }
+    ],
     "https://github.com/risunobushi/comfyUI_FrequencySeparation_RGB-HSV": [
         [
             "FrequencyCombination",
@@ -22370,11 +22419,18 @@
     ],
     "https://github.com/sebord/ComfyUI-LMCQ": [
         [
+            "LmcqGetMachineCode",
             "LmcqImageSaver",
             "LmcqImageSaverTransit",
             "LmcqImageSaverWeb",
             "LmcqInputValidator",
-            "LmcqLoadFluxNF4Checkpoint"
+            "LmcqLoadFluxNF4Checkpoint",
+            "LmcqRuntimeLoraDecryption",
+            "LmcqRuntimeLoraEncryption",
+            "LmcqRuntimeModelDecryption",
+            "LmcqRuntimeModelEncryption",
+            "LmcqRuntimeWorkflowDecryption",
+            "LmcqRuntimeWorkflowEncryption"
         ],
         {
             "title_aux": "ComfyUI-LMCQ"
