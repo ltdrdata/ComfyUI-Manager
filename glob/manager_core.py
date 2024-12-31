@@ -584,9 +584,16 @@ def is_valid_url(url):
     return False
 
 
-def gitclone_install(files, instant_execution=False, msg_prefix=''):
-    print(f"{msg_prefix}Install: {files}")
-    for url in files:
+def gitclone_install(files, instant_execution=False, msg_prefix='', commits=None):
+    print(f"{msg_prefix}Install: {files}:{commits}")
+    if commits is None:
+        commits = [None] * len(files)
+    
+    if len(files) != len(commits):
+        print("Error: The number of files and commit IDs must match.")
+        return False
+
+    for url, commit_id in zip(files, commits):
         if not is_valid_url(url):
             print(f"Invalid git url: '{url}'")
             return False
@@ -605,6 +612,15 @@ def gitclone_install(files, instant_execution=False, msg_prefix=''):
                     return False
             else:
                 repo = git.Repo.clone_from(url, repo_path, recursive=True, progress=GitProgress())
+                if commit_id:
+                    print(f"Checkout commit: {commit_id}")
+                    try:
+                        # Try checking out as a commit, branch, or tag
+                        repo.git.checkout(commit_id)
+                    except Exception as checkout_error:
+                        print(f"Error checking out {commit_id}: {checkout_error}")
+                        return False
+
                 repo.git.clear_cache()
                 repo.close()
 
