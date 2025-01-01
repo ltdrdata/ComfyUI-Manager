@@ -4,7 +4,7 @@ import { api } from "../../scripts/api.js";
 
 import {
 	manager_instance, rebootAPI, install_via_git_url,
-	fetchData, md5, icons, show_message
+	fetchData, md5, icons, show_message, customConfirm, customAlert, customPrompt
 } from  "./common.js";
 
 // https://cenfun.github.io/turbogrid/api.html
@@ -13,7 +13,7 @@ import TG from "./turbogrid.esm.js";
 const pageCss = `
 .cn-manager {
 	--grid-font: -apple-system, BlinkMacSystemFont, "Segue UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-	z-index: 10001;
+	z-index: 1099;
 	width: 80%;
 	height: 80%;
 	display: flex;
@@ -389,7 +389,7 @@ export class CustomNodesManager {
 
 	showVersionSelectorDialog(versions, onSelect) {
 		const dialog = new ComfyDialog();
-		dialog.element.style.zIndex = 100003;
+		dialog.element.style.zIndex = 1100;
 		dialog.element.style.width = "300px";
 		dialog.element.style.padding = "0";
 		dialog.element.style.backgroundColor = "#2a2a2a";
@@ -489,7 +489,7 @@ export class CustomNodesManager {
 							onSelect(selectedVersion);
 							dialog.close();
 						} else {
-							alert("Please select a version.");
+							customAlert("Please select a version.");
 						}
 					},
 					style: {
@@ -753,8 +753,8 @@ export class CustomNodesManager {
 			},
 
 			".cn-manager-install-url": {
-				click: (e) => {
-					const url = prompt("Please enter the URL of the Git repository to install", "");
+				click: async (e) => {
+					const url = await customPrompt("Please enter the URL of the Git repository to install", "");
 					if (url !== null) {
 						install_via_git_url(url, this.manager_dialog);
 					}
@@ -1200,14 +1200,18 @@ export class CustomNodesManager {
 
 		if(mode === "uninstall") {
 			title = title || `${list.length} custom nodes`;
-			if (!confirm(`Are you sure uninstall ${title}?`)) {
+
+			const confirmed = await customConfirm(`Are you sure uninstall ${title}?`);
+			if (!confirmed) {
 				return;
 			}
 		}
 
 		if(mode === "reinstall") {
 			title = title || `${list.length} custom nodes`;
-			if (!confirm(`Are you sure reinstall ${title}?`)) {
+
+			const confirmed = await customConfirm(`Are you sure reinstall ${title}?`);
+			if (!confirmed) {
 				return;
 			}
 		}

@@ -1,6 +1,63 @@
 {
   "models": [
     {
+      "name": "Comfy-Org/llava_llama3_fp8_scaled.safetensors",
+      "type": "clip",
+      "base": "LLaVA-Llama-3",
+      "save_path": "text_encoders",
+      "description": "llava_llama3_fp8_scaled text encoder model. This is required for using Hunyuan Video.",
+      "reference": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged",
+      "filename": "llava_llama3_fp8_scaled.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/llava_llama3_fp8_scaled.safetensors",
+      "size": "9.09GB"
+    },
+    {
+      "name": "Comfy-Org/llava_llama3_fp16.safetensors",
+      "type": "clip",
+      "base": "LLaVA-Llama-3",
+      "save_path": "text_encoders",
+      "description": "llava_llama3_fp16 text encoder model. This is required for using Hunyuan Video.",
+      "reference": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged",
+      "filename": "llava_llama3_fp16.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/llava_llama3_fp16.safetensors",
+      "size": "16.1GB"
+    },
+
+    {
+      "name": "PixArt-Sigma-XL-2-512-MS.safetensors (diffusion)",
+      "type": "diffusion_model",
+      "base": "pixart-sigma",
+      "save_path": "diffusion_models/PixArt-Sigma",
+      "description": "PixArt-Sigma Diffusion model",
+      "reference": "https://huggingface.co/PixArt-alpha/PixArt-Sigma-XL-2-512-MS",
+      "filename": "PixArt-Sigma-XL-2-512-MS.safetensors",
+      "url": "https://huggingface.co/PixArt-alpha/PixArt-Sigma-XL-2-512-MS/resolve/main/transformer/diffusion_pytorch_model.safetensors",
+      "size": "2.44GB"
+    },
+    {
+      "name": "PixArt-Sigma-XL-2-1024-MS.safetensors (diffusion)",
+      "type": "diffusion_model",
+      "base": "pixart-sigma",
+      "save_path": "diffusion_models/PixArt-Sigma",
+      "description": "PixArt-Sigma Diffusion model",
+      "reference": "https://huggingface.co/PixArt-alpha/PixArt-Sigma-XL-2-1024-MS",
+      "filename": "PixArt-Sigma-XL-2-1024-MS.safetensors",
+      "url": "https://huggingface.co/PixArt-alpha/PixArt-Sigma-XL-2-1024-MS/resolve/main/transformer/diffusion_pytorch_model.safetensors",
+      "size": "2.44GB"
+    },
+    {
+      "name": "PixArt-XL-2-1024-MS.safetensors (diffusion)",
+      "type": "diffusion_model",
+      "base": "pixart-alpha",
+      "save_path": "diffusion_models/PixArt-Alpha",
+      "description": "PixArt-Alpha Diffusion model",
+      "reference": "https://huggingface.co/PixArt-alpha/PixArt-XL-2-1024-MS",
+      "filename": "PixArt-XL-2-1024-MS.safetensors",
+      "url": "https://huggingface.co/PixArt-alpha/PixArt-XL-2-1024-MS/resolve/main/transformer/diffusion_pytorch_model.safetensors",
+      "size": "2.45GB"
+    },
+    
+    {
       "name": "Comfy-Org/hunyuan_video_t2v_720p_bf16.safetensors",
       "type": "diffusion_model",
       "base": "Hunyuan Video",
@@ -15,8 +72,8 @@
       "name": "Comfy-Org/hunyuan_video_vae_bf16.safetensors",
       "type": "VAE",
       "base": "Hunyuan Video",
-      "save_path": "diffusion_models/hunyuan_video",
-      "description": "Huyuan Video diffusion model. repackaged version.",
+      "save_path": "VAE",
+      "description": "Huyuan Video VAE model. repackaged version.",
       "reference": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged",
       "filename": "hunyuan_video_vae_bf16.safetensors",
       "url": "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/vae/hunyuan_video_vae_bf16.safetensors",

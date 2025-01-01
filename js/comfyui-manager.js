@@ -11,7 +11,9 @@ import {
 	showYouMLShareDialog
 } from "./comfyui-share-common.js";
 import { OpenArtShareDialog } from "./comfyui-share-openart.js";
-import { free_models, install_pip, install_via_git_url, manager_instance, rebootAPI, migrateAPI, setManagerInstance, show_message } from "./common.js";
+import {
+	free_models, install_pip, install_via_git_url, manager_instance,
+	rebootAPI, migrateAPI, setManagerInstance, show_message, customAlert, customPrompt } from "./common.js";
 import { ComponentBuilderDialog, getPureName, load_components, set_component_policy } from "./components-manager.js";
 import { CustomNodesManager } from "./custom-nodes-manager.js";
 import { ModelManager } from "./model-manager.js";
@@ -41,7 +43,7 @@ docStyle.innerHTML = `
 	width: 1000px;
 	height: 520px;
 	box-sizing: content-box;
-	z-index: 10000;
+	z-index: 1000;
 	overflow-y: auto;
 }
 
@@ -49,7 +51,7 @@ docStyle.innerHTML = `
 	width: 400px;
 	height: 25px;
 	box-sizing: border-box;
-	z-index: 10000;
+	z-index: 1000;
 	margin-top: 10px;
 	margin-bottom: 5px;
 }
@@ -610,7 +612,7 @@ async function updateComfyUI() {
 
 function showVersionSelectorDialog(versions, current, onSelect) {
 		const dialog = new ComfyDialog();
-		dialog.element.style.zIndex = 100003;
+		dialog.element.style.zIndex = 1100;
 		dialog.element.style.width = "300px";
 		dialog.element.style.padding = "0";
 		dialog.element.style.backgroundColor = "#2a2a2a";
@@ -710,7 +712,7 @@ function showVersionSelectorDialog(versions, current, onSelect) {
 							onSelect(selectedVersion);
 							dialog.close();
 						} else {
-							alert("Please select a version.");
+							customAlert("Please select a version.");
 						}
 					},
 					style: {
@@ -972,8 +974,8 @@ class ManagerMenuDialog extends ComfyDialog {
 				$el("button.cm-button", {
 					type: "button",
 					textContent: "Install via Git URL",
-					onclick: () => {
-						var url = prompt("Please enter the URL of the Git repository to install", "");
+					onclick: async () => {
+						var url = await customPrompt("Please enter the URL of the Git repository to install", "");
 
 						if (url !== null) {
 							install_via_git_url(url, self);
@@ -1240,8 +1242,8 @@ class ManagerMenuDialog extends ComfyDialog {
 						type: "button",
 						textContent: "Install PIP packages",
 						onclick:
-							() => {
-								var url = prompt("Please enumerate the pip packages to be installed.\n\nExample: insightface opencv-python-headless>=4.1.1\n", "");
+							async () => {
+								var url = await customPrompt("Please enumerate the pip packages to be installed.\n\nExample: insightface opencv-python-headless>=4.1.1\n", "");
 
 								if (url !== null) {
 									install_pip(url, self);

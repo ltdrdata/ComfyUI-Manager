@@ -1,5 +1,7 @@
 import { app } from "../../scripts/app.js";
 import { $el, ComfyDialog } from "../../scripts/ui.js";
+import { customAlert } from "./common.js";
+
 const env = "prod";
 
 let DEFAULT_HOMEPAGE_URL = "https://copus.io";
@@ -603,7 +605,7 @@ export class CopusShareDialog extends ComfyDialog {
       this.shareButton.textContent = "Sharing...";
       await this.share();
     } catch (e) {
-      alert(e.message);
+      customAlert(e.message);
     }
     this.shareButton.disabled = false;
     this.shareButton.textContent = "Share";

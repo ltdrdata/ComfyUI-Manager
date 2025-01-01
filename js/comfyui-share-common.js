@@ -4,6 +4,7 @@ import { $el, ComfyDialog } from "../../scripts/ui.js";
 import { CopusShareDialog } from "./comfyui-share-copus.js";
 import { OpenArtShareDialog } from "./comfyui-share-openart.js";
 import { YouMLShareDialog } from "./comfyui-share-youml.js";
+import { customAlert } from "./common.js";
 
 export const SUPPORTED_OUTPUT_NODE_TYPES = [
 	"PreviewImage",
@@ -252,9 +253,9 @@ export const showShareDialog = async (share_option) => {
         if (potential_output_nodes.length === 0) {
           // todo: add support for other output node types (animatediff combine, etc.)
           const supported_nodes_string = SUPPORTED_OUTPUT_NODE_TYPES.join(", ");
-          alert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
+          customAlert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
         } else {
-          alert("To share this, first run a prompt. Once it's done, click 'Share'.\n\nNOTE: Images of the Share target can only be selected in the PreviewImage, SaveImage, and VHS_VideoCombine nodes. In the case of VHS_VideoCombine, only the image/gif and image/webp formats are supported.");
+          customAlert("To share this, first run a prompt. Once it's done, click 'Share'.\n\nNOTE: Images of the Share target can only be selected in the PreviewImage, SaveImage, and VHS_VideoCombine nodes. In the case of VHS_VideoCombine, only the image/gif and image/webp formats are supported.");
         }
         return false;
       }
@@ -512,7 +513,7 @@ export class ShareDialogChooser extends ComfyDialog {
 	}
 	show() {
 		this.element.style.display = "block";
-		this.element.style.zIndex = 10001;
+		this.element.style.zIndex = 1099;
 	}
 }
 export class ShareDialog extends ComfyDialog {
@@ -861,7 +862,7 @@ export class ShareDialog extends ComfyDialog {
 			if (destinations.includes("matrix")) {
 				let definedMatrixAuth = !!this.matrix_homeserver_input.value && !!this.matrix_username_input.value && !!this.matrix_password_input.value;
 				if (!definedMatrixAuth) {
-					alert("Please set your Matrix account details.");
+					customAlert("Please set your Matrix account details.");
 					return;
 				}
 			}
@@ -878,9 +879,9 @@ export class ShareDialog extends ComfyDialog {
 				if (potential_output_nodes.length === 0) {
 					// todo: add support for other output node types (animatediff combine, etc.)
 					const supported_nodes_string = SUPPORTED_OUTPUT_NODE_TYPES.join(", ");
-					alert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
+					customAlert(`No supported output node found (${supported_nodes_string}). To share this workflow, please add an output node to your graph and re-run your prompt.`);
 				} else {
-					alert("To share this, first run a prompt. Once it's done, click 'Share'.\n\nNOTE: Images of the Share target can only be selected in the PreviewImage, SaveImage, and VHS_VideoCombine nodes. In the case of VHS_VideoCombine, only the image/gif and image/webp formats are supported.");
+					customAlert("To share this, first run a prompt. Once it's done, click 'Share'.\n\nNOTE: Images of the Share target can only be selected in the PreviewImage, SaveImage, and VHS_VideoCombine nodes. In the case of VHS_VideoCombine, only the image/gif and image/webp formats are supported.");
 				}
 				this.selectedOutputIndex = 0;
 				this.close();
@@ -918,16 +919,16 @@ export class ShareDialog extends ComfyDialog {
 				try {
 					const response_json = await response.json();
 					if (response_json.error) {
-						alert(response_json.error);
+						customAlert(response_json.error);
 						this.close();
 						return;
 					} else {
-						alert("Failed to share your art. Please try again.");
+						customAlert("Failed to share your art. Please try again.");
 						this.close();
 						return;
 					}
 				} catch (e) {
-					alert("Failed to share your art. Please try again.");
+					customAlert("Failed to share your art. Please try again.");
 					this.close();
 					return;
 				}
