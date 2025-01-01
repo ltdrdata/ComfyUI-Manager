@@ -3,7 +3,7 @@ import { api } from "../../scripts/api.js";
 import { $el, ComfyDialog } from "../../scripts/ui.js";
 
 
-export function customConfirm(message, confirmMessage, cancelMessage) {
+function internalCustomConfirm(message, confirmMessage, cancelMessage) {
 	return new Promise((resolve) => {
 		// transparent bg
 		const modalOverlay = document.createElement('div');
@@ -16,7 +16,7 @@ export function customConfirm(message, confirmMessage, cancelMessage) {
 		modalOverlay.style.display = 'flex';
 		modalOverlay.style.alignItems = 'center';
 		modalOverlay.style.justifyContent = 'center';
-		modalOverlay.style.zIndex = '1000000';
+		modalOverlay.style.zIndex = '1100';
 
 		// Modal window container (dark bg)
 		const modalDialog = document.createElement('div');
@@ -96,11 +96,28 @@ export function customConfirm(message, confirmMessage, cancelMessage) {
 
 export function show_message(msg) {
 	app.ui.dialog.show(msg);
-	app.ui.dialog.element.style.zIndex = 10010;
+	app.ui.dialog.element.style.zIndex = 1100;
 }
 
 export async function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export async function customConfirm(message) {
+	try {
+		let res = await
+			window['app'].extensionManager.dialog
+			.confirm({
+				title: 'Confirm',
+				message: message
+			});
+
+		return res;
+	}
+	catch {
+		let res = await internalCustomConfirm(message);
+		return res;
+	}
 }
 
 export function rebootAPI() {

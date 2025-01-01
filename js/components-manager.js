@@ -456,7 +456,7 @@ export class ComponentBuilderDialog extends ComfyDialog {
 		this.invalidateControl();
 
 		this.element.style.display = "block";
-		this.element.style.zIndex = 10001;
+		this.element.style.zIndex = 1100;
 		this.element.style.width = "500px";
 		this.element.style.height = "480px";
 	}

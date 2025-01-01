@@ -41,7 +41,7 @@ docStyle.innerHTML = `
 	width: 1000px;
 	height: 520px;
 	box-sizing: content-box;
-	z-index: 10000;
+	z-index: 1000;
 	overflow-y: auto;
 }
 
@@ -49,7 +49,7 @@ docStyle.innerHTML = `
 	width: 400px;
 	height: 25px;
 	box-sizing: border-box;
-	z-index: 10000;
+	z-index: 1000;
 	margin-top: 10px;
 	margin-bottom: 5px;
 }
