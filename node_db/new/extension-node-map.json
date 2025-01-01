@@ -9,6 +9,15 @@
             "title_aux": "alkemann nodes"
         }
     ],
+    "https://github.com/0x-jerry/comfyui-rembg": [
+        [
+            "Load Rembg Model",
+            "Rembg Remove background"
+        ],
+        {
+            "title_aux": "Rembg Background Removal Node for ComfyUI"
+        }
+    ],
     "https://github.com/0xbitches/ComfyUI-LCM": [
         [
             "LCM_Sampler",
@@ -1399,8 +1408,13 @@
     ],
     "https://github.com/Anibaaal/ComfyUI-UX-Nodes": [
         [
+            "AdvancedCompositeImageMasked",
             "BlockLayerStringGenerator",
-            "EasyResolutionPicker"
+            "BlurNode",
+            "ColorGeneratorNode",
+            "DropShadowNode",
+            "EasyResolutionPicker",
+            "LerpNode"
         ],
         {
             "title_aux": "ComfyUI UX Nodes"
@@ -2570,6 +2584,7 @@
     "https://github.com/DesertPixelAi/ComfyUI-Desert-Pixel-Nodes": [
         [
             "DP 2 String Switch",
+            "DP 5 String Switch",
             "DP Animation Calculator 10 Inputs",
             "DP Animation Calculator 5 Inputs",
             "DP Aspect Ratio Picker",
@@ -2577,7 +2592,10 @@
             "DP Broken Token",
             "DP Clean Prompt",
             "DP Combo Controller",
+            "DP Condition Mixer",
+            "DP Crazy Prompt Mixer",
             "DP Create Json File",
+            "DP Custom Aspect Ratio",
             "DP Diff Int 8step Selector",
             "DP Draggable Floats 1",
             "DP Draggable Floats 2",
@@ -2586,27 +2604,43 @@
             "DP Five Lora",
             "DP Five Lora Random",
             "DP Image Color Analyzer",
+            "DP Image Color Analyzer Small",
             "DP Image Color Effect",
             "DP Image Effect Processor",
             "DP Image Empty Latent Switch Flux",
             "DP Image Empty Latent Switch SDXL",
             "DP Image Slide Show",
+            "DP Image Strip",
+            "DP Int 0-1000",
+            "DP Int 0-1000 4 Step",
+            "DP Int 0-1000 8 Step",
             "DP Load Image Effects",
             "DP Load Image Effects Small",
             "DP Logo Animator",
             "DP Logo Animator Advanced",
             "DP Lora Random Strength Controller",
             "DP Lora Strength Controller",
+            "DP Lora Strength Stepper",
+            "DP Prompt Inverter",
             "DP Prompt Manager",
+            "DP Prompt Manager Small",
             "DP Prompt Mode Controller",
             "DP Prompt Styler",
+            "DP Prompt Token Compressor",
             "DP Random Character",
             "DP Random Crazy Prompt Generator",
+            "DP Random Logo Style Generator",
             "DP Random Min Max",
+            "DP Random Mode Controller",
+            "DP Random Mode Switch",
+            "DP Random Psychedelic Punk Generator",
+            "DP Random Superhero Prompt Generator",
             "DP Save Preview Image",
             "DP Set New Model Folder Link",
             "DP String Text",
             "DP String With Switch",
+            "DP Strings Connector",
+            "DP Strip Edge Masks",
             "DP Switch Controller",
             "DP Text Preview",
             "DP Transition Frames Selector",
@@ -2615,7 +2649,11 @@
             "DP Video Flicker",
             "DP Video Looper",
             "DP Video Transition",
-            "DP_Logo_Animator_Advanced"
+            "DP_Crazy_Prompt_Mixer",
+            "DP_Logo_Animator_Advanced",
+            "DP_Lora_Strength_Stepper",
+            "DP_Prompt_Inverter",
+            "DP_Strings_Connector"
         ],
         {
             "title_aux": "ComfyUI-Desert-Pixel-Nodes"
@@ -4366,6 +4404,14 @@
             "title_aux": "ComfyUI-JNodes"
         }
     ],
+    "https://github.com/Jash-Vora/ComfyUI-GarmentDiT": [
+        [
+            "GarmentEnhancementNode"
+        ],
+        {
+            "title_aux": "FitDiT"
+        }
+    ],
     "https://github.com/JcandZero/ComfyUI_GLM4Node": [
         [
             "GLM3_turbo_CHAT",
@@ -5560,6 +5606,7 @@
             "EmbeddingLoader",
             "FilmCharDir",
             "FlexEmptyLatent",
+            "FloatEvaluate",
             "FuseImages",
             "FuseImages2",
             "HashText",
@@ -5579,6 +5626,7 @@
             "KillWorkflow",
             "LandscapeBackgrounds",
             "LandscapeDir",
+            "LinEqEval",
             "MakeupStylesDir",
             "Mbsampler",
             "OptimalCrop",
@@ -6610,6 +6658,22 @@
         ],
         {
             "title_aux": "ComfyUI SaveAS"
+        }
+    ],
+    "https://github.com/SKBv0/ComfyUI_SKBundle": [
+        [
+            "AspectRatioAdvanced",
+            "DisplayEverything",
+            "ImageComparer",
+            "MultiFloat",
+            "MultiTextNode",
+            "SKB_AnySwitch",
+            "SeamlessTexture",
+            "TextBox",
+            "TitlePlus"
+        ],
+        {
+            "title_aux": "ComfyUI SKBundle"
         }
     ],
     "https://github.com/SLAPaper/ComfyUI-Image-Selector": [
@@ -8314,15 +8378,6 @@
             "title_aux": "ComfyUI String Tools"
         }
     ],
-    "https://github.com/Taremin/webui-monaco-prompt": [
-        [
-            "WebuiMonacoPromptFind",
-            "WebuiMonacoPromptReplace"
-        ],
-        {
-            "title_aux": "WebUI Monaco Prompt"
-        }
-    ],
     "https://github.com/TeaCrab/ComfyUI-TeaNodes": [
         [
             "TC_ColorFill",
@@ -9046,6 +9101,20 @@
         ],
         {
             "title_aux": "InstaSD nodes for ComfyUI"
+        }
+    ],
+    "https://github.com/WainWong/ComfyUI-Loop-image": [
+        [
+            "CyberEve_BatchImageLoopClose",
+            "CyberEve_BatchImageLoopOpen",
+            "CyberEve_LoopIndexSwitch",
+            "CyberEve_MaskMerge",
+            "CyberEve_MaskSegmentation",
+            "CyberEve_SingleImageLoopClose",
+            "CyberEve_SingleImageLoopOpen"
+        ],
+        {
+            "title_aux": "ComfyUI-Loop-image"
         }
     ],
     "https://github.com/Wakfull33/ComfyUI-SaveImageCivitAI": [
@@ -10257,6 +10326,8 @@
             "Sage_CheckpointLoaderRecent",
             "Sage_CheckpointLoaderSimple",
             "Sage_CollectKeywordsFromLoraStack",
+            "Sage_ConditioningOneOut",
+            "Sage_ConditioningRngOut",
             "Sage_ConditioningZeroOut",
             "Sage_ConstructMetadata",
             "Sage_ConstructMetadataLite",
@@ -12422,6 +12493,19 @@
         ],
         {
             "title_aux": "ComfyUI-PaddleOcr"
+        }
+    ],
+    "https://github.com/civen-cn/ComfyUI-Whisper-Translator": [
+        [
+            "Add Subtitles To Background",
+            "Add Subtitles To Frames",
+            "Add Subtitles To FramesX",
+            "Apply Whisper",
+            "Apply WhisperX",
+            "Resize Cropped Subtitles"
+        ],
+        {
+            "title_aux": "ComfyUI Whisper Translator"
         }
     ],
     "https://github.com/civitai/civitai_comfy_nodes": [
@@ -18514,6 +18598,7 @@
             "LenDistortion",
             "PixelOE",
             "Pixelize",
+            "SaveImageWithCustomExif",
             "Sketch",
             "TiltShift"
         ],
@@ -18560,6 +18645,7 @@
     ],
     "https://github.com/liuqianhonga/ComfyUI-String-Helper": [
         [
+            "JsonToCSV",
             "ShowTranslateString",
             "StringConverter",
             "StringFormatter",
@@ -21994,6 +22080,15 @@
             "title_aux": "ComfyUI-ComfyBridge"
         }
     ],
+    "https://github.com/rohitsainier/ComfyUI-InstagramDownloader": [
+        [
+            "InstagramDownloader",
+            "MediaOrganizer"
+        ],
+        {
+            "title_aux": "ComfyUI-InstagramDownloader"
+        }
+    ],
     "https://github.com/romeobuilderotti/ComfyUI-PNG-Metadata": [
         [
             "SetMetadataAll",
@@ -23536,23 +23631,6 @@
         ],
         {
             "title_aux": "ComfyUI Ollama"
-        }
-    ],
-    "https://github.com/steelan9199/ComfyUI-Teeth": [
-        [
-            "teeth FindContours",
-            "teeth Gemini2",
-            "teeth GetFirstSeg",
-            "teeth GetValueByIndexFromList",
-            "teeth ImageGridLines",
-            "teeth LoadTextFile",
-            "teeth RunPythonCode",
-            "teeth SaveTextFile",
-            "teeth SplitGridImage",
-            "teeth TextSplitByDelimiter"
-        ],
-        {
-            "title_aux": "ComfyUI-Teeth"
         }
     ],
     "https://github.com/stormcenter/ComfyUI-AutoSplitGridImage": [
@@ -25888,6 +25966,31 @@
         ],
         {
             "title_aux": "ComfyUI_Bxb"
+        }
+    ],
+    "https://github.com/zmwv823/ComfyUI_Anytext": [
+        [
+            "UL_AnyTextEncoder",
+            "UL_AnyTextFormatter",
+            "UL_AnyTextLoaderTest",
+            "UL_AnyText_Composer",
+            "UL_AnyText_FontImg",
+            "UL_AnyText_Inputs",
+            "UL_AnyText_Loader",
+            "UL_AnyText_Sampler",
+            "UL_DiffusersCheckpointLoader",
+            "UL_DiffusersControlNetApplyAdvanced",
+            "UL_DiffusersControlNetLoader",
+            "UL_Image_Generation_Diffusers_Sampler",
+            "UL_Image_Generation_Glyph_ByT5",
+            "UL_Image_Generation_Glyph_ByT5_Checkponits_Loader",
+            "UL_Image_Generation_Glyph_ByT5_Font",
+            "UL_Image_Generation_JoyType_Font_Img",
+            "UL_Image_Generation_JoyType_Render_List",
+            "UL_Image_Process_Common_Cv2_Canny"
+        ],
+        {
+            "title_aux": "ComfyUI_Anytext"
         }
     ],
     "https://github.com/zohac/ComfyUI_ZC_DrawShape": [
