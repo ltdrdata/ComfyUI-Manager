@@ -55,6 +55,18 @@ const pageCss = `
 	color: white;
 }
 
+.cn-manager .cn-manager-back {
+	align-items: center;
+	justify-content: center;
+}
+
+.arrow-icon {
+	height: 1em;
+	width: 1em;
+	margin-right: 5px;
+	transform: translateY(2px);
+}
+
 .cn-manager-header {
 	display: flex;
 	flex-wrap: wrap;
@@ -325,7 +337,12 @@ const pageHtml = `
 <div class="cn-manager-selection"></div>
 <div class="cn-manager-message"></div>
 <div class="cn-manager-footer">
-	<button class="cn-manager-back">◀ Back</button>
+<button class="cn-manager-back">
+    <svg class="arrow-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 8H18M2 8L8 2M2 8L8 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back
+</button>
 	<button class="cn-manager-restart">Restart</button>
 	<div class="cn-flex-auto"></div>
 	<button class="cn-manager-check-update">Check Update</button>
