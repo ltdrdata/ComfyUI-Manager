@@ -1359,6 +1359,11 @@ async def load_components(request):
         return web.Response(status=400)
 
 
+@routes.get("/manager/version")
+async def get_version(request):
+    return web.Response(text=core.version_str, status=200)
+
+
 async def _confirm_try_install(sender, custom_node_url, msg):
     json_obj = await core.get_data_by_mode('default', 'custom-node-list.json')
 

@@ -1507,9 +1507,23 @@ class ManagerMenuDialog extends ComfyDialog {
 	}
 }
 
+async function getVersion() {
+	let version = await api.fetchApi(`/manager/version`);
+	return await version.text();
+}
+
 
 app.registerExtension({
 	name: "Comfy.ManagerMenu",
+
+	aboutPageBadges: [
+		{
+			label: `ComfyUI-Manager ${await getVersion()}`,
+			url: 'https://github.com/ltdrdata/ComfyUI-Manager',
+			icon: 'pi pi-th-large'
+		}
+	],
+
 	init() {
 		$el("style", {
 			textContent: style,
