@@ -16,7 +16,7 @@ function internalCustomConfirm(message, confirmMessage, cancelMessage) {
 		modalOverlay.style.display = 'flex';
 		modalOverlay.style.alignItems = 'center';
 		modalOverlay.style.justifyContent = 'center';
-		modalOverlay.style.zIndex = '1100';
+		modalOverlay.style.zIndex = '1101';
 
 		// Modal window container (dark bg)
 		const modalDialog = document.createElement('div');
