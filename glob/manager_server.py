@@ -135,7 +135,6 @@ local_db_model = os.path.join(manager_util.comfyui_manager_path, "model-list.jso
 local_db_alter = os.path.join(manager_util.comfyui_manager_path, "alter-list.json")
 local_db_custom_node_list = os.path.join(manager_util.comfyui_manager_path, "custom-node-list.json")
 local_db_extension_node_mappings = os.path.join(manager_util.comfyui_manager_path, "extension-node-map.json")
-components_path = os.path.join(manager_util.comfyui_manager_path, 'components')
 
 
 def set_preview_method(method):
@@ -1314,15 +1313,15 @@ async def save_component(request):
         name = data['name']
         workflow = data['workflow']
 
-        if not os.path.exists(components_path):
-            os.mkdir(components_path)
+        if not os.path.exists(core.manager_components_path):
+            os.mkdir(core.manager_components_path)
 
         if 'packname' in workflow and workflow['packname'] != '':
             sanitized_name = manager_util.sanitize_filename(workflow['packname']) + '.pack'
         else:
             sanitized_name = manager_util.sanitize_filename(name) + '.json'
 
-        filepath = os.path.join(components_path, sanitized_name)
+        filepath = os.path.join(core.manager_components_path, sanitized_name)
         components = {}
         if os.path.exists(filepath):
             with open(filepath) as f:
@@ -1340,12 +1339,12 @@ async def save_component(request):
 @routes.post("/manager/component/loads")
 async def load_components(request):
     try:
-        json_files = [f for f in os.listdir(components_path) if f.endswith('.json')]
-        pack_files = [f for f in os.listdir(components_path) if f.endswith('.pack')]
+        json_files = [f for f in os.listdir(core.manager_components_path) if f.endswith('.json')]
+        pack_files = [f for f in os.listdir(core.manager_components_path) if f.endswith('.pack')]
 
         components = {}
         for json_file in json_files + pack_files:
-            file_path = os.path.join(components_path, json_file)
+            file_path = os.path.join(core.manager_components_path, json_file)
             with open(file_path, 'r') as file:
                 try:
                     # When there is a conflict between the .pack and the .json, the pack takes precedence and overrides.

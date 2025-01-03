@@ -36,7 +36,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 3, 2]
+version_code = [3, 3, 3]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -150,6 +150,7 @@ manager_channel_list_path = None
 manager_startup_script_path = None
 manager_snapshot_path = None
 manager_pip_overrides_path = None
+manager_components_path = None
 
 def update_user_directory(user_dir):
     global manager_files_path
@@ -158,6 +159,7 @@ def update_user_directory(user_dir):
     global manager_startup_script_path
     global manager_snapshot_path
     global manager_pip_overrides_path
+    global manager_components_path
 
     manager_files_path = os.path.abspath(os.path.join(user_dir, 'default', 'ComfyUI-Manager'))
     if not os.path.exists(manager_files_path):
@@ -174,6 +176,7 @@ def update_user_directory(user_dir):
     manager_config_path = os.path.join(manager_files_path, 'config.ini')
     manager_channel_list_path = os.path.join(manager_files_path, 'channels.list')
     manager_pip_overrides_path = os.path.join(manager_files_path, "pip_overrides.json")
+    manager_components_path = os.path.join(manager_files_path, "components")
 
 try:
     import folder_paths

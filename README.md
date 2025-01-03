@@ -133,14 +133,29 @@ This repository provides Colab notebooks that allow you to install and use Comfy
     * `All`: Show a dialog where the user can select a title for sharing.
 
 
+## Paths
+In `ComfyUI-Manager` V3.0 and later, configuration files and dynamically generated files are located under `<USER_DIRECTORY>/default/ComfyUI-Manager/`.
+
+* <USER_DIRECTORY>  
+  * If executed without any options, the path defaults to ComfyUI/user.  
+  * It can be set using --user-directory <USER_DIRECTORY>.  
+
+* Basic config files: `<USER_DIRECTORY>/default/ComfyUI-Manager/config.ini`
+* Configurable channel lists: `<USER_DIRECTORY>/default/ComfyUI-Manager/channels.ini`
+* Configurable pip overrides: `<USER_DIRECTORY>/default/ComfyUI-Manager/pip_overrides.json`
+* Saved snapshot files: `<USER_DIRECTORY>/default/ComfyUI-Manager/snapshots`
+* Startup script files: `<USER_DIRECTORY>/default/ComfyUI-Manager/startup-scripts`
+* Component files: `<USER_DIRECTORY>/default/ComfyUI-Manager/components`
+  
+
 ## Snapshot-Manager
 * When you press `Save snapshot` or use `Update All` on `Manager Menu`, the current installation status snapshot is saved.
-  * Snapshot file dir: `ComfyUI-Manager/snapshots`
+  * Snapshot file dir: `<USER_DIRECTORY>/default/ComfyUI-Manager/snapshots`
   * You can rename snapshot file.
 * Press the "Restore" button to revert to the installation status of the respective snapshot.
   * However, for custom nodes not managed by Git, snapshot support is incomplete.
 * When you press `Restore`, it will take effect on the next ComfyUI startup.
-  * The selected snapshot file is saved in `ComfyUI-Manager/startup-scripts/restore-snapshot.json`, and upon restarting ComfyUI, the snapshot is applied and then deleted.
+  * The selected snapshot file is saved in `<USER_DIRECTORY>/default/ComfyUI-Manager/startup-scripts/restore-snapshot.json`, and upon restarting ComfyUI, the snapshot is applied and then deleted.
 
 ![model-install-dialog](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/snapshot.jpg)
 
@@ -188,12 +203,12 @@ This repository provides Colab notebooks that allow you to install and use Comfy
     }
     ```
   * `<current timestamp>` Ensure that the timestamp is always unique.
-    * "components" should have the same structure as the content of the file stored in ComfyUI-Manager/components.
+    * "components" should have the same structure as the content of the file stored in `<USER_DIRECTORY>/default/ComfyUI-Manager/components`.
       * `<component name>`: The name should be in the format `<prefix>::<node name>`.
         * `<compnent nodeata>`: In the nodedata of the group node.
           * `<version>`: Only two formats are allowed: `major.minor.patch` or `major.minor`. (e.g. `1.0`, `2.2.1`)
           * `<datetime>`: Saved time
-          * `<packname>`: If the packname is not empty, the category becomes packname/workflow, and it is saved in the <packname>.pack file in ComfyUI-Manager/components.
+          * `<packname>`: If the packname is not empty, the category becomes packname/workflow, and it is saved in the <packname>.pack file in `<USER_DIRECTORY>/default/ComfyUI-Manager/components`.
           * `<category>`: If there is neither a category nor a packname, it is saved in the components category.
           ```
               "version":"1.0",
@@ -268,12 +283,8 @@ When you run the `scan.sh` script:
 
 
 ## Troubleshooting
-* If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the ComfyUI-Manager/config.ini file that is generated.
+* If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the `<USER_DIRECTORY>/default/ComfyUI-Manager/config.ini` file that is generated.
 * If updating ComfyUI-Manager itself fails, please go to the **ComfyUI-Manager** directory and execute the command `git update-ref refs/remotes/origin/main a361cc1 && git fetch --all && git pull`.
- * Alternatively, download the update-fix.py script from [update-fix.py](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/update-fix.py) and place it in the ComfyUI-Manager directory. Then, run it using your Python command.
-   For the portable version, use `..\..\..\python_embeded\python.exe update-fix.py`.
-* For cases where nodes like `PreviewTextNode` from `ComfyUI_Custom_Nodes_AlekPet` are only supported as front-end nodes, we currently do not provide missing nodes for them.
-* Currently, `vid2vid` is not being updated, causing compatibility issues.
 * If you encounter the error message `Overlapped Object has pending operation at deallocation on Comfyui Manager load` under Windows
   * Edit `config.ini` file: add `windows_selector_event_loop_policy = True`
 * if `SSL: CERTIFICATE_VERIFY_FAILED` error is occured.
