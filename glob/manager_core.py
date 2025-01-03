@@ -36,7 +36,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 3, 4]
+version_code = [3, 3, 5]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -2949,7 +2949,7 @@ def get_comfyui_versions():
         versions = sorted(versions + [current_tag], reverse=True)
         versions = versions[:4]
 
-    main_branch = repo.heads.main
+    main_branch = repo.heads.master
     latest_commit = main_branch.commit
     latest_tag = repo.git.describe('--tags', latest_commit.hexsha)
 
