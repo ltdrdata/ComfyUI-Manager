@@ -39,6 +39,7 @@
     ],
     "https://github.com/1038lab/ComfyUI-RMBG": [
         [
+            "ClothesSegment",
             "RMBG",
             "Segment"
         ],
@@ -2486,6 +2487,7 @@
             "ImageMinusMask",
             "Light or Dark",
             "Load Random Images",
+            "Mask Preprocess Morphology",
             "PhotoShop Transfer",
             "Yuan"
         ],
@@ -5779,6 +5781,7 @@
             "ImageSizeAdjusterV3",
             "LoadVideoDirectory",
             "ProjectFilePathNode",
+            "SequentialNumberGenerator",
             "StringWeights",
             "ZenkaiPrompt",
             "ZenkaiPromptV2",
@@ -7297,7 +7300,8 @@
     ],
     "https://github.com/ShmuelRonen/ComfyUI-LatentSyncWrapper": [
         [
-            "D_LatentSyncNode"
+            "D_LatentSyncNode",
+            "D_VideoLengthAdjuster"
         ],
         {
             "title_aux": "ComfyUI-LatentSyncWrapper"
@@ -7652,6 +7656,7 @@
             "SDVN Any Show",
             "SDVN Apply Style Model",
             "SDVN Auto Generate",
+            "SDVN Auto Generate Advance",
             "SDVN Boolean",
             "SDVN CLIP Download",
             "SDVN CLIP Text Encode",
@@ -7669,6 +7674,7 @@
             "SDVN Image Repeat",
             "SDVN Image Size",
             "SDVN Inpaint",
+            "SDVN Join Parameter",
             "SDVN KSampler",
             "SDVN Load Checkpoint",
             "SDVN Load Image",
@@ -10796,6 +10802,14 @@
         ],
         {
             "title_aux": "Mikey Nodes"
+        }
+    ],
+    "https://github.com/bear2b/comfyui-argo-nodes": [
+        [
+            "ColorMatrixGPU"
+        ],
+        {
+            "title_aux": "ColorMatrixGPU Node for ComfyUI"
         }
     ],
     "https://github.com/bedovyy/ComfyUI_NAIDGenerator": [
@@ -14263,7 +14277,8 @@
             "Genera.BatchTester",
             "Genera.GCPStorageNode",
             "Genera.MaskDrawer",
-            "Genera.Utils"
+            "Genera.Utils",
+            "PainterNode"
         ],
         {
             "title_aux": "ComfyUI-GeneraNodes"
@@ -16538,7 +16553,9 @@
             "Ksampler Parameters JK",
             "Latent Crop Offset JK",
             "Latent Upscale Parameters Extract JK",
+            "Load Image With Alpha JK",
             "Load Image With Metadata JK",
+            "Make Image Grid JK",
             "Metadata Pipe Extract JK",
             "Metadata Pipe JK",
             "NodesState JK",
@@ -16609,6 +16626,7 @@
             "Save Image with Metadata Flow JK",
             "Save Image with Metadata JK",
             "Scale To Resolution JK",
+            "Split Image Grid JK",
             "Stability Conservative Upscale",
             "Stability Control Sketch",
             "Stability Control Structure",
@@ -21345,13 +21363,15 @@
             "ConditioningZeroOutCombine",
             "ConvertTimestepToSigma",
             "DynSamplerSelect",
+            "DynamicThresholdingSimplePost",
             "EmptyLatentImageAR",
             "FreeU2PPM",
             "Guidance Limiter",
             "LatentOperationTonemapLuminance",
             "LatentToMaskBB",
             "LatentToWidthHeight",
-            "PPMSamplerSelect"
+            "PPMSamplerSelect",
+            "RescaleCFGPost"
         ],
         {
             "title_aux": "ComfyUI-ppm"
@@ -21455,6 +21475,16 @@
         ],
         {
             "title_aux": "\u2728 Clarity AI - Creative Image Upscaler and Enhancer for ComfyUI"
+        }
+    ],
+    "https://github.com/phuvinh010701/ComfyUI-Nudenet": [
+        [
+            "ApplyNudenet",
+            "FilterdLabel",
+            "NudenetModelLoader"
+        ],
+        {
+            "title_aux": "ComfyUI-Nudenet"
         }
     ],
     "https://github.com/phyblas/paint-by-example_comfyui": [
