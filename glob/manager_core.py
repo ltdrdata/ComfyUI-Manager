@@ -36,7 +36,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 3, 1]
+version_code = [3, 3, 2]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1661,7 +1661,7 @@ def git_repo_update_check_with(path, do_fetch=False, do_update=False, no_deps=Fa
 
     # Check if the path is a git repository
     if not os.path.exists(os.path.join(path, '.git')):
-        raise ValueError(f'Not a git repository: {path}')
+        raise ValueError(f'[ComfyUI-Manager] Not a valid git repository: {path}')
 
     if platform.system() == "Windows":
         updated, success = __win_check_git_update(path, do_fetch, do_update)

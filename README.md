@@ -2,15 +2,10 @@
 
 **ComfyUI-Manager** is an extension designed to enhance the usability of [ComfyUI](https://github.com/comfyanonymous/ComfyUI). It offers management functions to **install, remove, disable, and enable** various custom nodes of ComfyUI. Furthermore, this extension provides a hub feature and convenience functions to access a wide range of information within ComfyUI.
 
-![menu](misc/menu.jpg)
+![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/dialog.jpg)
 
 ## NOTICE
-* V2.48.1: Security policy has been changed. Downloads of models in the list are allowed under the 'normal' security level.
-* V2.47: Security policy has been changed. The former 'normal' is now 'normal-', and 'normal' no longer allows high-risk features, even if your ComfyUI is local.
-* V2.37 Show a ✅ mark to accounts that have been active on GitHub for more than six months.
-* V2.33 Security policy is applied.
-* V2.21 [cm-cli](docs/en/cm-cli.md) tool is added.
-* V2.18 to V2.18.3 is not functioning due to a severe bug. Users on these versions are advised to promptly update to V2.18.4. Please navigate to the `ComfyUI/custom_nodes/ComfyUI-Manager` directory and execute `git pull` to update.
+* V3.3.2: Overhauled. Officially supports [https://comfyregistry.org/](https://comfyregistry.org/).
 * You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
 
 ## Installation
@@ -20,7 +15,7 @@
 To install ComfyUI-Manager in addition to an existing installation of ComfyUI, you can follow the following steps:
 
 1. goto `ComfyUI/custom_nodes` dir in terminal(cmd)
-2. `git clone https://github.com/ltdrdata/ComfyUI-Manager.git`
+2. `git clone https://github.com/ltdrdata/ComfyUI-Manager comfyui-manager`
 3. Restart ComfyUI
 
 
@@ -32,7 +27,7 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 2. Download [scripts/install-manager-for-portable-version.bat](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-manager-for-portable-version.bat) into installed `"ComfyUI_windows_portable"` directory
 3. double click `install-manager-for-portable-version.bat` batch file
 
-![portable-install](misc/portable-install.png)
+![portable-install](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/portable-install.jpg)
 
 
 ### Installation[method3] (Installation through comfy-cli: install ComfyUI and ComfyUI-Manager at once.)  
@@ -68,15 +63,13 @@ To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you c
 3. `./install-comfyui-venv-linux.sh`
 
 ### Installation Precautions
-* **DO**: `ComfyUI-Manager` files must be accurately located in the path `ComfyUI/custom_nodes/ComfyUI-Manager`
+* **DO**: `ComfyUI-Manager` files must be accurately located in the path `ComfyUI/custom_nodes/comfyui-manager`
   * Installing in a compressed file format is not recommended.
 * **DON'T**: Decompress directly into the `ComfyUI/custom_nodes` location, resulting in the Manager contents like `__init__.py` being placed directly in that directory.
   * You have to remove all ComfyUI-Manager files from `ComfyUI/custom_nodes`
 * **DON'T**: In a form where decompression occurs in a path such as `ComfyUI/custom_nodes/ComfyUI-Manager/ComfyUI-Manager`.
-  * You have to move `ComfyUI/custom_nodes/ComfyUI-Manager/ComfyUI-Manager` to `ComfyUI/custom_nodes/ComfyUI-Manager`
 * **DON'T**: In a form where decompression occurs in a path such as `ComfyUI/custom_nodes/ComfyUI-Manager-main`.
-  * In such cases, `ComfyUI-Manager` may operate, but it won't be recognized within `ComfyUI-Manager`, and updates cannot be performed. It also poses the risk of duplicate installations.
-  * You have to rename `ComfyUI/custom_nodes/ComfyUI-Manager-main` to `ComfyUI/custom_nodes/ComfyUI-Manager`
+  * In such cases, `ComfyUI-Manager` may operate, but it won't be recognized within `ComfyUI-Manager`, and updates cannot be performed. It also poses the risk of duplicate installations. Remove it and install properly via `git clone` method.
 
 
 You can execute ComfyUI by running either `./run_gpu.sh` or `./run_cpu.sh` depending on your system configuration.
@@ -87,42 +80,17 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * Support for basic installation of ComfyUI-Manager
 * Support for automatically installing dependencies of custom nodes upon restarting Colab notebooks.
 
-## Changes
-* **2.38** `Install Custom Nodes` menu is changed to `Custom Nodes Manager`.
-* **2.21** [cm-cli](docs/en/cm-cli.md) tool is added.
-* **2.4** Copy the connections of the nearest node by double-clicking.
-* **2.2.3** Support Components System
-* **0.29** Add `Update all` feature
-* **0.25** support db channel
-  * You can directly modify the db channel settings in the `config.ini` file.
-  * If you want to maintain a new DB channel, please modify the `channels.list` and submit a PR.
-* **0.23** support multiple selection
-* **0.18.1** `skip update check` feature added.
-  * A feature that allows quickly opening windows in environments where update checks take a long time.
-* **0.17.1** Bug fix for the issue where enable/disable of the web extension was not working. Compatibility patch for StableSwarmUI.
-  * Requires latest version of ComfyUI (Revision: 1240)
-* **0.17** Support preview method setting feature.
-* **0.14** Support robust update.
-* **0.13** Support additional 'pip' section for install spec.
-* **0.12** Better installation support for Windows.
-* **0.9** Support keyword search in installer menu.
-* **V0.7.1** Bug fix for the issue where updates were not being applied on Windows.
-  * **For those who have been using versions 0.6, please perform a manual git pull in the custom_nodes/ComfyUI-Manager directory.**
-* **V0.7** To address the issue of a slow list refresh, separate the fetch update and update check processes.
-* **V0.6** Support extension installation for missing nodes.
-* **V0.5** Removed external git program dependencies.
-
 
 ## How To Use
 
 1. Click "Manager" button on main menu
 
-    ![mainmenu](misc/main.jpg)
+    ![mainmenu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/topbar.jpg)
 
 
 2. If you click on 'Install Custom Nodes' or 'Install Models', an installer dialog will open.
 
-    ![menu](misc/menu.jpg)
+    ![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/dialog.jpg)
 
     * There are three DB modes: `DB: Channel (1day cache)`, `DB: Local`, and `DB: Channel (remote)`. 
       * `Channel (1day cache)` utilizes Channel cache information with a validity period of one day to quickly display the list.
@@ -138,9 +106,9 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 
 3. Click 'Install' or 'Try Install' button.
 
-    ![node-install-dialog](misc/custom-nodes.jpg)
+    ![node-install-dialog](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/custom-nodes.jpg)
 
-    ![model-install-dialog](misc/models.png)
+    ![model-install-dialog](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/models.jpg)
 
     * Installed: This item is already installed.
     * Install: Clicking this button will install the item.
@@ -150,23 +118,15 @@ This repository provides Colab notebooks that allow you to install and use Comfy
       * Channel settings have a broad impact, affecting not only the node list but also all functions like "Update all."
     * Conflicted Nodes with a yellow background show a list of nodes conflicting with other extensions in the respective extension. This issue needs to be addressed by the developer, and users should be aware that due to these conflicts, some nodes may not function correctly and may need to be installed accordingly.
 
-4. If you set the `Badge:` item in the menu as `Badge: Nickname`, `Badge: Nickname (hide built-in)`, `Badge: #ID Nickname`, `Badge: #ID Nickname (hide built-in)` the information badge will be displayed on the node.
-    * When selecting (hide built-in), it hides the 🦊 icon, which signifies built-in nodes.
-      * Nodes without any indication on the badge are custom nodes that Manager cannot recognize.
-    * `Badge: Nickname` displays the nickname of custom nodes, while `Badge: #ID Nickname` also includes the internal ID of the node.
-
-    ![model-install-dialog](misc/nickname.jpg)
-
-
-5. Share
-  ![menu](misc/main.jpg) ![share](misc/share.jpg) 
+4. Share
+  ![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/topbar.jpg) ![share](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/share.jpg) 
 
   * You can share the workflow by clicking the Share button at the bottom of the main menu or selecting Share Output from the Context Menu of the Image node.
   * Currently, it supports sharing via [https://comfyworkflows.com/](https://comfyworkflows.com/),
     [https://openart.ai](https://openart.ai/workflows/dev), [https://youml.com](https://youml.com) 
     as well as through the Matrix channel.
 
-  ![menu](misc/share-setting.jpg)
+  ![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/share-setting.jpg)
   
   * Through the Share settings in the Manager menu, you can configure the behavior of the Share button in the Main menu or Share Output button on Context Menu.
     * `None`: hide from Main menu
@@ -182,7 +142,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 * When you press `Restore`, it will take effect on the next ComfyUI startup.
   * The selected snapshot file is saved in `ComfyUI-Manager/startup-scripts/restore-snapshot.json`, and upon restarting ComfyUI, the snapshot is applied and then deleted.
 
-![model-install-dialog](misc/snapshot.jpg)
+![model-install-dialog](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/snapshot.jpg)
 
 
 ## cm-cli: command line tools for power user
@@ -199,38 +159,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 
 ## Custom node support guide
 
-* Currently, the system operates by cloning the git repository and sequentially installing the dependencies listed in requirements.txt using pip, followed by invoking the install.py script. In the future, we plan to discuss and determine the specifications for supporting custom nodes.
-
-* Please submit a pull request to update either the custom-node-list.json or model-list.json file.
-
-* The scanner currently provides a detection function for missing nodes, which is capable of detecting nodes described by the following two patterns.
-
-```
-NODE_CLASS_MAPPINGS = {
-    "ExecutionSwitch": ExecutionSwitch,
-    "ExecutionBlocker": ExecutionBlocker,
-    ...
-}
-
-NODE_CLASS_MAPPINGS.update({
-    "UniFormer-SemSegPreprocessor": Uniformer_SemSegPreprocessor,
-    "SemSegPreprocessor": Uniformer_SemSegPreprocessor,
-})
-```
-  * Or you can provide manually `node_list.json` file.
-
-* When you write a docstring in the header of the .py file for the Node as follows, it will be used for managing the database in the Manager.
-  * Currently, only the `nickname` is being used, but other parts will also be utilized in the future.
-  * The `nickname` will be the name displayed on the badge of the node.
-  * If there is no `nickname`, it will be truncated to 20 characters from the arbitrarily written title and used.
-```
-"""
-@author: Dr.Lt.Data
-@title: Impact Pack
-@nickname: Impact Pack
-@description: This extension offers various detector nodes and detailer nodes that allow you to configure a workflow that automatically enhances facial details. And provide iterative upscaler.
-"""
-```
+* https://docs.comfy.org/registry/overview
 
 
 * **Special purpose files** (optional)
@@ -281,11 +210,11 @@ NODE_CLASS_MAPPINGS.update({
 
 ## Support of missing nodes installation
 
-![missing-menu](misc/missing-menu.jpg)
+![missing-menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/missing-dialog.jpg)
 
 * When you click on the ```Install Missing Custom Nodes``` button in the menu, it displays a list of extension nodes that contain nodes not currently present in the workflow.
 
-![missing-list](misc/missing-list.jpg)
+![missing-list](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/missing-list.jpg)
 
 
 ## Additional Feature
@@ -376,41 +305,6 @@ When you run the `scan.sh` script:
   
   * `low` level risky features
     * Update ComfyUI
-
-
-## TODO: Unconventional form of custom node list
-
-* https://github.com/diontimmer/Sample-Diffusion-ComfyUI-Extension
-* https://github.com/senshilabs/NINJA-plugin
-* https://github.com/MockbaTheBorg/Nodes
-* https://github.com/StartHua/Comfyui_GPT_Story
-* https://github.com/NielsGercama/comfyui_customsampling
-* https://github.com/wrightdaniel2017/ComfyUI-VideoLipSync
-* https://github.com/bxdsjs/ComfyUI-Image-preprocessing
-* https://github.com/SMUELDigital/ComfyUI-ONSET
-* https://github.com/SimithWang/comfyui-renameImages
-* https://github.com/icefairy64/comfyui-model-tilt
-* https://github.com/andrewharp/ComfyUI-EasyNodes
-* https://github.com/SimithWang/comfyui-renameImages
-* https://github.com/Tcheko243/ComfyUI-Photographer-Alpha7-Nodes
-* https://github.com/Limbicnation/ComfyUINodeToolbox
-* https://github.com/APZmedia/ComfyUI-APZmedia-srtTools
-
-## Roadmap
-
-- [x] System displaying information about failed custom nodes import.
-- [x] Guide for missing nodes in ComfyUI vanilla nodes.
-- [x] Collision checking system for nodes with the same ID across extensions.
-- [x] Template sharing system. (-> Component system based on Group Nodes)
-- [x] 3rd party API system.
-- [ ] Auto migration for custom nodes with changed structures.
-- [ ] Version control feature for nodes.
-- [ ] List of currently used custom nodes.
-- [x] Download support multiple model download.
-- [x] Model download via url.
-- [x] List sorting (custom nodes).
-- [x] List sorting (model).
-- [ ] Provides description of node.
 
 
 # Disclaimer
