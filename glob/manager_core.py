@@ -36,7 +36,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 3, 5]
+version_code = [3, 3, 6]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1237,6 +1237,8 @@ class UnifiedManager:
             return ManagedResult('skip').with_msg('Up to date')
 
     def unified_update(self, node_id, version_spec=None, instant_execution=False, no_deps=False, return_postinstall=False):
+        orig_print(f"\x1b[2K\rUpdating: {node_id}", end='')
+
         if version_spec is None:
             version_spec = self.resolve_unspecified_version(node_id, guess_mode='active')
 
@@ -1403,7 +1405,6 @@ def write_config():
     config = configparser.ConfigParser()
     config['default'] = {
         'preview_method': manager_funcs.get_current_preview_method(),
-        'badge_mode': get_config()['badge_mode'],
         'git_exe':  get_config()['git_exe'],
         'channel_url': get_config()['channel_url'],
         'share_option': get_config()['share_option'],
@@ -1444,7 +1445,6 @@ def read_config():
 
         return {
                     'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else manager_funcs.get_current_preview_method(),
-                    'badge_mode': default_conf['badge_mode'] if 'badge_mode' in default_conf else 'none',
                     'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else DEFAULT_CHANNEL,
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
@@ -1463,7 +1463,6 @@ def read_config():
     except Exception:
         return {
             'preview_method': manager_funcs.get_current_preview_method(),
-            'badge_mode': 'none',
             'git_exe': '',
             'channel_url': DEFAULT_CHANNEL,
             'share_option': 'all',
@@ -1698,7 +1697,7 @@ def git_repo_update_check_with(path, do_fetch=False, do_update=False, no_deps=Fa
 
         if do_update:
             if repo.is_dirty():
-                print(f"STASH: '{path}' is dirty.")
+                print(f"\nSTASH: '{path}' is dirty.")
                 repo.git.stash()
 
             if f'{remote_name}/{branch_name}' not in repo.refs:
