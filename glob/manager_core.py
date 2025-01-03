@@ -36,7 +36,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 3, 6]
+version_code = [3, 3, 7]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -262,6 +262,27 @@ def is_installed(name):
                 if manager_util.StrictVersion(pips[name]) >= manager_util.StrictVersion(match.group(3)):
                     print(f"[ComfyUI-Manager] skip black listed pip installation: '{name}'")
                     return True
+
+    pkg = manager_util.get_installed_packages().get(name.lower())
+    if pkg is None:
+        return False  # update if not installed
+
+    if match is None:
+        return True   # don't update if version is not specified
+
+    if match.group(2) in ['>', '>=']:
+        if manager_util.StrictVersion(pkg) < manager_util.StrictVersion(match.group(3)):
+            return False
+        elif manager_util.StrictVersion(pkg) > manager_util.StrictVersion(match.group(3)):
+            print(f"[SKIP] Downgrading pip package isn't allowed: {name.lower()} (cur={pkg})")
+
+    if match.group(2) == '==':
+        if manager_util.StrictVersion(pkg) < manager_util.StrictVersion(match.group(3)):
+            return False
+
+    if match.group(2) == '~=':
+        if manager_util.StrictVersion(pkg) == manager_util.StrictVersion(match.group(3)):
+            return False
 
     return name.lower() in manager_util.get_installed_packages()
 

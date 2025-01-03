@@ -153,10 +153,6 @@ def set_preview_method(method):
 set_preview_method(core.get_config()['preview_method'])
 
 
-def set_badge_mode(mode):
-    core.get_config()['badge_mode'] = mode
-
-
 def set_default_ui_mode(mode):
     core.get_config()['default_ui'] = mode
 
@@ -1149,17 +1145,6 @@ async def preview_method(request):
         core.write_config()
     else:
         return web.Response(text=core.manager_funcs.get_current_preview_method(), status=200)
-
-    return web.Response(status=200)
-
-
-@routes.get("/manager/badge_mode")
-async def badge_mode(request):
-    if "value" in request.rel_url.query:
-        set_badge_mode(request.rel_url.query['value'])
-        core.write_config()
-    else:
-        return web.Response(text=core.get_config()['badge_mode'], status=200)
 
     return web.Response(status=200)
 

@@ -437,6 +437,14 @@ def is_installed(name):
         elif manager_util.StrictVersion(pkg) > manager_util.StrictVersion(match.group(3)):
             print(f"[SKIP] Downgrading pip package isn't allowed: {name.lower()} (cur={pkg})")
 
+    if match.group(2) == '==':
+        if manager_util.StrictVersion(pkg) < manager_util.StrictVersion(match.group(3)):
+            return False
+
+    if match.group(2) == '~=':
+        if manager_util.StrictVersion(pkg) == manager_util.StrictVersion(match.group(3)):
+            return False
+
     return True       # prevent downgrade
 
 
