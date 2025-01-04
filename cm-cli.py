@@ -12,6 +12,7 @@ from rich import print
 from typing_extensions import List, Annotated
 import re
 import git
+import importlib
 
 
 sys.path.append(os.path.dirname(__file__))
@@ -88,12 +89,20 @@ read_downgrade_blacklist()  # This is a preparation step for manager_core
 
 
 class Ctx:
+    folder_paths = None
+    
     def __init__(self):
         self.channel = 'default'
         self.no_deps = False
         self.mode = 'cache'
         self.user_directory = None
         self.custom_nodes_paths = [os.path.join(core.comfy_path, 'custom_nodes')]
+        
+        if Ctx.folder_paths is None:
+            try:
+                Ctx.folder_paths = importlib.import_module('folder_paths')
+            except ImportError:
+                print("Warning: Unable to import folder_paths module")
 
     def set_channel_mode(self, channel, mode):
         if mode is not None:
@@ -145,7 +154,10 @@ class Ctx:
 
     @staticmethod
     def get_custom_nodes_paths():
-        return folder_paths.get_folder_paths('custom_nodes')
+        if Ctx.folder_paths is None:
+            print("Error: folder_paths module is not available")
+            return []
+        return Ctx.folder_paths.get_folder_paths('custom_nodes')
 
 
 cmd_ctx = Ctx()
