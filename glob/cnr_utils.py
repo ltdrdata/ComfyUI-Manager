@@ -92,7 +92,7 @@ def install_node(node_id, version=None):
 
 
 def all_versions_of_node(node_id):
-    url = f"https://api.comfy.org/nodes/{node_id}/versions"
+    url = f"https://api.comfy.org/nodes/{node_id}/versions?statuses=NodeVersionStatusActive&statuses=NodeVersionStatusPending"
 
     response = requests.get(url)
     if response.status_code == 200:
