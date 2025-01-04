@@ -127,8 +127,17 @@ def gitcheck(path, do_fetch=False):
 
 
 def switch_to_default_branch(repo):
-    default_branch = repo.git.symbolic_ref('refs/remotes/origin/HEAD').replace('refs/remotes/origin/', '')
-    repo.git.checkout(default_branch)
+    try:
+        default_branch = repo.git.symbolic_ref('refs/remotes/origin/HEAD').replace('refs/remotes/origin/', '')
+        repo.git.checkout(default_branch)
+    except:
+        try:
+            repo.git.checkout(repo.heads.master)
+        except:
+            try:
+                repo.git.checkout(repo.heads.main)
+            except:
+                print("[ComfyUI Manager] Failed to switch to the default branch (master or main)")
 
 
 def gitpull(path):

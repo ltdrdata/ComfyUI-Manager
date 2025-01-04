@@ -36,7 +36,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 3, 8]
+version_code = [3, 3, 9]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1510,8 +1510,17 @@ def get_config():
 
 
 def switch_to_default_branch(repo):
-    default_branch = repo.git.symbolic_ref('refs/remotes/origin/HEAD').replace('refs/remotes/origin/', '')
-    repo.git.checkout(default_branch)
+    try:
+        default_branch = repo.git.symbolic_ref('refs/remotes/origin/HEAD').replace('refs/remotes/origin/', '')
+        repo.git.checkout(default_branch)
+    except:
+        try:
+            repo.git.checkout(repo.heads.master)
+        except:
+            try:
+                repo.git.checkout(repo.heads.main)
+            except:
+                print("[ComfyUI Manager] Failed to switch to the default branch (master or main)")
 
 
 def try_install_script(url, repo_path, install_cmd, instant_execution=False):
