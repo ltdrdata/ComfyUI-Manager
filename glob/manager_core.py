@@ -1396,6 +1396,24 @@ def identify_node_pack_from_path(fullpath):
             return module_name, commit_hash, ''
 
 
+def get_installed_node_packs():
+    res = {}
+
+    for x in get_custom_nodes_paths():
+        for y in os.listdir(x):
+            if y == '__pycache__' or y.endswith('.disabled'):
+                continue
+
+            fullpath = os.path.join(x, y)
+            info = identify_node_pack_from_path(fullpath)
+            if info is None:
+                continue
+
+            res[info[0]] = [info[1], info[2]]
+
+    return res
+
+
 def get_channel_dict():
     global channel_dict
 

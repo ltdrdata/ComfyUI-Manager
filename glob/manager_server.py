@@ -537,21 +537,16 @@ def populate_markdown(x):
         x['title'] = manager_util.sanitize_tag(x['title'])
 
 
+# freeze imported version
+startup_time_installed_node_packs = core.get_installed_node_packs()
 @routes.get("/customnode/installed")
 async def installed_list(request):
-    res = {}
+    mode = request.query.get('mode', 'default')
 
-    for x in core.get_custom_nodes_paths():
-        for y in os.listdir(x):
-            if y == '__pycache__' or y.endswith('.disabled'):
-                continue
-
-            fullpath = os.path.join(x, y)
-            info = core.identify_node_pack_from_path(fullpath)
-            if info is None:
-                continue
-
-            res[info[0]] = [info[1], info[2]]
+    if mode == 'imported':
+        res = startup_time_installed_node_packs
+    else:
+        res = core.get_installed_node_packs()
 
     return web.json_response(res, content_type='application/json')
 
