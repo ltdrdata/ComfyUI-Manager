@@ -36,7 +36,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 3, 10]
+version_code = [3, 4]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -457,6 +457,7 @@ class UnifiedManager:
             cnr = self.get_cnr_by_repo(url)
             commit_hash = git_utils.get_commit_hash(fullpath)
             if cnr:
+                cnr_utils.generate_cnr_id(fullpath, cnr['id'])
                 return {'id': cnr['id'], 'cnr': cnr, 'ver': 'nightly', 'hash': commit_hash}
             else:
                 url = os.path.basename(url)
@@ -1318,6 +1319,7 @@ class UnifiedManager:
                 if version_spec == 'unknown':
                     self.unknown_active_nodes[node_id] = to_path
                 elif version_spec == 'nightly':
+                    cnr_utils.generate_cnr_id(to_path, node_id)
                     self.active_nodes[node_id] = 'nightly', to_path
 
             return res.with_target(version_spec)
@@ -1368,6 +1370,30 @@ class UnifiedManager:
 
 
 unified_manager = UnifiedManager()
+
+
+def identify_node_pack_from_path(fullpath):
+    module_name = os.path.basename(fullpath)
+    if module_name.endswith('.git'):
+        module_name = module_name[:-4]
+
+    repo_url = git_utils.git_url(fullpath)
+    if repo_url is None:
+        # cnr
+        cnr = cnr_utils.read_cnr_info(fullpath)
+        if cnr is not None:
+            return module_name, cnr['version'], cnr['id']
+
+        return None
+    else:
+        # nightly or unknown
+        cnr_id = cnr_utils.read_cnr_id(fullpath)
+        commit_hash = git_utils.get_commit_hash(fullpath)
+
+        if cnr_id is not None:
+            return module_name, commit_hash, cnr_id
+        else:
+            return module_name, commit_hash, ''
 
 
 def get_channel_dict():

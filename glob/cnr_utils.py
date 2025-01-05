@@ -129,3 +129,26 @@ def read_cnr_info(fullpath):
         return None
     except Exception:
         return None  # not valid CNR node pack
+
+
+def generate_cnr_id(fullpath, cnr_id):
+    cnr_id_path = os.path.join(fullpath, '.git', '.cnr-id')
+    try:
+        if not os.path.exists(cnr_id_path):
+            with open(cnr_id_path, "w") as f:
+                return f.write(cnr_id)
+    except:
+        print(f"[ComfyUI Manager] unable to create file: {cnr_id_path}")
+
+
+def read_cnr_id(fullpath):
+    cnr_id_path = os.path.join(fullpath, '.git', '.cnr-id')
+    try:
+        if not os.path.exists(cnr_id_path):
+            with open(cnr_id_path) as f:
+                return f.read().strip()
+    except:
+        pass
+
+    return None
+

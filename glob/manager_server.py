@@ -539,15 +539,21 @@ def populate_markdown(x):
 
 @routes.get("/customnode/installed")
 async def installed_list(request):
-    unified_manager = core.unified_manager
+    res = {}
 
-    await unified_manager.reload('cache')
-    await unified_manager.get_custom_nodes('default', 'cache')
+    for x in core.get_custom_nodes_paths():
+        for y in os.listdir(x):
+            if y == '__pycache__' or y.endswith('.disabled'):
+                continue
 
-    return web.json_response({
-        node_id: package.version if package.is_from_cnr else package.get_commit_hash()
-        for node_id, package in unified_manager.installed_node_packages.items() if not package.disabled
-    }, content_type='application/json')
+            fullpath = os.path.join(x, y)
+            info = core.identify_node_pack_from_path(fullpath)
+            if info is None:
+                continue
+
+            res[info[0]] = [info[1], info[2]]
+
+    return web.json_response(res, content_type='application/json')
 
 
 @routes.get("/customnode/getlist")
