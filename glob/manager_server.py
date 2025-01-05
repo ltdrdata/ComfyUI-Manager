@@ -1401,7 +1401,6 @@ async def default_cache_update():
     # else:
     #     logging.info("[ComfyUI-Manager] Migration check is skipped...")
 
-
 threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()
 
 if not os.path.exists(core.manager_config_path):
