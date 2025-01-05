@@ -693,7 +693,7 @@ class UnifiedManager:
         res = {}
 
         channel_url = normalize_channel(channel)
-        if channel:
+        if channel_url:
             if mode not in ['remote', 'local', 'cache']:
                 print(f"[bold red]ERROR: Invalid mode is specified `--mode {mode}`[/bold red]", file=sys.stderr)
                 return {}
