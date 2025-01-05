@@ -816,7 +816,7 @@ async def get_cnr_versions(request):
     node_name = request.match_info.get("node_name", None)
     versions = core.cnr_utils.all_versions_of_node(node_name)
 
-    if versions:
+    if versions is not None:
         return web.json_response(versions, content_type='application/json')
 
     return web.Response(status=400)

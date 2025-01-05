@@ -1190,7 +1190,7 @@ export class CustomNodesManager {
 					version_cnt++;
 				}
 
-				if(rowItem.cnr_latest != rowItem.originalData.active_version) {
+				if(rowItem.cnr_latest != rowItem.originalData.active_version && obj.length > 0) {
 					versions.push('latest');
 				}
 			}
