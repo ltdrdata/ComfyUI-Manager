@@ -41,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 3, 11]
+version_code = [3, 3, 12]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -692,7 +692,7 @@ class UnifiedManager:
         res = {}
 
         channel_url = normalize_channel(channel)
-        if channel:
+        if channel_url:
             if mode not in ['remote', 'local', 'cache']:
                 print(f"[bold red]ERROR: Invalid mode is specified `--mode {mode}`[/bold red]", file=sys.stderr)
                 return {}
