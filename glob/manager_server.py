@@ -1286,9 +1286,13 @@ def restart(self):
         sys_argv.remove('--windows-standalone-build')
 
     if sys.platform.startswith('win32'):
-        return os.execv(sys.executable, ['"' + sys.executable + '"', '"' + sys_argv[0] + '"'] + sys_argv[1:])
+        cmds = ['"' + sys.executable + '"', '"' + sys_argv[0] + '"'] + sys_argv[1:]
     else:
-        return os.execv(sys.executable, [sys.executable] + sys_argv)
+        cmds = [sys.executable] + sys_argv
+
+    print(f"Command: {cmds}", flush=True)
+
+    return os.execv(sys.executable, cmds)
 
 
 @routes.post("/manager/component/save")
