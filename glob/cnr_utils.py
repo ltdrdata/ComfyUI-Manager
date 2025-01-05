@@ -144,7 +144,7 @@ def generate_cnr_id(fullpath, cnr_id):
 def read_cnr_id(fullpath):
     cnr_id_path = os.path.join(fullpath, '.git', '.cnr-id')
     try:
-        if not os.path.exists(cnr_id_path):
+        if os.path.exists(cnr_id_path):
             with open(cnr_id_path) as f:
                 return f.read().strip()
     except:
