@@ -1,3 +1,8 @@
+"""
+description:
+    `manager_util` is the lightest module shared across the prestartup_script, main code, and cm-cli of ComfyUI-Manager.
+"""
+
 import aiohttp
 import json
 import threading
@@ -10,7 +15,7 @@ import re
 cache_lock = threading.Lock()
 
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-cache_dir = os.path.join(comfyui_manager_path, '.cache')
+cache_dir = os.path.join(comfyui_manager_path, '.cache')  # This path is also updated together in **manager_core.update_user_directory**.
 
 
 # DON'T USE StrictVersion - cannot handle pre_release version

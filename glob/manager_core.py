@@ -1,3 +1,8 @@
+"""
+description:
+    `manager_core` contains the core implementation of the management functions in ComfyUI-Manager.
+"""
+
 import json
 import os
 import sys
@@ -36,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 3, 10]
+version_code = [3, 3, 11]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -177,6 +182,10 @@ def update_user_directory(user_dir):
     manager_channel_list_path = os.path.join(manager_files_path, 'channels.list')
     manager_pip_overrides_path = os.path.join(manager_files_path, "pip_overrides.json")
     manager_components_path = os.path.join(manager_files_path, "components")
+    manager_util.cache_dir = os.path.join(manager_files_path, "cache")
+
+    if not os.path.exists(manager_util.cache_dir):
+        os.makedirs(manager_util.cache_dir)
 
 try:
     import folder_paths
