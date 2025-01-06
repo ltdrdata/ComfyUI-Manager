@@ -2254,6 +2254,7 @@
             "ClownsharKSamplerGuides",
             "ClownsharKSamplerOptions",
             "ClownsharKSamplerOptions_SDE_Noise",
+            "ClownsharkSamplerOptions_FrameWeights",
             "Conditioning Recast FP64",
             "ConditioningAdd",
             "ConditioningAverageScheduler",
@@ -2638,10 +2639,14 @@
     ],
     "https://github.com/DesertPixelAi/ComfyUI-Desert-Pixel-Nodes": [
         [
+            "DP 10 String Switch",
             "DP 2 String Switch",
             "DP 5 String Switch",
+            "DP Add Weight To String Sdxl",
+            "DP Advanced Weight String Sdxl",
             "DP Animation Calculator 10 Inputs",
             "DP Animation Calculator 5 Inputs",
+            "DP Art Style Generator",
             "DP Aspect Ratio Picker",
             "DP Big Letters",
             "DP Broken Token",
@@ -2666,6 +2671,9 @@
             "DP Image Empty Latent Switch SDXL",
             "DP Image Slide Show",
             "DP Image Strip",
+            "DP Image Switch 10",
+            "DP Image Switch 3",
+            "DP Image Switch 5",
             "DP Int 0-1000",
             "DP Int 0-1000 4 Step",
             "DP Int 0-1000 8 Step",
@@ -2690,6 +2698,7 @@
             "DP Random Mode Switch",
             "DP Random Psychedelic Punk Generator",
             "DP Random Superhero Prompt Generator",
+            "DP Random Vehicle Generator",
             "DP Save Preview Image",
             "DP Set New Model Folder Link",
             "DP String Text",
@@ -2807,9 +2816,27 @@
             "AD_TextListToString",
             "AD_TextSaver",
             "AD_TxtToCSVCombiner",
-            "AD_ZipSave"
+            "AD_ZipSave",
+            "AD_advanced-padding",
+            "AD_color-image",
+            "AD_image-concat",
+            "AD_image-resize",
+            "AD_mockup-maker",
+            "AD_poster-maker",
+            "AD_prompt-saver",
+            "ImageResize",
+            "Incrementer \ud83e\udeb4",
+            "TextAppendNode",
+            "Width and height for scaling image to ideal resolution \ud83e\udeb4",
+            "Width and height from aspect ratio \ud83e\udeb4",
+            "YANC.MultilineString",
+            "comfyui-easy-padding",
+            "image concat mask"
         ],
         {
+            "author": "ComfyUI Addoor",
+            "description": "Save prompts to CSV file with customizable naming pattern",
+            "title": "ComfyUI-PromptSaver",
             "title_aux": "ComfyUI-Addoor"
         }
     ],
@@ -3794,7 +3821,8 @@
             "RH_ExecuteNode",
             "RH_ImageUploaderNode",
             "RH_NodeInfoListNode",
-            "RH_SettingsNode"
+            "RH_SettingsNode",
+            "RH_Utils"
         ],
         {
             "title_aux": "ComfyUI_RH_APICall"
@@ -3964,6 +3992,7 @@
             "AgentMemoryProvider",
             "AgentNode",
             "BasicRecursionFilterNode",
+            "DocumentChunkRecursionFilterNode",
             "DocumentProcessor",
             "LinuxMemoryDirectory",
             "QueryNode"
@@ -4187,6 +4216,7 @@
     ],
     "https://github.com/Isulion/ComfyUI_Isulion": [
         [
+            "CustomTextNode",
             "DisplayImageFromURL",
             "IsuCollage_Node",
             "Isulion Civitai Image Display",
@@ -4389,6 +4419,7 @@
     "https://github.com/Jaminanim/ComfyUI-Random-Int-Divisor-Node": [
         [
             "RandomIntegerNodeEfficient",
+            "RandomIntegerNodeEfficientAdvanced",
             "RandomIntegerNodeList"
         ],
         {
@@ -5004,6 +5035,14 @@
         ],
         {
             "title_aux": "ComfyUI_LG_FFT"
+        }
+    ],
+    "https://github.com/LAOGOU-666/Comfyui-LG_Relight": [
+        [
+            "LG_Relight"
+        ],
+        {
+            "title_aux": "Comfyui-LG_Relight"
         }
     ],
     "https://github.com/LEv145/images-grid-comfy-plugin": [
@@ -5854,11 +5893,13 @@
             "ImageSizeAdjuster",
             "ImageSizeAdjusterV2",
             "ImageSizeAdjusterV3",
+            "LoadTextDirectory",
             "LoadVideoDirectory",
             "ParametricMeshGen",
             "ParametricMeshGenV2",
             "ProjectFilePathNode",
             "PromptCleaner",
+            "PromptInject",
             "PromptSwap",
             "SequentialNumberGenerator",
             "StringWeights",
@@ -14092,21 +14133,26 @@
     ],
     "https://github.com/drmbt/comfyui-dreambait-nodes": [
         [
+            "AudioInfoPlus",
             "BoolPlusPlus",
             "DRMBT_AspectPadImageForOutpainting",
             "DRMBT_LoadMedia",
             "DRMBT_MultiMinMax",
             "DRMBT_String_Item_Menu",
             "DownloadAndLoadMiniCPMV",
+            "DreambaitFolderOpener",
+            "DynamicDictionary",
             "ImageFrameBlend",
             "ImageResizeFaceAware",
             "ListItemExtract",
             "ListItemSelector",
+            "LoadAudioPlus",
             "MiniCPMVNode",
             "MusicGen",
             "NormalizeAudio",
             "NumberPlusPlus",
             "NumberRemap",
+            "Qwen2AudioInstruct",
             "SwitchDuo",
             "TextLineSelect",
             "TextLinesToList",
@@ -15019,6 +15065,22 @@
         ],
         {
             "title_aux": "ComfyUI_FaceShaper"
+        }
+    ],
+    "https://github.com/fssorc/ComfyUI_RopeWrapper": [
+        [
+            "RopeVideoCombine",
+            "RopeWrapper_DetectNode",
+            "RopeWrapper_FaceRestore",
+            "RopeWrapper_LoadModels",
+            "RopeWrapper_LoadSwapInfo",
+            "RopeWrapper_OptionNode",
+            "RopeWrapper_SaveSwapInfo",
+            "RopeWrapper_SwapNode",
+            "RopeWrapper_SwapNodeTEST"
+        ],
+        {
+            "title_aux": "ComfyUI_RopeWrapper"
         }
     ],
     "https://github.com/fssorc/ComfyUI_pose_inter": [
@@ -15978,6 +16040,14 @@
         ],
         {
             "title_aux": "ComfyUI 3D Pose Editor"
+        }
+    ],
+    "https://github.com/hodanajan/optimal-crop-resolution": [
+        [
+            "AspectRatioCalculator"
+        ],
+        {
+            "title_aux": "optimal-crop-resolution"
         }
     ],
     "https://github.com/holchan/ComfyUI-ModelDownloader": [
@@ -16943,7 +17013,8 @@
             "LoadHunyuanLoraFromHF",
             "LoadLoraFromCivitAI",
             "LoadLoraFromComfyOnline",
-            "LoadLoraFromHF"
+            "LoadLoraFromHF",
+            "SaveAudioAsWav"
         ],
         {
             "title_aux": "comfyui-model-dynamic-loader"
@@ -17924,6 +17995,7 @@
             "HyVideoReSampler",
             "HyVideoSTG",
             "HyVideoSampler",
+            "HyVideoTeaCache",
             "HyVideoTextEmbedsLoad",
             "HyVideoTextEmbedsSave",
             "HyVideoTextEncode",
@@ -19128,6 +19200,7 @@
         [
             "FluxModCheckpointLoader",
             "FluxModCheckpointLoaderMini",
+            "FluxModSamplerWrapper",
             "KSamplerMod",
             "SkipLayerForward"
         ],
