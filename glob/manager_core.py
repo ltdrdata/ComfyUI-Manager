@@ -1571,9 +1571,9 @@ def switch_to_default_branch(repo):
             repo.git.checkout(repo.heads.master)
         except:
             try:
-                repo.git.checkout(repo.heads.main)
+                repo.git.checkout('-b', 'master', 'origin/master')
             except:
-                print("[ComfyUI Manager] Failed to switch to the default branch (master or main)")
+                print("[ComfyUI Manager] Failed to switch to the default branch")
 
 
 def try_install_script(url, repo_path, install_cmd, instant_execution=False):
