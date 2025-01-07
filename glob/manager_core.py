@@ -1428,7 +1428,7 @@ def get_installed_node_packs():
                 if y == '__pycache__':
                     continue
 
-                fullpath = os.path.join(x, y)
+                fullpath = os.path.join(disabled_dirs, y)
                 info = identify_node_pack_from_path(fullpath)
                 if info is None:
                     continue
