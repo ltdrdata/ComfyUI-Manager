@@ -1410,7 +1410,7 @@ def get_installed_node_packs():
 
     for x in get_custom_nodes_paths():
         for y in os.listdir(x):
-            if y == '__pycache__' or y.endswith('.disabled'):
+            if y == '__pycache__' or y == '.disabled':
                 continue
 
             fullpath = os.path.join(x, y)
@@ -1418,7 +1418,22 @@ def get_installed_node_packs():
             if info is None:
                 continue
 
-            res[info[0]] = [info[1], info[2]]
+            is_disabled = not y.endswith('.disabled')
+
+            res[info[0]] = { 'ver': info[1], 'cnr_id': info[2], 'enabled': is_disabled }
+
+        disabled_dirs = os.path.join(x, '.disabled')
+        if os.path.exists(disabled_dirs):
+            for y in os.listdir(disabled_dirs):
+                if y == '__pycache__':
+                    continue
+
+                fullpath = os.path.join(x, y)
+                info = identify_node_pack_from_path(fullpath)
+                if info is None:
+                    continue
+
+                res[info[0]] = { 'ver': info[1], 'cnr_id': info[2], 'enabled': False }
 
     return res
 
