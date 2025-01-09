@@ -156,10 +156,34 @@
     ],
     "https://github.com/5x00/ComfyUI-LLM-Concat": [
         [
-            "LLMConcate"
+            "LoadAPI",
+            "LoadCustomModel",
+            "LoadFlorenceModel",
+            "Prompt",
+            "RunAPIVLM",
+            "RunCustomVLM",
+            "TriggerToPromptAPI",
+            "TriggerToPromptCustom",
+            "TriggerToPromptSimple"
         ],
         {
             "title_aux": "ComfyUI-LLM-Concat [WIP]"
+        }
+    ],
+    "https://github.com/5x00/ComfyUI-Prompt-Plus": [
+        [
+            "LoadAPI",
+            "LoadCustomModel",
+            "LoadFlorenceModel",
+            "Prompt",
+            "RunAPIVLM",
+            "RunCustomVLM",
+            "TriggerToPromptAPI",
+            "TriggerToPromptCustom",
+            "TriggerToPromptSimple"
+        ],
+        {
+            "title_aux": "ComfyUI-Prompt-Plus [WIP]"
         }
     ],
     "https://github.com/A4P7J1N7M05OT/ComfyUI-ManualSigma": [
@@ -1954,6 +1978,20 @@
             "title_aux": "ComfyUI_StepFun"
         }
     ],
+    "https://github.com/chengzeyi/Comfy-WaveSpeed": [
+        [
+            "ApplyFBCacheOnModel",
+            "EnhancedCompileModel",
+            "EnhancedLoadDiffusionModel",
+            "VelocatorCompileModel",
+            "VelocatorLoadAndQuantizeClip",
+            "VelocatorLoadAndQuantizeDiffusionModel",
+            "VelocatorQuantizeModel"
+        ],
+        {
+            "title_aux": "Comfy-WaveSpeed [WIP]"
+        }
+    ],
     "https://github.com/christian-byrne/infinite-zoom-parallax-nodes": [
         [
             "Create Parallax Video",
@@ -2862,13 +2900,19 @@
             "ImageLatentCreator",
             "ImageResolutionAdjuster",
             "ImageSizeCreator",
+            "ImageSwitch",
+            "ImageToBase64",
+            "LatentSwitch",
             "MaskPreview",
+            "MaskSwitch",
             "MultilineTextInput",
             "RemoveEmptyLinesAndLeadingSpaces",
             "RemoveEmptyLinesAndLeadingSpacesAdvance",
             "ShowTextPlus",
             "SimpleTextInput",
-            "TextCombiner"
+            "TextCombiner",
+            "TextSwitch",
+            "WebImageLoader"
         ],
         {
             "title_aux": "ComfyUI PaintingCoderUtils Nodes [WIP]"
@@ -3786,14 +3830,6 @@
             "title_aux": "ComfyUI-PromptUtilities"
         }
     ],
-    "https://github.com/nmlen/comfyui-mosaic-blur": [
-        [
-            "ImageMosaic"
-        ],
-        {
-            "title_aux": "comfyui-mosaic-blur [WIP]"
-        }
-    ],
     "https://github.com/nomcycle/ComfyUI_Cluster": [
         [
             "FenceClusteredWorkflow"
@@ -3877,6 +3913,18 @@
         ],
         {
             "title_aux": "List Data Helper Nodes"
+        }
+    ],
+    "https://github.com/phamngoctukts/ComyUI-Tupham": [
+        [
+            "AreaCondition_v2",
+            "ConditionUpscale",
+            "MultiLatent",
+            "Runnodeselected",
+            "ghepanh"
+        ],
+        {
+            "title_aux": "ComyUI-Tupham"
         }
     ],
     "https://github.com/poisenbery/NudeNet-Detector-Provider": [
@@ -4457,17 +4505,18 @@
     ],
     "https://github.com/yanhuifair/ComfyUI-FairLab": [
         [
-            "CLIPTranslatedClass",
-            "DownloadImageClass",
-            "FixUTF8StringClass",
-            "ImageResizeClass",
-            "LoadImageFromFolderClass",
-            "SaveImageToFolderClass",
-            "SaveImagesToFolderClass",
-            "SaveStringToFolderClass",
-            "StringCombineClass",
-            "StringFieldClass",
-            "TranslateStringClass"
+            "CLIPTranslatedNode",
+            "DownloadImageNode",
+            "FixUTF8StringNode",
+            "ImageResizeNode",
+            "LoadImageFromFolderNode",
+            "SaveImageToFolderNode",
+            "SaveImagesToFolderNode",
+            "SaveStringToFolderNode",
+            "SequenceStringListNode",
+            "StringCombineNode",
+            "StringFieldNode",
+            "TranslateStringNode"
         ],
         {
             "title_aux": "ComfyUI-FairLab"
@@ -4513,7 +4562,7 @@
     ],
     "https://github.com/zyd232/ComfyUI-zyd232-Nodes": [
         [
-            "ImageCompareNode"
+            "zyd232 ImagesPixelsCompare"
         ],
         {
             "title_aux": "ComfyUI-zyd232-Nodes"

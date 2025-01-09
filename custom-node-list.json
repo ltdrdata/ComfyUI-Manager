@@ -5474,7 +5474,7 @@
                 "https://github.com/Limitex/ComfyUI-Diffusers"
             ],
             "install_type": "git-clone",
-            "description": "This extension enables the use of the diffuser pipeline in ComfyUI."
+            "description": "This extension enables the use of the diffuser pipeline in ComfyUI. It also includes nodes related to Stream Diffusion."
         },
         {
             "author": "aiXander",
@@ -7427,6 +7427,16 @@
             ],
             "install_type": "git-clone",
             "description": "This node provides lip-sync capabilities in ComfyUI using ByteDance's LatentSync model. It allows you to synchronize video lips with audio input."
+        },
+        {
+            "author": "ShmuelRonen",
+            "title": "ComfyUI-HunyuanVideoSamplerSave",
+            "reference": "https://github.com/ShmuelRonen/ComfyUI-HunyuanVideoSamplerSave",
+            "files": [
+                "https://github.com/ShmuelRonen/ComfyUI-HunyuanVideoSamplerSave"
+            ],
+            "install_type": "git-clone",
+            "description": "A ComfyUI custom node implementation for optimized video generation and motion effects, designed to work with Hunyuan text-to-video models."
         },
         {
             "author": "redhottensors",
@@ -11375,6 +11385,26 @@
             "description": "Image Manipulation and Prompt Generation Nodes"
         },
         {
+            "author": "GraftingRayman",
+            "title": "ComfyUI QueueTube",
+            "reference": "https://github.com/GraftingRayman/ComfyUI_QueueTube",
+            "files": [
+                "https://github.com/GraftingRayman/ComfyUI_QueueTube"
+            ],
+            "install_type": "git-clone",
+            "description": "These nodes allow your YouTube LiveStream viewers to create on your local ComfyUI, you can make this a members only feature with a screen behind you displaying your members creations"
+        },
+        {
+            "author": "GraftingRayman",
+            "title": "ComfyUI-PuLID-Flux-GR",
+            "reference": "https://github.com/GraftingRayman/ComfyUI-PuLID-Flux-GR",
+            "files": [
+                "https://github.com/GraftingRayman/ComfyUI-PuLID-Flux-GR"
+            ],
+            "install_type": "git-clone",
+            "description": "PuLID for Flux"
+        },
+        {
             "author": "royceschultz",
             "title": "ComfyUI-Notifications",
             "reference": "https://github.com/royceschultz/ComfyUI-Notifications",
@@ -12667,17 +12697,6 @@
             ],
             "install_type": "git-clone",
             "description": "Nodes:Image Dimension Resizer, Image Sizer, Random Ratio, Show Text, Random Title Character, Random Wildcard Tag Picker, Random Show Atm Loc Outfit, Contains Word, Elements Concatenator, ..."
-        },
-        {
-            "author": "leiweiqiang",
-            "title": "ComfyUI-TRA",
-            "id": "tra",
-            "reference": "https://github.com/leiweiqiang/ComfyUI-TRA",
-            "files": [
-                "https://github.com/leiweiqiang/ComfyUI-TRA"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes:TCL EbSynth, TCL Extract Frames (From File), TCL Extract Frames (From Video), TCL Combine Frames, TCL Save Video (From Frames)"
         },
         {
             "author": "hwhaocool",
@@ -15543,17 +15562,6 @@
             "description": "This repository contains a custom node for ComfyUI that pads an image to be square, filling the new pixels black."
         },
         {
-            "author": "amorano",
-            "title": "Cozy Link Toggle",
-            "id": "cozyLinkToggle",
-            "reference": "https://github.com/cozy-comfyui/cozy_link_toggle",
-            "files": [
-                "https://github.com/cozy-comfyui/cozy_link_toggle"
-            ],
-            "install_type": "git-clone",
-            "description": "Toggle ComfyUI Graph Links On/Off from the Menu Bar. Provides an easy example on how to register and use the ComfyUI menubar extensions."
-        },
-        {
             "author": "revirevy",
             "title": "Comfyui_saveimage_imgbb",
             "id": "Comfyui_saveimage_imgbb",
@@ -17259,6 +17267,16 @@
             "description": "Another comfy implementation for the short video generation project hpcaitech/Open-Sora, supporting latest V2 and V3 models as well as image to video functions, etc."
         },
         {
+            "author": "bombax-xiaoice",
+            "title": "ComfyUI-OpenSoraPlan",
+            "reference": "https://github.com/bombax-xiaoice/ComfyUI-OpenSoraPlan",
+            "files": [
+                "https://github.com/bombax-xiaoice/ComfyUI-OpenSoraPlan"
+            ],
+            "install_type": "git-clone",
+            "description": "Another comfy implementation for the short video generation project PKU-YuanGroup/Open-Sora-Plan, supporting latest 1.3.0 and 1.2.0 and image to video feature, etc."
+        },
+        {
             "author": "chenbaiyujason",
             "title": "ComfyUI-SCStepFun",
             "reference": "https://github.com/chenbaiyujason/ComfyUI_StepFun",
@@ -17481,6 +17499,16 @@
             ],
             "install_type": "git-clone",
             "description": "StyleModelApply adds more controls"
+        },
+        {
+            "author": "yichengup",
+            "title": "Comfyui_Redux_Advanced",
+            "reference": "https://github.com/yichengup/Comfyui_Redux_Advanced",
+            "files": [
+                "https://github.com/yichengup/Comfyui_Redux_Advanced"
+            ],
+            "install_type": "git-clone",
+            "description": "Redux style adds more controls"
         },
         {
             "author": "Horizon Team",
@@ -18876,7 +18904,7 @@
                 "https://github.com/cenzijing/ComfyUI-Markmap"
             ],
             "install_type": "git-clone",
-            "description": "A ComfyUI custom node for creating mindmaps from markdown"
+            "description": "A ComfyUI  custom node for creating mindmaps from markdown"
         },
         {
             "author": "bongsang",
@@ -19010,6 +19038,16 @@
             "description": "A custom LoRA-loading node designed to prevent issues such as blurriness and other artifacts when loading multiple LoRAs in HunYuan Video.\nUsage Instructions: The connection method remains unchanged from the original. The only difference is the additional blocks_type option. Please select double_blocks."
         },
         {
+            "author": "facok",
+            "title": "ComfyUI-TeaCacheHunyuanVideo",
+            "reference": "https://github.com/facok/ComfyUI-TeaCacheHunyuanVideo",
+            "files": [
+                "https://github.com/facok/ComfyUI-TeaCacheHunyuanVideo"
+            ],
+            "install_type": "git-clone",
+            "description": "This is a TeaCache acceleration node for HunYuan Video, supporting the native node workflow for seamless upgrades. Simply choose the acceleration multiplier you want—currently, three levels are available."
+        },
+        {
             "author": "FinetunersAI",
             "title": "ComfyUI_Finetuners_Suite",
             "reference": "https://github.com/FinetunersAI/ComfyUI_Finetuners_Suite",
@@ -19092,6 +19130,102 @@
             "install_type": "git-clone",
             "description": "ComfyUI Custom Nodes for 'TangoFlux: Super Fast and Faithful Text to Audio Generation with Flow Matching'. This generates high-quality 44.1kHz audio up to 30 seconds using just a text prompt."
         },
+        {
+            "author": "ainewsto",
+            "title": "comfyui-labs-google",
+            "reference": "https://github.com/ainewsto/comfyui-labs-google",
+            "files": [
+                "https://github.com/ainewsto/comfyui-labs-google"
+            ],
+            "install_type": "git-clone",
+            "description": "NODES: ComfyUI-ImageFx, ComfyUI-Whisk"
+        },
+        {
+            "author": "gremlation",
+            "title": "ComfyUI-ViewData",
+            "reference": "https://github.com/gremlation/ComfyUI-ViewData",
+            "files": [
+                "https://github.com/gremlation/ComfyUI-ViewData"
+            ],
+            "install_type": "git-clone",
+            "description": "A ComfyUI node that displays the type and contents of whatever is connected to the input. In the case of a Tensor object, it shows the shape instead of its value."
+        },
+        {
+            "author": "gremlation",
+            "title": "ComfyUI-JMESPath",
+            "reference": "https://github.com/gremlation/ComfyUI-JMESPath",
+            "files": [
+                "https://github.com/gremlation/ComfyUI-JMESPath"
+            ],
+            "install_type": "git-clone",
+            "description": "A ComfyUI node that runs a [a/JMESPath](https://jmespath.org/) query against input JSON and outputs the result."
+        },
+        {
+            "author": "gremlation",
+            "title": "ComfyUI-jq",
+            "reference": "https://github.com/gremlation/ComfyUI-jq",
+            "files": [
+                "https://github.com/gremlation/ComfyUI-jq"
+            ],
+            "install_type": "git-clone",
+            "description": "A ComfyUI node that runs a [a/jq](https://jqlang.github.io/jq/) query against input JSON and outputs the result."
+        },
+        {
+            "author": "gremlation",
+            "title": "ComfyUI-ImageLabel",
+            "reference": "https://github.com/gremlation/ComfyUI-ImageLabel",
+            "files": [
+                "https://github.com/gremlation/ComfyUI-ImageLabel"
+            ],
+            "install_type": "git-clone",
+            "description": "A ComfyUI node that extends an image vertically to add a label either above or below it."
+        },
+        {
+            "author": "gremlation",
+            "title": "ComfyUI-TrackAndWheel",
+            "reference": "https://github.com/gremlation/ComfyUI-TrackAndWheel",
+            "files": [
+                "https://github.com/gremlation/ComfyUI-TrackAndWheel"
+            ],
+            "install_type": "git-clone",
+            "description": "A ComfyUI extension that improves panning and zooming on trackpads and with the mouse wheel."
+        },
+        {
+            "author": "nmlen",
+            "title": "comfyui-mosaic-blur",
+            "reference": "https://github.com/nmlen/comfyui-mosaic-blur",
+            "files": [
+                "https://github.com/nmlen/comfyui-mosaic-blur"
+            ],
+            "install_type": "git-clone",
+            "description": "A simple mosaic blur node for ComfyUI that uses CV2 or Pillow"
+        },
+        {
+            "author": "jerrylongyan",
+            "title": "ComfyUI-My-Mask",
+            "reference": "https://github.com/jerrylongyan/ComfyUI-My-Mask",
+            "files": [
+                "https://github.com/jerrylongyan/ComfyUI-My-Mask"
+            ],
+            "install_type": "git-clone",
+            "description": "Some nodes for processing masks, currently including nodes that fill in the concave parts of existing masks with convex hulls."
+        },
+        {
+            "author": "mira-6",
+            "title": "comfyui-sasolver",
+            "reference": "https://github.com/mira-6/comfyui-sasolver",
+            "files": [
+                "https://github.com/mira-6/comfyui-sasolver"
+            ],
+            "install_type": "git-clone",
+            "description": "SASolver for Comfyui. Adapted from [a/comfyanonymous/ComfyUI#4454](https://github.com/comfyanonymous/ComfyUI/pull/4454) and [a/https://github.com/Koishi-Star/Euler-Smea-Dyn-Sampler](https://github.com/Koishi-Star/Euler-Smea-Dyn-Sampler)"
+        },
+
+
+
+
+
+
 
 
 
