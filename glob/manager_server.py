@@ -537,17 +537,18 @@ def populate_markdown(x):
         x['title'] = manager_util.sanitize_tag(x['title'])
 
 
+# freeze imported version
+startup_time_installed_node_packs = core.get_installed_node_packs()
 @routes.get("/customnode/installed")
 async def installed_list(request):
-    unified_manager = core.unified_manager
+    mode = request.query.get('mode', 'default')
 
-    await unified_manager.reload('cache')
-    await unified_manager.get_custom_nodes('default', 'cache')
+    if mode == 'imported':
+        res = startup_time_installed_node_packs
+    else:
+        res = core.get_installed_node_packs()
 
-    return web.json_response({
-        node_id: package.version if package.is_from_cnr else package.get_commit_hash()
-        for node_id, package in unified_manager.installed_node_packages.items() if not package.disabled
-    }, content_type='application/json')
+    return web.json_response(res, content_type='application/json')
 
 
 @routes.get("/customnode/getlist")

@@ -41,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 3, 13]
+version_code = [3, 4]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -466,6 +466,7 @@ class UnifiedManager:
             cnr = self.get_cnr_by_repo(url)
             commit_hash = git_utils.get_commit_hash(fullpath)
             if cnr:
+                cnr_utils.generate_cnr_id(fullpath, cnr['id'])
                 return {'id': cnr['id'], 'cnr': cnr, 'ver': 'nightly', 'hash': commit_hash}
             else:
                 url = os.path.basename(url)
@@ -1327,6 +1328,7 @@ class UnifiedManager:
                 if version_spec == 'unknown':
                     self.unknown_active_nodes[node_id] = to_path
                 elif version_spec == 'nightly':
+                    cnr_utils.generate_cnr_id(to_path, node_id)
                     self.active_nodes[node_id] = 'nightly', to_path
 
             return res.with_target(version_spec)
@@ -1377,6 +1379,63 @@ class UnifiedManager:
 
 
 unified_manager = UnifiedManager()
+
+
+def identify_node_pack_from_path(fullpath):
+    module_name = os.path.basename(fullpath)
+    if module_name.endswith('.git'):
+        module_name = module_name[:-4]
+
+    repo_url = git_utils.git_url(fullpath)
+    if repo_url is None:
+        # cnr
+        cnr = cnr_utils.read_cnr_info(fullpath)
+        if cnr is not None:
+            return module_name, cnr['version'], cnr['id']
+
+        return None
+    else:
+        # nightly or unknown
+        cnr_id = cnr_utils.read_cnr_id(fullpath)
+        commit_hash = git_utils.get_commit_hash(fullpath)
+
+        if cnr_id is not None:
+            return module_name, commit_hash, cnr_id
+        else:
+            return module_name, commit_hash, ''
+
+
+def get_installed_node_packs():
+    res = {}
+
+    for x in get_custom_nodes_paths():
+        for y in os.listdir(x):
+            if y == '__pycache__' or y == '.disabled':
+                continue
+
+            fullpath = os.path.join(x, y)
+            info = identify_node_pack_from_path(fullpath)
+            if info is None:
+                continue
+
+            is_disabled = not y.endswith('.disabled')
+
+            res[info[0]] = { 'ver': info[1], 'cnr_id': info[2], 'enabled': is_disabled }
+
+        disabled_dirs = os.path.join(x, '.disabled')
+        if os.path.exists(disabled_dirs):
+            for y in os.listdir(disabled_dirs):
+                if y == '__pycache__':
+                    continue
+
+                fullpath = os.path.join(disabled_dirs, y)
+                info = identify_node_pack_from_path(fullpath)
+                if info is None:
+                    continue
+
+                res[info[0]] = { 'ver': info[1], 'cnr_id': info[2], 'enabled': False }
+
+    return res
 
 
 def get_channel_dict():
