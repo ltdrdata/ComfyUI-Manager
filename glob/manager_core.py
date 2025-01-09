@@ -41,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 4]
+version_code = [3, 5]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -49,6 +49,7 @@ DEFAULT_CHANNEL = "https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/ma
 
 
 default_custom_nodes_path = None
+
 
 def get_default_custom_nodes_path():
     global default_custom_nodes_path
@@ -77,6 +78,16 @@ def get_comfyui_tag():
         return repo.git.describe('--tags')
     except:
         return None
+
+
+def get_script_env():
+    copied = os.environ.copy()
+    git_exe = get_config().get('git_exe')
+    if git_exe is not None:
+        copied['GIT_EXE_PATH'] = git_exe
+    copied['COMFYUI_PATH'] = comfy_path
+
+    return copied
 
 
 invalid_nodes = {}
@@ -1480,9 +1491,7 @@ class ManagerFuncs:
             print(f"[ComfyUI-Manager] Unexpected behavior: `{cmd}`")
             return 0
 
-        new_env = os.environ.copy()
-        new_env["COMFYUI_PATH"] = comfy_path
-        subprocess.check_call(cmd, cwd=cwd, env=new_env)
+        subprocess.check_call(cmd, cwd=cwd, env=get_script_env())
 
         return 0
 
@@ -1639,9 +1648,8 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
     else:
         command = [sys.executable, git_script_path, "--check", path]
 
-    new_env = os.environ.copy()
-    new_env["COMFYUI_PATH"] = comfy_path
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=get_default_custom_nodes_path())
+    new_env = get_script_env()
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=get_default_custom_nodes_path(), env=new_env)
     output, _ = process.communicate()
     output = output.decode('utf-8').strip()
 
@@ -1692,10 +1700,8 @@ def __win_check_git_update(path, do_fetch=False, do_update=False):
 
 
 def __win_check_git_pull(path):
-    new_env = os.environ.copy()
-    new_env["COMFYUI_PATH"] = comfy_path
     command = [sys.executable, git_script_path, "--pull", path]
-    process = subprocess.Popen(command, env=new_env, cwd=get_default_custom_nodes_path())
+    process = subprocess.Popen(command, env=get_script_env(), cwd=get_default_custom_nodes_path())
     process.wait()
 
 

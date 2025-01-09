@@ -50,9 +50,8 @@ def check_file_logging():
     global enable_file_logging
     try:
         import configparser
-        config_path = os.path.join(os.path.dirname(__file__), "config.ini")
         config = configparser.ConfigParser()
-        config.read(config_path)
+        config.read(manager_config_path)
         default_conf = config['default']
 
         if 'file_logging' in default_conf and default_conf['file_logging'].lower() == 'false':
@@ -79,12 +78,12 @@ custom_nodes_base_path = folder_paths.get_folder_paths('custom_nodes')[0]
 manager_files_path = os.path.abspath(os.path.join(folder_paths.get_user_directory(), 'default', 'ComfyUI-Manager'))
 manager_pip_overrides_path = os.path.join(manager_files_path, "pip_overrides.json")
 restore_snapshot_path = os.path.join(manager_files_path, "startup-scripts", "restore-snapshot.json")
+manager_config_path = os.path.join(manager_files_path, 'config.ini')
 
-git_script_path = os.path.join(comfyui_manager_path, "git_helper.py")
 cm_cli_path = os.path.join(comfyui_manager_path, "cm-cli.py")
 
 
-cm_global.pip_overrides = {}
+cm_global.pip_overrides = {'numpy': 'numpy<2', 'ultralytics': 'ultralytics==8.3.40'}
 if os.path.exists(manager_pip_overrides_path):
     with open(manager_pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
         cm_global.pip_overrides = json.load(json_file)
@@ -345,6 +344,9 @@ print("** Platform:", platform.system())
 print("** Python version:", sys.version)
 print("** Python executable:", sys.executable)
 print("** ComfyUI Path:", comfy_path)
+print("** User directory:", folder_paths.user_directory)
+print("** ComfyUI-Manager config path:", manager_config_path)
+
 
 if log_path_base is not None:
     print("** Log path:", os.path.abspath(f'{log_path_base}.log'))
@@ -355,9 +357,8 @@ else:
 def read_downgrade_blacklist():
     try:
         import configparser
-        config_path = os.path.join(os.path.dirname(__file__), "config.ini")
         config = configparser.ConfigParser()
-        config.read(config_path)
+        config.read(manager_config_path)
         default_conf = config['default']
 
         if 'downgrade_blacklist' in default_conf:
@@ -376,13 +377,12 @@ def check_bypass_ssl():
     try:
         import configparser
         import ssl
-        config_path = os.path.join(os.path.dirname(__file__), "config.ini")
         config = configparser.ConfigParser()
-        config.read(config_path)
+        config.read(manager_config_path)
         default_conf = config['default']
 
         if 'bypass_ssl' in default_conf and default_conf['bypass_ssl'].lower() == 'true':
-            print("[ComfyUI-Manager] WARN: Unsafe - SSL verification bypass option is Enabled. (see ComfyUI-Manager/config.ini)")
+            print(f"[ComfyUI-Manager] WARN: Unsafe - SSL verification bypass option is Enabled. (see {manager_config_path})")
             ssl._create_default_https_context = ssl._create_unverified_context  # SSL certificate error fix.
     except Exception:
         pass
@@ -648,9 +648,8 @@ manager_util.clear_pip_cache()
 def check_windows_event_loop_policy():
     try:
         import configparser
-        config_path = os.path.join(os.path.dirname(__file__), "config.ini")
         config = configparser.ConfigParser()
-        config.read(config_path)
+        config.read(manager_config_path)
         default_conf = config['default']
 
         if 'windows_selector_event_loop_policy' in default_conf and default_conf['windows_selector_event_loop_policy'].lower() == 'true':

@@ -4,7 +4,6 @@ import os
 import traceback
 
 import git
-import configparser
 import json
 import yaml
 import requests
@@ -13,11 +12,11 @@ from git.remote import RemoteProgress
 
 
 comfy_path = os.environ.get('COMFYUI_PATH')
+git_exe_path = os.environ.get('GIT_EXE_PATH')
 
 if comfy_path is None:
-    print("\n[bold yellow]WARN: The `COMFYUI_PATH` environment variable is not set. Assuming `custom_nodes/ComfyUI-Manager/../../` as the ComfyUI path.[/bold yellow]", file=sys.stderr)
+    print("\nWARN: The `COMFYUI_PATH` environment variable is not set. Assuming `custom_nodes/ComfyUI-Manager/../../` as the ComfyUI path.", file=sys.stderr)
     comfy_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-
 
 
 def download_url(url, dest_folder, filename=None):
@@ -43,7 +42,6 @@ def download_url(url, dest_folder, filename=None):
         print(f"Failed to download file from {url}")
 
 
-config_path = os.path.join(os.path.dirname(__file__), "config.ini")
 nodelist_path = os.path.join(os.path.dirname(__file__), "custom-node-list.json")
 working_directory = os.getcwd()
 
@@ -440,10 +438,8 @@ def restore_pip_snapshot(pips, options):
 
 
 def setup_environment():
-    config = configparser.ConfigParser()
-    config.read(config_path)
-    if 'default' in config and 'git_exe' in config['default'] and config['default']['git_exe'] != '':
-        git.Git().update_environment(GIT_PYTHON_GIT_EXECUTABLE=config['default']['git_exe'])
+    if git_exe_path is not None:
+        git.Git().update_environment(GIT_PYTHON_GIT_EXECUTABLE=git_exe_path)
 
 
 setup_environment()

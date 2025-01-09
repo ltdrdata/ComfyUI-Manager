@@ -108,7 +108,7 @@ class ManagerFuncsInComfyUI(core.ManagerFuncs):
             logging.error(f"[ComfyUI-Manager] Unexpected behavior: `{cmd}`")
             return 0
 
-        process = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
+        process = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1, env=core.get_script_env())
 
         stdout_thread = threading.Thread(target=handle_stream, args=(process.stdout, ""))
         stderr_thread = threading.Thread(target=handle_stream, args=(process.stderr, "[!]"))
