@@ -41,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 6]
+version_code = [3, 6, 1]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1321,7 +1321,10 @@ class UnifiedManager:
             custom_nodes = await self.get_custom_nodes(channel, mode)
             the_node = custom_nodes.get(node_id)
             if the_node is not None:
-                repo_url = the_node['files'][0]
+                if version_spec is 'unknown':
+                    repo_url = the_node['files'][0]
+                else:  # nightly
+                    repo_url = the_node['reference']
             else:
                 result = ManagedResult('install')
                 return result.fail(f"Node '{node_id}@{version_spec}' not found in [{channel}, {mode}]")
@@ -1346,6 +1349,8 @@ class UnifiedManager:
                 elif version_spec == 'nightly':
                     cnr_utils.generate_cnr_id(to_path, node_id)
                     self.active_nodes[node_id] = 'nightly', to_path
+            else:
+                return res
 
             return res.with_target(version_spec)
 

@@ -1281,7 +1281,7 @@ export class CustomNodesManager {
 				body: JSON.stringify(data)
 			});
 
-			if (res.error) {
+			if (res.status != 200) {
 
 				errorMsg = `${item.title} ${mode} failed: `;
 				if(res.status == 403) {
@@ -1289,7 +1289,7 @@ export class CustomNodesManager {
 				} else if(res.status == 404) {
 					errorMsg += `With the current security level configuration, only custom nodes from the <B>"default channel"</B> can be installed.`;
 				} else {
-					errorMsg += res.error.message;
+					errorMsg += await res.text();
 				}
 
 				break;
@@ -1310,6 +1310,7 @@ export class CustomNodesManager {
 
 		if (errorMsg) {
 			this.showError(errorMsg);
+			show_message("Installation Error:\n"+errorMsg);
 		} else {
 			this.showStatus(`${label} ${list.length} custom node(s) successfully`);
 		}
