@@ -912,10 +912,10 @@ async def fix_custom_node(request):
     res = core.unified_manager.unified_fix(node_name, node_ver)
 
     if res.result:
-        logging.info("After restarting ComfyUI, please refresh the browser.")
+        logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
-    logging.error(f"ERROR: An error occurred while fixing '{node_name}@{node_ver}'.")
+    logging.error(f"\nERROR: An error occurred while fixing '{node_name}@{node_ver}'.")
     return web.Response(status=400, text=f"An error occurred while fixing '{node_name}@{node_ver}'.")
 
 
@@ -929,10 +929,10 @@ async def install_custom_node_git_url(request):
     res = await core.gitclone_install(url)
 
     if res.action == 'skip':
-        logging.info(f"Already installed: '{res.target}'")
+        logging.info(f"\nAlready installed: '{res.target}'")
         return web.Response(status=200)
     elif res.result:
-        logging.info("After restarting ComfyUI, please refresh the browser.")
+        logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
         return web.Response(status=200)
 
     logging.error(res.msg)
@@ -971,10 +971,10 @@ async def uninstall_custom_node(request):
     res = core.unified_manager.unified_uninstall(node_name, is_unknown)
 
     if res.result:
-        logging.info("After restarting ComfyUI, please refresh the browser.")
+        logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
-    logging.error(f"ERROR: An error occurred while uninstalling '{node_name}'.")
+    logging.error(f"\nERROR: An error occurred while uninstalling '{node_name}'.")
     return web.Response(status=400, text=f"An error occurred while uninstalling '{node_name}'.")
 
 
@@ -998,10 +998,10 @@ async def update_custom_node(request):
     manager_util.clear_pip_cache()
 
     if res.result:
-        logging.info("After restarting ComfyUI, please refresh the browser.")
+        logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
-    logging.error(f"ERROR: An error occurred while updating '{node_name}'.")
+    logging.error(f"\nERROR: An error occurred while updating '{node_name}'.")
     return web.Response(status=400, text=f"An error occurred while updating '{node_name}'.")
 
 

@@ -41,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 5, 1]
+version_code = [3, 6]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1227,16 +1227,21 @@ class UnifiedManager:
         repo = git.Repo(repo_path)
 
         if repo.head.is_detached:
-            switch_to_default_branch(repo)
+            if not switch_to_default_branch(repo):
+                return result.fail(f"Failed to switch to default branch: {repo_path}")
 
         current_branch = repo.active_branch
         branch_name = current_branch.name
 
         if current_branch.tracking_branch() is None:
             print(f"[ComfyUI-Manager] There is no tracking branch ({current_branch})")
-            remote_name = 'origin'
+            remote_name = get_remote_name(repo)
         else:
             remote_name = current_branch.tracking_branch().remote_name
+
+        if remote_name is None:
+            return result.fail(f"Failed to get remote when installing: {repo_path}")
+
         remote = repo.remote(name=remote_name)
 
         try:
@@ -1586,18 +1591,47 @@ def get_config():
     return cached_config
 
 
+def get_remote_name(repo):
+    available_remotes = [remote.name for remote in repo.remotes]
+    if 'origin' in available_remotes:
+        return 'origin'
+    elif 'upstream' in available_remotes:
+        return 'upstream'
+    elif len(available_remotes) > 0:
+        return available_remotes[0]
+
+    if not available_remotes:
+        print(f"[ComfyUI-Manager] No remotes are configured for this repository: {repo.working_dir}")
+    else:
+        print(f"[ComfyUI-Manager] Available remotes in '{repo.working_dir}': ")
+        for remote in available_remotes:
+            print(f"- {remote}")
+
+    return None
+
+
 def switch_to_default_branch(repo):
+    remote_name = get_remote_name(repo)
+
     try:
-        default_branch = repo.git.symbolic_ref('refs/remotes/origin/HEAD').replace('refs/remotes/origin/', '')
+        if remote_name is None:
+            return False
+
+        default_branch = repo.git.symbolic_ref(f'refs/remotes/{remote_name}/HEAD').replace(f'refs/remotes/{remote_name}/', '')
         repo.git.checkout(default_branch)
+        return True
     except:
         try:
             repo.git.checkout(repo.heads.master)
         except:
             try:
-                repo.git.checkout('-b', 'master', 'origin/master')
+                if remote_name is not None:
+                    repo.git.checkout('-b', 'master', f'{remote_name}/master')
             except:
-                print("[ComfyUI Manager] Failed to switch to the default branch")
+                pass
+
+    print("[ComfyUI Manager] Failed to switch to the default branch")
+    return False
 
 
 def try_install_script(url, repo_path, install_cmd, instant_execution=False):
@@ -1778,7 +1812,11 @@ def git_repo_update_check_with(path, do_fetch=False, do_update=False, no_deps=Fa
         # Fetch the latest commits from the remote repository
         repo = git.Repo(path)
 
-        remote_name = 'origin'
+        remote_name = get_remote_name(repo)
+
+        if remote_name is None:
+            raise ValueError(f"No remotes are configured for this repository: {path}")
+
         remote = repo.remote(name=remote_name)
 
         if not do_update and repo.head.is_detached:
@@ -1788,7 +1826,8 @@ def git_repo_update_check_with(path, do_fetch=False, do_update=False, no_deps=Fa
             return True, True  # detached branch is treated as updatable
 
         if repo.head.is_detached:
-            switch_to_default_branch(repo)
+            if not switch_to_default_branch(repo):
+                raise ValueError(f"Failed to switch detached branch to default branch: {path}")
 
         current_branch = repo.active_branch
         branch_name = current_branch.name
@@ -1805,7 +1844,9 @@ def git_repo_update_check_with(path, do_fetch=False, do_update=False, no_deps=Fa
                 repo.git.stash()
 
             if f'{remote_name}/{branch_name}' not in repo.refs:
-                switch_to_default_branch(repo)
+                if not switch_to_default_branch(repo):
+                    raise ValueError(f"Failed to switch to default branch while updating: {path}")
+
                 current_branch = repo.active_branch
                 branch_name = current_branch.name
 
@@ -1964,7 +2005,8 @@ def git_pull(path):
             repo.git.stash()
 
         if repo.head.is_detached:
-            switch_to_default_branch(repo)
+            if not switch_to_default_branch(repo):
+                raise ValueError(f"Failed to switch to default branch while pulling: {path}")
 
         current_branch = repo.active_branch
         remote_name = current_branch.tracking_branch().remote_name
@@ -2228,14 +2270,15 @@ def update_path(repo_path, instant_execution=False, no_deps=False):
     repo = git.Repo(repo_path)
 
     if repo.head.is_detached:
-        switch_to_default_branch(repo)
+        if not switch_to_default_branch(repo):
+            return "fail"
 
     current_branch = repo.active_branch
     branch_name = current_branch.name
 
     if current_branch.tracking_branch() is None:
         print(f"[ComfyUI-Manager] There is no tracking branch ({current_branch})")
-        remote_name = 'origin'
+        remote_name = get_remote_name(repo)
     else:
         remote_name = current_branch.tracking_branch().remote_name
     remote = repo.remote(name=remote_name)
@@ -2254,6 +2297,7 @@ def update_path(repo_path, instant_execution=False, no_deps=False):
                       f"-----------------------------------------------------------------------------------------\n"
                       f'git config --global --add safe.directory "{safedir_path}"\n'
                       f"-----------------------------------------------------------------------------------------\n")
+                return "fail"
 
     commit_hash = repo.head.commit.hexsha
     remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
@@ -2323,11 +2367,14 @@ def check_state_of_git_node_pack_single(item, do_fetch=False, do_update_check=Tr
 
     if dir_path and os.path.exists(dir_path):
         if do_update_check:
-            update_state, success = git_repo_update_check_with(dir_path, do_fetch, do_update)
-            if (do_update_check or do_update) and update_state:
-                item['update-state'] = 'true'
-            elif do_update and not success:
-                item['update-state'] = 'fail'
+            try:
+                update_state, success = git_repo_update_check_with(dir_path, do_fetch, do_update)
+                if (do_update_check or do_update) and update_state:
+                    item['update-state'] = 'true'
+                elif do_update and not success:
+                    item['update-state'] = 'fail'
+            except Exception:
+                print(f"[ComfyUI-Manager] Failed to check state of the git node pack: {dir_path}")
 
 
 def get_installed_pip_packages():

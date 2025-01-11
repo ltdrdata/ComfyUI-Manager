@@ -124,18 +124,47 @@ def gitcheck(path, do_fetch=False):
         print("CUSTOM NODE CHECK: Error")
 
 
+def get_remote_name(repo):
+    available_remotes = [remote.name for remote in repo.remotes]
+    if 'origin' in available_remotes:
+        return 'origin'
+    elif 'upstream' in available_remotes:
+        return 'upstream'
+    elif len(available_remotes) > 0:
+        return available_remotes[0]
+
+    if not available_remotes:
+        print(f"[ComfyUI-Manager] No remotes are configured for this repository: {repo.working_dir}")
+    else:
+        print(f"[ComfyUI-Manager] Available remotes in '{repo.working_dir}': ")
+        for remote in available_remotes:
+            print(f"- {remote}")
+
+    return None
+
+
 def switch_to_default_branch(repo):
+    remote_name = get_remote_name(repo)
+
     try:
-        default_branch = repo.git.symbolic_ref('refs/remotes/origin/HEAD').replace('refs/remotes/origin/', '')
+        if remote_name is None:
+            return False
+
+        default_branch = repo.git.symbolic_ref(f'refs/remotes/{remote_name}/HEAD').replace(f'refs/remotes/{remote_name}/', '')
         repo.git.checkout(default_branch)
+        return True
     except:
         try:
             repo.git.checkout(repo.heads.master)
         except:
             try:
-                repo.git.checkout('-b', 'master', 'origin/master')
+                if remote_name is not None:
+                    repo.git.checkout('-b', 'master', f'{remote_name}/master')
             except:
-                print("[ComfyUI Manager] Failed to switch to the default branch")
+                pass
+
+    print("[ComfyUI Manager] Failed to switch to the default branch")
+    return False
 
 
 def gitpull(path):
