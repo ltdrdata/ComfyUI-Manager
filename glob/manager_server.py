@@ -867,7 +867,7 @@ async def install_custom_node(request):
             node_spec_str = f"{cnr_id}@{selected_version}"
         else:
             node_spec_str = f"{cnr_id}@nightly"
-            git_url = json_data.get('reference')
+            git_url = [json_data.get('reference')]
             if git_url is None:
                 logging.error(f"[ComfyUI-Manager] Following node pack doesn't provide `nightly` version: ${git_url}")
                 return web.Response(status=404, text=f"Following node pack doesn't provide `nightly` version: ${git_url}")
@@ -1413,6 +1413,10 @@ async def default_cache_update():
     e = get_cache("github-stats.json")
 
     await asyncio.gather(a, b, c, d, e)
+
+    # load at least once
+    await core.unified_manager.reload('cache')
+    await core.unified_manager.get_custom_nodes('default', 'cache')
 
     # NOTE: hide migration button temporarily.
     # if not core.get_config()['skip_migration_check']:
