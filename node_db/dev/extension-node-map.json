@@ -390,6 +390,17 @@
             "title_aux": "ComfyUI-Xorbis-nodes [WIP]"
         }
     ],
+    "https://github.com/Alvaroeai/ComfyUI-SunoAI-Mds": [
+        [
+            "Mideas_SunoAI_AudioManager",
+            "Mideas_SunoAI_Generator",
+            "Mideas_SunoAI_ProxyDownloadNode",
+            "Mideas_SunoAI_ProxyNode"
+        ],
+        {
+            "title_aux": "ComfyUI-SunoAI-Mds"
+        }
+    ],
     "https://github.com/Anze-/ComfyUI-OIDN": [
         [
             "OIDN Denoise"
@@ -722,6 +733,7 @@
             "AD_mockup-maker",
             "AD_poster-maker",
             "AD_prompt-saver",
+            "ImageCaptioner",
             "ImageResize",
             "Incrementer \ud83e\udeb4",
             "TextAppendNode",
@@ -745,6 +757,15 @@
         ],
         {
             "title_aux": "ComfyUI-MusicGen [WIP]"
+        }
+    ],
+    "https://github.com/EmilioPlumed/ComfyUI-Math": [
+        [
+            "GreatestCommonDenominator",
+            "LowestCommonMultiple"
+        ],
+        {
+            "title_aux": "ComfyUI-Math [WIP]"
         }
     ],
     "https://github.com/ExponentialML/ComfyUI_LiveDirector": [
@@ -2075,6 +2096,7 @@
             "DisableNoise",
             "DualCFGGuider",
             "DualCLIPLoader",
+            "EmptyCosmosLatentVideo",
             "EmptyHunyuanLatentVideo",
             "EmptyImage",
             "EmptyLTXVLatentVideo",
@@ -2900,18 +2922,19 @@
             "ImageLatentCreator",
             "ImageResolutionAdjuster",
             "ImageSizeCreator",
-            "ImageSwitch",
             "ImageToBase64",
-            "LatentSwitch",
             "MaskPreview",
-            "MaskSwitch",
             "MultilineTextInput",
+            "PaintingCoder::ImageSwitch",
+            "PaintingCoder::LatentSwitch",
+            "PaintingCoder::MaskSwitch",
+            "PaintingCoder::TextSwitch",
+            "PaintingCoder::WebImageLoader",
             "RemoveEmptyLinesAndLeadingSpaces",
             "RemoveEmptyLinesAndLeadingSpacesAdvance",
             "ShowTextPlus",
             "SimpleTextInput",
             "TextCombiner",
-            "TextSwitch",
             "WebImageLoader"
         ],
         {
@@ -3703,6 +3726,14 @@
             "title_aux": "ComfyUI-LLM-Evaluation [WIP]"
         }
     ],
+    "https://github.com/mliand/ComfyUI-Calendar-Node": [
+        [
+            "Comfy Calendar Node"
+        ],
+        {
+            "title_aux": "ComfyUI-Calendar-Node [WIP]"
+        }
+    ],
     "https://github.com/monate0615/ComfyUI-Affine-Transform": [
         [
             "AffineTransform"
@@ -3897,6 +3928,26 @@
         ],
         {
             "title_aux": "ComfyUI-ppm"
+        }
+    ],
+    "https://github.com/parmarjh/ComfyUI-MochiWrapper-I2V": [
+        [
+            "DownloadAndLoadMochiModel",
+            "MochiDecode",
+            "MochiDecodeSpatialTiling",
+            "MochiFasterCache",
+            "MochiImageEncode",
+            "MochiLatentPreview",
+            "MochiModelLoader",
+            "MochiSampler",
+            "MochiSigmaSchedule",
+            "MochiTextEncode",
+            "MochiTorchCompileSettings",
+            "MochiVAEEncoderLoader",
+            "MochiVAELoader"
+        ],
+        {
+            "title_aux": "ComfyUI-MochiWrapper-I2V [WIP]"
         }
     ],
     "https://github.com/paulhoux/Smart-Prompting": [
@@ -4209,6 +4260,14 @@
             "title_aux": "ComfyUI_InstructPixToPixConditioningLatent [WIP]"
         }
     ],
+    "https://github.com/sourceful-official/comfyui-cog-comfyui-incontext-three-panels": [
+        [
+            "SourcefulOfficialComfyuiIncontextThreePanels"
+        ],
+        {
+            "title_aux": "comfyui-cog-comfyui-incontext-three-panels"
+        }
+    ],
     "https://github.com/sswink/comfyui-lingshang": [
         [
             "LS_ALY_Seg_Body_Utils",
@@ -4253,7 +4312,9 @@
     ],
     "https://github.com/sugarkwork/comfyui_psd": [
         [
-            "SavePSD"
+            "Convert PSD to Image",
+            "PSDLayer",
+            "Save PSD"
         ],
         {
             "title_aux": "comfyui_psd [WIP]"
@@ -4509,6 +4570,7 @@
             "DownloadImageNode",
             "FixUTF8StringNode",
             "ImageResizeNode",
+            "ImagesToVideoNode",
             "LoadImageFromFolderNode",
             "SaveImageToFolderNode",
             "SaveImagesToFolderNode",
@@ -4516,7 +4578,8 @@
             "SequenceStringListNode",
             "StringCombineNode",
             "StringFieldNode",
-            "TranslateStringNode"
+            "TranslateStringNode",
+            "VideoToImagesNode"
         ],
         {
             "title_aux": "ComfyUI-FairLab"

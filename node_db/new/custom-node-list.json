@@ -10,6 +10,27 @@
 
         
         {
+            "author": "westNeighbor",
+            "title": "ComfyUI-ultimate-openpose-render",
+            "reference": "https://github.com/westNeighbor/ComfyUI-ultimate-openpose-render",
+            "files": [
+                "https://github.com/westNeighbor/ComfyUI-ultimate-openpose-render"
+            ],
+            "install_type": "git-clone",
+            "description": "The ultimate openpose render node for ComfyUI with flexible input, output and adjustment."
+        },
+        {
+            "author": "bubbliiiing",
+            "title": "Video Generation Nodes for EasyAnimate",
+            "id": "easyanimatenodes",
+            "reference": "https://github.com/aigc-apps/EasyAnimate",
+            "files": [
+                "https://github.com/aigc-apps/EasyAnimate"
+            ],
+            "install_type": "git-clone",
+            "description": "Video Generation Nodes for EasyAnimate, which suppors text-to-video, image-to-video, video-to-video and different controls."
+        },
+        {
             "author": "weilin9999",
             "title": "WeiLin-Comfyui-Tools",
             "id": "Comfyui-Tools",
@@ -19,6 +40,36 @@
             ],
             "install_type": "git-clone",
             "description": "quickly use the prompt word tool in ComfyUI"
+        },
+        {
+            "author": "Wenaka2004",
+            "title": "ComfyUI-TagClassifier",
+            "reference": "https://github.com/Wenaka2004/ComfyUI-TagClassifier",
+            "files": [
+                "https://github.com/Wenaka2004/ComfyUI-TagClassifier"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI custom node，use Deepseek v3 to classify the input tags"
+        },
+        {
+            "author": "a-und-b",
+            "title": "ComfyUI_Delay",
+            "reference": "https://github.com/a-und-b/ComfyUI_Delay",
+            "files": [
+                "https://github.com/a-und-b/ComfyUI_Delay"
+            ],
+            "install_type": "git-clone",
+            "description": "Simple custom node for ComfyUI to artificially delay a workflow at any point."
+        },
+        {
+            "author": "DraconicDragon",
+            "title": "ComfyUI-Venice-API",
+            "reference": "https://github.com/DraconicDragon/ComfyUI-Venice-API",
+            "files": [
+                "https://github.com/DraconicDragon/ComfyUI-Venice-API"
+            ],
+            "install_type": "git-clone",
+            "description": "A custom node implementation for ComfyUI that integrates with venice.ai's Flux and SDXL image generation models. This project is adapted from [a/ComfyUI-FLUX-TOGETHER-API](https://github.com/BZcreativ/ComfyUI-FLUX-TOGETHER-API) to work with the venice.ai API."
         },
         {
             "author": "dreamhartley",
@@ -39,6 +90,16 @@
             ],
             "install_type": "git-clone",
             "description": "ComfyUI Custom Nodes for 'TangoFlux: Super Fast and Faithful Text to Audio Generation with Flow Matching'. This generates high-quality 44.1kHz audio up to 30 seconds using just a text prompt."
+        },
+        {
+            "author": "r3dial",
+            "title": "Redial Discomphy - Discord Integration for ComfyUI",
+            "reference": "https://github.com/r3dial/redial-discomphy",
+            "files": [
+                "https://github.com/r3dial/redial-discomphy"
+            ],
+            "install_type": "git-clone",
+            "description": "A custom node for ComfyUI that enables direct posting of images, videos, and messages to Discord channels. This node seamlessly integrates your ComfyUI workflows with Discord communication, allowing you to automatically share your generated content."
         },
         {
             "author": "welltop-cn",
@@ -635,80 +696,6 @@
             ],
             "install_type": "git-clone",
             "description": "Rembg Background Removal Node for ComfyUI"
-        },
-        {
-            "author": "hay86",
-            "title": "ComfyUI LatentSync",
-            "id": "latentsync",
-            "reference": "https://github.com/hay86/ComfyUI_LatentSync",
-            "files": [
-                "https://github.com/hay86/ComfyUI_LatentSync"
-            ],
-            "install_type": "git-clone",
-            "description": "Unofficial implementation of [a/LatentSync](https://github.com/bytedance/LatentSync) for ComfyUI"
-        },
-        {
-            "author": "risunobushi",
-            "title": "ComfyUI-Similarity-Score",
-            "reference": "https://github.com/risunobushi/ComfyUI-Similarity-Score",
-            "files": [
-                "https://github.com/risunobushi/ComfyUI-Similarity-Score"
-            ],
-            "install_type": "git-clone",
-            "description": "A custom node for ComfyUI that calculates CLIP and LPIPS similarity scores between two images."
-        },
-        {
-            "author": "ShmuelRonen",
-            "title": "ComfyUI-HunyuanVideoStyler",
-            "reference": "https://github.com/ShmuelRonen/ComfyUI-HunyuanVideoStyler",
-            "files": [
-                "https://github.com/ShmuelRonen/ComfyUI-HunyuanVideoStyler"
-            ],
-            "install_type": "git-clone",
-            "description": "A custom node for ComfyUI that adds cinematic and movie scene styles to video generation prompts. This node helps create more dynamic and professional-looking video outputs by incorporating iconic movie scene aesthetics."
-        },
-        {
-            "author": "ahernandezmiro",
-            "title": "ComfyUI-GCP_Storage_tools",
-            "reference": "https://github.com/ahernandezmiro/ComfyUI-GCP_Storage_tools",
-            "files": [
-                "https://github.com/ahernandezmiro/ComfyUI-GCP_Storage_tools"
-            ],
-            "install_type": "git-clone",
-            "description": "A set of ComfyUI nodes for GPC Storage access"
-        },
-        {
-            "author": "ciga2011",
-            "title": "ComfyUI MarkItDown",
-            "id": "markitdown",
-            "reference": "https://github.com/ciga2011/ComfyUI-MarkItDown",
-            "files": [
-                "https://github.com/ciga2011/ComfyUI-MarkItDown"
-            ],
-            "pip": ["markitdown", "openai"],
-            "install_type": "git-clone",
-            "description": "This node pack helps to convert various files to Markdown. It supports pdf, pptx, xlsx, docx, html and image files."
-        },
-        {
-            "author": "amorano",
-            "title": "Jovi_GLSL",
-            "id": "jovi_glsl",
-            "reference": "https://github.com/Amorano/Jovi_GLSL",
-            "files": [
-                "https://github.com/Amorano/Jovi_GLSL"
-            ],
-            "install_type": "git-clone",
-            "description": "Integrates GLSL shader support."
-        },
-        {
-            "author": "IgalOgonov",
-            "title": "Simple String Repository",
-            "reference": "https://github.com/IgalOgonov/ComfyUI_Simple_String_Repository",
-            "files": [
-                "https://github.com/IgalOgonov/ComfyUI_Simple_String_Repository"
-            ],
-            "install_type": "git-clone",
-            "description": "Custom node that allows storing and accessing strings, meant to be parts of a prompt, in a simplified manner. Partially supports dynamic prompt syntax."
         }
     ]
 }
