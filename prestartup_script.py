@@ -17,8 +17,18 @@ import security_check
 import manager_util
 import cm_global
 import manager_downloader
-from datetime import datetime
 import folder_paths
+
+try:
+    from datetime import datetime
+    def current_timestamp():
+        return datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+except:
+    import time
+    import datetime
+    logging.error(f"[ComfyUI-Manager] fallback timestamp mode\n                  datetime module is invalid: '{datetime.__file__}'")
+    def current_timestamp():
+        return str(time.time()).split('.')[0]
 
 security_check.security_check()
 
@@ -235,7 +245,7 @@ try:
 
         def sync_write(self, message, file_only=False):
             with log_lock:
-                timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+                timestamp = current_timestamp()
                 if self.last_char != '\n':
                     log_file.write(message)
                 else:
@@ -339,7 +349,7 @@ except:
     print("## [ERROR] ComfyUI-Manager: GitPython package seems to be installed, but failed to load somehow. Make sure you have a working git client installed")
 
 
-print("** ComfyUI startup time:", datetime.now())
+print("** ComfyUI startup time:", current_timestamp())
 print("** Platform:", platform.system())
 print("** Python version:", sys.version)
 print("** Python executable:", sys.executable)
