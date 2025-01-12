@@ -108,7 +108,7 @@ class ManagerFuncsInComfyUI(core.ManagerFuncs):
             logging.error(f"[ComfyUI-Manager] Unexpected behavior: `{cmd}`")
             return 0
 
-        process = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
+        process = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1, env=core.get_script_env())
 
         stdout_thread = threading.Thread(target=handle_stream, args=(process.stdout, ""))
         stderr_thread = threading.Thread(target=handle_stream, args=(process.stderr, "[!]"))
@@ -858,6 +858,8 @@ async def install_custom_node(request):
     cnr_id = json_data.get('id')
     skip_post_install = json_data.get('skip_post_install')
 
+    git_url = None
+
     if json_data['version'] != 'unknown':
         selected_version = json_data.get('selected_version', 'latest')
         if selected_version != 'nightly':
@@ -865,14 +867,22 @@ async def install_custom_node(request):
             node_spec_str = f"{cnr_id}@{selected_version}"
         else:
             node_spec_str = f"{cnr_id}@nightly"
+            git_url = [json_data.get('reference')]
+            if git_url is None:
+                logging.error(f"[ComfyUI-Manager] Following node pack doesn't provide `nightly` version: ${git_url}")
+                return web.Response(status=404, text=f"Following node pack doesn't provide `nightly` version: ${git_url}")
     else:
         # unknown
         unknown_name = os.path.basename(json_data['files'][0])
         node_spec_str = f"{unknown_name}@unknown"
+        git_url = json_data.get('files')
 
     # apply security policy if not cnr node (nightly isn't regarded as cnr node)
     if risky_level is None:
-        risky_level = await get_risky_level(json_data['files'], json_data.get('pip', []))
+        if git_url is not None:
+            risky_level = await get_risky_level(git_url, json_data.get('pip', []))
+        else:
+            return web.Response(status=404, text=f"Following node pack doesn't provide `nightly` version: ${git_url}")
 
     if not is_allowed_security_level(risky_level):
         logging.error(SECURITY_MESSAGE_GENERAL)
@@ -888,7 +898,11 @@ async def install_custom_node(request):
     # discard post install if skip_post_install mode
 
     if res.action not in ['skip', 'enable', 'install-git', 'install-cnr', 'switch-cnr']:
-        return web.Response(status=400, text=f"Installation failed: {res}")
+        logging.error(f"[ComfyUI-Manager] Installation failed:\n{res.msg}")
+        return web.Response(status=400, text=res.msg)
+    elif not res.result:
+        logging.error(f"[ComfyUI-Manager] Installation failed:\n{res.msg}")
+        return web.Response(status=400, text=res.msg)
 
     return web.Response(status=200, text="Installation success.")
 
@@ -912,10 +926,10 @@ async def fix_custom_node(request):
     res = core.unified_manager.unified_fix(node_name, node_ver)
 
     if res.result:
-        logging.info("After restarting ComfyUI, please refresh the browser.")
+        logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
-    logging.error(f"ERROR: An error occurred while fixing '{node_name}@{node_ver}'.")
+    logging.error(f"\nERROR: An error occurred while fixing '{node_name}@{node_ver}'.")
     return web.Response(status=400, text=f"An error occurred while fixing '{node_name}@{node_ver}'.")
 
 
@@ -929,10 +943,10 @@ async def install_custom_node_git_url(request):
     res = await core.gitclone_install(url)
 
     if res.action == 'skip':
-        logging.info(f"Already installed: '{res.target}'")
+        logging.info(f"\nAlready installed: '{res.target}'")
         return web.Response(status=200)
     elif res.result:
-        logging.info("After restarting ComfyUI, please refresh the browser.")
+        logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
         return web.Response(status=200)
 
     logging.error(res.msg)
@@ -971,10 +985,10 @@ async def uninstall_custom_node(request):
     res = core.unified_manager.unified_uninstall(node_name, is_unknown)
 
     if res.result:
-        logging.info("After restarting ComfyUI, please refresh the browser.")
+        logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
-    logging.error(f"ERROR: An error occurred while uninstalling '{node_name}'.")
+    logging.error(f"\nERROR: An error occurred while uninstalling '{node_name}'.")
     return web.Response(status=400, text=f"An error occurred while uninstalling '{node_name}'.")
 
 
@@ -998,10 +1012,10 @@ async def update_custom_node(request):
     manager_util.clear_pip_cache()
 
     if res.result:
-        logging.info("After restarting ComfyUI, please refresh the browser.")
+        logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
 
-    logging.error(f"ERROR: An error occurred while updating '{node_name}'.")
+    logging.error(f"\nERROR: An error occurred while updating '{node_name}'.")
     return web.Response(status=400, text=f"An error occurred while updating '{node_name}'.")
 
 
@@ -1399,6 +1413,10 @@ async def default_cache_update():
     e = get_cache("github-stats.json")
 
     await asyncio.gather(a, b, c, d, e)
+
+    # load at least once
+    await core.unified_manager.reload('cache')
+    await core.unified_manager.get_custom_nodes('default', 'cache')
 
     # NOTE: hide migration button temporarily.
     # if not core.get_config()['skip_migration_check']:

@@ -963,7 +963,7 @@ class ManagerMenuDialog extends ComfyDialog {
 		this.datasrc_combo.className = "cm-menu-combo";
 		this.datasrc_combo.appendChild($el('option', { value: 'cache', text: 'DB: Channel (1day cache)' }, []));
 		this.datasrc_combo.appendChild($el('option', { value: 'local', text: 'DB: Local' }, []));
-		this.datasrc_combo.appendChild($el('option', { value: 'url', text: 'DB: Channel (remote)' }, []));
+		this.datasrc_combo.appendChild($el('option', { value: 'remote', text: 'DB: Channel (remote)' }, []));
 
 		// preview method
 		let preview_combo = document.createElement("select");

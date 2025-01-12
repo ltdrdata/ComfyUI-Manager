@@ -96,7 +96,7 @@ function internalCustomConfirm(message, confirmMessage, cancelMessage) {
 
 export function show_message(msg) {
 	app.ui.dialog.show(msg);
-	app.ui.dialog.element.style.zIndex = 1099;
+	app.ui.dialog.element.style.zIndex = 1100;
 }
 
 export async function sleep(ms) {

@@ -71,9 +71,8 @@ core.check_invalid_nodes()
 def read_downgrade_blacklist():
     try:
         import configparser
-        config_path = os.path.join(os.path.dirname(__file__), "config.ini")
         config = configparser.ConfigParser()
-        config.read(config_path)
+        config.read(core.manager_config.path)
         default_conf = config['default']
 
         if 'downgrade_blacklist' in default_conf:
@@ -136,9 +135,9 @@ class Ctx:
         core.update_user_directory(user_directory)
 
         if os.path.exists(core.manager_pip_overrides_path):
-            cm_global.pip_overrides = {'numpy': 'numpy<2'}
             with open(core.manager_pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
                 cm_global.pip_overrides = json.load(json_file)
+                cm_global.pip_overrides = {'numpy': 'numpy<2'}
 
     @staticmethod
     def get_startup_scripts_path():

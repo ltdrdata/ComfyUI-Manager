@@ -53,7 +53,9 @@ class WorkflowMetadataExtension {
         const nodeInfo =
           this.installedNodes[nodePackageName] ??
           this.installedNodes[nodePackageName.toLowerCase()];
-        nodeVersions[nodePackageName] = nodeInfo.ver;
+        if (nodeInfo) {
+          nodeVersions[nodePackageName] = nodeInfo.ver;
+        }
       } else if (["nodes", "comfy_extras"].includes(modules[0])) {
         nodeVersions["comfy-core"] = this.comfyCoreVersion;
       } else {
@@ -78,7 +80,11 @@ class WorkflowMetadataExtension {
         workflow.extra = {};
       }
       const graph = this;
-      workflow.extra["node_versions"] = extension.getGraphNodeVersions(graph);
+      try {
+        workflow.extra["node_versions"] = extension.getGraphNodeVersions(graph);
+      } catch (e) {
+        console.error(e);
+      }
 
       return workflow;
     };
