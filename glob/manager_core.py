@@ -41,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 7, 1]
+version_code = [3, 7, 2]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -2463,8 +2463,21 @@ async def get_current_snapshot():
                         cnr_custom_nodes[info['id']] = info['ver']
                     else:
                         repo = git.Repo(fullpath)
+
+                        if repo.head.is_detached:
+                            remote_name = get_remote_name(repo)
+                        else:
+                            current_branch = repo.active_branch
+
+                            if current_branch.tracking_branch() is None:
+                                remote_name = get_remote_name(repo)
+                            else:
+                                remote_name = current_branch.tracking_branch().remote_name
+
                         commit_hash = repo.head.commit.hexsha
-                        url = repo.remotes.origin.url
+
+                        url = repo.remotes[remote_name].url
+
                         git_custom_nodes[url] = dict(hash=commit_hash, disabled=is_disabled)
                 except:
                     print(f"Failed to extract snapshots for the custom node '{path}'.")
