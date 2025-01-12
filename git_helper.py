@@ -195,7 +195,11 @@ def gitpull(path):
             branch_name = current_branch.name
 
         remote.fetch()
-        remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+        if f'{remote_name}/{branch_name}' in repo.refs:
+            remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+        else:
+            print("CUSTOM NODE PULL: Fail")  # update fail
+            return
 
         if commit_hash == remote_commit_hash:
             print("CUSTOM NODE PULL: None")  # there is no update

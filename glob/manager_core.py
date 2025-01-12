@@ -41,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 7]
+version_code = [3, 7, 1]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1264,7 +1264,10 @@ class UnifiedManager:
                           "-----------------------------------------------------------------------------------------\n")
 
         commit_hash = repo.head.commit.hexsha
-        remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+        if f'{remote_name}/{branch_name}' in repo.refs:
+            remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+        else:
+            return result.fail(f"Not updatable branch: {branch_name}")
 
         if commit_hash != remote_commit_hash:
             git_pull(repo_path)
@@ -1859,7 +1862,10 @@ def git_repo_update_check_with(path, do_fetch=False, do_update=False, no_deps=Fa
                 current_branch = repo.active_branch
                 branch_name = current_branch.name
 
-            remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+            if f'{remote_name}/{branch_name}' in repo.refs:
+                remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+            else:
+                return False, False
 
             if commit_hash == remote_commit_hash:
                 repo.close()
@@ -2309,7 +2315,11 @@ def update_path(repo_path, instant_execution=False, no_deps=False):
                 return "fail"
 
     commit_hash = repo.head.commit.hexsha
-    remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+
+    if f'{remote_name}/{branch_name}' in repo.refs:
+        remote_commit_hash = repo.refs[f'{remote_name}/{branch_name}'].object.hexsha
+    else:
+        return "fail"
 
     if commit_hash != remote_commit_hash:
         git_pull(repo_path)
