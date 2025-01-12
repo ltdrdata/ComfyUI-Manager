@@ -1415,7 +1415,7 @@ async def default_cache_update():
     await asyncio.gather(a, b, c, d, e)
 
     # load at least once
-    await core.unified_manager.reload('cache')
+    await core.unified_manager.reload('cache', dont_wait=False)
     await core.unified_manager.get_custom_nodes('default', 'cache')
 
     # NOTE: hide migration button temporarily.

@@ -11,6 +11,8 @@ from datetime import datetime
 import subprocess
 import sys
 import re
+import logging
+
 
 cache_lock = threading.Lock()
 
@@ -128,15 +130,26 @@ async def get_data(uri, silent=False):
     return json_obj
 
 
-async def get_data_with_cache(uri, silent=False, cache_mode=True):
+async def get_data_with_cache(uri, silent=False, cache_mode=True, dont_wait=False):
     cache_uri = str(simple_hash(uri)) + '_' + os.path.basename(uri).replace('&', "_").replace('?', "_").replace('=', "_")
     cache_uri = os.path.join(cache_dir, cache_uri+'.json')
+
+    if cache_mode and dont_wait:
+        # NOTE: return the cache if possible, even if it is expired, so do not cache
+        if not os.path.exists(cache_uri):
+            logging.error(f"[ComfyUI-Manager] The network connection is unstable, so it is operating in fallback mode: {uri}")
+
+            return {}
+        else:
+            if not is_file_created_within_one_day(cache_uri):
+                logging.error(f"[ComfyUI-Manager] The network connection is unstable, so it is operating in outdated cache mode: {uri}")
+
+            return await get_data(cache_uri, silent=silent)
 
     if cache_mode and is_file_created_within_one_day(cache_uri):
         json_obj = await get_data(cache_uri, silent=silent)
     else:
         json_obj = await get_data(uri, silent=silent)
-
         with cache_lock:
             with open(cache_uri, "w", encoding='utf-8') as file:
                 json.dump(json_obj, file, indent=4, sort_keys=True)

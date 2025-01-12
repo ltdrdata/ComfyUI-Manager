@@ -4,23 +4,49 @@ from typing import List
 import manager_util
 import toml
 import os
+import asyncio
 
 base_url = "https://api.comfy.org"
 
 
-async def get_cnr_data(page=1, limit=1000, cache_mode=True):
-    try:
-        uri = f'{base_url}/nodes?page={page}&limit={limit}'
-        json_obj = await manager_util.get_data_with_cache(uri, cache_mode=cache_mode)
+lock = asyncio.Lock()
 
+is_cache_loading = False
+
+async def get_cnr_data(page=1, limit=1000, cache_mode=True, dont_wait=True):
+    global is_cache_loading
+
+    uri = f'{base_url}/nodes?page={page}&limit={limit}'
+
+    def touch(json_obj):
         for v in json_obj['nodes']:
             if 'latest_version' not in v:
                 v['latest_version'] = dict(version='nightly')
+
+
+    if cache_mode:
+        if dont_wait:
+            json_obj = await manager_util.get_data_with_cache(uri, cache_mode=cache_mode, dont_wait=True)  # fallback
+
+            if 'nodes' in json_obj:
+                touch(json_obj)
+                return json_obj['nodes']
+            else:
+                return {}
+
+        is_cache_loading = True
+
+    try:
+        json_obj = await manager_util.get_data_with_cache(uri, cache_mode=cache_mode)
+        touch(json_obj)
 
         return json_obj['nodes']
     except:
         res = {}
         print("Cannot connect to comfyregistry.")
+    finally:
+        if cache_mode:
+            is_cache_loading = False
 
     return res
 
@@ -92,7 +118,7 @@ def install_node(node_id, version=None):
 
 
 def all_versions_of_node(node_id):
-    url = f"https://api.comfy.org/nodes/{node_id}/versions?statuses=NodeVersionStatusActive&statuses=NodeVersionStatusPending"
+    url = f"{base_url}/nodes/{node_id}/versions?statuses=NodeVersionStatusActive&statuses=NodeVersionStatusPending"
 
     response = requests.get(url)
     if response.status_code == 200:
@@ -113,7 +139,7 @@ def read_cnr_info(fullpath):
             data = toml.load(f)
 
             project = data.get('project', {})
-            name = project.get('name')
+            name = project.get('name').strip().lower()
             version = project.get('version')
 
             urls = project.get('urls', {})

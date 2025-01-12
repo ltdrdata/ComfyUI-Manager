@@ -41,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 6, 5]
+version_code = [3, 7]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -507,7 +507,7 @@ class UnifiedManager:
         if node_package.is_disabled and node_package.is_nightly:
             self.nightly_inactive_nodes[node_package.id] = node_package.fullpath
 
-        if node_package.is_enabled:
+        if node_package.is_enabled and not node_package.is_unknown:
             self.active_nodes[node_package.id] = node_package.version, node_package.fullpath
 
         if node_package.is_enabled and node_package.is_unknown:
@@ -664,7 +664,7 @@ class UnifiedManager:
 
         return latest
 
-    async def reload(self, cache_mode):
+    async def reload(self, cache_mode, dont_wait=True):
         self.custom_node_map_cache = {}
         self.cnr_inactive_nodes = {}      # node_id -> node_version -> fullpath
         self.nightly_inactive_nodes = {}  # node_id -> fullpath
@@ -673,7 +673,7 @@ class UnifiedManager:
         self.active_nodes = {}            # node_id -> node_version * fullpath
 
         # reload 'cnr_map' and 'repo_cnr_map'
-        cnrs = await cnr_utils.get_cnr_data(cache_mode=cache_mode)
+        cnrs = await cnr_utils.get_cnr_data(cache_mode=cache_mode, dont_wait=dont_wait)
 
         for x in cnrs:
             self.cnr_map[x['id']] = x
