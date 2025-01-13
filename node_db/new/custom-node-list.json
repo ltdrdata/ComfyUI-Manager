@@ -10,6 +10,120 @@
 
         
         {
+            "author": "IDGallagher",
+            "title": "IG-Motion-Search",
+            "id": "motion-video-search",
+            "reference": "https://github.com/IDGallagher/MotionVideoSearch",
+            "files": [
+                "https://github.com/IDGallagher/MotionVideoSearch"
+            ],
+            "install_type": "git-clone",
+            "description": "Nodes for searching videos by motion"
+        },
+        {
+            "author": "l-comm",
+            "title": "WatermarkRemoval",
+            "id": "watermark-removal",
+            "reference": "https://github.com/l-comm/WatermarkRemoval",
+            "files": [
+                "https://github.com/l-comm/WatermarkRemoval"
+            ],
+            "install_type": "git-clone",
+            "description": "Watermark removal project"
+        },
+        {
+            "author": "philiprodriguez",
+            "title": "ComfyUI-HunyuanImageLatentToVideoLatent",
+            "reference": "https://github.com/philiprodriguez/ComfyUI-HunyuanImageLatentToVideoLatent",
+            "files": [
+                "https://github.com/philiprodriguez/ComfyUI-HunyuanImageLatentToVideoLatent"
+            ],
+            "install_type": "git-clone",
+            "description": "A ComfyUI node which copies a given latent's samples tensor along the time axis ((length - 1) // 4) + 1 times to form a longer latent (see EmptyHunyuanLatentVideo's implementation for why this specific number of copies is used) and then prepares a noise_mask tensor of the same shape such that the value of the mask for a given time step is given by the function at https://www.desmos.com/calculator/vhw74mr1vh."
+        },
+        {
+            "author": "benjiyaya",
+            "title": "ComfyUI-HunyuanVideoImagesGuider",
+            "reference": "https://github.com/benjiyaya/ComfyUI-HunyuanVideoImagesGuider",
+            "files": [
+                "https://github.com/benjiyaya/ComfyUI-HunyuanVideoImagesGuider"
+            ],
+            "install_type": "git-clone",
+            "description": "A specialized node for ComfyUI that enable advanced motion and animation capabilities for image as guider for video processing In Hunyuan Video."
+        },
+        {
+            "author": "lldacing",
+            "title": "ComfyUI_PuLID_Flux_ll",
+            "id": "comfyui_pulid_flux_ll",
+            "reference": "https://github.com/lldacing/ComfyUI_PuLID_Flux_ll",
+            "files": [
+                "https://github.com/lldacing/ComfyUI_PuLID_Flux_ll"
+            ],
+            "install_type": "git-clone",
+            "description": "The implementation for PuLID-Flux, support TeaCache, no model pollution."
+        },
+        {
+            "author": "lldacing",
+            "title": "ComfyUI_Patches_ll",
+            "reference": "https://github.com/lldacing/ComfyUI_Patches_ll",
+            "files": [
+                "https://github.com/lldacing/ComfyUI_Patches_ll"
+            ],
+            "install_type": "git-clone",
+            "description": "Some patches for Flux|HunYuanVideo etc, support TeaCache, PuLID."
+        },
+        {
+            "author": "Zeks",
+            "title": "comfyui-rapidfire",
+            "reference": "https://github.com/Zeks/comfyui-rapidfire",
+            "files": [
+                "https://github.com/Zeks/comfyui-rapidfire"
+            ],
+            "install_type": "git-clone",
+            "description": "A set of nodes for rapidfiring the half backed latents, cleaning up obvious bad generations and automatically queueing the rest to fully generate."
+        },
+        {
+            "author": "jhj0517",
+            "title": "ComfyUI-Moondream-Gaze-Detection",
+            "id": "comfyui-moondream-gaze-detection",
+            "reference": "https://github.com/jhj0517/ComfyUI-Moondream-Gaze-Detection",
+            "files": [
+                "https://github.com/jhj0517/ComfyUI-Moondream-Gaze-Detection"
+            ],
+            "install_type": "git-clone",
+            "description": "Moondream's gaze detection feature node from [a/ComfyUI-Moondream-Gaze-Detection](https://github.com/jhj0517/ComfyUI-Moondream-Gaze-Detection)."
+        },
+        {
+            "author": "liuqianhonga",
+            "title": "ComfyUI-QHNodes",
+            "reference": "https://github.com/liuqianhonga/ComfyUI-QHNodes",
+            "files": [
+                "https://github.com/liuqianhonga/ComfyUI-QHNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "A custom node collection developed for ComfyUI, offering preset dimensions for Latent, loading LoRA from folders, and integrating multiple commonly used custom nodes."
+        },
+        {
+            "author": "jnxmx",
+            "title": "ComfyUI_HuggingFace_Downloader",
+            "reference": "https://github.com/jnxmx/ComfyUI_HuggingFace_Downloader",
+            "files": [
+                "https://github.com/jnxmx/ComfyUI_HuggingFace_Downloader"
+            ],
+            "install_type": "git-clone",
+            "description": "The ComfyUI HuggingFace Downloader is a custom node extension for ComfyUI, designed to streamline the process of downloading models, checkpoints, and other resources from the Hugging Face Hub directly into your models directory. This tool simplifies workflow integration by providing a seamless interface to select and download required resources."
+        },
+        {
+            "author": "riverolls",
+            "title": "ComfyUI-FJDH",
+            "reference": "https://github.com/riverolls/ComfyUI-FJDH",
+            "files": [
+                "https://github.com/riverolls/ComfyUI-FJDH"
+            ],
+            "install_type": "git-clone",
+            "description": "bbox tools, image tools, mask generators, point tools"
+        },
+        {
             "author": "smthemex",
             "title": "ComfyUI_SVFR",
             "reference": "https://github.com/smthemex/ComfyUI_SVFR",
@@ -575,127 +689,6 @@
             ],
             "install_type": "git-clone",
             "description": "A ComfyUI custom node for creating mindmaps from markdown"
-        },
-        {
-            "author": "amorano",
-            "title": "Jovi_Spout",
-            "id": "jovi_spout",
-            "reference": "https://github.com/Amorano/Jovi_Spout",
-            "files": [
-                "https://github.com/Amorano/Jovi_Spout"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI Nodes for using Spout streams."
-        },
-        {
-            "author": "AconexOfficial",
-            "title": "ComfyUI GOAT Nodes",
-            "reference": "https://github.com/AconexOfficial/ComfyUI_GOAT_Nodes",
-            "files": [
-                "https://github.com/AconexOfficial/ComfyUI_GOAT_Nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Nodes to level up your workflows performance and streamline specific functions."
-        },
-        {
-            "author": "Jaminanim",
-            "title": "ComfyUI-Random-Int-Divisor-Node",
-            "reference": "https://github.com/Jaminanim/ComfyUI-Random-Int-Divisor-Node",
-            "files": [
-                "https://github.com/Jaminanim/ComfyUI-Random-Int-Divisor-Node"
-            ],
-            "install_type": "git-clone",
-            "description": "A set of custom ComfyUI nodes for generating random integers within a range, adjusted to the nearest multiple of a user-defined divisor. Needlessly includes both an efficient and simple list implementation. Updates with each generation."
-        },
-        {
-            "author": "LucipherDev",
-            "title": "ComfyUI-AniDoc",
-            "reference": "https://github.com/LucipherDev/ComfyUI-AniDoc",
-            "files": [
-                "https://github.com/LucipherDev/ComfyUI-AniDoc"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI Custom Nodes for 'AniDoc: Animation Creation Made Easier'. This approach automates line art video colorization using a novel model that aligns color information from references, ensures temporal consistency, and reduces manual effort in animation production."
-        },
-        {
-            "author": "bear2b",
-            "title": "ColorMatrixGPU Node for ComfyUI",
-            "reference": "https://github.com/bear2b/comfyui-argo-nodes",
-            "files": [
-                "https://github.com/bear2b/comfyui-argo-nodes"
-            ],
-            "install_type": "git-clone",
-            "description": "This node applies a custom 4x4 color matrix to an image using GPU acceleration via PyTorch."
-        },
-        {
-            "author": "Vaibhavs10",
-            "title": "ComfyUI-DDUF",
-            "reference": "https://github.com/Vaibhavs10/ComfyUI-DDUF",
-            "files": [
-                "https://github.com/Vaibhavs10/ComfyUI-DDUF"
-            ],
-            "install_type": "git-clone",
-            "description": "Run DDUF in ComfyUI - powered by Diffusers."
-        },
-        {
-            "author": "tocubed",
-            "title": "ComfyUI-EvTexture",
-            "reference": "https://github.com/tocubed/ComfyUI-EvTexture",
-            "files": [
-                "https://github.com/tocubed/ComfyUI-EvTexture"
-            ],
-            "install_type": "git-clone",
-            "description": "Wrapper for EvTexture Video Upscaler: [a/https://github.com/DachunKai/EvTexture](https://github.com/DachunKai/EvTexture)"
-        },
-        {
-            "author": "ShmuelRonen",
-            "title": "ComfyUI-LatentSyncWrapper",
-            "reference": "https://github.com/ShmuelRonen/ComfyUI-LatentSyncWrapper",
-            "files": [
-                "https://github.com/ShmuelRonen/ComfyUI-LatentSyncWrapper"
-            ],
-            "install_type": "git-clone",
-            "description": "This node provides lip-sync capabilities in ComfyUI using ByteDance's LatentSync model. It allows you to synchronize video lips with audio input."
-        },
-        {
-            "author": "sanbuphy",
-            "title": "ComfyUI-AudioLDM",
-            "reference": "https://github.com/sanbuphy/ComfyUI-AudioLDM",
-            "files": [
-                "https://github.com/sanbuphy/ComfyUI-AudioLDM"
-            ],
-            "install_type": "git-clone",
-            "description": "ComfyUI Workflow to run audioldm-l-full pipeline\n[a/https://huggingface.co/cvssp/audioldm-l-full](https://huggingface.co/cvssp/audioldm-l-full)"
-        },
-        {
-            "author": "1038lab",
-            "title": "ComfyUI-WildPromptor",
-            "reference": "https://github.com/1038lab/ComfyUI-WildPromptor",
-            "files": [
-                "https://github.com/1038lab/ComfyUI-WildPromptor"
-            ],
-            "install_type": "git-clone",
-            "description": "Create dynamic prompts with wildcard list."
-        },
-        {
-            "author": "sweetndata",
-            "title": "ComfyUI_Sticker_Compositer",
-            "reference": "https://github.com/sweetndata/ComfyUI_Sticker_Compositer",
-            "files": [
-                "https://github.com/sweetndata/ComfyUI_Sticker_Compositer"
-            ],
-            "install_type": "git-clone",
-            "description": "NODES:Sticker Compositer.\nbackground frame + sticker"
-        },
-        {
-            "author": "Jash-Vora",
-            "title": "FitDiT",
-            "reference": "https://github.com/Jash-Vora/ComfyUI-GarmentDiT",
-            "files": [
-                "https://github.com/Jash-Vora/ComfyUI-GarmentDiT"
-            ],
-            "install_type": "git-clone",
-            "description": "[a/FitDiT](https://arxiv.org/abs/2411.10499): Advancing the Authentic Garment Details for High-fidelity Virtual Try-onon"
         }
     ]
 }

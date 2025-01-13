@@ -5366,15 +5366,35 @@
             "description": "Hair transfer"
         },
         {
-            "author": "l-comm",
-            "title": "WatermarkRemoval",
-            "id": "watermark-removal",
-            "reference": "https://github.com/l-comm/WatermarkRemoval",
+            "author": "lldacing",
+            "title": "ComfyUI_PuLID_Flux_ll",
+            "id": "comfyui_pulid_flux_ll",
+            "reference": "https://github.com/lldacing/ComfyUI_PuLID_Flux_ll",
             "files": [
-                "https://github.com/l-comm/WatermarkRemoval"
+                "https://github.com/lldacing/ComfyUI_PuLID_Flux_ll"
             ],
             "install_type": "git-clone",
-            "description": "Watermark removal project"
+            "description": "The implementation for PuLID-Flux, support TeaCache, no model pollution."
+        },
+        {
+            "author": "lldacing",
+            "title": "ComfyUI_BiRefNet_ll",
+            "reference": "https://github.com/lldacing/ComfyUI_BiRefNet_ll",
+            "files": [
+                "https://github.com/lldacing/ComfyUI_BiRefNet_ll"
+            ],
+            "install_type": "git-clone",
+            "description": "Sync with version of BiRefNet. NODES:AutoDownloadBiRefNetModel, LoadRembgByBiRefNetModel, RembgByBiRefNet."
+        },
+        {
+            "author": "lldacing",
+            "title": "ComfyUI_Patches_ll",
+            "reference": "https://github.com/lldacing/ComfyUI_Patches_ll",
+            "files": [
+                "https://github.com/lldacing/ComfyUI_Patches_ll"
+            ],
+            "install_type": "git-clone",
+            "description": "Some patches for Flux|HunYuanVideo etc, support TeaCache, PuLID."
         },
         {
             "author": "CosmicLaca",
@@ -15343,16 +15363,6 @@
             "description": "NODES:Object Mask.\nNOTE:push [a/yolov8x-seg.pt](https://github.com/ultralytics/assets/releases/download/v8.2.0/yolov8x-seg.pt) in models/yolo"
         },
         {
-            "author": "lldacing",
-            "title": "ComfyUI_BiRefNet_ll",
-            "reference": "https://github.com/lldacing/ComfyUI_BiRefNet_ll",
-            "files": [
-                "https://github.com/lldacing/ComfyUI_BiRefNet_ll"
-            ],
-            "install_type": "git-clone",
-            "description": "Sync with version of BiRefNet. NODES:AutoDownloadBiRefNetModel, LoadRembgByBiRefNetModel, RembgByBiRefNet."
-        },
-        {
             "author": "Tenney95",
             "title": "ComfyUI-NodeAligner",
             "reference": "https://github.com/Tenney95/ComfyUI-NodeAligner",
@@ -17473,6 +17483,16 @@
             "description": "NODES: String Formatter, String List"
         },
         {
+            "author": "liuqianhonga",
+            "title": "ComfyUI-QHNodes",
+            "reference": "https://github.com/liuqianhonga/ComfyUI-QHNodes",
+            "files": [
+                "https://github.com/liuqianhonga/ComfyUI-QHNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "A custom node collection developed for ComfyUI, offering preset dimensions for Latent, loading LoRA from folders, and integrating multiple commonly used custom nodes."
+        },
+        {
             "author": "duhaifeng",
             "title": "ComfyUI-BiRefNet-lite",
             "reference": "https://github.com/rubi-du/ComfyUI-BiRefNet-Super",
@@ -19394,6 +19414,92 @@
             "install_type": "git-clone",
             "description": "Entry point for HommageTools node collection for ComfyUI. Handles node registration, imports, and logging configuration."
         },
+        {
+            "author": "ciga2011",
+            "title": "ComfyUI Pollinations",
+            "id": "pollinations",
+            "reference": "https://github.com/ciga2011/ComfyUI-Pollinations",
+            "files": [
+                "https://github.com/ciga2011/ComfyUI-Pollinations"
+            ],
+            "install_type": "git-clone",
+            "description": "Generate images from text prompts using Pollinations' AI models for free."
+        },
+        {
+            "author": "l-comm",
+            "title": "WatermarkRemoval",
+            "id": "watermark-removal",
+            "reference": "https://github.com/l-comm/WatermarkRemoval",
+            "files": [
+                "https://github.com/l-comm/WatermarkRemoval"
+            ],
+            "install_type": "git-clone",
+            "description": "Watermark removal project"
+        },
+        {
+            "author": "jhj0517",
+            "title": "ComfyUI-Moondream-Gaze-Detection",
+            "id": "comfyui-moondream-gaze-detection",
+            "reference": "https://github.com/jhj0517/ComfyUI-Moondream-Gaze-Detection",
+            "files": [
+                "https://github.com/jhj0517/ComfyUI-Moondream-Gaze-Detection"
+            ],
+            "install_type": "git-clone",
+            "description": "Moondream's gaze detection feature node from [a/ComfyUI-Moondream-Gaze-Detection](https://github.com/jhj0517/ComfyUI-Moondream-Gaze-Detection)."
+        },
+        {
+            "author": "jnxmx",
+            "title": "ComfyUI_HuggingFace_Downloader",
+            "reference": "https://github.com/jnxmx/ComfyUI_HuggingFace_Downloader",
+            "files": [
+                "https://github.com/jnxmx/ComfyUI_HuggingFace_Downloader"
+            ],
+            "install_type": "git-clone",
+            "description": "The ComfyUI HuggingFace Downloader is a custom node extension for ComfyUI, designed to streamline the process of downloading models, checkpoints, and other resources from the Hugging Face Hub directly into your models directory. This tool simplifies workflow integration by providing a seamless interface to select and download required resources."
+        },
+        {
+            "author": "philiprodriguez",
+            "title": "ComfyUI-HunyuanImageLatentToVideoLatent",
+            "reference": "https://github.com/philiprodriguez/ComfyUI-HunyuanImageLatentToVideoLatent",
+            "files": [
+                "https://github.com/philiprodriguez/ComfyUI-HunyuanImageLatentToVideoLatent"
+            ],
+            "install_type": "git-clone",
+            "description": "A ComfyUI node which copies a given latent's samples tensor along the time axis ((length - 1) // 4) + 1 times to form a longer latent (see EmptyHunyuanLatentVideo's implementation for why this specific number of copies is used) and then prepares a noise_mask tensor of the same shape such that the value of the mask for a given time step is given by the function at https://www.desmos.com/calculator/vhw74mr1vh."
+        },
+        {
+            "author": "benjiyaya",
+            "title": "ComfyUI-HunyuanVideoImagesGuider",
+            "reference": "https://github.com/benjiyaya/ComfyUI-HunyuanVideoImagesGuider",
+            "files": [
+                "https://github.com/benjiyaya/ComfyUI-HunyuanVideoImagesGuider"
+            ],
+            "install_type": "git-clone",
+            "description": "A specialized node for ComfyUI that enable advanced motion and animation capabilities for image as guider for video processing In Hunyuan Video."
+        },
+        {
+            "author": "Zeks",
+            "title": "comfyui-rapidfire",
+            "reference": "https://github.com/Zeks/comfyui-rapidfire",
+            "files": [
+                "https://github.com/Zeks/comfyui-rapidfire"
+            ],
+            "install_type": "git-clone",
+            "description": "A set of nodes for rapidfiring the half backed latents, cleaning up obvious bad generations and automatically queueing the rest to fully generate."
+        },
+        {
+            "author": "riverolls",
+            "title": "ComfyUI-FJDH",
+            "reference": "https://github.com/riverolls/ComfyUI-FJDH",
+            "files": [
+                "https://github.com/riverolls/ComfyUI-FJDH"
+            ],
+            "install_type": "git-clone",
+            "description": "bbox tools, image tools, mask generators, point tools"
+        },
+
+
+
 
 
 
@@ -19870,17 +19976,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "ciga2011",
-            "title": "ComfyUI Pollinations",
-            "id": "pollinations",
-            "reference": "https://github.com/ciga2011/ComfyUI-Pollinations",
-            "files": [
-                "https://github.com/ciga2011/ComfyUI-Pollinations"
-            ],
-            "install_type": "git-clone",
-            "description": "Generate images from text prompts using Pollinations' AI models for free."
-        }   
+        }  
     ]
 }
