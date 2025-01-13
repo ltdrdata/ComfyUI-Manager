@@ -537,7 +537,7 @@ def get_all_installed_node_specs():
         res.append(node_spec_str)
         processed.add(k)
 
-    for k, _ in unified_manager.cnr_inactive_nodes.keys():
+    for k in unified_manager.cnr_inactive_nodes.keys():
         if k in processed:
             continue
 
@@ -546,7 +546,7 @@ def get_all_installed_node_specs():
             node_spec_str = f"{k}@{str(latest[0])}"
             res.append(node_spec_str)
 
-    for k, _ in unified_manager.nightly_inactive_nodes.keys():
+    for k in unified_manager.nightly_inactive_nodes.keys():
         if k in processed:
             continue
 
