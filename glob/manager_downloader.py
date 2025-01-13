@@ -16,7 +16,11 @@ if aria2 is not None:
     aria2 = aria2p.API(aria2p.Client(host=host, port=port, secret=secret))
 
 
-def basic_download_url(url, dest_folder, filename):
+def basic_download_url(url, dest_folder: str, filename: str):
+    '''
+    Download file from url to dest_folder with filename
+    using requests library.
+    '''
     import requests
 
     # Ensure the destination folder exists
