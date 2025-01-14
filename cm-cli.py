@@ -37,7 +37,6 @@ from manager_core import unified_manager
 import cnr_utils
 
 
-
 comfyui_manager_path = os.path.abspath(os.path.dirname(__file__))
 comfy_path = os.environ.get('COMFYUI_PATH')
 
@@ -624,7 +623,10 @@ def install(
     cmd_ctx.set_user_directory(user_directory)
     cmd_ctx.set_channel_mode(channel, mode)
     cmd_ctx.set_no_deps(no_deps)
+
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
     for_each_nodes(nodes, act=install_node)
+    pip_fixer.fix_broken()
 
 
 @app.command(help="Reinstall custom nodes")
@@ -659,7 +661,10 @@ def reinstall(
     cmd_ctx.set_user_directory(user_directory)
     cmd_ctx.set_channel_mode(channel, mode)
     cmd_ctx.set_no_deps(no_deps)
+
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
     for_each_nodes(nodes, act=reinstall_node)
+    pip_fixer.fix_broken()
 
 
 @app.command(help="Uninstall custom nodes")
@@ -711,12 +716,15 @@ def update(
     if 'all' in nodes:
         asyncio.run(auto_save_snapshot())
 
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+
     for x in nodes:
         if x.lower() in ['comfyui', 'comfy', 'all']:
             update_comfyui()
             break
 
     update_parallel(nodes)
+    pip_fixer.fix_broken()
 
 
 @app.command(help="Disable custom nodes")
@@ -809,7 +817,9 @@ def fix(
     if 'all' in nodes:
         asyncio.run(auto_save_snapshot())
 
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
     for_each_nodes(nodes, fix_node, allow_all=True)
+    pip_fixer.fix_broken()
 
 
 @app.command("show-versions", help="Show all available versions of the node")
@@ -1060,12 +1070,14 @@ def restore_snapshot(
             print(f"[bold red]ERROR: `{snapshot_path}` is not exists.[/bold red]")
             exit(1)
 
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
     try:
         asyncio.run(core.restore_snapshot(snapshot_path, extras))
     except Exception:
         print("[bold red]ERROR: Failed to restore snapshot.[/bold red]")
         traceback.print_exc()
         raise typer.Exit(code=1)
+    pip_fixer.fix_broken()
 
 
 @app.command(
@@ -1089,11 +1101,14 @@ def restore_dependencies(
 
     total = len(node_paths)
     i = 1
+
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
     for x in node_paths:
         print("----------------------------------------------------------------------------------------------------")
         print(f"Restoring [{i}/{total}]: {x}")
         unified_manager.execute_install_script('', x, instant_execution=True)
         i += 1
+    pip_fixer.fix_broken()
 
 
 @app.command(
@@ -1105,7 +1120,10 @@ def post_install(
         )
 ):
     path = os.path.expanduser(path)
+
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
     unified_manager.execute_install_script('', path, instant_execution=True)
+    pip_fixer.fix_broken()
 
 
 @app.command(
@@ -1147,6 +1165,8 @@ def install_deps(
                 print(f"[bold red]Invalid json file: {deps}[/bold red]")
                 exit(1)
 
+
+            pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
             for k in json_obj['custom_nodes'].keys():
                 state = core.simple_check_custom_node(k)
                 if state == 'installed':
@@ -1155,6 +1175,7 @@ def install_deps(
                     asyncio.run(core.gitclone_install(k, instant_execution=True))
                 else:  # disabled
                     core.gitclone_set_active([k], False)
+            pip_fixer.fix_broken()
 
         print("Dependency installation and activation complete.")
 
