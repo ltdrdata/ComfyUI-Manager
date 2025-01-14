@@ -893,7 +893,7 @@ class UnifiedManager:
 
         archive_name = f"CNR_temp_{str(uuid.uuid4())}.zip"  # should be unpredictable name - security precaution
         download_path = os.path.join(get_default_custom_nodes_path(), archive_name)
-        manager_downloader.download_url(node_info.download_url, get_default_custom_nodes_path(), archive_name)
+        manager_downloader.basic_download_url(node_info.download_url, get_default_custom_nodes_path(), archive_name)
 
         # 2. extract files into <node_id>
         install_path = self.active_nodes[node_id][1]
