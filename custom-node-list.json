@@ -12337,7 +12337,7 @@
                 "https://github.com/exdysa/comfyui-selector"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:Selector. Quick and dirty parameter generator node for ComfyUI."
+            "description": "Selector and Recourse. Presets & failsafes. Work flow. EXDYSA"
         },
         {
             "author": "Jin Liu",
@@ -14862,6 +14862,16 @@
             "description": "This repository contains custom nodes for ComfyUI that integrate the fal.ai FLUX.1 [dev] with LoRA API, specifically for text-to-image generation. These nodes allow you to use the FLUX.1 model directly within your ComfyUI workflows."
         },
         {
+            "author": "yhayano-ponotech",
+            "title": "ComfyUI Local Save Node",
+            "reference": "https://github.com/yhayano-ponotech/comfyui-save-image-local",
+            "files": [
+                "https://github.com/yhayano-ponotech/comfyui-save-image-local"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI custom node for directly downloading generated images to your local PC with customizable filenames and formats (PNG/JPEG)."
+        },
+        {
             "author": "Rvage0815",
             "title": "ComfyUI-RvTools",
             "reference": "https://github.com/Rvage0815/ComfyUI-RvTools",
@@ -16008,17 +16018,6 @@
             ],
             "install_type": "git-clone",
             "description": "This plugin works with [a/IF_AI_Tools](https://github.com/if-ai/ComfyUI-IF_AI_tools) to build a workflow in ComfyUI that uses AI to assist in generating prompts."
-        },
-        {
-            "author": "jetchopper",
-            "title": "ComfyUI-GeneraNodes",
-            "id": "genera",
-            "reference": "https://github.com/evolox/ComfyUI-GeneraNodes",
-            "files": [
-                "https://github.com/evolox/ComfyUI-GeneraNodes"
-            ],
-            "install_type": "git-clone",
-            "description": "Genera custom nodes and extensions"
         },
         {
             "author": "Nojahhh",
@@ -18786,6 +18785,28 @@
             "description": "This node pack helps to convert various files to Markdown. It supports pdf, pptx, xlsx, docx, html and image files."
         },
         {
+            "author": "ciga2011",
+            "title": "ComfyUI Pollinations",
+            "id": "pollinations",
+            "reference": "https://github.com/ciga2011/ComfyUI-Pollinations",
+            "files": [
+                "https://github.com/ciga2011/ComfyUI-Pollinations"
+            ],
+            "install_type": "git-clone",
+            "description": "Generate images from text prompts using Pollinations' AI models for free."
+        },
+        {
+            "author": "ciga2011",
+            "title": "ComfyUI Prompt Optimizer",
+            "id": "promptoptimizer",
+            "reference": "https://github.com/ciga2011/ComfyUI-PromptOptimizer",
+            "files": [
+                "https://github.com/ciga2011/ComfyUI-PromptOptimizer"
+            ],
+            "install_type": "git-clone",
+            "description": "Optimize prompts for text-to-image models at no cost."
+        },
+        {
             "author": "IgalOgonov",
             "title": "Simple String Repository",
             "reference": "https://github.com/IgalOgonov/ComfyUI_Simple_String_Repository",
@@ -19415,17 +19436,6 @@
             "description": "Entry point for HommageTools node collection for ComfyUI. Handles node registration, imports, and logging configuration."
         },
         {
-            "author": "ciga2011",
-            "title": "ComfyUI Pollinations",
-            "id": "pollinations",
-            "reference": "https://github.com/ciga2011/ComfyUI-Pollinations",
-            "files": [
-                "https://github.com/ciga2011/ComfyUI-Pollinations"
-            ],
-            "install_type": "git-clone",
-            "description": "Generate images from text prompts using Pollinations' AI models for free."
-        },
-        {
             "author": "l-comm",
             "title": "WatermarkRemoval",
             "id": "watermark-removal",
@@ -19445,7 +19455,7 @@
                 "https://github.com/jhj0517/ComfyUI-Moondream-Gaze-Detection"
             ],
             "install_type": "git-clone",
-            "description": "Moondream's gaze detection feature node from [a/ComfyUI-Moondream-Gaze-Detection](https://github.com/jhj0517/ComfyUI-Moondream-Gaze-Detection)."
+            "description": "Moondream's gaze detection feature wrapper node."
         },
         {
             "author": "jnxmx",
@@ -19488,15 +19498,49 @@
             "description": "A set of nodes for rapidfiring the half backed latents, cleaning up obvious bad generations and automatically queueing the rest to fully generate."
         },
         {
-            "author": "riverolls",
-            "title": "ComfyUI-FJDH",
-            "reference": "https://github.com/riverolls/ComfyUI-FJDH",
+            "author": "meanin2",
+            "title": "ComfyUI Watermark Image Node",
+            "reference": "https://github.com/meanin2/comfyui-watermarking",
             "files": [
-                "https://github.com/riverolls/ComfyUI-FJDH"
+                "https://github.com/meanin2/comfyui-watermarking"
             ],
             "install_type": "git-clone",
-            "description": "bbox tools, image tools, mask generators, point tools"
+            "description": "This custom node allows you to overlay a watermark image onto an existing image within ComfyUI."
         },
+        {
+            "author": "Kurdknight",
+            "title": "KurdKnight ComfyUI System Check Node",
+            "reference": "https://github.com/Kurdknight/Kurdknight_comfycheck",
+            "files": [
+                "https://github.com/Kurdknight/Kurdknight_comfycheck"
+            ],
+            "install_type": "git-clone",
+            "description": "A comprehensive system information node for ComfyUI that provides detailed information about your system, GPU, CUDA, and AI libraries configuration. Works on both Windows and Linux systems."
+        },
+        {
+            "author": "ThepExcel",
+            "title": "Multiline Text Choice Node for ComfyUI",
+            "reference": "https://github.com/ThepExcel/aiangelgallery-comfyui",
+            "files": [
+                "https://github.com/ThepExcel/aiangelgallery-comfyui"
+            ],
+            "install_type": "git-clone",
+            "description": "This custom node for ComfyUI allows users to input multiline text and select a specific line by its number. The node processes the input and returns the selected line along with its index."
+        },
+        {
+            "author": "hosterosi",
+            "title": "ComfyUI OpenAI Node",
+            "reference": "https://github.com/hosterosi/ComfyUI_OpenAI",
+            "files": [
+                "https://github.com/hosterosi/ComfyUI_OpenAI"
+            ],
+            "install_type": "git-clone",
+            "description": "This custom node for ComfyUI allows users to input multiline text and select a specific line by its number. The node processes the input and returns the selected line along with its index."
+        },
+
+
+
+
 
 
 
@@ -19976,17 +20020,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "ciga2011",
-            "title": "ComfyUI Prompt Optimizer",
-            "id": "promptoptimizer",
-            "reference": "https://github.com/ciga2011/ComfyUI-PromptOptimizer",
-            "files": [
-                "https://github.com/ciga2011/ComfyUI-PromptOptimizer"
-            ],
-            "install_type": "git-clone",
-            "description": "Optimize prompts for text-to-image models at no cost."
-        }  
+        }
     ]
 }
