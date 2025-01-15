@@ -273,7 +273,7 @@ class PIPFixer:
         # fix torch - reinstall torch packages if version is changed
         try:
             if 'torch' not in self.prev_pip_versions or 'torchvision' not in self.prev_pip_versions or 'torchaudio' not in self.prev_pip_versions:
-                logging.error(f"[ComfyUI-Manager] PyTorch is not installed")
+                logging.error("[ComfyUI-Manager] PyTorch is not installed")
             elif self.prev_pip_versions['torch'] != new_pip_versions['torch'] \
                 or self.prev_pip_versions['torchvision'] != new_pip_versions['torchvision'] \
                 or self.prev_pip_versions['torchaudio'] != new_pip_versions['torchaudio']:
