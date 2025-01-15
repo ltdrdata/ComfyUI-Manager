@@ -41,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 7, 5]
+version_code = [3, 7, 6]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -753,6 +753,8 @@ class UnifiedManager:
                     v['title'] = cnr['name']
                     v['description'] = cnr['description']
                     v['health'] = '-'
+                    if 'repository' in cnr:
+                        v['repository'] = cnr['repository']
                     added_cnr.add(cnr['id'])
                     node_id = v['id']
                 else:
@@ -1331,7 +1333,7 @@ class UnifiedManager:
                 if version_spec == 'unknown':
                     repo_url = the_node['files'][0]
                 else:  # nightly
-                    repo_url = the_node['reference']
+                    repo_url = the_node['repository']
             else:
                 result = ManagedResult('install')
                 return result.fail(f"Node '{node_id}@{version_spec}' not found in [{channel}, {mode}]")
