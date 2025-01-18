@@ -95,6 +95,7 @@ class Ctx:
         self.mode = 'cache'
         self.user_directory = None
         self.custom_nodes_paths = [os.path.join(core.comfy_path, 'custom_nodes')]
+        self.manager_files_directory = os.path.dirname(__file__)
         
         if Ctx.folder_paths is None:
             try:
