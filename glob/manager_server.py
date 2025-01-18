@@ -566,7 +566,7 @@ async def fetch_customnode_list(request):
     else:
         channel = core.get_config()['channel_url']
 
-    node_packs = await core.get_unified_total_nodes(channel, request.rel_url.query["mode"])
+    node_packs = await core.get_unified_total_nodes(channel, request.rel_url.query["mode"], 'cache')
     json_obj_github = core.get_data_by_mode(request.rel_url.query["mode"], 'github-stats.json', 'default')
     json_obj_extras = core.get_data_by_mode(request.rel_url.query["mode"], 'extras.json', 'default')
 
@@ -1434,8 +1434,8 @@ async def default_cache_update():
     await asyncio.gather(a, b, c, d, e)
 
     # load at least once
-    await core.unified_manager.reload('cache', dont_wait=False)
-    await core.unified_manager.get_custom_nodes('default', 'cache')
+    await core.unified_manager.reload('remote', dont_wait=False)
+    await core.unified_manager.get_custom_nodes('default', 'remote')
 
     # NOTE: hide migration button temporarily.
     # if not core.get_config()['skip_migration_check']:

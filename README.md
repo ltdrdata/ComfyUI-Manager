@@ -146,7 +146,15 @@ In `ComfyUI-Manager` V3.0 and later, configuration files and dynamically generat
 * Saved snapshot files: `<USER_DIRECTORY>/default/ComfyUI-Manager/snapshots`
 * Startup script files: `<USER_DIRECTORY>/default/ComfyUI-Manager/startup-scripts`
 * Component files: `<USER_DIRECTORY>/default/ComfyUI-Manager/components`
-  
+
+
+## `extra_model_paths.yaml` Configuration
+The following settings are applied based on the section marked as `is_default`.
+
+* `custom_nodes`: Path for installing custom nodes
+    * Importing does not need to adhere to the path set as `is_default`, but this is the path where custom nodes are installed by the `ComfyUI Nodes Manager`.
+* `download_model_base`: Path for downloading models
+
 
 ## Snapshot-Manager
 * When you press `Save snapshot` or use `Update All` on `Manager Menu`, the current installation status snapshot is saved.

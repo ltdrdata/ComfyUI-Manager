@@ -130,9 +130,34 @@ async def get_data(uri, silent=False):
     return json_obj
 
 
-async def get_data_with_cache(uri, silent=False, cache_mode=True, dont_wait=False):
+def get_cache_path(uri):
     cache_uri = str(simple_hash(uri)) + '_' + os.path.basename(uri).replace('&', "_").replace('?', "_").replace('=', "_")
-    cache_uri = os.path.join(cache_dir, cache_uri+'.json')
+    return os.path.join(cache_dir, cache_uri+'.json')
+
+
+def get_cache_state(uri):
+    cache_uri = get_cache_path(uri)
+
+    if not os.path.exists(cache_uri):
+        return "not-cached"
+    elif is_file_created_within_one_day(cache_uri):
+        return "cached"
+
+    return "expired"
+
+
+def save_to_cache(uri, json_obj, silent=False):
+    cache_uri = get_cache_path(uri)
+
+    with cache_lock:
+        with open(cache_uri, "w", encoding='utf-8') as file:
+            json.dump(json_obj, file, indent=4, sort_keys=True)
+            if not silent:
+                logging.info(f"[ComfyUI-Manager] default cache updated: {uri}")
+
+
+async def get_data_with_cache(uri, silent=False, cache_mode=True, dont_wait=False):
+    cache_uri = get_cache_path(uri)
 
     if cache_mode and dont_wait:
         # NOTE: return the cache if possible, even if it is expired, so do not cache

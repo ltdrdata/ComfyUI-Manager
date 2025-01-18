@@ -41,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 8, 1]
+version_code = [3, 9]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -682,11 +682,10 @@ class UnifiedManager:
         self.active_nodes = {}            # node_id -> node_version * fullpath
 
         # reload 'cnr_map' and 'repo_cnr_map'
-        cnrs = await cnr_utils.get_cnr_data(cache_mode=cache_mode, dont_wait=dont_wait)
+        cnrs = await cnr_utils.get_cnr_data(cache_mode=cache_mode=='cache', dont_wait=dont_wait)
 
         for x in cnrs:
             self.cnr_map[x['id']] = x
-
             if 'repository' in x:
                 normalized_url = git_utils.normalize_url(x['repository'])
                 self.repo_cnr_map[normalized_url] = x
@@ -2696,8 +2695,8 @@ def map_to_unified_keys(json_obj):
     return res
 
 
-async def get_unified_total_nodes(channel, mode):
-    await unified_manager.reload(mode)
+async def get_unified_total_nodes(channel, mode, regsitry_cache_mode='cache'):
+    await unified_manager.reload(regsitry_cache_mode)
 
     res = await unified_manager.get_custom_nodes(channel, mode)
 
@@ -2780,6 +2779,7 @@ async def get_unified_total_nodes(channel, mode):
             author = cnr['publisher']['name']
             title = cnr['name']
             reference = f"https://registry.comfy.org/nodes/{cnr['id']}"
+            repository = cnr.get('repository', '')
             install_type = "cnr"
             description = cnr.get('description', '')
 
@@ -2811,7 +2811,7 @@ async def get_unified_total_nodes(channel, mode):
             if ver is None:
                 ver = cnr['latest_version']['version']
 
-            item = dict(author=author, title=title, reference=reference, install_type=install_type,
+            item = dict(author=author, title=title, reference=reference, repository=repository, install_type=install_type,
                         description=description, state=state, updatable=updatable, version=ver)
 
             if active_version:
