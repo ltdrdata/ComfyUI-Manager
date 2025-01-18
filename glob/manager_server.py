@@ -945,6 +945,8 @@ async def fix_custom_node(request):
     if res.result:
         logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
         return web.json_response({}, content_type='application/json')
+    else:
+        logging.error(res.msg)
 
     logging.error(f"\nERROR: An error occurred while fixing '{node_name}@{node_ver}'.")
     return web.Response(status=400, text=f"An error occurred while fixing '{node_name}@{node_ver}'.")
