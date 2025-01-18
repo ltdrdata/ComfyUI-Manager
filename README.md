@@ -25,6 +25,7 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 - standalone version  
 - select option: use windows default console window
 2. Download [scripts/install-manager-for-portable-version.bat](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-manager-for-portable-version.bat) into installed `"ComfyUI_windows_portable"` directory
+- Don't click. Right click the link and use save as...
 3. double click `install-manager-for-portable-version.bat` batch file
 
 ![portable-install](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/portable-install.jpg)
@@ -50,6 +51,7 @@ python -m venv venv
 pip install comfy-cli
 comfy install
 ```
+* See also: https://github.com/Comfy-Org/comfy-cli
 
 
 ### Installation[method4] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
@@ -58,6 +60,7 @@ To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you c
 * **prerequisite: python-is-python3, python3-venv, git**
 
 1. Download [scripts/install-comfyui-venv-linux.sh](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-comfyui-venv-linux.sh) into empty install directory
+- Don't click. Right click the link and use save as...
 - ComfyUI will be installed in the subdirectory of the specified directory, and the directory will contain the generated executable script.
 2. `chmod +x install-comfyui-venv-linux.sh`
 3. `./install-comfyui-venv-linux.sh`
