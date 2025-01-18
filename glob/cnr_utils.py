@@ -18,7 +18,7 @@ async def get_cnr_data(cache_mode=True, dont_wait=True):
     try:
         return await _get_cnr_data(cache_mode, dont_wait)
     except asyncio.TimeoutError:
-        print(f"A timeout occurred during the fetch process from ComfyRegistry.")
+        print("A timeout occurred during the fetch process from ComfyRegistry.")
         return await _get_cnr_data(cache_mode=True, dont_wait=True)  # timeout fallback
 
 async def _get_cnr_data(cache_mode=True, dont_wait=True):
