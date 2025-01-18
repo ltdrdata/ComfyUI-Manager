@@ -125,7 +125,7 @@ async def get_data(uri, silent=False):
     json_obj = json.loads(json_text)
 
     if not silent:
-        logging.info(" [DONE]")
+        print(" [DONE]")
 
     return json_obj
 

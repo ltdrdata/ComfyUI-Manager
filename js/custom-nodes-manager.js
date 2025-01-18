@@ -4,7 +4,7 @@ import { api } from "../../scripts/api.js";
 
 import {
 	manager_instance, rebootAPI, install_via_git_url,
-	fetchData, md5, icons, show_message, customConfirm, customAlert, customPrompt
+	fetchData, md5, icons, show_message, customConfirm, customAlert, customPrompt, sanitizeHTML
 } from  "./common.js";
 
 // https://cenfun.github.io/turbogrid/api.html
@@ -247,6 +247,13 @@ const pageCss = `
 
 .cn-manager .cn-btn-try-fix {
 	background-color: #6495ED;
+	color: white;
+}
+
+.cn-manager .cn-btn-import-failed {
+	background-color: #AA1111;
+    font-size: 10px;
+	font-weight: bold;
 	color: white;
 }
 
@@ -872,6 +879,38 @@ export class CustomNodesManager {
 		return this.filter === ShowMode.ALTERNATIVES
 	}
 
+	async handleImportFail(rowItem) {
+		var info;
+		if(rowItem.version == 'unknown'){
+			info = {
+				'url': rowItem.originalData.files[0]
+			};
+		}
+		else{
+			info = {
+				'cnr_id': rowItem.originalData.id
+			};
+		}
+
+		const response = await api.fetchApi(`/customnode/import_fail_info`, {
+									method: 'POST',
+									headers: { 'Content-Type': 'application/json' },
+									body: JSON.stringify(info)
+								});
+
+		let res = await response.json();
+
+		let title = `<FONT COLOR=GREEN><B>Error message occurred while importing the '${rowItem.title}' module.</B></FONT><BR><HR><BR>`
+
+		if(res.code == 400)
+		{
+			show_message(title+'The information is not available.')
+		}
+		else {
+			show_message(title+sanitizeHTML(res['msg']).replace(/ /g, '&nbsp;').replace(/\n/g, '<BR>'));
+		}
+	}
+
 	renderGrid() {
 
 		// update theme
@@ -905,6 +944,7 @@ export class CustomNodesManager {
 			}
 		}
 
+		let self = this;
 		const columns = [{
 			id: 'id',
 			name: 'ID',
@@ -918,16 +958,29 @@ export class CustomNodesManager {
 			maxWidth: 500,
 			classMap: 'cn-node-name',
 			formatter: (title, rowItem, columnItem) => {
-			    var prefix = '';
-			    if(rowItem.action === 'invalid-installation') {
-			        prefix = '<font color="red"><B>(INVALID)</B></font>';
-			    }
+				const container = document.createElement('div');
 
-			    else if(rowItem.action === 'import-fail') {
-			        prefix = '<font color="red"><B>(IMPORT FAILED)</B></font>';
-			    }
+				if (rowItem.action === 'invalid-installation') {
+					const invalidTag = document.createElement('span');
+					invalidTag.style.color = 'red';
+					invalidTag.innerHTML = '<b>(INVALID)</b>';
+					container.appendChild(invalidTag);
+				} else if (rowItem.action === 'import-fail') {
+					const button = document.createElement('button');
+					button.className = 'cn-btn-import-failed';
+					button.innerText = 'IMPORT FAILED ↗';
+					button.onclick = () => self.handleImportFail(rowItem);
+					container.appendChild(button);
+					container.appendChild(document.createElement('br'));
+				}
 
-				return `${prefix}<a href=${rowItem.reference} target="_blank"><b>${title}</b></a>`;
+				const link = document.createElement('a');
+				link.href = rowItem.reference;
+				link.target = '_blank';
+				link.innerHTML = `<b>${title}</b>`;
+				container.appendChild(link);
+
+				return container;
 			}
 		}, {
 			id: 'version',

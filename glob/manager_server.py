@@ -839,6 +839,23 @@ async def get_disabled_versions(request):
     return web.Response(status=400)
 
 
+@routes.post("/customnode/import_fail_info")
+async def import_fail_info(request):
+    json_data = await request.json()
+
+    if 'cnr_id' in json_data:
+        module_name = core.unified_manager.get_module_name(json_data['cnr_id'])
+    else:
+        module_name = core.unified_manager.get_module_name(json_data['url'])
+
+    if module_name is not None:
+        info = cm_global.error_dict.get(module_name)
+        if info is not None:
+            return web.json_response(info)
+
+    return web.Response(status=400)
+
+
 @routes.post("/customnode/reinstall")
 async def reinstall_custom_node(request):
     await uninstall_custom_node(request)
@@ -1436,4 +1453,5 @@ cm_global.register_extension('ComfyUI-Manager',
                                  'name': 'ComfyUI Manager',
                                  'nodes': {},
                                  'description': 'This extension provides the ability to manage custom nodes in ComfyUI.', })
+
 

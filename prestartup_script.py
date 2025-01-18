@@ -9,6 +9,7 @@ import platform
 import json
 import ast
 import logging
+import traceback
 
 glob_path = os.path.join(os.path.dirname(__file__), "glob")
 sys.path.append(glob_path)
@@ -146,6 +147,48 @@ def process_wrap(cmd_str, cwd_path, handler=None, env=None):
     return process.wait()
 
 
+original_stdout = sys.stdout
+
+
+def try_get_custom_nodes(x):
+    for custom_nodes_dir in folder_paths.get_folder_paths('custom_nodes'):
+        if x.startswith(custom_nodes_dir):
+            relative_path = os.path.relpath(x, custom_nodes_dir)
+            next_segment = relative_path.split(os.sep)[0]
+            if next_segment.lower() != 'comfyui-manager':
+                return next_segment, os.path.join(custom_nodes_dir, next_segment)
+    return None
+
+
+def extract_origin_module():
+    stack = traceback.extract_stack()[:-2]
+    for frame in reversed(stack):
+        info = try_get_custom_nodes(frame.filename)
+        if info is None:
+            continue
+        else:
+            return info
+    return None
+
+def extract_origin_module_from_strings(file_paths):
+    for filepath in file_paths:
+        info = try_get_custom_nodes(filepath)
+        if info is None:
+            continue
+        else:
+            return info
+    return None
+
+
+def finalize_startup():
+    res = {}
+    for k, v in cm_global.error_dict.items():
+        if v['path'] in import_failed_extensions:
+            res[k] = v
+
+    cm_global.error_dict = res
+
+
 try:
     if '--port' in sys.argv:
         port_index = sys.argv.index('--port')
@@ -225,8 +268,16 @@ try:
                 if match:
                     import_failed_extensions.add(match.group(1).strip())
 
-                if 'Starting server' in message:
-                    is_start_mode = False
+                if not self.is_stdout:
+                    origin_info = extract_origin_module()
+                    if origin_info is not None:
+                        name, origin_path = origin_info
+                        
+                        if name != 'comfyui-manager':
+                            if name not in cm_global.error_dict:
+                                cm_global.error_dict[name] = {'name': name, 'path': origin_path, 'msg': ''}
+
+                            cm_global.error_dict[name]['msg'] += message
 
             if not self.is_stdout:
                 match = re.search(pat_tqdm, message)
@@ -311,11 +362,33 @@ try:
                 if match:
                     import_failed_extensions.add(match.group(1).strip())
 
+                if 'Traceback' in message:
+                    file_lists = self._extract_file_paths(message)
+                    origin_info = extract_origin_module_from_strings(file_lists)
+                    if origin_info is not None:
+                        name, origin_path = origin_info
+                        
+                        if name != 'comfyui-manager':
+                            if name not in cm_global.error_dict:
+                                cm_global.error_dict[name] = {'name': name, 'path': origin_path, 'msg': ''}
+
+                            cm_global.error_dict[name]['msg'] += message
+
                 if 'Starting server' in message:
                     is_start_mode = False
+                    finalize_startup()
 
             if stderr_wrapper:
                 stderr_wrapper.sync_write(message+'\n', file_only=True)
+
+        def _extract_file_paths(self, msg):
+            file_paths = []
+            for line in msg.split('\n'):
+                match = re.findall(r'File \"(.*?)\", line \d+', line)
+                for x in match:
+                    if not x.startswith('<'):
+                        file_paths.extend(match)
+            return file_paths
 
 
     logging.getLogger().addHandler(LoggingHandler())

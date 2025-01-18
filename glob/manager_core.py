@@ -41,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 7, 6]
+version_code = [3, 8]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -121,7 +121,6 @@ def check_invalid_nodes():
         for subdir in subdirs:
             if subdir in ['.disabled', '__pycache__']:
                 continue
-
 
             package = unified_manager.installed_node_packages.get(subdir)
             if not package:
@@ -368,6 +367,16 @@ class UnifiedManager:
         self.custom_node_map_cache = {}    # (channel, mode) -> augmented custom node list json
         self.processed_install = set()
 
+    def get_module_name(self, x):
+        info = self.active_nodes.get(x)
+        if info is None:
+            for url, fullpath in self.unknown_active_nodes.values():
+                if url == x:
+                    return os.path.basename(fullpath)
+        else:
+            return os.path.basename(info[1])
+
+        return None
 
     def get_cnr_by_repo(self, url):
         return self.repo_cnr_map.get(git_utils.normalize_url(url))
@@ -501,8 +510,8 @@ class UnifiedManager:
         self.installed_node_packages[node_package.id] = node_package
 
         if node_package.is_disabled and node_package.is_unknown:
-            # NOTE: unknown package does not have an url.
-            self.unknown_inactive_nodes[node_package.id] = ('', node_package.fullpath)
+            url = git_utils.git_url(node_package.fullpath)
+            self.unknown_inactive_nodes[node_package.id] = (url, node_package.fullpath)
 
         if node_package.is_disabled and node_package.is_nightly:
             self.nightly_inactive_nodes[node_package.id] = node_package.fullpath
@@ -511,8 +520,8 @@ class UnifiedManager:
             self.active_nodes[node_package.id] = node_package.version, node_package.fullpath
 
         if node_package.is_enabled and node_package.is_unknown:
-            # NOTE: unknown package does not have an url.
-            self.unknown_active_nodes[node_package.id] = ('', node_package.fullpath)
+            url = git_utils.git_url(node_package.fullpath)
+            self.unknown_active_nodes[node_package.id] = (url, node_package.fullpath)
 
         if node_package.is_from_cnr and node_package.is_disabled:
             self.add_to_cnr_inactive_nodes(node_package.id, node_package.version, node_package.fullpath)
@@ -725,7 +734,6 @@ class UnifiedManager:
     async def get_custom_nodes(self, channel, mode):
         # default_channel = normalize_channel('default')
         # cache = self.custom_node_map_cache.get((default_channel, mode)) # CNR/nightly should always be based on the default channel.
-
 
         channel = normalize_channel(channel)
         cache = self.custom_node_map_cache.get((channel, mode)) # CNR/nightly should always be based on the default channel.
