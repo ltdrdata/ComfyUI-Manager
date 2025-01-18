@@ -118,7 +118,7 @@ class Ctx:
         if channel is not None:
             self.channel = channel
 
-        asyncio.run(unified_manager.reload(cache_mode=self.mode == 'cache', dont_wait=False))
+        asyncio.run(unified_manager.reload(cache_mode=self.mode, dont_wait=False))
         asyncio.run(unified_manager.load_nightly(self.channel, self.mode))
 
     def set_no_deps(self, no_deps):

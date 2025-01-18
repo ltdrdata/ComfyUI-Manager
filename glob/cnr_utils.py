@@ -15,6 +15,13 @@ lock = asyncio.Lock()
 is_cache_loading = False
 
 async def get_cnr_data(cache_mode=True, dont_wait=True):
+    try:
+        return await _get_cnr_data(cache_mode, dont_wait)
+    except asyncio.TimeoutError:
+        print(f"A timeout occurred during the fetch process from ComfyRegistry.")
+        return await _get_cnr_data(cache_mode=True, dont_wait=True)  # timeout fallback
+
+async def _get_cnr_data(cache_mode=True, dont_wait=True):
     global is_cache_loading
 
     uri = f'{base_url}/nodes'
@@ -26,7 +33,7 @@ async def get_cnr_data(cache_mode=True, dont_wait=True):
         full_nodes = {}
         while remained:
             sub_uri = f'{base_url}/nodes?page={page}&limit=30'
-            sub_json_obj = await manager_util.get_data_with_cache(sub_uri, cache_mode=False, silent=True)
+            sub_json_obj = await asyncio.wait_for(manager_util.get_data_with_cache(sub_uri, cache_mode=False, silent=True), timeout=10)
             remained = page < sub_json_obj['totalPages']
 
             for x in sub_json_obj['nodes']:
