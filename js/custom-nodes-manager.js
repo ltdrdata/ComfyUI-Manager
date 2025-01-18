@@ -975,7 +975,10 @@ export class CustomNodesManager {
 				}
 
 				const link = document.createElement('a');
-				link.href = rowItem.reference;
+				if(rowItem.originalData.repository)
+					link.href = rowItem.originalData.repository;
+				else
+					link.href = rowItem.reference;
 				link.target = '_blank';
 				link.innerHTML = `<b>${title}</b>`;
 				container.appendChild(link);

@@ -1,6 +1,62 @@
 {
   "models": [
     {
+      "name": "comfyanonymous/cosmos_cv8x8x8_1.0.safetensors",
+      "type": "VAE",
+      "base": "Cosmos-1.0",
+      "save_path": "default",
+      "description": "VAE model for Cosmos 1.0",
+      "reference": "https://huggingface.co/comfyanonymous/cosmos_1.0_text_encoder_and_VAE_ComfyUI/tree/main",
+      "filename": "cosmos_cv8x8x8_1.0.safetensors",
+      "url": "https://huggingface.co/comfyanonymous/cosmos_1.0_text_encoder_and_VAE_ComfyUI/resolve/main/vae/cosmos_cv8x8x8_1.0.safetensors",
+      "size": "211MB"
+    },
+    {
+      "name": "mcmonkey/Cosmos-1_0-Diffusion-7B-Text2World.safetensors",
+      "type": "diffusion_model",
+      "base": "Cosmos-1.0",
+      "save_path": "diffusion_models/cosmos-1.0",
+      "description": "Cosmos 1.0 Text2World Diffusion Model (7B)",
+      "reference": "https://huggingface.co/mcmonkey/cosmos-1.0",
+      "filename": "Cosmos-1_0-Diffusion-7B-Text2World.safetensors",
+      "url": "https://huggingface.co/mcmonkey/cosmos-1.0/resolve/main/Cosmos-1_0-Diffusion-7B-Text2World.safetensors",
+      "size": "14.5GB"
+    },
+    {
+      "name": "mcmonkey/Cosmos-1_0-Diffusion-7B-Video2World.safetensors",
+      "type": "diffusion_model",
+      "base": "Cosmos-1.0",
+      "save_path": "diffusion_models/cosmos-1.0",
+      "description": "Cosmos 1.0 Video2World Diffusion Model (7B)",
+      "reference": "https://huggingface.co/mcmonkey/cosmos-1.0",
+      "filename": "Cosmos-1_0-Diffusion-7B-Video2World.safetensors",
+      "url": "https://huggingface.co/mcmonkey/cosmos-1.0/resolve/main/Cosmos-1_0-Diffusion-7B-Video2World.safetensors",
+      "size": "14.5GB"
+    },
+    {
+      "name": "mcmonkey/Cosmos-1_0-Diffusion-14B-Text2World.safetensors",
+      "type": "diffusion_model",
+      "base": "Cosmos-1.0",
+      "save_path": "diffusion_models/cosmos-1.0",
+      "description": "Cosmos 1.0 Text2World Diffusion Model (14B)",
+      "reference": "https://huggingface.co/mcmonkey/cosmos-1.0",
+      "filename": "Cosmos-1_0-Diffusion-14B-Text2World.safetensors",
+      "url": "https://huggingface.co/mcmonkey/cosmos-1.0/resolve/main/Cosmos-1_0-Diffusion-14B-Text2World.safetensors",
+      "size": "28.5GB"
+    },
+    {
+      "name": "mcmonkey/Cosmos-1_0-Diffusion-14B-Video2World.safetensors",
+      "type": "diffusion_model",
+      "base": "Cosmos-1.0",
+      "save_path": "diffusion_models/cosmos-1.0",
+      "description": "Cosmos 1.0 Video2World Diffusion Model (14B)",
+      "reference": "https://huggingface.co/mcmonkey/cosmos-1.0",
+      "filename": "Cosmos-1_0-Diffusion-14B-Video2World.safetensors",
+      "url": "https://huggingface.co/mcmonkey/cosmos-1.0/resolve/main/Cosmos-1_0-Diffusion-14B-Video2World.safetensors",
+      "size": "28.5GB"
+    },
+
+    {
       "name": "Comfy-Org/llava_llama3_fp8_scaled.safetensors",
       "type": "clip",
       "base": "LLaVA-Llama-3",
@@ -661,73 +717,6 @@
       "filename": "Hyper-SD15-12steps-CFG-lora.safetensors",
       "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-12steps-CFG-lora.safetensors",
       "size": "269MB"
-    },
-
-    {
-      "name": "Hyper-SD LoRA (1step) - SDXL",
-      "type": "lora",
-      "base": "SDXL",
-      "save_path": "loras/HyperSD/SDXL",
-      "description": "Hyper-SD LoRA (1step) - SDXL",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SDXL-1step-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-1step-lora.safetensors",
-      "size": "787MB"
-    },
-    {
-      "name": "Hyper-SD LoRA (2steps) - SDXL",
-      "type": "lora",
-      "base": "SDXL",
-      "save_path": "loras/HyperSD/SDXL",
-      "description": "Hyper-SD LoRA (2steps) - SDXL",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SDXL-2steps-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-2steps-lora.safetensors",
-      "size": "787MB"
-    },
-    {
-      "name": "Hyper-SD LoRA (4steps) - SDXL",
-      "type": "lora",
-      "base": "SDXL",
-      "save_path": "loras/HyperSD/SDXL",
-      "description": "Hyper-SD LoRA (4steps) - SDXL",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SD15-4steps-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-4steps-lora.safetensors",
-      "size": "787MB"
-    },
-    {
-      "name": "Hyper-SD LoRA (8steps) - SDXL",
-      "type": "lora",
-      "base": "SDXL",
-      "save_path": "loras/HyperSD/SDXL",
-      "description": "Hyper-SD LoRA (8steps) - SDXL",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SDXL-8steps-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-8steps-lora.safetensors",
-      "size": "787MB"
-    },
-    {
-      "name": "Hyper-SD CFG LoRA (8steps) - SDXL",
-      "type": "lora",
-      "base": "SDXL",
-      "save_path": "loras/HyperSD/SDXL",
-      "description": "Hyper-SD CFG LoRA (8steps) - SDXL",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SDXL-8steps-CFG-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-8steps-CFG-lora.safetensors",
-      "size": "787MB"
-    },
-    {
-      "name": "Hyper-SD CFG LoRA (12steps) - SDXL",
-      "type": "lora",
-      "base": "SDXL",
-      "save_path": "loras/HyperSD/SDXL",
-      "description": "Hyper-SD CFG LoRA (12steps) - SDXL",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SDXL-12steps-CFG-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-12steps-CFG-lora.safetensors",
-      "size": "787MB"
     }
   ]
 }
