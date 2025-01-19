@@ -6,6 +6,7 @@ import toml
 import os
 import asyncio
 import json
+import time
 
 base_url = "https://api.comfy.org"
 
@@ -33,7 +34,7 @@ async def _get_cnr_data(cache_mode=True, dont_wait=True):
         full_nodes = {}
         while remained:
             sub_uri = f'{base_url}/nodes?page={page}&limit=30'
-            sub_json_obj = await asyncio.wait_for(manager_util.get_data_with_cache(sub_uri, cache_mode=False, silent=True), timeout=10)
+            sub_json_obj = await asyncio.wait_for(manager_util.get_data_with_cache(sub_uri, cache_mode=False, silent=True), timeout=30)
             remained = page < sub_json_obj['totalPages']
 
             for x in sub_json_obj['nodes']:
@@ -41,7 +42,9 @@ async def _get_cnr_data(cache_mode=True, dont_wait=True):
 
             if page % 5 == 0:
                 print(f"FETCH ComfyRegistry Data: {page}/{sub_json_obj['totalPages']}")
+
             page += 1
+            time.sleep(0.5)
 
         print("FETCH ComfyRegistry Data [DONE]")
 
