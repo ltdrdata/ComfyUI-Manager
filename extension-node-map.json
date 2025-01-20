@@ -1869,6 +1869,7 @@
     ],
     "https://github.com/BennyKok/comfyui-deploy": [
         [
+            "ComfyDeployOutputImage",
             "ComfyDeployWebscoketImageInput",
             "ComfyDeployWebscoketImageOutput",
             "ComfyUIDeployExternalBoolean",
@@ -2130,13 +2131,24 @@
             "BriaEraser",
             "BriaGenFill",
             "BriaTailoredGen",
+            "ReimagineNode",
             "ShotByImageNode",
             "ShotByTextNode",
             "TailoredModelInfoNode",
-            "Text2ImageBaseNode"
+            "Text2ImageBaseNode",
+            "Text2ImageFastNode",
+            "Text2ImageHDNode"
         ],
         {
             "title_aux": "BRIA AI API nodes"
+        }
+    ],
+    "https://github.com/Burgstall-labs/ComfyUI-BS_Kokoro-onnx": [
+        [
+            "Kokoro TTS"
+        ],
+        {
+            "title_aux": "ComfyUI-BS_Kokoro-onnx"
         }
     ],
     "https://github.com/CC-BryanOttho/ComfyUI_API_Manager": [
@@ -4868,6 +4880,15 @@
             "title_aux": "ComfyUI-kewky_tools"
         }
     ],
+    "https://github.com/Kidev/ComfyUI-Fisheye-effects": [
+        [
+            "Defisheye",
+            "Fisheye"
+        ],
+        {
+            "title_aux": "ComfyUI Fisheye Effects Nodes"
+        }
+    ],
     "https://github.com/KohakuBlueleaf/z-tipo-extension": [
         [
             "TIPO",
@@ -5261,6 +5282,7 @@
             "Texturaizer_GetImageData",
             "Texturaizer_GetJsonData",
             "Texturaizer_GetLoraData",
+            "Texturaizer_GetMaterialTileData",
             "Texturaizer_GetModelName",
             "Texturaizer_GetPromptData",
             "Texturaizer_GetRenderData",
@@ -6068,6 +6090,7 @@
             "BlackBarsV1",
             "BlackBarsV2",
             "BlackBarsV3",
+            "CRT_Effect_v1",
             "ClassicFilmEffect",
             "CombineAudio",
             "DJZ-LoadLatent",
@@ -6083,6 +6106,7 @@
             "DjzDatamoshV6",
             "DjzDatamoshV7",
             "DjzDatamoshV8",
+            "FilmGateWeave",
             "FilmGrainEffect",
             "FilmGrainEffect_v2",
             "FishEyeEffect",
@@ -6090,16 +6114,20 @@
             "FractalGenerator",
             "FractalGeneratorV2",
             "FractalGeneratorV3",
+            "HalationBloom",
             "ImageInterleavedUpscaler",
             "ImageInterleavedUpscalerV2",
             "ImageSizeAdjuster",
             "ImageSizeAdjusterV2",
             "ImageSizeAdjusterV3",
             "JitterEffect",
+            "KeyframeBasedUpscalerV1",
             "KinescopeEffectV1",
+            "LensLeaks",
             "LoadTextDirectory",
             "LoadVideoDirectory",
             "LoadVideoDirectoryV2",
+            "MotionBlending",
             "NoiseFactory",
             "NoiseFactoryV2",
             "NoiseFactoryV3",
@@ -6123,16 +6151,22 @@
             "TrianglesPlus",
             "TrianglesPlusV2",
             "UncleanSpeech",
+            "VGA_Effect_v1",
             "VHS_Effect_V3",
             "VHS_Effect_v1",
             "VHS_Effect_v2",
             "VideoBitClamp",
+            "VideoChromaticAberration",
+            "VideoFilmDamage",
             "VideoInterlaceFastV4",
             "VideoInterlaceGANV3",
             "VideoInterlaced",
             "VideoInterlacedV2",
             "VideoNoiseFactory",
+            "VideoRingPainter",
+            "VideoTemperatureV1",
             "VideoTimecode",
+            "VideoVignettingV1",
             "WaveletCompose",
             "WaveletDecompose",
             "WinampViz",
@@ -6702,6 +6736,17 @@
         ],
         {
             "title_aux": "Remade_nodes"
+        }
+    ],
+    "https://github.com/PixelFunAI/ComfyUI_PixelFun": [
+        [
+            "HunyuanLoadAndEditLoraBlocks",
+            "HunyuanLoadFromBlockCache",
+            "HunyuanLoraFromJson",
+            "HunyuanLoraFromPrompt"
+        ],
+        {
+            "title_aux": "Hunyuan LoRA Loader Nodes"
         }
     ],
     "https://github.com/PixelML/ComfyUI-PixelML-CustomNodes": [
@@ -8041,13 +8086,17 @@
             "SDVN Exif check",
             "SDVN Filter List",
             "SDVN IC-Light v2",
+            "SDVN Image Adjust",
+            "SDVN Image Film Grain",
             "SDVN Image Info",
             "SDVN Image Layout",
             "SDVN Image Repeat",
             "SDVN Image Scraper",
             "SDVN Image Size",
+            "SDVN Image White Balance",
             "SDVN Inpaint",
             "SDVN Join Parameter",
+            "SDVN Joy Caption",
             "SDVN KSampler",
             "SDVN Load Checkpoint",
             "SDVN Load Image",
@@ -8179,12 +8228,18 @@
             "CXH_DownloadAndLoadFlorence2Model",
             "CXH_Florence2Run",
             "CXH_HG_Model_Load",
+            "CXH_IC_Lora_Florence2Run",
+            "CXH_IC_lora_reversal",
+            "CXH_Ic_lora_Joy_batch",
             "CXH_Min2_6_classifiy",
             "CXH_Min2_6_prompt_Run",
             "CXH_MinCP3_4B_Chat",
             "CXH_MinCP3_4B_Load",
+            "CXH_SmolVlm_Load",
+            "CXH_SmolVlm_Run",
             "Joy_caption",
             "Joy_caption_alpha_batch",
+            "Joy_caption_alpha_batch_Dirs",
             "Joy_caption_alpha_load",
             "Joy_caption_alpha_prompt",
             "Joy_caption_alpha_run",
@@ -9568,6 +9623,21 @@
             "title_aux": "ComfyUI-SaveImageCivitAI"
         }
     ],
+    "https://github.com/WangPengxing/ComfyUI_WPX_Node": [
+        [
+            "AnimalContour",
+            "AnimalContourSilhouette",
+            "CircleContour",
+            "DetermineRowsAndCols",
+            "PenetrateStyle",
+            "RectangleContour",
+            "SplitMaskElements",
+            "SplitStickers"
+        ],
+        {
+            "title_aux": "ComfyUI WPX Nodes"
+        }
+    ],
     "https://github.com/WebDev9000/WebDev9000-Nodes": [
         [
             "IgnoreBraces",
@@ -10326,6 +10396,16 @@
             "title_aux": "Comfy UI FatLabels"
         }
     ],
+    "https://github.com/aidec/Comfyui_TextBatch_aidec": [
+        [
+            "TextBatch",
+            "TextQueueProcessor",
+            "TextSplitCounter"
+        ],
+        {
+            "title_aux": "Comfyui_TextBatch_aidec"
+        }
+    ],
     "https://github.com/aidenli/ComfyUI_NYJY": [
         [
             "CivitaiPrompt",
@@ -10400,6 +10480,7 @@
             "AK_AudioreactiveDilationMask",
             "AK_AudioreactiveDynamicDilationMask",
             "AK_BinaryAmplitudeGate",
+            "AK_BlobTrack",
             "AK_BrightnessToFloatList",
             "AK_ConvertAudioToSaltAudio",
             "AK_ConvertListToFloatList",
@@ -11023,6 +11104,7 @@
     ],
     "https://github.com/aws-samples/comfyui-llm-node-for-amazon-bedrock": [
         [
+            "Bedrock - Amazon Nova Canvas Text to Image",
             "Bedrock - Claude",
             "Bedrock - Claude Multimodal",
             "Bedrock - SDXL",
@@ -11324,6 +11406,14 @@
         ],
         {
             "title_aux": "ComfyUI-HunyuanVideoImagesGuider"
+        }
+    ],
+    "https://github.com/benjiyaya/ComfyUI-KokoroTTS": [
+        [
+            "Kokoro TextToSpeech"
+        ],
+        {
+            "title_aux": "Kokoro TextToSpeech Node for ComfyUI"
         }
     ],
     "https://github.com/bentoml/comfy-pack": [
@@ -13941,6 +14031,7 @@
             "D2 XY Prompt SR",
             "D2 XY Prompt SR2",
             "D2 XY Seed",
+            "D2 XY Seed2",
             "D2 XY String To Plot"
         ],
         {
@@ -15025,6 +15116,14 @@
         ],
         {
             "title_aux": "Fearnworks Nodes"
+        }
+    ],
+    "https://github.com/feixuetuba/Spleeter": [
+        [
+            "Spleeter"
+        ],
+        {
+            "title_aux": "Spleeter"
         }
     ],
     "https://github.com/fexli/fexli-util-node-comfyui": [
@@ -16897,6 +16996,7 @@
             "Light-Tool: SaveToAliyunOSS",
             "Light-Tool: SaveVideo",
             "Light-Tool: ShowText",
+            "Light-Tool: SimpleImageOverlay",
             "Light-Tool: SolidColorBackground",
             "Light-Tool: TextConnect"
         ],
@@ -19575,6 +19675,7 @@
             "StringTranslate",
             "TemplateToImage",
             "TimeFormatter",
+            "UnifiedPromptGenerator",
             "WebpageScreenshot"
         ],
         {
@@ -20913,8 +21014,7 @@
     ],
     "https://github.com/meanin2/comfyui-watermarking": [
         [
-            "ImageWatermarkNode",
-            "TextWatermarkNode"
+            "ImageWatermarkNode"
         ],
         {
             "title_aux": "ComfyUI Watermark Image Node"
@@ -24022,15 +24122,6 @@
         ],
         {
             "title_aux": "\u2601\ufe0fBizyAir Nodes"
-        }
-    ],
-    "https://github.com/silveroxides/ComfyUI_bnb_nf4_fp4_Loaders": [
-        [
-            "CheckpointLoaderNF4",
-            "UNETLoaderNF4"
-        ],
-        {
-            "title_aux": "Model and Checkpoint Loaders for NF4 and FP4"
         }
     ],
     "https://github.com/sipherxyz/comfyui-art-venture": [
