@@ -1,6 +1,18 @@
 {
   "models": [
     {
+      "name": "Leoxing/pia.ckpt",
+      "type": "animatediff-pia",
+      "base": "SD1.x",
+      "save_path": "animatediff_models",
+      "description": "AnimateDiff-PIA Model",
+      "reference": "https://huggingface.co/Leoxing/PIA/tree/main",
+      "filename": "pia.ckpt",
+      "url": "https://huggingface.co/Leoxing/PIA/resolve/main/pia.ckpt",
+      "size": "1.67GB"
+    },
+
+    {
       "name": "comfyanonymous/cosmos_cv8x8x8_1.0.safetensors",
       "type": "VAE",
       "base": "Cosmos-1.0",
@@ -650,73 +662,6 @@
       "filename": "dmd2_sdxl_4step_lora_fp16.safetensors",
       "url": "https://huggingface.co/tianweiy/DMD2/resolve/main/dmd2_sdxl_4step_lora_fp16.safetensors",
       "size": "394MB"
-    },
-
-    {
-      "name": "Hyper-SD LoRA (1step) - SD1.5",
-      "type": "lora",
-      "base": "SD1.5",
-      "save_path": "loras/HyperSD/SD15",
-      "description": "Hyper-SD LoRA (1step) - SD1.5",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SD15-1step-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-1step-lora.safetensors",
-      "size": "269MB"
-    },
-    {
-      "name": "Hyper-SD LoRA (2steps) - SD1.5",
-      "type": "lora",
-      "base": "SD1.5",
-      "save_path": "loras/HyperSD/SD15",
-      "description": "Hyper-SD LoRA (2steps) - SD1.5",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SD15-2steps-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-2steps-lora.safetensors",
-      "size": "269MB"
-    },
-    {
-      "name": "Hyper-SD LoRA (4steps) - SD1.5",
-      "type": "lora",
-      "base": "SD1.5",
-      "save_path": "loras/HyperSD/SD15",
-      "description": "Hyper-SD LoRA (4steps)",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SD15-4steps-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-4steps-lora.safetensors",
-      "size": "269MB"
-    },
-    {
-      "name": "Hyper-SD LoRA (8steps) - SD1.5",
-      "type": "lora",
-      "base": "SD1.5",
-      "save_path": "loras/HyperSD/SD15",
-      "description": "Hyper-SD LoRA (8steps)",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SD15-8steps-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-8steps-lora.safetensors",
-      "size": "269MB"
-    },
-    {
-      "name": "Hyper-SD CFG LoRA (8steps) - SD1.5",
-      "type": "lora",
-      "base": "SD1.5",
-      "save_path": "loras/HyperSD/SD15",
-      "description": "Hyper-SD CFG LoRA (8steps)",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SD15-8steps-CFG-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-8steps-CFG-lora.safetensors",
-      "size": "269MB"
-    },
-    {
-      "name": "Hyper-SD CFG LoRA (12steps) - SD1.5",
-      "type": "lora",
-      "base": "SD1.5",
-      "save_path": "loras/HyperSD/SD15",
-      "description": "Hyper-SD CFG LoRA (12steps)",
-      "reference": "https://huggingface.co/ByteDance/Hyper-SD",
-      "filename": "Hyper-SD15-12steps-CFG-lora.safetensors",
-      "url": "https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-12steps-CFG-lora.safetensors",
-      "size": "269MB"
     }
   ]
 }
