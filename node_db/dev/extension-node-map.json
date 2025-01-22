@@ -544,10 +544,14 @@
             "VTS Clip Text Encode",
             "VTS Color Mask To Mask",
             "VTS Conditioning Set Batch Mask",
+            "VTS Create Character Mask",
             "VTS Images Crop From Masks",
+            "VTS Images Scale",
             "VTS Merge Delimited Text",
             "VTS Reduce Batch Size",
+            "VTS Render People Kps",
             "VTS To Text",
+            "VTS_Load_Pose_Keypoints",
             "Vts Text To Batch Prompt"
         ],
         {
@@ -1978,6 +1982,14 @@
             "title_aux": "ComfyUI Signal Processing [WIP]"
         }
     ],
+    "https://github.com/catboxanon/ComfyUI-Pixelsmith": [
+        [
+            "Pixelsmith"
+        ],
+        {
+            "title_aux": "ComfyUI-Pixelsmith [WIP]"
+        }
+    ],
     "https://github.com/celll1/cel_sampler": [
         [
             "latent_tracker"
@@ -2132,6 +2144,7 @@
             "ExponentialScheduler",
             "FeatherMask",
             "FlipSigmas",
+            "FluxDisableGuidance",
             "FluxGuidance",
             "FreeU",
             "FreeU_V2",
@@ -2956,25 +2969,24 @@
         [
             "ClickPopup",
             "ColorPicker",
-            "DynamicImageCombiner",
-            "DynamicMaskCombiner",
-            "ImageLatentCreator",
-            "ImageResolutionAdjuster",
-            "ImageSizeCreator",
-            "ImageToBase64",
-            "MaskPreview",
-            "MultilineTextInput",
+            "PaintingCoder::DynamicImageCombiner",
+            "PaintingCoder::DynamicMaskCombiner",
+            "PaintingCoder::ImageLatentCreator",
+            "PaintingCoder::ImageResolutionAdjuster",
+            "PaintingCoder::ImageSizeCreator",
             "PaintingCoder::ImageSwitch",
+            "PaintingCoder::ImageToBase64",
             "PaintingCoder::LatentSwitch",
+            "PaintingCoder::MaskPreview",
             "PaintingCoder::MaskSwitch",
+            "PaintingCoder::MultilineTextInput",
+            "PaintingCoder::RemoveEmptyLinesAndLeadingSpaces",
+            "PaintingCoder::ShowTextPlus",
+            "PaintingCoder::SimpleTextInput",
+            "PaintingCoder::TextCombiner",
             "PaintingCoder::TextSwitch",
             "PaintingCoder::WebImageLoader",
-            "RemoveEmptyLinesAndLeadingSpaces",
-            "RemoveEmptyLinesAndLeadingSpacesAdvance",
-            "ShowTextPlus",
-            "SimpleTextInput",
-            "TextCombiner",
-            "WebImageLoader"
+            "RemoveEmptyLinesAndLeadingSpacesAdvance"
         ],
         {
             "title_aux": "ComfyUI PaintingCoderUtils Nodes [WIP]"
@@ -3005,6 +3017,7 @@
             "DictionaryToJSON",
             "ImageToSolidBackground",
             "JSONToDictionary",
+            "LiftFromBackground",
             "LoadImageAndInfoFromPath",
             "LookupWord",
             "ReplaceWords",
@@ -3154,7 +3167,8 @@
             "KAndyNoiseCondition",
             "KCivitaiPostAPI",
             "KPornImageAPI",
-            "KPromtGen"
+            "KPromtGen",
+            "KandySimplePrompt"
         ],
         {
             "title_aux": "ComfyUI-KAndy"
@@ -4263,6 +4277,15 @@
         ],
         {
             "title_aux": "ComfyUI_CheckPointLoader_Ext [WIP]"
+        }
+    ],
+    "https://github.com/smthemex/ComfyUI_MangaNinjia": [
+        [
+            "MangaNinjiaLoader",
+            "MangaNinjiaSampler"
+        ],
+        {
+            "title_aux": "ComfyUI_MangaNinjia [WIP]"
         }
     ],
     "https://github.com/sofakid/dandy": [
