@@ -41,7 +41,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 9, 2]
+version_code = [3, 9, 3]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -81,13 +81,18 @@ def get_comfyui_tag():
 
 
 def get_script_env():
-    copied = os.environ.copy()
+    new_env = os.environ.copy()
     git_exe = get_config().get('git_exe')
     if git_exe is not None:
-        copied['GIT_EXE_PATH'] = git_exe
-    copied['COMFYUI_PATH'] = comfy_path
+        new_env['GIT_EXE_PATH'] = git_exe
 
-    return copied
+    if 'COMFYUI_PATH' not in new_env:
+        new_env['COMFYUI_PATH'] = comfy_path
+
+    if 'COMFYUI_FOLDERS_BASE_PATH' not in new_env:
+        new_env['COMFYUI_FOLDERS_BASE_PATH'] = comfy_path
+
+    return new_env
 
 
 invalid_nodes = {}
@@ -112,7 +117,7 @@ def check_invalid_nodes():
             sys.path.append(comfy_path)
             import folder_paths
         except:
-            raise Exception(f"Invalid COMFYUI_PATH: {comfy_path}")
+            raise Exception(f"Invalid COMFYUI_FOLDERS_BASE_PATH: {comfy_path}")
 
     def check(root):
         global invalid_nodes
@@ -147,13 +152,19 @@ def check_invalid_nodes():
         print("\n---------------------------------------------------------------------------\n")
 
 
+# read env vars
 comfy_path = os.environ.get('COMFYUI_PATH')
+comfy_base_path = os.environ.get('COMFYUI_FOLDERS_BASE_PATH')
+
 if comfy_path is None:
     try:
         import folder_paths
         comfy_path = os.path.join(os.path.dirname(folder_paths.__file__))
     except:
         comfy_path = os.path.abspath(os.path.join(manager_util.comfyui_manager_path, '..', '..'))
+
+if comfy_base_path is None:
+    comfy_base_path = comfy_path
 
 
 channel_list_template_path = os.path.join(manager_util.comfyui_manager_path, 'channels.list.template')
@@ -1265,8 +1276,8 @@ class UnifiedManager:
             remote.fetch()
         except Exception as e:
             if 'detected dubious' in str(e):
-                print("[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
-                safedir_path = comfy_path.replace('\\', '/')
+                print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on '{repo_path}' repository")
+                safedir_path = repo_path.replace('\\', '/')
                 subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', safedir_path])
                 try:
                     remote.fetch()
@@ -2315,8 +2326,8 @@ def update_path(repo_path, instant_execution=False, no_deps=False):
         remote.fetch()
     except Exception as e:
         if 'detected dubious' in str(e):
-            print("[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
-            safedir_path = comfy_path.replace('\\', '/')
+            print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on '{repo_path}' repository")
+            safedir_path = repo_path.replace('\\', '/')
             subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', safedir_path])
             try:
                 remote.fetch()

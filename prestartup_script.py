@@ -74,8 +74,17 @@ def check_file_logging():
 check_file_logging()
 
 comfy_path = os.environ.get('COMFYUI_PATH')
+comfy_base_path = os.environ.get('COMFYUI_FOLDERS_BASE_PATH')
+
+if comfy_path is None:
+    # legacy env var
+    comfy_path = os.environ.get('COMFYUI_PATH')
+
 if comfy_path is None:
     comfy_path = os.path.abspath(os.path.dirname(sys.modules['__main__'].__file__))
+
+if comfy_base_path is None:
+    comfy_base_path = comfy_path
 
 sys.__comfyui_manager_register_message_collapse = register_message_collapse
 sys.__comfyui_manager_is_import_failed_extension = is_import_failed_extension
@@ -427,6 +436,7 @@ print("** Platform:", platform.system())
 print("** Python version:", sys.version)
 print("** Python executable:", sys.executable)
 print("** ComfyUI Path:", comfy_path)
+print("** ComfyUI Base Folder Path:", comfy_base_path)
 print("** User directory:", folder_paths.user_directory)
 print("** ComfyUI-Manager config path:", manager_config_path)
 
@@ -558,7 +568,8 @@ if os.path.exists(restore_snapshot_path):
 
         print("[ComfyUI-Manager] Restore snapshot.")
         new_env = os.environ.copy()
-        new_env["COMFYUI_PATH"] = comfy_path
+        if 'COMFYUI_FOLDERS_BASE_PATH' not in new_env:
+            new_env["COMFYUI_FOLDERS_BASE_PATH"] = comfy_path
 
         cmd_str = [sys.executable, cm_cli_path, 'restore-snapshot', restore_snapshot_path]
         exit_code = process_wrap(cmd_str, custom_nodes_base_path, handler=msg_capture, env=new_env)
@@ -601,7 +612,8 @@ def execute_lazy_install_script(repo_path, executable):
         install_cmd = [executable, "install.py"]
 
         new_env = os.environ.copy()
-        new_env["COMFYUI_PATH"] = comfy_path
+        if 'COMFYUI_FOLDERS_BASE_PATH' not in new_env:
+            new_env["COMFYUI_FOLDERS_BASE_PATH"] = comfy_path
         process_wrap(install_cmd, repo_path, env=new_env)
 
 
@@ -703,7 +715,8 @@ if os.path.exists(script_list_path):
                     print(f"\n## Execute install/(de)activation script for '{script[0]}'")
 
                     new_env = os.environ.copy()
-                    new_env["COMFYUI_PATH"] = comfy_path
+                    if 'COMFYUI_FOLDERS_BASE_PATH' not in new_env:
+                        new_env["COMFYUI_FOLDERS_BASE_PATH"] = comfy_path
                     exit_code = process_wrap(script[1:], script[0], env=new_env)
 
                     if exit_code != 0:
