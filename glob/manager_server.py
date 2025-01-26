@@ -1143,9 +1143,9 @@ async def install_model(request):
 
     try:
         if model_path is not None:
-            logging.info(f"Install model '{json_data['name']}' into '{model_path}'")
 
             model_url = json_data['url']
+            logging.info(f"Install model '{json_data['name']}' from '{model_url}' into '{model_path}'")
             if not core.get_config()['model_download_by_agent'] and (
                     model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de')):
                 model_dir = get_model_dir(json_data, True)
