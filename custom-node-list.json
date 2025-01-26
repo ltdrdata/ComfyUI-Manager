@@ -2659,6 +2659,16 @@
             "description": "Based on [a/https://github.com/apple/ml-depth-pro](https://github.com/apple/ml-depth-pro)"
         },
         {
+            "author": "spacepxl",
+            "title": "ComfyUI-LossTesting",
+            "reference": "https://github.com/spacepxl/ComfyUI-LossTesting",
+            "files": [
+                "https://github.com/spacepxl/ComfyUI-LossTesting"
+            ],
+            "install_type": "git-clone",
+            "description": "Basic utility for testing diffusion model loss across the timestep schedule. Should work with any native models that use ksampler. This could be used for comparing models, testing captions on an image, etc."
+        },
+        {
             "author": "PTA",
             "title": "auto nodes layout",
             "id": "autolayout",
@@ -6836,6 +6846,16 @@
             ],
             "install_type": "git-clone",
             "description": "This project provides a TensorRT implementation of [a/RIFE](https://github.com/hzwer/ECCV2022-RIFE) for ultra fast frame interpolation inside ComfyUI"
+        },
+        {
+            "author": "yuvraj108c",
+            "title": "ComfyUI Video Depth Anything",
+            "reference": "https://github.com/yuvraj108c/ComfyUI-Video-Depth-Anything",
+            "files": [
+                "https://github.com/yuvraj108c/ComfyUI-Video-Depth-Anything"
+            ],
+            "install_type": "git-clone",
+            "description": "This project is an unofficial ComfyUI implementation of [a/Video Depth Anything](https://github.com/DepthAnything/Video-Depth-Anything), for depth estimation on long videos without compromising quality, consistency, or generalization ability."
         },
         {
             "author": "blepping",
@@ -13592,6 +13612,16 @@
             "description": "Given min/max resolution constraints, this automatically suggests optimal dimensions while preserving aspect ratio. Ideal for Image to Image (I2I) and Image to Video (I2V) workflows!"
         },
         {
+            "author": "EnragedAntelope",
+            "title": "ComfyUI-EACloudNodes",
+            "reference": "https://github.com/EnragedAntelope/ComfyUI-EACloudNodes",
+            "files": [
+                "https://github.com/EnragedAntelope/ComfyUI-EACloudNodes"
+            ],
+            "install_type": "git-clone",
+            "description": "A collection of ComfyUI custom nodes for interacting with various cloud services. These nodes are designed to work with any ComfyUI instance, including cloud-hosted environments (such as MimicPC) where users may have limited system access."
+        },
+        {
             "author": "jn-jairo",
             "title": "JNComfy",
             "reference": "https://github.com/jn-jairo/jn_comfyui",
@@ -14250,6 +14280,17 @@
             ],
             "install_type": "git-clone",
             "description": "Flux Pro via Replicate API\nCreate API key at [a/https://replicate.com/account/api-tokens](https://replicate.com/account/api-tokens)\nCopy config.ini.example to config.ini and put the replicate key there."
+        },
+        {
+            "author": "smlbiobot",
+            "title": "sml-comfyui-prompt-expansion",
+            "id": "sml-comfyui-prompt-expansion",
+            "reference": "https://github.com/smlbiobot/sml-comfyui-prompt-expansion",
+            "files": [
+                "https://github.com/smlbiobot/sml-comfyui-prompt-expansion"
+            ],
+            "install_type": "git-clone",
+            "description": "Prompt Expansion for Stable Diffusion, using Deepseek API."
         },
         {
             "author": "Jjulianadv",
@@ -17951,7 +17992,7 @@
                 "https://github.com/Starnodes2024/ComfyUI_StarNodes"
             ],
             "install_type": "git-clone",
-            "description": "NODES: StarNode Input Image Chooser, SD(XL) Star(t) Settings, SD3.5 Star(t) Settings, Starnode Ollama Helper"
+            "description": "NODES: StarNode Startsettings for Flux and SD, Smplers for Flux and SD, Detail Deamon, Wildcards and more Helper Nodes"
         },
         {
             "author": "motivated3",
@@ -20009,7 +20050,6 @@
         {
             "author": "Dr.Positliver",
             "title": "comfyui-zegr",
-            "id": "manager",
             "reference": "https://github.com/Positliver/comfyui-zegr",
             "files": [
                 "https://github.com/Positliver/comfyui-zegr"
@@ -20027,6 +20067,25 @@
             ],
             "install_type": "git-clone",
             "description": "A custom node for ComfyUI that enables Large Language Model (LLM) chat interactions with optional image input support."
+        },
+        {
+            "author": "JohnDoeSmithee",
+            "reference": "https://github.com/JohnDoeSmithee/ComfyUI-SoX-Mixdown",
+            "files": [
+                "https://github.com/JohnDoeSmithee/ComfyUI-SoX-Mixdown"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI custom node for sox's mixdown function such as 'sox --combine inputfile1.wav inputfile2.wav outputfile.wav'."
+        },
+        {
+            "author": "JTriggerFish",
+            "title": "Comfy Latent Tools",
+            "reference": "https://github.com/JTriggerFish/ComfyLatentTools",
+            "files": [
+                "https://github.com/JTriggerFish/ComfyLatentTools"
+            ],
+            "install_type": "git-clone",
+            "description": "A set of tools for manipulating latent tensors in ComfyUI"
         },
 
 
@@ -20550,15 +20609,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-		{
-			"author": "danielw",
-			"title": "Custom nodes for llm chat with optional image input",
-			"id": "llm-api",
-			"reference": "https://github.com/tianyuw/ComfyUI-LLM-API",
-			"files": ["https://github.com/tianyuw/ComfyUI-LLM-API"],
-			"install_type": "git-clone",
-			"description": "A custom node for ComfyUI that enables Large Language Model (LLM) chat interactions with optional image input support."
-		}
+        }
     ]
 }
