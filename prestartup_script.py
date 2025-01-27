@@ -214,6 +214,9 @@ try:
     if enable_file_logging:
         log_path_base = os.path.join(folder_paths.user_directory, 'comfyui')
 
+        if not os.path.exists(folder_paths.user_directory):
+            os.makedirs(folder_paths.user_directory)
+
         if os.path.exists(f"{log_path_base}{postfix}.log"):
             if os.path.exists(f"{log_path_base}{postfix}.prev.log"):
                 if os.path.exists(f"{log_path_base}{postfix}.prev2.log"):
