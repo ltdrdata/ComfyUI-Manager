@@ -91,17 +91,6 @@
             "description": "Nodes: ColorBlend, ControlLoraSave, GetImageSize. NOTE: Control-LoRA recolor example uses these nodes."
         },
         {
-            "author": "burnsbert",
-            "title": "EBU LMStudio LLM Integration",
-            "id": "ebu-lmstudio",
-            "reference": "https://github.com/burnsbert/ComfyUI-EBU-LMStudio",
-            "files": [
-                "https://github.com/burnsbert/ComfyUI-EBU-LMStudio"
-             ],
-             "install_type": "git-clone",
-             "description": "Custom nodes for integrating LM Studio's LLM functionality into ComfyUI. Includes EBU-LMStudio-Load, EBU-LMStudio-Unload, and EBU-LMStudio-Request."
-        },
-        {
             "author": "Fannovel16",
             "title": "ComfyUI's ControlNet Auxiliary Preprocessors",
             "id": "comfyui_controlnet_aux",
@@ -1824,7 +1813,7 @@
                 "https://github.com/m-sokes/ComfyUI-Sokes-Nodes"
             ],
             "install_type": "git-clone",
-            "description": "Nodes: Empty Latent Randomizer (9 Inputs)"
+            "description": "Nodes: Current Date, Latent Switch x9, Replace Text with RegEx, Load Random Image"
         },
         {
             "author": "Extraltodeus",
@@ -11150,7 +11139,7 @@
                 "https://github.com/osi1880vr/prompt_quill_comfyui"
             ],
             "install_type": "git-clone",
-            "description": "Nodes:Use Prompt Quill in Comfyui"
+            "description": "Nodes for Comfyui to use Prompt Quill within complex workflows"
         },
         {
             "author": "philz1337x",
@@ -19294,7 +19283,7 @@
                 "https://github.com/jammyfu/ComfyUI_PaintingCoderUtils"
             ],
             "install_type": "git-clone",
-            "description": "A practical collection of nodes for ComfyUI that streamlines image and text processing workflows. Features include image optimized resolution adjustment, text cleaning tools, dynamic image/text combination, and mask preview utilities. Perfect for artists and developers looking to enhance their AI art creation pipeline."
+            "description": "Powerful tools for image and text processing, including cross-platform workflow fixes, optimized resolution, dynamic text/image combos, and batch processing.  Unlock seamless AI art creation and boost your productivity!"
         },
         {
             "author": "welltop-cn",
@@ -19894,7 +19883,7 @@
                 "https://github.com/KLL535/ComfyUI_SimpleButcher"
             ],
             "install_type": "git-clone",
-            "description": "I needed to automate the process of generating images and I did not find ready-made simple solutions for this, so I wrote my own. The idea is to repeat the functionality of forge: the script 'Prompts from file or textbox'. So that you can easily sort through pre-prepared lists of prompts, lora, styles, and connect text as you like. The resulting images must be compatible with Forge, and ideally, no different from it. The problem is that Forge uses the internal name from the Lora file metadata as the lora name, not the file name. Therefore, all existing solutions simply did not understand my templates. I would also like it if lore could be written in any order and any quantity in a text file in this format: <lora:name:1.0> or <lora:name:unet=1.0:te=0.75> and this would be applied automatically, without the need to create nodes for each lora separately. I would like the civitai site to understand metadata, the closest to this was the alexopus/ComfyUI-Image-Saver project, but it loses lora written in Forge style, by internal name."
+            "description": "Node to automate batch generation with randomize prompts from text files. It mimics Forge's functionality, allowing you to combine text elements and LoRA. The node supports writing LoRA in any order within a text file using formats like <lora:name:1.0> or <lora:name:unet=1.0:te=0.75>, without needing separate nodes. The node understands LoRA names in Forge's style, when the name is not the filename, but the internal name from the metadata."
         },
         {
             "author": "mango125",
@@ -20081,12 +20070,13 @@
         },
         {
             "author": "JohnDoeSmithee",
+            "title": "ComfyUI-SoX-Mixdown",
             "reference": "https://github.com/JohnDoeSmithee/ComfyUI-SoX-Mixdown",
             "files": [
                 "https://github.com/JohnDoeSmithee/ComfyUI-SoX-Mixdown"
             ],
             "install_type": "git-clone",
-            "description": "ComfyUI custom node for sox's mixdown function such as 'sox --combine inputfile1.wav inputfile2.wav outputfile.wav'."
+            "description": "A custom node for SoX's mixdown function. Make sure that the sox command is installed and the path added before using this node."
         },
         {
             "author": "JTriggerFish",
@@ -20097,6 +20087,39 @@
             ],
             "install_type": "git-clone",
             "description": "A set of tools for manipulating latent tensors in ComfyUI"
+        },
+        {
+            "author": "CY-CHENYUE",
+            "title": "ComfyUI-Janus-Pro",
+            "id": "ComfyUI-Janus-Pro",
+            "reference": "https://github.com/CY-CHENYUE/ComfyUI-Janus-Pro",
+            "files": [
+               "https://github.com/CY-CHENYUE/ComfyUI-Janus-Pro"
+            ],
+            "description": "ComfyUI nodes for Janus-Pro, a unified multimodal understanding and generation framework.",
+            "install_type": "git-clone"
+        },
+        {
+            "author": "ProGamerGov",
+            "title": "PyTorch 360° Image Conversion Toolkit for ComfyUI",
+            "id": "pytorch360convert",
+            "reference": "https://github.com/ProGamerGov/ComfyUI_pytorch360convert",
+            "files": [
+                "https://github.com/ProGamerGov/ComfyUI_pytorch360convert"
+            ],
+            "install_type": "git-clone",
+            "description": "A collection of custom nodes for working and converting between 360 degree equirectangular images, cubemap, and perspective images. Panoramic 360 images are also sometimes known as 'VR photography', 'image sphere', and 360 pano."
+        },
+        {
+            "author": "burnsbert",
+            "title": "EBU LMStudio LLM Integration",
+            "id": "ebu-lmstudio",
+            "reference": "https://github.com/burnsbert/ComfyUI-EBU-LMStudio",
+            "files": [
+                "https://github.com/burnsbert/ComfyUI-EBU-LMStudio"
+             ],
+             "install_type": "git-clone",
+             "description": "Custom nodes for integrating LM Studio's LLM functionality into ComfyUI. Includes EBU-LMStudio-Load, EBU-LMStudio-Unload, and EBU-LMStudio-Request."
         },
 
 
@@ -20620,28 +20643,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "CY-CHENYUE",
-            "title": "ComfyUI-Janus-Pro",
-            "id": "ComfyUI-Janus-Pro",
-            "reference": "https://github.com/CY-CHENYUE/ComfyUI-Janus-Pro",
-            "files": [
-               "https://github.com/CY-CHENYUE/ComfyUI-Janus-Pro"
-            ],
-            "description": "ComfyUI nodes for Janus-Pro, a unified multimodal understanding and generation framework.",
-            "install_type": "git-clone"
         }
-        {
-            "author": "ProGamerGov",
-            "title": "PyTorch 360° Image Conversion Toolkit for ComfyUI",
-            "id": "pytorch360convert",
-            "reference": "https://github.com/ProGamerGov/ComfyUI_pytorch360convert",
-            "files": [
-                "https://github.com/ProGamerGov/ComfyUI_pytorch360convert"
-            ],
-            "install_type": "git-clone",
-            "description": "A collection of custom nodes for working and converting between 360 degree equirectangular images, cubemap, and perspective images. Panoramic 360 images are also sometimes known as 'VR photography', 'image sphere', and 360 pano."
-        },
     ]
 }
