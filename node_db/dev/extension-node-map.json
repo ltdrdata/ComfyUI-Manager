@@ -777,6 +777,14 @@
             "title_aux": "ComfyUI-MusicGen [WIP]"
         }
     ],
+    "https://github.com/EmanueleUniroma2/ComfyUI-FLAC-to-WAV": [
+        [
+            "AudioToWavConverter"
+        ],
+        {
+            "title_aux": "ComfyUI-FLAC-to-WAV [WIP]"
+        }
+    ],
     "https://github.com/EmilioPlumed/ComfyUI-Math": [
         [
             "GreatestCommonDenominator",
@@ -1236,7 +1244,11 @@
     "https://github.com/PATATAJEC/Patatajec-Nodes": [
         [
             "HyvidSwitcher",
-            "MidiAnalyzer"
+            "ImageSequenceFromBatch",
+            "MidiReader",
+            "MidiToFrameSequences",
+            "VideoCounter",
+            "VideoSequencer"
         ],
         {
             "title_aux": "Patatajec-Nodes [WIP]"
@@ -1500,6 +1512,32 @@
         ],
         {
             "title_aux": "Comfyui_CXH_CRM"
+        }
+    ],
+    "https://github.com/StartHua/Comfyui_CXH_joy_caption": [
+        [
+            "CXH_DownloadAndLoadFlorence2Model",
+            "CXH_Florence2Run",
+            "CXH_HG_Model_Load",
+            "CXH_IC_Lora_Florence2Run",
+            "CXH_IC_lora_reversal",
+            "CXH_Ic_lora_Joy_batch",
+            "CXH_Min2_6_classifiy",
+            "CXH_Min2_6_prompt_Run",
+            "CXH_MinCP3_4B_Chat",
+            "CXH_MinCP3_4B_Load",
+            "CXH_SmolVlm_Load",
+            "CXH_SmolVlm_Run",
+            "Joy_caption",
+            "Joy_caption_alpha_batch",
+            "Joy_caption_alpha_batch_Dirs",
+            "Joy_caption_alpha_load",
+            "Joy_caption_alpha_prompt",
+            "Joy_caption_alpha_run",
+            "Joy_caption_load"
+        ],
+        {
+            "title_aux": "Comfyui_CXH_joy_caption [SECURITY SCREENING]"
         }
     ],
     "https://github.com/StartHua/Comfyui_Flux_Style_Ctr": [
@@ -2699,6 +2737,15 @@
             "title_aux": "Scripting"
         }
     ],
+    "https://github.com/eyekayem/comfyui_runway_gen3": [
+        [
+            "RunwayVideoGenerator",
+            "RunwayVideoPreview"
+        ],
+        {
+            "title_aux": "comfyui_runway_gen3"
+        }
+    ],
     "https://github.com/fablestudio/ComfyUI-Showrunner-Utils": [
         [
             "AlignFace",
@@ -3066,8 +3113,6 @@
     ],
     "https://github.com/jammyfu/ComfyUI_PaintingCoderUtils": [
         [
-            "ClickPopup",
-            "ColorPicker",
             "PaintingCoder::DynamicImageCombiner",
             "PaintingCoder::DynamicMaskCombiner",
             "PaintingCoder::ImageLatentCreator",
@@ -3081,13 +3126,13 @@
             "PaintingCoder::MaskPreview",
             "PaintingCoder::MaskSwitch",
             "PaintingCoder::MultilineTextInput",
+            "PaintingCoder::OutputToTextConverter",
             "PaintingCoder::RemoveEmptyLinesAndLeadingSpaces",
             "PaintingCoder::ShowTextPlus",
             "PaintingCoder::SimpleTextInput",
             "PaintingCoder::TextCombiner",
             "PaintingCoder::TextSwitch",
-            "PaintingCoder::WebImageLoader",
-            "RemoveEmptyLinesAndLeadingSpacesAdvance"
+            "PaintingCoder::WebImageLoader"
         ],
         {
             "title_aux": "ComfyUI PaintingCoderUtils Nodes [WIP]"
@@ -3357,6 +3402,39 @@
         ],
         {
             "title_aux": "ComfyUI-FollowYourEmojiWrapper [WIP]"
+        }
+    ],
+    "https://github.com/kijai/ComfyUI-Hunyuan3DWrapper": [
+        [
+            "CV2InpaintTexture",
+            "DownloadAndLoadHy3DDelightModel",
+            "DownloadAndLoadHy3DPaintModel",
+            "Hy3DApplyTexture",
+            "Hy3DBakeFromMultiview",
+            "Hy3DCameraConfig",
+            "Hy3DDelightImage",
+            "Hy3DDiffusersSchedulerConfig",
+            "Hy3DExportMesh",
+            "Hy3DGenerateMesh",
+            "Hy3DGetMeshPBRTextures",
+            "Hy3DIMRemesh",
+            "Hy3DLoadMesh",
+            "Hy3DMeshInfo",
+            "Hy3DMeshUVWrap",
+            "Hy3DMeshVerticeInpaintTexture",
+            "Hy3DModelLoader",
+            "Hy3DPostprocessMesh",
+            "Hy3DRenderMultiView",
+            "Hy3DRenderMultiViewDepth",
+            "Hy3DRenderSingleView",
+            "Hy3DSampleMultiView",
+            "Hy3DSetMeshPBRAttributes",
+            "Hy3DSetMeshPBRTextures",
+            "Hy3DTorchCompileSettings",
+            "Hy3DVAEDecode"
+        ],
+        {
+            "title_aux": "ComfyUI-ComfyUI-Hunyuan3DWrapper [WIP]"
         }
     ],
     "https://github.com/kijai/ComfyUI-HunyuanVideoWrapper": [
@@ -3959,6 +4037,10 @@
             "IAzureAiApi",
             "ICutStrings",
             "IIfElse",
+            "ILLMExecute",
+            "ILLMExecute2",
+            "ILoadAzureAiApi",
+            "ILoadOllamaApi",
             "IMultilineSplitToStrings",
             "IPassImage",
             "IPostProcessLLMResponse",
