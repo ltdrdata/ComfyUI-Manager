@@ -5,6 +5,8 @@
 ![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/dialog.jpg)
 
 ## NOTICE
+* V3.10: `double-click feature` is removed
+  * This feature has been moved to https://github.com/ltdrdata/comfyui-connection-helper
 * V3.3.2: Overhauled. Officially supports [https://comfyregistry.org/](https://comfyregistry.org/).
 * You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
 
@@ -185,17 +187,18 @@ The following settings are applied based on the section marked as `is_default`.
 
 ## Custom node support guide
 
+* **NOTICE:**
+    - You should no longer assume that the GitHub repository name will match the subdirectory name under `custom_nodes`. The name of the subdirectory under `custom_nodes` will now use the normalized name from the `name` field in `pyproject.toml`.
+    - Avoid relying on directory names for imports whenever possible.
+
 * https://docs.comfy.org/registry/overview
+* https://github.com/Comfy-Org/rfcs
 
-
-* **Special purpose files** (optional)
+**Special purpose files** (optional)
+  * `pyproject.toml` - Spec file for comfyregistry.
   * `node_list.json` - When your custom nodes pattern of NODE_CLASS_MAPPINGS is not conventional, it is used to manually provide a list of nodes for reference. ([example](https://github.com/melMass/comfy_mtb/raw/main/node_list.json))
   * `requirements.txt` - When installing, this pip requirements will be installed automatically 
   * `install.py` - When installing, it is automatically called
-  * `uninstall.py` - When uninstalling, it is automatically called
-  * `disable.py` - When disabled, it is automatically called
-    * When installing a custom node setup `.js` file, it is recommended to write this script for disabling.
-  * `enable.py` - When enabled, it is automatically called
   * **All scripts are executed from the root path of the corresponding custom node.**
 
 
@@ -278,6 +281,7 @@ The following settings are applied based on the section marked as `is_default`.
 * If you add the item `skip_migration_check = True` to `config.ini`, it will not check whether there are nodes that can be migrated at startup.
   * This option can be used if performance issues occur in a Colab+GDrive environment.
 
+
 ## Scanner
 When you run the `scan.sh` script:
 
@@ -300,6 +304,7 @@ When you run the `scan.sh` script:
   * Edit `config.ini` file: add `windows_selector_event_loop_policy = True`
 * if `SSL: CERTIFICATE_VERIFY_FAILED` error is occured.
   * Edit `config.ini` file: add `bypass_ssl = True`
+
 
 ## Security policy
   * Edit `config.ini` file: add `security_level = <LEVEL>`

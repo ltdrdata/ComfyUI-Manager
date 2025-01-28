@@ -161,10 +161,6 @@ def set_component_policy(mode):
     core.get_config()['component_policy'] = mode
 
 
-def set_double_click_policy(mode):
-    core.get_config()['double_click_policy'] = mode
-
-
 def print_comfyui_version():
     global comfy_ui_hash
     global comfyui_tag
@@ -1201,17 +1197,6 @@ async def component_policy(request):
         core.write_config()
     else:
         return web.Response(text=core.get_config()['component_policy'], status=200)
-
-    return web.Response(status=200)
-
-
-@routes.get("/manager/dbl_click/policy")
-async def dbl_click_policy(request):
-    if "value" in request.rel_url.query:
-        set_double_click_policy(request.rel_url.query['value'])
-        core.write_config()
-    else:
-        return web.Response(text=core.get_config()['double_click_policy'], status=200)
 
     return web.Response(status=200)
 

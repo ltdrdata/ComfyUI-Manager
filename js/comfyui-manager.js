@@ -1061,28 +1061,6 @@ class ManagerMenuDialog extends ComfyDialog {
 			set_component_policy(event.target.value);
 		});
 
-		let dbl_click_policy_combo = document.createElement("select");
-		dbl_click_policy_combo.setAttribute("title", "Sets the behavior when you double-click the title area of a node.");
-		dbl_click_policy_combo.className = "cm-menu-combo";
-		dbl_click_policy_combo.appendChild($el('option', { value: 'none', text: 'Double-Click: None' }, []));
-		dbl_click_policy_combo.appendChild($el('option', { value: 'copy-all', text: 'Double-Click: Copy All Connections' }, []));
-		dbl_click_policy_combo.appendChild($el('option', { value: 'copy-full', text: 'Double-Click: Copy All Connections and shape' }, []));
-		dbl_click_policy_combo.appendChild($el('option', { value: 'copy-input', text: 'Double-Click: Copy Input Connections' }, []));
-		dbl_click_policy_combo.appendChild($el('option', { value: 'possible-input', text: 'Double-Click: Possible Input Connections' }, []));
-		dbl_click_policy_combo.appendChild($el('option', { value: 'dual', text: 'Double-Click: Possible(left) + Copy(right)' }, []));
-
-		api.fetchApi('/manager/dbl_click/policy')
-			.then(response => response.text())
-			.then(data => {
-				dbl_click_policy_combo.value = data;
-				set_double_click_policy(data);
-			});
-
-		dbl_click_policy_combo.addEventListener('change', function (event) {
-			api.fetchApi(`/manager/dbl_click/policy?value=${event.target.value}`);
-			set_double_click_policy(event.target.value);
-		});
-
 		api.fetchApi('/manager/share_option')
 			.then(response => response.text())
 			.then(data => {
@@ -1111,7 +1089,6 @@ class ManagerMenuDialog extends ComfyDialog {
 			default_ui_combo,
 			share_combo,
 			component_policy_combo,
-			dbl_click_policy_combo,
 			$el("br", {}, []),
 
 			$el("br", {}, []),
