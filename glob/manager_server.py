@@ -13,6 +13,7 @@ import shutil
 import git
 from datetime import datetime
 
+from folder_paths import get_filename_list
 from server import PromptServer
 import manager_core as core
 import manager_util
@@ -52,6 +53,27 @@ import latent_preview
 
 
 is_local_mode = args.listen.startswith('127.') or args.listen.startswith('local.')
+
+
+model_dir_name_map = {
+    "checkpoints": "checkpoints",
+    "checkpoint": "checkpoints",
+    "unclip": "checkpoints",
+    "text_encoders": "text_encoders",
+    "clip": "text_encoders",
+    "vae": "vae",
+    "lora": "loras",
+    "t2i-adapter": "controlnet",
+    "t2i-style": "controlnet",
+    "controlnet": "controlnet",
+    "clip_vision": "clip_vision",
+    "gligen": "gligen",
+    "upscale": "upscale_models",
+    "embedding": "embeddings",
+    "embeddings": "embeddings",
+    "unet": "diffusion_models",
+    "diffusion_model": "diffusion_models",
+}
 
 
 def is_allowed_security_level(level):
@@ -274,43 +296,9 @@ def get_model_dir(data, show_log=False):
             else:
                 base_model = os.path.join(models_base, data['save_path'])
     else:
-        model_type = data['type']
-        if model_type == "checkpoints" or model_type == "checkpoint":
-            base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
-        elif model_type == "unclip":
-            base_model = folder_paths.folder_names_and_paths["checkpoints"][0][0]
-        elif model_type == "clip" or model_type == "text_encoders":
-            if folder_paths.folder_names_and_paths.get("text_encoders"):
-                base_model = folder_paths.folder_names_and_paths["text_encoders"][0][0]
-            else:
-                if show_log:
-                    logging.info("[ComfyUI-Manager] Your ComfyUI is outdated version.")
-                base_model = folder_paths.folder_names_and_paths["clip"][0][0]  # outdated version
-        elif model_type == "VAE":
-            base_model = folder_paths.folder_names_and_paths["vae"][0][0]
-        elif model_type == "lora":
-            base_model = folder_paths.folder_names_and_paths["loras"][0][0]
-        elif model_type == "T2I-Adapter":
-            base_model = folder_paths.folder_names_and_paths["controlnet"][0][0]
-        elif model_type == "T2I-Style":
-            base_model = folder_paths.folder_names_and_paths["controlnet"][0][0]
-        elif model_type == "controlnet":
-            base_model = folder_paths.folder_names_and_paths["controlnet"][0][0]
-        elif model_type == "clip_vision":
-            base_model = folder_paths.folder_names_and_paths["clip_vision"][0][0]
-        elif model_type == "gligen":
-            base_model = folder_paths.folder_names_and_paths["gligen"][0][0]
-        elif model_type == "upscale":
-            base_model = folder_paths.folder_names_and_paths["upscale_models"][0][0]
-        elif model_type == "embeddings":
-            base_model = folder_paths.folder_names_and_paths["embeddings"][0][0]
-        elif model_type == "unet" or model_type == "diffusion_model":
-            if folder_paths.folder_names_and_paths.get("diffusion_models"):
-                base_model = folder_paths.folder_names_and_paths["diffusion_models"][0][1]
-            else:
-                if show_log:
-                    logging.info("[ComfyUI-Manager] Your ComfyUI is outdated version.")
-                base_model = folder_paths.folder_names_and_paths["unet"][0][0]  # outdated version
+        model_dir_name = model_dir_name_map.get(data['type'].lower())
+        if model_dir_name is not None:
+            base_model = folder_paths.folder_names_and_paths[model_dir_name][0][0]
         else:
             base_model = os.path.join(models_base, "etc")
 
@@ -605,25 +593,50 @@ async def fetch_customnode_alternatives(request):
 
 
 def check_model_installed(json_obj):
-    def process_model(item):
-        model_path = get_model_path(item, False)
-        item['installed'] = 'None'
+    def is_exists(model_dir_name, file_name):
+        dirs = folder_paths.get_folder_paths(model_dir_name)
+        for x in dirs:
+            if os.path.exists(os.path.join(x, file_name)):
+                return True
 
-        if model_path is not None:
-            if model_path.endswith('.zip'):
-                if os.path.exists(model_path[:-4]):
-                    item['installed'] = 'True'
-                else:
-                    item['installed'] = 'False'
-            elif os.path.exists(model_path):
+        return False
+
+
+    model_dir_names = ['checkpoints', 'loras', 'vae', 'text_encoders', 'diffusion_models', 'clip_vision', 'embeddings',
+                       'diffusers', 'vae_approx', 'controlnet', 'gligen', 'upscale_models', 'hypernetworks',
+                       'photomaker', 'classifiers']
+
+    total_models_files = set()
+    for x in model_dir_names:
+        for y in folder_paths.get_filename_list(x):
+            total_models_files.add(y)
+
+    def process_model_phase(item):
+        if 'diffusion' not in item['filename'] and 'pytorch' not in item['filename'] and 'model' not in item['filename']:
+            # non-general name case
+            if item['filename'] in total_models_files:
                 item['installed'] = 'True'
+                return
+
+        if item['save_path'] == 'default':
+            model_dir_name = model_dir_name_map.get(item['type'].lower())
+            if model_dir_name is not None:
+                item['installed'] = str(is_exists(model_dir_name, item['filename']))
             else:
                 item['installed'] = 'False'
+        else:
+            model_dir_name = item['save_path'].split('/')[0]
+            if model_dir_name in folder_paths.folder_names_and_paths:
+                if is_exists(model_dir_name, item['filename']):
+                    item['installed'] = 'True'
+
+            if 'installed' not in item:
+                fullpath = os.path.join(folder_paths.models_dir, item['save_path'], item['filename'])
+                item['installed'] = 'True' if os.path.exists(fullpath) else 'False'
 
     with concurrent.futures.ThreadPoolExecutor(8) as executor:
         for item in json_obj['models']:
-            executor.submit(process_model, item)
-
+            executor.submit(process_model_phase, item)
 
 @routes.get("/externalmodel/getlist")
 async def fetch_externalmodel_list(request):
