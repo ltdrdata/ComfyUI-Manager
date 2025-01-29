@@ -13,7 +13,6 @@ import shutil
 import git
 from datetime import datetime
 
-from folder_paths import get_filename_list
 from server import PromptServer
 import manager_core as core
 import manager_util
