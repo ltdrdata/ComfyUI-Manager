@@ -4695,7 +4695,8 @@
     "https://github.com/JTriggerFish/ComfyLatentTools": [
         [
             "LatentNormalizedLanczosResize",
-            "RescaledPAG"
+            "RescaledPAG",
+            "RescaledSEG"
         ],
         {
             "title_aux": "Comfy Latent Tools"
@@ -6293,6 +6294,7 @@
             "DJZDatamoshV2",
             "DatasetWordcloud",
             "DeadPixelEffect",
+            "DepthBasedPixelization",
             "DinskyPlus",
             "DinskyPlusV2",
             "DjzDatabendingV1",
@@ -6341,11 +6343,13 @@
             "RetroVideoText",
             "ScreensaverGenerator",
             "ScreensaverGeneratorV2",
+            "ScreensaverGeneratorV3",
             "SequentialNumberGenerator",
             "StringChaos",
             "StringWeights",
             "Technicolor3Strip_v1",
             "Technicolor3Strip_v2",
+            "ThinkSeeker",
             "ThreeToneStyler",
             "TrianglesPlus",
             "TrianglesPlusV2",
@@ -6366,6 +6370,7 @@
             "VideoMazeV1",
             "VideoMazeV2",
             "VideoNoiseFactory",
+            "VideoPyramidV1",
             "VideoRingPainter",
             "VideoTemperatureV1",
             "VideoTimecode",
@@ -7949,6 +7954,15 @@
             "title_aux": "ComfyUI-ImageMotionGuider"
         }
     ],
+    "https://github.com/ShmuelRonen/ComfyUI-Janus_pro_vision": [
+        [
+            "UnifiedVisionAnalyzer",
+            "VisionModelLoader"
+        ],
+        {
+            "title_aux": "ComfyUI Janus Pro Vision"
+        }
+    ],
     "https://github.com/ShmuelRonen/ComfyUI-LatentSyncWrapper": [
         [
             "D_LatentSyncNode",
@@ -9465,6 +9479,7 @@
             "VrchAudioGenresNode",
             "VrchAudioRecorderNode",
             "VrchAudioSaverNode",
+            "VrchAudioWebViewerNode",
             "VrchBooleanKeyControlNode",
             "VrchChannelOSCControlNode",
             "VrchChannelX4OSCControlNode",
@@ -10178,6 +10193,16 @@
         ],
         {
             "title_aux": "ComfyUI-BRIA_AI-RMBG"
+        }
+    ],
+    "https://github.com/ZHO-ZHO-ZHO/ComfyUI-DeepSeek-JanusPro": [
+        [
+            "Janus_ImageGeneration",
+            "Janus_ModelLoader",
+            "Janus_MultimodalUnderstanding"
+        ],
+        {
+            "title_aux": "ComfyUI-DeepSeek-JanusPro"
         }
     ],
     "https://github.com/ZHO-ZHO-ZHO/ComfyUI-DepthFM": [
@@ -12905,6 +12930,19 @@
         ],
         {
             "title_aux": "Chaosaiart-Nodes"
+        }
+    ],
+    "https://github.com/checkbins/checkbin-comfy": [
+        [
+            "Checkbin Get Image Bin",
+            "Checkbin Get String Bin",
+            "Checkbin Save Image Bin",
+            "Checkbin Save String Bin",
+            "Checkbin Start Run",
+            "Checkbin Submit Bin"
+        ],
+        {
+            "title_aux": "checkbin-comfy"
         }
     ],
     "https://github.com/chenbaiyujason/ComfyUI_StepFun": [
@@ -23159,7 +23197,8 @@
     ],
     "https://github.com/pollockjj/ComfyUI-MultiGPU": [
         [
-            "DeviceSelectorMultiGPU"
+            "DeviceSelectorMultiGPU",
+            "HunyuanVideoEmbeddingsAdapter"
         ],
         {
             "title_aux": "ComfyUI-MultiGPU"
@@ -23691,6 +23730,15 @@
             "title_aux": "ComfyUI-Similarity-Score"
         }
     ],
+    "https://github.com/risunobushi/ComfyUI_DisplacementMapTools": [
+        [
+            "DisplaceLogo",
+            "ExtractDisplacementMap"
+        ],
+        {
+            "title_aux": "ComfyUI_DisplacementMapTools"
+        }
+    ],
     "https://github.com/risunobushi/comfyUI_FrequencySeparation_RGB-HSV": [
         [
             "FrequencyCombination",
@@ -23951,7 +23999,7 @@
             "title_aux": "ComfyUI_ProfilerX"
         }
     ],
-    "https://github.com/ryanontheinside/ComfyUI_RealTimeNodes": [
+    "https://github.com/ryanontheinside/ComfyUI_RealtimeNodes": [
         [
             "DTypeConverter",
             "DeltaControl",
@@ -23963,13 +24011,17 @@
             "IntSequence",
             "IntegerMotionController",
             "IntervalControl",
+            "LazyCondition",
+            "LoadImageFromPath_",
             "MotionController",
+            "MultilineText",
             "QuickShapeMask",
             "ROINode",
+            "SimilarityFilter",
             "StringControl",
             "StringSequence",
-            "TAESDVaeDecode",
-            "TAESDVaeEncode"
+            "TextRenderer",
+            "YOLOSimilarityCompare"
         ],
         {
             "title_aux": "Nodes for use with real-time applications of ComfyUI"
@@ -25241,9 +25293,12 @@
         [
             "LoadEXR",
             "LoadEXRFrames",
+            "LoadImageAndPrompt",
             "LoadLatentEXR",
             "SaveEXR",
             "SaveEXRFrames",
+            "SaveImageAndPromptExact",
+            "SaveImageAndPromptIncremental",
             "SaveLatentEXR",
             "SaveTiff"
         ],
@@ -27220,6 +27275,7 @@
         [
             "ImageAnalyzer",
             "JanusChatAnalyzer",
+            "JanusImageGenerator",
             "JanusProLoader"
         ],
         {
