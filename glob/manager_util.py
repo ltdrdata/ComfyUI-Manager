@@ -267,14 +267,15 @@ class PIPFixer:
 
         torch_ver = StrictVersion(spec[0])
         torch_ver = f"{torch_ver.major}.{torch_ver.minor}.{torch_ver.patch}"
-        torchvision_ver, torchaudio_ver = torch_torchvision_torchaudio_version_map.get(torch_ver)
+        torch_torchvision_torchaudio_ver = torch_torchvision_torchaudio_version_map.get(torch_ver)
 
-        if torchvision_ver is None:
+        if torch_torchvision_torchaudio_ver is None:
             cmd = [sys.executable, '-m', 'pip', 'install', '--pre',
                    'torch', 'torchvision', 'torchaudio',
                    '--index-url', f"https://download.pytorch.org/whl/nightly/{platform}"]
             logging.info("[ComfyUI-Manager] restore PyTorch to nightly version")
         else:
+            torchvision_ver, torchaudio_ver = torch_torchvision_torchaudio_ver
             cmd = [sys.executable, '-m', 'pip', 'install',
                    f'torch=={torch_ver}', f'torchvision=={torchvision_ver}', f"torchaudio=={torchaudio_ver}",
                    '--index-url', f"https://download.pytorch.org/whl/{platform}"]
