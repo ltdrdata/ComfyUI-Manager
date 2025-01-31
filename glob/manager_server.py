@@ -1057,8 +1057,10 @@ async def update_comfyui(request):
             logging.error("ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
             return web.Response(status=400)
         elif res == "updated":
+            logging.info("ComfyUI is updated.")
             return web.Response(status=201)
         else:  # skipped
+            logging.info("ComfyUI is up-to-date.")
             return web.Response(status=200)
     except Exception as e:
         logging.error(f"ComfyUI update fail: {e}", file=sys.stderr)
@@ -1433,6 +1435,8 @@ async def default_cache_update():
     # load at least once
     await core.unified_manager.reload('remote', dont_wait=False)
     await core.unified_manager.get_custom_nodes('default', 'remote')
+
+    logging.info("[ComfyUI-Manager] All startup tasks have been completed.")
 
     # NOTE: hide migration button temporarily.
     # if not core.get_config()['skip_migration_check']:
