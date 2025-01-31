@@ -1625,7 +1625,7 @@ def get_config():
     if cached_config is None:
         cached_config = read_config()
         if cached_config['http_channel_enabled']:
-            print(f"[ComfyUI-Manager] Warning: http channel enabled, make sure server in secure env")
+            print("[ComfyUI-Manager] Warning: http channel enabled, make sure server in secure env")
 
     return cached_config
 
