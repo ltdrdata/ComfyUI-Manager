@@ -232,21 +232,22 @@ def clear_pip_cache():
     pip_map = None
 
 
-torch_torchvision_version_map = {
-    '2.5.1': '0.20.1',
-    '2.5.0': '0.20.0',
-    '2.4.1': '0.19.1',
-    '2.4.0': '0.19.0',
-    '2.3.1': '0.18.1',
-    '2.3.0': '0.18.0',
-    '2.2.2': '0.17.2',
-    '2.2.1': '0.17.1',
-    '2.2.0': '0.17.0',
-    '2.1.2': '0.16.2',
-    '2.1.1': '0.16.1',
-    '2.1.0': '0.16.0',
-    '2.0.1': '0.15.2',
-    '2.0.0': '0.15.1',
+torch_torchvision_torchaudio_version_map = {
+    '2.6.0': ('0.21.0', '2.6.0'),
+    '2.5.1': ('0.20.0', '2.5.0'),
+    '2.5.0': ('0.20.0', '2.5.0'),
+    '2.4.1': ('0.19.1', '2.4.1'),
+    '2.4.0': ('0.19.0', '2.4.0'),
+    '2.3.1': ('0.18.1', '2.3.1'),
+    '2.3.0': ('0.18.0', '2.3.0'),
+    '2.2.2': ('0.17.2', '2.2.2'),
+    '2.2.1': ('0.17.1', '2.2.1'),
+    '2.2.0': ('0.17.0', '2.2.0'),
+    '2.1.2': ('0.16.2', '2.1.2'),
+    '2.1.1': ('0.16.1', '2.1.1'),
+    '2.1.0': ('0.16.0', '2.1.0'),
+    '2.0.1': ('0.15.2', '2.0.1'),
+    '2.0.0': ('0.15.1', '2.0.0'),
 }
 
 
@@ -266,7 +267,7 @@ class PIPFixer:
 
         torch_ver = StrictVersion(spec[0])
         torch_ver = f"{torch_ver.major}.{torch_ver.minor}.{torch_ver.patch}"
-        torchvision_ver = torch_torchvision_version_map.get(torch_ver)
+        torchvision_ver, torchaudio_ver = torch_torchvision_torchaudio_version_map.get(torch_ver)
 
         if torchvision_ver is None:
             cmd = [sys.executable, '-m', 'pip', 'install', '--pre',
@@ -275,7 +276,7 @@ class PIPFixer:
             logging.info("[ComfyUI-Manager] restore PyTorch to nightly version")
         else:
             cmd = [sys.executable, '-m', 'pip', 'install',
-                   f'torch=={torch_ver}', f'torchvision=={torchvision_ver}', f"torchaudio=={torch_ver}",
+                   f'torch=={torch_ver}', f'torchvision=={torchvision_ver}', f"torchaudio=={torchaudio_ver}",
                    '--index-url', f"https://download.pytorch.org/whl/{platform}"]
             logging.info(f"[ComfyUI-Manager] restore PyTorch to {torch_ver}+{platform}")
 
