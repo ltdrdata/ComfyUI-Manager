@@ -17,7 +17,6 @@ import {
 import { ComponentBuilderDialog, getPureName, load_components, set_component_policy } from "./components-manager.js";
 import { CustomNodesManager } from "./custom-nodes-manager.js";
 import { ModelManager } from "./model-manager.js";
-import { set_double_click_policy } from "./node_fixer.js";
 import { SnapshotManager } from "./snapshot.js";
 
 var docStyle = document.createElement('style');

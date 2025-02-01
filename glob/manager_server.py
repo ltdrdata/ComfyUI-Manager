@@ -18,6 +18,8 @@ import manager_core as core
 import manager_util
 import cm_global
 import logging
+import asyncio
+import queue
 
 
 logging.info(f"### Loading: ComfyUI-Manager ({core.version_str})")
@@ -30,7 +32,6 @@ SECURITY_MESSAGE_NORMAL_MINUS = "ERROR: To use this feature, you must either set
 SECURITY_MESSAGE_GENERAL = "ERROR: This installation is not allowed in this security_level. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
 
 routes = PromptServer.instance.routes
-
 
 def handle_stream(stream, prefix):
     stream.reconfigure(encoding=locale.getpreferredencoding(), errors='replace')
@@ -366,6 +367,147 @@ def nickname_filter(json_obj):
         json_obj[k][0] = v
 
     return json_obj
+
+
+install_queue = queue.Queue()
+install_result = {}
+
+async def install_worker():
+    global install_result
+    global install_queue
+
+    async def do_install(item):
+        ui_id, node_spec_str, channel, mode, skip_post_install = item
+
+        try:
+            node_spec = core.unified_manager.resolve_node_spec(node_spec_str)
+
+            if node_spec is None:
+                logging.error(f"Cannot resolve install target: '{node_spec_str}'")
+                install_result[ui_id] = f"Cannot resolve install target: '{node_spec_str}'"
+                return
+
+            node_name, version_spec, is_specified = node_spec
+            res = await core.unified_manager.install_by_id(node_name, version_spec, channel, mode, return_postinstall=skip_post_install)
+            # discard post install if skip_post_install mode
+
+            if res.action not in ['skip', 'enable', 'install-git', 'install-cnr', 'switch-cnr']:
+                logging.error(f"[ComfyUI-Manager] Installation failed:\n{res.msg}")
+                install_result[ui_id] = res.msg
+                return
+
+            elif not res.result:
+                logging.error(f"[ComfyUI-Manager] Installation failed:\n{res.msg}")
+                install_result[ui_id] = res.msg
+                return
+
+            install_result[ui_id] = 'success'
+        except Exception:
+            traceback.print_exc()
+            install_result[ui_id] = f"Installation failed:\n{node_spec_str}"
+
+    async def do_update(item):
+        ui_id, node_name, node_ver = item
+
+        try:
+            res = core.unified_manager.unified_update(node_name, node_ver)
+
+            manager_util.clear_pip_cache()
+
+            if res.result:
+                install_result[ui_id] = 'success'
+                return
+
+            logging.error(f"\nERROR: An error occurred while updating '{node_name}'.")
+            install_result[ui_id] = f"An error occurred while updating '{node_name}'."
+        except Exception:
+            traceback.print_exc()
+            install_result[ui_id] = f"An error occurred while updating '{node_name}'."
+
+    async def do_fix(item):
+        ui_id, node_name, node_ver = item
+
+        try:
+            res = core.unified_manager.unified_fix(node_name, node_ver)
+
+            if res.result:
+                install_result[ui_id] = 'success'
+                return
+            else:
+                logging.error(res.msg)
+
+            logging.error(f"\nERROR: An error occurred while fixing '{node_name}@{node_ver}'.")
+            install_result[ui_id] = f"An error occurred while fixing '{node_name}@{node_ver}'."
+        except Exception:
+            traceback.print_exc()
+            install_result[ui_id] = f"An error occurred while fixing '{node_name}@{node_ver}'."
+
+    async def do_uninstall(item):
+        ui_id, node_name, is_unknown = item
+
+        try:
+            res = core.unified_manager.unified_uninstall(node_name, is_unknown)
+
+            if res.result:
+                install_result[ui_id] = 'success'
+                return
+
+            logging.error(f"\nERROR: An error occurred while uninstalling '{node_name}'.")
+            install_result[ui_id] = f"An error occurred while uninstalling '{node_name}'."
+        except Exception:
+            traceback.print_exc()
+            install_result[ui_id] = f"An error occurred while uninstalling '{node_name}'."
+
+    async def do_disable(item):
+        ui_id, node_name, is_unknown = item
+
+        try:
+            res = core.unified_manager.unified_disable(node_name, is_unknown)
+
+            if res:
+                install_result[ui_id] = 'success'
+                return
+
+            install_result[ui_id] = f"Failed to disable: '{node_name}'"
+        except Exception:
+            traceback.print_exc()
+            install_result[ui_id] = f"Failed to disable: '{node_name}'"
+
+    stats = {}
+
+    while True:
+        done_count = len(install_result)
+        total_count = done_count + install_queue.qsize()
+
+        if install_queue.empty():
+            logging.info(f"\n[ComfyUI-Manager] Queued works are completed.\n{stats}")
+
+            logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
+            PromptServer.instance.send_sync("cm-install-status",
+                                            {'status': 'done', 'result': install_result,
+                                             'total_count': total_count, 'done_count': done_count})
+            install_result = {}
+            install_queue = queue.Queue()
+            return
+
+        kind, item = install_queue.get()
+
+        if kind == 'install':
+            await do_install(item)
+        elif kind == 'update':
+            await do_update(item)
+        elif kind == 'fix':
+            await do_fix(item)
+        elif kind == 'uninstall':
+            await do_uninstall(item)
+        elif kind == 'disable':
+            await do_disable(item)
+
+        stats[kind] = stats.get(kind, 0) + 1
+
+        PromptServer.instance.send_sync("cm-install-status",
+                                        {'status': 'in_progress', 'target': item[0],
+                                         'total_count': total_count, 'done_count': done_count})
 
 
 @routes.get("/customnode/getmappings")
@@ -870,7 +1012,24 @@ async def reinstall_custom_node(request):
     await install_custom_node(request)
 
 
-@routes.post("/customnode/install")
+@routes.get("/customnode/queue/reset")
+async def reset_queue(request):
+    global install_queue
+    install_queue = queue.Queue()
+    return web.Response(status=200)
+
+
+@routes.get("/customnode/queue/count")
+async def reset_queue(request):
+    global install_queue
+
+    done_count = len(install_result)
+    total_count = done_count + install_queue.qsize()
+
+    return web.json_response({'total_count': total_count, 'done_count': done_count})
+
+
+@routes.post("/customnode/queue/install")
 async def install_custom_node(request):
     if not is_allowed_security_level('middle'):
         logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
@@ -913,26 +1072,23 @@ async def install_custom_node(request):
         logging.error(SECURITY_MESSAGE_GENERAL)
         return web.Response(status=404, text="A security error has occurred. Please check the terminal logs")
 
-    node_spec = core.unified_manager.resolve_node_spec(node_spec_str)
+    install_item = json_data.get('ui_id'), node_spec_str, json_data['channel'], json_data['mode'], skip_post_install
+    install_queue.put(("install", install_item))
 
-    if node_spec is None:
-        return web.Response(status=400, text=f"Cannot resolve install target: '{node_spec_str}'")
-
-    node_name, version_spec, is_specified = node_spec
-    res = await core.unified_manager.install_by_id(node_name, version_spec, json_data['channel'], json_data['mode'], return_postinstall=skip_post_install)
-    # discard post install if skip_post_install mode
-
-    if res.action not in ['skip', 'enable', 'install-git', 'install-cnr', 'switch-cnr']:
-        logging.error(f"[ComfyUI-Manager] Installation failed:\n{res.msg}")
-        return web.Response(status=400, text=res.msg)
-    elif not res.result:
-        logging.error(f"[ComfyUI-Manager] Installation failed:\n{res.msg}")
-        return web.Response(status=400, text=res.msg)
-
-    return web.Response(status=200, text="Installation success.")
+    return web.Response(status=200)
 
 
-@routes.post("/customnode/fix")
+@routes.get("/customnode/queue/start")
+async def queue_start(request):
+    global install_result
+    install_result = {}
+
+    threading.Thread(target=lambda: asyncio.run(install_worker())).start()
+
+    return web.Response(status=200)
+
+
+@routes.post("/customnode/queue/fix")
 async def fix_custom_node(request):
     if not is_allowed_security_level('middle'):
         logging.error(SECURITY_MESSAGE_GENERAL)
@@ -948,16 +1104,10 @@ async def fix_custom_node(request):
         # unknown
         node_name = os.path.basename(json_data['files'][0])
 
-    res = core.unified_manager.unified_fix(node_name, node_ver)
+    update_item = json_data.get('ui_id'), node_name, json_data['version']
+    install_queue.put(("fix", update_item))
 
-    if res.result:
-        logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
-        return web.json_response({}, content_type='application/json')
-    else:
-        logging.error(res.msg)
-
-    logging.error(f"\nERROR: An error occurred while fixing '{node_name}@{node_ver}'.")
-    return web.Response(status=400, text=f"An error occurred while fixing '{node_name}@{node_ver}'.")
+    return web.Response(status=200)
 
 
 @routes.post("/customnode/install/git_url")
@@ -992,7 +1142,7 @@ async def install_custom_node_pip(request):
     return web.Response(status=200)
 
 
-@routes.post("/customnode/uninstall")
+@routes.post("/customnode/queue/uninstall")
 async def uninstall_custom_node(request):
     if not is_allowed_security_level('middle'):
         logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
@@ -1009,17 +1159,13 @@ async def uninstall_custom_node(request):
         is_unknown = True
         node_name = os.path.basename(json_data['files'][0])
 
-    res = core.unified_manager.unified_uninstall(node_name, is_unknown)
+    uninstall_item = json_data.get('ui_id'), node_name, is_unknown
+    install_queue.put(("uninstall", uninstall_item))
 
-    if res.result:
-        logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
-        return web.json_response({}, content_type='application/json')
-
-    logging.error(f"\nERROR: An error occurred while uninstalling '{node_name}'.")
-    return web.Response(status=400, text=f"An error occurred while uninstalling '{node_name}'.")
+    return web.Response(status=200)
 
 
-@routes.post("/customnode/update")
+@routes.post("/customnode/queue/update")
 async def update_custom_node(request):
     if not is_allowed_security_level('middle'):
         logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
@@ -1034,16 +1180,10 @@ async def update_custom_node(request):
         # unknown
         node_name = os.path.basename(json_data['files'][0])
 
-    res = core.unified_manager.unified_update(node_name, json_data['version'])
+    update_item = json_data.get('ui_id'), node_name, json_data['version']
+    install_queue.put(("update", update_item))
 
-    manager_util.clear_pip_cache()
-
-    if res.result:
-        logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
-        return web.json_response({}, content_type='application/json')
-
-    logging.error(f"\nERROR: An error occurred while updating '{node_name}'.")
-    return web.Response(status=400, text=f"An error occurred while updating '{node_name}'.")
+    return web.Response(status=200)
 
 
 @routes.get("/comfyui_manager/update_comfyui")
@@ -1092,7 +1232,7 @@ async def comfyui_switch_version(request):
     return web.Response(status=400)
 
 
-@routes.post("/customnode/disable")
+@routes.post("/customnode/queue/disable")
 async def disable_node(request):
     json_data = await request.json()
 
@@ -1105,12 +1245,10 @@ async def disable_node(request):
         is_unknown = True
         node_name = os.path.basename(json_data['files'][0])
 
-    res = core.unified_manager.unified_disable(node_name, is_unknown)
+    update_item = json_data.get('ui_id'), node_name, is_unknown
+    install_queue.put(("disable", update_item))
 
-    if res:
-        return web.json_response({}, content_type='application/json')
-
-    return web.Response(status=400, text="Failed to disable")
+    return web.Response(status=200)
 
 
 @routes.get("/manager/migrate_unmanaged_nodes")
@@ -1149,37 +1287,44 @@ async def install_model(request):
             logging.error(SECURITY_MESSAGE_NORMAL_MINUS)
             return web.Response(status=403)
 
-    res = False
+    def do_install():
+        res = False
 
-    try:
-        if model_path is not None:
+        try:
+            if model_path is not None:
 
-            model_url = json_data['url']
-            logging.info(f"Install model '{json_data['name']}' from '{model_url}' into '{model_path}'")
-            if not core.get_config()['model_download_by_agent'] and (
-                    model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de')):
-                model_dir = get_model_dir(json_data, True)
-                download_url(model_url, model_dir, filename=json_data['filename'])
-                if model_path.endswith('.zip'):
-                    res = core.unzip(model_path)
+                model_url = json_data['url']
+                logging.info(f"Install model '{json_data['name']}' from '{model_url}' into '{model_path}'")
+                if not core.get_config()['model_download_by_agent'] and (
+                        model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de')):
+                    model_dir = get_model_dir(json_data, True)
+                    download_url(model_url, model_dir, filename=json_data['filename'])
+                    if model_path.endswith('.zip'):
+                        res = core.unzip(model_path)
+                    else:
+                        res = True
+
+                    if res:
+                        return web.json_response({}, content_type='application/json')
                 else:
-                    res = True
-
-                if res:
-                    return web.json_response({}, content_type='application/json')
+                    res = download_url_with_agent(model_url, model_path)
+                    if res and model_path.endswith('.zip'):
+                        res = core.unzip(model_path)
             else:
-                res = download_url_with_agent(model_url, model_path)
-                if res and model_path.endswith('.zip'):
-                    res = core.unzip(model_path)
-        else:
-            logging.error(f"Model installation error: invalid model type - {json_data['type']}")
+                logging.error(f"Model installation error: invalid model type - {json_data['type']}")
 
-        if res:
-            return web.json_response({}, content_type='application/json')
-    except Exception as e:
-        logging.error(f"[ERROR] {e}", file=sys.stderr)
+            if res:
+                return web.json_response({}, content_type='application/json')
+        except Exception as e:
+            logging.error(f"[ERROR] {e}", file=sys.stderr)
+            return web.Response(status=400)
 
-    return web.Response(status=400)
+    # Run the installation in a thread pool
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+
+        asyncio.get_event_loop().run_in_executor(executor, do_install)
+
+    return web.Response(status=200)
 
 
 @routes.get("/manager/preview_method")
@@ -1407,8 +1552,6 @@ def confirm_try_install(sender, custom_node_url, msg):
 
 
 cm_global.register_api('cm.try-install-custom-node', confirm_try_install)
-
-import asyncio
 
 
 async def default_cache_update():

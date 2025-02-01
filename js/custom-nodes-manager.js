@@ -4,7 +4,7 @@ import { api } from "../../scripts/api.js";
 
 import {
 	manager_instance, rebootAPI, install_via_git_url,
-	fetchData, md5, icons, show_message, customConfirm, customAlert, customPrompt, sanitizeHTML
+	fetchData, md5, icons, show_message, customConfirm, customAlert, customPrompt, sanitizeHTML, infoToast
 } from  "./common.js";
 
 // https://cenfun.github.io/turbogrid/api.html
@@ -391,6 +391,8 @@ export class CustomNodesManager {
 		this.restartMap = {};
 
 		this.init();
+
+        api.addEventListener("cm-install-status", this.onInstallStatus);
 	}
 
 	init() {
@@ -1204,7 +1206,7 @@ export class CustomNodesManager {
 	}
 
 	focusInstall(item, mode) {
-		const cellNode = this.grid.getCellNode(item, "installed");
+		const cellNode = this.grid.getCellNode(item, "action");
 		if (cellNode) {
 			const cellBtn = cellNode.querySelector(`button[mode="${mode}"]`);
 			if (cellBtn) {
@@ -1269,6 +1271,13 @@ export class CustomNodesManager {
 	}
 
 	async installNodes(list, btn, title, selected_version) {
+		let stats = await api.fetchApi('/customnode/queue/count');
+		stats = await stats.json();
+		if(stats.total_count > 0) {
+			customAlert(`[ComfyUI-Manager] There are already tasks in progress. Please try again after it is completed. (${stats.done_count}/${stats.total_count})`);
+			return;
+		}
+
 		const { target, label, mode} = btn;
 
 		if(mode === "uninstall") {
@@ -1294,8 +1303,13 @@ export class CustomNodesManager {
 
 		let needRestart = false;
 		let errorMsg = "";
+
+		await api.fetchApi('/customnode/queue/reset');
+		this.install_context = btn;
+
 		for (const hash of list) {
 			const item = this.grid.getRowItemBy("hash", hash);
+
 			if (!item) {
 				errorMsg = `Not found custom node: ${hash}`;
 				break;
@@ -1315,6 +1329,7 @@ export class CustomNodesManager {
 			data.selected_version = selected_version;
 			data.channel = this.channel;
 			data.mode = this.mode;
+			data.ui_id = hash;
 
 			let install_mode = mode;
 			if(mode == 'switch') {
@@ -1332,14 +1347,14 @@ export class CustomNodesManager {
 				api_mode = 'reinstall';
 			}
 
-			const res = await api.fetchApi(`/customnode/${api_mode}`, {
+			const res = await api.fetchApi(`/customnode/queue/${api_mode}`, {
 				method: 'POST',
 				body: JSON.stringify(data)
 			});
 
 			if (res.status != 200) {
-
 				errorMsg = `${item.title} ${mode} failed: `;
+
 				if(res.status == 403) {
 					errorMsg += `This action is not allowed with this security level configuration.`;
 				} else if(res.status == 404) {
@@ -1350,32 +1365,69 @@ export class CustomNodesManager {
 
 				break;
 			}
-
-			needRestart = true;
-
-			this.grid.setRowSelected(item, false);
-			item.restart = true;
-			this.restartMap[item.hash] = true;
-			this.grid.updateCell(item, "action");
-
-			//console.log(res.data);
-
 		}
 
-		target.classList.remove("cn-btn-loading");
-
-		if (errorMsg) {
+		if(errorMsg) {
 			this.showError(errorMsg);
 			show_message("Installation Error:\n"+errorMsg);
+		}
+		else {
+			await api.fetchApi('/customnode/queue/start');
+		}
+	}
+
+	async onInstallStatus(event) {
+		let self = CustomNodesManager.instance;
+		if(event.detail.status == 'in_progress') {
+			const hash = event.detail.target;
+
+			const item = self.grid.getRowItemBy("hash", hash);
+
+			item.restart = true;
+			self.restartMap[item.hash] = true;
+			self.grid.updateCell(item, "action");
+		}
+		else if(event.detail.status == 'done') {
+			self.onInstallCompleted(event.detail);
+		}
+	}
+
+	async onInstallCompleted(info) {
+		let result = info.result;
+
+		let self = CustomNodesManager.instance;
+
+		if(!self.install_context) {
+			return;
+		}
+
+		const { target, label, mode } =  self.install_context;
+		target.classList.remove("cn-btn-loading");
+
+		let errorMsg = "";
+
+		for(let hash in result){
+			let v = result[hash];
+
+			const item = self.grid.getRowItemBy("hash", hash);
+			self.grid.setRowSelected(item, false);
+
+			if(v != 'success')
+				errorMsg += v;
+		}
+
+		if (errorMsg) {
+			self.showError(errorMsg);
+			show_message("Installation Error:\n"+errorMsg);
 		} else {
-			this.showStatus(`${label} ${list.length} custom node(s) successfully`);
+			self.showStatus(`${label} ${result.length} custom node(s) successfully`);
 		}
 
-		if (needRestart) {
-			this.showRestart();
-			this.showMessage(`To apply the installed/updated/disabled/enabled custom node, please restart ComfyUI. And refresh browser.`, "red")
-		}
+		self.showRestart();
+		self.showMessage(`To apply the installed/updated/disabled/enabled custom node, please restart ComfyUI. And refresh browser.`, "red");
 
+		infoToast(`[ComfyUI-Manager] All tasks in the queue have been completed.\n${info.done_count}/${info.total_count}`);
+		self.install_context = undefined;
 	}
 
 	// ===========================================================================================
