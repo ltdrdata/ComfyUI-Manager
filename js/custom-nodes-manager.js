@@ -1916,4 +1916,8 @@ export class CustomNodesManager {
 	close() {
 		this.element.style.display = "none";
 	}
+
+	get isVisible() {
+		return this.element?.style?.display === "flex";
+	}
 }
