@@ -1277,7 +1277,7 @@ class ManagerMenuDialog extends ComfyDialog {
 	}
 
 	toggleVisibility() {
-		if(this.isVisible) {
+		if (this.isVisible) {
 			this.close();
 		} else {
 			this.show();
