@@ -1276,13 +1276,9 @@ class ManagerMenuDialog extends ComfyDialog {
 		this.element.style.display = "block";
 	}
 
-	hide() {
-		this.element.style.display = "none";
-	}
-
 	toggleVisibility() {
 		if(this.isVisible) {
-			this.hide();
+			this.close();
 		} else {
 			this.show();
 		}
