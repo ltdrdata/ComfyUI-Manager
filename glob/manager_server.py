@@ -1020,7 +1020,7 @@ async def reset_queue(request):
 
 
 @routes.get("/customnode/queue/count")
-async def reset_queue(request):
+async def queue_count(request):
     global install_queue
 
     done_count = len(install_result)
