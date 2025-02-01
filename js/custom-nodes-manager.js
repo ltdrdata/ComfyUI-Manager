@@ -1918,6 +1918,6 @@ export class CustomNodesManager {
 	}
 
 	get isVisible() {
-		return this.element?.style?.display === "flex";
+		return this.element?.style?.display !== "none";
 	}
 }

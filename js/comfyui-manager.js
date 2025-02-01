@@ -1269,7 +1269,7 @@ class ManagerMenuDialog extends ComfyDialog {
 	}
 
 	get isVisible() {
-		return this.element?.style?.display === "block";
+		return this.element?.style?.display !== "none";
 	}
 
 	show() {
