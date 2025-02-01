@@ -20,13 +20,13 @@ import cm_global
 import manager_downloader
 import folder_paths
 
-try:
-    from datetime import datetime
+import datetime
+if hasattr(datetime, 'datetime'):
     def current_timestamp():
-        return datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-except:
+        return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+else:
+    # NOTE: Occurs in some Mac environments.
     import time
-    import datetime
     logging.error(f"[ComfyUI-Manager] fallback timestamp mode\n                  datetime module is invalid: '{datetime.__file__}'")
     def current_timestamp():
         return str(time.time()).split('.')[0]
