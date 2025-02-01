@@ -1409,7 +1409,7 @@ app.registerExtension({
       function: () => {
         if (!manager_instance) {
           setManagerInstance(new ManagerMenuDialog());
-					manager_instance.show();
+          manager_instance.show();
         } else {
           manager_instance.toggleVisibility();
         }
