@@ -429,8 +429,9 @@ except Exception as e:
 
 
 try:
-    import git  # noqa: F401
+    import git   # noqa: F401
     import toml  # noqa: F401
+    import rich  # noqa: F401
 except ModuleNotFoundError:
     my_path = os.path.dirname(__file__)
     requirements_path = os.path.join(my_path, "requirements.txt")
