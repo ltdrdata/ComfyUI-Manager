@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 16]
+version_code = [3, 16, 1]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -174,7 +174,7 @@ git_script_path = os.path.join(manager_util.comfyui_manager_path, "git_helper.py
 manager_files_path = None
 manager_config_path = None
 manager_channel_list_path = None
-manager_startup_script_path = None
+manager_startup_script_path:str = None
 manager_snapshot_path = None
 manager_pip_overrides_path = None
 manager_components_path = None
@@ -1557,6 +1557,7 @@ def write_config():
         'downgrade_blacklist': get_config()['downgrade_blacklist'],
         'security_level': get_config()['security_level'],
         'skip_migration_check': get_config()['skip_migration_check'],
+        'always_lazy_install': get_config()['always_lazy_install']
     }
 
     directory = os.path.dirname(manager_config_path)
@@ -1597,6 +1598,7 @@ def read_config():
                     'model_download_by_agent': default_conf['model_download_by_agent'].lower() == 'true' if 'model_download_by_agent' in default_conf else False,
                     'downgrade_blacklist': default_conf['downgrade_blacklist'] if 'downgrade_blacklist' in default_conf else '',
                     'skip_migration_check': default_conf['skip_migration_check'].lower() == 'true' if 'skip_migration_check' in default_conf else False,
+                    'always_lazy_install': default_conf['always_lazy_install'].lower() == 'true' if 'always_lazy_install' in default_conf else False,
                     'security_level': security_level,
                }
 
@@ -1615,6 +1617,7 @@ def read_config():
             'model_download_by_agent': False,
             'downgrade_blacklist': '',
             'skip_migration_check': False,
+            'always_lazy_install': False,
             'security_level': 'normal',
         }
 
@@ -1672,7 +1675,9 @@ def switch_to_default_branch(repo):
 
 
 def try_install_script(url, repo_path, install_cmd, instant_execution=False):
-    if not instant_execution and ((len(install_cmd) > 0 and install_cmd[0].startswith('#')) or (platform.system() == "Windows" and comfy_ui_commit_datetime.date() >= comfy_ui_required_commit_datetime.date())):
+    if not instant_execution and (
+            (len(install_cmd) > 0 and install_cmd[0].startswith('#')) or platform.system() == "Windows" or get_config()['always_lazy_install']
+    ):
         if not os.path.exists(manager_startup_script_path):
             os.makedirs(manager_startup_script_path)
 

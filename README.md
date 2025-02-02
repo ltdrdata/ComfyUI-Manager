@@ -263,6 +263,7 @@ The following settings are applied based on the section marked as `is_default`.
     model_download_by_agent = <When downloading models, use an agent instead of torchvision_download_url.>
     downgrade_blacklist = <Set a list of packages to prevent downgrades. List them separated by commas.>
     security_level = <Set the security level.>
+    always_lazy_install = <Whether to perform dependency installation on restart even in environments other than Windows.>
     ```
 
 ## Additional Feature
