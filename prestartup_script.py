@@ -103,6 +103,24 @@ manager_config_path = os.path.join(manager_files_path, 'config.ini')
 cm_cli_path = os.path.join(comfyui_manager_path, "cm-cli.py")
 
 
+default_conf = {}
+
+def read_config():
+    global default_conf
+    import configparser
+    config = configparser.ConfigParser()
+    config.read(manager_config_path)
+    default_conf = config['default']
+
+def read_uv_mode():
+    if 'use_uv' in default_conf:
+        manager_util.use_uv = default_conf['use_uv']
+
+
+read_config()
+read_uv_mode()
+
+
 cm_global.pip_overrides = {'numpy': 'numpy<2', 'ultralytics': 'ultralytics==8.3.40'}
 if os.path.exists(manager_pip_overrides_path):
     with open(manager_pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
@@ -419,11 +437,11 @@ except ModuleNotFoundError:
 
     print("## ComfyUI-Manager: installing dependencies. (GitPython)")
     try:
-        result = subprocess.check_output([sys.executable, '-s', '-m', 'pip', 'install', '-r', requirements_path])
+        result = subprocess.check_output(manager_util.make_pip_cmd(['install', '-r', requirements_path]))
     except subprocess.CalledProcessError:
         print("## [ERROR] ComfyUI-Manager: Attempting to reinstall dependencies using an alternative method.")
         try:
-            result = subprocess.check_output([sys.executable, '-s', '-m', 'pip', 'install', '--user', '-r', requirements_path])
+            result = subprocess.check_output(manager_util.make_pip_cmd(['install', '--user', '-r', requirements_path]))
         except subprocess.CalledProcessError:
             print("## [ERROR] ComfyUI-Manager: Failed to install the GitPython package in the correct Python environment. Please install it manually in the appropriate environment. (You can seek help at https://app.element.io/#/room/%23comfyui_space%3Amatrix.org)")
 
@@ -452,11 +470,6 @@ else:
 
 def read_downgrade_blacklist():
     try:
-        import configparser
-        config = configparser.ConfigParser()
-        config.read(manager_config_path)
-        default_conf = config['default']
-
         if 'downgrade_blacklist' in default_conf:
             items = default_conf['downgrade_blacklist'].split(',')
             items = [x.strip() for x in items if x != '']
@@ -471,18 +484,12 @@ read_downgrade_blacklist()
 
 def check_bypass_ssl():
     try:
-        import configparser
         import ssl
-        config = configparser.ConfigParser()
-        config.read(manager_config_path)
-        default_conf = config['default']
-
         if 'bypass_ssl' in default_conf and default_conf['bypass_ssl'].lower() == 'true':
             print(f"[ComfyUI-Manager] WARN: Unsafe - SSL verification bypass option is Enabled. (see {manager_config_path})")
             ssl._create_default_https_context = ssl._create_unverified_context  # SSL certificate error fix.
     except Exception:
         pass
-
 
 check_bypass_ssl()
 
@@ -603,9 +610,9 @@ def execute_lazy_install_script(repo_path, executable):
                 if package_name and not is_installed(package_name):
                     if '--index-url' in package_name:
                         s = package_name.split('--index-url')
-                        install_cmd = [sys.executable, "-m", "pip", "install", s[0].strip(), '--index-url', s[1].strip()]
+                        install_cmd = manager_util.make_pip_cmd(["install", s[0].strip(), '--index-url', s[1].strip()])
                     else:
-                        install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                        install_cmd = manager_util.make_pip_cmd(["install", package_name])
 
                     process_wrap(install_cmd, repo_path)
 

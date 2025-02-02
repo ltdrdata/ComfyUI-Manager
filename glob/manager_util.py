@@ -19,6 +19,14 @@ cache_lock = threading.Lock()
 comfyui_manager_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 cache_dir = os.path.join(comfyui_manager_path, '.cache')  # This path is also updated together in **manager_core.update_user_directory**.
 
+use_uv = False
+
+def make_pip_cmd(cmd):
+    if use_uv:
+        return [sys.executable, '-m', 'uv', 'pip'] + cmd
+    else:
+        return [sys.executable, '-m', 'pip'] + cmd
+
 
 # DON'T USE StrictVersion - cannot handle pre_release version
 # try:
@@ -209,7 +217,7 @@ def get_installed_packages(renew=False):
 
     if renew or pip_map is None:
         try:
-            result = subprocess.check_output([sys.executable, '-m', 'pip', 'list'], universal_newlines=True)
+            result = subprocess.check_output(make_pip_cmd(['list']), universal_newlines=True)
 
             pip_map = {}
             for line in result.split('\n'):
@@ -260,7 +268,7 @@ class PIPFixer:
         if len(spec) > 0:
             platform = spec[1]
         else:
-            cmd = [sys.executable, '-m', 'pip', 'install', '--force', 'torch', 'torchvision', 'torchaudio']
+            cmd = make_pip_cmd(['install', '--force', 'torch', 'torchvision', 'torchaudio'])
             subprocess.check_output(cmd, universal_newlines=True)
             logging.error(cmd)
             return
@@ -270,15 +278,13 @@ class PIPFixer:
         torch_torchvision_torchaudio_ver = torch_torchvision_torchaudio_version_map.get(torch_ver)
 
         if torch_torchvision_torchaudio_ver is None:
-            cmd = [sys.executable, '-m', 'pip', 'install', '--pre',
-                   'torch', 'torchvision', 'torchaudio',
-                   '--index-url', f"https://download.pytorch.org/whl/nightly/{platform}"]
+            cmd = make_pip_cmd(['install', '--pre', 'torch', 'torchvision', 'torchaudio',
+                                '--index-url', f"https://download.pytorch.org/whl/nightly/{platform}"])
             logging.info("[ComfyUI-Manager] restore PyTorch to nightly version")
         else:
             torchvision_ver, torchaudio_ver = torch_torchvision_torchaudio_ver
-            cmd = [sys.executable, '-m', 'pip', 'install',
-                   f'torch=={torch_ver}', f'torchvision=={torchvision_ver}', f"torchaudio=={torchaudio_ver}",
-                   '--index-url', f"https://download.pytorch.org/whl/{platform}"]
+            cmd = make_pip_cmd(['install', f'torch=={torch_ver}', f'torchvision=={torchvision_ver}', f"torchaudio=={torchaudio_ver}",
+                                '--index-url', f"https://download.pytorch.org/whl/{platform}"])
             logging.info(f"[ComfyUI-Manager] restore PyTorch to {torch_ver}+{platform}")
 
         subprocess.check_output(cmd, universal_newlines=True)
@@ -289,7 +295,7 @@ class PIPFixer:
         # remove `comfy` python package
         try:
             if 'comfy' in new_pip_versions:
-                cmd = [sys.executable, '-m', 'pip', 'uninstall', 'comfy']
+                cmd = make_pip_cmd(['uninstall', 'comfy'])
                 subprocess.check_output(cmd, universal_newlines=True)
 
                 logging.warning("[ComfyUI-Manager] 'comfy' python package is uninstalled.\nWARN: The 'comfy' package is completely unrelated to ComfyUI and should never be installed as it causes conflicts with ComfyUI.")
@@ -335,7 +341,7 @@ class PIPFixer:
 
                 if len(targets) > 0:
                     for x in targets:
-                        cmd = [sys.executable, '-m', 'pip', 'install', f"{x}=={versions[0].version_string}"]
+                        cmd = make_pip_cmd(['install', f"{x}=={versions[0].version_string}"])
                         subprocess.check_output(cmd, universal_newlines=True)
 
                     logging.info(f"[ComfyUI-Manager] 'opencv' dependencies were fixed: {targets}")
@@ -348,7 +354,8 @@ class PIPFixer:
             np = new_pip_versions.get('numpy')
             if np is not None:
                 if StrictVersion(np) >= StrictVersion('2'):
-                    subprocess.check_output([sys.executable, '-m', 'pip', 'install', "numpy<2"], universal_newlines=True)
+                    cmd = make_pip_cmd(['install', "numpy<2"])
+                    subprocess.check_output(cmd , universal_newlines=True)
         except Exception as e:
             logging.error("[ComfyUI-Manager] Failed to restore numpy")
             logging.error(e)

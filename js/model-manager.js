@@ -738,7 +738,7 @@ export class ModelManager {
 			let v = result[hash];
 
 			if(v != 'success')
-				errorMsg += v;
+				errorMsg += v + '\n';
 		}
 
 		for(let k in self.install_context.targets) {

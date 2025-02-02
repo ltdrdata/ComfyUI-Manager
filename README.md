@@ -5,6 +5,7 @@
 ![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/refs/heads/Main/ComfyUI-Manager/images/dialog.jpg)
 
 ## NOTICE
+* V3.16: Support for `uv` has been added. Set `use_uv` in `config.ini`.
 * V3.10: `double-click feature` is removed
   * This feature has been moved to https://github.com/ltdrdata/comfyui-connection-helper
 * V3.3.2: Overhauled. Officially supports [https://comfyregistry.org/](https://comfyregistry.org/).
@@ -245,6 +246,24 @@ The following settings are applied based on the section marked as `is_default`.
 
 ![missing-list](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/missing-list.jpg)
 
+
+# Config
+* You can modify the `config.ini` file to apply the settings for ComfyUI-Manager.
+    * The path to the `config.ini` used by ComfyUI-Manager is displayed in the startup log messages.
+    * See also: [https://github.com/ltdrdata/ComfyUI-Manager#paths]
+* Configuration options:
+    ```
+    [default]
+    git_exe = <Manually specify the path to the git executable. If left empty, the default git executable path will be used.>
+    use_uv = <Use uv instead of pip for dependency installation.>
+    channel_url = https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main
+    bypass_ssl = <Set to True if SSL errors occur to disable SSL.>
+    file_logging = <Configure whether to create a log file used by ComfyUI-Manager.>
+    windows_selector_event_loop_policy = <If an event loop error occurs on Windows, set this to True.>
+    model_download_by_agent = <When downloading models, use an agent instead of torchvision_download_url.>
+    downgrade_blacklist = <Set a list of packages to prevent downgrades. List them separated by commas.>
+    security_level = <Set the security level.>
+    ```
 
 ## Additional Feature
 * Logging to file feature

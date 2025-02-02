@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 15]
+version_code = [3, 16]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -809,7 +809,7 @@ class UnifiedManager:
                         package_name = remap_pip_package(line.strip())
                         if package_name and not package_name.startswith('#') and package_name not in self.processed_install:
                             self.processed_install.add(package_name)
-                            install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                            install_cmd = manager_util.make_pip_cmd(["install", package_name])
                             if package_name.strip() != "" and not package_name.startswith('#'):
                                 res = res and try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
@@ -819,7 +819,7 @@ class UnifiedManager:
             if os.path.exists(install_script_path) and install_script_path not in self.processed_install:
                 self.processed_install.add(install_script_path)
                 print("Install: install script")
-                install_cmd = [sys.executable, "install.py"]
+                install_cmd = manager_util.make_pip_cmd(["install.py"])
                 return try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
         return True
@@ -1545,7 +1545,8 @@ def write_config():
     config = configparser.ConfigParser()
     config['default'] = {
         'preview_method': manager_funcs.get_current_preview_method(),
-        'git_exe':  get_config()['git_exe'],
+        'git_exe': get_config()['git_exe'],
+        'use_uv': get_config()['use_uv'],
         'channel_url': get_config()['channel_url'],
         'share_option': get_config()['share_option'],
         'bypass_ssl': get_config()['bypass_ssl'],
@@ -1581,9 +1582,12 @@ def read_config():
         else:
             security_level = default_conf['security_level'] if 'security_level' in default_conf else 'normal'
 
+        manager_util.use_uv = default_conf['use_uv'].lower() == 'true' if 'use_uv' in default_conf else False
+
         return {
                     'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else manager_funcs.get_current_preview_method(),
                     'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
+                    'use_uv': default_conf['use_uv'].lower() == 'true' if 'use_uv' in default_conf else False,
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else DEFAULT_CHANNEL,
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
                     'bypass_ssl': default_conf['bypass_ssl'].lower() == 'true' if 'bypass_ssl' in default_conf else False,
@@ -1593,13 +1597,15 @@ def read_config():
                     'model_download_by_agent': default_conf['model_download_by_agent'].lower() == 'true' if 'model_download_by_agent' in default_conf else False,
                     'downgrade_blacklist': default_conf['downgrade_blacklist'] if 'downgrade_blacklist' in default_conf else '',
                     'skip_migration_check': default_conf['skip_migration_check'].lower() == 'true' if 'skip_migration_check' in default_conf else False,
-                    'security_level': security_level
+                    'security_level': security_level,
                }
 
     except Exception:
+        manager_util.use_uv = False
         return {
             'preview_method': manager_funcs.get_current_preview_method(),
             'git_exe': '',
+            'use_uv': False,
             'channel_url': DEFAULT_CHANNEL,
             'share_option': 'all',
             'bypass_ssl': False,
@@ -1680,6 +1686,10 @@ def try_install_script(url, repo_path, install_cmd, instant_execution=False):
         if len(install_cmd) == 5 and install_cmd[2:4] == ['pip', 'install']:
             if is_blacklisted(install_cmd[4]):
                 print(f"[ComfyUI-Manager] skip black listed pip installation: '{install_cmd[4]}'")
+                return True
+        elif len(install_cmd) == 6 and install_cmd[3:5] == ['pip', 'install']:  # uv mode
+            if is_blacklisted(install_cmd[5]):
+                print(f"[ComfyUI-Manager] skip black listed pip installation: '{install_cmd[5]}'")
                 return True
 
         print(f"\n## ComfyUI-Manager: EXECUTE => {install_cmd}")
@@ -1797,9 +1807,9 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
                     if package_name and not package_name.startswith('#'):
                         if '--index-url' in package_name:
                             s = package_name.split('--index-url')
-                            install_cmd = [sys.executable, "-m", "pip", "install", s[0].strip(), '--index-url', s[1].strip()]
+                            install_cmd = manager_util.make_pip_cmd(["install", s[0].strip(), '--index-url', s[1].strip()])
                         else:
-                            install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                            install_cmd = manager_util.make_pip_cmd(["install", package_name])
 
                         if package_name.strip() != "" and not package_name.startswith('#'):
                             try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
@@ -2120,7 +2130,7 @@ def gitclone_fix(files, instant_execution=False, no_deps=False):
 
 
 def pip_install(packages):
-    install_cmd = ['#FORCE', sys.executable, "-m", "pip", "install", '-U'] + packages
+    install_cmd = ['#FORCE'] + manager_util.make_pip_cmd(["install", '-U']) + packages
     try_install_script('pip install via manager', '..', install_cmd)
 
 
@@ -2417,7 +2427,8 @@ def check_state_of_git_node_pack_single(item, do_fetch=False, do_update_check=Tr
 
 def get_installed_pip_packages():
     # extract pip package infos
-    pips = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'], text=True).split('\n')
+    cmd = manager_util.make_pip_cmd(['pip', 'freeze'])
+    pips = subprocess.check_output(cmd, text=True).split('\n')
 
     res = {}
     for x in pips:
