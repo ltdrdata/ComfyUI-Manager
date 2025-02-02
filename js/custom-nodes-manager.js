@@ -763,10 +763,9 @@ export class CustomNodesManager {
 
 			".cn-manager-restart": {
 				click: () => {
-					if(rebootAPI()) {
-						this.close();
-						this.manager_dialog.close();
-					}
+					this.close();
+					this.manager_dialog.close();
+					rebootAPI();
 				}
 			},
 
@@ -1386,19 +1385,14 @@ export class CustomNodesManager {
 
 		this.install_context = {btn: btn, targets: target_items};
 
-		for(let k in target_items) {
-			let item = this.install_context.targets[k];
-			this.grid.updateCell(item, "action");
-		}
-
 		if(errorMsg) {
 			this.showError(errorMsg);
 			show_message("Installation Error:\n"+errorMsg);
 
 			// reset
-			for (const hash of list) {
-				const item = this.grid.getRowItemBy("hash", hash);
-				self.grid.updateCell(item, "action");
+			for(let k in target_items) {
+				let item = this.install_context.targets[k];
+				this.grid.updateCell(item, "action");
 			}
 		}
 		else {
@@ -1409,6 +1403,7 @@ export class CustomNodesManager {
 
 	async onReconnected(event) {
 		let self = CustomNodesManager.instance;
+
 		if(self.need_restart) {
 			self.need_restart = false;
 
