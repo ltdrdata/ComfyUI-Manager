@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 17]
+version_code = [3, 17, 1]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -2432,7 +2432,7 @@ def check_state_of_git_node_pack_single(item, do_fetch=False, do_update_check=Tr
 
 def get_installed_pip_packages():
     # extract pip package infos
-    cmd = manager_util.make_pip_cmd(['pip', 'freeze'])
+    cmd = manager_util.make_pip_cmd(['freeze'])
     pips = subprocess.check_output(cmd, text=True).split('\n')
 
     res = {}

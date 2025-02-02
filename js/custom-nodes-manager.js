@@ -400,6 +400,7 @@ export class CustomNodesManager {
 		this.init();
 
         api.addEventListener("cm-queue-status", this.onQueueStatus);
+        api.addEventListener('reconnected', this.onReconnected);
 	}
 
 	init() {
@@ -1406,6 +1407,20 @@ export class CustomNodesManager {
 		}
 	}
 
+	async onReconnected(event) {
+		let self = CustomNodesManager.instance;
+		if(self.need_restart) {
+			self.need_restart = false;
+
+			const confirmed = await customConfirm("To apply the changes to the node pack's installation status, you need to refresh the browser. Would you like to refresh?");
+			if (!confirmed) {
+				return;
+			}
+
+			window.location.reload(true);
+		}
+	}
+
 	async onQueueStatus(event) {
 		let self = CustomNodesManager.instance;
 		if(event.detail.status == 'in_progress' && event.detail.ui_target == 'nodepack_manager') {
@@ -1879,6 +1894,7 @@ export class CustomNodesManager {
 
 	showRestart() {
 		this.element.querySelector(".cn-manager-restart").style.display = "block";
+		this.need_restart = true;
 	}
 
 	showStop() {
