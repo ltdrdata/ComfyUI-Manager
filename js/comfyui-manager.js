@@ -1275,8 +1275,20 @@ class ManagerMenuDialog extends ComfyDialog {
 		this.element = $el("div.comfy-modal", { id:'cm-manager-dialog', parent: document.body }, [ content ]);
 	}
 
+	get isVisible() {
+		return this.element?.style?.display !== "none";
+	}
+
 	show() {
 		this.element.style.display = "block";
+	}
+
+	toggleVisibility() {
+		if (this.isVisible) {
+			this.close();
+		} else {
+			this.show();
+		}
 	}
 
 	handleWorkflowGalleryButtonClick(e) {
@@ -1395,6 +1407,41 @@ app.registerExtension({
 			icon: 'pi pi-th-large'
 		}
 	],
+
+  commands: [
+    {
+      id: "Comfy.Manager.Menu.ToggleVisibility",
+      label: "Toggle Manager Menu Visibility",
+      icon: "mdi mdi-puzzle",
+      function: () => {
+        if (!manager_instance) {
+          setManagerInstance(new ManagerMenuDialog());
+          manager_instance.show();
+        } else {
+          manager_instance.toggleVisibility();
+        }
+      },
+    },
+    {
+      id: "Comfy.Manager.CustomNodesManager.ToggleVisibility",
+      label: "Toggle Custom Nodes Manager Visibility",
+      icon: "pi pi-server",
+      function: () => {
+        if (CustomNodesManager.instance?.isVisible) {
+          CustomNodesManager.instance.close();
+          return;
+        }
+
+        if (!manager_instance) {
+          setManagerInstance(new ManagerMenuDialog());
+        }
+        if (!CustomNodesManager.instance) {
+          CustomNodesManager.instance = new CustomNodesManager(app, self);
+        }
+        CustomNodesManager.instance.show(CustomNodesManager.ShowMode.NORMAL);
+      },
+    },
+  ],
 
 	init() {
 		$el("style", {
