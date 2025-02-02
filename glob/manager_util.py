@@ -130,7 +130,12 @@ async def get_data(uri, silent=False):
             with open(uri, "r", encoding="utf-8") as f:
                 json_text = f.read()
 
-    json_obj = json.loads(json_text)
+    try:
+        json_obj = json.loads(json_text)
+    except Exception as e:
+        logging.error(f"[ComfyUI-Manager] An error occurred while fetching '{uri}': {e}")
+
+        return {}
 
     if not silent:
         print(" [DONE]")

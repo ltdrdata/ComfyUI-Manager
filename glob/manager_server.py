@@ -1578,7 +1578,11 @@ cm_global.register_api('cm.try-install-custom-node', confirm_try_install)
 async def default_cache_update():
     channel_url = core.get_config()['channel_url']
     async def get_cache(filename):
-        uri = f"{channel_url}/{filename}"
+        if core.get_config()['default_cache_is_channel_url']:
+            uri = f"{channel_url}/{filename}"
+        else:
+            uri = f"{core.DEFAULT_CHANNEL}/{filename}"
+
         cache_uri = str(manager_util.simple_hash(uri)) + '_' + filename
         cache_uri = os.path.join(manager_util.cache_dir, cache_uri)
 

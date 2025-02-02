@@ -256,7 +256,7 @@ The following settings are applied based on the section marked as `is_default`.
     [default]
     git_exe = <Manually specify the path to the git executable. If left empty, the default git executable path will be used.>
     use_uv = <Use uv instead of pip for dependency installation.>
-    channel_url = https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main
+    default_cache_is_channel_url = <Determines whether to retrieve the DB designated as channel_url at startup>
     bypass_ssl = <Set to True if SSL errors occur to disable SSL.>
     file_logging = <Configure whether to create a log file used by ComfyUI-Manager.>
     windows_selector_event_loop_policy = <If an event loop error occurs on Windows, set this to True.>

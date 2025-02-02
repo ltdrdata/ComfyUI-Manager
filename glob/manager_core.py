@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 17, 3]
+version_code = [3, 17, 4]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1593,6 +1593,7 @@ def read_config():
                     'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
                     'use_uv': default_conf['use_uv'].lower() == 'true' if 'use_uv' in default_conf else False,
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else DEFAULT_CHANNEL,
+                    'default_cache_is_channel_url': default_conf['default_cache_is_channel_url'].lower() == 'true' if 'default_cache_is_channel_url' in default_conf else False,
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
                     'bypass_ssl': default_conf['bypass_ssl'].lower() == 'true' if 'bypass_ssl' in default_conf else False,
                     'file_logging': default_conf['file_logging'].lower() == 'true' if 'file_logging' in default_conf else True,
@@ -1613,6 +1614,7 @@ def read_config():
             'git_exe': '',
             'use_uv': False,
             'channel_url': DEFAULT_CHANNEL,
+            'default_cache_is_channel_url': False,
             'share_option': 'all',
             'bypass_ssl': False,
             'file_logging': True,
