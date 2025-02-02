@@ -57,22 +57,6 @@ def is_import_failed_extension(name):
     return name in import_failed_extensions
 
 
-def check_file_logging():
-    global enable_file_logging
-    try:
-        import configparser
-        config = configparser.ConfigParser()
-        config.read(manager_config_path)
-        default_conf = config['default']
-
-        if 'file_logging' in default_conf and default_conf['file_logging'].lower() == 'false':
-            enable_file_logging = False
-    except Exception:
-        pass
-
-
-check_file_logging()
-
 comfy_path = os.environ.get('COMFYUI_PATH')
 comfy_base_path = os.environ.get('COMFYUI_FOLDERS_BASE_PATH')
 
@@ -107,19 +91,27 @@ default_conf = {}
 
 def read_config():
     global default_conf
-    import configparser
-    config = configparser.ConfigParser()
-    config.read(manager_config_path)
-    default_conf = config['default']
+    try:
+        import configparser
+        config = configparser.ConfigParser()
+        config.read(manager_config_path)
+        default_conf = config['default']
+    except Exception:
+        pass
 
 def read_uv_mode():
     if 'use_uv' in default_conf:
         manager_util.use_uv = default_conf['use_uv']
 
+def check_file_logging():
+    global enable_file_logging
+    if 'file_logging' in default_conf and default_conf['file_logging'].lower() == 'false':
+        enable_file_logging = False
+
 
 read_config()
 read_uv_mode()
-
+check_file_logging()
 
 cm_global.pip_overrides = {'numpy': 'numpy<2', 'ultralytics': 'ultralytics==8.3.40'}
 if os.path.exists(manager_pip_overrides_path):
