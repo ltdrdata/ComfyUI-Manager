@@ -4,6 +4,7 @@ description:
 """
 
 import json
+import logging
 import os
 import sys
 import subprocess
@@ -41,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 14]
+version_code = [3, 14, 1]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -2835,15 +2836,18 @@ async def get_unified_total_nodes(channel, mode, regsitry_cache_mode='cache'):
 
 def populate_github_stats(node_packs, json_obj_github):
     for k, v in node_packs.items():
-        url = v['reference']
-        if url in json_obj_github:
-            v['stars'] = json_obj_github[url]['stars']
-            v['last_update'] = json_obj_github[url]['last_update']
-            v['trust'] = json_obj_github[url]['author_account_age_days'] > 600
-        else:
-            v['stars'] = -1
-            v['last_update'] = -1
-            v['trust'] = False
+        try:
+            url = v['reference']
+            if url in json_obj_github:
+                v['stars'] = json_obj_github[url]['stars']
+                v['last_update'] = json_obj_github[url]['last_update']
+                v['trust'] = json_obj_github[url]['author_account_age_days'] > 600
+            else:
+                v['stars'] = -1
+                v['last_update'] = -1
+                v['trust'] = False
+        except:
+            logging.error(f"[ComfyUI-Manager] DB item is broken:\n{v}")
 
 
 def populate_favorites(node_packs, json_obj_extras):
