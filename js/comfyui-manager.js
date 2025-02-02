@@ -1408,40 +1408,40 @@ app.registerExtension({
 		}
 	],
 
-  commands: [
-    {
-      id: "Comfy.Manager.Menu.ToggleVisibility",
-      label: "Toggle Manager Menu Visibility",
-      icon: "mdi mdi-puzzle",
-      function: () => {
-        if (!manager_instance) {
-          setManagerInstance(new ManagerMenuDialog());
-          manager_instance.show();
-        } else {
-          manager_instance.toggleVisibility();
-        }
-      },
-    },
-    {
-      id: "Comfy.Manager.CustomNodesManager.ToggleVisibility",
-      label: "Toggle Custom Nodes Manager Visibility",
-      icon: "pi pi-server",
-      function: () => {
-        if (CustomNodesManager.instance?.isVisible) {
-          CustomNodesManager.instance.close();
-          return;
-        }
+	commands: [
+	{
+		id: "Comfy.Manager.Menu.ToggleVisibility",
+		label: "Toggle Manager Menu Visibility",
+		icon: "mdi mdi-puzzle",
+		function: () => {
+			if (!manager_instance) {
+				setManagerInstance(new ManagerMenuDialog());
+				manager_instance.show();
+			} else {
+				manager_instance.toggleVisibility();
+			}
+		},
+	},
+	{
+		id: "Comfy.Manager.CustomNodesManager.ToggleVisibility",
+		label: "Toggle Custom Nodes Manager Visibility",
+		icon: "pi pi-server",
+		function: () => {
+			if (CustomNodesManager.instance?.isVisible) {
+				CustomNodesManager.instance.close();
+				return;
+			}
 
-        if (!manager_instance) {
-          setManagerInstance(new ManagerMenuDialog());
-        }
-        if (!CustomNodesManager.instance) {
-          CustomNodesManager.instance = new CustomNodesManager(app, self);
-        }
-        CustomNodesManager.instance.show(CustomNodesManager.ShowMode.NORMAL);
-      },
-    },
-  ],
+			if (!manager_instance) {
+				setManagerInstance(new ManagerMenuDialog());
+			}
+			if (!CustomNodesManager.instance) {
+				CustomNodesManager.instance = new CustomNodesManager(app, self);
+			}
+			CustomNodesManager.instance.show(CustomNodesManager.ShowMode.NORMAL);
+		},
+	}
+	],
 
 	init() {
 		$el("style", {
