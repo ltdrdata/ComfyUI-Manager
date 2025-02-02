@@ -325,6 +325,8 @@ def normalize_channel(channel):
         return None
     elif channel.startswith('https://'):
         return channel
+    elif channel.startswith('http://') and get_config()['http_channel_enabled'] == True:
+        return channel
 
     tmp_dict = get_channel_dict()
     channel_url = tmp_dict.get(channel)
@@ -1586,6 +1588,7 @@ def read_config():
         manager_util.use_uv = default_conf['use_uv'].lower() == 'true' if 'use_uv' in default_conf else False
 
         return {
+                    'http_channel_enabled': default_conf['http_channel_enabled'].lower() == 'true' if 'http_channel_enabled' in default_conf else False,
                     'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else manager_funcs.get_current_preview_method(),
                     'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
                     'use_uv': default_conf['use_uv'].lower() == 'true' if 'use_uv' in default_conf else False,
@@ -1605,6 +1608,7 @@ def read_config():
     except Exception:
         manager_util.use_uv = False
         return {
+            'http_channel_enabled': False,
             'preview_method': manager_funcs.get_current_preview_method(),
             'git_exe': '',
             'use_uv': False,
@@ -1627,6 +1631,8 @@ def get_config():
 
     if cached_config is None:
         cached_config = read_config()
+        if cached_config['http_channel_enabled']:
+            print("[ComfyUI-Manager] Warning: http channel enabled, make sure server in secure env")
 
     return cached_config
 
@@ -2086,14 +2092,8 @@ async def get_data_by_mode(mode, filename, channel_url=None):
             cache_uri = str(manager_util.simple_hash(uri))+'_'+filename
             cache_uri = os.path.join(manager_util.cache_dir, cache_uri)
 
-            if mode == "cache":
-                if manager_util.is_file_created_within_one_day(cache_uri):
+            if mode == "cache" and manager_util.is_file_created_within_one_day(cache_uri):
                     json_obj = await manager_util.get_data(cache_uri)
-                else:
-                    json_obj = await manager_util.get_data(uri)
-                    with manager_util.cache_lock:
-                        with open(cache_uri, "w", encoding='utf-8') as file:
-                            json.dump(json_obj, file, indent=4, sort_keys=True)
             else:
                 json_obj = await manager_util.get_data(uri)
                 with manager_util.cache_lock:

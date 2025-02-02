@@ -1576,8 +1576,9 @@ cm_global.register_api('cm.try-install-custom-node', confirm_try_install)
 
 
 async def default_cache_update():
+    channel_url = core.get_config()['channel_url']
     async def get_cache(filename):
-        uri = f"{core.DEFAULT_CHANNEL}/{filename}"
+        uri = f"{channel_url}/{filename}"
         cache_uri = str(manager_util.simple_hash(uri)) + '_' + filename
         cache_uri = os.path.join(manager_util.cache_dir, cache_uri)
 
@@ -1598,7 +1599,7 @@ async def default_cache_update():
 
     # load at least once
     await core.unified_manager.reload('remote', dont_wait=False)
-    await core.unified_manager.get_custom_nodes('default', 'remote')
+    await core.unified_manager.get_custom_nodes(channel_url, 'remote')
 
     logging.info("[ComfyUI-Manager] All startup tasks have been completed.")
 
