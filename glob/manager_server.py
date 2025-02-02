@@ -175,10 +175,6 @@ def set_preview_method(method):
 set_preview_method(core.get_config()['preview_method'])
 
 
-def set_default_ui_mode(mode):
-    core.get_config()['default_ui'] = mode
-
-
 def set_component_policy(mode):
     core.get_config()['component_policy'] = mode
 
@@ -1370,17 +1366,6 @@ async def preview_method(request):
         core.write_config()
     else:
         return web.Response(text=core.manager_funcs.get_current_preview_method(), status=200)
-
-    return web.Response(status=200)
-
-
-@routes.get("/manager/default_ui")
-async def default_ui_mode(request):
-    if "value" in request.rel_url.query:
-        set_default_ui_mode(request.rel_url.query['value'])
-        core.write_config()
-    else:
-        return web.Response(text=core.get_config()['default_ui'], status=200)
 
     return web.Response(status=200)
 

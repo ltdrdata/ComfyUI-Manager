@@ -40,7 +40,7 @@ docStyle.innerHTML = `
 
 #cm-manager-dialog {
 	width: 1000px;
-	height: 520px;
+	height: 450px;
 	box-sizing: content-box;
 	z-index: 1000;
 	overflow-y: auto;
@@ -137,7 +137,7 @@ docStyle.innerHTML = `
 
 .cm-notice-board {
 	width: 290px;
-	height: 270px;
+	height: 210px;
 	overflow: auto;
 	color: var(--input-text);
 	border: 1px solid var(--descrip-text);
@@ -909,19 +909,6 @@ class ManagerMenuDialog extends ComfyDialog {
 				fetch_updates_button,
 
 				$el("br", {}, []),
-				$el("button.cm-button", {
-					type: "button",
-					textContent: "Alternatives of A1111",
-					onclick:
-						() => {
-							if(!CustomNodesManager.instance) {
-								CustomNodesManager.instance = new CustomNodesManager(app, self);
-							}
-							CustomNodesManager.instance.show(CustomNodesManager.ShowMode.ALTERNATIVES);
-						}
-				}),
-
-				$el("br", {}, []),
 				$el("button.cm-button-red", {
 					type: "button",
 					textContent: "Restart",
@@ -1015,21 +1002,6 @@ class ManagerMenuDialog extends ComfyDialog {
 				}
 			});
 
-		// default ui state
-		let default_ui_combo = document.createElement("select");
-		default_ui_combo.setAttribute("title", "Set the default state to be displayed in the main menu when the browser starts.");
-		default_ui_combo.className = "cm-menu-combo";
-		default_ui_combo.appendChild($el('option', { value: 'none', text: 'Default UI: None' }, []));
-		default_ui_combo.appendChild($el('option', { value: 'history', text: 'Default UI: History' }, []));
-		default_ui_combo.appendChild($el('option', { value: 'queue', text: 'Default UI: Queue' }, []));
-		api.fetchApi('/manager/default_ui')
-			.then(response => response.text())
-			.then(data => { default_ui_combo.value = data; });
-
-		default_ui_combo.addEventListener('change', function (event) {
-			api.fetchApi(`/manager/default_ui?value=${event.target.value}`);
-		});
-
 
 		// share
 		let share_combo = document.createElement("select");
@@ -1092,7 +1064,6 @@ class ManagerMenuDialog extends ComfyDialog {
 			this.datasrc_combo,
 			channel_combo,
 			preview_combo,
-			default_ui_combo,
 			share_combo,
 			component_policy_combo,
 			$el("br", {}, []),
@@ -1637,27 +1608,3 @@ app.registerExtension({
 		}
 	},
 });
-
-
-async function set_default_ui()
-{
-	let res = await api.fetchApi('/manager/default_ui');
-	if(res.status == 200) {
-		let mode = await res.text();
-		switch(mode) {
-		case 'history':
-			app.ui.queue.hide();
-			app.ui.history.show();
-			break;
-		case 'queue':
-			app.ui.queue.show();
-			app.ui.history.hide();
-			break;
-		default:
-			// do nothing
-			break;
-		}
-	}
-}
-
-set_default_ui();
