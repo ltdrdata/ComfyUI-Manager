@@ -1287,7 +1287,7 @@ export class CustomNodesManager {
 	async installNodes(list, btn, title, selected_version) {
 		let stats = await api.fetchApi('/manager/queue/status');
 		stats = await stats.json();
-		if(stats.in_progress) {
+		if(stats.is_processing) {
 			customAlert(`[ComfyUI-Manager] There are already tasks in progress. Please try again after it is completed. (${stats.done_count}/${stats.total_count})`);
 			return;
 		}

@@ -372,13 +372,16 @@ def nickname_filter(json_obj):
 task_queue = queue.Queue()
 nodepack_result = {}
 model_result = {}
+tasks_in_progress = set()
+task_worker_lock = threading.Lock()
 
 async def task_worker():
     global task_queue
     global nodepack_result
     global model_result
+    global tasks_in_progress
 
-    async def do_install(item):
+    async def do_install(item) -> str:
         ui_id, node_spec_str, channel, mode, skip_post_install = item
 
         try:
@@ -386,8 +389,7 @@ async def task_worker():
 
             if node_spec is None:
                 logging.error(f"Cannot resolve install target: '{node_spec_str}'")
-                nodepack_result[ui_id] = f"Cannot resolve install target: '{node_spec_str}'"
-                return
+                return f"Cannot resolve install target: '{node_spec_str}'"
 
             node_name, version_spec, is_specified = node_spec
             res = await core.unified_manager.install_by_id(node_name, version_spec, channel, mode, return_postinstall=skip_post_install)
@@ -395,20 +397,18 @@ async def task_worker():
 
             if res.action not in ['skip', 'enable', 'install-git', 'install-cnr', 'switch-cnr']:
                 logging.error(f"[ComfyUI-Manager] Installation failed:\n{res.msg}")
-                nodepack_result[ui_id] = res.msg
-                return
+                return res.msg
 
             elif not res.result:
                 logging.error(f"[ComfyUI-Manager] Installation failed:\n{res.msg}")
-                nodepack_result[ui_id] = res.msg
-                return
+                return res.msg
 
-            nodepack_result[ui_id] = 'success'
+            return 'success'
         except Exception:
             traceback.print_exc()
-            nodepack_result[ui_id] = f"Installation failed:\n{node_spec_str}"
+            return f"Installation failed:\n{node_spec_str}"
 
-    async def do_update(item):
+    async def do_update(item) -> str:
         ui_id, node_name, node_ver = item
 
         try:
@@ -417,69 +417,67 @@ async def task_worker():
             manager_util.clear_pip_cache()
 
             if res.result:
-                nodepack_result[ui_id] = 'success'
-                return
+                return 'success'
 
             logging.error(f"\nERROR: An error occurred while updating '{node_name}'.")
-            nodepack_result[ui_id] = f"An error occurred while updating '{node_name}'."
         except Exception:
             traceback.print_exc()
-            nodepack_result[ui_id] = f"An error occurred while updating '{node_name}'."
 
-    async def do_fix(item):
+        return f"An error occurred while updating '{node_name}'."
+
+    async def do_fix(item) -> str:
         ui_id, node_name, node_ver = item
 
         try:
             res = core.unified_manager.unified_fix(node_name, node_ver)
 
             if res.result:
-                nodepack_result[ui_id] = 'success'
-                return
+                return 'success'
             else:
                 logging.error(res.msg)
 
             logging.error(f"\nERROR: An error occurred while fixing '{node_name}@{node_ver}'.")
-            nodepack_result[ui_id] = f"An error occurred while fixing '{node_name}@{node_ver}'."
         except Exception:
             traceback.print_exc()
-            nodepack_result[ui_id] = f"An error occurred while fixing '{node_name}@{node_ver}'."
 
-    async def do_uninstall(item):
+        return f"An error occurred while fixing '{node_name}@{node_ver}'."
+
+    async def do_uninstall(item) -> str:
         ui_id, node_name, is_unknown = item
 
         try:
             res = core.unified_manager.unified_uninstall(node_name, is_unknown)
 
             if res.result:
-                nodepack_result[ui_id] = 'success'
-                return
+                return 'success'
 
             logging.error(f"\nERROR: An error occurred while uninstalling '{node_name}'.")
-            nodepack_result[ui_id] = f"An error occurred while uninstalling '{node_name}'."
         except Exception:
             traceback.print_exc()
-            nodepack_result[ui_id] = f"An error occurred while uninstalling '{node_name}'."
 
-    async def do_disable(item):
+        return f"An error occurred while uninstalling '{node_name}'."
+
+    async def do_disable(item) -> str:
         ui_id, node_name, is_unknown = item
 
         try:
             res = core.unified_manager.unified_disable(node_name, is_unknown)
 
             if res:
-                nodepack_result[ui_id] = 'success'
-                return
+                return 'success'
 
-            nodepack_result[ui_id] = f"Failed to disable: '{node_name}'"
         except Exception:
             traceback.print_exc()
-            nodepack_result[ui_id] = f"Failed to disable: '{node_name}'"
 
-    async def do_install_model(item):
+        return f"Failed to disable: '{node_name}'"
+
+    async def do_install_model(item) -> str:
         ui_id, json_data = item
 
         model_path = get_model_path(json_data)
         model_url = json_data['url']
+
+        res = False
 
         try:
             if model_path is not None:
@@ -494,24 +492,21 @@ async def task_worker():
                         res = True
 
                     if res:
-                        model_result[ui_id] = 'success'
-                        return
+                        return 'success'
                 else:
                     res = download_url_with_agent(model_url, model_path)
                     if res and model_path.endswith('.zip'):
                         res = core.unzip(model_path)
             else:
                 logging.error(f"Model installation error: invalid model type - {json_data['type']}")
-                return
 
             if res:
-                model_result[ui_id] = 'success'
-                return
+                return 'success'
 
         except Exception as e:
             logging.error(f"[ERROR] {e}", file=sys.stderr)
 
-        model_result[ui_id] = f"Model installation error: {model_url}"
+        return f"Model installation error: {model_url}"
 
     stats = {}
 
@@ -529,31 +524,43 @@ async def task_worker():
                                              'total_count': total_count, 'done_count': done_count})
             nodepack_result = {}
             task_queue = queue.Queue()
-            return
+            return  # terminate worker thread
 
-        kind, item = task_queue.get()
+        with task_worker_lock:
+            kind, item = task_queue.get()
+            tasks_in_progress.add((kind, item[0]))
 
         try:
             if kind == 'install':
-                await do_install(item)
-            if kind == 'install-model':
-                await do_install_model(item)
+                msg = await do_install(item)
+            elif kind == 'install-model':
+                msg = await do_install_model(item)
             elif kind == 'update':
-                await do_update(item)
+                msg = await do_update(item)
             elif kind == 'fix':
-                await do_fix(item)
+                msg = await do_fix(item)
             elif kind == 'uninstall':
-                await do_uninstall(item)
+                msg = await do_uninstall(item)
             elif kind == 'disable':
-                await do_disable(item)
+                msg = await do_disable(item)
+            else:
+                msg = "Unexpected kind: " + kind
         except Exception:
             traceback.print_exc()
+            msg = f"Exception: {(kind, item)}"
+
+        with task_worker_lock:
+            tasks_in_progress.remove((kind, item[0]))
+
+            ui_id = item[0]
+            if kind == 'install-model':
+                model_result[ui_id] = msg
+                ui_target = "model_manager"
+            else:
+                nodepack_result[ui_id] = msg
+                ui_target = "nodepack_manager"
 
         stats[kind] = stats.get(kind, 0) + 1
-
-        ui_target = "model_manager" if kind == 'install-model' else 'nodepack_manager'
-
-        print(f"kind: {kind} / ui_target: {ui_target}")
 
         PromptServer.instance.send_sync("cm-queue-status",
                                         {'status': 'in_progress', 'target': item[0], 'ui_target': ui_target,
@@ -1073,11 +1080,15 @@ async def reset_queue(request):
 async def queue_count(request):
     global task_queue
 
-    done_count = len(nodepack_result) + len(model_result)
-    total_count = done_count + task_queue.qsize()
-    in_progress = task_worker_thread is not None and task_worker_thread.is_alive()
+    with task_worker_lock:
+        done_count = len(nodepack_result) + len(model_result)
+        in_progress_count = len(tasks_in_progress)
+        total_count = done_count + in_progress_count + task_queue.qsize()
+        is_processing = task_worker_thread is not None and task_worker_thread.is_alive()
 
-    return web.json_response({'total_count': total_count, 'done_count': done_count, 'in_progress': in_progress})
+    return web.json_response({
+        'total_count': total_count, 'done_count': done_count, 'in_progress_count': in_progress_count,
+        'is_processing': is_processing})
 
 
 @routes.post("/manager/queue/install")
@@ -1129,7 +1140,7 @@ async def install_custom_node(request):
     return web.Response(status=200)
 
 
-task_worker_thread = None
+task_worker_thread:threading.Thread = None
 
 @routes.get("/manager/queue/start")
 async def queue_start(request):
