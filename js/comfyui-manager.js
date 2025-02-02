@@ -829,7 +829,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				type: "button",
 				textContent: "Switch ComfyUI",
 				style: {
-					display: !isElectron ? 'none' : 'block'
+					display: isElectron ? 'none' : 'block'
 				},
 				onclick:
 					() => switchComfyUI()
