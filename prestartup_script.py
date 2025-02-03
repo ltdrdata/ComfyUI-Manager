@@ -101,7 +101,7 @@ def read_config():
 
 def read_uv_mode():
     if 'use_uv' in default_conf:
-        manager_util.use_uv = default_conf['use_uv']
+        manager_util.use_uv = default_conf['use_uv'].lower() == 'true'
 
 def check_file_logging():
     global enable_file_logging
