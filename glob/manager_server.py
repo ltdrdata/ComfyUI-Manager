@@ -96,7 +96,7 @@ async def get_risky_level(files, pip_packages):
 
     all_urls = set()
     for x in json_data1['custom_nodes'] + json_data2['custom_nodes']:
-        all_urls.update(x['files'])
+        all_urls.update(x.get('files', []))
 
     for x in files:
         if x not in all_urls:
@@ -104,8 +104,7 @@ async def get_risky_level(files, pip_packages):
 
     all_pip_packages = set()
     for x in json_data1['custom_nodes'] + json_data2['custom_nodes']:
-        if "pip" in x:
-            all_pip_packages.update(x['pip'])
+        all_pip_packages.update(x.get('pip', []))
 
     for p in pip_packages:
         if p not in all_pip_packages:
