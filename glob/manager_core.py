@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 17, 10]
+version_code = [3, 17, 11]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -824,7 +824,7 @@ class UnifiedManager:
             if os.path.exists(install_script_path) and install_script_path not in self.processed_install:
                 self.processed_install.add(install_script_path)
                 print("Install: install script")
-                install_cmd = manager_util.make_pip_cmd(["install.py"])
+                install_cmd = [sys.executable, "install.py"]
                 return try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
         return True
