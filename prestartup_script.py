@@ -22,8 +22,9 @@ import folder_paths
 
 import datetime
 if hasattr(datetime, 'datetime'):
+    from datetime import datetime
     def current_timestamp():
-        return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+        return datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
 else:
     # NOTE: Occurs in some Mac environments.
     import time

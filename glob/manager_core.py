@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 17, 7]
+version_code = [3, 17, 10]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -733,14 +733,17 @@ class UnifiedManager:
 
         json_obj = await get_data_by_mode(mode, 'custom-node-list.json', channel_url=channel_url)
         for x in json_obj['custom_nodes']:
-            for y in x['files']:
-                if 'github.com' in y and not (y.endswith('.py') or y.endswith('.js')):
-                    repo_name = y.split('/')[-1]
-                    res[repo_name] = (x, False)
+            try:
+                for y in x['files']:
+                    if 'github.com' in y and not (y.endswith('.py') or y.endswith('.js')):
+                        repo_name = y.split('/')[-1]
+                        res[repo_name] = (x, False)
 
-            if 'id' in x:
-                if x['id'] not in res:
-                    res[x['id']] = (x, True)
+                if 'id' in x:
+                    if x['id'] not in res:
+                        res[x['id']] = (x, True)
+            except:
+                logging.error(f"[ComfyUI-Manager] broken item:{x}")
 
         return res
 
