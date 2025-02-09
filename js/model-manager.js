@@ -2,7 +2,7 @@ import { app } from "../../scripts/app.js";
 import { $el } from "../../scripts/ui.js";
 import { 
 	manager_instance, rebootAPI, 
-	fetchData, md5, icons, show_message, customAlert, infoToast
+	fetchData, md5, icons, show_message, customAlert, infoToast, showTerminal
 } from  "./common.js";
 import { api } from "../../scripts/api.js";
 
@@ -697,6 +697,7 @@ export class ModelManager {
 		else {
 			await api.fetchApi('/manager/queue/start');
 			this.showStop();
+			showTerminal();
 		}
 	}
 

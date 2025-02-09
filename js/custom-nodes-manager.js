@@ -4,7 +4,8 @@ import { api } from "../../scripts/api.js";
 
 import {
 	manager_instance, rebootAPI, install_via_git_url,
-	fetchData, md5, icons, show_message, customConfirm, customAlert, customPrompt, sanitizeHTML, infoToast
+	fetchData, md5, icons, show_message, customConfirm, customAlert, customPrompt,
+	sanitizeHTML, infoToast, showTerminal
 } from  "./common.js";
 
 // https://cenfun.github.io/turbogrid/api.html
@@ -1398,6 +1399,7 @@ export class CustomNodesManager {
 		else {
 			await api.fetchApi('/manager/queue/start');
 			this.showStop();
+			showTerminal();
 		}
 	}
 
