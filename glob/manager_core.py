@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 17, 11]
+version_code = [3, 18]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -2098,7 +2098,7 @@ async def get_data_by_mode(mode, filename, channel_url=None):
             cache_uri = os.path.join(manager_util.cache_dir, cache_uri)
 
             if mode == "cache" and manager_util.is_file_created_within_one_day(cache_uri):
-                    json_obj = await manager_util.get_data(cache_uri)
+                json_obj = await manager_util.get_data(cache_uri)
             else:
                 json_obj = await manager_util.get_data(uri)
                 with manager_util.cache_lock:

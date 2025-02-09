@@ -640,7 +640,6 @@ export class ModelManager {
 		}
 
 		btn.classList.add("cmm-btn-loading");
-		this.showLoading();
 		this.showError("");
 
 		let needRefresh = false;
@@ -671,7 +670,14 @@ export class ModelManager {
 			});
 
 			if (res.status != 200) {
-				errorMsg = `Install failed: ${item.name} ${res.error.message}`;
+				errorMsg = `'${item.name}': `;
+
+				if(res.status == 403) {
+					errorMsg += `This action is not allowed with this security level configuration.\n`;
+				} else {
+					errorMsg += await res.text() + '\n';
+				}
+
 				break;
 			}
 		}
@@ -680,11 +686,11 @@ export class ModelManager {
 
 		if(errorMsg) {
 			this.showError(errorMsg);
-			show_message("Installation Error:\n"+errorMsg);
+			show_message("[Installation Errors]\n"+errorMsg);
 
 			// reset
-			for (const hash of list) {
-				const item = this.grid.getRowItemBy("hash", hash);
+			for(let k in target_items) {
+				const item = target_items[k];
 				this.grid.updateCell(item, "installed");
 			}
 		}

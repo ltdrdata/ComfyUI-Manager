@@ -1369,14 +1369,14 @@ export class CustomNodesManager {
 			});
 
 			if (res.status != 200) {
-				errorMsg = `${item.title} ${mode} failed: `;
+				errorMsg = `'${item.title}': `;
 
 				if(res.status == 403) {
-					errorMsg += `This action is not allowed with this security level configuration.`;
+					errorMsg += `This action is not allowed with this security level configuration.\n`;
 				} else if(res.status == 404) {
-					errorMsg += `With the current security level configuration, only custom nodes from the <B>"default channel"</B> can be installed.`;
+					errorMsg += `With the current security level configuration, only custom nodes from the <B>"default channel"</B> can be installed.\n`;
 				} else {
-					errorMsg += await res.text();
+					errorMsg += await res.text() + '\n';
 				}
 
 				break;
@@ -1387,11 +1387,11 @@ export class CustomNodesManager {
 
 		if(errorMsg) {
 			this.showError(errorMsg);
-			show_message("Installation Error:\n"+errorMsg);
+			show_message("[Installation Errors]\n"+errorMsg);
 
 			// reset
 			for(let k in target_items) {
-				let item = this.install_context.targets[k];
+				const item = target_items[k];
 				this.grid.updateCell(item, "action");
 			}
 		}

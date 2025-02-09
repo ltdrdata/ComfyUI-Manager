@@ -21,6 +21,8 @@ import logging
 import asyncio
 import queue
 
+import manager_downloader
+
 
 logging.info(f"### Loading: ComfyUI-Manager ({core.version_str})")
 
@@ -30,6 +32,7 @@ comfyui_tag = None
 SECURITY_MESSAGE_MIDDLE_OR_BELOW = "ERROR: To use this action, a security_level of `middle or below` is required. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
 SECURITY_MESSAGE_NORMAL_MINUS = "ERROR: To use this feature, you must either set '--listen' to a local IP and set the security level to 'normal-' or lower, or set the security level to 'middle' or 'weak'. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
 SECURITY_MESSAGE_GENERAL = "ERROR: This installation is not allowed in this security_level. Please contact the administrator.\nReference: https://github.com/ltdrdata/ComfyUI-Manager#security-policy"
+SECURITY_MESSAGE_NORMAL_MINUS_MODEL = "ERROR: Downloading models that are not in '.safetensors' format is only allowed for models registered in the 'default' channel at this security level. If you want to download this model, set the security level to 'normal-' or lower."
 
 routes = PromptServer.instance.routes
 
@@ -305,7 +308,10 @@ def get_model_path(data, show_log=False):
     if base_model is None:
         return None
     else:
-        return os.path.join(base_model, data['filename'])
+        if data['filename'] == '<huggingface>':
+            return os.path.join(base_model, os.path.basename(data['url']))
+        else:
+            return os.path.join(base_model, data['filename'])
 
 
 def check_state_of_git_node_pack(node_packs, do_fetch=False, do_update_check=True, do_update=False):
@@ -477,7 +483,18 @@ async def task_worker():
         try:
             if model_path is not None:
                 logging.info(f"Install model '{json_data['name']}' from '{model_url}' into '{model_path}'")
-                if not core.get_config()['model_download_by_agent'] and (
+
+                if json_data['filename'] == '<huggingface>':
+                    if os.path.exists(os.path.join(model_path, os.path.dirname(json_data['url']))):
+                        logging.error(f"[ComfyUI-Manager] the model path already exists: {model_path}")
+                        return f"The model path already exists: {model_path}"
+
+                    logging.info(f"[ComfyUI-Manager] Downloading '{model_url}' into '{model_path}'")
+                    manager_downloader.download_repo_in_bytes(repo_id=model_url, local_dir=model_path)
+
+                    return 'success'
+
+                elif not core.get_config()['model_download_by_agent'] and (
                         model_url.startswith('https://github.com') or model_url.startswith('https://huggingface.co') or model_url.startswith('https://heibox.uni-heidelberg.de')):
                     model_dir = get_model_dir(json_data, True)
                     download_url(model_url, model_dir, filename=json_data['filename'])
@@ -493,13 +510,13 @@ async def task_worker():
                     if res and model_path.endswith('.zip'):
                         res = core.unzip(model_path)
             else:
-                logging.error(f"Model installation error: invalid model type - {json_data['type']}")
+                logging.error(f"[ComfyUI-Manager] Model installation error: invalid model type - {json_data['type']}")
 
             if res:
                 return 'success'
 
         except Exception as e:
-            logging.error(f"[ERROR] {e}", file=sys.stderr)
+            logging.error(f"[ComfyUI-Manager] ERROR: {e}", file=sys.stderr)
 
         return f"Model installation error: {model_url}"
 
@@ -786,14 +803,17 @@ async def fetch_customnode_alternatives(request):
 
 
 def check_model_installed(json_obj):
-    def is_exists(model_dir_name, file_name):
+    def is_exists(model_dir_name, filename, url):
+        if filename == '<huggingface>':
+            filename = os.path.basename(url)
+
         dirs = folder_paths.get_folder_paths(model_dir_name)
+
         for x in dirs:
-            if os.path.exists(os.path.join(x, file_name)):
+            if os.path.exists(os.path.join(x, filename)):
                 return True
 
         return False
-
 
     model_dir_names = ['checkpoints', 'loras', 'vae', 'text_encoders', 'diffusion_models', 'clip_vision', 'embeddings',
                        'diffusers', 'vae_approx', 'controlnet', 'gligen', 'upscale_models', 'hypernetworks',
@@ -814,22 +834,29 @@ def check_model_installed(json_obj):
         if item['save_path'] == 'default':
             model_dir_name = model_dir_name_map.get(item['type'].lower())
             if model_dir_name is not None:
-                item['installed'] = str(is_exists(model_dir_name, item['filename']))
+                item['installed'] = str(is_exists(model_dir_name, item['filename'], item['url']))
             else:
                 item['installed'] = 'False'
         else:
             model_dir_name = item['save_path'].split('/')[0]
             if model_dir_name in folder_paths.folder_names_and_paths:
-                if is_exists(model_dir_name, item['filename']):
+                if is_exists(model_dir_name, item['filename'], item['url']):
                     item['installed'] = 'True'
 
             if 'installed' not in item:
-                fullpath = os.path.join(folder_paths.models_dir, item['save_path'], item['filename'])
+                if item['filename'] == '<huggingface>':
+                    filename = os.path.basename(item['url'])
+                else:
+                    filename = item['filename']
+
+                fullpath = os.path.join(folder_paths.models_dir, item['save_path'], filename)
+
                 item['installed'] = 'True' if os.path.exists(fullpath) else 'False'
 
     with concurrent.futures.ThreadPoolExecutor(8) as executor:
         for item in json_obj['models']:
             executor.submit(process_model_phase, item)
+
 
 @routes.get("/externalmodel/getlist")
 async def fetch_externalmodel_list(request):
@@ -1337,10 +1364,10 @@ async def install_model(request):
 
     if not is_allowed_security_level('middle'):
         logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
-        return web.Response(status=403)
+        return web.Response(status=403, text="A security error has occurred. Please check the terminal logs")
 
     if not json_data['filename'].endswith('.safetensors') and not is_allowed_security_level('high'):
-        models_json = await core.get_data_by_mode('cache', 'model-list.json')
+        models_json = await core.get_data_by_mode('cache', 'model-list.json', 'default')
 
         is_belongs_to_whitelist = False
         for x in models_json['models']:
@@ -1349,8 +1376,8 @@ async def install_model(request):
                 break
 
         if not is_belongs_to_whitelist:
-            logging.error(SECURITY_MESSAGE_NORMAL_MINUS)
-            return web.Response(status=403)
+            logging.error(SECURITY_MESSAGE_NORMAL_MINUS_MODEL)
+            return web.Response(status=403, text="A security error has occurred. Please check the terminal logs")
 
     install_item = json_data.get('ui_id'), json_data
     task_queue.put(("install-model", install_item))
