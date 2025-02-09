@@ -130,6 +130,20 @@ export function customAlert(message) {
 	}
 }
 
+export function infoToast(summary, message) {
+	try {
+		app.extensionManager.toast.add({
+			severity: 'info',
+			summary: summary,
+			detail: message,
+			life: 3000
+		})
+	}
+	catch {
+		// do nothing
+	}
+}
+
 
 export async function customPrompt(title, message) {
 	try {

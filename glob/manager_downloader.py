@@ -2,7 +2,7 @@ import os
 from urllib.parse import urlparse
 import urllib
 import sys
-
+import logging
 aria2 = os.getenv('COMFYUI_MANAGER_ARIA2_SERVER')
 HF_ENDPOINT = os.getenv('HF_ENDPOINT')
 
@@ -44,6 +44,7 @@ def basic_download_url(url, dest_folder: str, filename: str):
 def download_url(model_url: str, model_dir: str, filename: str):
     if HF_ENDPOINT:
         model_url = model_url.replace('https://huggingface.co', HF_ENDPOINT)
+        logging.info(f"model_url replaced by HF_ENDPOINT, new = {model_url}")
     if aria2:
         return aria2_download_url(model_url, model_dir, filename)
     else:

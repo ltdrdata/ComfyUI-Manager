@@ -4,6 +4,7 @@ description:
 """
 
 import json
+import logging
 import os
 import sys
 import subprocess
@@ -41,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 9, 2]
+version_code = [3, 17, 11]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -81,13 +82,18 @@ def get_comfyui_tag():
 
 
 def get_script_env():
-    copied = os.environ.copy()
+    new_env = os.environ.copy()
     git_exe = get_config().get('git_exe')
     if git_exe is not None:
-        copied['GIT_EXE_PATH'] = git_exe
-    copied['COMFYUI_PATH'] = comfy_path
+        new_env['GIT_EXE_PATH'] = git_exe
 
-    return copied
+    if 'COMFYUI_PATH' not in new_env:
+        new_env['COMFYUI_PATH'] = comfy_path
+
+    if 'COMFYUI_FOLDERS_BASE_PATH' not in new_env:
+        new_env['COMFYUI_FOLDERS_BASE_PATH'] = comfy_path
+
+    return new_env
 
 
 invalid_nodes = {}
@@ -112,7 +118,7 @@ def check_invalid_nodes():
             sys.path.append(comfy_path)
             import folder_paths
         except:
-            raise Exception(f"Invalid COMFYUI_PATH: {comfy_path}")
+            raise Exception(f"Invalid COMFYUI_FOLDERS_BASE_PATH: {comfy_path}")
 
     def check(root):
         global invalid_nodes
@@ -147,13 +153,19 @@ def check_invalid_nodes():
         print("\n---------------------------------------------------------------------------\n")
 
 
+# read env vars
 comfy_path = os.environ.get('COMFYUI_PATH')
+comfy_base_path = os.environ.get('COMFYUI_FOLDERS_BASE_PATH')
+
 if comfy_path is None:
     try:
         import folder_paths
         comfy_path = os.path.join(os.path.dirname(folder_paths.__file__))
     except:
         comfy_path = os.path.abspath(os.path.join(manager_util.comfyui_manager_path, '..', '..'))
+
+if comfy_base_path is None:
+    comfy_base_path = comfy_path
 
 
 channel_list_template_path = os.path.join(manager_util.comfyui_manager_path, 'channels.list.template')
@@ -162,7 +174,7 @@ git_script_path = os.path.join(manager_util.comfyui_manager_path, "git_helper.py
 manager_files_path = None
 manager_config_path = None
 manager_channel_list_path = None
-manager_startup_script_path = None
+manager_startup_script_path:str = None
 manager_snapshot_path = None
 manager_pip_overrides_path = None
 manager_components_path = None
@@ -312,6 +324,8 @@ def normalize_channel(channel):
     elif channel is None:
         return None
     elif channel.startswith('https://'):
+        return channel
+    elif channel.startswith('http://') and get_config()['http_channel_enabled'] == True:
         return channel
 
     tmp_dict = get_channel_dict()
@@ -719,14 +733,17 @@ class UnifiedManager:
 
         json_obj = await get_data_by_mode(mode, 'custom-node-list.json', channel_url=channel_url)
         for x in json_obj['custom_nodes']:
-            for y in x['files']:
-                if 'github.com' in y and not (y.endswith('.py') or y.endswith('.js')):
-                    repo_name = y.split('/')[-1]
-                    res[repo_name] = (x, False)
+            try:
+                for y in x['files']:
+                    if 'github.com' in y and not (y.endswith('.py') or y.endswith('.js')):
+                        repo_name = y.split('/')[-1]
+                        res[repo_name] = (x, False)
 
-            if 'id' in x:
-                if x['id'] not in res:
-                    res[x['id']] = (x, True)
+                if 'id' in x:
+                    if x['id'] not in res:
+                        res[x['id']] = (x, True)
+            except:
+                logging.error(f"[ComfyUI-Manager] broken item:{x}")
 
         return res
 
@@ -797,7 +814,7 @@ class UnifiedManager:
                         package_name = remap_pip_package(line.strip())
                         if package_name and not package_name.startswith('#') and package_name not in self.processed_install:
                             self.processed_install.add(package_name)
-                            install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                            install_cmd = manager_util.make_pip_cmd(["install", package_name])
                             if package_name.strip() != "" and not package_name.startswith('#'):
                                 res = res and try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
@@ -1265,8 +1282,8 @@ class UnifiedManager:
             remote.fetch()
         except Exception as e:
             if 'detected dubious' in str(e):
-                print("[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
-                safedir_path = comfy_path.replace('\\', '/')
+                print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on '{repo_path}' repository")
+                safedir_path = repo_path.replace('\\', '/')
                 subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', safedir_path])
                 try:
                     remote.fetch()
@@ -1533,19 +1550,19 @@ def write_config():
     config = configparser.ConfigParser()
     config['default'] = {
         'preview_method': manager_funcs.get_current_preview_method(),
-        'git_exe':  get_config()['git_exe'],
+        'git_exe': get_config()['git_exe'],
+        'use_uv': get_config()['use_uv'],
         'channel_url': get_config()['channel_url'],
         'share_option': get_config()['share_option'],
         'bypass_ssl': get_config()['bypass_ssl'],
         "file_logging": get_config()['file_logging'],
-        'default_ui': get_config()['default_ui'],
         'component_policy': get_config()['component_policy'],
-        'double_click_policy': get_config()['double_click_policy'],
         'windows_selector_event_loop_policy': get_config()['windows_selector_event_loop_policy'],
         'model_download_by_agent': get_config()['model_download_by_agent'],
         'downgrade_blacklist': get_config()['downgrade_blacklist'],
         'security_level': get_config()['security_level'],
         'skip_migration_check': get_config()['skip_migration_check'],
+        'always_lazy_install': get_config()['always_lazy_install']
     }
 
     directory = os.path.dirname(manager_config_path)
@@ -1571,38 +1588,45 @@ def read_config():
         else:
             security_level = default_conf['security_level'] if 'security_level' in default_conf else 'normal'
 
+        manager_util.use_uv = default_conf['use_uv'].lower() == 'true' if 'use_uv' in default_conf else False
+
         return {
+                    'http_channel_enabled': default_conf['http_channel_enabled'].lower() == 'true' if 'http_channel_enabled' in default_conf else False,
                     'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else manager_funcs.get_current_preview_method(),
                     'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
+                    'use_uv': default_conf['use_uv'].lower() == 'true' if 'use_uv' in default_conf else False,
                     'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else DEFAULT_CHANNEL,
+                    'default_cache_as_channel_url': default_conf['default_cache_as_channel_url'].lower() == 'true' if 'default_cache_as_channel_url' in default_conf else False,
                     'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
                     'bypass_ssl': default_conf['bypass_ssl'].lower() == 'true' if 'bypass_ssl' in default_conf else False,
                     'file_logging': default_conf['file_logging'].lower() == 'true' if 'file_logging' in default_conf else True,
-                    'default_ui': default_conf['default_ui'] if 'default_ui' in default_conf else 'none',
                     'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
-                    'double_click_policy': default_conf['double_click_policy'] if 'double_click_policy' in default_conf else 'copy-all',
                     'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'].lower() == 'true' if 'windows_selector_event_loop_policy' in default_conf else False,
                     'model_download_by_agent': default_conf['model_download_by_agent'].lower() == 'true' if 'model_download_by_agent' in default_conf else False,
                     'downgrade_blacklist': default_conf['downgrade_blacklist'] if 'downgrade_blacklist' in default_conf else '',
                     'skip_migration_check': default_conf['skip_migration_check'].lower() == 'true' if 'skip_migration_check' in default_conf else False,
-                    'security_level': security_level
+                    'always_lazy_install': default_conf['always_lazy_install'].lower() == 'true' if 'always_lazy_install' in default_conf else False,
+                    'security_level': security_level,
                }
 
     except Exception:
+        manager_util.use_uv = False
         return {
+            'http_channel_enabled': False,
             'preview_method': manager_funcs.get_current_preview_method(),
             'git_exe': '',
+            'use_uv': False,
             'channel_url': DEFAULT_CHANNEL,
+            'default_cache_as_channel_url': False,
             'share_option': 'all',
             'bypass_ssl': False,
             'file_logging': True,
-            'default_ui': 'none',
             'component_policy': 'workflow',
-            'double_click_policy': 'copy-all',
             'windows_selector_event_loop_policy': False,
             'model_download_by_agent': False,
             'downgrade_blacklist': '',
             'skip_migration_check': False,
+            'always_lazy_install': False,
             'security_level': 'normal',
         }
 
@@ -1612,6 +1636,8 @@ def get_config():
 
     if cached_config is None:
         cached_config = read_config()
+        if cached_config['http_channel_enabled']:
+            print("[ComfyUI-Manager] Warning: http channel enabled, make sure server in secure env")
 
     return cached_config
 
@@ -1660,7 +1686,9 @@ def switch_to_default_branch(repo):
 
 
 def try_install_script(url, repo_path, install_cmd, instant_execution=False):
-    if not instant_execution and ((len(install_cmd) > 0 and install_cmd[0].startswith('#')) or (platform.system() == "Windows" and comfy_ui_commit_datetime.date() >= comfy_ui_required_commit_datetime.date())):
+    if not instant_execution and (
+            (len(install_cmd) > 0 and install_cmd[0].startswith('#')) or platform.system() == "Windows" or get_config()['always_lazy_install']
+    ):
         if not os.path.exists(manager_startup_script_path):
             os.makedirs(manager_startup_script_path)
 
@@ -1674,6 +1702,10 @@ def try_install_script(url, repo_path, install_cmd, instant_execution=False):
         if len(install_cmd) == 5 and install_cmd[2:4] == ['pip', 'install']:
             if is_blacklisted(install_cmd[4]):
                 print(f"[ComfyUI-Manager] skip black listed pip installation: '{install_cmd[4]}'")
+                return True
+        elif len(install_cmd) == 6 and install_cmd[3:5] == ['pip', 'install']:  # uv mode
+            if is_blacklisted(install_cmd[5]):
+                print(f"[ComfyUI-Manager] skip black listed pip installation: '{install_cmd[5]}'")
                 return True
 
         print(f"\n## ComfyUI-Manager: EXECUTE => {install_cmd}")
@@ -1791,9 +1823,9 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
                     if package_name and not package_name.startswith('#'):
                         if '--index-url' in package_name:
                             s = package_name.split('--index-url')
-                            install_cmd = [sys.executable, "-m", "pip", "install", s[0].strip(), '--index-url', s[1].strip()]
+                            install_cmd = manager_util.make_pip_cmd(["install", s[0].strip(), '--index-url', s[1].strip()])
                         else:
-                            install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                            install_cmd = manager_util.make_pip_cmd(["install", package_name])
 
                         if package_name.strip() != "" and not package_name.startswith('#'):
                             try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
@@ -2065,14 +2097,8 @@ async def get_data_by_mode(mode, filename, channel_url=None):
             cache_uri = str(manager_util.simple_hash(uri))+'_'+filename
             cache_uri = os.path.join(manager_util.cache_dir, cache_uri)
 
-            if mode == "cache":
-                if manager_util.is_file_created_within_one_day(cache_uri):
+            if mode == "cache" and manager_util.is_file_created_within_one_day(cache_uri):
                     json_obj = await manager_util.get_data(cache_uri)
-                else:
-                    json_obj = await manager_util.get_data(uri)
-                    with manager_util.cache_lock:
-                        with open(cache_uri, "w", encoding='utf-8') as file:
-                            json.dump(json_obj, file, indent=4, sort_keys=True)
             else:
                 json_obj = await manager_util.get_data(uri)
                 with manager_util.cache_lock:
@@ -2114,7 +2140,7 @@ def gitclone_fix(files, instant_execution=False, no_deps=False):
 
 
 def pip_install(packages):
-    install_cmd = ['#FORCE', sys.executable, "-m", "pip", "install", '-U'] + packages
+    install_cmd = ['#FORCE'] + manager_util.make_pip_cmd(["install", '-U']) + packages
     try_install_script('pip install via manager', '..', install_cmd)
 
 
@@ -2315,8 +2341,8 @@ def update_path(repo_path, instant_execution=False, no_deps=False):
         remote.fetch()
     except Exception as e:
         if 'detected dubious' in str(e):
-            print("[ComfyUI-Manager] Try fixing 'dubious repository' error on 'ComfyUI' repository")
-            safedir_path = comfy_path.replace('\\', '/')
+            print(f"[ComfyUI-Manager] Try fixing 'dubious repository' error on '{repo_path}' repository")
+            safedir_path = repo_path.replace('\\', '/')
             subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', safedir_path])
             try:
                 remote.fetch()
@@ -2411,7 +2437,8 @@ def check_state_of_git_node_pack_single(item, do_fetch=False, do_update_check=Tr
 
 def get_installed_pip_packages():
     # extract pip package infos
-    pips = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'], text=True).split('\n')
+    cmd = manager_util.make_pip_cmd(['freeze'])
+    pips = subprocess.check_output(cmd, text=True).split('\n')
 
     res = {}
     for x in pips:
@@ -2827,15 +2854,18 @@ async def get_unified_total_nodes(channel, mode, regsitry_cache_mode='cache'):
 
 def populate_github_stats(node_packs, json_obj_github):
     for k, v in node_packs.items():
-        url = v['reference']
-        if url in json_obj_github:
-            v['stars'] = json_obj_github[url]['stars']
-            v['last_update'] = json_obj_github[url]['last_update']
-            v['trust'] = json_obj_github[url]['author_account_age_days'] > 600
-        else:
-            v['stars'] = -1
-            v['last_update'] = -1
-            v['trust'] = False
+        try:
+            url = v['reference']
+            if url in json_obj_github:
+                v['stars'] = json_obj_github[url]['stars']
+                v['last_update'] = json_obj_github[url]['last_update']
+                v['trust'] = json_obj_github[url]['author_account_age_days'] > 600
+            else:
+                v['stars'] = -1
+                v['last_update'] = -1
+                v['trust'] = False
+        except:
+            logging.error(f"[ComfyUI-Manager] DB item is broken:\n{v}")
 
 
 def populate_favorites(node_packs, json_obj_extras):

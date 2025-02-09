@@ -20,12 +20,16 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "glob"))
 
 import manager_util
 
+# read env vars
+# COMFYUI_FOLDERS_BASE_PATH is not required in cm-cli.py
+# `comfy_path` should be resolved before importing manager_core
 comfy_path = os.environ.get('COMFYUI_PATH')
 if comfy_path is None:
     try:
         import folder_paths
         comfy_path = os.path.join(os.path.dirname(folder_paths.__file__))
     except:
+        print("\n[bold yellow]WARN: The `COMFYUI_PATH` environment variable is not set. Assuming `custom_nodes/ComfyUI-Manager/../../` as the ComfyUI path.[/bold yellow]", file=sys.stderr)
         comfy_path = os.path.abspath(os.path.join(manager_util.comfyui_manager_path, '..', '..'))
 
 sys.path.append(comfy_path)
@@ -36,14 +40,7 @@ import manager_core as core
 from manager_core import unified_manager
 import cnr_utils
 
-
 comfyui_manager_path = os.path.abspath(os.path.dirname(__file__))
-comfy_path = os.environ.get('COMFYUI_PATH')
-
-if comfy_path is None:
-    print("\n[bold yellow]WARN: The `COMFYUI_PATH` environment variable is not set. Assuming `custom_nodes/ComfyUI-Manager/../../` as the ComfyUI path.[/bold yellow]", file=sys.stderr)
-    comfy_path = os.path.abspath(os.path.join(comfyui_manager_path, '..', '..'))
-
 
 cm_global.pip_blacklist = ['torch', 'torchsde', 'torchvision']
 cm_global.pip_downgrade_blacklist = ['torch', 'torchsde', 'torchvision', 'transformers', 'safetensors', 'kornia']
@@ -94,7 +91,7 @@ class Ctx:
         self.no_deps = False
         self.mode = 'cache'
         self.user_directory = None
-        self.custom_nodes_paths = [os.path.join(core.comfy_path, 'custom_nodes')]
+        self.custom_nodes_paths = [os.path.join(core.comfy_base_path, 'custom_nodes')]
         self.manager_files_directory = os.path.dirname(__file__)
         
         if Ctx.folder_paths is None:

@@ -4,7 +4,7 @@ import { api } from "../../scripts/api.js";
 
 import {
 	manager_instance, rebootAPI, install_via_git_url,
-	fetchData, md5, icons, show_message, customConfirm, customAlert, customPrompt, sanitizeHTML
+	fetchData, md5, icons, show_message, customConfirm, customAlert, customPrompt, sanitizeHTML, infoToast
 } from  "./common.js";
 
 // https://cenfun.github.io/turbogrid/api.html
@@ -50,6 +50,12 @@ const pageCss = `
 }
 
 .cn-manager .cn-manager-restart {
+	display: none;
+	background-color: #500000;
+	color: white;
+}
+
+.cn-manager .cn-manager-stop {
 	display: none;
 	background-color: #500000;
 	color: white;
@@ -344,13 +350,14 @@ const pageHtml = `
 <div class="cn-manager-selection"></div>
 <div class="cn-manager-message"></div>
 <div class="cn-manager-footer">
-<button class="cn-manager-back">
-    <svg class="arrow-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2 8H18M2 8L8 2M2 8L8 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    Back
-</button>
+	<button class="cn-manager-back">
+		<svg class="arrow-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M2 8H18M2 8L8 2M2 8L8 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+		</svg>
+		Back
+	</button>
 	<button class="cn-manager-restart">Restart</button>
+	<button class="cn-manager-stop">Stop</button>
 	<div class="cn-flex-auto"></div>
 	<button class="cn-manager-check-update">Check Update</button>
 	<button class="cn-manager-check-missing">Check Missing</button>
@@ -391,6 +398,9 @@ export class CustomNodesManager {
 		this.restartMap = {};
 
 		this.init();
+
+        api.addEventListener("cm-queue-status", this.onQueueStatus);
+        api.addEventListener('reconnected', this.onReconnected);
 	}
 
 	init() {
@@ -753,10 +763,16 @@ export class CustomNodesManager {
 
 			".cn-manager-restart": {
 				click: () => {
-					if(rebootAPI()) {
-						this.close();
-						this.manager_dialog.close();
-					}
+					this.close();
+					this.manager_dialog.close();
+					rebootAPI();
+				}
+			},
+
+			".cn-manager-stop": {
+				click: () => {
+					api.fetchApi('/manager/queue/reset');
+					infoToast('Cancel', 'Remaining tasks will stop after completing the current task.');
 				}
 			},
 
@@ -1204,7 +1220,7 @@ export class CustomNodesManager {
 	}
 
 	focusInstall(item, mode) {
-		const cellNode = this.grid.getCellNode(item, "installed");
+		const cellNode = this.grid.getCellNode(item, "action");
 		if (cellNode) {
 			const cellBtn = cellNode.querySelector(`button[mode="${mode}"]`);
 			if (cellBtn) {
@@ -1269,6 +1285,13 @@ export class CustomNodesManager {
 	}
 
 	async installNodes(list, btn, title, selected_version) {
+		let stats = await api.fetchApi('/manager/queue/status');
+		stats = await stats.json();
+		if(stats.is_processing) {
+			customAlert(`[ComfyUI-Manager] There are already tasks in progress. Please try again after it is completed. (${stats.done_count}/${stats.total_count})`);
+			return;
+		}
+
 		const { target, label, mode} = btn;
 
 		if(mode === "uninstall") {
@@ -1294,8 +1317,15 @@ export class CustomNodesManager {
 
 		let needRestart = false;
 		let errorMsg = "";
+
+		await api.fetchApi('/manager/queue/reset');
+
+		let target_items = [];
+
 		for (const hash of list) {
 			const item = this.grid.getRowItemBy("hash", hash);
+			target_items.push(item);
+
 			if (!item) {
 				errorMsg = `Not found custom node: ${hash}`;
 				break;
@@ -1315,6 +1345,7 @@ export class CustomNodesManager {
 			data.selected_version = selected_version;
 			data.channel = this.channel;
 			data.mode = this.mode;
+			data.ui_id = hash;
 
 			let install_mode = mode;
 			if(mode == 'switch') {
@@ -1332,14 +1363,14 @@ export class CustomNodesManager {
 				api_mode = 'reinstall';
 			}
 
-			const res = await api.fetchApi(`/customnode/${api_mode}`, {
+			const res = await api.fetchApi(`/manager/queue/${api_mode}`, {
 				method: 'POST',
 				body: JSON.stringify(data)
 			});
 
 			if (res.status != 200) {
-
 				errorMsg = `${item.title} ${mode} failed: `;
+
 				if(res.status == 403) {
 					errorMsg += `This action is not allowed with this security level configuration.`;
 				} else if(res.status == 404) {
@@ -1350,32 +1381,101 @@ export class CustomNodesManager {
 
 				break;
 			}
-
-			needRestart = true;
-
-			this.grid.setRowSelected(item, false);
-			item.restart = true;
-			this.restartMap[item.hash] = true;
-			this.grid.updateCell(item, "action");
-
-			//console.log(res.data);
-
 		}
 
-		target.classList.remove("cn-btn-loading");
+		this.install_context = {btn: btn, targets: target_items};
 
-		if (errorMsg) {
+		if(errorMsg) {
 			this.showError(errorMsg);
 			show_message("Installation Error:\n"+errorMsg);
+
+			// reset
+			for(let k in target_items) {
+				let item = this.install_context.targets[k];
+				this.grid.updateCell(item, "action");
+			}
+		}
+		else {
+			await api.fetchApi('/manager/queue/start');
+			this.showStop();
+		}
+	}
+
+	async onReconnected(event) {
+		let self = CustomNodesManager.instance;
+
+		if(self.need_restart) {
+			self.need_restart = false;
+
+			const confirmed = await customConfirm("To apply the changes to the node pack's installation status, you need to refresh the browser. Would you like to refresh?");
+			if (!confirmed) {
+				return;
+			}
+
+			window.location.reload(true);
+		}
+	}
+
+	async onQueueStatus(event) {
+		let self = CustomNodesManager.instance;
+		if(event.detail.status == 'in_progress' && event.detail.ui_target == 'nodepack_manager') {
+			const hash = event.detail.target;
+
+			const item = self.grid.getRowItemBy("hash", hash);
+
+			item.restart = true;
+			self.restartMap[item.hash] = true;
+			self.grid.updateCell(item, "action");
+			self.grid.setRowSelected(item, false);
+		}
+		else if(event.detail.status == 'done') {
+			self.hideStop();
+			self.onQueueCompleted(event.detail);
+		}
+	}
+
+	async onQueueCompleted(info) {
+		let result = info.nodepack_result;
+
+		if(result.length == 0) {
+			return;
+		}
+
+		let self = CustomNodesManager.instance;
+
+		if(!self.install_context) {
+			return;
+		}
+
+		const { target, label, mode } = self.install_context.btn;
+		target.classList.remove("cn-btn-loading");
+
+		let errorMsg = "";
+
+		for(let hash in result){
+			let v = result[hash];
+
+			if(v != 'success')
+				errorMsg += v+'\n';
+		}
+
+		for(let k in self.install_context.targets) {
+			let item = self.install_context.targets[k];
+			self.grid.updateCell(item, "action");
+		}
+
+		if (errorMsg) {
+			self.showError(errorMsg);
+			show_message("Installation Error:\n"+errorMsg);
 		} else {
-			this.showStatus(`${label} ${list.length} custom node(s) successfully`);
+			self.showStatus(`${label} ${result.length} custom node(s) successfully`);
 		}
 
-		if (needRestart) {
-			this.showRestart();
-			this.showMessage(`To apply the installed/updated/disabled/enabled custom node, please restart ComfyUI. And refresh browser.`, "red")
-		}
+		self.showRestart();
+		self.showMessage(`To apply the installed/updated/disabled/enabled custom node, please restart ComfyUI. And refresh browser.`, "red");
 
+		infoToast(`[ComfyUI-Manager] All node pack tasks in the queue have been completed.\n${info.done_count}/${info.total_count}`);
+		self.install_context = undefined;
 	}
 
 	// ===========================================================================================
@@ -1756,9 +1856,9 @@ export class CustomNodesManager {
 	}
 
 	setDisabled(disabled) {
-
 		const $close = this.element.querySelector(".cn-manager-close");
 		const $restart = this.element.querySelector(".cn-manager-restart");
+		const $stop = this.element.querySelector(".cn-manager-stop");
 
 		const list = [
 			".cn-manager-header input",
@@ -1770,7 +1870,7 @@ export class CustomNodesManager {
 		})
 		.flat()
 		.filter(it => {
-			return it !== $close && it !== $restart;
+			return it !== $close && it !== $restart && it !== $stop;
 		});
 		
 		list.forEach($elem => {
@@ -1789,6 +1889,15 @@ export class CustomNodesManager {
 
 	showRestart() {
 		this.element.querySelector(".cn-manager-restart").style.display = "block";
+		this.need_restart = true;
+	}
+
+	showStop() {
+		this.element.querySelector(".cn-manager-stop").style.display = "block";
+	}
+
+	hideStop() {
+		this.element.querySelector(".cn-manager-stop").style.display = "none";
 	}
 
 	setFilter(filterValue) {
@@ -1817,5 +1926,9 @@ export class CustomNodesManager {
 
 	close() {
 		this.element.style.display = "none";
+	}
+
+	get isVisible() {
+		return this.element?.style?.display !== "none";
 	}
 }

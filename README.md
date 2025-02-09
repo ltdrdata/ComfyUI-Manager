@@ -2,9 +2,12 @@
 
 **ComfyUI-Manager** is an extension designed to enhance the usability of [ComfyUI](https://github.com/comfyanonymous/ComfyUI). It offers management functions to **install, remove, disable, and enable** various custom nodes of ComfyUI. Furthermore, this extension provides a hub feature and convenience functions to access a wide range of information within ComfyUI.
 
-![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/dialog.jpg)
+![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/refs/heads/Main/ComfyUI-Manager/images/dialog.jpg)
 
 ## NOTICE
+* V3.16: Support for `uv` has been added. Set `use_uv` in `config.ini`.
+* V3.10: `double-click feature` is removed
+  * This feature has been moved to https://github.com/ltdrdata/comfyui-connection-helper
 * V3.3.2: Overhauled. Officially supports [https://comfyregistry.org/](https://comfyregistry.org/).
 * You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
 
@@ -93,7 +96,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 
 2. If you click on 'Install Custom Nodes' or 'Install Models', an installer dialog will open.
 
-    ![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/dialog.jpg)
+    ![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/refs/heads/Main/ComfyUI-Manager/images/dialog.jpg)
 
     * There are three DB modes: `DB: Channel (1day cache)`, `DB: Local`, and `DB: Channel (remote)`. 
       * `Channel (1day cache)` utilizes Channel cache information with a validity period of one day to quickly display the list.
@@ -185,17 +188,18 @@ The following settings are applied based on the section marked as `is_default`.
 
 ## Custom node support guide
 
+* **NOTICE:**
+    - You should no longer assume that the GitHub repository name will match the subdirectory name under `custom_nodes`. The name of the subdirectory under `custom_nodes` will now use the normalized name from the `name` field in `pyproject.toml`.
+    - Avoid relying on directory names for imports whenever possible.
+
 * https://docs.comfy.org/registry/overview
+* https://github.com/Comfy-Org/rfcs
 
-
-* **Special purpose files** (optional)
+**Special purpose files** (optional)
+  * `pyproject.toml` - Spec file for comfyregistry.
   * `node_list.json` - When your custom nodes pattern of NODE_CLASS_MAPPINGS is not conventional, it is used to manually provide a list of nodes for reference. ([example](https://github.com/melMass/comfy_mtb/raw/main/node_list.json))
   * `requirements.txt` - When installing, this pip requirements will be installed automatically 
   * `install.py` - When installing, it is automatically called
-  * `uninstall.py` - When uninstalling, it is automatically called
-  * `disable.py` - When disabled, it is automatically called
-    * When installing a custom node setup `.js` file, it is recommended to write this script for disabling.
-  * `enable.py` - When enabled, it is automatically called
   * **All scripts are executed from the root path of the corresponding custom node.**
 
 
@@ -243,6 +247,25 @@ The following settings are applied based on the section marked as `is_default`.
 ![missing-list](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/missing-list.jpg)
 
 
+# Config
+* You can modify the `config.ini` file to apply the settings for ComfyUI-Manager.
+    * The path to the `config.ini` used by ComfyUI-Manager is displayed in the startup log messages.
+    * See also: [https://github.com/ltdrdata/ComfyUI-Manager#paths]
+* Configuration options:
+    ```
+    [default]
+    git_exe = <Manually specify the path to the git executable. If left empty, the default git executable path will be used.>
+    use_uv = <Use uv instead of pip for dependency installation.>
+    default_cache_as_channel_url = <Determines whether to retrieve the DB designated as channel_url at startup>
+    bypass_ssl = <Set to True if SSL errors occur to disable SSL.>
+    file_logging = <Configure whether to create a log file used by ComfyUI-Manager.>
+    windows_selector_event_loop_policy = <If an event loop error occurs on Windows, set this to True.>
+    model_download_by_agent = <When downloading models, use an agent instead of torchvision_download_url.>
+    downgrade_blacklist = <Set a list of packages to prevent downgrades. List them separated by commas.>
+    security_level = <Set the security level.>
+    always_lazy_install = <Whether to perform dependency installation on restart even in environments other than Windows.>
+    ```
+
 ## Additional Feature
 * Logging to file feature
   * This feature is enabled by default and can be disabled by setting `file_logging = False` in the `config.ini`.
@@ -278,6 +301,7 @@ The following settings are applied based on the section marked as `is_default`.
 * If you add the item `skip_migration_check = True` to `config.ini`, it will not check whether there are nodes that can be migrated at startup.
   * This option can be used if performance issues occur in a Colab+GDrive environment.
 
+
 ## Scanner
 When you run the `scan.sh` script:
 
@@ -300,6 +324,7 @@ When you run the `scan.sh` script:
   * Edit `config.ini` file: add `windows_selector_event_loop_policy = True`
 * if `SSL: CERTIFICATE_VERIFY_FAILED` error is occured.
   * Edit `config.ini` file: add `bypass_ssl = True`
+
 
 ## Security policy
   * Edit `config.ini` file: add `security_level = <LEVEL>`

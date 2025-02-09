@@ -20,13 +20,14 @@ import cm_global
 import manager_downloader
 import folder_paths
 
-try:
+import datetime
+if hasattr(datetime, 'datetime'):
     from datetime import datetime
     def current_timestamp():
         return datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-except:
+else:
+    # NOTE: Occurs in some Mac environments.
     import time
-    import datetime
     logging.error(f"[ComfyUI-Manager] fallback timestamp mode\n                  datetime module is invalid: '{datetime.__file__}'")
     def current_timestamp():
         return str(time.time()).split('.')[0]
@@ -57,25 +58,18 @@ def is_import_failed_extension(name):
     return name in import_failed_extensions
 
 
-def check_file_logging():
-    global enable_file_logging
-    try:
-        import configparser
-        config = configparser.ConfigParser()
-        config.read(manager_config_path)
-        default_conf = config['default']
-
-        if 'file_logging' in default_conf and default_conf['file_logging'].lower() == 'false':
-            enable_file_logging = False
-    except Exception:
-        pass
-
-
-check_file_logging()
-
 comfy_path = os.environ.get('COMFYUI_PATH')
+comfy_base_path = os.environ.get('COMFYUI_FOLDERS_BASE_PATH')
+
+if comfy_path is None:
+    # legacy env var
+    comfy_path = os.environ.get('COMFYUI_PATH')
+
 if comfy_path is None:
     comfy_path = os.path.abspath(os.path.dirname(sys.modules['__main__'].__file__))
+
+if comfy_base_path is None:
+    comfy_base_path = comfy_path
 
 sys.__comfyui_manager_register_message_collapse = register_message_collapse
 sys.__comfyui_manager_is_import_failed_extension = is_import_failed_extension
@@ -93,6 +87,32 @@ manager_config_path = os.path.join(manager_files_path, 'config.ini')
 
 cm_cli_path = os.path.join(comfyui_manager_path, "cm-cli.py")
 
+
+default_conf = {}
+
+def read_config():
+    global default_conf
+    try:
+        import configparser
+        config = configparser.ConfigParser()
+        config.read(manager_config_path)
+        default_conf = config['default']
+    except Exception:
+        pass
+
+def read_uv_mode():
+    if 'use_uv' in default_conf:
+        manager_util.use_uv = default_conf['use_uv'].lower() == 'true'
+
+def check_file_logging():
+    global enable_file_logging
+    if 'file_logging' in default_conf and default_conf['file_logging'].lower() == 'false':
+        enable_file_logging = False
+
+
+read_config()
+read_uv_mode()
+check_file_logging()
 
 cm_global.pip_overrides = {'numpy': 'numpy<2', 'ultralytics': 'ultralytics==8.3.40'}
 if os.path.exists(manager_pip_overrides_path):
@@ -204,6 +224,9 @@ try:
     log_path_base = None
     if enable_file_logging:
         log_path_base = os.path.join(folder_paths.user_directory, 'comfyui')
+
+        if not os.path.exists(folder_paths.user_directory):
+            os.makedirs(folder_paths.user_directory)
 
         if os.path.exists(f"{log_path_base}{postfix}.log"):
             if os.path.exists(f"{log_path_base}{postfix}.prev.log"):
@@ -399,19 +422,20 @@ except Exception as e:
 
 
 try:
-    import git  # noqa: F401
+    import git   # noqa: F401
     import toml  # noqa: F401
+    import rich  # noqa: F401
 except ModuleNotFoundError:
     my_path = os.path.dirname(__file__)
     requirements_path = os.path.join(my_path, "requirements.txt")
 
     print("## ComfyUI-Manager: installing dependencies. (GitPython)")
     try:
-        result = subprocess.check_output([sys.executable, '-s', '-m', 'pip', 'install', '-r', requirements_path])
+        result = subprocess.check_output(manager_util.make_pip_cmd(['install', '-r', requirements_path]))
     except subprocess.CalledProcessError:
         print("## [ERROR] ComfyUI-Manager: Attempting to reinstall dependencies using an alternative method.")
         try:
-            result = subprocess.check_output([sys.executable, '-s', '-m', 'pip', 'install', '--user', '-r', requirements_path])
+            result = subprocess.check_output(manager_util.make_pip_cmd(['install', '--user', '-r', requirements_path]))
         except subprocess.CalledProcessError:
             print("## [ERROR] ComfyUI-Manager: Failed to install the GitPython package in the correct Python environment. Please install it manually in the appropriate environment. (You can seek help at https://app.element.io/#/room/%23comfyui_space%3Amatrix.org)")
 
@@ -427,6 +451,7 @@ print("** Platform:", platform.system())
 print("** Python version:", sys.version)
 print("** Python executable:", sys.executable)
 print("** ComfyUI Path:", comfy_path)
+print("** ComfyUI Base Folder Path:", comfy_base_path)
 print("** User directory:", folder_paths.user_directory)
 print("** ComfyUI-Manager config path:", manager_config_path)
 
@@ -439,11 +464,6 @@ else:
 
 def read_downgrade_blacklist():
     try:
-        import configparser
-        config = configparser.ConfigParser()
-        config.read(manager_config_path)
-        default_conf = config['default']
-
         if 'downgrade_blacklist' in default_conf:
             items = default_conf['downgrade_blacklist'].split(',')
             items = [x.strip() for x in items if x != '']
@@ -458,18 +478,12 @@ read_downgrade_blacklist()
 
 def check_bypass_ssl():
     try:
-        import configparser
         import ssl
-        config = configparser.ConfigParser()
-        config.read(manager_config_path)
-        default_conf = config['default']
-
         if 'bypass_ssl' in default_conf and default_conf['bypass_ssl'].lower() == 'true':
             print(f"[ComfyUI-Manager] WARN: Unsafe - SSL verification bypass option is Enabled. (see {manager_config_path})")
             ssl._create_default_https_context = ssl._create_unverified_context  # SSL certificate error fix.
     except Exception:
         pass
-
 
 check_bypass_ssl()
 
@@ -558,7 +572,8 @@ if os.path.exists(restore_snapshot_path):
 
         print("[ComfyUI-Manager] Restore snapshot.")
         new_env = os.environ.copy()
-        new_env["COMFYUI_PATH"] = comfy_path
+        if 'COMFYUI_FOLDERS_BASE_PATH' not in new_env:
+            new_env["COMFYUI_FOLDERS_BASE_PATH"] = comfy_path
 
         cmd_str = [sys.executable, cm_cli_path, 'restore-snapshot', restore_snapshot_path]
         exit_code = process_wrap(cmd_str, custom_nodes_base_path, handler=msg_capture, env=new_env)
@@ -589,9 +604,9 @@ def execute_lazy_install_script(repo_path, executable):
                 if package_name and not is_installed(package_name):
                     if '--index-url' in package_name:
                         s = package_name.split('--index-url')
-                        install_cmd = [sys.executable, "-m", "pip", "install", s[0].strip(), '--index-url', s[1].strip()]
+                        install_cmd = manager_util.make_pip_cmd(["install", s[0].strip(), '--index-url', s[1].strip()])
                     else:
-                        install_cmd = [sys.executable, "-m", "pip", "install", package_name]
+                        install_cmd = manager_util.make_pip_cmd(["install", package_name])
 
                     process_wrap(install_cmd, repo_path)
 
@@ -601,7 +616,8 @@ def execute_lazy_install_script(repo_path, executable):
         install_cmd = [executable, "install.py"]
 
         new_env = os.environ.copy()
-        new_env["COMFYUI_PATH"] = comfy_path
+        if 'COMFYUI_FOLDERS_BASE_PATH' not in new_env:
+            new_env["COMFYUI_FOLDERS_BASE_PATH"] = comfy_path
         process_wrap(install_cmd, repo_path, env=new_env)
 
 
@@ -703,7 +719,8 @@ if os.path.exists(script_list_path):
                     print(f"\n## Execute install/(de)activation script for '{script[0]}'")
 
                     new_env = os.environ.copy()
-                    new_env["COMFYUI_PATH"] = comfy_path
+                    if 'COMFYUI_FOLDERS_BASE_PATH' not in new_env:
+                        new_env["COMFYUI_FOLDERS_BASE_PATH"] = comfy_path
                     exit_code = process_wrap(script[1:], script[0], env=new_env)
 
                     if exit_code != 0:
