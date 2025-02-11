@@ -17,7 +17,6 @@ import {
 import { ComponentBuilderDialog, getPureName, load_components, set_component_policy } from "./components-manager.js";
 import { CustomNodesManager } from "./custom-nodes-manager.js";
 import { ModelManager } from "./model-manager.js";
-import { set_double_click_policy } from "./node_fixer.js";
 import { SnapshotManager } from "./snapshot.js";
 
 var docStyle = document.createElement('style');
@@ -41,7 +40,7 @@ docStyle.innerHTML = `
 
 #cm-manager-dialog {
 	width: 1000px;
-	height: 520px;
+	height: 450px;
 	box-sizing: content-box;
 	z-index: 1000;
 	overflow-y: auto;
@@ -138,7 +137,7 @@ docStyle.innerHTML = `
 
 .cm-notice-board {
 	width: 290px;
-	height: 270px;
+	height: 210px;
 	overflow: auto;
 	color: var(--input-text);
 	border: 1px solid var(--descrip-text);
@@ -812,11 +811,15 @@ const isOutputNode = (node) => {
 class ManagerMenuDialog extends ComfyDialog {
 	createControlsMid() {
 		let self = this;
+    const isElectron = 'electronAPI' in window;
 
 		update_comfyui_button =
 			$el("button.cm-button", {
 				type: "button",
 				textContent: "Update ComfyUI",
+				style: {
+					display: isElectron ? 'none' : 'block'
+				},
 				onclick:
 					() => updateComfyUI()
 			});
@@ -825,6 +828,9 @@ class ManagerMenuDialog extends ComfyDialog {
 			$el("button.cm-button", {
 				type: "button",
 				textContent: "Switch ComfyUI",
+				style: {
+					display: isElectron ? 'none' : 'block'
+				},
 				onclick:
 					() => switchComfyUI()
 			});
@@ -901,19 +907,6 @@ class ManagerMenuDialog extends ComfyDialog {
 				update_comfyui_button,
 				switch_comfyui_button,
 				fetch_updates_button,
-
-				$el("br", {}, []),
-				$el("button.cm-button", {
-					type: "button",
-					textContent: "Alternatives of A1111",
-					onclick:
-						() => {
-							if(!CustomNodesManager.instance) {
-								CustomNodesManager.instance = new CustomNodesManager(app, self);
-							}
-							CustomNodesManager.instance.show(CustomNodesManager.ShowMode.ALTERNATIVES);
-						}
-				}),
 
 				$el("br", {}, []),
 				$el("button.cm-button-red", {
@@ -1009,21 +1002,6 @@ class ManagerMenuDialog extends ComfyDialog {
 				}
 			});
 
-		// default ui state
-		let default_ui_combo = document.createElement("select");
-		default_ui_combo.setAttribute("title", "Set the default state to be displayed in the main menu when the browser starts.");
-		default_ui_combo.className = "cm-menu-combo";
-		default_ui_combo.appendChild($el('option', { value: 'none', text: 'Default UI: None' }, []));
-		default_ui_combo.appendChild($el('option', { value: 'history', text: 'Default UI: History' }, []));
-		default_ui_combo.appendChild($el('option', { value: 'queue', text: 'Default UI: Queue' }, []));
-		api.fetchApi('/manager/default_ui')
-			.then(response => response.text())
-			.then(data => { default_ui_combo.value = data; });
-
-		default_ui_combo.addEventListener('change', function (event) {
-			api.fetchApi(`/manager/default_ui?value=${event.target.value}`);
-		});
-
 
 		// share
 		let share_combo = document.createElement("select");
@@ -1061,28 +1039,6 @@ class ManagerMenuDialog extends ComfyDialog {
 			set_component_policy(event.target.value);
 		});
 
-		let dbl_click_policy_combo = document.createElement("select");
-		dbl_click_policy_combo.setAttribute("title", "Sets the behavior when you double-click the title area of a node.");
-		dbl_click_policy_combo.className = "cm-menu-combo";
-		dbl_click_policy_combo.appendChild($el('option', { value: 'none', text: 'Double-Click: None' }, []));
-		dbl_click_policy_combo.appendChild($el('option', { value: 'copy-all', text: 'Double-Click: Copy All Connections' }, []));
-		dbl_click_policy_combo.appendChild($el('option', { value: 'copy-full', text: 'Double-Click: Copy All Connections and shape' }, []));
-		dbl_click_policy_combo.appendChild($el('option', { value: 'copy-input', text: 'Double-Click: Copy Input Connections' }, []));
-		dbl_click_policy_combo.appendChild($el('option', { value: 'possible-input', text: 'Double-Click: Possible Input Connections' }, []));
-		dbl_click_policy_combo.appendChild($el('option', { value: 'dual', text: 'Double-Click: Possible(left) + Copy(right)' }, []));
-
-		api.fetchApi('/manager/dbl_click/policy')
-			.then(response => response.text())
-			.then(data => {
-				dbl_click_policy_combo.value = data;
-				set_double_click_policy(data);
-			});
-
-		dbl_click_policy_combo.addEventListener('change', function (event) {
-			api.fetchApi(`/manager/dbl_click/policy?value=${event.target.value}`);
-			set_double_click_policy(event.target.value);
-		});
-
 		api.fetchApi('/manager/share_option')
 			.then(response => response.text())
 			.then(data => {
@@ -1108,10 +1064,8 @@ class ManagerMenuDialog extends ComfyDialog {
 			this.datasrc_combo,
 			channel_combo,
 			preview_combo,
-			default_ui_combo,
 			share_combo,
 			component_policy_combo,
-			dbl_click_policy_combo,
 			$el("br", {}, []),
 
 			$el("br", {}, []),
@@ -1292,8 +1246,20 @@ class ManagerMenuDialog extends ComfyDialog {
 		this.element = $el("div.comfy-modal", { id:'cm-manager-dialog', parent: document.body }, [ content ]);
 	}
 
+	get isVisible() {
+		return this.element?.style?.display !== "none";
+	}
+
 	show() {
 		this.element.style.display = "block";
+	}
+
+	toggleVisibility() {
+		if (this.isVisible) {
+			this.close();
+		} else {
+			this.show();
+		}
 	}
 
 	handleWorkflowGalleryButtonClick(e) {
@@ -1411,6 +1377,41 @@ app.registerExtension({
 			url: 'https://github.com/ltdrdata/ComfyUI-Manager',
 			icon: 'pi pi-th-large'
 		}
+	],
+
+	commands: [
+	{
+		id: "Comfy.Manager.Menu.ToggleVisibility",
+		label: "Toggle Manager Menu Visibility",
+		icon: "mdi mdi-puzzle",
+		function: () => {
+			if (!manager_instance) {
+				setManagerInstance(new ManagerMenuDialog());
+				manager_instance.show();
+			} else {
+				manager_instance.toggleVisibility();
+			}
+		},
+	},
+	{
+		id: "Comfy.Manager.CustomNodesManager.ToggleVisibility",
+		label: "Toggle Custom Nodes Manager Visibility",
+		icon: "pi pi-server",
+		function: () => {
+			if (CustomNodesManager.instance?.isVisible) {
+				CustomNodesManager.instance.close();
+				return;
+			}
+
+			if (!manager_instance) {
+				setManagerInstance(new ManagerMenuDialog());
+			}
+			if (!CustomNodesManager.instance) {
+				CustomNodesManager.instance = new CustomNodesManager(app, self);
+			}
+			CustomNodesManager.instance.show(CustomNodesManager.ShowMode.NORMAL);
+		},
+	}
 	],
 
 	init() {
@@ -1607,27 +1608,3 @@ app.registerExtension({
 		}
 	},
 });
-
-
-async function set_default_ui()
-{
-	let res = await api.fetchApi('/manager/default_ui');
-	if(res.status == 200) {
-		let mode = await res.text();
-		switch(mode) {
-		case 'history':
-			app.ui.queue.hide();
-			app.ui.history.show();
-			break;
-		case 'queue':
-			app.ui.queue.show();
-			app.ui.history.hide();
-			break;
-		default:
-			// do nothing
-			break;
-		}
-	}
-}
-
-set_default_ui();

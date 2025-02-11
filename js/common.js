@@ -130,6 +130,20 @@ export function customAlert(message) {
 	}
 }
 
+export function infoToast(summary, message) {
+	try {
+		app.extensionManager.toast.add({
+			severity: 'info',
+			summary: summary,
+			detail: message,
+			life: 3000
+		})
+	}
+	catch {
+		// do nothing
+	}
+}
+
 
 export async function customPrompt(title, message) {
 	try {
@@ -399,10 +413,22 @@ export const icons = {
 }
 
 export function sanitizeHTML(str) {
-    return str
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+	return str
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;");
+}
+
+export function showTerminal() {
+	try {
+		const panel = app.extensionManager.bottomPanel;
+		const isTerminalVisible = panel.bottomPanelVisible && panel.activeBottomPanelTab.id === 'logs-terminal';
+		if (!isTerminalVisible)
+			panel.toggleBottomPanelTab('logs-terminal');
+	}
+	catch(exception) {
+		// do nothing
+	}
 }
