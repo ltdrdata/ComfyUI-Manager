@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 18, 1]
+version_code = [3, 19]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -694,6 +694,9 @@ class UnifiedManager:
         self.unknown_inactive_nodes = {}  # node_id -> repo url * fullpath
         self.unknown_active_nodes = {}    # node_id -> repo url * fullpath
         self.active_nodes = {}            # node_id -> node_version * fullpath
+
+        if get_config()['network_mode'] != 'public':
+            dont_wait = True
 
         # reload 'cnr_map' and 'repo_cnr_map'
         cnrs = await cnr_utils.get_cnr_data(cache_mode=cache_mode=='cache', dont_wait=dont_wait)
@@ -1548,6 +1551,7 @@ manager_funcs = ManagerFuncs()
 
 def write_config():
     config = configparser.ConfigParser()
+
     config['default'] = {
         'preview_method': manager_funcs.get_current_preview_method(),
         'git_exe': get_config()['git_exe'],
@@ -1562,7 +1566,8 @@ def write_config():
         'downgrade_blacklist': get_config()['downgrade_blacklist'],
         'security_level': get_config()['security_level'],
         'skip_migration_check': get_config()['skip_migration_check'],
-        'always_lazy_install': get_config()['always_lazy_install']
+        'always_lazy_install': get_config()['always_lazy_install'],
+        'network_mode': get_config()['network_mode']
     }
 
     directory = os.path.dirname(manager_config_path)
@@ -1590,26 +1595,31 @@ def read_config():
 
         manager_util.use_uv = default_conf['use_uv'].lower() == 'true' if 'use_uv' in default_conf else False
 
+        def get_bool(key, default_value):
+            return default_conf[key].lower() == 'true' if key in default_conf else False
+
         return {
-                    'http_channel_enabled': default_conf['http_channel_enabled'].lower() == 'true' if 'http_channel_enabled' in default_conf else False,
-                    'preview_method': default_conf['preview_method'] if 'preview_method' in default_conf else manager_funcs.get_current_preview_method(),
-                    'git_exe': default_conf['git_exe'] if 'git_exe' in default_conf else '',
-                    'use_uv': default_conf['use_uv'].lower() == 'true' if 'use_uv' in default_conf else False,
-                    'channel_url': default_conf['channel_url'] if 'channel_url' in default_conf else DEFAULT_CHANNEL,
-                    'default_cache_as_channel_url': default_conf['default_cache_as_channel_url'].lower() == 'true' if 'default_cache_as_channel_url' in default_conf else False,
-                    'share_option': default_conf['share_option'] if 'share_option' in default_conf else 'all',
-                    'bypass_ssl': default_conf['bypass_ssl'].lower() == 'true' if 'bypass_ssl' in default_conf else False,
-                    'file_logging': default_conf['file_logging'].lower() == 'true' if 'file_logging' in default_conf else True,
-                    'component_policy': default_conf['component_policy'] if 'component_policy' in default_conf else 'workflow',
-                    'windows_selector_event_loop_policy': default_conf['windows_selector_event_loop_policy'].lower() == 'true' if 'windows_selector_event_loop_policy' in default_conf else False,
-                    'model_download_by_agent': default_conf['model_download_by_agent'].lower() == 'true' if 'model_download_by_agent' in default_conf else False,
-                    'downgrade_blacklist': default_conf['downgrade_blacklist'] if 'downgrade_blacklist' in default_conf else '',
-                    'skip_migration_check': default_conf['skip_migration_check'].lower() == 'true' if 'skip_migration_check' in default_conf else False,
-                    'always_lazy_install': default_conf['always_lazy_install'].lower() == 'true' if 'always_lazy_install' in default_conf else False,
+                    'http_channel_enabled': get_bool('http_channel_enabled', False),
+                    'preview_method': default_conf.get('preview_method', manager_funcs.get_current_preview_method()),
+                    'git_exe': default_conf.get('git_exe', ''),
+                    'use_uv': get_bool('use_uv', False),
+                    'channel_url': default_conf.get('channel_url', DEFAULT_CHANNEL),
+                    'default_cache_as_channel_url': get_bool('default_cache_as_channel_url', False),
+                    'share_option': default_conf.get('share_option', 'all'),
+                    'bypass_ssl': get_bool('bypass_ssl', False),
+                    'file_logging': get_bool('file_logging', True),
+                    'component_policy': default_conf.get('component_policy', 'workflow'),
+                    'windows_selector_event_loop_policy': get_bool('windows_selector_event_loop_policy', False),
+                    'model_download_by_agent': get_bool('model_download_by_agent', False),
+                    'downgrade_blacklist': default_conf.get('downgrade_blacklist', ''),
+                    'skip_migration_check': get_bool('skip_migration_check', False),
+                    'always_lazy_install': get_bool('always_lazy_install', False),
+                    'network_mode': default_conf.get('network_mode', 'public'),
                     'security_level': security_level,
                }
 
     except Exception:
+        traceback.print_exc()
         manager_util.use_uv = False
         return {
             'http_channel_enabled': False,
@@ -1627,7 +1637,8 @@ def read_config():
             'downgrade_blacklist': '',
             'skip_migration_check': False,
             'always_lazy_install': False,
-            'security_level': 'normal',
+            'network_mode': 'public',   # public | private | offline
+            'security_level': 'normal', # strong | normal | normal- | weak
         }
 
 
@@ -2085,9 +2096,10 @@ async def get_data_by_mode(mode, filename, channel_url=None):
         channel_url = get_channel_dict()[channel_url]
 
     try:
+        local_uri = os.path.join(manager_util.comfyui_manager_path, filename)
+
         if mode == "local":
-            uri = os.path.join(manager_util.comfyui_manager_path, filename)
-            json_obj = await manager_util.get_data(uri)
+            json_obj = await manager_util.get_data(local_uri)
         else:
             if channel_url is None:
                 uri = get_config()['channel_url'] + '/' + filename
@@ -2097,13 +2109,25 @@ async def get_data_by_mode(mode, filename, channel_url=None):
             cache_uri = str(manager_util.simple_hash(uri))+'_'+filename
             cache_uri = os.path.join(manager_util.cache_dir, cache_uri)
 
-            if mode == "cache" and manager_util.is_file_created_within_one_day(cache_uri):
-                json_obj = await manager_util.get_data(cache_uri)
+            if get_config()['network_mode'] == 'offline':
+                # offline network mode
+                if os.path.exists(cache_uri):
+                    json_obj = await manager_util.get_data(cache_uri)
+                else:
+                    local_uri = os.path.join(manager_util.comfyui_manager_path, filename)
+                    if os.path.exists(local_uri):
+                        json_obj = await manager_util.get_data(local_uri)
+                    else:
+                        json_obj = {}  # fallback
             else:
-                json_obj = await manager_util.get_data(uri)
-                with manager_util.cache_lock:
-                    with open(cache_uri, "w", encoding='utf-8') as file:
-                        json.dump(json_obj, file, indent=4, sort_keys=True)
+                # public network mode
+                if mode == "cache" and manager_util.is_file_created_within_one_day(cache_uri):
+                    json_obj = await manager_util.get_data(cache_uri)
+                else:
+                    json_obj = await manager_util.get_data(uri)
+                    with manager_util.cache_lock:
+                        with open(cache_uri, "w", encoding='utf-8') as file:
+                            json.dump(json_obj, file, indent=4, sort_keys=True)
     except Exception as e:
         print(f"[ComfyUI-Manager] Due to a network error, switching to local mode.\n=> {filename}\n=> {e}")
         uri = os.path.join(manager_util.comfyui_manager_path, filename)

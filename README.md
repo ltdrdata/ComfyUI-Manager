@@ -262,9 +262,16 @@ The following settings are applied based on the section marked as `is_default`.
     windows_selector_event_loop_policy = <If an event loop error occurs on Windows, set this to True.>
     model_download_by_agent = <When downloading models, use an agent instead of torchvision_download_url.>
     downgrade_blacklist = <Set a list of packages to prevent downgrades. List them separated by commas.>
-    security_level = <Set the security level.>
+    security_level = <Set the security level => strong|normal|normal-|weak>
     always_lazy_install = <Whether to perform dependency installation on restart even in environments other than Windows.>
+    network_mode = <Set the network mode => public|private|offline>
     ```
+
+    * network_mode:
+      - public: An environment that uses a typical public network.
+      - private: An environment that uses a closed network, where a private node DB is configured via `channel_url`. (Uses cache if available)
+      - offline: An environment that does not use any external connections when using an offline network. (Uses cache if available)
+
 
 ## Additional Feature
 * Logging to file feature

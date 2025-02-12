@@ -25,6 +25,7 @@ import manager_downloader
 
 
 logging.info(f"### Loading: ComfyUI-Manager ({core.version_str})")
+logging.info("[ComfyUI-Manager] network_mode: " + core.get_config()['network_mode'])
 
 comfy_ui_hash = "-"
 comfyui_tag = None
@@ -171,7 +172,7 @@ def set_preview_method(method):
     else:
         args.preview_method = latent_preview.LatentPreviewMethod.NoPreviews
 
-    core.get_config()['preview_method'] = args.preview_method
+    core.get_config()['preview_method'] = method
 
 
 set_preview_method(core.get_config()['preview_method'])
@@ -1619,17 +1620,21 @@ async def default_cache_update():
                 json.dump(json_obj, file, indent=4, sort_keys=True)
                 logging.info(f"[ComfyUI-Manager] default cache updated: {uri}")
 
-    a = get_cache("custom-node-list.json")
-    b = get_cache("extension-node-map.json")
-    c = get_cache("model-list.json")
-    d = get_cache("alter-list.json")
-    e = get_cache("github-stats.json")
+    if core.get_config()['network_mode'] != 'offline':
+        a = get_cache("custom-node-list.json")
+        b = get_cache("extension-node-map.json")
+        c = get_cache("model-list.json")
+        d = get_cache("alter-list.json")
+        e = get_cache("github-stats.json")
 
-    await asyncio.gather(a, b, c, d, e)
+        await asyncio.gather(a, b, c, d, e)
 
-    # load at least once
-    await core.unified_manager.reload('remote', dont_wait=False)
-    await core.unified_manager.get_custom_nodes(channel_url, 'remote')
+        if core.get_config()['network_mode'] == 'private':
+            logging.info("[ComfyUI-Manager] The private comfyregistry is not yet supported in `network_mode=private`.")
+        else:
+            # load at least once
+            await core.unified_manager.reload('remote', dont_wait=False)
+            await core.unified_manager.get_custom_nodes(channel_url, 'remote')
 
     logging.info("[ComfyUI-Manager] All startup tasks have been completed.")
 
