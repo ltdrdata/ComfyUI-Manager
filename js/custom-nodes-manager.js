@@ -1672,6 +1672,8 @@ export class CustomNodesManager {
 	}
 
 	async loadData(show_mode = ShowMode.NORMAL) {
+		const isElectron = 'electronAPI' in window;
+
 		this.show_mode = show_mode;
 		console.log("Show mode:", show_mode);
 
@@ -1691,6 +1693,11 @@ export class CustomNodesManager {
 		}
 		
 		const { channel, node_packs } = res.data;
+
+		if(isElectron) {
+			delete node_packs['comfyui-manager'];
+		}
+
 		this.channel = channel;
 		this.mode = mode;
 		this.custom_nodes = node_packs;

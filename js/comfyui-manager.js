@@ -811,8 +811,8 @@ const isOutputNode = (node) => {
 class ManagerMenuDialog extends ComfyDialog {
 	createControlsMid() {
 		let self = this;
-    const isElectron = 'electronAPI' in window;
-
+		const isElectron = 'electronAPI' in window;
+		
 		update_comfyui_button =
 			$el("button.cm-button", {
 				type: "button",
