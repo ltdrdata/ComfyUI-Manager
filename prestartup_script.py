@@ -475,6 +475,7 @@ def read_downgrade_blacklist():
 
 read_downgrade_blacklist()
 
+print("[DBG] point1")
 
 def check_bypass_ssl():
     try:
@@ -487,12 +488,14 @@ def check_bypass_ssl():
 
 check_bypass_ssl()
 
+print("[DBG] point2")
 
 # Perform install
 processed_install = set()
 script_list_path = os.path.join(folder_paths.user_directory, "default", "ComfyUI-Manager", "startup-scripts", "install-scripts.txt")
 pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
 
+print("[DBG] point3")
 
 def is_installed(name):
     name = name.strip()
@@ -544,6 +547,7 @@ def is_installed(name):
 
     return True       # prevent downgrade
 
+print("[DBG] point4")
 
 if os.path.exists(restore_snapshot_path):
     try:
@@ -593,6 +597,8 @@ if os.path.exists(restore_snapshot_path):
 def execute_lazy_install_script(repo_path, executable):
     global processed_install
 
+    print("[DBG] point5")
+
     install_script_path = os.path.join(repo_path, "install.py")
     requirements_path = os.path.join(repo_path, "requirements.txt")
 
@@ -624,6 +630,8 @@ def execute_lazy_install_script(repo_path, executable):
 def execute_lazy_cnr_switch(target, zip_url, from_path, to_path, no_deps, custom_nodes_path):
     import uuid
     import shutil
+
+    print("[DBG] point6")
 
     # 1. download
     archive_name = f"CNR_temp_{str(uuid.uuid4())}.zip"  # should be unpredictable name - security precaution
@@ -674,11 +682,16 @@ def execute_lazy_cnr_switch(target, zip_url, from_path, to_path, no_deps, custom
 
 def execute_migration(moves):
     import shutil
+
+    print("[DBG] point7")
+
     for x in moves:
         if os.path.exists(x[0]) and not os.path.exists(x[1]):
             shutil.move(x[0], x[1])
             print(f"[ComfyUI-Manager] MIGRATION: '{x[0]}' -> '{x[1]}'")
 
+
+print("[DBG] point8")
 
 # Check if script_list_path exists
 if os.path.exists(script_list_path):
@@ -738,14 +751,20 @@ if os.path.exists(script_list_path):
     print("\n[ComfyUI-Manager] Startup script completed.")
     print("#######################################################################\n")
 
+print("[DBG] point9")
+
 pip_fixer.fix_broken()
+
+print("[DBG] point10")
 
 del processed_install
 del pip_fixer
 manager_util.clear_pip_cache()
 
+print("[DBG] point11")
 
 def check_windows_event_loop_policy():
+    print("[DBG] point12")
     try:
         import configparser
         config = configparser.ConfigParser()
@@ -763,6 +782,10 @@ def check_windows_event_loop_policy():
     except Exception:
         pass
 
+print("[DBG] point13")
 
 if platform.system() == 'Windows':
     check_windows_event_loop_policy()
+
+
+print("[DBG] point14")

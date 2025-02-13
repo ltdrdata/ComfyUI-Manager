@@ -3,6 +3,8 @@ import sys
 
 cli_mode_flag = os.path.join(os.path.dirname(__file__), '.enable-cli-only-mode')
 
+print("[DBG] point14")
+
 if not os.path.exists(cli_mode_flag):
     sys.path.append(os.path.join(os.path.dirname(__file__), "glob"))
     import manager_server  # noqa: F401
