@@ -2,12 +2,15 @@ import { app } from "../../scripts/app.js";
 import { $el } from "../../scripts/ui.js";
 import { 
 	manager_instance, rebootAPI, 
-	fetchData, md5, icons, show_message, customAlert, infoToast, showTerminal
+	fetchData, md5, icons, show_message, customAlert, infoToast, showTerminal,
+	storeColumnWidth, restoreColumnWidth
 } from  "./common.js";
 import { api } from "../../scripts/api.js";
 
 // https://cenfun.github.io/turbogrid/api.html
 import TG from "./turbogrid.esm.js";
+
+const gridId = "model";
 
 const pageCss = `
 .cmm-manager {
@@ -438,6 +441,10 @@ export class ModelManager {
             this.renderSelected();
         });
 
+		grid.bind("onColumnWidthChanged", (e, columnItem) => {
+			storeColumnWidth(gridId, columnItem)
+		});
+
 		grid.bind('onClick', (e, d) => {
 			const { rowItem } = d;
 			const target = d.e.target;
@@ -588,6 +595,8 @@ export class ModelManager {
 			name: 'Filename',
 			width: 200
 		}];
+
+		restoreColumnWidth(gridId, columns);
 
 		this.grid.setData({
 			options,

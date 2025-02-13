@@ -5,11 +5,14 @@ import { api } from "../../scripts/api.js";
 import {
 	manager_instance, rebootAPI, install_via_git_url,
 	fetchData, md5, icons, show_message, customConfirm, customAlert, customPrompt,
-	sanitizeHTML, infoToast, showTerminal, setNeedRestart
+	sanitizeHTML, infoToast, showTerminal, setNeedRestart,
+	storeColumnWidth, restoreColumnWidth
 } from  "./common.js";
 
 // https://cenfun.github.io/turbogrid/api.html
 import TG from "./turbogrid.esm.js";
+
+const gridId = "node";
 
 const pageCss = `
 .cn-manager {
@@ -832,6 +835,10 @@ export class CustomNodesManager {
 			this.renderSelected();
 		});
 
+		grid.bind("onColumnWidthChanged", (e, columnItem) => {
+			storeColumnWidth(gridId, columnItem)
+		});
+
 		grid.bind('onClick', (e, d) => {
 			const btn = this.getButton(d.e.target);
 			if (btn) {
@@ -1158,6 +1165,8 @@ export class CustomNodesManager {
 
 				return 0;
 			});
+
+		restoreColumnWidth(gridId, columns);
 
 		this.grid.setData({
 			options: options,
