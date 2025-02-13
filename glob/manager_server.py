@@ -447,7 +447,7 @@ async def task_worker():
         except Exception:
             traceback.print_exc()
 
-        return f"An error occurred while updating 'comfyui'."
+        return "An error occurred while updating 'comfyui'."
 
     async def do_fix(item) -> str:
         ui_id, node_name, node_ver = item
