@@ -453,3 +453,53 @@ async function onReconnected(event) {
 }
 
 api.addEventListener('reconnected', onReconnected);
+
+const storeId = "comfyui-manager-grid";
+let timeId;
+export function storeColumnWidth(gridId, columnItem) {
+	clearTimeout(timeId);
+	timeId = setTimeout(() => {
+		let data = {};
+		const dataStr = localStorage.getItem(storeId);
+		if (dataStr) {
+			try {
+				data = JSON.parse(dataStr);
+			} catch (e) {}
+		}
+
+		if (!data[gridId]) {
+			data[gridId] =  {};
+		}
+
+		data[gridId][columnItem.id] = columnItem.width;
+
+		localStorage.setItem(storeId, JSON.stringify(data));
+
+	}, 200)
+}
+
+export function restoreColumnWidth(gridId, columns) {
+	const dataStr = localStorage.getItem(storeId);
+	if (!dataStr) {
+		return;
+	}
+	let data;
+	try {
+		data = JSON.parse(dataStr);
+	} catch (e) {}
+	if(!data) {
+		return;
+	}
+	const widthMap = data[gridId];
+	if (!widthMap) {
+		return;
+	}
+
+	columns.forEach(columnItem => {
+		const w = widthMap[columnItem.id];
+		if (w) {
+			columnItem.width = w;
+		}
+	});
+
+}
