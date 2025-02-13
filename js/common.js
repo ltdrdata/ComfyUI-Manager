@@ -432,3 +432,24 @@ export function showTerminal() {
 		// do nothing
 	}
 }
+
+let need_restart = false;
+
+export function setNeedRestart(value) {
+	need_restart = value;
+}
+
+async function onReconnected(event) {
+	if(need_restart) {
+		setNeedRestart(false);
+
+		const confirmed = await customConfirm("To apply the changes to the node pack's installation status, you need to refresh the browser. Would you like to refresh?");
+		if (!confirmed) {
+			return;
+		}
+
+		window.location.reload(true);
+	}
+}
+
+api.addEventListener('reconnected', onReconnected);
