@@ -1471,17 +1471,17 @@ export class CustomNodesManager {
 
 		if (errorMsg) {
 			self.showError(errorMsg);
-      show_message("Installation Error:\n"+errorMsg, {
+			show_message("Installation Error:\n"+errorMsg, {
 				msg: `Installation Error: ${errorMsg}`,
-        errorSubtype: `node${label}Error`,
-        extraFields: [
-          {
-            label: `${label} Error Trace`,
-            value: `${label}ErrorsTrace`,
-            getData: () => errorMsg,
-          },
-        ],
-      });
+				errorSubtype: `node${label}Error`,
+				extraFields: [
+					{
+						label: `${label} Error Trace`,
+						value: `${label}ErrorsTrace`,
+						getData: () => errorMsg,
+					},
+				],
+			});
 		} else {
 			self.showStatus(`${label} ${result.length} custom node(s) successfully`);
 		}
