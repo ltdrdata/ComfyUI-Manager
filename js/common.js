@@ -103,7 +103,7 @@ export function addReportButton(dialogEl, options = {}) {
 
 	const button = document.createElement("button");
 	button.textContent = "Report Error";
-	button.style.marginBottom = "0.25rem"; // mt-1
+	button.style.marginBottom = "0.25rem";
 
 	const cleanText = (text) => (text ? text.replace(/[\r\n\t\s]/g, " ") : text);
 
