@@ -698,16 +698,24 @@ async function onQueueStatus(event) {
 			return;
 		}
 
+		is_updating_all = false;
+
 		let success_list = [];
 		let failed_list = [];
+		let comfyui_state = null;
 
 		for(let k in event.detail.nodepack_result){
 			let v = event.detail.nodepack_result[k];
 
-			if(v == 'success')
-				success_list.push(k);
+			if(v == 'success') {
+				if(k == 'comfyui')
+					comfyui_state = 'success';
+				else
+					success_list.push(k);
+			}
 			else if(v == 'skip') {
-				// do nothing
+				if(k == 'comfyui')
+					comfyui_state = 'skip';
 			}
 			else
 				failed_list.push(k);
@@ -715,18 +723,31 @@ async function onQueueStatus(event) {
 
 		let msg = "";
 		
-		if(success_list.length == 0) {
+		if(success_list.length == 0 && comfyui_state != 'success') {
 			if(failed_list.length == 0) {
 				msg += "All custom nodes are already up to date.";
 			}
 		}
 		else {
 			msg = "To apply the updates, you need to <button class='cm-small-button' id='cm-reboot-button5'>RESTART</button> ComfyUI.<hr>";
-			msg += "The following custom nodes have been updated:<ul>";
-			for(let x in success_list) {
-				msg += '<li>'+success_list[x]+'</li>';
+
+			if(comfyui_state == 'success') {
+				msg += "ComfyUI is updated.<BR><BR>";
 			}
-			msg += "</ul>";
+			else if(comfyui_state == 'skip') {
+				msg += "ComfyUI is already up-to-date.<BR><BR>"
+			}
+
+			if(success_list.length > 0) {
+				msg += "The following custom nodes have been updated:<ul>";
+				for(let x in success_list) {
+					if(success_list[x] == 'comfyui')
+						continue;
+
+					msg += '<li>'+success_list[x]+'</li>';
+				}
+				msg += "</ul>";
+			}
 
 			setNeedRestart(true);
 		}

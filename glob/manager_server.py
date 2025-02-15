@@ -599,6 +599,7 @@ async def task_worker():
                 nodepack_result[ui_id] = msg
                 ui_target = "main"
             elif kind == 'update-comfyui':
+                nodepack_result['comfyui'] = msg
                 ui_target = "main"
             else:
                 nodepack_result[ui_id] = msg
