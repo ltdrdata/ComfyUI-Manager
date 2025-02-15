@@ -679,6 +679,7 @@ def execute_migration(moves):
             shutil.move(x[0], x[1])
             print(f"[ComfyUI-Manager] MIGRATION: '{x[0]}' -> '{x[1]}'")
 
+script_executed = False
 
 # Check if script_list_path exists
 if os.path.exists(script_list_path):
@@ -733,6 +734,7 @@ if os.path.exists(script_list_path):
 
     # Remove the script_list_path file
     if os.path.exists(script_list_path):
+        script_executed = True
         os.remove(script_list_path)
         
     print("\n[ComfyUI-Manager] Startup script completed.")
@@ -743,6 +745,29 @@ pip_fixer.fix_broken()
 del processed_install
 del pip_fixer
 manager_util.clear_pip_cache()
+
+if script_executed:
+    # Restart
+    print("[ComfyUI-Manager] Restarting to reapply dependency installation.")
+
+    if '__COMFY_CLI_SESSION__' in os.environ:
+        with open(os.path.join(os.environ['__COMFY_CLI_SESSION__'] + '.reboot'), 'w'):
+            pass
+
+        print("--------------------------------------------------------------------------\n")
+        exit(0)
+    else:
+        sys_argv = sys.argv.copy()
+
+        if sys.platform.startswith('win32'):
+            cmds = ['"' + sys.executable + '"', '"' + sys_argv[0] + '"'] + sys_argv[1:]
+        else:
+            cmds = [sys.executable] + sys_argv
+
+        print(f"Command: {cmds}", flush=True)
+        print("--------------------------------------------------------------------------\n")
+
+        os.execv(sys.executable, cmds)
 
 
 def check_windows_event_loop_policy():

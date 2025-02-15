@@ -173,7 +173,10 @@ def read_cnr_info(fullpath):
 
             project = data.get('project', {})
             name = project.get('name').strip().lower()
-            version = project.get('version')
+
+            # normalize version
+            # for example: 2.5 -> 2.5.0
+            version = str(manager_util.StrictVersion(project.get('version')))
 
             urls = project.get('urls', {})
             repository = urls.get('Repository')
