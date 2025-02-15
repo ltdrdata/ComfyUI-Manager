@@ -55,8 +55,14 @@ def handle_stream(stream, prefix):
 from comfy.cli_args import args
 import latent_preview
 
+def is_loopback(address):
+    import ipaddress
+    try:
+        return ipaddress.ip_address(address).is_loopback
+    except ValueError:
+        return False
 
-is_local_mode = args.listen.startswith('127.') or args.listen.startswith('local.')
+is_local_mode = is_loopback(args.listen)
 
 
 model_dir_name_map = {
@@ -85,11 +91,11 @@ def is_allowed_security_level(level):
         return False
     elif level == 'high':
         if is_local_mode:
-            return core.get_config()['security_level'].lower() in ['weak', 'normal-']
+            return core.get_config()['security_level'] in ['weak', 'normal-']
         else:
-            return core.get_config()['security_level'].lower() == 'weak'
+            return core.get_config()['security_level'] == 'weak'
     elif level == 'middle':
-        return core.get_config()['security_level'].lower() in ['weak', 'normal', 'normal-']
+        return core.get_config()['security_level'] in ['weak', 'normal', 'normal-']
     else:
         return True
 

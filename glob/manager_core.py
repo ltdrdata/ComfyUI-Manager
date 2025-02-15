@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 21, 1]
+version_code = [3, 21, 2]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1583,16 +1583,6 @@ def read_config():
         config = configparser.ConfigParser()
         config.read(manager_config_path)
         default_conf = config['default']
-
-        # policy migration: disable_unsecure_features -> security_level
-        if 'disable_unsecure_features' in default_conf:
-            if default_conf['disable_unsecure_features'].lower() == 'true':
-                security_level = 'strong'
-            else:
-                security_level = 'normal'
-        else:
-            security_level = default_conf['security_level'] if 'security_level' in default_conf else 'normal'
-
         manager_util.use_uv = default_conf['use_uv'].lower() == 'true' if 'use_uv' in default_conf else False
 
         def get_bool(key, default_value):
@@ -1600,22 +1590,22 @@ def read_config():
 
         return {
                     'http_channel_enabled': get_bool('http_channel_enabled', False),
-                    'preview_method': default_conf.get('preview_method', manager_funcs.get_current_preview_method()),
+                    'preview_method': default_conf.get('preview_method', manager_funcs.get_current_preview_method()).lower(),
                     'git_exe': default_conf.get('git_exe', ''),
                     'use_uv': get_bool('use_uv', False),
                     'channel_url': default_conf.get('channel_url', DEFAULT_CHANNEL),
                     'default_cache_as_channel_url': get_bool('default_cache_as_channel_url', False),
-                    'share_option': default_conf.get('share_option', 'all'),
+                    'share_option': default_conf.get('share_option', 'all').lower(),
                     'bypass_ssl': get_bool('bypass_ssl', False),
                     'file_logging': get_bool('file_logging', True),
-                    'component_policy': default_conf.get('component_policy', 'workflow'),
+                    'component_policy': default_conf.get('component_policy', 'workflow').lower(),
                     'windows_selector_event_loop_policy': get_bool('windows_selector_event_loop_policy', False),
                     'model_download_by_agent': get_bool('model_download_by_agent', False),
-                    'downgrade_blacklist': default_conf.get('downgrade_blacklist', ''),
+                    'downgrade_blacklist': default_conf.get('downgrade_blacklist', '').lower(),
                     'skip_migration_check': get_bool('skip_migration_check', False),
                     'always_lazy_install': get_bool('always_lazy_install', False),
-                    'network_mode': default_conf.get('network_mode', 'public'),
-                    'security_level': security_level,
+                    'network_mode': default_conf.get('network_mode', 'public').lower(),
+                    'security_level': default_conf.get('security_level', 'normal').lower(),
                }
 
     except Exception:
