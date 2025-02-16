@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 21, 5]
+version_code = [3, 22]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -345,6 +345,7 @@ class ManagedResult:
         self.msg = None
         self.target = None
         self.postinstall = lambda: True
+        self.ver = None
 
     def append(self, item):
         self.items.append(item)
@@ -364,6 +365,10 @@ class ManagedResult:
 
     def with_postinstall(self, postinstall):
         self.postinstall = postinstall
+        return self
+
+    def with_ver(self, ver):
+        self.ver = ver
         return self
 
 
@@ -789,6 +794,7 @@ class UnifiedManager:
                     node_id = v['id']
                 else:
                     node_id = v['files'][0].split('/')[-1]
+                    v['repository'] = v['files'][0]
                 res[node_id] = v
             elif len(v['files']) > 1:
                 res[v['files'][0]] = v  # A custom node composed of multiple url is treated as a single repository with one representative path
@@ -1334,14 +1340,14 @@ class UnifiedManager:
             version_spec = self.resolve_unspecified_version(node_id, guess_mode='active')
 
         if version_spec is None:
-            return ManagedResult('update').fail(f'Update not available: {node_id}@{version_spec}')
+            return ManagedResult('update').fail(f'Update not available: {node_id}@{version_spec}').with_ver(version_spec)
 
         if version_spec == 'nightly':
-            return self.repo_update(self.active_nodes[node_id][1], instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall).with_target('nightly')
+            return self.repo_update(self.active_nodes[node_id][1], instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall).with_target('nightly').with_ver('nightly')
         elif version_spec == 'unknown':
-            return self.repo_update(self.unknown_active_nodes[node_id][1], instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall).with_target('unknown')
+            return self.repo_update(self.unknown_active_nodes[node_id][1], instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall).with_target('unknown').with_ver('unknown')
         else:
-            return self.cnr_switch_version(node_id, instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall)
+            return self.cnr_switch_version(node_id, instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall).with_ver('cnr')
 
     async def install_by_id(self, node_id, version_spec=None, channel=None, mode=None, instant_execution=False, no_deps=False, return_postinstall=False):
         """

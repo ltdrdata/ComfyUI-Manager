@@ -707,17 +707,15 @@ async function onQueueStatus(event) {
 		for(let k in event.detail.nodepack_result){
 			let v = event.detail.nodepack_result[k];
 
-			if(v == 'success') {
-				if(k == 'comfyui')
-					comfyui_state = 'success';
-				else
-					success_list.push(k);
+			if(k == 'comfyui') {
+				comfyui_state = v;
+				continue;
 			}
-			else if(v == 'skip') {
-				if(k == 'comfyui')
-					comfyui_state = 'skip';
+
+			if(v.msg == 'success') {
+				success_list.push(k);
 			}
-			else
+			else if(v.msg != 'skip')
 				failed_list.push(k);
 		}
 
@@ -737,14 +735,22 @@ async function onQueueStatus(event) {
 			else if(comfyui_state == 'skip') {
 				msg += "ComfyUI is already up-to-date.<BR><BR>"
 			}
+			else if(comfyui_state != null) {
+				msg += "Failed to update ComfyUI.<BR><BR>"
+			}
 
 			if(success_list.length > 0) {
 				msg += "The following custom nodes have been updated:<ul>";
 				for(let x in success_list) {
-					if(success_list[x] == 'comfyui')
-						continue;
-
-					msg += '<li>'+success_list[x]+'</li>';
+					let k = success_list[x];
+					let url = event.detail.nodepack_result[k].url;
+					let title = event.detail.nodepack_result[k].title;
+					if(url) {
+						msg += `<li><a href='${url}' target='_blank'>${title}</a></li>`;
+					}
+					else {
+						msg += `<li>${k}</li>`;
+					}
 				}
 				msg += "</ul>";
 			}
@@ -755,7 +761,15 @@ async function onQueueStatus(event) {
 		if(failed_list.length > 0) {
 			msg += '<br>The update for the following custom nodes has failed:<ul>';
 			for(let x in failed_list) {
-				msg += '<li>'+failed_list[x]+'</li>';
+				let k = failed_list[x];
+				let url = event.detail.nodepack_result[k].url;
+				let title = event.detail.nodepack_result[k].title;
+				if(url) {
+					msg += `<li><a href='${url}' target='_blank'>${title}</a></li>`;
+				}
+				else {
+					msg += `<li>${k}</li>`;
+				}
 			}
 
 			msg += '</ul>'

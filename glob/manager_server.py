@@ -416,25 +416,41 @@ async def task_worker():
             traceback.print_exc()
             return f"Installation failed:\n{node_spec_str}"
 
-    async def do_update(item) -> str:
+    async def do_update(item):
         ui_id, node_name, node_ver = item
 
         try:
             res = core.unified_manager.unified_update(node_name, node_ver)
 
+            if res.ver == 'unknown':
+                url = core.unified_manager.unknown_active_nodes[node_name][0]
+                title = os.path.basename(url)
+            else:
+                url = core.unified_manager.cnr_map[node_name].get('repository')
+                title = core.unified_manager.cnr_map[node_name]['name']
+
             manager_util.clear_pip_cache()
+
+            if url is not None:
+                base_res = {'url': url, 'title': title}
+            else:
+                base_res = {'title': title}
 
             if res.result:
                 if res.action == 'skip':
-                    return 'skip'
+                    base_res['msg'] = 'skip'
+                    return base_res
                 else:
-                    return 'success'
+                    base_res['msg'] = 'success'
+                    return base_res
 
+            base_res['msg'] = f"An error occurred while updating '{node_name}'."
             logging.error(f"\nERROR: An error occurred while updating '{node_name}'.")
+            return base_res
         except Exception:
             traceback.print_exc()
 
-        return f"An error occurred while updating '{node_name}'."
+        return {'msg':f"An error occurred while updating '{node_name}'."}
 
     async def do_update_comfyui() -> str:
         try:
@@ -607,6 +623,9 @@ async def task_worker():
             elif kind == 'update-comfyui':
                 nodepack_result['comfyui'] = msg
                 ui_target = "main"
+            elif kind == 'update':
+                nodepack_result[ui_id] = msg['msg']
+                ui_target = "nodepack_manager"
             else:
                 nodepack_result[ui_id] = msg
                 ui_target = "nodepack_manager"
@@ -709,6 +728,15 @@ async def update_all(request):
                 continue
 
         update_item = k, k, v[0]
+        task_queue.put(("update-main", update_item))
+
+    for k, v in core.unified_manager.unknown_active_nodes.items():
+        if k == 'comfyui-manager':
+            # skip updating comfyui-manager if desktop version
+            if os.environ.get('__COMFYUI_DESKTOP_VERSION__'):
+                continue
+
+        update_item = k, k, 'unknown'
         task_queue.put(("update-main", update_item))
 
     return web.Response(status=200)
