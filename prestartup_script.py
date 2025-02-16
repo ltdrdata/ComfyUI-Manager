@@ -421,29 +421,33 @@ except Exception as e:
     print(f"[ComfyUI-Manager] Logging failed: {e}")
 
 
-try:
-    import git   # noqa: F401
-    import toml  # noqa: F401
-    import rich  # noqa: F401
-except ModuleNotFoundError:
-    my_path = os.path.dirname(__file__)
-    requirements_path = os.path.join(my_path, "requirements.txt")
-
-    print("## ComfyUI-Manager: installing dependencies. (GitPython)")
+def ensure_dependencies():
     try:
-        result = subprocess.check_output(manager_util.make_pip_cmd(['install', '-r', requirements_path]))
-    except subprocess.CalledProcessError:
-        print("## [ERROR] ComfyUI-Manager: Attempting to reinstall dependencies using an alternative method.")
-        try:
-            result = subprocess.check_output(manager_util.make_pip_cmd(['install', '--user', '-r', requirements_path]))
-        except subprocess.CalledProcessError:
-            print("## [ERROR] ComfyUI-Manager: Failed to install the GitPython package in the correct Python environment. Please install it manually in the appropriate environment. (You can seek help at https://app.element.io/#/room/%23comfyui_space%3Amatrix.org)")
+        import git     # noqa: F401
+        import toml    # noqa: F401
+        import rich    # noqa: F401
+        import chardet # noqa: F401
+    except ModuleNotFoundError:
+        my_path = os.path.dirname(__file__)
+        requirements_path = os.path.join(my_path, "requirements.txt")
 
-try:
-    print("## ComfyUI-Manager: installing dependencies done.")
-except:
-    # maybe we should sys.exit() here? there is at least two screens worth of error messages still being pumped after our error messages
-    print("## [ERROR] ComfyUI-Manager: GitPython package seems to be installed, but failed to load somehow. Make sure you have a working git client installed")
+        print("## ComfyUI-Manager: installing dependencies. (GitPython)")
+        try:
+            result = subprocess.check_output(manager_util.make_pip_cmd(['install', '-r', requirements_path]))
+        except subprocess.CalledProcessError:
+            print("## [ERROR] ComfyUI-Manager: Attempting to reinstall dependencies using an alternative method.")
+            try:
+                result = subprocess.check_output(manager_util.make_pip_cmd(['install', '--user', '-r', requirements_path]))
+            except subprocess.CalledProcessError:
+                print("## [ERROR] ComfyUI-Manager: Failed to install the GitPython package in the correct Python environment. Please install it manually in the appropriate environment. (You can seek help at https://app.element.io/#/room/%23comfyui_space%3Amatrix.org)")
+
+    try:
+        print("## ComfyUI-Manager: installing dependencies done.")
+    except:
+        # maybe we should sys.exit() here? there is at least two screens worth of error messages still being pumped after our error messages
+        print("## [ERROR] ComfyUI-Manager: GitPython package seems to be installed, but failed to load somehow. Make sure you have a working git client installed")
+
+ensure_dependencies()
 
 
 print("** ComfyUI startup time:", current_timestamp())
