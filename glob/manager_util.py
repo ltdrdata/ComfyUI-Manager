@@ -12,6 +12,7 @@ import subprocess
 import sys
 import re
 import logging
+import chardet
 
 
 cache_lock = threading.Lock()
@@ -373,3 +374,22 @@ def sanitize(data):
 def sanitize_filename(input_string):
     result_string = re.sub(r'[^a-zA-Z0-9_]', '_', input_string)
     return result_string
+
+
+def robust_readlines(fullpath):
+    try:
+        with open(fullpath, "r") as f:
+            return f.readlines()
+    except:
+        encoding = None
+        with open(fullpath, "rb") as f:
+            raw_data = f.read()
+            result = chardet.detect(raw_data)
+            encoding = result['encoding']
+
+        if encoding is not None:
+            with open(fullpath, "r", encoding=encoding) as f:
+                return f.readlines()
+
+        print(f"[ComfyUI-Manager] Failed to recognize encoding for: {fullpath}")
+        return []

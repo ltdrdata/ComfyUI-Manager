@@ -598,17 +598,18 @@ def execute_lazy_install_script(repo_path, executable):
 
     if os.path.exists(requirements_path):
         print(f"Install: pip packages for '{repo_path}'")
-        with open(requirements_path, "r") as requirements_file:
-            for line in requirements_file:
-                package_name = remap_pip_package(line.strip())
-                if package_name and not is_installed(package_name):
-                    if '--index-url' in package_name:
-                        s = package_name.split('--index-url')
-                        install_cmd = manager_util.make_pip_cmd(["install", s[0].strip(), '--index-url', s[1].strip()])
-                    else:
-                        install_cmd = manager_util.make_pip_cmd(["install", package_name])
 
-                    process_wrap(install_cmd, repo_path)
+        lines = manager_util.robust_readlines(requirements_path)
+        for line in lines:
+            package_name = remap_pip_package(line.strip())
+            if package_name and not is_installed(package_name):
+                if '--index-url' in package_name:
+                    s = package_name.split('--index-url')
+                    install_cmd = manager_util.make_pip_cmd(["install", s[0].strip(), '--index-url', s[1].strip()])
+                else:
+                    install_cmd = manager_util.make_pip_cmd(["install", package_name])
+
+                process_wrap(install_cmd, repo_path)
 
     if os.path.exists(install_script_path) and f'{repo_path}/install.py' not in processed_install:
         processed_install.add(f'{repo_path}/install.py')

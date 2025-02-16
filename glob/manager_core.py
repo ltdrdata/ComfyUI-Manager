@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 21, 3]
+version_code = [3, 21, 4]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -815,14 +815,14 @@ class UnifiedManager:
                 print("Install: pip packages")
                 pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
                 res = True
-                with open(requirements_path, "r") as requirements_file:
-                    for line in requirements_file:
-                        package_name = remap_pip_package(line.strip())
-                        if package_name and not package_name.startswith('#') and package_name not in self.processed_install:
-                            self.processed_install.add(package_name)
-                            install_cmd = manager_util.make_pip_cmd(["install", package_name])
-                            if package_name.strip() != "" and not package_name.startswith('#'):
-                                res = res and try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
+                lines = manager_util.robust_readlines(requirements_path)
+                for line in lines:
+                    package_name = remap_pip_package(line.strip())
+                    if package_name and not package_name.startswith('#') and package_name not in self.processed_install:
+                        self.processed_install.add(package_name)
+                        install_cmd = manager_util.make_pip_cmd(["install", package_name])
+                        if package_name.strip() != "" and not package_name.startswith('#'):
+                            res = res and try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
                 pip_fixer.fix_broken()
                 return res
@@ -1252,7 +1252,8 @@ class UnifiedManager:
                     return result.fail(f"Failed to execute install script: {url}")
 
         except Exception as e:
-            return result.fail(f"Install(git-clone) error: {url} / {e}")
+            traceback.print_exc()
+            return result.fail(f"Install(git-clone) error[2]: {url} / {e}")
 
         print("Installation was successful.")
         return result
@@ -2048,8 +2049,8 @@ async def gitclone_install(url, instant_execution=False, msg_prefix='', no_deps=
 
     except Exception as e:
         traceback.print_exc()
-        print(f"Install(git-clone) error: {url} / {e}", file=sys.stderr)
-        return result.fail(f"Install(git-clone) error: {url} / {e}")
+        print(f"Install(git-clone) error[1]: {url} / {e}", file=sys.stderr)
+        return result.fail(f"Install(git-clone)[1] error: {url} / {e}")
 
 
 def git_pull(path):
@@ -2148,7 +2149,7 @@ def gitclone_fix(files, instant_execution=False, no_deps=False):
                 return False
 
         except Exception as e:
-            print(f"Install(git-clone) error: {url} / {e}", file=sys.stderr)
+            print(f"Fix(git-clone) error: {url} / {e}", file=sys.stderr)
             return False
 
     print(f"Attempt to fixing '{files}' is done.")
