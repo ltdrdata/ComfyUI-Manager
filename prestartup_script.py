@@ -433,11 +433,11 @@ def ensure_dependencies():
 
         print("## ComfyUI-Manager: installing dependencies. (GitPython)")
         try:
-            result = subprocess.check_output(manager_util.make_pip_cmd(['install', '-r', requirements_path]))
+            subprocess.check_output(manager_util.make_pip_cmd(['install', '-r', requirements_path]))
         except subprocess.CalledProcessError:
             print("## [ERROR] ComfyUI-Manager: Attempting to reinstall dependencies using an alternative method.")
             try:
-                result = subprocess.check_output(manager_util.make_pip_cmd(['install', '--user', '-r', requirements_path]))
+                subprocess.check_output(manager_util.make_pip_cmd(['install', '--user', '-r', requirements_path]))
             except subprocess.CalledProcessError:
                 print("## [ERROR] ComfyUI-Manager: Failed to install the GitPython package in the correct Python environment. Please install it manually in the appropriate environment. (You can seek help at https://app.element.io/#/room/%23comfyui_space%3Amatrix.org)")
 
