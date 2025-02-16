@@ -12,7 +12,6 @@ import subprocess
 import sys
 import re
 import logging
-import chardet
 
 
 cache_lock = threading.Lock()
@@ -377,6 +376,7 @@ def sanitize_filename(input_string):
 
 
 def robust_readlines(fullpath):
+    import chardet
     try:
         with open(fullpath, "r") as f:
             return f.readlines()
