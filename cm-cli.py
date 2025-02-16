@@ -31,7 +31,9 @@ if comfy_path is None:
     except:
         print("\n[bold yellow]WARN: The `COMFYUI_PATH` environment variable is not set. Assuming `custom_nodes/ComfyUI-Manager/../../` as the ComfyUI path.[/bold yellow]", file=sys.stderr)
         comfy_path = os.path.abspath(os.path.join(manager_util.comfyui_manager_path, '..', '..'))
-        sys.path.append(comfy_path)
+
+# This should be placed here
+sys.path.append(comfy_path)
 
 import utils.extra_config
 import cm_global
