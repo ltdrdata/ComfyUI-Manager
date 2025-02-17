@@ -149,7 +149,7 @@ In `ComfyUI-Manager` V3.0 and later, configuration files and dynamically generat
 * Basic config files: `<USER_DIRECTORY>/default/ComfyUI-Manager/config.ini`
 * Configurable channel lists: `<USER_DIRECTORY>/default/ComfyUI-Manager/channels.ini`
 * Configurable pip overrides: `<USER_DIRECTORY>/default/ComfyUI-Manager/pip_overrides.json`
-* Configurable pip blacklist: `<USER_DIRECTORY>/default/ComfyUI-Manager/pip_overrides.list`
+* Configurable pip blacklist: `<USER_DIRECTORY>/default/ComfyUI-Manager/pip_blacklist.list`
 * Saved snapshot files: `<USER_DIRECTORY>/default/ComfyUI-Manager/snapshots`
 * Startup script files: `<USER_DIRECTORY>/default/ComfyUI-Manager/startup-scripts`
 * Component files: `<USER_DIRECTORY>/default/ComfyUI-Manager/components`
