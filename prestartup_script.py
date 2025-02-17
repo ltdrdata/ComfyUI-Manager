@@ -34,7 +34,7 @@ else:
 
 security_check.security_check()
 
-cm_global.pip_blacklist = ['torch', 'torchsde', 'torchvision']
+cm_global.pip_blacklist = {'torch', 'torchsde', 'torchvision'}
 cm_global.pip_downgrade_blacklist = ['torch', 'torchsde', 'torchvision', 'transformers', 'safetensors', 'kornia']
 
 
@@ -82,6 +82,7 @@ comfyui_manager_path = os.path.abspath(os.path.dirname(__file__))
 custom_nodes_base_path = folder_paths.get_folder_paths('custom_nodes')[0]
 manager_files_path = os.path.abspath(os.path.join(folder_paths.get_user_directory(), 'default', 'ComfyUI-Manager'))
 manager_pip_overrides_path = os.path.join(manager_files_path, "pip_overrides.json")
+manager_pip_blacklist_path = os.path.join(manager_files_path, "pip_blacklist.list")
 restore_snapshot_path = os.path.join(manager_files_path, "startup-scripts", "restore-snapshot.json")
 manager_config_path = os.path.join(manager_files_path, 'config.ini')
 
@@ -120,6 +121,14 @@ if os.path.exists(manager_pip_overrides_path):
         cm_global.pip_overrides = json.load(json_file)
         cm_global.pip_overrides['numpy'] = 'numpy<2'
         cm_global.pip_overrides['ultralytics'] = 'ultralytics==8.3.40'  # for security
+
+
+if os.path.exists(manager_pip_blacklist_path):
+    with open(manager_pip_blacklist_path, 'r', encoding="UTF-8", errors="ignore") as f:
+        for x in f.readlines():
+            y = x.strip()
+            if y != '':
+                cm_global.pip_blacklist.add(y)
 
 
 def remap_pip_package(pkg):

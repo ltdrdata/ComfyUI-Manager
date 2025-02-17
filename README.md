@@ -149,6 +149,7 @@ In `ComfyUI-Manager` V3.0 and later, configuration files and dynamically generat
 * Basic config files: `<USER_DIRECTORY>/default/ComfyUI-Manager/config.ini`
 * Configurable channel lists: `<USER_DIRECTORY>/default/ComfyUI-Manager/channels.ini`
 * Configurable pip overrides: `<USER_DIRECTORY>/default/ComfyUI-Manager/pip_overrides.json`
+* Configurable pip blacklist: `<USER_DIRECTORY>/default/ComfyUI-Manager/pip_overrides.list`
 * Saved snapshot files: `<USER_DIRECTORY>/default/ComfyUI-Manager/snapshots`
 * Startup script files: `<USER_DIRECTORY>/default/ComfyUI-Manager/startup-scripts`
 * Component files: `<USER_DIRECTORY>/default/ComfyUI-Manager/components`
@@ -301,7 +302,10 @@ The following settings are applied based on the section marked as `is_default`.
 * Custom pip mapping
   * When you create the `pip_overrides.json` file, it changes the installation of specific pip packages to installations defined by the user.
     * Please refer to the `pip_overrides.json.template` file.
-    
+
+* Prevent the installation of specific pip packages
+  * List the package names one per line in the `pip_blacklist.list` file.
+
 * Use `aria2` as downloader
   * [howto](docs/en/use_aria2.md)
 

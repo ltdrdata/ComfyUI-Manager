@@ -43,13 +43,21 @@ import cnr_utils
 
 comfyui_manager_path = os.path.abspath(os.path.dirname(__file__))
 
-cm_global.pip_blacklist = ['torch', 'torchsde', 'torchvision']
+cm_global.pip_blacklist = {'torch', 'torchsde', 'torchvision'}
 cm_global.pip_downgrade_blacklist = ['torch', 'torchsde', 'torchvision', 'transformers', 'safetensors', 'kornia']
 cm_global.pip_overrides = {'numpy': 'numpy<2'}
 
 if os.path.exists(os.path.join(manager_util.comfyui_manager_path, "pip_overrides.json")):
     with open(os.path.join(manager_util.comfyui_manager_path, "pip_overrides.json"), 'r', encoding="UTF-8", errors="ignore") as json_file:
         cm_global.pip_overrides = json.load(json_file)
+
+
+if os.path.exists(os.path.join(manager_util.comfyui_manager_path, "pip_blacklist.list")):
+    with open(os.path.join(manager_util.comfyui_manager_path, "pip_blacklist.list"), 'r', encoding="UTF-8", errors="ignore") as f:
+        for x in f.readlines():
+            y = x.strip()
+            if y != '':
+                cm_global.pip_blacklist.add(y)
 
 
 def check_comfyui_hash():
@@ -136,6 +144,13 @@ class Ctx:
             with open(core.manager_pip_overrides_path, 'r', encoding="UTF-8", errors="ignore") as json_file:
                 cm_global.pip_overrides = json.load(json_file)
                 cm_global.pip_overrides = {'numpy': 'numpy<2'}
+
+        if os.path.exists(core.manager_pip_blacklist_path):
+            with open(core.manager_pip_blacklist_path, 'r', encoding="UTF-8", errors="ignore") as f:
+                for x in f.readlines():
+                    y = x.strip()
+                    if y != '':
+                        cm_global.pip_blacklist.add(y)
 
     @staticmethod
     def get_startup_scripts_path():
