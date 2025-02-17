@@ -11196,6 +11196,16 @@
             "description": "Nodes:FastImageListToImageBatch"
         },
         {
+            "author": "jax-explorer",
+            "title": "comfyui-model-dynamic-loader",
+            "reference": "https://github.com/jax-explorer/comfyui-model-dynamic-loader",
+            "files": [
+                "https://github.com/jax-explorer/comfyui-model-dynamic-loader"
+            ],
+            "install_type": "git-clone",
+            "description": "for comfyonline dynamic loader\ncomfyonline is comfyui cloud website"
+        },
+        {
             "author": "sugarkwork",
             "title": "comfyui_cohere",
             "id": "cohere",
@@ -15764,7 +15774,7 @@
                 "https://github.com/Cyber-BCat/ComfyUI_Auto_Caption"
             ],
             "install_type": "git-clone",
-            "description": "This report contains a 'load many images' node which is going to load the image set by the number of file names from smallest to largest, and the images will no longer be loaded in the wrong order! Setting index=0 makes it load from the first small value (image flie name) image, and index=2 will load them from the second image. Another node 'load images & resize' can resize the image by the first loaded image."
+            "description": "Load images in order(All other nodes are in the wrong order)! Using LLM and Joy tag pipeline to tag your image(s folder), it's suitable for train FLUX LoRA and also sdxl."
         },
         {
             "author": "cr7Por",
@@ -16155,6 +16165,17 @@
             ],
             "install_type": "git-clone",
             "description": "ComfyUI nodes for Janus-Pro, a unified multimodal understanding and generation framework."
+        },
+        {
+            "author": "CY-CHENYUE",
+            "title": "ComfyUI-Free-GPU",
+            "id": "ComfyUI-Free-GPU",
+            "reference": "https://github.com/CY-CHENYUE/ComfyUI-Free-GPU",
+            "files": [
+               "https://github.com/CY-CHENYUE/ComfyUI-Free-GPU"
+            ],
+            "description": "ComfyUI-Free-GPU provides a node for releasing RAM and VRAM in ComfyUI.",
+            "install_type": "git-clone"
         },
         {
             "author": "codecringebinge",
@@ -18475,16 +18496,6 @@
             "description": "quickly use the prompt word tool in ComfyUI"
         },
         {
-            "author": "jax-explorer",
-            "title": "comfyui-model-dynamic-loader",
-            "reference": "https://github.com/jax-explorer/comfyui-model-dynamic-loader",
-            "files": [
-                "https://github.com/jax-explorer/comfyui-model-dynamic-loader"
-            ],
-            "install_type": "git-clone",
-            "description": "for comfyonline dynamic loader\ncomfyonline is comfyui cloud website"
-        },
-        {
             "author": "LucipherDev",
             "title": "ComfyUI-Golden-Noise",
             "reference": "https://github.com/LucipherDev/ComfyUI-Golden-Noise",
@@ -20797,7 +20808,7 @@
                 "https://github.com/mediocreatmybest/ComfyUI-Transformers-Pipeline"
              ],
              "install_type": "git-clone",
-             "description": "Some additional ComfyUI nodes allowing tasks via the Huggingface Transformers Pipeline."
+             "description": "Additional ComfyUI nodes to utilise the Transformers pipeline in a simple and modular way."
         },
         {
             "author": "iris-Neko",
@@ -21337,17 +21348,6 @@
             ],
             "install_type": "unzip",
             "description": "This is a node to convert an image into a CMYK Halftone dot image."
-        },
-        {
-            "author": "CY-CHENYUE",
-            "title": "ComfyUI-Free-GPU",
-            "id": "ComfyUI-Free-GPU",
-            "reference": "https://github.com/CY-CHENYUE/ComfyUI-Free-GPU",
-            "files": [
-               "https://github.com/CY-CHENYUE/ComfyUI-Free-GPU"
-            ],
-            "description": "ComfyUI-Free-GPU provides a node for releasing RAM and VRAM in ComfyUI.",
-            "install_type": "git-clone"
         }
     ]
 }
