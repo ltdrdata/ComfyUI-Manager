@@ -91,8 +91,8 @@ class WorkflowMetadataExtension {
       const graph = this;
       try {
         workflow.extra["node_versions"] = {
-          ...extension.workflowNodeVersions,
           ...extension.getGraphNodeVersions(graph),
+          ...extension.workflowNodeVersions, // give precedence to the workflow node versions
         };
       } catch (e) {
         console.error(e);
