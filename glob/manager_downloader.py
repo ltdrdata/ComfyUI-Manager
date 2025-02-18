@@ -11,6 +11,7 @@ from tqdm.auto import tqdm
 aria2 = os.getenv('COMFYUI_MANAGER_ARIA2_SERVER')
 HF_ENDPOINT = os.getenv('HF_ENDPOINT')
 
+
 if aria2 is not None:
     secret = os.getenv('COMFYUI_MANAGER_ARIA2_SECRET')
     url = urlparse(aria2)

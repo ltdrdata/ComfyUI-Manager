@@ -313,6 +313,29 @@ The following settings are applied based on the section marked as `is_default`.
   * This option can be used if performance issues occur in a Colab+GDrive environment.
 
 
+## Environment Variables
+
+The following features can be configured using environment variables:
+
+* **COMFYUI_PATH**: The installation path of ComfyUI
+* **GITHUB_ENDPOINT**: Reverse proxy configuration for environments with limited access to GitHub
+* **HF_ENDPOINT**: Reverse proxy configuration for environments with limited access to Hugging Face
+
+
+### Example 1:
+Redirecting `https://github.com/ltdrdata/ComfyUI-Impact-Pack` to `https://mirror.ghproxy.com/https://github.com/ltdrdata/ComfyUI-Impact-Pack`
+
+```
+GITHUB_ENDPOINT=https://mirror.ghproxy.com/https://github.com
+```
+
+#### Example 2:
+Changing `https://huggingface.co/path/to/somewhere` to `https://some-hf-mirror.com/path/to/somewhere`
+
+```
+HF_ENDPOINT=https://some-hf-mirror.com 
+```
+
 ## Scanner
 When you run the `scan.sh` script:
 

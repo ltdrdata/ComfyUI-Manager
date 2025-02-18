@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 23]
+version_code = [3, 24]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -505,6 +505,8 @@ class UnifiedManager:
     def resolve_from_path(self, fullpath):
         url = git_utils.git_url(fullpath)
         if url:
+            url = git_utils.normalize_url(url)
+
             cnr = self.get_cnr_by_repo(url)
             commit_hash = git_utils.get_commit_hash(fullpath)
             if cnr:
@@ -1239,15 +1241,16 @@ class UnifiedManager:
         if url.endswith("/"):
             url = url[:-1]
         try:
-            print(f"Download: git clone '{url}'")
-
             # Clone the repository from the remote URL
+            clone_url = git_utils.get_url_for_clone(url)
+            print(f"Download: git clone '{clone_url}'")
+
             if not instant_execution and platform.system() == 'Windows':
-                res = manager_funcs.run_script([sys.executable, git_script_path, "--clone", get_default_custom_nodes_path(), url, repo_path], cwd=get_default_custom_nodes_path())
+                res = manager_funcs.run_script([sys.executable, git_script_path, "--clone", get_default_custom_nodes_path(), clone_url, repo_path], cwd=get_default_custom_nodes_path())
                 if res != 0:
-                    return result.fail(f"Failed to clone repo: {url}")
+                    return result.fail(f"Failed to clone repo: {clone_url}")
             else:
-                repo = git.Repo.clone_from(url, repo_path, recursive=True, progress=GitProgress())
+                repo = git.Repo.clone_from(clone_url, repo_path, recursive=True, progress=GitProgress())
                 repo.git.clear_cache()
                 repo.close()
 
@@ -2043,12 +2046,14 @@ async def gitclone_install(url, instant_execution=False, msg_prefix='', no_deps=
             print(f"CLONE into '{repo_path}'")
 
             # Clone the repository from the remote URL
+            clone_url = git_utils.get_url_for_clone(url)
+
             if not instant_execution and platform.system() == 'Windows':
-                res = manager_funcs.run_script([sys.executable, git_script_path, "--clone", get_default_custom_nodes_path(), url, repo_path], cwd=get_default_custom_nodes_path())
+                res = manager_funcs.run_script([sys.executable, git_script_path, "--clone", get_default_custom_nodes_path(), clone_url, repo_path], cwd=get_default_custom_nodes_path())
                 if res != 0:
-                    return result.fail(f"Failed to clone '{url}' into  '{repo_path}'")
+                    return result.fail(f"Failed to clone '{clone_url}' into  '{repo_path}'")
             else:
-                repo = git.Repo.clone_from(url, repo_path, recursive=True, progress=GitProgress())
+                repo = git.Repo.clone_from(clone_url, repo_path, recursive=True, progress=GitProgress())
                 repo.git.clear_cache()
                 repo.close()
 
@@ -2973,7 +2978,14 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
                         print("cm-cli: unexpected [0001]")
 
         # for nightly restore
-        git_info = info.get('git_custom_nodes')
+        _git_info = info.get('git_custom_nodes')
+        git_info = {}
+
+        # normalize github repo
+        for k, v in _git_info.items():
+            norm_k = git_utils.normalize_url(k)
+            git_info[norm_k] = v
+
         if git_info is not None:
             todo_disable = []
             todo_enable = []
@@ -2986,20 +2998,13 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
 
                 if v[0] == 'nightly' and cnr_repo_map.get(k):
                     repo_url = cnr_repo_map.get(k)
+                    normalized_url = git_utils.normalize_url(repo_url)
 
-                    normalized_url1 = git_utils.normalize_url(repo_url)
-                    normalized_url2 = git_utils.normalize_url_http(repo_url)
-
-                    if normalized_url1 not in git_info and normalized_url2 not in git_info:
+                    if normalized_url not in git_info:
                         todo_disable.append(k)
                     else:
-                        if normalized_url1 in git_info:
-                            commit_hash = git_info[normalized_url1]['hash']
-                            todo_checkout.append((v[1], commit_hash))
-
-                        if normalized_url2 in git_info:
-                            commit_hash = git_info[normalized_url2]['hash']
-                            todo_checkout.append((v[1], commit_hash))
+                        commit_hash = git_info[normalized_url]['hash']
+                        todo_checkout.append((v[1], commit_hash))
 
             for k, v in unified_manager.nightly_inactive_nodes.items():
                 if 'comfyui-manager' in k:
@@ -3007,18 +3012,12 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
 
                 if cnr_repo_map.get(k):
                     repo_url = cnr_repo_map.get(k)
-                    normalized_url1 = git_utils.normalize_url(repo_url)
-                    normalized_url2 = git_utils.normalize_url_http(repo_url)
+                    normalized_url = git_utils.normalize_url(repo_url)
 
-                    if normalized_url1 in git_info:
-                        commit_hash = git_info[normalized_url1]['hash']
+                    if normalized_url in git_info:
+                        commit_hash = git_info[normalized_url]['hash']
                         todo_enable.append((k, commit_hash))
-                        processed_urls.append(normalized_url1)
-
-                    if normalized_url2 in git_info:
-                        commit_hash = git_info[normalized_url2]['hash']
-                        todo_enable.append((k, commit_hash))
-                        processed_urls.append(normalized_url2)
+                        processed_urls.append(normalized_url)
 
             for x in todo_disable:
                 unified_manager.unified_disable(x, False)
@@ -3071,21 +3070,14 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
         if repo_url is None:
             continue
 
-        normalized_url1 = git_utils.normalize_url(repo_url)
-        normalized_url2 = git_utils.normalize_url_http(repo_url)
+        normalized_url = git_utils.normalize_url(repo_url)
 
-        if normalized_url1 not in git_info and normalized_url2 not in git_info:
+        if normalized_url not in git_info:
             todo_disable.append(k2)
         else:
-            if normalized_url1 in git_info:
-                commit_hash = git_info[normalized_url1]['hash']
-                todo_checkout.append((k2, commit_hash))
-                processed_urls.append(normalized_url1)
-
-            if normalized_url2 in git_info:
-                commit_hash = git_info[normalized_url2]['hash']
-                todo_checkout.append((k2, commit_hash))
-                processed_urls.append(normalized_url2)
+            commit_hash = git_info[normalized_url]['hash']
+            todo_checkout.append((k2, commit_hash))
+            processed_urls.append(normalized_url)
 
     for k2, v2 in unified_manager.unknown_inactive_nodes.items():
         repo_url = resolve_giturl_from_path(v2[1])
@@ -3093,18 +3085,12 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
         if repo_url is None:
             continue
 
-        normalized_url1 = git_utils.normalize_url(repo_url)
-        normalized_url2 = git_utils.normalize_url_http(repo_url)
+        normalized_url = git_utils.normalize_url(repo_url)
 
-        if normalized_url1 in git_info:
-            commit_hash = git_info[normalized_url1]['hash']
+        if normalized_url in git_info:
+            commit_hash = git_info[normalized_url]['hash']
             todo_enable.append((k2, commit_hash))
-            processed_urls.append(normalized_url1)
-
-        if normalized_url2 in git_info:
-            commit_hash = git_info[normalized_url2]['hash']
-            todo_enable.append((k2, commit_hash))
-            processed_urls.append(normalized_url2)
+            processed_urls.append(normalized_url)
 
     for x in todo_disable:
         unified_manager.unified_disable(x, True)

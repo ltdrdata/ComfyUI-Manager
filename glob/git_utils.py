@@ -2,6 +2,9 @@ import os
 import configparser
 
 
+GITHUB_ENDPOINT = os.getenv('GITHUB_ENDPOINT')
+
+
 def is_git_repo(path: str) -> bool:
     """ Check if the path is a git repository. """
     # NOTE: Checking it through `git.Repo` must be avoided.
@@ -46,16 +49,21 @@ def git_url(fullpath):
 
     return None
 
+
 def normalize_url(url) -> str:
-    url = url.replace("git@github.com:", "https://github.com/")
-    if url.endswith('.git'):
-        url = url[:-4]
+    if 'github' in url or (GITHUB_ENDPOINT is not None and GITHUB_ENDPOINT in url):
+        author = os.path.basename(os.path.dirname(url))
+        repo_name = os.path.basename(url)
+        url = f"https://github.com/{author}/{repo_name}"
 
     return url
 
-def normalize_url_http(url) -> str:
-    url = url.replace("https://github.com/", "git@github.com:")
-    if url.endswith('.git'):
-        url = url[:-4]
+
+def get_url_for_clone(url):
+    url = normalize_url(url)
+
+    if GITHUB_ENDPOINT is not None and url.startswith('https://github.com/'):
+        url = GITHUB_ENDPOINT + url[18:] # url[18:] -> remove `https://github.com`
 
     return url
+    
