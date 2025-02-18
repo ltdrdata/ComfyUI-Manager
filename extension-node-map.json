@@ -1350,7 +1350,6 @@
             "BillBum_Modified_RegText_Node",
             "BillBum_Modified_SD3_API_Node",
             "BillBum_Modified_Structured_LLM_Node(Imperfect)",
-            "BillBum_Modified_Together_API_Node",
             "BillBum_Modified_VisionLM_API_Node",
             "BillBum_Modified_img2b64_url_Node",
             "BillBum_NonSysPrompt_VLM_API_Node",
@@ -1379,6 +1378,7 @@
     "https://github.com/AkashKarnatak/ComfyUI_faishme": [
         [
             "Faishme Debug",
+            "Faishme Load Image from Glob",
             "Faishme Mannequin to Model Loader",
             "Faishme Moondream",
             "Load Fashion Model"
@@ -1522,6 +1522,12 @@
             "TICK (JOV) \u23f1",
             "TRANSFORM (JOV) \ud83c\udfdd\ufe0f",
             "VALUE (JOV) \ud83e\uddec",
+            "VECTOR2 (JOV)",
+            "VECTOR2INT (JOV)",
+            "VECTOR3 (JOV)",
+            "VECTOR3INT (JOV)",
+            "VECTOR4 (JOV)",
+            "VECTOR4INT (JOV)",
             "WAVE GEN (JOV) \ud83c\udf0a"
         ],
         {
@@ -3001,7 +3007,6 @@
     ],
     "https://github.com/Dobidop/ComfyStereo": [
         [
-            "LazyStereo",
             "StereoImageNode"
         ],
         {
@@ -3076,8 +3081,6 @@
     "https://github.com/DraconicDragon/ComfyUI-Venice-API": [
         [
             "CharCountTextBox",
-            "FluxPro11_TOGETHER",
-            "FluxPro_TOGETHER",
             "GenerateImage_VENICE",
             "GenerateText_VENICE",
             "UpscaleImage_VENICE",
@@ -4320,6 +4323,15 @@
             "title_aux": "Hunyuan Video Resolutions"
         }
     ],
+    "https://github.com/Hellfiredragon/comfyui-image-manipulation": [
+        [
+            "AlphaApplyMaskToImage",
+            "CreateMaskFromColorsNode"
+        ],
+        {
+            "title_aux": "comfyui-image-manipulation"
+        }
+    ],
     "https://github.com/HelloVision/ComfyUI_HelloMeme": [
         [
             "CropPortrait",
@@ -5214,10 +5226,9 @@
     ],
     "https://github.com/KoreTeknology/ComfyUI-Universal-Styler": [
         [
-            "Load Nai Styles Complex CSV",
-            "ShowText|pysssss",
-            "Universal_Styler_Node",
-            "concat"
+            "\ud83d\udee1\ufe0f Load Scripts from Database",
+            "\ud83d\udee1\ufe0f Save Script to Database (In progress)",
+            "\ud83d\udee1\ufe0f Set Main Channel"
         ],
         {
             "title_aux": "ComfyUI Universal Styler"
@@ -6292,6 +6303,8 @@
             "iToolsLineLoader",
             "iToolsLoadImagePlus",
             "iToolsLoadImages",
+            "iToolsLoadRandomImage",
+            "iToolsPreviewText",
             "iToolsPromptLoader",
             "iToolsPromptSaver",
             "iToolsPromptStyler",
@@ -6470,9 +6483,12 @@
     ],
     "https://github.com/MushroomFleet/DJZ-KokoroTTS": [
         [
+            "KokoroTTS_LoadVoice_v1",
+            "KokoroTTS_SaveVoice_v1",
             "KokoroTTS_v1",
             "KokoroTTS_v2",
-            "KokoroTTS_v3"
+            "KokoroTTS_v3",
+            "KokoroTTS_v4"
         ],
         {
             "title_aux": "KokoroTTS Node"
@@ -7524,6 +7540,7 @@
             "MaskBatchComposite(FaceParsing)",
             "MaskBlackOut(FaceParsing)",
             "MaskBorderDissolve(FaceParsing)",
+            "MaskBorderDissolveAdvanced(FaceParsing)",
             "MaskComposite(FaceParsing)",
             "MaskCropWithBBox(FaceParsing)",
             "MaskInsertWithBBox(FaceParsing)",
@@ -8607,6 +8624,7 @@
             "SDVN Dic Convert",
             "SDVN Easy IPAdapter weight",
             "SDVN Exif check",
+            "SDVN Fill Square",
             "SDVN Filter List",
             "SDVN Flip Image",
             "SDVN Google Imagen",
@@ -9781,7 +9799,9 @@
             "VrchDelayOSCControlNode",
             "VrchFloatKeyControlNode",
             "VrchFloatOSCControlNode",
+            "VrchImageChannelLoaderNode",
             "VrchImageFlipBookWebViewerNode",
+            "VrchImagePreviewBackgroundNode",
             "VrchImageSaverNode",
             "VrchImageSwitchOSCControlNode",
             "VrchImageWebViewerNode",
@@ -28058,7 +28078,9 @@
     "https://github.com/yichengup/ComfyUI-VideoBlender": [
         [
             "VideoBlendLayer",
-            "VideoBlendStack"
+            "VideoBlendStack",
+            "VideoBlendStackAdvanced",
+            "VideoPreprocess"
         ],
         {
             "title_aux": "ComfyUI-VideoBlender"
