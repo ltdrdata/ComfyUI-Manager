@@ -209,7 +209,7 @@ def print_comfyui_version():
         comfyui_tag = core.get_comfyui_tag()
 
         try:
-            if core.comfy_ui_commit_datetime.date() < core.comfy_ui_required_commit_datetime.date():
+            if not os.environ.get('__COMFYUI_DESKTOP_VERSION__') and core.comfy_ui_commit_datetime.date() < core.comfy_ui_required_commit_datetime.date():
                 logging.warning(f"\n\n## [WARN] ComfyUI-Manager: Your ComfyUI version ({core.comfy_ui_revision})[{core.comfy_ui_commit_datetime.date()}] is too old. Please update to the latest version. ##\n\n")
         except:
             pass
@@ -1501,7 +1501,11 @@ async def get_notice(request):
                     markdown_content = match.group(1)
                     version_tag = core.get_comfyui_tag()
                     if version_tag is None:
-                        markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
+                        version_tag = os.environ.get('__COMFYUI_DESKTOP_VERSION__')
+                        if version_tag is not None:
+                            markdown_content += f"<HR>ComfyUI: {version_tag} [Desktop]"
+                        else:
+                            markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
                     else:
                         markdown_content += (f"<HR>ComfyUI: {version_tag}<BR>"
                                              f"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;({core.comfy_ui_commit_datetime.date()})")

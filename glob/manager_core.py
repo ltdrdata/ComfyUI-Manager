@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 24]
+version_code = [3, 24, 1]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1729,7 +1729,7 @@ def try_install_script(url, repo_path, install_cmd, instant_execution=False):
 
         if platform.system() != "Windows":
             try:
-                if comfy_ui_commit_datetime.date() < comfy_ui_required_commit_datetime.date():
+                if not os.environ.get('__COMFYUI_DESKTOP_VERSION__') and comfy_ui_commit_datetime.date() < comfy_ui_required_commit_datetime.date():
                     print("\n\n###################################################################")
                     print(f"[WARN] ComfyUI-Manager: Your ComfyUI version ({comfy_ui_revision})[{comfy_ui_commit_datetime.date()}] is too old. Please update to the latest version.")
                     print("[WARN] The extension installation feature may not work properly in the current installed ComfyUI version on Windows environment.")
