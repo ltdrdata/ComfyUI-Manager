@@ -65,6 +65,15 @@ class WorkflowMetadataExtension {
     return nodeVersions;
   }
 
+  /**
+   * The node versions embedded in the workflow json's initial state.
+   * @returns {Record<string, string> | undefined} The mapping from node name to version
+   */
+  get workflowNodeVersions() {
+    return app.extensionManager?.workflow?.activeWorkflow?.initialState?.extra
+      ?.node_versions;
+  }
+
   async init() {
     const extension = this;
     this.installedNodes = await this.getInstalledNodes();
@@ -81,7 +90,10 @@ class WorkflowMetadataExtension {
       }
       const graph = this;
       try {
-        workflow.extra["node_versions"] = extension.getGraphNodeVersions(graph);
+        workflow.extra["node_versions"] = {
+          ...extension.workflowNodeVersions,
+          ...extension.getGraphNodeVersions(graph),
+        };
       } catch (e) {
         console.error(e);
       }
