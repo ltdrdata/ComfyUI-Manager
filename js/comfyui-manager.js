@@ -230,7 +230,7 @@ var update_all_button = null;
 var restart_stop_button = null;
 
 let share_option = 'all';
-var is_updating_all = false;
+var is_updating = false;
 
 
 // copied style from https://github.com/pythongosssss/ComfyUI-Custom-Scripts
@@ -477,6 +477,8 @@ async function updateComfyUI() {
 	const response = await api.fetchApi('/manager/queue/update_comfyui');
 
 	showTerminal();
+
+	is_updating = true;
 	await api.fetchApi('/manager/queue/start');
 }
 
@@ -605,7 +607,13 @@ function showVersionSelectorDialog(versions, current, onSelect) {
 }
 
 async function switchComfyUI() {
+	switch_comfyui_button.disabled = true;
+	switch_comfyui_button.style.backgroundColor = "gray";
+	
 	let res = await api.fetchApi(`/comfyui_manager/comfyui_versions`, { cache: "no-store" });
+
+	switch_comfyui_button.disabled = false;
+	switch_comfyui_button.style.backgroundColor = "";
 
 	if(res.status == 200) {
 		let obj = await res.json();
@@ -694,11 +702,11 @@ async function onQueueStatus(event) {
 	else if(event.detail.status == 'done') {
 		reset_action_buttons();
 
-		if(!is_updating_all)  {
+		if(!is_updating)  {
 			return;
 		}
 
-		is_updating_all = false;
+		is_updating = false;
 
 		let success_list = [];
 		let failed_list = [];
@@ -721,19 +729,25 @@ async function onQueueStatus(event) {
 
 		let msg = "";
 		
-		if(success_list.length == 0 && comfyui_state != 'success') {
+		if(success_list.length == 0 && !comfyui_state.startsWith('success')) {
 			if(failed_list.length == 0) {
-				msg += "All custom nodes are already up to date.";
+				msg += "You are already up to date.";
 			}
 		}
 		else {
 			msg = "To apply the updates, you need to <button class='cm-small-button' id='cm-reboot-button5'>RESTART</button> ComfyUI.<hr>";
 
-			if(comfyui_state == 'success') {
-				msg += "ComfyUI is updated.<BR><BR>";
+			if(comfyui_state == 'success-nightly') {
+				msg += "ComfyUI has been updated to latest nightly version.<BR><BR>";
+				infoToast("ComfyUI has been updated to the latest nightly version.");
+			}
+			else if(comfyui_state.startsWith('success-stable')) {
+				const ver = comfyui_state.split("-").pop();
+				msg += `ComfyUI has been updated to ${ver}.<BR><BR>`;
+				infoToast(`ComfyUI has been updated to ${ver}`);
 			}
 			else if(comfyui_state == 'skip') {
-				msg += "ComfyUI is already up-to-date.<BR><BR>"
+				msg += "ComfyUI is already up to date.<BR><BR>"
 			}
 			else if(comfyui_state != null) {
 				msg += "Failed to update ComfyUI.<BR><BR>"
@@ -811,7 +825,7 @@ async function updateAll(update_comfyui, manager_dialog) {
 		customAlert('Another task is already in progress. Please stop the ongoing task first.');
 	}
 	else if(response.status == 200) {
-		is_updating_all = true;
+		is_updating = true;
 		await api.fetchApi('/manager/queue/start');
 	}
 }
@@ -995,6 +1009,8 @@ class ManagerMenuDialog extends ComfyDialog {
 	}
 
 	createControlsLeft() {
+		const isElectron = 'electronAPI' in window;
+
 		let self = this;
 
 		this.update_check_checkbox = $el("input",{type:'checkbox', id:"skip_update_check"},[])
@@ -1073,25 +1089,6 @@ class ManagerMenuDialog extends ComfyDialog {
 			share_combo.appendChild($el('option', { value: option[0], text: `Share: ${option[1]}` }, []));
 		}
 
-		// default ui state
-		let component_policy_combo = document.createElement("select");
-		component_policy_combo.setAttribute("title", "When loading the workflow, configure which version of the component to use.");
-		component_policy_combo.className = "cm-menu-combo";
-		component_policy_combo.appendChild($el('option', { value: 'workflow', text: 'Component: Use workflow version' }, []));
-		component_policy_combo.appendChild($el('option', { value: 'higher', text: 'Component: Use higher version' }, []));
-		component_policy_combo.appendChild($el('option', { value: 'mine', text: 'Component: Use my version' }, []));
-		api.fetchApi('/manager/component/policy')
-			.then(response => response.text())
-			.then(data => {
-				component_policy_combo.value = data;
-				set_component_policy(data);
-			});
-
-		component_policy_combo.addEventListener('change', function (event) {
-			api.fetchApi(`/manager/component/policy?value=${event.target.value}`);
-			set_component_policy(event.target.value);
-		});
-
 		api.fetchApi('/manager/share_option')
 			.then(response => response.text())
 			.then(data => {
@@ -1111,6 +1108,43 @@ class ManagerMenuDialog extends ComfyDialog {
 			}
 		});
 
+		let component_policy_combo = document.createElement("select");
+		component_policy_combo.setAttribute("title", "When loading the workflow, configure which version of the component to use.");
+		component_policy_combo.className = "cm-menu-combo";
+		component_policy_combo.appendChild($el('option', { value: 'workflow', text: 'Component: Use workflow version' }, []));
+		component_policy_combo.appendChild($el('option', { value: 'higher', text: 'Component: Use higher version' }, []));
+		component_policy_combo.appendChild($el('option', { value: 'mine', text: 'Component: Use my version' }, []));
+		api.fetchApi('/manager/policy/component')
+			.then(response => response.text())
+			.then(data => {
+				component_policy_combo.value = data;
+				set_component_policy(data);
+			});
+
+		component_policy_combo.addEventListener('change', function (event) {
+			api.fetchApi(`/manager/policy/component?value=${event.target.value}`);
+			set_component_policy(event.target.value);
+		});
+
+		let update_policy_combo = document.createElement("select");
+
+		if(isElectron)
+			update_policy_combo.style.display = 'none';
+		
+		update_policy_combo.setAttribute("title", "Sets the policy to be applied when performing an update.");
+		update_policy_combo.className = "cm-menu-combo";
+		update_policy_combo.appendChild($el('option', { value: 'stable-comfyui', text: 'Update: Stable ComfyUI' }, []));
+		update_policy_combo.appendChild($el('option', { value: 'nightly-comfyui', text: 'Update: Nightly ComfyUI' }, []));
+		api.fetchApi('/manager/policy/update')
+			.then(response => response.text())
+			.then(data => {
+				update_policy_combo.value = data;
+			});
+
+			update_policy_combo.addEventListener('change', function (event) {
+			api.fetchApi(`/manager/policy/update?value=${event.target.value}`);
+		});
+
 		return [
 			$el("div", {}, [this.update_check_checkbox, uc_checkbox_text]),
 			$el("br", {}, []),
@@ -1119,6 +1153,7 @@ class ManagerMenuDialog extends ComfyDialog {
 			preview_combo,
 			share_combo,
 			component_policy_combo,
+			update_policy_combo,
 			$el("br", {}, []),
 
 			$el("br", {}, []),
@@ -1145,11 +1180,6 @@ class ManagerMenuDialog extends ComfyDialog {
 									install_pip(url, self);
 								}
 							}
-					}),
-					$el("button.cm-experimental-button", {
-						type: "button",
-						textContent: "Unload models",
-						onclick: () => { free_models(); }
 					})
 				]),
 		];

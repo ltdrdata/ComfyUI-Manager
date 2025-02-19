@@ -154,14 +154,27 @@ def switch_to_default_branch(repo):
         repo.git.checkout(default_branch)
         return True
     except:
+        # try checkout master
+        # try checkout main if failed
         try:
             repo.git.checkout(repo.heads.master)
+            return True
         except:
             try:
                 if remote_name is not None:
                     repo.git.checkout('-b', 'master', f'{remote_name}/master')
+                    return True
             except:
-                pass
+                try:
+                    repo.git.checkout(repo.heads.main)
+                    return True
+                except:
+                    try:
+                        if remote_name is not None:
+                            repo.git.checkout('-b', 'main', f'{remote_name}/main')
+                            return True
+                    except:
+                        pass
 
     print("[ComfyUI Manager] Failed to switch to the default branch")
     return False

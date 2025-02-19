@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 24, 1]
+version_code = [3, 25]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -538,6 +538,8 @@ class UnifiedManager:
 
         if node_package.is_disabled and node_package.is_unknown:
             url = git_utils.git_url(node_package.fullpath)
+            if url is not None:
+                url = git_utils.normalize_url(url)
             self.unknown_inactive_nodes[node_package.id] = (url, node_package.fullpath)
 
         if node_package.is_disabled and node_package.is_nightly:
@@ -548,6 +550,8 @@ class UnifiedManager:
 
         if node_package.is_enabled and node_package.is_unknown:
             url = git_utils.git_url(node_package.fullpath)
+            if url is not None:
+                url = git_utils.normalize_url(url)
             self.unknown_active_nodes[node_package.id] = (url, node_package.fullpath)
 
         if node_package.is_from_cnr and node_package.is_disabled:
@@ -1059,8 +1063,8 @@ class UnifiedManager:
 
         # update cache
         if version_spec == 'unknown':
+            self.unknown_active_nodes[node_id] = self.unknown_inactive_nodes[node_id][0], to_path
             del self.unknown_inactive_nodes[node_id]
-            self.unknown_active_nodes[node_id] = to_path
             return result.with_target(to_path)
         elif version_spec == 'nightly':
             del self.nightly_inactive_nodes[node_id]
@@ -1401,7 +1405,7 @@ class UnifiedManager:
             res = self.repo_install(repo_url, to_path, instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall)
             if res.result:
                 if version_spec == 'unknown':
-                    self.unknown_active_nodes[node_id] = to_path
+                    self.unknown_active_nodes[node_id] = repo_url, to_path
                 elif version_spec == 'nightly':
                     cnr_utils.generate_cnr_id(to_path, node_id)
                     self.active_nodes[node_id] = 'nightly', to_path
@@ -1577,6 +1581,7 @@ def write_config():
         'bypass_ssl': get_config()['bypass_ssl'],
         "file_logging": get_config()['file_logging'],
         'component_policy': get_config()['component_policy'],
+        'update_policy': get_config()['update_policy'],
         'windows_selector_event_loop_policy': get_config()['windows_selector_event_loop_policy'],
         'model_download_by_agent': get_config()['model_download_by_agent'],
         'downgrade_blacklist': get_config()['downgrade_blacklist'],
@@ -1615,6 +1620,7 @@ def read_config():
                     'bypass_ssl': get_bool('bypass_ssl', False),
                     'file_logging': get_bool('file_logging', True),
                     'component_policy': default_conf.get('component_policy', 'workflow').lower(),
+                    'update_policy': default_conf.get('update_policy', 'stable-comfyui').lower(),
                     'windows_selector_event_loop_policy': get_bool('windows_selector_event_loop_policy', False),
                     'model_download_by_agent': get_bool('model_download_by_agent', False),
                     'downgrade_blacklist': default_conf.get('downgrade_blacklist', '').lower(),
@@ -1637,6 +1643,7 @@ def read_config():
             'bypass_ssl': False,
             'file_logging': True,
             'component_policy': 'workflow',
+            'update_policy': 'stable-comfyui',
             'windows_selector_event_loop_policy': False,
             'model_download_by_agent': False,
             'downgrade_blacklist': '',
@@ -1688,14 +1695,27 @@ def switch_to_default_branch(repo):
         repo.git.checkout(default_branch)
         return True
     except:
+        # try checkout master
+        # try checkout main if failed
         try:
             repo.git.checkout(repo.heads.master)
+            return True
         except:
             try:
                 if remote_name is not None:
                     repo.git.checkout('-b', 'master', f'{remote_name}/master')
+                    return True
             except:
-                pass
+                try:
+                    repo.git.checkout(repo.heads.main)
+                    return True
+                except:
+                    try:
+                        if remote_name is not None:
+                            repo.git.checkout('-b', 'main', f'{remote_name}/main')
+                            return True
+                    except:
+                        pass
 
     print("[ComfyUI Manager] Failed to switch to the default branch")
     return False
@@ -2347,6 +2367,32 @@ def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefi
     return True
 
 
+def update_to_stable_comfyui(repo_path):
+    try:
+        repo = git.Repo(repo_path)
+        repo.git.checkout(repo.heads.master)
+        versions, current_tag, _ = get_comfyui_versions(repo)
+        
+        if len(versions) == 0 or (len(versions) == 1 and versions[0] == 'nightly'):
+            logging.info("[ComfyUI-Manager] Unable to update to the stable ComfyUI version.")
+            return "fail", None
+            
+        if versions[0] == 'nightly':
+            latest_tag = versions[1]
+        else:
+            latest_tag = versions[0]
+
+        if current_tag == latest_tag:
+            return "skip", None
+        else:
+            logging.info(f"[ComfyUI-Manager] Updating ComfyUI: {current_tag} -> {latest_tag}")
+            repo.git.checkout(latest_tag)
+            return 'updated', latest_tag
+    except:
+        traceback.print_exc()
+        return "fail", None
+            
+
 def update_path(repo_path, instant_execution=False, no_deps=False):
     if not os.path.exists(os.path.join(repo_path, '.git')):
         return "fail"
@@ -2354,9 +2400,12 @@ def update_path(repo_path, instant_execution=False, no_deps=False):
     # version check
     repo = git.Repo(repo_path)
 
+    is_switched = False
     if repo.head.is_detached:
         if not switch_to_default_branch(repo):
             return "fail"
+        else:
+            is_switched = True
 
     current_branch = repo.active_branch
     branch_name = current_branch.name
@@ -2394,6 +2443,8 @@ def update_path(repo_path, instant_execution=False, no_deps=False):
     if commit_hash != remote_commit_hash:
         git_pull(repo_path)
         execute_install_script("ComfyUI", repo_path, instant_execution=instant_execution, no_deps=no_deps)
+        return "updated"
+    elif is_switched:
         return "updated"
     else:
         return "skipped"
@@ -2705,9 +2756,6 @@ async def extract_nodes_from_workflow(filepath, mode='local', channel_url='defau
         if ext == 'https://github.com/comfyanonymous/ComfyUI':
             pass
         elif ext is not None:
-            if 'Fooocus' in ext:
-                print(f">> {node_name}")
-
             used_exts.add(ext)
         else:
             unknown_nodes.add(node_name)
@@ -3176,17 +3224,26 @@ async def check_need_to_migrate():
         need_to_migrate = True
 
 
-def get_comfyui_versions():
-    repo = git.Repo(comfy_path)
-    versions = [x.name for x in repo.tags if x.name.startswith('v')]
-    versions.reverse()  # nearest tag
+def get_comfyui_versions(repo=None):
+    if repo is None:
+        repo = git.Repo(comfy_path)
 
+    try:
+        remote = get_remote_name(repo)   
+        repo.remotes[remote].fetch()    
+    except:
+        logging.error("[ComfyUI-Manager] Failed to fetch ComfyUI")
+
+    versions = [x.name for x in repo.tags if x.name.startswith('v')]
+
+    # nearest tag
+    versions = sorted(versions, key=lambda v: repo.git.log('-1', '--format=%ct', v), reverse=True)
     versions = versions[:4]
 
     current_tag = repo.git.describe('--tags')
 
     if current_tag not in versions:
-        versions = sorted(versions + [current_tag], reverse=True)
+        versions = sorted(versions + [current_tag], key=lambda v: repo.git.log('-1', '--format=%ct', v), reverse=True)
         versions = versions[:4]
 
     main_branch = repo.heads.master
@@ -3199,16 +3256,16 @@ def get_comfyui_versions():
         versions[0] = 'nightly'
         current_tag = 'nightly'
 
-    return versions, current_tag
+    return versions, current_tag, latest_tag
 
 
 def switch_comfyui(tag):
     repo = git.Repo(comfy_path)
 
     if tag == 'nightly':
-        repo.git.checkout('main')
+        repo.git.checkout('master')
         repo.remotes.origin.pull()
-        print("[ComfyUI-Manager] ComfyUI version is switched to the latest 'main' version")
+        print("[ComfyUI-Manager] ComfyUI version is switched to the latest 'master' version")
     else:
         repo.git.checkout(tag)
         print(f"[ComfyUI-Manager] ComfyUI version is switched to '{tag}'")

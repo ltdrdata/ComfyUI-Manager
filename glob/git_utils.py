@@ -53,7 +53,14 @@ def git_url(fullpath):
 def normalize_url(url) -> str:
     if 'github' in url or (GITHUB_ENDPOINT is not None and GITHUB_ENDPOINT in url):
         author = os.path.basename(os.path.dirname(url))
+
+        if author.startswith('git@github.com:'):
+            author = author.split(':')[1]
+
         repo_name = os.path.basename(url)
+        if repo_name.endswith('.git'):
+            repo_name = repo_name[:-4]
+
         url = f"https://github.com/{author}/{repo_name}"
 
     return url
