@@ -12,6 +12,67 @@
         
         
         {
+            "author": "AIDC-AI",
+            "title": "ComfyUI-Copilot",
+            "id": "ComfyUI-Copilot",
+            "reference": "https://github.com/AIDC-AI/ComfyUI-Copilot",
+            "files": [
+                "https://github.com/AIDC-AI/ComfyUI-Copilot"
+            ],
+            "install_type": "git-clone",
+            "description": "Your Intelligent Assistant for Comfy-UI."
+        },
+        {
+            "author": "RodrigoSKohl",
+            "title": "Interior Design for Comfyui",
+            "reference": "https://github.com/RodrigoSKohl/StableDesign-for-ComfyUI",
+            "files": [
+                "https://github.com/RodrigoSKohl/StableDesign-for-ComfyUI"
+            ],
+            "install_type": "git-clone",
+            "description": "This node is based on MykolaL/StableDesign"
+        },
+        {
+            "author": "attashe",
+            "title": "ComfyUI-FluxRegionAttention",
+            "reference": "https://github.com/attashe/ComfyUI-FluxRegionAttention",
+            "files": [
+                "https://github.com/attashe/ComfyUI-FluxRegionAttention"
+            ],
+            "install_type": "git-clone",
+            "description": "Implement Region Attention for Flux model. Add node RegionAttention that takes a regions - mask + condition, mask could be set from comfyui masks or bbox in FluxRegionBBOX node.\nThis code is not optimized and has a memory leak. If you caught a OOM just try run a query againg - works on my RTX3080. For generation it uses a usual prompt that have influence to all picture and a regions that have their own prompts.\nBase prompt good for setup background and style of image. This is train-free technique and results not always stable - sometimes need to try several seeds or change prompt."
+        },
+        {
+            "author": "yas-ponotech",
+            "title": "ComfyUI-Stability-AI-API",
+            "reference": "https://github.com/yhayano-ponotech/comfyui-stability-ai-api",
+            "files": [
+                "https://github.com/yhayano-ponotech/comfyui-stability-ai-api"
+            ],
+            "install_type": "git-clone",
+            "description": "A collection of custom nodes for using the Stability AI API in ComfyUI."
+        },
+        {
+            "author": "HJH-AILab",
+            "title": "ComfyUI_StableAnimator",
+            "reference": "https://github.com/HJH-AILab/ComfyUI_StableAnimator",
+            "files": [
+                "https://github.com/HJH-AILab/ComfyUI_StableAnimator"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI nodes for StableAnimator"
+        },
+        {
+            "author": "kevinmcmahondev",
+            "title": "KMCDev Nodes",
+            "reference": "https://github.com/kevinmcmahondev/comfyui-kmcdev-image-filter-adjustments",
+            "files": [
+                "https://github.com/kevinmcmahondev/comfyui-kmcdev-image-filter-adjustments"
+            ],
+            "install_type": "git-clone",
+            "description": "A ComfyUI node that provides advanced image adjustment filters and controls for image manipulation"
+        },
+        {
             "author": "lunarring",
             "title": "bitalino_comfy",
             "reference": "https://github.com/lunarring/bitalino_comfy",
@@ -629,69 +690,6 @@
             ],
             "install_type": "git-clone",
             "description": "A ComfyUI custom node wrapper for JoyHallo - One-Shot Audio-Driven Talking Head Generation."
-        },
-        {
-            "author": "gorillaframeai",
-            "title": "GF_translate",
-            "reference": "https://github.com/gorillaframeai/GF_translate",
-            "files": [
-                "https://github.com/gorillaframeai/GF_translate"
-            ],
-            "install_type": "git-clone",
-            "description": "These custom nodes for ComfyUI provide advanced text translation capabilities using Google Translate. They are designed for seamless integration into the ComfyUI environment, offering users powerful tools for text and JSON file translation tasks."
-        },
-        {
-            "author": "StarAsh042",
-            "title": "ComfyUI_RollingArtist",
-            "reference": "https://github.com/StarAsh042/ComfyUI_RollingArtist",
-            "files": [
-                "https://github.com/StarAsh042/ComfyUI_RollingArtist"
-            ],
-            "install_type": "git-clone",
-            "description": "RollingArtist is a ComfyUI node designed to generate artist prompt texts with random weights, suitable for text-to-image generation models. The node reads an artist list from a CSV file and generates combined prompts based on the parameters."
-        },
-        {
-            "author": "Arkanun",
-            "title": "ReadCSV_ComfyUI",
-            "reference": "https://github.com/Arkanun/ReadCSV_ComfyUI",
-            "files": [
-                "https://github.com/Arkanun/ReadCSV_ComfyUI"
-            ],
-            "install_type": "git-clone",
-            "description": "NODES: ReadCSVRowNode"
-        },
-        {
-            "author": "zentrocdot",
-            "title": "ComfyUI_Circle_Detection",
-            "reference": "https://github.com/zentrocdot/ComfyUI_Circle_Detection",
-            "files": [
-                "https://github.com/zentrocdot/ComfyUI_Circle_Detection"
-            ],
-            "description": "Next to AI mathematical methods can be used for the detection of objects like a circle.", 
-            "install_type": "git-clone"
-        },
-        {
-            "author": "AiartvnTeam",
-            "title": "A2V Multi Image Composite",
-            "id": "Aiartvn",
-            "reference": "https://github.com/aiartvn/A2V_Multi_Image_Composite",
-            "files": [
-                "https://github.com/aiartvn/A2V_Multi_Image_Composite"
-            ],
-            "description": "Node for compositing multiple images with interactive preview and layer management", 
-            "install_type": "git-clone",
-            "tags": ["image", "composite", "layer", "blend", "transform"]
-        },
-        {
-            "author": "ProGamerGov",
-            "title": "Preview 360 Panorama for ComfyUI",
-            "id": "comfyui-preview360panorama",
-            "reference": "https://github.com/ProGamerGov/ComfyUI_preview360panorama",
-            "files": [
-                "https://github.com/ProGamerGov/ComfyUI_preview360panorama"
-            ],
-            "install_type": "git-clone",
-            "description": "A custom ComfyUI node for interactive 360° panorama image previews. Panoramic 360 images are also sometimes known as VR photography (virtual reality), HDRI environments (ex: skyboxes), image spheres, spherical images, 360 pano, and 360 degree photos."
         }
     ]
 }

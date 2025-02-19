@@ -58,6 +58,7 @@
     ],
     "https://github.com/1038lab/ComfyUI-RMBG": [
         [
+            "BiRefNet",
             "ClothesSegment",
             "FaceSegment",
             "FashionSegmentAccessories",
@@ -1381,6 +1382,12 @@
             "Faishme Load Image from Glob",
             "Faishme Mannequin to Model Loader",
             "Faishme Moondream",
+            "Faishme Repeat Image Batch",
+            "Faishme Repeat Latent Batch",
+            "Faishme Stack Images",
+            "Faishme Stack Latents",
+            "Faishme Unstack Images",
+            "Faishme Unstack Latents",
             "Load Fashion Model"
         ],
         {
@@ -4185,6 +4192,15 @@
         ],
         {
             "title_aux": "ComfyUI-FilePathCreator"
+        }
+    ],
+    "https://github.com/HJH-AILab/ComfyUI_StableAnimator": [
+        [
+            "StableAnimatorModels",
+            "StableAnimatorNode"
+        ],
+        {
+            "title_aux": "ComfyUI_StableAnimator"
         }
     ],
     "https://github.com/HM-RunningHub/ComfyUI_RH_APICall": [
@@ -7447,6 +7463,14 @@
             "title_aux": "Panoramic Image Stitcher"
         }
     ],
+    "https://github.com/RodrigoSKohl/StableDesign-for-ComfyUI": [
+        [
+            "interior-design-for-comfyui"
+        ],
+        {
+            "title_aux": "Interior Design for Comfyui"
+        }
+    ],
     "https://github.com/RodrigoSKohl/comfyui-tryoff-anyone": [
         [
             "TryOffAnyoneNode"
@@ -8134,7 +8158,8 @@
     ],
     "https://github.com/ShinChven/sc-comfy-nodes": [
         [
-            "Rescale Node"
+            "Rescale Node",
+            "Width & Height"
         ],
         {
             "title_aux": "ShinChven's Custom Nodes Package"
@@ -11717,6 +11742,20 @@
             "title_aux": "Core ML Suite for ComfyUI"
         }
     ],
+    "https://github.com/attashe/ComfyUI-FluxRegionAttention": [
+        [
+            "BBoxToMaskNode",
+            "BoundingBoxNode",
+            "CLIPDebug",
+            "FluxRegionBBOX",
+            "FluxRegionMask",
+            "RegionAttention",
+            "VisualizeBBoxesNode"
+        ],
+        {
+            "title_aux": "ComfyUI-FluxRegionAttention"
+        }
+    ],
     "https://github.com/audioscavenger/ComfyUI-Thumbnails": [
         [
             "LoadImage"
@@ -11785,12 +11824,12 @@
             "Bedrock - Amazon Nova Canvas Text to Image",
             "Bedrock - Claude",
             "Bedrock - Claude Multimodal",
+            "Bedrock - Luma AI Ray Video",
             "Bedrock - Nova",
             "Bedrock - Nova Background Prompt Replace",
             "Bedrock - Nova IpAdapter",
+            "Bedrock - Nova Reel Video",
             "Bedrock - Nova Text to Image",
-            "Bedrock - Nova Video",
-            "Bedrock - Ray2 Video",
             "Bedrock - SDXL",
             "Bedrock - Titan Inpainting",
             "Bedrock - Titan Outpainting",
@@ -12141,6 +12180,7 @@
     ],
     "https://github.com/billwuhao/ComfyUI_OneButtonPrompt_Flux": [
         [
+            "DeepseekRun",
             "OneButtonPromptFlux"
         ],
         {
@@ -12708,7 +12748,8 @@
             "LoaderGGUF",
             "LoaderGGUFAdvanced",
             "TENSORCut",
-            "TripleClipLoaderGGUF"
+            "TripleClipLoaderGGUF",
+            "VaeGGUF"
         ],
         {
             "preemptions": [
@@ -14227,6 +14268,7 @@
             "LoadAudio",
             "LoadImage",
             "LoadImageMask",
+            "LoadImageOutput",
             "LoadLatent",
             "LoraLoader",
             "LoraLoaderModelOnly",
@@ -14301,6 +14343,7 @@
             "SaveImage",
             "SaveImageWebsocket",
             "SaveLatent",
+            "SaveWEBM",
             "SelfAttentionGuidance",
             "SetFirstSigma",
             "SetLatentNoiseMask",
@@ -19441,6 +19484,17 @@
             "title_aux": "qq-nodes-comfyui"
         }
     ],
+    "https://github.com/kevinmcmahondev/comfyui-kmcdev-image-filter-adjustments": [
+        [
+            "ImageBlankAlpha",
+            "ImageBlendMask",
+            "ImageFilterAdjustments",
+            "ImageMixColorByMask"
+        ],
+        {
+            "title_aux": "KMCDev Nodes"
+        }
+    ],
     "https://github.com/kevinmcmahondev/comfyui-skin-tone-detector": [
         [
             "SkinToneDetector"
@@ -20905,8 +20959,10 @@
             "ApplyPulidFlux",
             "FixPulidFluxPatch",
             "PulidFluxEvaClipLoader",
+            "PulidFluxFaceDetector",
             "PulidFluxInsightFaceLoader",
-            "PulidFluxModelLoader"
+            "PulidFluxModelLoader",
+            "PulidFluxOptions"
         ],
         {
             "title_aux": "ComfyUI_PuLID_Flux_ll"
@@ -20951,6 +21007,7 @@
             "ForEachOpen",
             "GetImageBatchSize",
             "GetValueFromJsonObj",
+            "IfElseForEmptyObject",
             "ImageEqual",
             "ImageToBase64",
             "ImageToBase64Advanced",
@@ -22188,6 +22245,7 @@
             "BatchProcessorTpl",
             "CaptionExportTpl",
             "CaptionGeneratorTpl",
+            "DebugModelNodeTpl",
             "DebugNodeTpl",
             "ExifMetadataExtractorTpl",
             "Florence2NodeTpl",
@@ -28075,6 +28133,28 @@
             "title_aux": "ComfyUI Local Save Node"
         }
     ],
+    "https://github.com/yhayano-ponotech/comfyui-stability-ai-api": [
+        [
+            "Preview3DModel",
+            "Save3DModel",
+            "StabilityControlSketch",
+            "StabilityControlStructure",
+            "StabilityControlStyle",
+            "StabilityEdit",
+            "StabilityImageCore",
+            "StabilityImageSD3",
+            "StabilityImageToVideo",
+            "StabilityImageUltra",
+            "StabilityUpscaleConservative",
+            "StabilityUpscaleCreative",
+            "StabilityUpscaleFast",
+            "StableFast3D",
+            "StablePointAware3D"
+        ],
+        {
+            "title_aux": "ComfyUI-Stability-AI-API"
+        }
+    ],
     "https://github.com/yichengup/ComfyUI-VideoBlender": [
         [
             "VideoBlendLayer",
@@ -29046,14 +29126,6 @@
         ],
         {
             "title_aux": "SDXL_sizing"
-        }
-    ],
-    "https://raw.githubusercontent.com/Smuzzies/comfyui_chatbox_overlay/main/chatbox_overlay.py": [
-        [
-            "Chatbox Overlay"
-        ],
-        {
-            "title_aux": "Chatbox Overlay node for ComfyUI"
         }
     ],
     "https://raw.githubusercontent.com/barckley75/comfyUI_DaVinciResolve/main/custom_nodes/node_text_to_speech.py": [
