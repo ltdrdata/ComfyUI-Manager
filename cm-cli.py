@@ -76,7 +76,7 @@ core.check_invalid_nodes()
 def read_downgrade_blacklist():
     try:
         import configparser
-        config = configparser.ConfigParser()
+        config = configparser.ConfigParser(strict=False)
         config.read(core.manager_config.path)
         default_conf = config['default']
 

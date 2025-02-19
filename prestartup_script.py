@@ -95,7 +95,7 @@ def read_config():
     global default_conf
     try:
         import configparser
-        config = configparser.ConfigParser()
+        config = configparser.ConfigParser(strict=False)
         config.read(manager_config_path)
         default_conf = config['default']
     except Exception:
@@ -787,7 +787,7 @@ if script_executed:
 def check_windows_event_loop_policy():
     try:
         import configparser
-        config = configparser.ConfigParser()
+        config = configparser.ConfigParser(strict=False)
         config.read(manager_config_path)
         default_conf = config['default']
 

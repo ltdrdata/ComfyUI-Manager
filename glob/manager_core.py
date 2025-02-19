@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 25]
+version_code = [3, 25, 1]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1570,7 +1570,7 @@ manager_funcs = ManagerFuncs()
 
 
 def write_config():
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(strict=False)
 
     config['default'] = {
         'preview_method': manager_funcs.get_current_preview_method(),
@@ -1601,7 +1601,7 @@ def write_config():
 
 def read_config():
     try:
-        config = configparser.ConfigParser()
+        config = configparser.ConfigParser(strict=False)
         config.read(manager_config_path)
         default_conf = config['default']
         manager_util.use_uv = default_conf['use_uv'].lower() == 'true' if 'use_uv' in default_conf else False
@@ -3280,7 +3280,7 @@ def resolve_giturl_from_path(fullpath):
     if not os.path.exists(git_config_path):
         return "unknown"
 
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(strict=False)
     config.read(git_config_path)
 
     for k, v in config.items():
