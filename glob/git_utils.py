@@ -40,7 +40,8 @@ def git_url(fullpath):
     if not os.path.exists(git_config_path):
         return None
 
-    config = configparser.ConfigParser()
+    # Set `strict=False` to allow duplicate `vscode-merge-base` sections, addressing <https://github.com/ltdrdata/ComfyUI-Manager/issues/1529>
+    config = configparser.ConfigParser(strict=False)
     config.read(git_config_path)
 
     for k, v in config.items():
