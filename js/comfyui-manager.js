@@ -228,6 +228,7 @@ var switch_comfyui_button = null;
 var fetch_updates_button = null;
 var update_all_button = null;
 var restart_stop_button = null;
+var update_policy_combo = null;
 
 let share_option = 'all';
 var is_updating = false;
@@ -627,6 +628,15 @@ async function switchComfyUI() {
 		}
 
 		showVersionSelectorDialog(versions, obj.current, async (selected_version) => {
+			if(selected_version == 'nightly') {
+				update_policy_combo.value = 'nightly-comfyui';
+				api.fetchApi('/manager/policy/update?value=nightly-comfyui');
+			}
+			else {
+				update_policy_combo.value = 'stable-comfyui';
+				api.fetchApi('/manager/policy/update?value=stable-comfyui');
+			}
+
 			let response = await api.fetchApi(`/comfyui_manager/comfyui_switch_version?ver=${selected_version}`, { cache: "no-store" });
 			if (response.status == 200) {
 				infoToast(`ComfyUI version is switched to ${selected_version}`);
@@ -1126,22 +1136,22 @@ class ManagerMenuDialog extends ComfyDialog {
 			set_component_policy(event.target.value);
 		});
 
-		let update_policy_combo = document.createElement("select");
+		update_policy_combo = document.createElement("select");
 
 		if(isElectron)
 			update_policy_combo.style.display = 'none';
 		
 		update_policy_combo.setAttribute("title", "Sets the policy to be applied when performing an update.");
 		update_policy_combo.className = "cm-menu-combo";
-		update_policy_combo.appendChild($el('option', { value: 'stable-comfyui', text: 'Update: Stable ComfyUI' }, []));
-		update_policy_combo.appendChild($el('option', { value: 'nightly-comfyui', text: 'Update: Nightly ComfyUI' }, []));
+		update_policy_combo.appendChild($el('option', { value: 'stable-comfyui', text: 'Update: ComfyUI Stable Version' }, []));
+		update_policy_combo.appendChild($el('option', { value: 'nightly-comfyui', text: 'Update: ComfyUI Nightly Version' }, []));
 		api.fetchApi('/manager/policy/update')
 			.then(response => response.text())
 			.then(data => {
 				update_policy_combo.value = data;
 			});
 
-			update_policy_combo.addEventListener('change', function (event) {
+		update_policy_combo.addEventListener('change', function (event) {
 			api.fetchApi(`/manager/policy/update?value=${event.target.value}`);
 		});
 

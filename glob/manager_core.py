@@ -3264,7 +3264,9 @@ def switch_comfyui(tag):
 
     if tag == 'nightly':
         repo.git.checkout('master')
-        repo.remotes.origin.pull()
+        tracking_branch = repo.active_branch.tracking_branch()
+        remote_name = tracking_branch.remote_name
+        repo.remotes[remote_name].pull()
         print("[ComfyUI-Manager] ComfyUI version is switched to the latest 'master' version")
     else:
         repo.git.checkout(tag)
