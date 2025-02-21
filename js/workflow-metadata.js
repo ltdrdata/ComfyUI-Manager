@@ -47,46 +47,36 @@ class WorkflowMetadataExtension {
     this.comfyCoreVersion = (await api.getSystemStats()).system.comfyui_version;
   }
 
-  setup() {
-    const extension = this;
-    const originalSerialize = LGraph.prototype.serialize;
+  /**
+   * Called when any node is created
+   * @param {LGraphNode} node The newly created node
+   */
+  nodeCreated(node) {
+    try {
+      // nodeData doesn't exist if node is missing or node is frontend only node
+      if (!node?.constructor?.nodeData?.python_module) return;
 
-    LGraph.prototype.serialize = function () {
-      const workflow = originalSerialize.apply(this, arguments);
-      const graph = this;
+      const nodeProperties = (node.properties ??= {});
+      const modules = node.constructor.nodeData.python_module.split(".");
+      const moduleType = modules[0];
 
-      try {
-        // Add version metadata to each node in the workflow
-        for (const node of workflow.nodes) {
-          const graphNode = graph.getNodeById(node.id);
-          if (!graphNode?.constructor?.nodeData?.python_module) continue;
+      if (moduleType === "custom_nodes") {
+        const nodePackageName = modules[1];
+        const { cnr_id, ver } =
+          this.installedNodes[nodePackageName] ??
+          this.installedNodes[nodePackageName.toLowerCase()] ??
+          {};
 
-          const nodeProperties = (node.properties ??= {});
-          const modules =
-            graphNode.constructor.nodeData.python_module.split(".");
-          const moduleType = modules[0];
-
-          if (moduleType === "custom_nodes") {
-            const nodePackageName = modules[1];
-            const { cnr_id, ver } =
-              extension.installedNodes[nodePackageName] ??
-              extension.installedNodes[nodePackageName.toLowerCase()] ??
-              {};
-
-            if (cnr_id === "comfy-core") continue; // reserved name
-            if (cnr_id) nodeProperties.cnr_id = cnr_id;
-            if (ver) nodeProperties.ver = ver;
-          } else if (["nodes", "comfy_extras"].includes(moduleType)) {
-            nodeProperties.cnr_id = "comfy-core";
-            nodeProperties.ver = extension.comfyCoreVersion;
-          }
-        }
-      } catch (e) {
-        console.error(e);
+        if (cnr_id === "comfy-core") return; // don't allow hijacking comfy-core name
+        if (cnr_id) nodeProperties.cnr_id = cnr_id;
+        if (ver) nodeProperties.ver = ver;
+      } else if (["nodes", "comfy_extras"].includes(moduleType)) {
+        nodeProperties.cnr_id = "comfy-core";
+        nodeProperties.ver = this.comfyCoreVersion;
       }
-
-      return workflow;
-    };
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 
