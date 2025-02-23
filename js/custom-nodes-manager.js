@@ -1530,6 +1530,23 @@ export class CustomNodesManager {
 	}
 
 	async getMissingNodes() {
+
+		try {
+			let node_versions = app.extensionManager.workflow.activeWorkflow.initialState.extra.node_versions;
+			if(node_versions == undefined) {
+				return getMissingNodesLegacy();
+			}
+			else {
+
+			}
+		}
+		catch {
+			customAlert('The legacy method of the missing node feature is used because it is either a legacy workflow or a legacy frontend.');
+			return getMissingNodesLegacy();
+		}
+	}
+
+	getMissingNodesLegacy() {
 		const mode = manager_instance.datasrc_combo.value;
 		this.showStatus(`Loading missing nodes (${mode}) ...`);
 		const res = await fetchData(`/customnode/getmappings?mode=${mode}`);
