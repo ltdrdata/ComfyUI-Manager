@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 25, 1]
+version_code = [3, 26]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1472,7 +1472,7 @@ def identify_node_pack_from_path(fullpath):
         # cnr
         cnr = cnr_utils.read_cnr_info(fullpath)
         if cnr is not None:
-            return module_name, cnr['version'], cnr['id']
+            return module_name, cnr['version'], cnr['id'], None
 
         return None
     else:
@@ -1480,10 +1480,18 @@ def identify_node_pack_from_path(fullpath):
         cnr_id = cnr_utils.read_cnr_id(fullpath)
         commit_hash = git_utils.get_commit_hash(fullpath)
 
+        github_id = git_utils.normalize_to_github_id(repo_url)
+        if github_id is None:
+            try:
+                github_id = os.path.basename(repo_url)
+            except:
+                logging.warning(f"[ComfyUI-Manager] unexpected repo url: {repo_url}")
+                github_id = module_name
+
         if cnr_id is not None:
-            return module_name, commit_hash, cnr_id
+            return module_name, commit_hash, cnr_id, github_id
         else:
-            return module_name, commit_hash, ''
+            return module_name, commit_hash, '', github_id
 
 
 def get_installed_node_packs():
@@ -1501,7 +1509,7 @@ def get_installed_node_packs():
 
             is_disabled = not y.endswith('.disabled')
 
-            res[info[0]] = { 'ver': info[1], 'cnr_id': info[2], 'enabled': is_disabled }
+            res[info[0]] = { 'ver': info[1], 'cnr_id': info[2], 'aux_id': info[3], 'enabled': is_disabled }
 
         disabled_dirs = os.path.join(x, '.disabled')
         if os.path.exists(disabled_dirs):
@@ -1514,7 +1522,7 @@ def get_installed_node_packs():
                 if info is None:
                     continue
 
-                res[info[0]] = { 'ver': info[1], 'cnr_id': info[2], 'enabled': False }
+                res[info[0]] = { 'ver': info[1], 'cnr_id': info[2], 'aux_id': info[3], 'enabled': False }
 
     return res
 

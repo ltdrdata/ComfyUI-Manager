@@ -62,13 +62,14 @@ class WorkflowMetadataExtension {
 
       if (moduleType === "custom_nodes") {
         const nodePackageName = modules[1];
-        const { cnr_id, ver } =
+        const { cnr_id, aux_id, ver } =
           this.installedNodes[nodePackageName] ??
           this.installedNodes[nodePackageName.toLowerCase()] ??
           {};
 
         if (cnr_id === "comfy-core") return; // don't allow hijacking comfy-core name
         if (cnr_id) nodeProperties.cnr_id = cnr_id;
+        else nodeProperties.aux_id = aux_id;
         if (ver) nodeProperties.ver = ver;
       } else if (["nodes", "comfy_extras"].includes(moduleType)) {
         nodeProperties.cnr_id = "comfy-core";

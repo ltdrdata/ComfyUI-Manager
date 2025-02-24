@@ -52,6 +52,14 @@ def git_url(fullpath):
 
 
 def normalize_url(url) -> str:
+    github_id = normalize_to_github_id(url)
+    if github_id is not None:
+        url = f"https://github.com/{github_id}"
+
+    return url
+
+
+def normalize_to_github_id(url) -> str:
     if 'github' in url or (GITHUB_ENDPOINT is not None and GITHUB_ENDPOINT in url):
         author = os.path.basename(os.path.dirname(url))
 
@@ -62,9 +70,9 @@ def normalize_url(url) -> str:
         if repo_name.endswith('.git'):
             repo_name = repo_name[:-4]
 
-        url = f"https://github.com/{author}/{repo_name}"
+        return f"{author}/{repo_name}"
 
-    return url
+    return None
 
 
 def get_url_for_clone(url):

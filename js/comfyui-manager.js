@@ -21,6 +21,8 @@ import { CustomNodesManager } from "./custom-nodes-manager.js";
 import { ModelManager } from "./model-manager.js";
 import { SnapshotManager } from "./snapshot.js";
 
+let manager_version = await getVersion();
+
 var docStyle = document.createElement('style');
 docStyle.innerHTML = `
 .comfy-toast {
@@ -42,7 +44,7 @@ docStyle.innerHTML = `
 
 #cm-manager-dialog {
 	width: 1000px;
-	height: 450px;
+	height: 455px;
 	box-sizing: content-box;
 	z-index: 1000;
 	overflow-y: auto;
@@ -139,7 +141,7 @@ docStyle.innerHTML = `
 
 .cm-notice-board {
 	width: 290px;
-	height: 210px;
+	height: 230px;
 	overflow: auto;
 	color: var(--input-text);
 	border: 1px solid var(--descrip-text);
@@ -958,7 +960,19 @@ class ManagerMenuDialog extends ComfyDialog {
 						}
 				}),
 
+				$el("button.cm-button", {
+					type: "button",
+					textContent: "Custom Nodes In Workflow",
+					onclick:
+						() => {
+							if(!CustomNodesManager.instance) {
+								CustomNodesManager.instance = new CustomNodesManager(app, self);
+							}
+							CustomNodesManager.instance.show(CustomNodesManager.ShowMode.IN_WORKFLOW);
+						}
+				}),
 				
+				$el("br", {}, []),
 				$el("button.cm-button", {
 					type: "button",
 					textContent: "Model Manager",
@@ -987,7 +1001,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				update_all_button,
 				update_comfyui_button,
 				switch_comfyui_button,
-				fetch_updates_button,
+				// fetch_updates_button,
 
 				$el("br", {}, []),
 				restart_stop_button,
@@ -1318,7 +1332,7 @@ class ManagerMenuDialog extends ComfyDialog {
 				$el("div.comfy-modal-content",
 					[
 						$el("tr.cm-title", {}, [
-								$el("font", {size:6, color:"white"}, [`ComfyUI Manager Menu`])]
+								$el("font", {size:6, color:"white"}, [`ComfyUI Manager ${manager_version}`])]
 							),
 						$el("br", {}, []),
 						$el("div.cm-menu-container",
@@ -1460,13 +1474,12 @@ async function getVersion() {
 	return await version.text();
 }
 
-
 app.registerExtension({
 	name: "Comfy.ManagerMenu",
 
 	aboutPageBadges: [
 		{
-			label: `ComfyUI-Manager ${await getVersion()}`,
+			label: `ComfyUI-Manager ${manager_version}`,
 			url: 'https://github.com/ltdrdata/ComfyUI-Manager',
 			icon: 'pi pi-th-large'
 		}
