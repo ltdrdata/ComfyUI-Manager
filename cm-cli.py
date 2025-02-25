@@ -152,6 +152,11 @@ class Ctx:
                     if y != '':
                         cm_global.pip_blacklist.add(y)
 
+    def update_custom_nodes_dir(self, target_dir):
+        import folder_paths
+        a, b = folder_paths.folder_names_and_paths['custom_nodes']
+        folder_paths.folder_names_and_paths['custom_nodes'] = [os.path.abspath(target_dir)], set()
+
     @staticmethod
     def get_startup_scripts_path():
         return os.path.join(core.manager_startup_script_path, "install-scripts.txt")
@@ -1075,9 +1080,16 @@ def restore_snapshot(
         user_directory: str = typer.Option(
             None,
             help="user directory"
+        ),
+        restore_to: Optional[str] = typer.Option(
+            None,
+            help="Manually specify the installation path for the custom node. Ignore user directory."
         )
 ):
     cmd_ctx.set_user_directory(user_directory)
+
+    if restore_to:
+        cmd_ctx.update_custom_nodes_dir(restore_to)
 
     extras = []
     if pip_non_url:
