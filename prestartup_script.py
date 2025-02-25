@@ -34,6 +34,8 @@ else:
 
 security_check.security_check()
 
+manager_util.add_python_path_to_env()
+
 cm_global.pip_blacklist = {'torch', 'torchsde', 'torchvision'}
 cm_global.pip_downgrade_blacklist = ['torch', 'torchsde', 'torchvision', 'transformers', 'safetensors', 'kornia']
 
