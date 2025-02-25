@@ -429,6 +429,7 @@
             "RGBABatchToImage",
             "Random_Select_Prompt",
             "Run_BEN_v2",
+            "Run_Similarity",
             "Sam2AutoSegmentation_data",
             "Save_Image_Out",
             "Save_Image_To_Path",
@@ -457,6 +458,7 @@
             "load_BEN_model",
             "load_ColorName_config",
             "load_EasyOCR_model",
+            "load_Similarity",
             "load_color_config",
             "load_model_value",
             "mask_and_mask_math",
@@ -1534,11 +1536,8 @@
             "TRANSFORM (JOV) \ud83c\udfdd\ufe0f",
             "VALUE (JOV) \ud83e\uddec",
             "VECTOR2 (JOV)",
-            "VECTOR2INT (JOV)",
             "VECTOR3 (JOV)",
-            "VECTOR3INT (JOV)",
             "VECTOR4 (JOV)",
-            "VECTOR4INT (JOV)",
             "WAVE GEN (JOV) \ud83c\udf0a"
         ],
         {
@@ -1662,6 +1661,47 @@
         ],
         {
             "title_aux": "Character Face Swap"
+        }
+    ],
+    "https://github.com/ArtHommage/HommageTools": [
+        [
+            "HTBaseShiftNode",
+            "HTConversionNode",
+            "HTDiffusionLoaderMulti",
+            "HTDimensionAnalyzerNode",
+            "HTDimensionFormatterNode",
+            "HTFlexibleNode",
+            "HTInspectorNode",
+            "HTLayerCollectorNode",
+            "HTLayerExportNode",
+            "HTLevelsNode",
+            "HTMaskDilationNode",
+            "HTMaskValidatorNode",
+            "HTNodeStateController",
+            "HTNodeUnmuteAll",
+            "HTNullNode",
+            "HTOIDNNode",
+            "HTParameterExtractorNode",
+            "HTPhotoshopBlurNode",
+            "HTRegexNode",
+            "HTResizeNode",
+            "HTResolutionDownsampleNode",
+            "HTResolutionNode",
+            "HTSamplerBridgeNode",
+            "HTSchedulerBridgeNode",
+            "HTSplitterNode",
+            "HTStatusIndicatorNode",
+            "HTSurfaceBlurNode",
+            "HTSwitchNode",
+            "HTTensorInfoNode",
+            "HTTextCleanupNode",
+            "HTTrainingSizeNode",
+            "HTValueMapperNode",
+            "HTWidgetControlNode",
+            "ImageMaskResize"
+        ],
+        {
+            "title_aux": "HommageTools for ComfyUI"
         }
     ],
     "https://github.com/ArtVentureX/comfyui-animatediff": [
@@ -2030,7 +2070,9 @@
             "ImageTextOverlay",
             "Loop",
             "LoopEnd",
-            "LoopStart"
+            "LoopStart",
+            "RandomTextOverlay",
+            "TextGrowth"
         ],
         {
             "title_aux": "ComfyUI-Book-Tools Nodes for ComfyUI"
@@ -2474,9 +2516,16 @@
             "ClownGuides_Beta",
             "ClownInpaint",
             "ClownInpaintSimple",
+            "ClownOptions_Automation_Beta",
+            "ClownOptions_DetailBoost_Beta",
+            "ClownOptions_ExtraOptions_Beta",
+            "ClownOptions_ImplicitSteps_Beta",
+            "ClownOptions_SDE_Beta",
+            "ClownOptions_StepSize_Beta",
             "ClownRegionalConditioningFlux",
             "ClownSampler",
             "ClownSamplerAdvanced",
+            "ClownSamplerSelector_Beta",
             "ClownsharKSampler",
             "ClownsharKSamplerAutomation",
             "ClownsharKSamplerAutomation_Advanced",
@@ -2549,6 +2598,7 @@
             "Set Precision",
             "Set Precision Advanced",
             "Set Precision Universal",
+            "SharkOptions_Beta",
             "SharkSampler",
             "Sigmas Abs",
             "Sigmas Add",
@@ -2798,8 +2848,10 @@
             "Light or Dark",
             "Load Random Images",
             "Mask Preprocess Morphology",
+            "Number",
             "PhotoShop Transfer",
-            "Yuan"
+            "Yuan",
+            "a fake Nod"
         ],
         {
             "title_aux": "ComfyUI-Yuan"
@@ -2922,7 +2974,7 @@
             "AsciiGenerator"
         ],
         {
-            "author": "Viet Nguyen <nhviet1009@gmail.com>",
+            "author": "DeepNeko <deepneko@outlook.com>",
             "title_aux": "ascii-art-comfyui"
         }
     ],
@@ -7230,6 +7282,7 @@
             "BatchImageToMask",
             "LoadImageFromBase64",
             "LoadImagesFromBase64Array",
+            "MapTrajectoriesToSegmentedMasks",
             "MultiCutAndDragOnPath"
         ],
         {
@@ -7645,6 +7698,8 @@
             "Runware ControlNet PreProcessor",
             "Runware Embedding Search",
             "Runware Embeddings Combine",
+            "Runware IPAdapter",
+            "Runware IPAdapters Combine",
             "Runware Image Caption",
             "Runware Image Inference",
             "Runware Image Masking",
@@ -20040,6 +20095,7 @@
             "AddLabel",
             "AppendInstanceDiffusionTracking",
             "AppendStringsToList",
+            "ApplyRifleXRoPE_HunuyanVideo",
             "AudioConcatenate",
             "BOOLConstant",
             "BatchCLIPSeg",
@@ -20476,7 +20532,8 @@
             "Display_Any",
             "Image_Size_Extractor",
             "Strong_Prompt",
-            "Tencent_Translater"
+            "Tencent_Translater",
+            "Text"
         ],
         {
             "title_aux": "KayTool"
@@ -23830,6 +23887,14 @@
         ],
         {
             "title_aux": "Comfy UI Text List Product"
+        }
+    ],
+    "https://github.com/orange90/ComfyUI-Regex-Runner": [
+        [
+            "RegexNode"
+        ],
+        {
+            "title_aux": " ComfyUI-Regex-Runner "
         }
     ],
     "https://github.com/osi1880vr/prompt_quill_comfyui": [
@@ -27859,14 +27924,6 @@
         ],
         {
             "title_aux": "ComfyUI-Environment-Visualizer"
-        }
-    ],
-    "https://github.com/willmiao/ComfyUI-Lora-Manager": [
-        [
-            "LoRALoader"
-        ],
-        {
-            "title_aux": "ComfyUI-Lora-Manager"
         }
     ],
     "https://github.com/windfancy/zsq_prompt": [
