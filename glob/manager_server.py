@@ -1195,7 +1195,15 @@ async def install_custom_node(request):
     git_url = None
 
     if json_data['version'] != 'unknown':
-        selected_version = json_data.get('selected_version', 'latest')
+        selected_version = json_data.get('selected_version')
+
+        if skip_post_install:
+            if cnr_id in core.unified_manager.nightly_inactive_nodes or cnr_id in core.unified_manager.cnr_inactive_nodes:
+                core.unified_manager.unified_enable(cnr_id)
+                return web.Response(status=200)
+        else:
+            selected_version = 'latest'
+
         if selected_version != 'nightly':
             risky_level = 'low'
             node_spec_str = f"{cnr_id}@{selected_version}"

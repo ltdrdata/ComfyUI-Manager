@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 26, 2]
+version_code = [3, 27]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -997,7 +997,7 @@ class UnifiedManager:
 
         return result
 
-    def unified_enable(self, node_id, version_spec=None):
+    def unified_enable(self, node_id: str, version_spec=None):
         """
         priority if version_spec == None
         1. CNR latest in disk
@@ -1008,6 +1008,9 @@ class UnifiedManager:
         """
 
         result = ManagedResult('enable')
+
+        if 'comfyui-manager' in node_id.lower():
+            return result.fail(f"ignored: enabling '{node_id}'")
 
         if version_spec is None:
             version_spec = self.resolve_unspecified_version(node_id, guess_mode='inactive')
@@ -1074,8 +1077,11 @@ class UnifiedManager:
         self.active_nodes[node_id] = version_spec, to_path
         return result.with_target(to_path)
 
-    def unified_disable(self, node_id, is_unknown):
+    def unified_disable(self, node_id: str, is_unknown):
         result = ManagedResult('disable')
+
+        if 'comfyui-manager' in node_id.lower():
+            return result.fail(f"ignored: disabling '{node_id}'")
 
         if is_unknown:
             version_spec = 'unknown'
@@ -1131,6 +1137,9 @@ class UnifiedManager:
         Remove whole installed custom nodes including inactive nodes
         """
         result = ManagedResult('uninstall')
+
+        if 'comfyui-manager' in node_id.lower():
+            return result.fail(f"ignored: uninstalling '{node_id}'")
 
         if is_unknown:
             # remove from actives
@@ -1188,8 +1197,11 @@ class UnifiedManager:
 
         return result
 
-    def cnr_install(self, node_id, version_spec=None, instant_execution=False, no_deps=False, return_postinstall=False):
+    def cnr_install(self, node_id: str, version_spec=None, instant_execution=False, no_deps=False, return_postinstall=False):
         result = ManagedResult('install-cnr')
+
+        if 'comfyui-manager' in node_id.lower():
+            return result.fail(f"ignored: installing '{node_id}'")
 
         node_info = cnr_utils.install_node(node_id, version_spec)
         if node_info is None or not node_info.download_url:
@@ -1235,9 +1247,12 @@ class UnifiedManager:
 
         return result
 
-    def repo_install(self, url, repo_path, instant_execution=False, no_deps=False, return_postinstall=False):
+    def repo_install(self, url: str, repo_path: str, instant_execution=False, no_deps=False, return_postinstall=False):
         result = ManagedResult('install-git')
         result.append(url)
+
+        if 'comfyui-manager' in url.lower():
+            return result.fail(f"ignored: installing '{url}'")
 
         if not is_valid_url(url):
             return result.fail(f"Invalid git url: {url}")
@@ -1359,7 +1374,7 @@ class UnifiedManager:
         else:
             return self.cnr_switch_version(node_id, instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall).with_ver('cnr')
 
-    async def install_by_id(self, node_id, version_spec=None, channel=None, mode=None, instant_execution=False, no_deps=False, return_postinstall=False):
+    async def install_by_id(self, node_id: str, version_spec=None, channel=None, mode=None, instant_execution=False, no_deps=False, return_postinstall=False):
         """
         priority if version_spec == None
         1. CNR latest
@@ -1367,6 +1382,9 @@ class UnifiedManager:
 
         remark: latest version_spec is not allowed. Must be resolved before call.
         """
+
+        if 'comfyui-manager' in node_id.lower():
+            return ManagedResult('skip').fail(f"ignored: installing '{node_id}'")
 
         repo_url = None
         if version_spec is None:
@@ -3039,6 +3057,10 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
 
         # normalize github repo
         for k, v in _git_info.items():
+            # robust filter out comfyui-manager while restoring snapshot
+            if 'comfyui-manager' in k.lower():
+                continue
+
             norm_k = git_utils.normalize_url(k)
             git_info[norm_k] = v
 
