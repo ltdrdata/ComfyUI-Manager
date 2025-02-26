@@ -454,6 +454,7 @@
             "get_image_data",
             "image_math",
             "image_math_value",
+            "image_math_value_x10",
             "invert_channel_adv",
             "load_BEN_model",
             "load_ColorName_config",
@@ -2512,15 +2513,16 @@
             "ClownGuide_Beta",
             "ClownGuidesAB_Beta",
             "ClownGuidesFluxAdvanced_Beta",
-            "ClownGuidesSimple_Beta",
             "ClownGuides_Beta",
             "ClownInpaint",
             "ClownInpaintSimple",
             "ClownOptions_Automation_Beta",
             "ClownOptions_DetailBoost_Beta",
             "ClownOptions_ExtraOptions_Beta",
+            "ClownOptions_FrameWeights",
             "ClownOptions_ImplicitSteps_Beta",
             "ClownOptions_SDE_Beta",
+            "ClownOptions_SDE_Noise",
             "ClownOptions_StepSize_Beta",
             "ClownRegionalConditioningFlux",
             "ClownSampler",
@@ -2535,9 +2537,7 @@
             "ClownsharKSamplerGuides",
             "ClownsharKSamplerGuidesMisc_Beta",
             "ClownsharKSamplerOptions",
-            "ClownsharKSamplerOptions_SDE_Noise",
             "ClownsharKSamplerSimple_Beta",
-            "ClownsharkSamplerOptions_FrameWeights",
             "Conditioning Recast FP64",
             "ConditioningAdd",
             "ConditioningAverageScheduler",
@@ -2696,6 +2696,7 @@
         [
             "CocoImageLoader",
             "ColorspaceNode",
+            "DynamicWidgetExample",
             "JSONNode",
             "JSONReaderNode",
             "JSONValueFinderNode",
@@ -2842,6 +2843,7 @@
     ],
     "https://github.com/Cyber-Blacat/ComfyUI-Yuan": [
         [
+            ", and the value is the function name in the right of the",
             "Black and white",
             "Image Judgment",
             "ImageMinusMask",
@@ -2850,7 +2852,8 @@
             "Mask Preprocess Morphology",
             "Number",
             "PhotoShop Transfer",
-            "Yuan",
+            "ShowSomething",
+            "ShowTensorShapeLayout",
             "a fake Nod"
         ],
         {
@@ -3103,6 +3106,7 @@
     ],
     "https://github.com/Dobidop/ComfyStereo": [
         [
+            "DeoVRViewNode",
             "StereoImageNode"
         ],
         {
@@ -3239,6 +3243,17 @@
             "description": "Save prompts to CSV file with customizable naming pattern",
             "title": "ComfyUI-PromptSaver",
             "title_aux": "ComfyUI-Addoor"
+        }
+    ],
+    "https://github.com/Easymode-ai/ComfyUI-BPT": [
+        [
+            "TrimeshBPT",
+            "TrimeshLoad",
+            "TrimeshPreview",
+            "TrimeshSave"
+        ],
+        {
+            "title_aux": "ComfyUI-BPT"
         }
     ],
     "https://github.com/Easymode-ai/ComfyUI-ShadowR": [
@@ -4204,6 +4219,7 @@
     ],
     "https://github.com/GraftingRayman/ComfyUI_GraftingRayman": [
         [
+            "GR BLIP 2 Caption Generator",
             "GR Background Remover REMBG",
             "GR Checkered Board",
             "GR Counter",
@@ -5240,6 +5256,19 @@
             "title_aux": "ComfyUI JMNodes"
         }
     ],
+    "https://github.com/KAVVATARE/ComfyUI-Light-N-Color": [
+        [
+            "ControlNetSwitch",
+            "FluxLightingAndColor",
+            "FluxSamplerPuLID",
+            "ImageSwitch",
+            "LatentSwitch",
+            "LoadInputOutputImage"
+        ],
+        {
+            "title_aux": " ComfyUI-Light-N-Color"
+        }
+    ],
     "https://github.com/KLL535/ComfyUI_SimpleButcher": [
         [
             "Simple Auto Bypass",
@@ -5579,6 +5608,7 @@
             "VHS_SelectFilename",
             "VHS_SelectImages",
             "VHS_SelectLatents",
+            "VHS_SelectLatest",
             "VHS_SelectMasks",
             "VHS_SplitImages",
             "VHS_SplitLatents",
@@ -8404,6 +8434,14 @@
             "title_aux": "ComfyUI-FreeMemory"
         }
     ],
+    "https://github.com/ShmuelRonen/ComfyUI-FreeVC_wrapper": [
+        [
+            "FreeVC Voice Conversion"
+        ],
+        {
+            "title_aux": "ComfyUI-FreeVC_wrapper"
+        }
+    ],
     "https://github.com/ShmuelRonen/ComfyUI-Gemini_Flash_2.0_Exp": [
         [
             "AudioRecorder",
@@ -10032,6 +10070,7 @@
             "VrchSwitchOSCControlNode",
             "VrchTextConcatOSCControlNode",
             "VrchTextKeyControlNode",
+            "VrchTextSrtPlayerNode",
             "VrchTextSwitchOSCControlNode",
             "VrchVideoWebViewerNode",
             "VrchWebViewerNode",
@@ -11356,6 +11395,14 @@
         ],
         {
             "title_aux": "ComfyUI_merge_ASVL"
+        }
+    ],
+    "https://github.com/ajbergh/comfyui-ethnicity_hairstyle_clip_encoder": [
+        [
+            "CLIPTextEncodeWithExtras"
+        ],
+        {
+            "title_aux": "comfyui-ethnicity_hairstyle_clip_encoder"
         }
     ],
     "https://github.com/akatz-ai/ComfyUI-AKatz-Nodes": [
@@ -14695,6 +14742,7 @@
             "VPScheduler",
             "VideoLinearCFGGuidance",
             "VideoTriangleCFGGuidance",
+            "WanImageToVideo",
             "WebcamCapture",
             "unCLIPCheckpointLoader",
             "unCLIPConditioning"
@@ -15828,7 +15876,6 @@
     ],
     "https://github.com/dorpxam/ComfyUI-LTXVideoLoRA": [
         [
-            "LTXVCheckpointLoaderLoRA",
             "LTXVLoRABlockEdit",
             "LTXVLoRALoader",
             "LTXVLoRASelector"
@@ -16338,6 +16385,16 @@
         ],
         {
             "title_aux": "FASHN Virtual Try-On"
+        }
+    ],
+    "https://github.com/fat-tire/comfyui-unified-media-suite": [
+        [
+            "MediaLoad",
+            "MediaMerge",
+            "MediaSave"
+        ],
+        {
+            "title_aux": "ComfyUI Unified Media Suite"
         }
     ],
     "https://github.com/fblissjr/ComfyUI-DatasetHelper": [
@@ -17340,6 +17397,8 @@
             "Griptape Agent Config: Expand",
             "Griptape Agent Config: Google Drivers",
             "Griptape Agent Config: Google [DEPRECATED]",
+            "Griptape Agent Config: Griptape Cloud",
+            "Griptape Agent Config: Grok Drivers",
             "Griptape Agent Config: Groq Drivers",
             "Griptape Agent Config: HuggingFace Drivers",
             "Griptape Agent Config: HuggingFace [DEPRECATED]",
@@ -17394,6 +17453,7 @@
             "Griptape Embedding Driver: OpenAI",
             "Griptape Embedding Driver: OpenAI Compatible",
             "Griptape Embedding Driver: Voyage AI",
+            "Griptape End Workflow",
             "Griptape Expand: Agent Nodes",
             "Griptape Load: Audio",
             "Griptape Load: Image From URL",
@@ -17404,6 +17464,8 @@
             "Griptape Prompt Driver: Azure OpenAI",
             "Griptape Prompt Driver: Cohere",
             "Griptape Prompt Driver: Google",
+            "Griptape Prompt Driver: Griptape Cloud",
+            "Griptape Prompt Driver: Grok",
             "Griptape Prompt Driver: Groq",
             "Griptape Prompt Driver: HuggingFace",
             "Griptape Prompt Driver: LM Studio",
@@ -17437,6 +17499,7 @@
             "Griptape Run: Toolkit Task",
             "Griptape Save: Text",
             "Griptape Set: Default Agent",
+            "Griptape Start Workflow",
             "Griptape Text To Speech Driver: ElevenLabs",
             "Griptape Text To Speech Driver: OpenAI",
             "Griptape Tool: Audio Transcription",
@@ -20249,6 +20312,7 @@
             "TorchCompileLTXModel",
             "TorchCompileModelFluxAdvanced",
             "TorchCompileModelHyVideo",
+            "TorchCompileModelWanVideo",
             "TorchCompileVAE",
             "TransitionImagesInBatch",
             "TransitionImagesMulti",
@@ -20525,6 +20589,7 @@
     ],
     "https://github.com/kk8bit/KayTool": [
         [
+            "AIO_Translater",
             "Abc_Math",
             "Baidu_Translater",
             "Color_Adjustment",
@@ -20859,6 +20924,14 @@
         ],
         {
             "title_aux": "ComfyUI nodes to use CrossImageAttention"
+        }
+    ],
+    "https://github.com/leeguandong/ComfyUI_FluxClipWeight": [
+        [
+            "CLIPTextEncodeFluxWeight"
+        ],
+        {
+            "title_aux": "ComfyUI nodes to use FluxClipWeight"
         }
     ],
     "https://github.com/leeguandong/ComfyUI_FluxCustomId": [
@@ -23894,7 +23967,7 @@
             "RegexNode"
         ],
         {
-            "title_aux": " ComfyUI-Regex-Runner "
+            "title_aux": " ComfyUI-Regex-Runner"
         }
     ],
     "https://github.com/osi1880vr/prompt_quill_comfyui": [

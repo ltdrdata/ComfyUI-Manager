@@ -642,6 +642,7 @@
             "DevToolsNodeWithBooleanInput",
             "DevToolsNodeWithForceInput",
             "DevToolsNodeWithOnlyOptionalInput",
+            "DevToolsNodeWithOptionalComboInput",
             "DevToolsNodeWithOptionalInput",
             "DevToolsNodeWithOutputList",
             "DevToolsNodeWithSeedInput",
@@ -1339,12 +1340,16 @@
         [
             "A1111_FLUX_DATA_NODE",
             "CategorizeNode",
+            "Delay_node",
+            "Downloader",
             "FileMoveNode",
             "FolderIteratorNODE",
             "Get_cookies_Node",
             "Get_json_value_Node",
+            "Get_video_Node",
             "HashCalculationsNode",
             "HuggingFaceUploadNode",
+            "IMG2URLNode",
             "Image2GIFNode",
             "ImageDownloader",
             "InputDetectionNode",
@@ -1360,7 +1365,10 @@
             "TextToJsonNode",
             "TranslateAPINode",
             "ZIPwith7zNode",
+            "img_understanding_Node",
+            "klingai_video_Node",
             "path_join_Node",
+            "save_img_NODE",
             "set_api_Node"
         ],
         {
@@ -1585,7 +1593,9 @@
             "CheckpointLoaderSimpleShared //SeedV",
             "ControlNetLoaderAdvancedShared",
             "LoraLoader //SeedV",
-            "Script"
+            "Script",
+            "Switch_Any(SEEDV)",
+            "TCD_Sampler(SEEDV)"
         ],
         {
             "title_aux": "ComfyUI-SeedV-Nodes [UNSAFE]"
@@ -1882,6 +1892,15 @@
         ],
         {
             "title_aux": "ComfyUI-PuLID-ZHO [WIP]"
+        }
+    ],
+    "https://github.com/ZHO-ZHO-ZHO/ComfyUI-Wan-ZHO": [
+        [
+            "WanT2V_Generation_Zho",
+            "WanT2V_ModelLoader_Zho"
+        ],
+        {
+            "title_aux": "ComfyUI Wan2.1 [WIP]"
         }
     ],
     "https://github.com/a-One-Fan/ComfyUI-Blenderesque-Nodes": [
@@ -2747,6 +2766,7 @@
             "VPScheduler",
             "VideoLinearCFGGuidance",
             "VideoTriangleCFGGuidance",
+            "WanImageToVideo",
             "WebcamCapture",
             "unCLIPCheckpointLoader",
             "unCLIPConditioning"
@@ -3163,6 +3183,15 @@
     "https://github.com/grinlau18/ComfyUI_XISER_Nodes": [
         [
             "XIS_Float_Slider",
+            "XIS_FromListGet1Color",
+            "XIS_FromListGet1Cond",
+            "XIS_FromListGet1Float",
+            "XIS_FromListGet1Image",
+            "XIS_FromListGet1Int",
+            "XIS_FromListGet1Latent",
+            "XIS_FromListGet1Mask",
+            "XIS_FromListGet1Model",
+            "XIS_FromListGet1String",
             "XIS_INT_Slider",
             "XIS_PromptsWithSwitches",
             "XIS_ResizeImageOrMask"
@@ -3894,6 +3923,27 @@
             "title_aux": "ComfyUI-VideoNoiseWarp [WIP]"
         }
     ],
+    "https://github.com/kijai/ComfyUI-WanVideoWrapper": [
+        [
+            "LoadWanVideoClipTextEncoder",
+            "LoadWanVideoT5TextEncoder",
+            "WanVideoBlockSwap",
+            "WanVideoDecode",
+            "WanVideoEmptyEmbeds",
+            "WanVideoEncode",
+            "WanVideoImageClipEncode",
+            "WanVideoLatentPreview",
+            "WanVideoLoraSelect",
+            "WanVideoModelLoader",
+            "WanVideoSampler",
+            "WanVideoTextEncode",
+            "WanVideoTorchCompileSettings",
+            "WanVideoVAELoader"
+        ],
+        {
+            "title_aux": "ComfyUI-WanVideoWrapper [WIP]"
+        }
+    ],
     "https://github.com/kimara-ai/ComfyUI-Kimara-AI-Advanced-Watermarks": [
         [
             "KimaraAIBatchImages",
@@ -3913,6 +3963,7 @@
     ],
     "https://github.com/kk8bit/KayTool": [
         [
+            "AIO_Translater",
             "Abc_Math",
             "Baidu_Translater",
             "Color_Adjustment",
@@ -3920,7 +3971,8 @@
             "Display_Any",
             "Image_Size_Extractor",
             "Strong_Prompt",
-            "Tencent_Translater"
+            "Tencent_Translater",
+            "Text"
         ],
         {
             "title_aux": "KayTool"
