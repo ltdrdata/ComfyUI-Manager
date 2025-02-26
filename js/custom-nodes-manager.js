@@ -1640,13 +1640,13 @@ export class CustomNodesManager {
 		}
 
 		if(unresolved_missing_nodes.size > 0) {
-			await this.getMissingNodesLegacy(hashMap, unresolved_missing_nodes, registered_nodes);
+			await this.getMissingNodesLegacy(hashMap, unresolved_missing_nodes);
 		}
 
 		return hashMap;
 	}
 
-	async getMissingNodesLegacy(hashMap, missing_nodes, registered_nodes) {
+	async getMissingNodesLegacy(hashMap, missing_nodes) {
 		const mode = manager_instance.datasrc_combo.value;
 		this.showStatus(`Loading missing nodes (${mode}) ...`);
 		const res = await fetchData(`/customnode/getmappings?mode=${mode}`);
@@ -1687,20 +1687,15 @@ export class CustomNodesManager {
 
 		let unresolved_missing_nodes = new Set();
 		for (let node_type of missing_nodes) {
-			if(node_type.startsWith('workflow/') || node_type.startsWith('workflow>'))
-				continue;
-
-			if (!registered_nodes.has(node_type)) {
-				const packs = name_to_packs[node_type.trim()];
-				if(packs)
-					packs.forEach(url => {
-						unresolved_missing_nodes.add(url);
-					});
-				else {
-					for(let j in regex_to_pack) {
-						if(regex_to_pack[j].regex.test(node_type)) {
-							unresolved_missing_nodes.add(regex_to_pack[j].url);
-						}
+			const packs = name_to_packs[node_type.trim()];
+			if(packs)
+				packs.forEach(url => {
+					unresolved_missing_nodes.add(url);
+				});
+			else {
+				for(let j in regex_to_pack) {
+					if(regex_to_pack[j].regex.test(node_type)) {
+						unresolved_missing_nodes.add(regex_to_pack[j].url);
 					}
 				}
 			}
