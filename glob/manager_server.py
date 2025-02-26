@@ -1201,7 +1201,7 @@ async def install_custom_node(request):
             if cnr_id in core.unified_manager.nightly_inactive_nodes or cnr_id in core.unified_manager.cnr_inactive_nodes:
                 core.unified_manager.unified_enable(cnr_id)
                 return web.Response(status=200)
-        else:
+        elif selected_version is None:
             selected_version = 'latest'
 
         if selected_version != 'nightly':
