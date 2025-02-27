@@ -2637,6 +2637,12 @@
             "Tan Scheduler 2 Simple",
             "TextBox1",
             "TextBox3",
+            "TextBoxConcatenate",
+            "TextConcatenate",
+            "TextLoadFile",
+            "TextShuffle",
+            "TextShuffleAndTruncate",
+            "TextTruncateTokens",
             "TorchCompileModelFluxAdv",
             "UNetSave",
             "UltraSharkSampler",
@@ -4220,11 +4226,13 @@
     "https://github.com/GraftingRayman/ComfyUI_GraftingRayman": [
         [
             "GR BLIP 2 Caption Generator",
+            "GR BLIP 2 Text Expander",
             "GR Background Remover REMBG",
             "GR Checkered Board",
             "GR Counter",
             "GR Flip Tile Random Inverted",
             "GR Flip Tile Random Red Ring",
+            "GR Florence 2 Caption Generator",
             "GR Image Details Displayer",
             "GR Image Details Saver",
             "GR Image Paste",
@@ -6366,6 +6374,7 @@
             "FindFirstLineContent",
             "FloatToInteger",
             "GenerateNumbers",
+            "GetCurrentTime",
             "GetRandomIntegerInRange",
             "ProcessString",
             "RandomLineFromText",
@@ -6374,6 +6383,7 @@
             "RemoveContentBetweenChars",
             "ReplaceMultiple",
             "ReplaceNthOccurrence",
+            "SelectionParameter",
             "ShuffleTextLines",
             "SplitAndExtractText",
             "SplitStringByDelimiter",
@@ -7317,6 +7327,14 @@
         ],
         {
             "title_aux": "ComfyUI-MultiCutAndDrag"
+        }
+    ],
+    "https://github.com/PanicTitan/ComfyUI-Fooocus-V2-Expansion": [
+        [
+            "FooocusV2Expansion"
+        ],
+        {
+            "title_aux": "ComfyUI-Fooocus-V2-Expansion"
         }
     ],
     "https://github.com/Parameshvadivel/ComfyUI-SVGview": [
@@ -10657,6 +10675,17 @@
             "title_aux": "ComfyUI-TacoNodes"
         }
     ],
+    "https://github.com/YRIKKA/ComfyUI-InferenceTimeScaling": [
+        [
+            "InferenceTimeScaler",
+            "LoadCLIPScoreVerifier",
+            "LoadImageRewardVerifier",
+            "LoadQwenVLMVerifier"
+        ],
+        {
+            "title_aux": "ComfyUI-InferenceTimeScaling"
+        }
+    ],
     "https://github.com/Yanick112/ComfyUI-ToSVG": [
         [
             "ConvertRasterToVectorBW",
@@ -11999,7 +12028,10 @@
             "TryOffFluxFillPipelineNode",
             "TryOffModelNode",
             "TryOffQuantizerNode",
-            "TryOffRunNode"
+            "TryOffRunNode",
+            "TryOnOffModelNode",
+            "TryOnOffRunNode",
+            "TryOnRunNode"
         ],
         {
             "title_aux": "ComfyUI-Flux-TryOff"
@@ -15211,6 +15243,7 @@
             "D2 List To String",
             "D2 Load Folder Images",
             "D2 Load Image",
+            "D2 Load Lora",
             "D2 Model and CLIP Merge SDXL",
             "D2 Multi Output",
             "D2 Pipe",
@@ -17414,6 +17447,7 @@
             "Griptape Audio Transcription Driver: OpenAI",
             "Griptape Code: Run Griptape Cloud Structure",
             "Griptape Code: Run Python [DEPRECATED]",
+            "Griptape Combine: Merge Dictionary",
             "Griptape Combine: Merge Inputs",
             "Griptape Combine: Merge Texts",
             "Griptape Combine: RAG Module List",
@@ -17429,10 +17463,12 @@
             "Griptape Create: Image Inpainting Variation",
             "Griptape Create: Image Variation",
             "Griptape Create: Image from Text",
+            "Griptape Create: Key Value Pair",
             "Griptape Create: Rules",
             "Griptape Create: Text",
             "Griptape Display: Artifact",
             "Griptape Display: Data as Text",
+            "Griptape Display: Dictionary",
             "Griptape Display: Image",
             "Griptape Display: Text",
             "Griptape Driver: Amazon Bedrock Stable Diffusion",
@@ -18933,6 +18969,8 @@
             "GroupInfoExtractInt",
             "GroupLoadBatchImages",
             "GroupLoadImage",
+            "JWAudioBlend",
+            "JWAudioSaveToPath",
             "JWDatetimeString",
             "JWImageBatchCount",
             "JWImageContrast",
@@ -18962,6 +19000,7 @@
             "JWInfoHashListExtractStringList",
             "JWInfoHashListFromRangedInfo",
             "JWInfoHashPrint",
+            "JWLoadAudio",
             "JWLoadImageSequence",
             "JWLoadImagesFromString",
             "JWLoopImageSequence",
@@ -20159,6 +20198,7 @@
             "AppendInstanceDiffusionTracking",
             "AppendStringsToList",
             "ApplyRifleXRoPE_HunuyanVideo",
+            "ApplyRifleXRoPE_WanVideo",
             "AudioConcatenate",
             "BOOLConstant",
             "BatchCLIPSeg",
@@ -20596,9 +20636,13 @@
             "Custom_Save_Image",
             "Display_Any",
             "Image_Size_Extractor",
+            "Slider_10",
+            "Slider_100",
+            "Slider_1000",
             "Strong_Prompt",
             "Tencent_Translater",
-            "Text"
+            "Text",
+            "To_Int"
         ],
         {
             "title_aux": "KayTool"
@@ -20924,6 +20968,16 @@
         ],
         {
             "title_aux": "ComfyUI nodes to use CrossImageAttention"
+        }
+    ],
+    "https://github.com/leeguandong/ComfyUI_FluxAttentionMask": [
+        [
+            "AMModelLoader",
+            "AMSample",
+            "AttentionMask"
+        ],
+        {
+            "title_aux": "ComfyUI nodes to use AttentionMask"
         }
     ],
     "https://github.com/leeguandong/ComfyUI_FluxClipWeight": [
@@ -22432,6 +22486,14 @@
         ],
         {
             "title_aux": "ComfyUI-SubjectStyle-CSV"
+        }
+    ],
+    "https://github.com/marawan206/ComfyUI-FaceCropper": [
+        [
+            "NodoFaceCropping"
+        ],
+        {
+            "title_aux": "Face Cropper Node (2:3 Ratio)"
         }
     ],
     "https://github.com/marcoc2/ComfyUI-AnotherUtils": [
@@ -25368,7 +25430,9 @@
             "FlipStreamFileSelect_TensorRT",
             "FlipStreamFileSelect_VAE",
             "FlipStreamFilmVfi",
+            "FlipStreamGate",
             "FlipStreamGetParam",
+            "FlipStreamGetPreviewRoi",
             "FlipStreamImageSize",
             "FlipStreamInputBox",
             "FlipStreamPreviewBox",
@@ -25696,6 +25760,7 @@
             "ApplyMBCacheAndSkipBlocksForSana",
             "ApplySageAttention",
             "ApplyTeaCacheAndSkipBlocks",
+            "ApplyToCa",
             "CompileAndQuantizeModel",
             "SanaCLIPLoader",
             "SanaDiffusionLoader",
@@ -26271,6 +26336,15 @@
         ],
         {
             "title_aux": "ComfyUI_ParlerTTS"
+        }
+    ],
+    "https://github.com/smthemex/ComfyUI_PhotoDoodle": [
+        [
+            "PhotoDoodle_Loader",
+            "PhotoDoodle_Sampler"
+        ],
+        {
+            "title_aux": "ComfyUI_PhotoDoodle"
         }
     ],
     "https://github.com/smthemex/ComfyUI_Pic2Story": [
@@ -29413,6 +29487,19 @@
         ],
         {
             "title_aux": "ComfyUI_Bxb"
+        }
+    ],
+    "https://github.com/zichongc/ComfyUI-Attention-Distillation": [
+        [
+            "ADHandler",
+            "ADOptimizer",
+            "ADSampler",
+            "LoadDistiller",
+            "LoadPILImage",
+            "PureText"
+        ],
+        {
+            "title_aux": "ComfyUI-Attention-Distillation"
         }
     ],
     "https://github.com/ziwang-com/comfyui-deepseek-r1": [
