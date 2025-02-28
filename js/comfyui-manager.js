@@ -227,7 +227,6 @@ document.head.appendChild(docStyle);
 
 var update_comfyui_button = null;
 var switch_comfyui_button = null;
-var fetch_updates_button = null;
 var update_all_button = null;
 var restart_stop_button = null;
 var update_policy_combo = null;
@@ -653,57 +652,6 @@ async function switchComfyUI() {
 	}
 }
 
-
-async function fetchUpdates(update_check_checkbox) {
-	let prev_text = fetch_updates_button.innerText;
-	fetch_updates_button.innerText = "Fetching updates...";
-	fetch_updates_button.disabled = true;
-	fetch_updates_button.style.backgroundColor = "gray";
-
-	try {
-		var mode = manager_instance.datasrc_combo.value;
-
-		const response = await api.fetchApi(`/customnode/fetch_updates?mode=${mode}`);
-
-		if (response.status != 200 && response.status != 201) {
-			show_message('Failed to fetch updates.');
-			return false;
-		}
-
-		if (response.status == 201) {
-			show_message("There is an updated extension available.<BR><BR><P><B>NOTE:<BR>Fetch Updates is not an update.<BR>Please update from <button id='cm-install-customnodes-button'>Install Custom Nodes</button> </B></P>");
-
-			const button = document.getElementById('cm-install-customnodes-button');
-			button.addEventListener("click",
-				async function() {
-					app.ui.dialog.close();
-
-					if(!CustomNodesManager.instance) {
-						CustomNodesManager.instance = new CustomNodesManager(app, self);
-					}
-					await CustomNodesManager.instance.show(CustomNodesManager.ShowMode.UPDATE);
-				}
-			);
-
-			update_check_checkbox.checked = false;
-		}
-		else {
-			show_message('All extensions are already up-to-date with the latest versions.');
-		}
-
-		return true;
-	}
-	catch (exception) {
-		show_message(`Failed to update custom nodes / ${exception}`);
-		return false;
-	}
-	finally {
-		fetch_updates_button.disabled = false;
-		fetch_updates_button.innerText = prev_text;
-		fetch_updates_button.style.backgroundColor = "";
-	}
-}
-
 async function onQueueStatus(event) {
 	const isElectron = 'electronAPI' in window;
 
@@ -816,8 +764,7 @@ async function onQueueStatus(event) {
 api.addEventListener("cm-queue-status", onQueueStatus);
 
 
-async function updateAll(update_comfyui, manager_dialog) {
-	let prev_text = update_all_button.innerText;
+async function updateAll(update_comfyui) {
 	update_all_button.innerText = "Updating...";
 
 	set_inprogress_mode();
@@ -900,14 +847,6 @@ class ManagerMenuDialog extends ComfyDialog {
 					() => switchComfyUI()
 			});
 
-		fetch_updates_button =
-			$el("button.cm-button", {
-				type: "button",
-				textContent: "Fetch Updates",
-				onclick:
-					() => fetchUpdates(this.update_check_checkbox)
-			});
-
 		restart_stop_button =
 			$el("button.cm-button-red", {
 				type: "button",
@@ -921,7 +860,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					type: "button",
 					textContent: "Update All Custom Nodes",
 					onclick:
-						() => updateAll(false, self)
+						() => updateAll(false)
 				});
 		}
 		else {
@@ -930,7 +869,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					type: "button",
 					textContent: "Update All",
 					onclick:
-						() => updateAll(true, self)
+						() => updateAll(true)
 				});
 		}
 
@@ -1037,12 +976,6 @@ class ManagerMenuDialog extends ComfyDialog {
 
 		let self = this;
 
-		this.update_check_checkbox = $el("input",{type:'checkbox', id:"skip_update_check"},[])
-		const uc_checkbox_text = $el("label",{for:"skip_update_check"},[" Skip update check"])
-		uc_checkbox_text.style.color = "var(--fg-color)";
-		uc_checkbox_text.style.cursor = "pointer";
-		this.update_check_checkbox.checked = true;
-
 		// db mode
 		this.datasrc_combo = document.createElement("select");
 		this.datasrc_combo.setAttribute("title", "Configure where to retrieve node/model information. If set to 'local,' the channel is ignored, and if set to 'channel (remote),' it fetches the latest information each time the list is opened.");
@@ -1050,6 +983,14 @@ class ManagerMenuDialog extends ComfyDialog {
 		this.datasrc_combo.appendChild($el('option', { value: 'cache', text: 'DB: Channel (1day cache)' }, []));
 		this.datasrc_combo.appendChild($el('option', { value: 'local', text: 'DB: Local' }, []));
 		this.datasrc_combo.appendChild($el('option', { value: 'remote', text: 'DB: Channel (remote)' }, []));
+
+		api.fetchApi('/manager/db_mode')
+			.then(response => response.text())
+			.then(data => { this.datasrc_combo.value = data; });
+
+		this.datasrc_combo.addEventListener('change', function (event) {
+			api.fetchApi(`/manager/db_mode?value=${event.target.value}`);
+		});
 
 		// preview method
 		let preview_combo = document.createElement("select");
@@ -1170,7 +1111,6 @@ class ManagerMenuDialog extends ComfyDialog {
 		});
 
 		return [
-			$el("div", {}, [this.update_check_checkbox, uc_checkbox_text]),
 			$el("br", {}, []),
 			this.datasrc_combo,
 			channel_combo,

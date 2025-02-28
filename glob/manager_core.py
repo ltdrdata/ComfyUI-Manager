@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 27, 2]
+version_code = [3, 27, 3]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1614,7 +1614,8 @@ def write_config():
         'security_level': get_config()['security_level'],
         'skip_migration_check': get_config()['skip_migration_check'],
         'always_lazy_install': get_config()['always_lazy_install'],
-        'network_mode': get_config()['network_mode']
+        'network_mode': get_config()['network_mode'],
+        'db_mode': get_config()['db_mode'],
     }
 
     directory = os.path.dirname(manager_config_path)
@@ -1654,6 +1655,7 @@ def read_config():
                     'always_lazy_install': get_bool('always_lazy_install', False),
                     'network_mode': default_conf.get('network_mode', 'public').lower(),
                     'security_level': default_conf.get('security_level', 'normal').lower(),
+                    'db_mode': default_conf.get('db_mode', 'cache').lower(),
                }
 
     except Exception:
@@ -1677,6 +1679,7 @@ def read_config():
             'always_lazy_install': False,
             'network_mode': 'public',   # public | private | offline
             'security_level': 'normal', # strong | normal | normal- | weak
+            'db_mode': 'cache',         # local | cache | remote
         }
 
 

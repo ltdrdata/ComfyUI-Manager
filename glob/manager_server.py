@@ -190,6 +190,9 @@ def set_component_policy(mode):
 def set_update_policy(mode):
     core.get_config()['update_policy'] = mode
 
+def set_db_mode(mode):
+    core.get_config()['db_mode'] = mode
+
 def print_comfyui_version():
     global comfy_ui_hash
     global comfyui_tag
@@ -816,7 +819,7 @@ async def fetch_customnode_list(request):
     """
     provide unified custom node list
     """
-    if "skip_update" in request.rel_url.query and request.rel_url.query["skip_update"] == "true":
+    if request.rel_url.query.get("skip_update", '').lower() == "true":
         skip_update = True
     else:
         skip_update = False
@@ -833,7 +836,7 @@ async def fetch_customnode_list(request):
     core.populate_github_stats(node_packs, await json_obj_github)
     core.populate_favorites(node_packs, await json_obj_extras)
 
-    check_state_of_git_node_pack(node_packs, False, do_update_check=not skip_update)
+    check_state_of_git_node_pack(node_packs, not skip_update, do_update_check=not skip_update)
 
     for v in node_packs.values():
         populate_markdown(v)
@@ -1455,6 +1458,18 @@ async def preview_method(request):
     return web.Response(status=200)
 
 
+@routes.get("/manager/db_mode")
+async def db_mode(request):
+    if "value" in request.rel_url.query:
+        set_db_mode(request.rel_url.query['value'])
+        core.write_config()
+    else:
+        return web.Response(text=core.get_config()['db_mode'], status=200)
+
+    return web.Response(status=200)
+
+
+
 @routes.get("/manager/policy/component")
 async def component_policy(request):
     if "value" in request.rel_url.query:
@@ -1681,20 +1696,23 @@ cm_global.register_api('cm.try-install-custom-node', confirm_try_install)
 async def default_cache_update():
     channel_url = core.get_config()['channel_url']
     async def get_cache(filename):
-        if core.get_config()['default_cache_as_channel_url']:
-            uri = f"{channel_url}/{filename}"
-        else:
-            uri = f"{core.DEFAULT_CHANNEL}/{filename}"
+        try:
+            if core.get_config()['default_cache_as_channel_url']:
+                uri = f"{channel_url}/{filename}"
+            else:
+                uri = f"{core.DEFAULT_CHANNEL}/{filename}"
 
-        cache_uri = str(manager_util.simple_hash(uri)) + '_' + filename
-        cache_uri = os.path.join(manager_util.cache_dir, cache_uri)
+            cache_uri = str(manager_util.simple_hash(uri)) + '_' + filename
+            cache_uri = os.path.join(manager_util.cache_dir, cache_uri)
 
-        json_obj = await manager_util.get_data(uri, True)
+            json_obj = await manager_util.get_data(uri, True)
 
-        with manager_util.cache_lock:
-            with open(cache_uri, "w", encoding='utf-8') as file:
-                json.dump(json_obj, file, indent=4, sort_keys=True)
-                logging.info(f"[ComfyUI-Manager] default cache updated: {uri}")
+            with manager_util.cache_lock:
+                with open(cache_uri, "w", encoding='utf-8') as file:
+                    json.dump(json_obj, file, indent=4, sort_keys=True)
+                    logging.info(f"[ComfyUI-Manager] default cache updated: {uri}")
+        except:
+            logging.error(f"[ComfyUI-Manager] Failed to initial fetching: {filename}")
 
     if core.get_config()['network_mode'] != 'offline':
         a = get_cache("custom-node-list.json")

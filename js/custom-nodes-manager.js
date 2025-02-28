@@ -676,7 +676,7 @@ export class CustomNodesManager {
 			"invalid-installation": ["reinstall"],
 		}
 
-		if (!manager_instance.update_check_checkbox.checked) {
+		if (!installGroups.updatable) {
 			installGroups.enabled = installGroups.enabled.filter(it => it !== "try-update");
 		}
 
@@ -1809,11 +1809,16 @@ export class CustomNodesManager {
 		this.showStatus(`Loading custom nodes (${mode}) ...`);
 
 		const skip_update = this.show_mode === ShowMode.UPDATE ? "" : "&skip_update=true";
+
+		if(this.show_mode === ShowMode.UPDATE) {
+			infoToast('Fetching updated information. This may take some time if many custom nodes are installed.');
+		}
+
 		const res = await fetchData(`/customnode/getlist?mode=${mode}${skip_update}`);
 		if (res.error) {
 			this.showError("Failed to get custom node list.");
 			this.hideLoading();
-			return
+			return;
 		}
 		
 		const { channel, node_packs } = res.data;
