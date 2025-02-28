@@ -414,19 +414,20 @@
     ],
     "https://github.com/807502278/ComfyUI-WJNodes": [
         [
+            "Any_Pipe",
             "ApplyEasyOCR_batch",
             "Bilateral_Filter",
             "ColorData_HSV_Capture",
             "Color_Data_Break",
             "Color_check_Name",
             "ComfyUI_Path_Out",
+            "Determine_Type",
             "ImageChannelBus",
             "Load_Image_Adv",
             "Load_Image_From_Path",
             "Mask_Detection",
             "MergeImageList",
             "PrimitiveNode",
-            "RGBABatchToImage",
             "Random_Select_Prompt",
             "Run_BEN_v2",
             "Run_Similarity",
@@ -450,10 +451,11 @@
             "color_segmentation_v2",
             "coords_select_mask",
             "filter_DensePose_color",
-            "get_TypeName",
             "get_image_data",
             "image_math",
             "image_math_value",
+            "image_math_value_v1",
+            "image_math_value_v2",
             "image_math_value_x10",
             "invert_channel_adv",
             "load_BEN_model",
@@ -2510,34 +2512,7 @@
             "AdvancedNoise",
             "Base64ToConditioning",
             "CLIPTextEncodeFluxUnguided",
-            "ClownGuide_Beta",
-            "ClownGuidesAB_Beta",
-            "ClownGuidesFluxAdvanced_Beta",
-            "ClownGuides_Beta",
-            "ClownInpaint",
-            "ClownInpaintSimple",
-            "ClownOptions_Automation_Beta",
-            "ClownOptions_DetailBoost_Beta",
-            "ClownOptions_ExtraOptions_Beta",
-            "ClownOptions_FrameWeights",
-            "ClownOptions_ImplicitSteps_Beta",
-            "ClownOptions_SDE_Beta",
-            "ClownOptions_SDE_Noise",
-            "ClownOptions_StepSize_Beta",
             "ClownRegionalConditioningFlux",
-            "ClownSampler",
-            "ClownSamplerAdvanced",
-            "ClownSamplerSelector_Beta",
-            "ClownsharKSampler",
-            "ClownsharKSamplerAutomation",
-            "ClownsharKSamplerAutomation_Advanced",
-            "ClownsharKSamplerAutomation_Beta",
-            "ClownsharKSamplerGuide",
-            "ClownsharKSamplerGuideMisc_Beta",
-            "ClownsharKSamplerGuides",
-            "ClownsharKSamplerGuidesMisc_Beta",
-            "ClownsharKSamplerOptions",
-            "ClownsharKSamplerSimple_Beta",
             "Conditioning Recast FP64",
             "ConditioningAdd",
             "ConditioningAverageScheduler",
@@ -2580,10 +2555,6 @@
             "LatentPhaseMagnitudeMultiply",
             "LatentPhaseMagnitudeOffset",
             "LatentPhaseMagnitudePower",
-            "Legacy_ClownSampler",
-            "Legacy_ClownsharKSampler",
-            "Legacy_ClownsharKSamplerGuides",
-            "Legacy_SharkSampler",
             "Linear Quadratic Advanced",
             "MaskToggle",
             "ModelSamplingAdvanced",
@@ -2592,14 +2563,10 @@
             "PrepForUnsampling",
             "ReFluxPatcher",
             "SD35Loader",
-            "SamplerOptions_GarbageCollection",
-            "SamplerOptions_TimestepScaling",
-            "SamplerRK_Test",
+            "SeedGenerator",
             "Set Precision",
             "Set Precision Advanced",
             "Set Precision Universal",
-            "SharkOptions_Beta",
-            "SharkSampler",
             "Sigmas Abs",
             "Sigmas Add",
             "Sigmas Cleanup",
@@ -2646,10 +2613,7 @@
             "TorchCompileModelFluxAdv",
             "UNetSave",
             "UltraSharkSampler",
-            "UltraSharkSampler Tiled",
-            "UltraSharkSamplerRBTest",
-            "VAEEncodeAdvanced",
-            "Zampler_Test"
+            "VAEEncodeAdvanced"
         ],
         {
             "title_aux": "RES4LYF"
@@ -5132,6 +5096,19 @@
             "title_aux": "ComfyUI_TGate"
         }
     ],
+    "https://github.com/JiSenHua/ComfyUI-TD": [
+        [
+            "Comfy3DPacktoTD",
+            "Hy3DtoTD",
+            "ImagetoTD",
+            "LoadTDImage",
+            "Tripo3DtoTD",
+            "VideotoTD"
+        ],
+        {
+            "title_aux": "ComfyUI-TD"
+        }
+    ],
     "https://github.com/JichaoLiang/Immortal_comfyUI": [
         [
             "AppendNode",
@@ -7506,12 +7483,16 @@
     ],
     "https://github.com/ProGamerGov/ComfyUI_pytorch360convert": [
         [
+            "Crop 360 to 180 Equirectangular",
             "Crop Image with Coords",
+            "Crop Stereo to Monoscopic",
             "Cubemap to Equirectangular",
             "Equirectangular Rotation",
             "Equirectangular to Cubemap",
             "Equirectangular to Perspective",
             "Masked Diff C2E",
+            "Merge Monoscopic into Stereo",
+            "Pad 180 to 360 Equirectangular",
             "Paste Image with Coords",
             "Roll Image Axes",
             "Split Cubemap Faces",
@@ -7658,6 +7639,41 @@
         ],
         {
             "title_aux": "ComfyUI Compression and Encryption Node"
+        }
+    ],
+    "https://github.com/RiceRound/ComfyUI_RiceRound": [
+        [
+            "RiceRoundAdvancedChoiceNode",
+            "RiceRoundBooleanNode",
+            "RiceRoundDecryptNode",
+            "RiceRoundDownloadImageAndMaskNode",
+            "RiceRoundDownloadImageNode",
+            "RiceRoundDownloadMaskNode",
+            "RiceRoundEncryptNode",
+            "RiceRoundFloatNode",
+            "RiceRoundImageBridgeNode",
+            "RiceRoundImageNode",
+            "RiceRoundImageUrlNode",
+            "RiceRoundInputTextNode",
+            "RiceRoundIntNode",
+            "RiceRoundMaskBridgeNode",
+            "RiceRoundOutputBooleanNode",
+            "RiceRoundOutputFloatNode",
+            "RiceRoundOutputImageBridgeNode",
+            "RiceRoundOutputImageNode",
+            "RiceRoundOutputIntNode",
+            "RiceRoundOutputMaskBridgeNode",
+            "RiceRoundOutputTextNode",
+            "RiceRoundRandomSeedNode",
+            "RiceRoundSimpleChoiceNode",
+            "RiceRoundSimpleImageNode",
+            "RiceRoundStrToBooleanNode",
+            "RiceRoundStrToFloatNode",
+            "RiceRoundStrToIntNode",
+            "RiceRoundUploadImageNode"
+        ],
+        {
+            "title_aux": "RiceRound Cloud Node"
         }
     ],
     "https://github.com/Rinsanga1/comfyui-florence2xy": [
@@ -8530,6 +8546,14 @@
             "title_aux": "ComfyUI-SVDResizer"
         }
     ],
+    "https://github.com/ShmuelRonen/ComfyUI-WanVideoKsampler": [
+        [
+            "WanVideoKsampler"
+        ],
+        {
+            "title_aux": "ComfyUI-WanVideoKsampler"
+        }
+    ],
     "https://github.com/ShmuelRonen/ComfyUI_Flux_1.1_RAW_API": [
         [
             "FluxPro11WithFinetune"
@@ -8657,6 +8681,14 @@
         [
             "ApplyIPAdapterSD3",
             "IPAdapterSD3Loader"
+        ],
+        {
+            "title_aux": "ComfyUI-InstantX-IPAdapter-SD3"
+        }
+    ],
+    "https://github.com/Slickytail/ComfyUI-RegionalAdaptiveSampling": [
+        [
+            "RegionalAdaptiveSampling"
         ],
         {
             "title_aux": "ComfyUI-InstantX-IPAdapter-SD3"
@@ -8845,6 +8877,7 @@
             "Stability Conservative Upscale",
             "Stability Control Sketch",
             "Stability Control Structure",
+            "Stability Control Style",
             "Stability Creative Upscale",
             "Stability Erase",
             "Stability Fast Upscale",
@@ -8853,10 +8886,10 @@
             "Stability Inpainting",
             "Stability Outpainting",
             "Stability Remove Background",
+            "Stability Replace Background and Relight",
             "Stability SD3",
-            "Stability Search and Recolor",
-            "Stability Search and Replace",
-            "Stability Style"
+            "Stability Search And Recolor",
+            "Stability Search and Replace"
         ],
         {
             "title_aux": "Stability API nodes for ComfyUI"
@@ -9655,6 +9688,15 @@
         ],
         {
             "title_aux": "Simswap Node for ComfyUI"
+        }
+    ],
+    "https://github.com/Taremin/comfyui-prompt-config": [
+        [
+            "PromptEdit",
+            "PromptGenerationConfig"
+        ],
+        {
+            "title_aux": "comfyui-prompt-config"
         }
     ],
     "https://github.com/Taremin/comfyui-prompt-extranetworks": [
@@ -10737,6 +10779,14 @@
         ],
         {
             "title_aux": "ComfyUI-LLaMA-Mesh"
+        }
+    ],
+    "https://github.com/Yuan-ManX/ComfyUI-PhotoDoodle": [
+        [
+            "PhotoDoodle Gen"
+        ],
+        {
+            "title_aux": "ComfyUI-PhotoDoodle"
         }
     ],
     "https://github.com/Yuan-ManX/ComfyUI-SoundHub": [
@@ -12573,6 +12623,14 @@
             "title_aux": "ComfyUI-Benripack"
         }
     ],
+    "https://github.com/blepping/ComfyUI-ApplyResAdapterUnet": [
+        [
+            "ApplyResAdapterUnet"
+        ],
+        {
+            "title_aux": "ComfyUI-ApplyResAdapterUnet"
+        }
+    ],
     "https://github.com/blepping/ComfyUI-bleh": [
         [
             "BlehBlockCFG",
@@ -13089,6 +13147,7 @@
             "GGUFUndo",
             "LoaderGGUF",
             "LoaderGGUFAdvanced",
+            "TENSORBoost",
             "TENSORCut",
             "TripleClipLoaderGGUF",
             "VaeGGUF"
@@ -16380,7 +16439,7 @@
     ],
     "https://github.com/fairy-root/ComfyUI-Show-Text": [
         [
-            "ShowText"
+            "ComfyUIShowText"
         ],
         {
             "title_aux": "ComfyUI-Show-Text"
@@ -16760,6 +16819,14 @@
         ],
         {
             "title_aux": "ComfyUI-Flowty-TripoSR"
+        }
+    ],
+    "https://github.com/fluffydiveX/ComfyUI-hvBlockswap": [
+        [
+            "hvBlockSwap"
+        ],
+        {
+            "title_aux": "ComfyUI-hvBlockswap"
         }
     ],
     "https://github.com/flycarl/ComfyUI-Pixelate": [
@@ -17471,6 +17538,7 @@
             "Griptape Display: Dictionary",
             "Griptape Display: Image",
             "Griptape Display: Text",
+            "Griptape Display: Text as Markdown",
             "Griptape Driver: Amazon Bedrock Stable Diffusion",
             "Griptape Driver: Amazon Bedrock Titan",
             "Griptape Driver: Azure OpenAI Image Generation",
@@ -18917,22 +18985,6 @@
             "Save Image with Metadata JK",
             "Scale To Resolution JK",
             "Split Image Grid JK",
-            "Stability Conservative Upscale",
-            "Stability Control Sketch",
-            "Stability Control Structure",
-            "Stability Control Style",
-            "Stability Creative Upscale",
-            "Stability Erase",
-            "Stability Fast Upscale",
-            "Stability Image Core",
-            "Stability Image Ultra",
-            "Stability Inpainting",
-            "Stability Outpainting",
-            "Stability Remove Background",
-            "Stability Replace Background and Relight",
-            "Stability SD3",
-            "Stability Search And Recolor",
-            "Stability Search and Replace",
             "String To Combo JK",
             "Tiling Mode JK",
             "Upscale Method JK",
@@ -19512,6 +19564,7 @@
             "Bjornulf_FFmpegConfig",
             "Bjornulf_FourImageViewer",
             "Bjornulf_FreeVRAM",
+            "Bjornulf_GlobalSeedManager",
             "Bjornulf_GrayscaleTransform",
             "Bjornulf_GreenScreenToTransparency",
             "Bjornulf_HiResFix",
@@ -19532,11 +19585,13 @@
             "Bjornulf_ListLooperOutfitMale",
             "Bjornulf_ListLooperScene",
             "Bjornulf_ListLooperStyle",
+            "Bjornulf_ListSelector",
             "Bjornulf_LoadGlobalVariables",
             "Bjornulf_LoadImageWithTransparency",
             "Bjornulf_LoadImagesFromSelectedFolder",
             "Bjornulf_LoadTextFromFolder",
             "Bjornulf_LoadTextFromPath",
+            "Bjornulf_LoadTextPickMeGlobal",
             "Bjornulf_LoaderLoraWithPath",
             "Bjornulf_LoopAllLines",
             "Bjornulf_LoopBasicBatch",
@@ -19565,8 +19620,11 @@
             "Bjornulf_PauseResume",
             "Bjornulf_PickInput",
             "Bjornulf_PickMe",
+            "Bjornulf_PlayAudio",
             "Bjornulf_PreviewFirstImage",
+            "Bjornulf_RandomFloatNode",
             "Bjornulf_RandomImage",
+            "Bjornulf_RandomIntNode",
             "Bjornulf_RandomLineFromInput",
             "Bjornulf_RandomLoraSelector",
             "Bjornulf_RandomModelClipVae",
@@ -19589,6 +19647,8 @@
             "Bjornulf_ShowStringText",
             "Bjornulf_ShowText",
             "Bjornulf_SpeechToText",
+            "Bjornulf_SwitchAnything",
+            "Bjornulf_SwitchText",
             "Bjornulf_TextGenerator",
             "Bjornulf_TextGeneratorCharacterCreature",
             "Bjornulf_TextGeneratorCharacterFemale",
@@ -19617,6 +19677,7 @@
             "Bjornulf_WriteTextAdvanced",
             "Bjornulf_WriteTextPickMe",
             "Bjornulf_WriteTextPickMeChain",
+            "Bjornulf_WriteTextPickMeGlobal",
             "Bjornulf_XTTSConfig",
             "Bjornulf_imagesToVideo",
             "Bjornulf_ollamaLoader"
@@ -20636,6 +20697,11 @@
             "Custom_Save_Image",
             "Display_Any",
             "Image_Size_Extractor",
+            "Mask_Blur_Plus",
+            "Preview_Mask",
+            "Preview_Mask_Plus",
+            "RemBG_Loader",
+            "Remove_BG",
             "Slider_10",
             "Slider_100",
             "Slider_1000",
@@ -22250,6 +22316,16 @@
             "title_aux": "ComfyUI Connection Helper"
         }
     ],
+    "https://github.com/lthero-big/Comfyui-DPRWatermark": [
+        [
+            "DPR_Extractor",
+            "DPR_KSamplerAdvanced",
+            "DPR_Latent"
+        ],
+        {
+            "title_aux": "Comfyui-DPRWatermark"
+        }
+    ],
     "https://github.com/luandev/ComfyUI-CrewAI": [
         [
             "DisplayText",
@@ -22379,10 +22455,13 @@
     ],
     "https://github.com/lum3on/comfyui_LLM_Polymath": [
         [
-            "Helper",
+            "ConceptEraserNode",
             "UCEEraserNode",
             "polymath_SaveAbsolute",
+            "polymath_UCE_concept_eraser",
             "polymath_chat",
+            "polymath_concept_eraser",
+            "polymath_helper",
             "polymath_scraper"
         ],
         {

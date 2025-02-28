@@ -6444,6 +6444,16 @@
             "description": "This is an extension for ComfyUI. It retains multiple workflow tabs so that they are not lost when reloading or restarting."
         },
         {
+            "author": "Taremin",
+            "title": "comfyui-prompt-config",
+            "reference": "https://github.com/Taremin/comfyui-prompt-config",
+            "files": [
+                "https://github.com/Taremin/comfyui-prompt-config"
+            ],
+            "install_type": "git-clone",
+            "description": "This is a custom node for ComfyUI.\nThe PromptGenerationConfig node allows users to configure settings such as image dimensions, step count, and CFGScale through prompts during image generation.\nThe PromptEdit node enables users to add text from the prompt to the negative prompt (or vice versa) and replace parts of the prompt using regular expressions."
+        },
+        {
             "author": "foxtrot-roger",
             "title": "RF Nodes",
             "reference": "https://github.com/foxtrot-roger/comfyui-rf-nodes",
@@ -7000,6 +7010,16 @@
             ],
             "install_type": "git-clone",
             "description": "Experimental and mathematically unsound (but fun!) sampling for ComfyUI.\nFeel free create a question in Discussions for usage help: OCS Q&A Discussion[w/Status: In flux, may be useful but likely to change/break workflows frequently. Mainly for advanced users.]"
+        },
+        {
+            "author": "blepping",
+            "title": "ComfyUI-ApplyResAdapterUnet",
+            "reference": "https://github.com/blepping/ComfyUI-ApplyResAdapterUnet",
+            "files": [
+                  "https://github.com/blepping/ComfyUI-ApplyResAdapterUnet"
+            ],
+            "install_type": "git-clone",
+            "description": "ComfyUI node to apply the ResAdapter Unet patch for SD1.5 models"
         },
         {
             "author": "JerryOrbachJr",
@@ -7619,7 +7639,17 @@
             ],
             "install_type": "git-clone",
             "description": "A voice conversion extension node for ComfyUI based on [a/FreeVC](https://github.com/OlaWod/FreeVC), enabling high-quality voice conversion capabilities within the ComfyUI framework."
-        },  
+        },
+        {
+            "author": "ShmuelRonen",
+            "title": "ComfyUI-WanVideoKsampler",
+            "reference": "https://github.com/ShmuelRonen/ComfyUI-WanVideoKsampler",
+            "files": [
+                "https://github.com/ShmuelRonen/ComfyUI-WanVideoKsampler"
+            ],
+            "install_type": "git-clone",
+            "description": "An advanced custom node for ComfyUI that provides optimized access to Wan2.1, a state-of-the-art video foundation model suite. The WanVideoKsampler node features intelligent memory management to enable higher resolution outputs and longer video sequences, even on consumer-grade hardware."
+        },
         {
             "author": "redhottensors",
             "title": "ComfyUI-Prediction",
@@ -16647,6 +16677,17 @@
             "description": "a lightweight open-source node for ComfyUI, designed to simplify workflows while providing encryption protection for them."
         },
         {
+            "author": "RiceRound",
+            "title": "RiceRound Cloud Node",
+            "id": "riceround",
+            "reference": "https://github.com/RiceRound/ComfyUI_RiceRound",
+            "files": [
+                "https://github.com/RiceRound/ComfyUI_RiceRound"
+            ],
+            "install_type": "git-clone",
+            "description": "This is an imaginative project that allows for one-click deployment, providing both an online page and a ComfyUI cloud node.[w/This custom node is vulnerable because it can dynamically download and execute nodes.]"
+        },
+        {
             "author": "yvann-ba",
             "title": "ComfyUI_Yvann-Nodes",
             "reference": "https://github.com/yvann-ba/ComfyUI_Yvann-Nodes",
@@ -18643,6 +18684,16 @@
                "https://github.com/Slickytail/ComfyUI-InstantX-IPAdapter-SD3"
             ],
             "description": "ComfyUI implementation of the [a/InstantX IP-Adapter for SD3.5 Large](https://huggingface.co/InstantX/SD3.5-Large-IP-Adapter).",
+            "install_type": "git-clone"
+        },
+        {
+            "author": "Slickytail",
+            "title": "ComfyUI-InstantX-IPAdapter-SD3",
+            "reference": "https://github.com/Slickytail/ComfyUI-RegionalAdaptiveSampling",
+            "files": [
+               "https://github.com/Slickytail/ComfyUI-RegionalAdaptiveSampling"
+            ],
+            "description": "ComfyUI implementation of Regional Adaptive Sampling, (original implementation at https://github.com/microsoft/RAS).",
             "install_type": "git-clone"
         },
         {
@@ -21471,16 +21522,6 @@
             "description": "This is a node to run regex for strings."
         },
         {
-            "author": "SirWillance",
-            "title": " FoW_Suite_LIGHT",
-            "reference": "https://github.com/SirWillance/FoW_Suite_LIGHT",
-            "files": [
-                "https://github.com/SirWillance/FoW_Suite_LIGHT"
-            ],
-            "install_type": "git-clone",
-            "description": "oW_Suite_LIGHT is the beginner-friendly version of the 'FoW' (Force Of Will) suite for ComfyUI, featuring PromptRefinerLight as the flagship node for simple prompt creation. It helps low-spec users craft raw prompts and collaborate with high-spec users for image generation, with a light, stable design—no tokenization or weighing, perfect for newbies! I developed it as my first coding project in 2 months, learning ComfyUI’s capabilities along the way."
-        },
-        {
             "author": "KAVVATARE",
             "title": " ComfyUI-Light-N-Color",
             "reference": "https://github.com/KAVVATARE/ComfyUI-Light-N-Color",
@@ -21560,7 +21601,49 @@
             "install_type": "git-clone",
             "description": "The Face Cropper Node (MarwanFaceCropping) is a custom image processing node designed for ComfyUI. It takes an input image and crops it to a 2:3 aspect ratio, ensuring that most of the subject remains in the frame while maintaining the correct proportions."
         },
-        
+        {
+            "author": "JiSenHua",
+            "title": "ComfyUI-TD",
+            "id": "touchdesigner",
+            "reference": "https://github.com/JiSenHua/ComfyUI-TD",
+            "files": [
+                "https://github.com/JiSenHua/ComfyUI-TD"
+            ],
+            "install_type": "git-clone",
+            "description": "A custom node for ComfyUI designed to facilitate the real-time transmission of rendered images, videos, or 3D models to TouchDesigner."
+        },
+        {
+            "author": "lthero-big",
+            "title": "Comfyui-DPRWatermark",
+            "reference": "https://github.com/lthero-big/Comfyui-DPRWatermark",
+            "files": [
+                "https://github.com/lthero-big/Comfyui-DPRWatermark"
+            ],
+            "install_type": "git-clone",
+            "description": "The DPRW (Diffusion-based Perceptual Robust Watermarking) node is a custom node designed for **ComfyUI**, aimed at protecting generated images by embedding watermarks into latent noise. It leverages the characteristics of diffusion models to embed and extract watermark information without significantly affecting image quality. The DPRW node provides three main functional categories, assisting users in adding watermarks, extracting watermarks, and performing advanced sampling during the image generation process."
+        },
+        {
+            "author": "InceptionsAI",
+            "title": "ComfyUI-RunComfy-Helper",
+            "reference": "https://github.com/InceptionsAI/ComfyUI-RunComfy-Helper",
+            "files": [
+                "https://github.com/InceptionsAI/ComfyUI-RunComfy-Helper"
+            ],
+            "install_type": "git-clone",
+            "description": "Helper nodes for [a/RunComfy](https://www.runcomfy.com)"
+        },
+        {
+            "author": "fluffydiveX",
+            "title": "ComfyUI-hvBlockswap",
+            "reference": "https://github.com/fluffydiveX/ComfyUI-hvBlockswap",
+            "files": [
+                "https://github.com/fluffydiveX/ComfyUI-hvBlockswap"
+            ],
+            "install_type": "git-clone",
+            "description": "It is a simple HunyuanVideo block swap node for ComfyUI native nodes."
+        },
+
+
 
 
 
