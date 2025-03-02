@@ -1584,6 +1584,7 @@ export class CustomNodesManager {
 
 		let unresolved_aux_ids = {};
 		let outdated_comfyui = false;
+		let unresolved_cnr_list = [];
 
 		for(let k in allUsedNodes) {
 			let node = allUsedNodes[k];
@@ -1596,7 +1597,14 @@ export class CustomNodesManager {
 					}
 
 					let item = this.custom_nodes[node.properties.cnr_id];
-					hashMap[item.hash] = true;
+					if(item) {
+						hashMap[item.hash] = true;
+					}
+					else {
+						console.log(`CM: cannot find '${node.properties.cnr_id}' from cnr list.`);
+						unresolved_aux_ids[node.properties.cnr_id] = node.type;
+						unresolved_cnr_list.push(node.properties.cnr_id);
+					}
 				}
 				else if(node.properties.aux_id) {
 					unresolved_aux_ids[node.properties.aux_id] = node.type;
@@ -1605,6 +1613,16 @@ export class CustomNodesManager {
 					unresolved_missing_nodes.add(node.type);
 				}
 			}
+		}
+
+
+		if(unresolved_cnr_list.length > 0) {
+			let error_msg = "Failed to find the following ComfyRegistry list.\nThe cache may be outdated, or the nodes may have been removed from ComfyRegistry.<HR>";
+			for(let i in unresolved_cnr_list) {
+				error_msg += '<li>'+unresolved_cnr_list[i]+'</li>';
+			}
+
+			show_message(error_msg);
 		}
 
 		if(outdated_comfyui) {
