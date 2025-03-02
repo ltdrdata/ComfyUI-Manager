@@ -269,18 +269,27 @@ class PIPFixer:
         self.prev_pip_versions = { **prev_pip_versions }
 
     def torch_rollback(self):
+        print("[DBG] point(torch_rollback) 1")
         spec = self.prev_pip_versions['torch'].split('+')
+        print("[DBG] point(torch_rollback) 2")
         if len(spec) > 0:
             platform = spec[1]
         else:
+            print("[DBG] point(torch_rollback) 3")
             cmd = make_pip_cmd(['install', '--force', 'torch', 'torchvision', 'torchaudio'])
             subprocess.check_output(cmd, universal_newlines=True)
+            print("[DBG] point(torch_rollback) 4")
             logging.error(cmd)
+            print("[DBG] point(torch_rollback) 5")
             return
 
+        print("[DBG] point(torch_rollback) 6")
         torch_ver = StrictVersion(spec[0])
+        print("[DBG] point(torch_rollback) 7")
         torch_ver = f"{torch_ver.major}.{torch_ver.minor}.{torch_ver.patch}"
+        print("[DBG] point(torch_rollback) 8")
         torch_torchvision_torchaudio_ver = torch_torchvision_torchaudio_version_map.get(torch_ver)
+        print("[DBG] point(torch_rollback) 9")
 
         if torch_torchvision_torchaudio_ver is None:
             cmd = make_pip_cmd(['install', '--pre', 'torch', 'torchvision', 'torchaudio',
@@ -292,46 +301,64 @@ class PIPFixer:
                                 '--index-url', f"https://download.pytorch.org/whl/{platform}"])
             logging.info(f"[ComfyUI-Manager] restore PyTorch to {torch_ver}+{platform}")
 
+        print("[DBG] point(torch_rollback) 10")
         subprocess.check_output(cmd, universal_newlines=True)
+        print("[DBG] point(torch_rollback) 11")
 
     def fix_broken(self):
+        print("[DBG] point9-1")
         new_pip_versions = get_installed_packages(True)
 
+        print("[DBG] point9-2")
         # remove `comfy` python package
         try:
+            print("[DBG] point9-3")
             if 'comfy' in new_pip_versions:
+                print("[DBG] point9-3-1")
                 cmd = make_pip_cmd(['uninstall', 'comfy'])
                 subprocess.check_output(cmd, universal_newlines=True)
 
                 logging.warning("[ComfyUI-Manager] 'comfy' python package is uninstalled.\nWARN: The 'comfy' package is completely unrelated to ComfyUI and should never be installed as it causes conflicts with ComfyUI.")
+            print("[DBG] point9-4")
         except Exception as e:
+            print("[DBG] point9-5")
             logging.error("[ComfyUI-Manager] Failed to uninstall `comfy` python package")
             logging.error(e)
 
         # fix torch - reinstall torch packages if version is changed
+        print("[DBG] point9-6")
         try:
+            print("[DBG] point9-7")
             if 'torch' not in self.prev_pip_versions or 'torchvision' not in self.prev_pip_versions or 'torchaudio' not in self.prev_pip_versions:
+                print("[DBG] point9-8")
                 logging.error("[ComfyUI-Manager] PyTorch is not installed")
             elif self.prev_pip_versions['torch'] != new_pip_versions['torch'] \
                 or self.prev_pip_versions['torchvision'] != new_pip_versions['torchvision'] \
                 or self.prev_pip_versions['torchaudio'] != new_pip_versions['torchaudio']:
+                    print("[DBG] point9-9")
                     self.torch_rollback()
+                    print("[DBG] point9-10")
         except Exception as e:
+            print("[DBG] point9-11")
             logging.error("[ComfyUI-Manager] Failed to restore PyTorch")
             logging.error(e)
 
         # fix opencv
         try:
+            print("[DBG] point9-12")
             ocp = new_pip_versions.get('opencv-contrib-python')
             ocph = new_pip_versions.get('opencv-contrib-python-headless')
             op = new_pip_versions.get('opencv-python')
             oph = new_pip_versions.get('opencv-python-headless')
 
+            print("[DBG] point9-13")
             versions = [ocp, ocph, op, oph]
             versions = [StrictVersion(x) for x in versions if x is not None]
             versions.sort(reverse=True)
 
+            print("[DBG] point9-14")
             if len(versions) > 0:
+                print("[DBG] point9-15")
                 # upgrade to maximum version
                 targets = []
                 cur = versions[0]
@@ -344,26 +371,39 @@ class PIPFixer:
                 if oph is not None and StrictVersion(oph) != cur:
                     targets.append('opencv-python-headless')
 
+                print("[DBG] point9-16")
                 if len(targets) > 0:
+                    print("[DBG] point9-17")
                     for x in targets:
                         cmd = make_pip_cmd(['install', f"{x}=={versions[0].version_string}"])
                         subprocess.check_output(cmd, universal_newlines=True)
 
                     logging.info(f"[ComfyUI-Manager] 'opencv' dependencies were fixed: {targets}")
+                    print("[DBG] point9-18")
         except Exception as e:
+            print("[DBG] point9-19")
             logging.error("[ComfyUI-Manager] Failed to restore opencv")
             logging.error(e)
+            print("[DBG] point9-20")
 
         # fix numpy
         try:
+            print("[DBG] point9-21")
             np = new_pip_versions.get('numpy')
+            print("[DBG] point9-22")
             if np is not None:
+                print("[DBG] point9-23")
                 if StrictVersion(np) >= StrictVersion('2'):
+                    print("[DBG] point9-24")
                     cmd = make_pip_cmd(['install', "numpy<2"])
                     subprocess.check_output(cmd , universal_newlines=True)
+                    print("[DBG] point9-25")
         except Exception as e:
+            print("[DBG] point9-26")
             logging.error("[ComfyUI-Manager] Failed to restore numpy")
             logging.error(e)
+
+        print("[DBG] point9-28")
 
 
 def sanitize(data):
