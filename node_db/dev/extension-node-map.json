@@ -169,6 +169,7 @@
             "PD_ImageConcanate",
             "PD_Image_Crop_Location",
             "PD_RemoveColorWords",
+            "ReadTxtFiles",
             "json_group_fontsize"
         ],
         {
@@ -582,6 +583,16 @@
             "title_aux": "ComfyUI_bd_customNodes"
         }
     ],
+    "https://github.com/BuffMcBigHuge/ComfyUI-Buff-Nodes": [
+        [
+            "ConsoleOutput",
+            "FilePathSelectorFromDirectory",
+            "StringProcessor"
+        ],
+        {
+            "title_aux": "ComfyUI-Buff-Nodes [WIP]"
+        }
+    ],
     "https://github.com/Chargeuk/ComfyUI-vts-nodes": [
         [
             "VTS Clean Text",
@@ -952,7 +963,7 @@
             "title_aux": "comfyui_HavocsCall_Custom_Nodes"
         }
     ],
-    "https://github.com/HuangYuChuh/ComfyUI-DeepSeek_Toolkit": [
+    "https://github.com/HuangYuChuh/ComfyUI-DeepSeek-Toolkit": [
         [
             "DeepSeekImageAnalyst",
             "DeepSeekImageGeneration",
@@ -964,7 +975,7 @@
             "VideoFileUploader"
         ],
         {
-            "title_aux": "ComfyUI-DeepSeek_Toolkit [WIP]"
+            "title_aux": "ComfyUI-DeepSeek-Toolkit [WIP]"
         }
     ],
     "https://github.com/IfnotFr/ComfyUI-Ifnot-Pack": [
@@ -1390,7 +1401,6 @@
             "FolderIteratorNODE",
             "Get_cookies_Node",
             "Get_json_value_Node",
-            "Get_video_Node",
             "HashCalculationsNode",
             "HuggingFaceUploadNode",
             "IMG2URLNode",
@@ -1410,7 +1420,6 @@
             "TranslateAPINode",
             "ZIPwith7zNode",
             "img_understanding_Node",
-            "klingai_video_Node",
             "path_join_Node",
             "save_img_NODE",
             "set_api_Node"
@@ -1421,7 +1430,7 @@
     ],
     "https://github.com/Northerner1/ComfyUI_North_Noise": [
         [
-            "North_Unsampler"
+            "North_Noise"
         ],
         {
             "title_aux": "ComfyUI_North_Noise [WIP]"
@@ -3266,6 +3275,7 @@
             "ACE_ImageSaveToCloud",
             "ACE_Integer",
             "ACE_MaskBlur",
+            "ACE_OpenAI_GPT_Chat",
             "ACE_Seed",
             "ACE_Text",
             "ACE_TextConcatenate",
@@ -3274,7 +3284,9 @@
             "ACE_TextInputSwitch4Way",
             "ACE_TextInputSwitch8Way",
             "ACE_TextList",
+            "ACE_TextLoad",
             "ACE_TextPreview",
+            "ACE_TextSave",
             "ACE_TextSelector",
             "ACE_TextToResolution",
             "ACE_TextTranslate",
@@ -3970,6 +3982,7 @@
             "WanVideoLoraSelect",
             "WanVideoModelLoader",
             "WanVideoSampler",
+            "WanVideoTeaCache",
             "WanVideoTextEncode",
             "WanVideoTorchCompileSettings",
             "WanVideoVAELoader"
@@ -4000,6 +4013,7 @@
             "AIO_Translater",
             "Abc_Math",
             "Baidu_Translater",
+            "BiRefNet_Loader",
             "Color_Adjustment",
             "Custom_Save_Image",
             "Display_Any",
@@ -4734,9 +4748,17 @@
     ],
     "https://github.com/nomcycle/ComfyUI_Cluster": [
         [
-            "ClusterFanInImages",
-            "ClusterFanInLatents",
-            "ClusterInstanceIndex"
+            "ClusterBroadcastTensor",
+            "ClusterExecuteCurrentWorkflow",
+            "ClusterExecuteWorkflow",
+            "ClusterFanOutImage",
+            "ClusterFanOutLatent",
+            "ClusterFanOutMask",
+            "ClusterGatherImages",
+            "ClusterGatherLatents",
+            "ClusterGatherMasks",
+            "ClusterInstanceIndex",
+            "ClusterListenTensorBroadcast"
         ],
         {
             "title_aux": "ComfyUI_Cluster [WIP]"
@@ -4878,6 +4900,14 @@
             "title_aux": "ComyUI-Tupham"
         }
     ],
+    "https://github.com/pixuai/ComfyUI-PixuAI": [
+        [
+            "PromptSearch"
+        ],
+        {
+            "title_aux": "ComfyUI-PixuAI"
+        }
+    ],
     "https://github.com/poisenbery/NudeNet-Detector-Provider": [
         [
             "NudeNetDetectorProvider"
@@ -4992,6 +5022,14 @@
             "title_aux": "ComfyUI_HEXtoRGB"
         }
     ],
+    "https://github.com/ritikvirus/comfyui-terminal-modal-node": [
+        [
+            "terminal_node"
+        ],
+        {
+            "title_aux": "ComfyUI Terminal Command Node [UNSAFE]"
+        }
+    ],
     "https://github.com/rouxianmantou/comfyui-rxmt-nodes": [
         [
             "CheckValueTypeNode",
@@ -5016,14 +5054,6 @@
         ],
         {
             "title_aux": "ComfyUI_YoloNasObjectDetection_Tensorrt [WIP]"
-        }
-    ],
-    "https://github.com/scottmudge/ComfyUI_BiscuitNodes": [
-        [
-            "LoadImagePrompted"
-        ],
-        {
-            "title_aux": "ComfyUI_BiscuitNodes"
         }
     ],
     "https://github.com/sdfxai/SDFXBridgeForComfyUI": [
@@ -5281,6 +5311,15 @@
         ],
         {
             "title_aux": "ComfyUI_Save_Flux_Image"
+        }
+    ],
+    "https://github.com/techidsk/comfyui_molook_nodes": [
+        [
+            "MaskExpand(Molook)",
+            "OpenAIProvider(Molook)"
+        ],
+        {
+            "title_aux": "comfyui_molook_nodes [WIP]"
         }
     ],
     "https://github.com/techzuhaib/ComfyUI-CacheImageNode": [
