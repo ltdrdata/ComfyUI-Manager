@@ -467,8 +467,8 @@ async def task_worker():
                 res = core.update_path(repo_path)
                 
             if res == "fail":
-                logging.error("ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
-                return "The installed ComfyUI does not have a Git repository."
+                logging.error("ComfyUI update failed")
+                return "fail"
             elif res == "updated":
                 if is_stable:
                     logging.info("ComfyUI is updated to latest stable version.")

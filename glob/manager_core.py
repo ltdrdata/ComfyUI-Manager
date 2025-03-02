@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 27, 5]
+version_code = [3, 27, 6]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -2399,7 +2399,14 @@ def gitclone_update(files, instant_execution=False, skip_script=False, msg_prefi
 def update_to_stable_comfyui(repo_path):
     try:
         repo = git.Repo(repo_path)
-        repo.git.checkout(repo.heads.master)
+        try:
+            repo.git.checkout(repo.heads.master)
+        except:
+            logging.error(f"[ComfyUI-Manager] Failed to checkout 'master' branch.\nrepo_path={repo_path}\nAvailable branches:")
+            for branch in repo.branches:
+                logging.error('\t'+branch.name)
+            return "fail", None
+
         versions, current_tag, _ = get_comfyui_versions(repo)
         
         if len(versions) == 0 or (len(versions) == 1 and versions[0] == 'nightly'):

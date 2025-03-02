@@ -689,7 +689,7 @@ async function onQueueStatus(event) {
 
 		let msg = "";
 		
-		if(success_list.length == 0 && !comfyui_state.startsWith('success')) {
+		if(success_list.length == 0 && comfyui_state.startsWith('skip')) {
 			if(failed_list.length == 0) {
 				msg += "You are already up to date.";
 			}
