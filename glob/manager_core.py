@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 27, 7]
+version_code = [3, 27, 8]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1173,14 +1173,14 @@ class UnifiedManager:
         ver_and_path = self.active_nodes.get(node_id)
 
         if ver_and_path is not None and os.path.exists(ver_and_path[1]):
-            shutil.rmtree(ver_and_path[1])
+            try_rmtree(node_id, ver_and_path[1])
             result.items.append(ver_and_path)
             del self.active_nodes[node_id]
 
         # remove from nightly inactives
         fullpath = self.nightly_inactive_nodes.get(node_id)
         if fullpath is not None and os.path.exists(fullpath):
-            shutil.rmtree(fullpath)
+            try_rmtree(node_id, fullpath)
             result.items.append(('nightly', fullpath))
             del self.nightly_inactive_nodes[node_id]
 
@@ -1188,7 +1188,7 @@ class UnifiedManager:
         ver_map = self.cnr_inactive_nodes.get(node_id)
         if ver_map is not None:
             for key, fullpath in ver_map.items():
-                shutil.rmtree(fullpath)
+                try_rmtree(node_id, fullpath)
                 result.items.append((key, fullpath))
             del self.cnr_inactive_nodes[node_id]
 
@@ -1750,18 +1750,29 @@ def switch_to_default_branch(repo):
     return False
 
 
+def reserve_script(repo_path, install_cmds):
+    if not os.path.exists(manager_startup_script_path):
+        os.makedirs(manager_startup_script_path)
+
+    script_path = os.path.join(manager_startup_script_path, "install-scripts.txt")
+    with open(script_path, "a") as file:
+        obj = [repo_path] + install_cmds
+        file.write(f"{obj}\n")
+
+
+def try_rmtree(title, fullpath):
+    try:
+        shutil.rmtree(fullpath)
+    except Exception as e:
+        logging.warning(f"[ComfyUI-Manager] An error occurred while deleting '{fullpath}', so it has been scheduled for deletion upon restart.\nEXCEPTION: {e}")
+        reserve_script(title, ["#LAZY-DELETE-NODEPACK", fullpath])
+
+
 def try_install_script(url, repo_path, install_cmd, instant_execution=False):
     if not instant_execution and (
             (len(install_cmd) > 0 and install_cmd[0].startswith('#')) or platform.system() == "Windows" or get_config()['always_lazy_install']
     ):
-        if not os.path.exists(manager_startup_script_path):
-            os.makedirs(manager_startup_script_path)
-
-        script_path = os.path.join(manager_startup_script_path, "install-scripts.txt")
-        with open(script_path, "a") as file:
-            obj = [repo_path] + install_cmd
-            file.write(f"{obj}\n")
-
+        reserve_script(repo_path, install_cmd)
         return True
     else:
         if len(install_cmd) == 5 and install_cmd[2:4] == ['pip', 'install']:
