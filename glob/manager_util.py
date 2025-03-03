@@ -357,7 +357,7 @@ class PIPFixer:
 
                 if len(targets) > 0:
                     for x in targets:
-                        cmd = make_pip_cmd(['install', f"{x}=={versions[0].version_string}"])
+                        cmd = make_pip_cmd(['install', f"{x}=={versions[0].version_string}", "numpy<2"])
                         subprocess.check_output(cmd, universal_newlines=True)
 
                     logging.info(f"[ComfyUI-Manager] 'opencv' dependencies were fixed: {targets}")
