@@ -450,7 +450,7 @@ async def task_worker():
                     return base_res
 
             base_res['msg'] = f"An error occurred while updating '{node_name}'."
-            logging.error(f"\nERROR: An error occurred while updating '{node_name}'.")
+            logging.error(f"\nERROR: An error occurred while updating '{node_name}'. (res={res})")
             return base_res
         except Exception:
             traceback.print_exc()
