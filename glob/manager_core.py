@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 27, 9]
+version_code = [3, 27, 10]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -2590,15 +2590,12 @@ async def get_current_snapshot(custom_nodes_only = False):
     # Get ComfyUI hash
     repo_path = comfy_path
 
-    if not os.path.exists(os.path.join(repo_path, '.git')):
-        print("ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
-        return {}
-
     comfyui_commit_hash = None
     if not custom_nodes_only:
-        repo = git.Repo(repo_path)
-        comfyui_commit_hash = repo.head.commit.hexsha
-
+        if os.path.exists(os.path.join(repo_path, '.git')):
+            repo = git.Repo(repo_path)
+            comfyui_commit_hash = repo.head.commit.hexsha
+        
     git_custom_nodes = {}
     cnr_custom_nodes = {}
     file_custom_nodes = []

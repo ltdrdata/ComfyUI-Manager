@@ -61,12 +61,16 @@ if os.path.exists(os.path.join(manager_util.comfyui_manager_path, "pip_blacklist
 
 
 def check_comfyui_hash():
-    repo = git.Repo(comfy_path)
-    core.comfy_ui_revision = len(list(repo.iter_commits('HEAD')))
+    try:
+        repo = git.Repo(comfy_path)
+        core.comfy_ui_revision = len(list(repo.iter_commits('HEAD')))
+        core.comfy_ui_commit_datetime = repo.head.commit.committed_datetime
+    except:
+        print('[bold yellow]INFO: Frozen ComfyUI mode.[/bold yellow]')
+        core.comfy_ui_revision = 0
+        core.comfy_ui_commit_datetime = 0
 
     cm_global.variables['comfyui.revision'] = core.comfy_ui_revision
-
-    core.comfy_ui_commit_datetime = repo.head.commit.committed_datetime
 
 
 check_comfyui_hash()  # This is a preparation step for manager_core
@@ -250,7 +254,7 @@ def fix_node(node_spec_str, is_all=False, cnt_msg=''):
     res = unified_manager.unified_fix(node_name, version_spec, no_deps=cmd_ctx.no_deps)
 
     if not res.result:
-        print(f"ERROR: f{res.msg}")
+        print(f"[bold red]ERROR: f{res.msg}[/bold red]")
 
 
 def uninstall_node(node_spec_str: str, is_all: bool = False, cnt_msg: str = ''):
@@ -1043,13 +1047,17 @@ def save_snapshot(
 ):
     cmd_ctx.set_user_directory(user_directory)
 
+    if output is None:
+        print("[bold red]ERROR: missing output path[/bold red]")
+        raise typer.Exit(code=1)
+        
     if(not output.endswith('.json') and not output.endswith('.yaml')):
-        print("ERROR: output path should be either '.json' or '.yaml' file.")
+        print("[bold red]ERROR: output path should be either '.json' or '.yaml' file.[/bold red]")
         raise typer.Exit(code=1)
     
     dir_path = os.path.dirname(output)
     if(dir_path != '' and not os.path.exists(dir_path)):
-        print(f"ERROR: {output} path not exists.")
+        print(f"[bold red]ERROR: {output} path not exists.[/bold red]")
         raise typer.Exit(code=1)
         
     path = asyncio.run(core.save_snapshot_with_postfix('snapshot', output, not full_snapshot))
