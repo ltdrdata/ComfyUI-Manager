@@ -180,7 +180,7 @@ def save_to_cache(uri, json_obj, silent=False):
                 logging.info(f"[ComfyUI-Manager] default cache updated: {uri}")
 
 
-async def get_data_with_cache(uri, silent=False, cache_mode=True, dont_wait=False):
+async def get_data_with_cache(uri, silent=False, cache_mode=True, dont_wait=False, dont_cache=False):
     cache_uri = get_cache_path(uri)
 
     if cache_mode and dont_wait:
@@ -199,11 +199,12 @@ async def get_data_with_cache(uri, silent=False, cache_mode=True, dont_wait=Fals
         json_obj = await get_data(cache_uri, silent=silent)
     else:
         json_obj = await get_data(uri, silent=silent)
-        with cache_lock:
-            with open(cache_uri, "w", encoding='utf-8') as file:
-                json.dump(json_obj, file, indent=4, sort_keys=True)
-                if not silent:
-                    logging.info(f"[ComfyUI-Manager] default cache updated: {uri}")
+        if not dont_cache:
+            with cache_lock:
+                with open(cache_uri, "w", encoding='utf-8') as file:
+                    json.dump(json_obj, file, indent=4, sort_keys=True)
+                    if not silent:
+                        logging.info(f"[ComfyUI-Manager] default cache updated: {uri}")
 
     return json_obj
 

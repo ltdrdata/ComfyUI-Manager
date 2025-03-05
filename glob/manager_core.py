@@ -23,6 +23,7 @@ import yaml
 import zipfile
 import traceback
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import toml
 
 orig_print = print
 
@@ -79,6 +80,24 @@ def get_comfyui_tag():
         return repo.git.describe('--tags')
     except:
         return None
+
+
+def get_current_comfyui_ver():
+    """
+    Extract version from pyproject.toml
+    """
+    toml_path = os.path.join(comfy_path, 'pyproject.toml')
+    if not os.path.exists(toml_path):
+        return None
+    else:
+        try:
+            with open(toml_path, "r", encoding="utf-8") as f:
+                data = toml.load(f)
+
+                project = data.get('project', {})
+                return project.get('version')
+        except:
+            return None
 
 
 def get_script_env():
@@ -154,7 +173,7 @@ def check_invalid_nodes():
 
 
 # read env vars
-comfy_path = os.environ.get('COMFYUI_PATH')
+comfy_path: str = os.environ.get('COMFYUI_PATH')
 comfy_base_path = os.environ.get('COMFYUI_FOLDERS_BASE_PATH')
 
 if comfy_path is None:

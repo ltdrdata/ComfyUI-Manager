@@ -35,16 +35,21 @@ async def _get_cnr_data(cache_mode=True, dont_wait=True):
         page = 1
 
         full_nodes = {}
-        
-        # Get ComfyUI version tag
-        comfyui_tag = manager_core.get_comfyui_tag() or 'unknown'
+
         
         # Determine form factor based on environment and platform
         is_desktop = bool(os.environ.get('__COMFYUI_DESKTOP_VERSION__'))
         system = platform.system().lower()
         is_windows = system == 'windows'
         is_mac = system == 'darwin'
-        
+
+        # Get ComfyUI version tag
+        if is_desktop:
+            # extract version from pyproject.toml instead of git tag
+            comfyui_ver = manager_core.get_current_comfyui_ver() or 'unknown'
+        else:
+            comfyui_ver = manager_core.get_comfyui_tag() or 'unknown'
+
         if is_desktop:
             if is_windows:
                 form_factor = 'desktop-win'
@@ -62,8 +67,8 @@ async def _get_cnr_data(cache_mode=True, dont_wait=True):
         
         while remained:
             # Add comfyui_version and form_factor to the API request
-            sub_uri = f'{base_url}/nodes?page={page}&limit=30&comfyui_version={comfyui_tag}&form_factor={form_factor}'
-            sub_json_obj = await asyncio.wait_for(manager_util.get_data_with_cache(sub_uri, cache_mode=False, silent=True), timeout=30)
+            sub_uri = f'{base_url}/nodes?page={page}&limit=30&comfyui_version={comfyui_ver}&form_factor={form_factor}'
+            sub_json_obj = await asyncio.wait_for(manager_util.get_data_with_cache(sub_uri, cache_mode=False, silent=True, dont_cache=True), timeout=30)
             remained = page < sub_json_obj['totalPages']
 
             for x in sub_json_obj['nodes']:
