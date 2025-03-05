@@ -276,8 +276,9 @@ torch_torchvision_torchaudio_version_map = {
 
 
 class PIPFixer:
-    def __init__(self, prev_pip_versions):
+    def __init__(self, prev_pip_versions, comfyui_path):
         self.prev_pip_versions = { **prev_pip_versions }
+        self.comfyui_path = comfyui_path
 
     def torch_rollback(self):
         spec = self.prev_pip_versions['torch'].split('+')
@@ -374,6 +375,22 @@ class PIPFixer:
                     subprocess.check_output(cmd , universal_newlines=True)
         except Exception as e:
             logging.error("[ComfyUI-Manager] Failed to restore numpy")
+            logging.error(e)
+
+        # fix missing frontend
+        try:
+            front = new_pip_versions.get('comfyui_frontend_package')
+            if front is None:
+                requirements_path = os.path.join(self.comfyui_path, 'requirements.txt')
+
+                with open(requirements_path, 'r') as file:
+                    lines = file.readlines()
+                
+                front_line = next((line.strip() for line in lines if line.startswith('comfyui-frontend-package')), None)
+                cmd = make_pip_cmd(['install', front_line])
+                subprocess.check_output(cmd , universal_newlines=True)
+        except Exception as e:
+            logging.error("[ComfyUI-Manager] Failed to restore comfyui_frontend_package")
             logging.error(e)
 
 

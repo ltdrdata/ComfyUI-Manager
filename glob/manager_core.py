@@ -42,7 +42,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 27, 11]
+version_code = [3, 28]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -828,7 +828,7 @@ class UnifiedManager:
         else:
             if os.path.exists(requirements_path) and not no_deps:
                 print("Install: pip packages")
-                pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+                pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path)
                 res = True
                 lines = manager_util.robust_readlines(requirements_path)
                 for line in lines:
@@ -1883,7 +1883,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
     else:
         if os.path.exists(requirements_path) and not no_deps:
             print("Install: pip packages")
-            pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+            pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path)
             with open(requirements_path, "r") as requirements_file:
                 for line in requirements_file:
                     #handle comments
