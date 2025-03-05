@@ -1,12 +1,14 @@
-import requests
-from dataclasses import dataclass
-from typing import List
-import manager_util
-import toml
-import os
 import asyncio
 import json
+import os
 import time
+from dataclasses import dataclass
+from typing import List
+
+import manager_core
+import manager_util
+import requests
+import toml
 
 base_url = "https://api.comfy.org"
 
@@ -32,8 +34,13 @@ async def _get_cnr_data(cache_mode=True, dont_wait=True):
         page = 1
 
         full_nodes = {}
+        
+        # Get ComfyUI version tag
+        comfyui_tag = manager_core.get_comfyui_tag() or 'unknown'
+        
         while remained:
-            sub_uri = f'{base_url}/nodes?page={page}&limit=30'
+            # Add comfyui_version and form_factor to the API request
+            sub_uri = f'{base_url}/nodes?page={page}&limit=30&comfyui_version={comfyui_tag}'
             sub_json_obj = await asyncio.wait_for(manager_util.get_data_with_cache(sub_uri, cache_mode=False, silent=True), timeout=30)
             remained = page < sub_json_obj['totalPages']
 
