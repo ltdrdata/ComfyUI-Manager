@@ -711,7 +711,7 @@ def uninstall(
     for_each_nodes(nodes, act=uninstall_node)
 
 
-@app.command(help="Disable custom nodes")
+@app.command(help="Update custom nodes")
 def update(
         nodes: List[str] = typer.Argument(
             ...,
