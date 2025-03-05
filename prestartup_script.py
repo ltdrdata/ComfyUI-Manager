@@ -818,6 +818,9 @@ if script_executed:
 
         if sys.platform.startswith('win32'):
             cmds = ['"' + sys.executable + '"', '"' + sys_argv[0] + '"'] + sys_argv[1:]
+        elif sys_argv[0].endswith("__main__.py"):  # this is a python module
+            module_name = os.path.basename(os.path.dirname(sys_argv[0]))
+            cmds = [sys.executable, '-m', module_name] + sys_argv[1:]
         else:
             cmds = [sys.executable] + sys_argv
 
