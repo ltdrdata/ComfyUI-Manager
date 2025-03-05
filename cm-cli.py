@@ -647,7 +647,7 @@ def install(
     cmd_ctx.set_channel_mode(channel, mode)
     cmd_ctx.set_no_deps(no_deps)
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path)
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
     for_each_nodes(nodes, act=install_node)
     pip_fixer.fix_broken()
 
@@ -685,7 +685,7 @@ def reinstall(
     cmd_ctx.set_channel_mode(channel, mode)
     cmd_ctx.set_no_deps(no_deps)
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path)
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
     for_each_nodes(nodes, act=reinstall_node)
     pip_fixer.fix_broken()
 
@@ -739,7 +739,7 @@ def update(
     if 'all' in nodes:
         asyncio.run(auto_save_snapshot())
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path)
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
 
     for x in nodes:
         if x.lower() in ['comfyui', 'comfy', 'all']:
@@ -840,7 +840,7 @@ def fix(
     if 'all' in nodes:
         asyncio.run(auto_save_snapshot())
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path)
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
     for_each_nodes(nodes, fix_node, allow_all=True)
     pip_fixer.fix_broken()
 
@@ -1119,7 +1119,7 @@ def restore_snapshot(
             print(f"[bold red]ERROR: `{snapshot_path}` is not exists.[/bold red]")
             exit(1)
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path)
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
     try:
         asyncio.run(core.restore_snapshot(snapshot_path, extras))
     except Exception:
@@ -1151,7 +1151,7 @@ def restore_dependencies(
     total = len(node_paths)
     i = 1
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path)
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
     for x in node_paths:
         print("----------------------------------------------------------------------------------------------------")
         print(f"Restoring [{i}/{total}]: {x}")
@@ -1170,7 +1170,7 @@ def post_install(
 ):
     path = os.path.expanduser(path)
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path)
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
     unified_manager.execute_install_script('', path, instant_execution=True)
     pip_fixer.fix_broken()
 
@@ -1214,8 +1214,7 @@ def install_deps(
                 print(f"[bold red]Invalid json file: {deps}[/bold red]")
                 exit(1)
 
-
-            pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path)
+            pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
             for k in json_obj['custom_nodes'].keys():
                 state = core.simple_check_custom_node(k)
                 if state == 'installed':
