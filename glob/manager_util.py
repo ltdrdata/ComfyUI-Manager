@@ -246,7 +246,8 @@ def get_installed_packages(renew=False):
                     if y[0] == 'Package' or y[0].startswith('-'):
                         continue
 
-                    pip_map[y[0].lower()] = y[1]
+                    normalized_name = y[0].lower().replace('-', '_')
+                    pip_map[normalized_name] = y[1]
         except subprocess.CalledProcessError:
             logging.error("[ComfyUI-Manager] Failed to retrieve the information of installed pip packages.")
             return set()
@@ -426,7 +427,12 @@ class PIPFixer:
 
         # fix missing frontend
         try:
-            if 'comfyui-frontend-package' not in new_pip_versions:
+            # NOTE: package name in requirements is 'comfyui-frontend-package'
+            #       but, package name from `pip freeze` is 'comfyui_frontend_package'
+            #       but, package name from `uv pip freeze` is 'comfyui-frontend-package'
+            #
+            #       get_installed_packages returns normalized name (i.e. comfyui_frontend_package)
+            if 'comfyui_frontend_package' not in new_pip_versions:
                 requirements_path = os.path.join(self.comfyui_path, 'requirements.txt')
 
                 with open(requirements_path, 'r') as file:
@@ -452,7 +458,8 @@ class PIPFixer:
                         parsed = parse_requirement_line(x)
                         need_to_reinstall = True
 
-                        if parsed['package'] in new_pip_versions:
+                        normalized_name = parsed['package'].lower().replace('-', '_')
+                        if normalized_name in new_pip_versions:
                             if 'version' in parsed and 'operator' in parsed:
                                 cur = StrictVersion(new_pip_versions[parsed['package']])
                                 dest = parsed['version']
