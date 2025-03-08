@@ -23,6 +23,7 @@ import yaml
 import zipfile
 import traceback
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import toml
 
 orig_print = print
 
@@ -42,7 +43,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 27, 6]
+version_code = [3, 30, 3]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -74,11 +75,29 @@ def get_custom_nodes_paths():
 
 
 def get_comfyui_tag():
-    repo = git.Repo(comfy_path)
     try:
+        repo = git.Repo(comfy_path)
         return repo.git.describe('--tags')
     except:
         return None
+
+
+def get_current_comfyui_ver():
+    """
+    Extract version from pyproject.toml
+    """
+    toml_path = os.path.join(comfy_path, 'pyproject.toml')
+    if not os.path.exists(toml_path):
+        return None
+    else:
+        try:
+            with open(toml_path, "r", encoding="utf-8") as f:
+                data = toml.load(f)
+
+                project = data.get('project', {})
+                return project.get('version')
+        except:
+            return None
 
 
 def get_script_env():
@@ -154,7 +173,7 @@ def check_invalid_nodes():
 
 
 # read env vars
-comfy_path = os.environ.get('COMFYUI_PATH')
+comfy_path: str = os.environ.get('COMFYUI_PATH')
 comfy_base_path = os.environ.get('COMFYUI_FOLDERS_BASE_PATH')
 
 if comfy_path is None:
@@ -828,7 +847,7 @@ class UnifiedManager:
         else:
             if os.path.exists(requirements_path) and not no_deps:
                 print("Install: pip packages")
-                pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+                pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, manager_files_path)
                 res = True
                 lines = manager_util.robust_readlines(requirements_path)
                 for line in lines:
@@ -1173,14 +1192,14 @@ class UnifiedManager:
         ver_and_path = self.active_nodes.get(node_id)
 
         if ver_and_path is not None and os.path.exists(ver_and_path[1]):
-            shutil.rmtree(ver_and_path[1])
+            try_rmtree(node_id, ver_and_path[1])
             result.items.append(ver_and_path)
             del self.active_nodes[node_id]
 
         # remove from nightly inactives
         fullpath = self.nightly_inactive_nodes.get(node_id)
         if fullpath is not None and os.path.exists(fullpath):
-            shutil.rmtree(fullpath)
+            try_rmtree(node_id, fullpath)
             result.items.append(('nightly', fullpath))
             del self.nightly_inactive_nodes[node_id]
 
@@ -1188,7 +1207,7 @@ class UnifiedManager:
         ver_map = self.cnr_inactive_nodes.get(node_id)
         if ver_map is not None:
             for key, fullpath in ver_map.items():
-                shutil.rmtree(fullpath)
+                try_rmtree(node_id, fullpath)
                 result.items.append((key, fullpath))
             del self.cnr_inactive_nodes[node_id]
 
@@ -1750,18 +1769,29 @@ def switch_to_default_branch(repo):
     return False
 
 
+def reserve_script(repo_path, install_cmds):
+    if not os.path.exists(manager_startup_script_path):
+        os.makedirs(manager_startup_script_path)
+
+    script_path = os.path.join(manager_startup_script_path, "install-scripts.txt")
+    with open(script_path, "a") as file:
+        obj = [repo_path] + install_cmds
+        file.write(f"{obj}\n")
+
+
+def try_rmtree(title, fullpath):
+    try:
+        shutil.rmtree(fullpath)
+    except Exception as e:
+        logging.warning(f"[ComfyUI-Manager] An error occurred while deleting '{fullpath}', so it has been scheduled for deletion upon restart.\nEXCEPTION: {e}")
+        reserve_script(title, ["#LAZY-DELETE-NODEPACK", fullpath])
+
+
 def try_install_script(url, repo_path, install_cmd, instant_execution=False):
     if not instant_execution and (
             (len(install_cmd) > 0 and install_cmd[0].startswith('#')) or platform.system() == "Windows" or get_config()['always_lazy_install']
     ):
-        if not os.path.exists(manager_startup_script_path):
-            os.makedirs(manager_startup_script_path)
-
-        script_path = os.path.join(manager_startup_script_path, "install-scripts.txt")
-        with open(script_path, "a") as file:
-            obj = [repo_path] + install_cmd
-            file.write(f"{obj}\n")
-
+        reserve_script(repo_path, install_cmd)
         return True
     else:
         if len(install_cmd) == 5 and install_cmd[2:4] == ['pip', 'install']:
@@ -1872,7 +1902,7 @@ def execute_install_script(url, repo_path, lazy_mode=False, instant_execution=Fa
     else:
         if os.path.exists(requirements_path) and not no_deps:
             print("Install: pip packages")
-            pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+            pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, manager_files_path)
             with open(requirements_path, "r") as requirements_file:
                 for line in requirements_file:
                     #handle comments
@@ -2579,15 +2609,12 @@ async def get_current_snapshot(custom_nodes_only = False):
     # Get ComfyUI hash
     repo_path = comfy_path
 
-    if not os.path.exists(os.path.join(repo_path, '.git')):
-        print("ComfyUI update fail: The installed ComfyUI does not have a Git repository.")
-        return {}
-
     comfyui_commit_hash = None
     if not custom_nodes_only:
-        repo = git.Repo(repo_path)
-        comfyui_commit_hash = repo.head.commit.hexsha
-
+        if os.path.exists(os.path.join(repo_path, '.git')):
+            repo = git.Repo(repo_path)
+            comfyui_commit_hash = repo.head.commit.hexsha
+        
     git_custom_nodes = {}
     cnr_custom_nodes = {}
     file_custom_nodes = []

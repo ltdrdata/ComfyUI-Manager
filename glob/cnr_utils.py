@@ -1,12 +1,15 @@
-import requests
-from dataclasses import dataclass
-from typing import List
-import manager_util
-import toml
-import os
 import asyncio
 import json
+import os
+import platform
 import time
+from dataclasses import dataclass
+from typing import List
+
+import manager_core
+import manager_util
+import requests
+import toml
 
 base_url = "https://api.comfy.org"
 
@@ -32,9 +35,40 @@ async def _get_cnr_data(cache_mode=True, dont_wait=True):
         page = 1
 
         full_nodes = {}
+
+        
+        # Determine form factor based on environment and platform
+        is_desktop = bool(os.environ.get('__COMFYUI_DESKTOP_VERSION__'))
+        system = platform.system().lower()
+        is_windows = system == 'windows'
+        is_mac = system == 'darwin'
+
+        # Get ComfyUI version tag
+        if is_desktop:
+            # extract version from pyproject.toml instead of git tag
+            comfyui_ver = manager_core.get_current_comfyui_ver() or 'unknown'
+        else:
+            comfyui_ver = manager_core.get_comfyui_tag() or 'unknown'
+
+        if is_desktop:
+            if is_windows:
+                form_factor = 'desktop-win'
+            elif is_mac:
+                form_factor = 'desktop-mac'
+            else:
+                form_factor = 'other'
+        else:
+            if is_windows:
+                form_factor = 'git-windows'
+            elif is_mac:
+                form_factor = 'git-mac'
+            else:
+                form_factor = 'other'
+        
         while remained:
-            sub_uri = f'{base_url}/nodes?page={page}&limit=30'
-            sub_json_obj = await asyncio.wait_for(manager_util.get_data_with_cache(sub_uri, cache_mode=False, silent=True), timeout=30)
+            # Add comfyui_version and form_factor to the API request
+            sub_uri = f'{base_url}/nodes?page={page}&limit=30&comfyui_version={comfyui_ver}&form_factor={form_factor}'
+            sub_json_obj = await asyncio.wait_for(manager_util.get_data_with_cache(sub_uri, cache_mode=False, silent=True, dont_cache=True), timeout=30)
             remained = page < sub_json_obj['totalPages']
 
             for x in sub_json_obj['nodes']:

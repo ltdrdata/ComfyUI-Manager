@@ -150,6 +150,7 @@ In `ComfyUI-Manager` V3.0 and later, configuration files and dynamically generat
 * Configurable channel lists: `<USER_DIRECTORY>/default/ComfyUI-Manager/channels.ini`
 * Configurable pip overrides: `<USER_DIRECTORY>/default/ComfyUI-Manager/pip_overrides.json`
 * Configurable pip blacklist: `<USER_DIRECTORY>/default/ComfyUI-Manager/pip_blacklist.list`
+* Configurable pip auto fix: `<USER_DIRECTORY>/default/ComfyUI-Manager/pip_auto_fix.list`
 * Saved snapshot files: `<USER_DIRECTORY>/default/ComfyUI-Manager/snapshots`
 * Startup script files: `<USER_DIRECTORY>/default/ComfyUI-Manager/startup-scripts`
 * Component files: `<USER_DIRECTORY>/default/ComfyUI-Manager/components`
@@ -305,6 +306,10 @@ The following settings are applied based on the section marked as `is_default`.
 
 * Prevent the installation of specific pip packages
   * List the package names one per line in the `pip_blacklist.list` file.
+
+* Automatically Restoring pip Installation
+ * If you list pip spec requirements in `pip_auto_fix.list`, similar to `requirements.txt`, it will automatically restore the specified versions when starting ComfyUI or when versions get mismatched during various custom node installations.
+ * `--index-url` can be used.
 
 * Use `aria2` as downloader
   * [howto](docs/en/use_aria2.md)

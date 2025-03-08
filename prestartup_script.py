@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 import sys
 import atexit
@@ -506,7 +507,7 @@ check_bypass_ssl()
 # Perform install
 processed_install = set()
 script_list_path = os.path.join(folder_paths.user_directory, "default", "ComfyUI-Manager", "startup-scripts", "install-scripts.txt")
-pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, manager_files_path)
 
 
 def is_installed(name):
@@ -695,12 +696,43 @@ def execute_migration(moves):
             shutil.move(x[0], x[1])
             print(f"[ComfyUI-Manager] MIGRATION: '{x[0]}' -> '{x[1]}'")
 
+
 script_executed = False
 
-# Check if script_list_path exists
-if os.path.exists(script_list_path):
+def execute_startup_script():
+    global script_executed
     print("\n#######################################################################")
     print("[ComfyUI-Manager] Starting dependency installation/(de)activation for the extension\n")
+
+    custom_nodelist_cache = None
+
+    def get_custom_node_paths():
+        nonlocal custom_nodelist_cache
+        if custom_nodelist_cache is None:
+            custom_nodelist_cache = set()
+            for base in folder_paths.get_folder_paths('custom_nodes'):
+                for x in os.listdir(base):
+                    fullpath = os.path.join(base, x)
+                    if os.path.isdir(fullpath):
+                        custom_nodelist_cache.add(fullpath)
+
+        return custom_nodelist_cache
+
+    def execute_lazy_delete(path):
+        # Validate to prevent arbitrary paths from being deleted
+        if path not in get_custom_node_paths():
+            logging.error(f"## ComfyUI-Manager: The scheduled '{path}' is not a custom node path, so the deletion has been canceled.")
+            return
+
+        if not os.path.exists(path):
+            logging.info(f"## ComfyUI-Manager: SKIP-DELETE => '{path}' (already deleted)")
+            return
+
+        try:
+            shutil.rmtree(path)
+            logging.info(f"## ComfyUI-Manager: DELETE => '{path}'")
+        except Exception as e:
+            logging.error(f"## ComfyUI-Manager: Failed to delete '{path}' ({e})")
 
     executed = set()
     # Read each line from the file and convert it to a list using eval
@@ -725,6 +757,9 @@ if os.path.exists(script_list_path):
                     elif script[1] == "#LAZY-MIGRATION":
                         execute_migration(script[2])
 
+                    elif script[1] == "#LAZY-DELETE-NODEPACK":
+                        execute_lazy_delete(script[2])
+
                 elif os.path.exists(script[0]):
                     if script[1] == "#FORCE":
                         del script[1]
@@ -733,7 +768,7 @@ if os.path.exists(script_list_path):
                             continue
 
                     print(f"\n## ComfyUI-Manager: EXECUTE => {script[1:]}")
-                    print(f"\n## Execute install/(de)activation script for '{script[0]}'")
+                    print(f"\n## Execute management script for '{script[0]}'")
 
                     new_env = os.environ.copy()
                     if 'COMFYUI_FOLDERS_BASE_PATH' not in new_env:
@@ -741,12 +776,12 @@ if os.path.exists(script_list_path):
                     exit_code = process_wrap(script[1:], script[0], env=new_env)
 
                     if exit_code != 0:
-                        print(f"install/(de)activation script failed: {script[0]}")
+                        print(f"management script failed: {script[0]}")
                 else:
                     print(f"\n## ComfyUI-Manager: CANCELED => {script[1:]}")
 
             except Exception as e:
-                print(f"[ERROR] Failed to execute install/(de)activation script: {line} / {e}")
+                print(f"[ERROR] Failed to execute management script: {line} / {e}")
 
     # Remove the script_list_path file
     if os.path.exists(script_list_path):
@@ -755,6 +790,12 @@ if os.path.exists(script_list_path):
         
     print("\n[ComfyUI-Manager] Startup script completed.")
     print("#######################################################################\n")
+
+
+# Check if script_list_path exists
+if os.path.exists(script_list_path):
+    execute_startup_script()
+
 
 pip_fixer.fix_broken()
 
@@ -775,7 +816,10 @@ if script_executed:
     else:
         sys_argv = sys.argv.copy()
 
-        if sys.platform.startswith('win32'):
+        if sys_argv[0].endswith("__main__.py"):  # this is a python module
+            module_name = os.path.basename(os.path.dirname(sys_argv[0]))
+            cmds = [sys.executable, '-m', module_name] + sys_argv[1:]
+        elif sys.platform.startswith('win32'):
             cmds = ['"' + sys.executable + '"', '"' + sys_argv[0] + '"'] + sys_argv[1:]
         else:
             cmds = [sys.executable] + sys_argv

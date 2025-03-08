@@ -61,12 +61,16 @@ if os.path.exists(os.path.join(manager_util.comfyui_manager_path, "pip_blacklist
 
 
 def check_comfyui_hash():
-    repo = git.Repo(comfy_path)
-    core.comfy_ui_revision = len(list(repo.iter_commits('HEAD')))
+    try:
+        repo = git.Repo(comfy_path)
+        core.comfy_ui_revision = len(list(repo.iter_commits('HEAD')))
+        core.comfy_ui_commit_datetime = repo.head.commit.committed_datetime
+    except:
+        print('[bold yellow]INFO: Frozen ComfyUI mode.[/bold yellow]')
+        core.comfy_ui_revision = 0
+        core.comfy_ui_commit_datetime = 0
 
     cm_global.variables['comfyui.revision'] = core.comfy_ui_revision
-
-    core.comfy_ui_commit_datetime = repo.head.commit.committed_datetime
 
 
 check_comfyui_hash()  # This is a preparation step for manager_core
@@ -250,7 +254,7 @@ def fix_node(node_spec_str, is_all=False, cnt_msg=''):
     res = unified_manager.unified_fix(node_name, version_spec, no_deps=cmd_ctx.no_deps)
 
     if not res.result:
-        print(f"ERROR: f{res.msg}")
+        print(f"[bold red]ERROR: f{res.msg}[/bold red]")
 
 
 def uninstall_node(node_spec_str: str, is_all: bool = False, cnt_msg: str = ''):
@@ -643,7 +647,7 @@ def install(
     cmd_ctx.set_channel_mode(channel, mode)
     cmd_ctx.set_no_deps(no_deps)
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
     for_each_nodes(nodes, act=install_node)
     pip_fixer.fix_broken()
 
@@ -681,7 +685,7 @@ def reinstall(
     cmd_ctx.set_channel_mode(channel, mode)
     cmd_ctx.set_no_deps(no_deps)
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
     for_each_nodes(nodes, act=reinstall_node)
     pip_fixer.fix_broken()
 
@@ -707,7 +711,7 @@ def uninstall(
     for_each_nodes(nodes, act=uninstall_node)
 
 
-@app.command(help="Disable custom nodes")
+@app.command(help="Update custom nodes")
 def update(
         nodes: List[str] = typer.Argument(
             ...,
@@ -735,7 +739,7 @@ def update(
     if 'all' in nodes:
         asyncio.run(auto_save_snapshot())
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
 
     for x in nodes:
         if x.lower() in ['comfyui', 'comfy', 'all']:
@@ -836,7 +840,7 @@ def fix(
     if 'all' in nodes:
         asyncio.run(auto_save_snapshot())
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
     for_each_nodes(nodes, fix_node, allow_all=True)
     pip_fixer.fix_broken()
 
@@ -1043,13 +1047,17 @@ def save_snapshot(
 ):
     cmd_ctx.set_user_directory(user_directory)
 
+    if output is None:
+        print("[bold red]ERROR: missing output path[/bold red]")
+        raise typer.Exit(code=1)
+        
     if(not output.endswith('.json') and not output.endswith('.yaml')):
-        print("ERROR: output path should be either '.json' or '.yaml' file.")
+        print("[bold red]ERROR: output path should be either '.json' or '.yaml' file.[/bold red]")
         raise typer.Exit(code=1)
     
     dir_path = os.path.dirname(output)
     if(dir_path != '' and not os.path.exists(dir_path)):
-        print(f"ERROR: {output} path not exists.")
+        print(f"[bold red]ERROR: {output} path not exists.[/bold red]")
         raise typer.Exit(code=1)
         
     path = asyncio.run(core.save_snapshot_with_postfix('snapshot', output, not full_snapshot))
@@ -1111,7 +1119,7 @@ def restore_snapshot(
             print(f"[bold red]ERROR: `{snapshot_path}` is not exists.[/bold red]")
             exit(1)
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
     try:
         asyncio.run(core.restore_snapshot(snapshot_path, extras))
     except Exception:
@@ -1143,7 +1151,7 @@ def restore_dependencies(
     total = len(node_paths)
     i = 1
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
     for x in node_paths:
         print("----------------------------------------------------------------------------------------------------")
         print(f"Restoring [{i}/{total}]: {x}")
@@ -1162,7 +1170,7 @@ def post_install(
 ):
     path = os.path.expanduser(path)
 
-    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+    pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
     unified_manager.execute_install_script('', path, instant_execution=True)
     pip_fixer.fix_broken()
 
@@ -1206,8 +1214,7 @@ def install_deps(
                 print(f"[bold red]Invalid json file: {deps}[/bold red]")
                 exit(1)
 
-
-            pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages())
+            pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, core.manager_files_path)
             for k in json_obj['custom_nodes'].keys():
                 state = core.simple_check_custom_node(k)
                 if state == 'installed':

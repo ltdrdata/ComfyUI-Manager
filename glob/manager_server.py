@@ -450,7 +450,7 @@ async def task_worker():
                     return base_res
 
             base_res['msg'] = f"An error occurred while updating '{node_name}'."
-            logging.error(f"\nERROR: An error occurred while updating '{node_name}'.")
+            logging.error(f"\nERROR: An error occurred while updating '{node_name}'. (res.result={res.result}, res.action={res.action})")
             return base_res
         except Exception:
             traceback.print_exc()
@@ -1545,26 +1545,27 @@ async def get_notice(request):
 
                 if match:
                     markdown_content = match.group(1)
-                    version_tag = core.get_comfyui_tag()
-                    if version_tag is None:
-                        version_tag = os.environ.get('__COMFYUI_DESKTOP_VERSION__')
-                        if version_tag is not None:
-                            markdown_content += f"<HR>ComfyUI: {version_tag} [Desktop]"
-                        else:
-                            markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
+                    version_tag = os.environ.get('__COMFYUI_DESKTOP_VERSION__')
+                    if version_tag is not None:
+                        markdown_content += f"<HR>ComfyUI: {version_tag} [Desktop]"
                     else:
-                        markdown_content += (f"<HR>ComfyUI: {version_tag}<BR>"
-                                             f"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;({core.comfy_ui_commit_datetime.date()})")
+                        version_tag = core.get_comfyui_tag()
+                        if version_tag is None:
+                            markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
+                        else:
+                            markdown_content += (f"<HR>ComfyUI: {version_tag}<BR>"
+                                                 f"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;({core.comfy_ui_commit_datetime.date()})")
                     # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
                     markdown_content += f"<BR>Manager: {core.version_str}"
 
                     markdown_content = add_target_blank(markdown_content)
 
                     try:
-                        if core.comfy_ui_commit_datetime == datetime(1900, 1, 1, 0, 0, 0):
-                            markdown_content = '<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI isn\'t git repo.</P>' + markdown_content
-                        elif core.comfy_ui_required_commit_datetime.date() > core.comfy_ui_commit_datetime.date():
-                            markdown_content = '<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
+                        if '__COMFYUI_DESKTOP_VERSION__' not in os.environ:
+                            if core.comfy_ui_commit_datetime == datetime(1900, 1, 1, 0, 0, 0):
+                                markdown_content = '<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI isn\'t git repo.</P>' + markdown_content
+                            elif core.comfy_ui_required_commit_datetime.date() > core.comfy_ui_commit_datetime.date():
+                                markdown_content = '<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
                     except:
                         pass
 
@@ -1599,11 +1600,11 @@ def restart(self):
     if '--windows-standalone-build' in sys_argv:
         sys_argv.remove('--windows-standalone-build')
 
-    if sys.platform.startswith('win32'):
-        cmds = ['"' + sys.executable + '"', '"' + sys_argv[0] + '"'] + sys_argv[1:]
-    elif sys_argv[0].endswith("__main__.py"):  # this is a python module
+    if sys_argv[0].endswith("__main__.py"):  # this is a python module
         module_name = os.path.basename(os.path.dirname(sys_argv[0]))
         cmds = [sys.executable, '-m', module_name] + sys_argv[1:]
+    elif sys.platform.startswith('win32'):
+        cmds = ['"' + sys.executable + '"', '"' + sys_argv[0] + '"'] + sys_argv[1:]
     else:
         cmds = [sys.executable] + sys_argv
 
