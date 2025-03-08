@@ -3,235 +3,16 @@ import { $el } from "../../scripts/ui.js";
 import { 
 	manager_instance, rebootAPI, 
 	fetchData, md5, icons, show_message, customAlert, infoToast, showTerminal,
-	storeColumnWidth, restoreColumnWidth
+	storeColumnWidth, restoreColumnWidth, loadCss
 } from  "./common.js";
 import { api } from "../../scripts/api.js";
 
 // https://cenfun.github.io/turbogrid/api.html
 import TG from "./turbogrid.esm.js";
 
+loadCss("./model-manager.css");
+
 const gridId = "model";
-
-const pageCss = `
-.cmm-manager {
-	--grid-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-	z-index: 1099;
-	width: 80%;
-	height: 80%;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	color: var(--fg-color);
-	font-family: arial, sans-serif;
-}
-
-.cmm-manager .cmm-flex-auto {
-	flex: auto;
-}
-
-.cmm-manager button {
-	font-size: 16px;
-	color: var(--input-text);
-    background-color: var(--comfy-input-bg);
-    border-radius: 8px;
-    border-color: var(--border-color);
-    border-style: solid;
-    margin: 0;
-	padding: 4px 8px;
-	min-width: 100px;
-}
-
-.cmm-manager button:disabled,
-.cmm-manager input:disabled,
-.cmm-manager select:disabled {
-	color: gray;
-}
-
-.cmm-manager button:disabled {
-	background-color: var(--comfy-input-bg);
-}
-
-.cmm-manager .cmm-manager-refresh {
-	display: none;
-	background-color: #000080;
-	color: white;
-}
-
-.cmm-manager .cmm-manager-stop {
-	display: none;
-	background-color: #500000;
-	color: white;
-}
-
-.cmm-manager-header {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 5px;
-	align-items: center;
-	padding: 0 5px;
-}
-
-.cmm-manager-header label {
-	display: flex;
-	gap: 5px;
-	align-items: center;
-}
-
-.cmm-manager-type,
-.cmm-manager-base,
-.cmm-manager-filter {
-	height: 28px;
-	line-height: 28px;
-}
-
-.cmm-manager-keywords {
-	height: 28px;
-	line-height: 28px;
-	padding: 0 5px 0 26px;
-	background-size: 16px;
-	background-position: 5px center;
-	background-repeat: no-repeat;
-	background-image: url("data:image/svg+xml;charset=utf8,${encodeURIComponent(icons.search.replace("currentColor", "#888"))}");
-}
-
-.cmm-manager-status {
-	padding-left: 10px;
-}
-
-.cmm-manager-grid {
-	flex: auto;
-	border: 1px solid var(--border-color);
-	overflow: hidden;
-}
-
-.cmm-manager-selection {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-	align-items: center;
-}
-
-.cmm-manager-message {
-	
-}
-
-.cmm-manager-footer {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-	align-items: center;
-}
-
-.cmm-manager-grid .tg-turbogrid {
-	font-family: var(--grid-font);
-	font-size: 15px;
-	background: var(--bg-color);
-}
-
-.cmm-manager-grid .cmm-node-name a {
-	color: skyblue;
-	text-decoration: none;
-	word-break: break-word;
-}
-
-.cmm-manager-grid .cmm-node-desc a {
-	color: #5555FF;
-    font-weight: bold;
-	text-decoration: none;
-}
-
-.cmm-manager-grid .tg-cell a:hover {
-	text-decoration: underline;
-}
-
-.cmm-icon-passed {
-	width: 20px;
-	height: 20px;
-	position: absolute;
-	left: calc(50% - 10px);
-	top: calc(50% - 10px);
-}
-
-.cmm-manager .cmm-btn-enable {
-	background-color: blue;
-	color: white;
-}
-
-.cmm-manager .cmm-btn-disable {
-	background-color: MediumSlateBlue;
-	color: white;
-}
-
-.cmm-manager .cmm-btn-install {
-	background-color: black;
-	color: white;
-}
-
-.cmm-btn-download {
-	width: 18px;
-	height: 18px;
-	position: absolute;
-	left: calc(50% - 10px);
-	top: calc(50% - 10px);
-	cursor: pointer;
-	opacity: 0.8;
-	color: #fff;
-}
-
-.cmm-btn-download:hover {
-	opacity: 1;
-}
-
-.cmm-manager-light .cmm-btn-download {
-	color: #000;
-}
-
-@keyframes cmm-btn-loading-bg {
-    0% {
-        left: 0;
-    }
-    100% {
-        left: -105px;
-    }
-}
-
-.cmm-manager button.cmm-btn-loading {
-    position: relative;
-    overflow: hidden;
-    border-color: rgb(0 119 207 / 80%);
-	background-color: var(--comfy-input-bg);
-}
-
-.cmm-manager button.cmm-btn-loading::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: "";
-    width: 500px;
-    height: 100%;
-    background-image: repeating-linear-gradient(
-        -45deg,
-        rgb(0 119 207 / 30%),
-        rgb(0 119 207 / 30%) 10px,
-        transparent 10px,
-        transparent 15px
-    );
-    animation: cmm-btn-loading-bg 2s linear infinite;
-}
-
-.cmm-manager-light .cmm-node-name a {
-	color: blue;
-}
-
-.cmm-manager-light .cm-warn-note {
-	background-color: #ccc !important;
-}
-
-.cmm-manager-light .cmm-btn-install {
-	background-color: #333;
-}
-
-`;
 
 const pageHtml = `
 <div class="cmm-manager-header">
@@ -283,14 +64,6 @@ export class ModelManager {
 	}
 
 	init() {
-
-		if (!document.querySelector(`style[context="${this.id}"]`)) {
-			const $style = document.createElement("style");
-			$style.setAttribute("context", this.id);
-			$style.innerHTML = pageCss;
-			document.head.appendChild($style);
-		}
-
 		this.element = $el("div", {
 			parent: document.body,
 			className: "comfy-modal cmm-manager"
@@ -561,7 +334,7 @@ export class ModelManager {
 			sortable: false,
 			align: 'center',
 			formatter: (url, rowItem, columnItem) => {
-				return `<a class="cmm-btn-download" title="Download file" href="${url}" target="_blank">${icons.download}</a>`;
+				return `<a class="cmm-btn-download" tooltip="Download file" href="${url}" target="_blank">${icons.download}</a>`;
 			}
 		}, {
 			id: 'size',
