@@ -1545,26 +1545,27 @@ async def get_notice(request):
 
                 if match:
                     markdown_content = match.group(1)
-                    version_tag = core.get_comfyui_tag()
-                    if version_tag is None:
-                        version_tag = os.environ.get('__COMFYUI_DESKTOP_VERSION__')
-                        if version_tag is not None:
-                            markdown_content += f"<HR>ComfyUI: {version_tag} [Desktop]"
-                        else:
-                            markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
+                    version_tag = os.environ.get('__COMFYUI_DESKTOP_VERSION__')
+                    if version_tag is not None:
+                        markdown_content += f"<HR>ComfyUI: {version_tag} [Desktop]"
                     else:
-                        markdown_content += (f"<HR>ComfyUI: {version_tag}<BR>"
-                                             f"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;({core.comfy_ui_commit_datetime.date()})")
+                        version_tag = core.get_comfyui_tag()
+                        if version_tag is None:
+                            markdown_content += f"<HR>ComfyUI: {core.comfy_ui_revision}[{comfy_ui_hash[:6]}]({core.comfy_ui_commit_datetime.date()})"
+                        else:
+                            markdown_content += (f"<HR>ComfyUI: {version_tag}<BR>"
+                                                 f"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;({core.comfy_ui_commit_datetime.date()})")
                     # markdown_content += f"<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;()"
                     markdown_content += f"<BR>Manager: {core.version_str}"
 
                     markdown_content = add_target_blank(markdown_content)
 
                     try:
-                        if core.comfy_ui_commit_datetime == datetime(1900, 1, 1, 0, 0, 0):
-                            markdown_content = '<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI isn\'t git repo.</P>' + markdown_content
-                        elif core.comfy_ui_required_commit_datetime.date() > core.comfy_ui_commit_datetime.date():
-                            markdown_content = '<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
+                        if '__COMFYUI_DESKTOP_VERSION__' not in os.environ:
+                            if core.comfy_ui_commit_datetime == datetime(1900, 1, 1, 0, 0, 0):
+                                markdown_content = '<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI isn\'t git repo.</P>' + markdown_content
+                            elif core.comfy_ui_required_commit_datetime.date() > core.comfy_ui_commit_datetime.date():
+                                markdown_content = '<P style="text-align: center; color:red; background-color:white; font-weight:bold">Your ComfyUI is too OUTDATED!!!</P>' + markdown_content
                     except:
                         pass
 

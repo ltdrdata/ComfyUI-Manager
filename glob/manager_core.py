@@ -43,7 +43,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 30, 2]
+version_code = [3, 30, 3]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -75,8 +75,8 @@ def get_custom_nodes_paths():
 
 
 def get_comfyui_tag():
-    repo = git.Repo(comfy_path)
     try:
+        repo = git.Repo(comfy_path)
         return repo.git.describe('--tags')
     except:
         return None
