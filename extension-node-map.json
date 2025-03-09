@@ -442,6 +442,7 @@
             "Color_check_Name",
             "ComfyUI_Path_Out",
             "Determine_Type",
+            "Graphics_Detection_Reference",
             "ImageChannelBus",
             "ListMerger",
             "Load_Image_Adv",
@@ -2563,6 +2564,15 @@
             "FluxGuidanceDisable",
             "FluxLoader",
             "FluxOrthoCFGPatcher",
+            "Frame Select",
+            "Frame Select Latent",
+            "Frame Select Latent Raw",
+            "Frames Concat",
+            "Frames Concat Latent",
+            "Frames Concat Latent Raw",
+            "Frames Slice",
+            "Frames Slice Latent",
+            "Frames Slice Latent Raw",
             "Frequency Separation Hard Light",
             "Frequency Separation Hard Light LAB",
             "Frequency Separation Linear Light",
@@ -2575,6 +2585,7 @@
             "Latent Batcher",
             "Latent Match Channelwise",
             "Latent Normalize Channels",
+            "Latent Transfer State Info",
             "Latent to Cuda",
             "Latent to RawX",
             "LatentBatch_channels",
@@ -2863,7 +2874,7 @@
             "Number",
             "PhotoShop Transfer",
             "ShowSomething",
-            "ShowTensorShapeLayout",
+            "ShowTensorShape",
             "a fake Nod"
         ],
         {
@@ -3193,6 +3204,7 @@
             "CharCountTextBox",
             "GenerateImage_VENICE",
             "GenerateText_VENICE",
+            "InpaintImage_VENICE",
             "UpscaleImage_VENICE",
             "testaaaaa"
         ],
@@ -4189,14 +4201,6 @@
             "title_aux": "ComfyUI-DiffusersImageOutpaint"
         }
     ],
-    "https://github.com/GoingAI1998/Comfyui_imgcanvas": [
-        [
-            "WebCanvas"
-        ],
-        {
-            "title_aux": "ComfyUI Web Canvas Node"
-        }
-    ],
     "https://github.com/Goktug/comfyui-saveimage-plus": [
         [
             "SaveImagePlus"
@@ -4219,6 +4223,7 @@
             "ReActorOptions",
             "ReActorRestoreFace",
             "ReActorSaveFaceModel",
+            "ReActorSetWeight",
             "ReActorUnload"
         ],
         {
@@ -6361,6 +6366,7 @@
     ],
     "https://github.com/Mattabyte/ComfyUI-SecureApiCall": [
         [
+            "SaveLatentToS3",
             "SaveVideoFilesS3",
             "SecureAPI-SecureAPI",
             "SecureAPI-SecureAPI-AWS"
@@ -6855,6 +6861,7 @@
             "ZenkaiPromptV2",
             "ZenkaiPromptV3",
             "ZenkaiPromptV4",
+            "ZenkaiPromptV5",
             "ZenkaiWildcard",
             "ZenkaiWildcardV2"
         ],
@@ -8007,14 +8014,6 @@
             "title_aux": "DeepFuze"
         }
     ],
-    "https://github.com/Samulebotin/ComfyUI-FreeVC_wrapper": [
-        [
-            "FreeVC Voice Conversion"
-        ],
-        {
-            "title_aux": "ComfyUI-FreeVC_wrapper"
-        }
-    ],
     "https://github.com/SayanoAI/Comfy-RVC": [
         [
             "Any2ListNode",
@@ -8543,6 +8542,14 @@
         ],
         {
             "title_aux": "ComfyUI-FreeMemory"
+        }
+    ],
+    "https://github.com/ShmuelRonen/ComfyUI-FreeVC_wrapper": [
+        [
+            "FreeVC Voice Conversion"
+        ],
+        {
+            "title_aux": "ComfyUI-FreeVC_wrapper"
         }
     ],
     "https://github.com/ShmuelRonen/ComfyUI-Gemini_Flash_2.0_Exp": [
@@ -9091,11 +9098,13 @@
             "SDXLStartSettings",
             "SDstarsampler",
             "Star Face Loader",
+            "Star3LoRAs",
             "StarDivisibleDimension",
             "StarFiveWildcards",
             "StarImageSwitch",
             "StarLatentSwitch",
             "StarNewsScraper",
+            "StarPSDSaver",
             "StarTextFilter",
             "StarTextInput",
             "Starupscale"
@@ -9990,6 +9999,8 @@
     "https://github.com/Tlant/ComfyUI-OllamaPromptsGeneratorTlant": [
         [
             "LoadRandomTxtFileTlant",
+            "LoadRandomTxtFileTlantV2",
+            "LoadRandomTxtFileTlantV3",
             "OllamaPromptsGeneratorTlant",
             "OllamaSimpleTextGeneratorTlant"
         ],
@@ -12051,6 +12062,7 @@
             "Sage_DualCLIPTextEncode",
             "Sage_DualCLIPTextEncodeLumina2",
             "Sage_EmptyLatentImagePassthrough",
+            "Sage_Foobar",
             "Sage_GetFileHash",
             "Sage_JoinText",
             "Sage_KSampler",
@@ -12070,6 +12082,7 @@
             "Sage_SetInteger",
             "Sage_SetText",
             "Sage_TripleJoinText",
+            "Sage_TripleLoraStack",
             "Sage_UNETLoader",
             "Sage_ViewText"
         ],
@@ -12273,15 +12286,16 @@
     ],
     "https://github.com/aws-samples/comfyui-llm-node-for-amazon-bedrock": [
         [
-            "Bedrock - Amazon Nova Canvas Text to Image",
+            "Amazon Bedrock - Luma AI Ray Video",
+            "Amazon Bedrock - Nova Canvas Background Prompt Replace",
+            "Amazon Bedrock - Nova Canvas Generate Image",
+            "Amazon Bedrock - Nova Canvas Generate Variations",
+            "Amazon Bedrock - Nova Reel Video",
+            "Amazon Bedrock - SD3 & SD3.5 Large | Image to Image",
+            "Amazon Bedrock - Stability AI Models | Text to Image",
             "Bedrock - Claude",
             "Bedrock - Claude Multimodal",
-            "Bedrock - Luma AI Ray Video",
             "Bedrock - Nova",
-            "Bedrock - Nova Background Prompt Replace",
-            "Bedrock - Nova IpAdapter",
-            "Bedrock - Nova Reel Video",
-            "Bedrock - Nova Text to Image",
             "Bedrock - SDXL",
             "Bedrock - Titan Inpainting",
             "Bedrock - Titan Outpainting",
@@ -12676,6 +12690,7 @@
     ],
     "https://github.com/billwuhao/ComfyUI_StepAudioTTS": [
         [
+            "AudioRecorder",
             "StepAudioClone",
             "StepAudioRun"
         ],
@@ -13164,7 +13179,8 @@
             "EbuPromptHelperRandomColorPalette",
             "EbuPromptHelperRandomize",
             "EbuPromptHelperReplace",
-            "EbuPromptHelperSeasonWeatherTimeOfDay"
+            "EbuPromptHelperSeasonWeatherTimeOfDay",
+            "EbuPromptHelperTruncate"
         ],
         {
             "title_aux": "EBU PromptHelper"
@@ -17222,7 +17238,10 @@
             "Image Scale",
             "Image Selector",
             "LoRA Name List",
-            "Seed to Noise"
+            "Prompt Text",
+            "Seed to Noise",
+            "ShowTextNode",
+            "Text Replace"
         ],
         {
             "title_aux": "geocine-comfyui"
@@ -19277,6 +19296,7 @@
             "LoadLoraFromComfyOnline",
             "LoadLoraFromHF",
             "LoadLoraFromHFWithToken",
+            "LoadWanVideoLoraFromCivitAI",
             "SaveAudioAsWav",
             "SaveText"
         ],
@@ -20390,6 +20410,7 @@
             "HyVideoDecode",
             "HyVideoEmptyTextEmbeds",
             "HyVideoEncode",
+            "HyVideoEncodeKeyframes",
             "HyVideoEnhanceAVideo",
             "HyVideoGetClosestBucketSize",
             "HyVideoI2VEncode",
@@ -23340,7 +23361,11 @@
             "TextWithBooleanSwitchAndCommonTextInput",
             "TwoBooleanTrigger",
             "TwoFloats",
-            "UpscaleImageByModelThenResize"
+            "UpscaleImageByModelThenResize",
+            "illustrious_character_select",
+            "illustrious_character_select_en",
+            "llm_prompt_gen_node",
+            "local_llm_prompt_gen"
         ],
         {
             "title_aux": "ComfyUI_Mira"
@@ -24426,6 +24451,7 @@
             "LatentToWidthHeight",
             "MaskCompositePPM",
             "PPMSamplerSelect",
+            "RenormCFGPost",
             "RescaleCFGPost"
         ],
         {
@@ -28832,6 +28858,7 @@
     ],
     "https://github.com/yanlang0123/ComfyUI_Lam": [
         [
+            "AppParams",
             "AspectRatio",
             "AutioPath",
             "DoWhileEnd",
@@ -28857,6 +28884,7 @@
             "LamCommonPrint",
             "LamCommonPrintNoOutput",
             "LamGetPngInfo",
+            "LamLoadImageBase64",
             "LamLoadPathImage",
             "LamLoadVideo",
             "LamSaveOnly",
