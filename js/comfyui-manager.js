@@ -1,6 +1,6 @@
-import { api } from "../../scripts/api.js";
-import { app } from "../../scripts/app.js";
-import { $el, ComfyDialog } from "../../scripts/ui.js";
+import { api } from "/scripts/api.js";
+import { app } from "/scripts/app.js";
+import { $el, ComfyDialog } from "/scripts/ui.js";
 import {
 	SUPPORTED_OUTPUT_NODE_TYPES,
 	ShareDialog,
@@ -1485,8 +1485,8 @@ app.registerExtension({
 		try {
 			// new style Manager buttons
 			// unload models button into new style Manager button
-			let cmGroup = new (await import("../../scripts/ui/components/buttonGroup.js")).ComfyButtonGroup(
-				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+			let cmGroup = new (await import("/scripts/ui/components/buttonGroup.js")).ComfyButtonGroup(
+				new(await import("/scripts/ui/components/button.js")).ComfyButton({
 					icon: "puzzle",
 					action: () => {
 						if(!manager_instance)
@@ -1497,7 +1497,7 @@ app.registerExtension({
 					content: "Manager",
 					classList: "comfyui-button comfyui-menu-mobile-collapse primary"
 				}).element,
-				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+				new(await import("/scripts/ui/components/button.js")).ComfyButton({
 					icon: "star",
 					action: () => {
 						if(!manager_instance)
@@ -1510,21 +1510,21 @@ app.registerExtension({
 					},
 					tooltip: "Show favorite custom node list"
 				}).element,
-				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+				new(await import("/scripts/ui/components/button.js")).ComfyButton({
 					icon: "vacuum-outline",
 					action: () => {
 						free_models();
 					},
 					tooltip: "Unload Models"
 				}).element,
-				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+				new(await import("/scripts/ui/components/button.js")).ComfyButton({
 					icon: "vacuum",
 					action: () => {
 						free_models(true);
 					},
 					tooltip: "Free model and node cache"
 				}).element,
-				new(await import("../../scripts/ui/components/button.js")).ComfyButton({
+				new(await import("/scripts/ui/components/button.js")).ComfyButton({
 					icon: "share",
 					action: () => {
 						if (share_option === 'openart') {

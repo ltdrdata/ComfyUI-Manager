@@ -1,5 +1,5 @@
-import { app } from "../../scripts/app.js";
-import { api } from "../../scripts/api.js";
+import { app } from "/scripts/app.js";
+import { api } from "/scripts/api.js";
 
 function addMenuHandler(nodeType, cb) {
 	const getOpts = nodeType.prototype.getExtraMenuOptions;

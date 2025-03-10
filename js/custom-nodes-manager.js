@@ -1,6 +1,6 @@
-import { app } from "../../scripts/app.js";
-import { ComfyDialog, $el } from "../../scripts/ui.js";
-import { api } from "../../scripts/api.js";
+import { api } from "/scripts/api.js";
+import { app } from "/scripts/app.js";
+import { ComfyDialog, $el } from "/scripts/ui.js";
 
 import {
 	manager_instance, rebootAPI, install_via_git_url,

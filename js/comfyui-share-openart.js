@@ -1,6 +1,6 @@
-import {app} from "../../scripts/app.js";
-import {api} from "../../scripts/api.js";
-import {ComfyDialog, $el} from "../../scripts/ui.js";
+import {app} from "/scripts/app.js";
+import {api} from "/scripts/api.js";
+import {ComfyDialog, $el} from "/scripts/ui.js";
 import { customAlert } from "./common.js";
 
 const LOCAL_STORAGE_KEY = "openart_comfy_workflow_key";

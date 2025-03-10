@@ -1,8 +1,8 @@
-import { app } from "../../scripts/app.js";
-import { api } from "../../scripts/api.js"
+import { app } from "/scripts/app.js";
+import { api } from "/scripts/api.js"
 import { sleep, show_message, customConfirm, customAlert } from "./common.js";
-import { GroupNodeConfig, GroupNodeHandler } from "../../extensions/core/groupNode.js";
-import { ComfyDialog, $el } from "../../scripts/ui.js";
+import { GroupNodeConfig, GroupNodeHandler } from "/extensions/core/groupNode.js";
+import { ComfyDialog, $el } from "/scripts/ui.js";
 
 const SEPARATOR = ">"
 

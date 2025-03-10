@@ -20,8 +20,8 @@
  * @property {boolean} enabled - Whether the node is enabled
  */
 
-import { app } from "../../scripts/app.js";
-import { api } from "../../scripts/api.js";
+import { app } from "/scripts/app.js";
+import { api } from "/scripts/api.js";
 
 class WorkflowMetadataExtension {
   constructor() {

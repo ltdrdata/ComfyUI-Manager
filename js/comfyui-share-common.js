@@ -1,6 +1,6 @@
-import { api } from "../../scripts/api.js";
-import { app } from "../../scripts/app.js";
-import { $el, ComfyDialog } from "../../scripts/ui.js";
+import { api } from "/scripts/api.js";
+import { app } from "/scripts/app.js";
+import { $el, ComfyDialog } from "/scripts/ui.js";
 import { CopusShareDialog } from "./comfyui-share-copus.js";
 import { OpenArtShareDialog } from "./comfyui-share-openart.js";
 import { YouMLShareDialog } from "./comfyui-share-youml.js";
