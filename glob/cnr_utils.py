@@ -42,6 +42,7 @@ async def _get_cnr_data(cache_mode=True, dont_wait=True):
         system = platform.system().lower()
         is_windows = system == 'windows'
         is_mac = system == 'darwin'
+        is_linux = system == 'linux'
 
         # Get ComfyUI version tag
         if is_desktop:
@@ -62,6 +63,8 @@ async def _get_cnr_data(cache_mode=True, dont_wait=True):
                 form_factor = 'git-windows'
             elif is_mac:
                 form_factor = 'git-mac'
+            elif is_linux:
+                form_factor = 'git-linux'
             else:
                 form_factor = 'other'
         
