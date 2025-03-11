@@ -43,7 +43,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 30, 3]
+version_code = [3, 30, 4]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -841,6 +841,7 @@ class UnifiedManager:
         install_script_path = os.path.join(repo_path, "install.py")
         requirements_path = os.path.join(repo_path, "requirements.txt")
 
+        res = True
         if lazy_mode:
             install_cmd = ["#LAZY-INSTALL-SCRIPT", sys.executable]
             return try_install_script(url, repo_path, install_cmd)
@@ -848,7 +849,6 @@ class UnifiedManager:
             if os.path.exists(requirements_path) and not no_deps:
                 print("Install: pip packages")
                 pip_fixer = manager_util.PIPFixer(manager_util.get_installed_packages(), comfy_path, manager_files_path)
-                res = True
                 lines = manager_util.robust_readlines(requirements_path)
                 for line in lines:
                     package_name = remap_pip_package(line.strip())
@@ -859,15 +859,14 @@ class UnifiedManager:
                             res = res and try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
                 pip_fixer.fix_broken()
-                return res
 
             if os.path.exists(install_script_path) and install_script_path not in self.processed_install:
                 self.processed_install.add(install_script_path)
                 print("Install: install script")
                 install_cmd = [sys.executable, "install.py"]
-                return try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
+                return res and try_install_script(url, repo_path, install_cmd, instant_execution=instant_execution)
 
-        return True
+        return res
 
     def reserve_cnr_switch(self, target, zip_url, from_path, to_path, no_deps):
         script_path = os.path.join(manager_startup_script_path, "install-scripts.txt")
