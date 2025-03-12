@@ -43,7 +43,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 30, 5]
+version_code = [3, 30, 6]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -1555,6 +1555,11 @@ def get_installed_node_packs():
 
     return res
 
+
+def refresh_channel_dict():
+    if channel_dict is None:
+        get_channel_dict()
+        
 
 def get_channel_dict():
     global channel_dict

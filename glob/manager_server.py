@@ -1698,6 +1698,7 @@ cm_global.register_api('cm.try-install-custom-node', confirm_try_install)
 
 
 async def default_cache_update():
+    core.refresh_channel_dict()
     channel_url = core.get_config()['channel_url']
     async def get_cache(filename):
         try:
