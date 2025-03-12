@@ -279,6 +279,10 @@ def get_model_dir(data, show_log=False) -> str | None:
     else:
         models_base = folder_paths.models_dir
 
+    # NOTE: Validate to prevent path traversal.
+    if any(char in data['filename'] for char in {'/', '\\', ':'}):
+        return None
+
     def resolve_custom_node(save_path):
         save_path = save_path[13:] # remove 'custom_nodes/'
 
