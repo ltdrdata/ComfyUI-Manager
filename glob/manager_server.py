@@ -273,7 +273,7 @@ import zipfile
 import urllib.request
 
 
-def get_model_dir(data, show_log=False):
+def get_model_dir(data, show_log=False) -> str | None:
     if 'download_model_base' in folder_paths.folder_names_and_paths:
         models_base = folder_paths.folder_names_and_paths['download_model_base'][0][0]
     else:
@@ -281,6 +281,11 @@ def get_model_dir(data, show_log=False):
 
     def resolve_custom_node(save_path):
         save_path = save_path[13:] # remove 'custom_nodes/'
+
+        # NOTE: Validate to prevent path traversal.
+        if save_path.startswith(os.path.sep) or ':' in save_path:
+            return None
+
         repo_name = save_path.replace('\\','/').split('/')[0] # get custom node repo name
 
         # NOTE: The creation of files within the custom node path should be removed in the future.
