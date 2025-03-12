@@ -68,6 +68,7 @@ async def _get_cnr_data(cache_mode=True, dont_wait=True):
             else:
                 form_factor = 'other'
         
+        print(f"form_factor: {form_factor}")
         while remained:
             # Add comfyui_version and form_factor to the API request
             sub_uri = f'{base_url}/nodes?page={page}&limit=30&comfyui_version={comfyui_ver}&form_factor={form_factor}'
