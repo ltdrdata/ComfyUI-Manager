@@ -43,7 +43,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 30, 4]
+version_code = [3, 30, 5]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -52,6 +52,11 @@ DEFAULT_CHANNEL = "https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/ma
 
 default_custom_nodes_path = None
 
+
+class InvalidChannel(Exception):
+    def __init__(self, channel):
+        self.channel = channel
+        super().__init__(channel)
 
 def get_default_custom_nodes_path():
     global default_custom_nodes_path
@@ -251,6 +256,7 @@ comfy_ui_revision = "Unknown"
 comfy_ui_commit_datetime = datetime(1900, 1, 1, 0, 0, 0)
 
 channel_dict = None
+valid_channels = set()
 channel_list = None
 
 
@@ -355,7 +361,7 @@ def normalize_channel(channel):
     if channel_url:
         return channel_url
 
-    raise Exception(f"Invalid channel name '{channel}'")
+    raise InvalidChannel(channel)
 
 
 class ManagedResult:
@@ -769,6 +775,11 @@ class UnifiedManager:
             if mode not in ['remote', 'local', 'cache']:
                 print(f"[bold red]ERROR: Invalid mode is specified `--mode {mode}`[/bold red]", file=sys.stderr)
                 return {}
+
+        # validate channel - only the channel set by the user is allowed.
+        if channel_url not in valid_channels:
+            logging.error(f'[ComfyUI-Manager] An invalid channel was used: {channel_url}')
+            raise InvalidChannel(channel_url)
 
         json_obj = await get_data_by_mode(mode, 'custom-node-list.json', channel_url=channel_url)
         for x in json_obj['custom_nodes']:
@@ -1414,7 +1425,11 @@ class UnifiedManager:
                 version_spec = self.resolve_unspecified_version(node_id)
 
         if version_spec == 'unknown' or version_spec == 'nightly':
-            custom_nodes = await self.get_custom_nodes(channel, mode)
+            try:
+                custom_nodes = await self.get_custom_nodes(channel, mode)
+            except InvalidChannel as e:
+                return ManagedResult('fail').fail(f'Invalid channel is used: {e.channel}')
+
             the_node = custom_nodes.get(node_id)
             if the_node is not None:
                 if version_spec == 'unknown':
@@ -1471,28 +1486,6 @@ class UnifiedManager:
             self.active_nodes[node_id] = version_spec, res.to_path
 
         return res
-
-    async def migrate_unmanaged_nodes(self):
-        """
-        fix path for nightly and unknown nodes of unmanaged nodes
-        """
-        await self.reload('cache')
-        await self.get_custom_nodes('default', 'cache')
-
-        print("Migration: STAGE 1")
-        moves = []
-
-        # migrate nightly inactive
-        for x, v in self.nightly_inactive_nodes.items():
-            if v.endswith('@nightly'):
-                continue
-
-            new_path = os.path.join(get_default_custom_nodes_path(), '.disabled', f"{x}@nightly")
-            moves.append((v, new_path))
-
-        self.reserve_migration(moves)
-
-        print("DONE (Migration reserved)")
 
 
 unified_manager = UnifiedManager()
@@ -1565,6 +1558,7 @@ def get_installed_node_packs():
 
 def get_channel_dict():
     global channel_dict
+    global valid_channels
 
     if channel_dict is None:
         channel_dict = {}
@@ -1578,6 +1572,7 @@ def get_channel_dict():
                 channel_info = x.split("::")
                 if len(channel_info) == 2:
                     channel_dict[channel_info[0]] = channel_info[1]
+                    valid_channels.add(channel_info[1])
 
     return channel_dict
 

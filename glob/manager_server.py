@@ -399,7 +399,6 @@ async def task_worker():
 
         try:
             node_spec = core.unified_manager.resolve_node_spec(node_spec_str)
-
             if node_spec is None:
                 logging.error(f"Cannot resolve install target: '{node_spec_str}'")
                 return f"Cannot resolve install target: '{node_spec_str}'"
@@ -929,6 +928,7 @@ def check_model_installed(json_obj):
 
 @routes.get("/externalmodel/getlist")
 async def fetch_externalmodel_list(request):
+    # The model list is only allowed in the default channel, yet.
     json_obj = await core.get_data_by_mode(request.rel_url.query["mode"], 'model-list.json')
 
     check_model_installed(json_obj)
@@ -1197,9 +1197,8 @@ async def install_custom_node(request):
 
     git_url = None
 
-    if json_data['version'] != 'unknown':
-        selected_version = json_data.get('selected_version')
-
+    selected_version = json_data.get('selected_version')
+    if json_data['version'] != 'unknown' and selected_version != 'unknown':
         if skip_post_install:
             if cnr_id in core.unified_manager.nightly_inactive_nodes or cnr_id in core.unified_manager.cnr_inactive_nodes:
                 core.unified_manager.unified_enable(cnr_id)
@@ -1216,6 +1215,9 @@ async def install_custom_node(request):
             if git_url is None:
                 logging.error(f"[ComfyUI-Manager] Following node pack doesn't provide `nightly` version: ${git_url}")
                 return web.Response(status=404, text=f"Following node pack doesn't provide `nightly` version: ${git_url}")
+    elif json_data['version'] != 'unknown' and selected_version == 'unknown':
+        logging.error(f"[ComfyUI-Manager] Invalid installation request: {json_data}")
+        return web.Response(status=400, text="Invalid installation request")
     else:
         # unknown
         unknown_name = os.path.basename(json_data['files'][0])
@@ -1407,17 +1409,13 @@ async def disable_node(request):
     return web.Response(status=200)
 
 
-@routes.get("/manager/migrate_unmanaged_nodes")
-async def migrate_unmanaged_nodes(request):
-    logging.info("[ComfyUI-Manager] Migrating unmanaged nodes...")
-    await core.unified_manager.migrate_unmanaged_nodes()
-    logging.info("Done.")
-    return web.Response(status=200)
+async def check_whitelist_for_model(item):
+    json_obj = await core.get_data_by_mode('cache', 'model-list.json')
 
-
-@routes.get("/manager/need_to_migrate")
-async def need_to_migrate(request):
-    return web.Response(text=str(core.need_to_migrate), status=200)
+    for x in json_obj.get('models', []):
+            return True
+        
+    return False
 
 
 @routes.post("/manager/queue/install_model")
@@ -1427,6 +1425,11 @@ async def install_model(request):
     if not is_allowed_security_level('middle'):
         logging.error(SECURITY_MESSAGE_MIDDLE_OR_BELOW)
         return web.Response(status=403, text="A security error has occurred. Please check the terminal logs")
+
+    # validate request
+    if not await check_whitelist_for_model(json_data):
+        logging.error(f"[ComfyUI-Manager] Invalid model install request is detected: {json_data}")
+        return web.Response(status=400, text="Invalid model install request is detected")
 
     if not json_data['filename'].endswith('.safetensors') and not is_allowed_security_level('high'):
         models_json = await core.get_data_by_mode('cache', 'model-list.json', 'default')
