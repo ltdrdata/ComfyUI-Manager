@@ -36,9 +36,9 @@ def add_python_path_to_env():
 
 def make_pip_cmd(cmd):
     if use_uv:
-        return [sys.executable, '-m', 'uv', 'pip'] + cmd
+        return [sys.executable, '-s', '-m', 'uv', 'pip'] + cmd
     else:
-        return [sys.executable, '-m', 'pip'] + cmd
+        return [sys.executable, '-s', '-m', 'pip'] + cmd
 
 
 # DON'T USE StrictVersion - cannot handle pre_release version
