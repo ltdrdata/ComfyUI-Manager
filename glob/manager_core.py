@@ -2098,7 +2098,7 @@ async def gitclone_install(url, instant_execution=False, msg_prefix='', no_deps=
         cnr = unified_manager.get_cnr_by_repo(url)
         if cnr:
             cnr_id = cnr['id']
-            return await unified_manager.install_by_id(cnr_id, version_spec='nightly')
+            return await unified_manager.install_by_id(cnr_id, version_spec='nightly', channel="default", mode="cache")
         else:
             repo_name = os.path.splitext(os.path.basename(url))[0]
 
