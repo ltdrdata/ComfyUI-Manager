@@ -13,7 +13,7 @@ import {
 import { OpenArtShareDialog } from "./comfyui-share-openart.js";
 import {
 	free_models, install_pip, install_via_git_url, manager_instance,
-	rebootAPI, migrateAPI, setManagerInstance, show_message, customAlert, customPrompt,
+	rebootAPI, setManagerInstance, show_message, customAlert, customPrompt,
 	infoToast, showTerminal, setNeedRestart
 } from "./common.js";
 import { ComponentBuilderDialog, getPureName, load_components, set_component_policy } from "./components-manager.js";
@@ -945,28 +945,6 @@ class ManagerMenuDialog extends ComfyDialog {
 				$el("br", {}, []),
 				restart_stop_button,
 			];
-
-		let migration_btn =
-			$el("button.cm-button-orange", {
-				type: "button",
-				textContent: "Migrate to New Node System",
-				onclick: () => migrateAPI()
-			});
-
-		migration_btn.style.display = 'none';
-
-		res.push(migration_btn);
-
-		api.fetchApi('/manager/need_to_migrate')
-			.then(response => response.text())
-			.then(text => {
-				if (text === 'True') {
-					migration_btn.style.display = 'block';
-				}
-			})
-			.catch(error => {
-				console.error('Error checking migration status:', error);
-			});
 
 		return res;
 	}

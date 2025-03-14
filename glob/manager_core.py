@@ -43,7 +43,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 31, 1]
+version_code = [3, 31, 2]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -889,14 +889,6 @@ class UnifiedManager:
 
         return True
 
-    def reserve_migration(self, moves):
-        script_path = os.path.join(manager_startup_script_path, "install-scripts.txt")
-        with open(script_path, "a") as file:
-            obj = ["", "#LAZY-MIGRATION", moves]
-            file.write(f"{obj}\n")
-
-        return True
-
     def unified_fix(self, node_id, version_spec, instant_execution=False, no_deps=False):
         """
         fix dependencies
@@ -1630,7 +1622,6 @@ def write_config():
         'model_download_by_agent': get_config()['model_download_by_agent'],
         'downgrade_blacklist': get_config()['downgrade_blacklist'],
         'security_level': get_config()['security_level'],
-        'skip_migration_check': get_config()['skip_migration_check'],
         'always_lazy_install': get_config()['always_lazy_install'],
         'network_mode': get_config()['network_mode'],
         'db_mode': get_config()['db_mode'],
@@ -1669,7 +1660,6 @@ def read_config():
                     'windows_selector_event_loop_policy': get_bool('windows_selector_event_loop_policy', False),
                     'model_download_by_agent': get_bool('model_download_by_agent', False),
                     'downgrade_blacklist': default_conf.get('downgrade_blacklist', '').lower(),
-                    'skip_migration_check': get_bool('skip_migration_check', False),
                     'always_lazy_install': get_bool('always_lazy_install', False),
                     'network_mode': default_conf.get('network_mode', 'public').lower(),
                     'security_level': default_conf.get('security_level', 'normal').lower(),
@@ -1693,7 +1683,6 @@ def read_config():
             'windows_selector_event_loop_policy': False,
             'model_download_by_agent': False,
             'downgrade_blacklist': '',
-            'skip_migration_check': False,
             'always_lazy_install': False,
             'network_mode': 'public',   # public | private | offline
             'security_level': 'normal', # strong | normal | normal- | weak
@@ -3170,8 +3159,6 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
                 if x in git_info:
                     del git_info[x]
 
-            # remained nightly will be installed and migrated
-
     # for unknown restore
     todo_disable = []
     todo_enable = []
@@ -3243,9 +3230,6 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
         unified_manager.repo_install(repo_url, to_path, instant_execution=True, no_deps=False, return_postinstall=False)
         cloned_repos.append(repo_name)
 
-    # reload
-    await unified_manager.migrate_unmanaged_nodes()
-
     # print summary
     for x in cloned_repos:
         print(f"[ INSTALLED ] {x}")
@@ -3260,34 +3244,6 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
 
     # if is_failed:
     #     print("[bold red]ERROR: Failed to restore snapshot.[/bold red]")
-
-
-# check need to migrate
-need_to_migrate = False
-
-
-async def check_need_to_migrate():
-    global need_to_migrate
-
-    await unified_manager.reload('cache')
-    await unified_manager.load_nightly(channel='default', mode='cache')
-
-    legacy_custom_nodes = []
-
-    for x in unified_manager.active_nodes.values():
-        if x[0] == 'nightly' and not x[1].endswith('@nightly'):
-            legacy_custom_nodes.append(x[1])
-
-    for x in unified_manager.nightly_inactive_nodes.values():
-        if not x.endswith('@nightly'):
-            legacy_custom_nodes.append(x)
-
-    if len(legacy_custom_nodes) > 0:
-        print("\n--------------------- ComfyUI-Manager migration notice --------------------")
-        print("The following custom nodes were installed using the old management method and require migration:\n")
-        print("\n".join(legacy_custom_nodes))
-        print("---------------------------------------------------------------------------\n")
-        need_to_migrate = True
 
 
 def get_comfyui_versions(repo=None):

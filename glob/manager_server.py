@@ -1748,11 +1748,6 @@ async def default_cache_update():
 
     logging.info("[ComfyUI-Manager] All startup tasks have been completed.")
 
-    # NOTE: hide migration button temporarily.
-    # if not core.get_config()['skip_migration_check']:
-    #     await core.check_need_to_migrate()
-    # else:
-    #     logging.info("[ComfyUI-Manager] Migration check is skipped...")
 
 threading.Thread(target=lambda: asyncio.run(default_cache_update())).start()
 

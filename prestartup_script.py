@@ -689,14 +689,6 @@ def execute_lazy_cnr_switch(target, zip_url, from_path, to_path, no_deps, custom
         file.write('\n'.join(list(extracted)))
 
 
-def execute_migration(moves):
-    import shutil
-    for x in moves:
-        if os.path.exists(x[0]) and not os.path.exists(x[1]):
-            shutil.move(x[0], x[1])
-            print(f"[ComfyUI-Manager] MIGRATION: '{x[0]}' -> '{x[1]}'")
-
-
 script_executed = False
 
 def execute_startup_script():
@@ -753,9 +745,6 @@ def execute_startup_script():
                     elif script[1] == "#LAZY-CNR-SWITCH-SCRIPT":
                         execute_lazy_cnr_switch(script[0], script[2], script[3], script[4], script[5], script[6])
                         execute_lazy_install_script(script[3], script[7])
-
-                    elif script[1] == "#LAZY-MIGRATION":
-                        execute_migration(script[2])
 
                     elif script[1] == "#LAZY-DELETE-NODEPACK":
                         execute_lazy_delete(script[2])

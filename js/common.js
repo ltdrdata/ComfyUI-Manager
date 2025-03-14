@@ -182,23 +182,6 @@ export function rebootAPI() {
 }
 
 
-export async function migrateAPI() {
-	let confirmed = await customConfirm("When performing a migration, existing installed custom nodes will be renamed and the server will be restarted. Are you sure you want to apply this?\n\n(If you don't perform the migration, ComfyUI-Manager's start-up time will be longer each time due to re-checking during startup.)")
-	if (confirmed) {
-		try {
-			await api.fetchApi("/manager/migrate_unmanaged_nodes");
-			api.fetchApi("/manager/reboot");
-		}
-		catch(exception) {
-
-		}
-		return true;
-	}
-
-	return false;
-}
-
-
 export var manager_instance = null;
 
 export function setManagerInstance(obj) {

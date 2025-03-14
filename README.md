@@ -314,9 +314,6 @@ The following settings are applied based on the section marked as `is_default`.
 * Use `aria2` as downloader
   * [howto](docs/en/use_aria2.md)
 
-* If you add the item `skip_migration_check = True` to `config.ini`, it will not check whether there are nodes that can be migrated at startup.
-  * This option can be used if performance issues occur in a Colab+GDrive environment.
-
 
 ## Environment Variables
 

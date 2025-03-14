@@ -1271,20 +1271,6 @@ def export_custom_node_ids(
                     print(f"{x['id']}@unknown", file=output_file)
 
 
-@app.command(
-    "migrate",
-    help="Migrate legacy node system to new node system",
-)
-def migrate(
-        user_directory: str = typer.Option(
-            None,
-            help="user directory"
-        )
-):
-    cmd_ctx.set_user_directory(user_directory)
-    asyncio.run(unified_manager.migrate_unmanaged_nodes())
-
-
 if __name__ == '__main__':
     sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
     sys.exit(app())
