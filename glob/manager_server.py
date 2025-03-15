@@ -273,7 +273,7 @@ import zipfile
 import urllib.request
 
 
-def get_model_dir(data, show_log=False) -> str | None:
+def get_model_dir(data, show_log=False):
     if 'download_model_base' in folder_paths.folder_names_and_paths:
         models_base = folder_paths.folder_names_and_paths['download_model_base'][0][0]
     else:
