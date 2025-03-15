@@ -43,7 +43,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 31, 3]
+version_code = [3, 31, 4]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -768,6 +768,9 @@ class UnifiedManager:
 
     @staticmethod
     async def load_nightly(channel, mode):
+        if channel is None:
+            return {}
+
         res = {}
 
         channel_url = normalize_channel(channel)
@@ -798,9 +801,6 @@ class UnifiedManager:
         return res
 
     async def get_custom_nodes(self, channel, mode):
-        # default_channel = normalize_channel('default')
-        # cache = self.custom_node_map_cache.get((default_channel, mode)) # CNR/nightly should always be based on the default channel.
-
         channel = normalize_channel(channel)
         cache = self.custom_node_map_cache.get((channel, mode)) # CNR/nightly should always be based on the default channel.
 
@@ -808,7 +808,6 @@ class UnifiedManager:
             return cache
 
         channel = normalize_channel(channel)
-        print(f"nightly_channel: {channel}/{mode}")
         nodes = await self.load_nightly(channel, mode)
 
         res = {}
@@ -3127,22 +3126,22 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
                 disabled_repos.append(x)
 
             for x in todo_enable:
-                res = unified_manager.unified_enable(x, 'nightly')
+                res = unified_manager.unified_enable(x[0], 'nightly')
 
                 is_switched = False
                 if res and res.target:
                     is_switched = repo_switch_commit(res.target, x[1])
 
                 if is_switched:
-                    checkout_repos.append(x)
+                    checkout_repos.append(f"{x[0]}@{x[1]}")
                 else:
-                    enabled_repos.append(x)
+                    enabled_repos.append(x[0])
 
             for x in todo_checkout:
                 is_switched = repo_switch_commit(x[0], x[1])
 
                 if is_switched:
-                    checkout_repos.append(x)
+                    checkout_repos.append(f"{x[0]}@{x[1]}")
                 else:
                     skip_node_packs.append(x[0])
 
@@ -3205,15 +3204,15 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
             is_switched = repo_switch_commit(res.target, x[1])
 
         if is_switched:
-            checkout_repos.append(x)
+            checkout_repos.append(f"{x[0]}@{x[1]}")
         else:
-            enabled_repos.append(x)
+            enabled_repos.append(x[0])
 
     for x in todo_checkout:
         is_switched = repo_switch_commit(x[0], x[1])
 
         if is_switched:
-            checkout_repos.append(x)
+            checkout_repos.append(f"{x[0]}@{x[1]}")
         else:
             skip_node_packs.append(x[0])
 
