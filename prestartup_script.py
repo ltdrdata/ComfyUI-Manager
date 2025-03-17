@@ -23,15 +23,18 @@ import folder_paths
 
 manager_util.add_python_path_to_env()
 
-import datetime
-if hasattr(datetime, 'datetime'):
-    from datetime import datetime
+import datetime as dt
+
+if hasattr(dt, 'datetime'):
+    from datetime import datetime as dt_datetime
+    
     def current_timestamp():
-        return datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+        return dt_datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
 else:
     # NOTE: Occurs in some Mac environments.
     import time
-    logging.error(f"[ComfyUI-Manager] fallback timestamp mode\n                  datetime module is invalid: '{datetime.__file__}'")
+    logging.error(f"[ComfyUI-Manager] fallback timestamp mode\n                  datetime module is invalid: '{dt.__file__}'")
+    
     def current_timestamp():
         return str(time.time()).split('.')[0]
 
