@@ -35,11 +35,17 @@ def add_python_path_to_env():
 
 
 def make_pip_cmd(cmd):
-    if use_uv:
-        return [sys.executable, '-s', '-m', 'uv', 'pip'] + cmd
+    if 'python_embeded' in sys.executable:
+        if use_uv:
+            return [sys.executable, '-s', '-m', 'uv', 'pip'] + cmd
+        else:
+            return [sys.executable, '-s', '-m', 'pip'] + cmd
     else:
-        return [sys.executable, '-s', '-m', 'pip'] + cmd
-
+        # FIXED: https://github.com/ltdrdata/ComfyUI-Manager/issues/1667
+        if use_uv:
+            return [sys.executable, '-m', 'uv', 'pip'] + cmd
+        else:
+            return [sys.executable, '-m', 'pip'] + cmd
 
 # DON'T USE StrictVersion - cannot handle pre_release version
 # try:
