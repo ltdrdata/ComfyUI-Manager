@@ -1442,12 +1442,20 @@ class UnifiedManager:
             return self.unified_enable(node_id, version_spec)
 
         elif version_spec == 'unknown' or version_spec == 'nightly':
+            to_path = os.path.abspath(os.path.join(get_default_custom_nodes_path(), node_id))
+
             if version_spec == 'nightly':
                 # disable cnr nodes
                 if self.is_enabled(node_id, 'cnr'):
                     self.unified_disable(node_id, False)
 
-            to_path = os.path.abspath(os.path.join(get_default_custom_nodes_path(), node_id))
+                # use `repo name` as a dir name instead of `cnr id` if system added nodepack (i.e. publisher is null)
+                cnr = self.cnr_map.get(node_id)
+
+                if cnr is not None and cnr.get('publisher') is None:
+                    repo_name = os.path.basename(git_utils.normalize_url(repo_url))
+                    to_path = os.path.abspath(os.path.join(get_default_custom_nodes_path(), repo_name))
+
             res = self.repo_install(repo_url, to_path, instant_execution=instant_execution, no_deps=no_deps, return_postinstall=return_postinstall)
             if res.result:
                 if version_spec == 'unknown':
