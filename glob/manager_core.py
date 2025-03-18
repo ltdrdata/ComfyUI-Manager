@@ -43,7 +43,7 @@ import manager_downloader
 from node_package import InstalledNodePackage
 
 
-version_code = [3, 31, 5]
+version_code = [3, 31, 6]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -801,6 +801,10 @@ class UnifiedManager:
         return res
 
     async def get_custom_nodes(self, channel, mode):
+        if channel is None and mode is None:
+            channel = 'default'
+            mode = 'cache'
+
         channel = normalize_channel(channel)
         cache = self.custom_node_map_cache.get((channel, mode)) # CNR/nightly should always be based on the default channel.
 
@@ -3014,6 +3018,9 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
     enabled_repos = []
     disabled_repos = []
     skip_node_packs = []
+    switched_node_packs = []
+    installed_node_packs = []
+    failed = []
 
     await unified_manager.reload('cache')
     await unified_manager.get_custom_nodes('default', 'cache')
@@ -3059,8 +3066,13 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
                 disabled_repos.append(x)
 
             for x in todo_checkout:
-                unified_manager.cnr_switch_version(x[0], x[1], instant_execution=True, no_deps=True, return_postinstall=False)
-                checkout_repos.append(x[1])
+                ps = unified_manager.cnr_switch_version(x[0], x[1], instant_execution=True, no_deps=True, return_postinstall=False)
+                if ps.action == 'switch-cnr' and ps.result:
+                    switched_node_packs.append(f"{x[0]}@{x[1]}")
+                elif ps.action == 'skip':
+                    skip_node_packs.append(f"{x[0]}@{x[1]}")
+                elif not ps.result:
+                    failed.append(f"{x[0]}@{x[1]}")
 
             # install listed cnr nodes
             for k, v in cnr_info.items():
@@ -3068,7 +3080,9 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
                     continue
 
                 ps = await unified_manager.install_by_id(k, version_spec=v, instant_execution=True, return_postinstall=True)
-                cloned_repos.append(k)
+                if ps.action == 'install-cnr' and ps.result:
+                    installed_node_packs.append(f"{k}@{v}")
+
                 if ps is not None and ps.result:
                     if hasattr(ps, 'postinstall'):
                         postinstalls.append(ps.postinstall)
@@ -3142,16 +3156,19 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
 
                 if is_switched:
                     checkout_repos.append(f"{x[0]}@{x[1]}")
-                else:
-                    skip_node_packs.append(x[0])
 
             for x in git_info.keys():
                 normalized_url = git_utils.normalize_url(x)
                 cnr = unified_manager.repo_cnr_map.get(normalized_url)
                 if cnr is not None:
                     pack_id = cnr['id']
-                    await unified_manager.install_by_id(pack_id, 'nightly', instant_execution=True, no_deps=False, return_postinstall=False)
-                    cloned_repos.append(pack_id)
+                    res = await unified_manager.install_by_id(pack_id, 'nightly', instant_execution=True, no_deps=False, return_postinstall=False)
+                    if res.action == 'install-git' and res.result:
+                        cloned_repos.append(pack_id)
+                    elif res.action == 'skip':
+                        skip_node_packs.append(pack_id)
+                    elif not res.result:
+                        failed.append(pack_id)
                     processed_urls.append(x)
 
             for x in processed_urls:
@@ -3232,14 +3249,20 @@ async def restore_snapshot(snapshot_path, git_helper_extras=None):
     # print summary
     for x in cloned_repos:
         print(f"[ INSTALLED ] {x}")
+    for x in installed_node_packs:
+        print(f"[ INSTALLED ] {x}")
     for x in checkout_repos:
         print(f"[  CHECKOUT ] {x}")
+    for x in switched_node_packs:
+        print(f"[  SWITCHED ] {x}")
     for x in enabled_repos:
         print(f"[  ENABLED  ] {x}")
     for x in disabled_repos:
         print(f"[  DISABLED ] {x}")
     for x in skip_node_packs:
-        print(f"[  SKIPPED ] {x}")
+        print(f"[  SKIPPED  ] {x}")
+    for x in failed:
+        print(f"[  FAILED   ] {x}")
 
     # if is_failed:
     #     print("[bold red]ERROR: Failed to restore snapshot.[/bold red]")
