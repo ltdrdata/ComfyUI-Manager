@@ -32,18 +32,15 @@ from packaging import version
 
 import uuid
 
-glob_path = os.path.join(os.path.dirname(__file__))  # ComfyUI-Manager/glob
-sys.path.append(glob_path)
-
-import cm_global
-import cnr_utils
-import manager_util
-import git_utils
-import manager_downloader
-from node_package import InstalledNodePackage
+from . import cm_global
+from . import cnr_utils
+from . import manager_util
+from . import git_utils
+from . import manager_downloader
+from .node_package import InstalledNodePackage
 
 
-version_code = [3, 31, 7]
+version_code = [4, 0]
 version_str = f"V{version_code[0]}.{version_code[1]}" + (f'.{version_code[2]}' if len(version_code) > 2 else '')
 
 
@@ -57,6 +54,7 @@ class InvalidChannel(Exception):
     def __init__(self, channel):
         self.channel = channel
         super().__init__(channel)
+
 
 def get_default_custom_nodes_path():
     global default_custom_nodes_path
@@ -183,10 +181,11 @@ comfy_base_path = os.environ.get('COMFYUI_FOLDERS_BASE_PATH')
 
 if comfy_path is None:
     try:
-        import folder_paths
-        comfy_path = os.path.join(os.path.dirname(folder_paths.__file__))
+        comfy_path = os.path.abspath(os.path.dirname(sys.modules['__main__'].__file__))
+        os.environ['COMFYUI_PATH'] = comfy_path
     except:
-        comfy_path = os.path.abspath(os.path.join(manager_util.comfyui_manager_path, '..', '..'))
+        logging.error("[ComfyUI-Manager] environment variable 'COMFYUI_PATH' is not specified.")
+        exit(-1)
 
 if comfy_base_path is None:
     comfy_base_path = comfy_path
@@ -2214,7 +2213,7 @@ async def get_data_by_mode(mode, filename, channel_url=None):
                         with open(cache_uri, "w", encoding='utf-8') as file:
                             json.dump(json_obj, file, indent=4, sort_keys=True)
     except Exception as e:
-        print(f"[ComfyUI-Manager] Due to a network error, switching to local mode.\n=> {filename}\n=> {e}")
+        print(f"[ComfyUI-Manager] Due to a network error, switching to local mode.\n=> {filename} @ {channel_url}/{mode}\n=> {e}")
         uri = os.path.join(manager_util.comfyui_manager_path, filename)
         json_obj = await manager_util.get_data(uri)
 

@@ -415,7 +415,7 @@ const style = `
 `;
 
 async function init_share_option() {
-	api.fetchApi('/manager/share_option')
+	api.fetchApi('/v2/manager/share_option')
 		.then(response => response.text())
 		.then(data => {
 			share_option = data || 'all';
@@ -423,7 +423,7 @@ async function init_share_option() {
 }
 
 async function init_notice(notice) {
-	api.fetchApi('/manager/notice')
+	api.fetchApi('/v2/manager/notice')
 		.then(response => response.text())
 		.then(data => {
 			notice.innerHTML = data;
@@ -476,12 +476,12 @@ async function updateComfyUI() {
 
 	set_inprogress_mode();
 
-	const response = await api.fetchApi('/manager/queue/update_comfyui');
+	const response = await api.fetchApi('/v2/manager/queue/update_comfyui');
 
 	showTerminal();
 
 	is_updating = true;
-	await api.fetchApi('/manager/queue/start');
+	await api.fetchApi('/v2/manager/queue/start');
 }
 
 function showVersionSelectorDialog(versions, current, onSelect) {
@@ -612,7 +612,7 @@ async function switchComfyUI() {
 	switch_comfyui_button.disabled = true;
 	switch_comfyui_button.style.backgroundColor = "gray";
 	
-	let res = await api.fetchApi(`/comfyui_manager/comfyui_versions`, { cache: "no-store" });
+	let res = await api.fetchApi(`/v2/comfyui_manager/comfyui_versions`, { cache: "no-store" });
 
 	switch_comfyui_button.disabled = false;
 	switch_comfyui_button.style.backgroundColor = "";
@@ -631,14 +631,14 @@ async function switchComfyUI() {
 		showVersionSelectorDialog(versions, obj.current, async (selected_version) => {
 			if(selected_version == 'nightly') {
 				update_policy_combo.value = 'nightly-comfyui';
-				api.fetchApi('/manager/policy/update?value=nightly-comfyui');
+				api.fetchApi('/v2/manager/policy/update?value=nightly-comfyui');
 			}
 			else {
 				update_policy_combo.value = 'stable-comfyui';
-				api.fetchApi('/manager/policy/update?value=stable-comfyui');
+				api.fetchApi('/v2/manager/policy/update?value=stable-comfyui');
 			}
 
-			let response = await api.fetchApi(`/comfyui_manager/comfyui_switch_version?ver=${selected_version}`, { cache: "no-store" });
+			let response = await api.fetchApi(`/v2/comfyui_manager/comfyui_switch_version?ver=${selected_version}`, { cache: "no-store" });
 			if (response.status == 200) {
 				infoToast(`ComfyUI version is switched to ${selected_version}`);
 			}
@@ -775,17 +775,17 @@ async function updateAll(update_comfyui) {
 
 	if(update_comfyui) {
 		update_all_button.innerText = "Updating ComfyUI...";
-		await api.fetchApi('/manager/queue/update_comfyui');
+		await api.fetchApi('/v2/manager/queue/update_comfyui');
 	}
 
-	const response = await api.fetchApi(`/manager/queue/update_all?mode=${mode}`);
+	const response = await api.fetchApi(`/v2/manager/queue/update_all?mode=${mode}`);
 
 	if (response.status == 401) {
 		customAlert('Another task is already in progress. Please stop the ongoing task first.');
 	}
 	else if(response.status == 200) {
 		is_updating = true;
-		await api.fetchApi('/manager/queue/start');
+		await api.fetchApi('/v2/manager/queue/start');
 	}
 }
 
@@ -814,7 +814,7 @@ function restartOrStop() {
 		rebootAPI();
 	}
 	else {
-		api.fetchApi('/manager/queue/reset');
+		api.fetchApi('/v2/manager/queue/reset');
 		infoToast('Cancel', 'Remaining tasks will stop after completing the current task.');
 	}
 }
@@ -962,12 +962,12 @@ class ManagerMenuDialog extends ComfyDialog {
 		this.datasrc_combo.appendChild($el('option', { value: 'local', text: 'DB: Local' }, []));
 		this.datasrc_combo.appendChild($el('option', { value: 'remote', text: 'DB: Channel (remote)' }, []));
 
-		api.fetchApi('/manager/db_mode')
+		api.fetchApi('/v2/manager/db_mode')
 			.then(response => response.text())
 			.then(data => { this.datasrc_combo.value = data; });
 
 		this.datasrc_combo.addEventListener('change', function (event) {
-			api.fetchApi(`/manager/db_mode?value=${event.target.value}`);
+			api.fetchApi(`/v2/manager/db_mode?value=${event.target.value}`);
 		});
 
 		// preview method
@@ -979,19 +979,19 @@ class ManagerMenuDialog extends ComfyDialog {
 		preview_combo.appendChild($el('option', { value: 'latent2rgb', text: 'Preview method: Latent2RGB (fast)' }, []));
 		preview_combo.appendChild($el('option', { value: 'none', text: 'Preview method: None (very fast)' }, []));
 
-		api.fetchApi('/manager/preview_method')
+		api.fetchApi('/v2/manager/preview_method')
 			.then(response => response.text())
 			.then(data => { preview_combo.value = data; });
 
 		preview_combo.addEventListener('change', function (event) {
-			api.fetchApi(`/manager/preview_method?value=${event.target.value}`);
+			api.fetchApi(`/v2/manager/preview_method?value=${event.target.value}`);
 		});
 
 		// channel
 		let channel_combo = document.createElement("select");
 		channel_combo.setAttribute("title", "Configure the channel for retrieving data from the Custom Node list (including missing nodes) or the Model list.");
 		channel_combo.className = "cm-menu-combo";
-		api.fetchApi('/manager/channel_url_list')
+		api.fetchApi('/v2/manager/channel_url_list')
 			.then(response => response.json())
 			.then(async data => {
 				try {
@@ -1004,7 +1004,7 @@ class ManagerMenuDialog extends ComfyDialog {
 					}
 
 					channel_combo.addEventListener('change', function (event) {
-						api.fetchApi(`/manager/channel_url_list?value=${event.target.value}`);
+						api.fetchApi(`/v2/manager/channel_url_list?value=${event.target.value}`);
 					});
 
 					channel_combo.value = data.selected;
@@ -1032,7 +1032,7 @@ class ManagerMenuDialog extends ComfyDialog {
 			share_combo.appendChild($el('option', { value: option[0], text: `Share: ${option[1]}` }, []));
 		}
 
-		api.fetchApi('/manager/share_option')
+		api.fetchApi('/v2/manager/share_option')
 			.then(response => response.text())
 			.then(data => {
 				share_combo.value = data || 'all';
@@ -1042,7 +1042,7 @@ class ManagerMenuDialog extends ComfyDialog {
 		share_combo.addEventListener('change', function (event) {
 			const value = event.target.value;
 			share_option = value;
-			api.fetchApi(`/manager/share_option?value=${value}`);
+			api.fetchApi(`/v2/manager/share_option?value=${value}`);
 			const shareButton = document.getElementById("shareButton");
 			if (value === 'none') {
 				shareButton.style.display = "none";
@@ -1057,7 +1057,7 @@ class ManagerMenuDialog extends ComfyDialog {
 		component_policy_combo.appendChild($el('option', { value: 'workflow', text: 'Component: Use workflow version' }, []));
 		component_policy_combo.appendChild($el('option', { value: 'higher', text: 'Component: Use higher version' }, []));
 		component_policy_combo.appendChild($el('option', { value: 'mine', text: 'Component: Use my version' }, []));
-		api.fetchApi('/manager/policy/component')
+		api.fetchApi('/v2/manager/policy/component')
 			.then(response => response.text())
 			.then(data => {
 				component_policy_combo.value = data;
@@ -1065,7 +1065,7 @@ class ManagerMenuDialog extends ComfyDialog {
 			});
 
 		component_policy_combo.addEventListener('change', function (event) {
-			api.fetchApi(`/manager/policy/component?value=${event.target.value}`);
+			api.fetchApi(`/v2/manager/policy/component?value=${event.target.value}`);
 			set_component_policy(event.target.value);
 		});
 
@@ -1078,14 +1078,14 @@ class ManagerMenuDialog extends ComfyDialog {
 		update_policy_combo.className = "cm-menu-combo";
 		update_policy_combo.appendChild($el('option', { value: 'stable-comfyui', text: 'Update: ComfyUI Stable Version' }, []));
 		update_policy_combo.appendChild($el('option', { value: 'nightly-comfyui', text: 'Update: ComfyUI Nightly Version' }, []));
-		api.fetchApi('/manager/policy/update')
+		api.fetchApi('/v2/manager/policy/update')
 			.then(response => response.text())
 			.then(data => {
 				update_policy_combo.value = data;
 			});
 
 		update_policy_combo.addEventListener('change', function (event) {
-			api.fetchApi(`/manager/policy/update?value=${event.target.value}`);
+			api.fetchApi(`/v2/manager/policy/update?value=${event.target.value}`);
 		});
 
 		return [
@@ -1388,12 +1388,12 @@ class ManagerMenuDialog extends ComfyDialog {
 }
 
 async function getVersion() {
-	let version = await api.fetchApi(`/manager/version`);
+	let version = await api.fetchApi(`/v2/manager/version`);
 	return await version.text();
 }
 
 app.registerExtension({
-	name: "Comfy.ManagerMenu",
+	name: "Comfy.Legacy.ManagerMenu",
 
 	aboutPageBadges: [
 		{
