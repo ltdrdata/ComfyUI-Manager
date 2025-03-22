@@ -842,6 +842,14 @@
             "title_aux": "ComfyUI e621 booru Toolkit"
         }
     ],
+    "https://github.com/Dreamshot-io/ComfyUI-Extend-Resolution": [
+        [
+            "ResolutionPadding"
+        ],
+        {
+            "title_aux": "ComfyUI-Extend-Resolution"
+        }
+    ],
     "https://github.com/Eagle-CN/ComfyUI-Addoor": [
         [
             "AD_AnyFileList",
@@ -1534,7 +1542,13 @@
             "SetAppidNode",
             "TextToJsonNode",
             "TranslateAPINode",
+            "Wan21_get_Node",
+            "Wan21_post_Node",
             "ZIPwith7zNode",
+            "cogvideox_flash_get_Node",
+            "cogvideox_flash_post_Node",
+            "cogview_3_flash_Node",
+            "file_analysis_Node",
             "find_files_by_extension_Node",
             "img_understanding_Node",
             "klingai_video_Node",
@@ -2754,6 +2768,7 @@
             "EmptyImage",
             "EmptyLTXVLatentVideo",
             "EmptyLatentAudio",
+            "EmptyLatentHunyuan3Dv2",
             "EmptyLatentImage",
             "EmptyMochiLatentVideo",
             "EmptySD3LatentImage",
@@ -2768,6 +2783,8 @@
             "GLIGENLoader",
             "GLIGENTextBoxApply",
             "GrowMask",
+            "Hunyuan3Dv2Conditioning",
+            "Hunyuan3Dv2ConditioningMultiView",
             "HunyuanImageToVideo",
             "HyperTile",
             "HypernetworkLoader",
@@ -2783,12 +2800,14 @@
             "ImageOnlyCheckpointSave",
             "ImagePadForOutpaint",
             "ImageQuantize",
+            "ImageRGBToYUV",
             "ImageScale",
             "ImageScaleBy",
             "ImageScaleToTotalPixels",
             "ImageSharpen",
             "ImageToMask",
             "ImageUpscaleWithModel",
+            "ImageYUVToRGB",
             "InpaintModelConditioning",
             "InstructPixToPixConditioning",
             "InvertMask",
@@ -2833,6 +2852,7 @@
             "LoraLoader",
             "LoraLoaderModelOnly",
             "LoraSave",
+            "LotusConditioning",
             "Mahiro",
             "MaskComposite",
             "MaskToImage",
@@ -2874,6 +2894,10 @@
             "Preview3DAnimation",
             "PreviewAudio",
             "PreviewImage",
+            "PrimitiveBoolean",
+            "PrimitiveFloat",
+            "PrimitiveInt",
+            "PrimitiveString",
             "RandomNoise",
             "RebatchImages",
             "RebatchLatents",
@@ -2900,6 +2924,7 @@
             "SaveAnimatedPNG",
             "SaveAnimatedWEBP",
             "SaveAudio",
+            "SaveGLB",
             "SaveImage",
             "SaveImageWebsocket",
             "SaveLatent",
@@ -2970,6 +2995,7 @@
             "UpscaleModelLoader",
             "VAEDecode",
             "VAEDecodeAudio",
+            "VAEDecodeHunyuan3D",
             "VAEDecodeTiled",
             "VAEEncode",
             "VAEEncodeAudio",
@@ -2980,6 +3006,7 @@
             "VPScheduler",
             "VideoLinearCFGGuidance",
             "VideoTriangleCFGGuidance",
+            "VoxelToMeshBasic",
             "WanImageToVideo",
             "WebcamCapture",
             "unCLIPCheckpointLoader",
@@ -3398,6 +3425,7 @@
     ],
     "https://github.com/grinlau18/ComfyUI_XISER_Nodes": [
         [
+            "XIS_CompositorProcessor",
             "XIS_CropImage",
             "XIS_Float_Slider",
             "XIS_FromListGet1Color",
@@ -3414,6 +3442,8 @@
             "XIS_ImageMaskMirror",
             "XIS_InvertMask",
             "XIS_IsThereAnyData",
+            "XIS_KSamplerSettingsNode",
+            "XIS_KSamplerSettingsUnpackNode",
             "XIS_PromptsWithSwitches",
             "XIS_ReorderImageMaskGroups",
             "XIS_ResizeImageOrMask",
@@ -3749,6 +3779,7 @@
             "AsunaroOr",
             "AsunaroPromptStripper",
             "AsunaroRandomDice",
+            "AsunaroResolutions",
             "AsunaroSave",
             "AsunaroTextConcatenator",
             "AsunaroWildCard"
@@ -3880,6 +3911,7 @@
     ],
     "https://github.com/jonnydolake/ComfyUI-AIR-Nodes": [
         [
+            "DisplaceImage",
             "ExtractBlackLines",
             "ForceMinimumBatchSize",
             "ImageCompositeChained",
@@ -4077,7 +4109,8 @@
             "Hy3DSetMeshPBRTextures",
             "Hy3DTorchCompileSettings",
             "Hy3DUploadMesh",
-            "Hy3DVAEDecode"
+            "Hy3DVAEDecode",
+            "Hy3DVAELoader"
         ],
         {
             "title_aux": "ComfyUI-ComfyUI-Hunyuan3DWrapper [WIP]"
@@ -4176,6 +4209,7 @@
             "LoadWanVideoClipTextEncoder",
             "LoadWanVideoT5TextEncoder",
             "WanVideoBlockSwap",
+            "WanVideoClipVisionEncode",
             "WanVideoContextOptions",
             "WanVideoControlEmbeds",
             "WanVideoDecode",
@@ -4184,6 +4218,7 @@
             "WanVideoEnhanceAVideo",
             "WanVideoFlowEdit",
             "WanVideoImageClipEncode",
+            "WanVideoImageToVideoEncode",
             "WanVideoLatentPreview",
             "WanVideoLoopArgs",
             "WanVideoLoraBlockEdit",
@@ -4226,13 +4261,17 @@
             "AIO_Translater",
             "Abc_Math",
             "Baidu_Translater",
-            "BiRefNet_Loader",
             "Color_Adjustment",
             "Custom_Save_Image",
             "Display_Any",
+            "Image_Composer",
+            "Image_Cropper",
+            "Image_Resizer",
             "Image_Size_Extractor",
+            "Kay_BiRefNet_Loader",
             "Load_Image_Folder",
             "Mask_Blur_Plus",
+            "Mask_Filler",
             "Preview_Mask",
             "Preview_Mask_Plus",
             "RemBG_Loader",
@@ -4342,6 +4381,16 @@
         ],
         {
             "title_aux": "comfyui-python-cowboy [UNSAFE]"
+        }
+    ],
+    "https://github.com/l1yongch1/ComfyUI-YcNodes": [
+        [
+            "PaddingAccordingToBackground",
+            "RemoveHighlightAndBlur",
+            "RoundedCorners"
+        ],
+        {
+            "title_aux": "ComfyUI-YcNodes"
         }
     ],
     "https://github.com/laksjdjf/ssd-1b-comfyui": [
@@ -4565,7 +4614,6 @@
             "polymath_SaveAbsolute",
             "polymath_chat",
             "polymath_concept_eraser",
-            "polymath_dsd_sampler",
             "polymath_helper",
             "polymath_scraper"
         ],
