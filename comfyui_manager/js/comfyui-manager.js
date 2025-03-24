@@ -665,7 +665,7 @@ async function onQueueStatus(event) {
 		update_all_button.innerText = `in progress.. (${event.detail.done_count}/${event.detail.total_count})`;
 	}
 	else if(event.detail.status == 'all-done') {
-//		reset_action_buttons();
+		reset_action_buttons();
 	}
 	else if(event.detail.status == 'batch-done') {
 		if(batch_id != event.detail.batch_id) {

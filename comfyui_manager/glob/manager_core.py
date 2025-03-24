@@ -261,7 +261,7 @@ comfy_ui_revision = "Unknown"
 comfy_ui_commit_datetime = datetime(1900, 1, 1, 0, 0, 0)
 
 channel_dict = None
-valid_channels = set()
+valid_channels = {'default', 'local'}
 channel_list = None
 
 
