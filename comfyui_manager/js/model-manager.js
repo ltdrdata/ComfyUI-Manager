@@ -472,7 +472,7 @@ export class ModelManager {
 
 			if(failed.length > 0) {
 				for(let k in failed) {
-					let hash = failed[k].ui_id;
+					let hash = failed[k];
 					const item = self.grid.getRowItemBy("hash", hash);
 					errorMsg = `[FAIL] ${item.title}`;
 				}
