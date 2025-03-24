@@ -14,9 +14,9 @@ import { OpenArtShareDialog } from "./comfyui-share-openart.js";
 import {
 	free_models, install_pip, install_via_git_url, manager_instance,
 	rebootAPI, setManagerInstance, show_message, customAlert, customPrompt,
-	infoToast, showTerminal, setNeedRestart
+	infoToast, showTerminal, setNeedRestart, generateUUID
 } from "./common.js";
-import { ComponentBuilderDialog, getPureName, load_components, set_component_policy } from "./components-manager.js";
+import { ComponentBuilderDialog, load_components, set_component_policy } from "./components-manager.js";
 import { CustomNodesManager } from "./custom-nodes-manager.js";
 import { ModelManager } from "./model-manager.js";
 import { SnapshotManager } from "./snapshot.js";
@@ -232,7 +232,7 @@ var restart_stop_button = null;
 var update_policy_combo = null;
 
 let share_option = 'all';
-var is_updating = false;
+var batch_id = null;
 
 
 // copied style from https://github.com/pythongosssss/ComfyUI-Custom-Scripts
@@ -474,14 +474,19 @@ async function updateComfyUI() {
 	let prev_text = update_comfyui_button.innerText;
 	update_comfyui_button.innerText = "Updating ComfyUI...";
 
-	set_inprogress_mode();
-
-	const response = await api.fetchApi('/v2/manager/queue/update_comfyui');
-
+//	set_inprogress_mode();
 	showTerminal();
+	
+	batch_id = generateUUID();
+	
+	let batch = {};
+	batch['batch_id'] = batch_id;
+	batch['update_comfyui'] = true;
 
-	is_updating = true;
-	await api.fetchApi('/v2/manager/queue/start');
+	const res = await api.fetchApi(`/v2/manager/queue/batch`, {
+		method: 'POST',
+		body: JSON.stringify(batch)
+	});
 }
 
 function showVersionSelectorDialog(versions, current, onSelect) {
@@ -656,18 +661,17 @@ async function onQueueStatus(event) {
 	const isElectron = 'electronAPI' in window;
 
 	if(event.detail.status == 'in_progress') {
-		set_inprogress_mode();
+//		set_inprogress_mode();
 		update_all_button.innerText = `in progress.. (${event.detail.done_count}/${event.detail.total_count})`;
 	}
-	else if(event.detail.status == 'done') {
-		reset_action_buttons();
-
-		if(!is_updating)  {
+	else if(event.detail.status == 'all-done') {
+//		reset_action_buttons();
+	}
+	else if(event.detail.status == 'batch-done') {
+		if(batch_id != event.detail.batch_id) {
 			return;
 		}
-
-		is_updating = false;
-
+		
 		let success_list = [];
 		let failed_list = [];
 		let comfyui_state = null;
@@ -767,40 +771,27 @@ api.addEventListener("cm-queue-status", onQueueStatus);
 async function updateAll(update_comfyui) {
 	update_all_button.innerText = "Updating...";
 
-	set_inprogress_mode();
+//	set_inprogress_mode();
 
 	var mode = manager_instance.datasrc_combo.value;
 
 	showTerminal();
 
+	batch_id = generateUUID();
+	
+	let batch = {};
 	if(update_comfyui) {
 		update_all_button.innerText = "Updating ComfyUI...";
-		await api.fetchApi('/v2/manager/queue/update_comfyui');
+		batch['update_comfyui'] = true;
 	}
 
-	const response = await api.fetchApi(`/v2/manager/queue/update_all?mode=${mode}`);
+	batch['update_all'] = mode;
 
-	if (response.status == 401) {
-		customAlert('Another task is already in progress. Please stop the ongoing task first.');
-	}
-	else if(response.status == 200) {
-		is_updating = true;
-		await api.fetchApi('/v2/manager/queue/start');
-	}
+	const res = await api.fetchApi(`/v2/manager/queue/batch`, {
+		method: 'POST',
+		body: JSON.stringify(batch)
+	});
 }
-
-function newDOMTokenList(initialTokens) {
-	const tmp = document.createElement(`div`);
-
-	const classList = tmp.classList;
-	if (initialTokens) {
-		initialTokens.forEach(token => {
-		classList.add(token);
-		});
-	}
-
-	return classList;
-	}
 
 /**
  * Check whether the node is a potential output node (img, gif or video output)

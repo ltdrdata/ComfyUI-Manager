@@ -3,7 +3,7 @@ import { $el } from "../../scripts/ui.js";
 import { 
 	manager_instance, rebootAPI, 
 	fetchData, md5, icons, show_message, customAlert, infoToast, showTerminal,
-	storeColumnWidth, restoreColumnWidth, loadCss
+	storeColumnWidth, restoreColumnWidth, loadCss, generateUUID
 } from  "./common.js";
 import { api } from "../../scripts/api.js";
 
@@ -413,23 +413,15 @@ export class ModelManager {
 	}
 
 	async installModels(list, btn) {
-		let stats = await api.fetchApi('/v2/manager/queue/status');
-
-		stats = await stats.json();
-		if(stats.is_processing) {
-			customAlert(`[ComfyUI-Manager] There are already tasks in progress. Please try again after it is completed. (${stats.done_count}/${stats.total_count})`);
-			return;
-		}
-
 		btn.classList.add("cmm-btn-loading");
 		this.showError("");
 
 		let needRefresh = false;
 		let errorMsg = "";
 
-		await api.fetchApi('/v2/manager/queue/reset');
-
 		let target_items = [];
+
+		let batch = {};
 
 		for (const item of list) {
 			this.grid.scrollRowIntoView(item);
@@ -446,21 +438,12 @@ export class ModelManager {
 			const data = item.originalData;
 			data.ui_id = item.hash;
 
-			const res = await api.fetchApi(`/v2/manager/queue/install_model`, {
-				method: 'POST',
-				body: JSON.stringify(data)
-			});
 
-			if (res.status != 200) {
-				errorMsg = `'${item.name}': `;
-
-				if(res.status == 403) {
-					errorMsg += `This action is not allowed with this security level configuration.\n`;
-				} else {
-					errorMsg += await res.text() + '\n';
-				}
-
-				break;
+			if(batch['install_model']) {
+				batch['install_model'].push(data);
+			}
+			else {
+				batch['install_model'] = [data];
 			}
 		}
 
@@ -477,7 +460,24 @@ export class ModelManager {
 			}
 		}
 		else {
-			await api.fetchApi('/v2/manager/queue/start');
+			this.batch_id = generateUUID();
+			batch['batch_id'] = this.batch_id;
+
+			const res = await api.fetchApi(`/v2/manager/queue/batch`, {
+				method: 'POST',
+				body: JSON.stringify(batch)
+			});
+
+			let failed = await res.json();
+
+			if(failed.length > 0) {
+				for(let k in failed) {
+					let hash = failed[k].ui_id;
+					const item = self.grid.getRowItemBy("hash", hash);
+					errorMsg = `[FAIL] ${item.title}`;
+				}
+			}
+
 			this.showStop();
 			showTerminal();
 		}
@@ -497,7 +497,7 @@ export class ModelManager {
 //			self.grid.updateCell(item, "tg-column-select");
 			self.grid.updateRow(item);
 		}
-		else if(event.detail.status == 'done') {
+		else if(event.detail.status == 'batch-done') {
 			self.hideStop();
 			self.onQueueCompleted(event.detail);
 		}

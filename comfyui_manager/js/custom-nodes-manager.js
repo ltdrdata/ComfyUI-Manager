@@ -7,7 +7,7 @@ import {
 	fetchData, md5, icons, show_message, customConfirm, customAlert, customPrompt,
 	sanitizeHTML, infoToast, showTerminal, setNeedRestart,
 	storeColumnWidth, restoreColumnWidth, getTimeAgo, copyText, loadCss,
-	showPopover, hidePopover
+	showPopover, hidePopover, generateUUID
 } from  "./common.js";
 
 // https://cenfun.github.io/turbogrid/api.html
@@ -1439,13 +1439,6 @@ export class CustomNodesManager {
 	}
 
 	async installNodes(list, btn, title, selected_version) {
-		let stats = await api.fetchApi('/v2/manager/queue/status');
-		stats = await stats.json();
-		if(stats.is_processing) {
-			customAlert(`[ComfyUI-Manager] There are already tasks in progress. Please try again after it is completed. (${stats.done_count}/${stats.total_count})`);
-			return;
-		}
-
 		const { target, label, mode} = btn;
 
 		if(mode === "uninstall") {
@@ -1472,9 +1465,9 @@ export class CustomNodesManager {
 		let needRestart = false;
 		let errorMsg = "";
 
-		await api.fetchApi('/v2/manager/queue/reset');
-
 		let target_items = [];
+
+		let batch = {};
 
 		for (const hash of list) {
 			const item = this.grid.getRowItemBy("hash", hash);
@@ -1517,23 +1510,11 @@ export class CustomNodesManager {
 				api_mode = 'reinstall';
 			}
 
-			const res = await api.fetchApi(`/v2/manager/queue/${api_mode}`, {
-				method: 'POST',
-				body: JSON.stringify(data)
-			});
-
-			if (res.status != 200) {
-				errorMsg = `'${item.title}': `;
-
-				if(res.status == 403) {
-					errorMsg += `This action is not allowed with this security level configuration.\n`;
-				} else if(res.status == 404) {
-					errorMsg += `With the current security level configuration, only custom nodes from the <B>"default channel"</B> can be installed.\n`;
-				} else {
-					errorMsg += await res.text() + '\n';
-				}
-
-				break;
+			if(batch[api_mode]) {
+				batch[api_mode].push(data);
+			}
+			else {
+				batch[api_mode] = [data];
 			}
 		}
 
@@ -1550,7 +1531,24 @@ export class CustomNodesManager {
 			}
 		}
 		else {
-			await api.fetchApi('/v2/manager/queue/start');
+			this.batch_id = generateUUID();
+			batch['batch_id'] = this.batch_id;
+			
+			const res = await api.fetchApi(`/v2/manager/queue/batch`, {
+				method: 'POST',
+				body: JSON.stringify(batch)
+			});
+
+			let failed = await res.json();
+
+			if(failed.length > 0) {
+				for(let k in failed) {
+					let hash = failed[k].ui_id;
+					const item = this.grid.getRowItemBy("hash", hash);
+					errorMsg = `[FAIL] ${item.title}`;
+				}
+			}
+			
 			this.showStop();
 			showTerminal();
 		}
@@ -1568,7 +1566,7 @@ export class CustomNodesManager {
 			self.grid.updateCell(item, "action");
 			self.grid.setRowSelected(item, false);
 		}
-		else if(event.detail.status == 'done') {
+		else if(event.detail.status == 'batch-done' && event.detail.batch_id == self.batch_id) {
 			self.hideStop();
 			self.onQueueCompleted(event.detail);
 		}

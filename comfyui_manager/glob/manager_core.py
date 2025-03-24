@@ -202,6 +202,7 @@ manager_snapshot_path = None
 manager_pip_overrides_path = None
 manager_pip_blacklist_path = None
 manager_components_path = None
+manager_batch_history_path = None
 
 def update_user_directory(user_dir):
     global manager_files_path
@@ -212,6 +213,7 @@ def update_user_directory(user_dir):
     global manager_pip_overrides_path
     global manager_pip_blacklist_path
     global manager_components_path
+    global manager_batch_history_path
 
     manager_files_path = os.path.abspath(os.path.join(user_dir, 'default', 'ComfyUI-Manager'))
     if not os.path.exists(manager_files_path):
@@ -231,9 +233,13 @@ def update_user_directory(user_dir):
     manager_pip_blacklist_path = os.path.join(manager_files_path, "pip_blacklist.list")
     manager_components_path = os.path.join(manager_files_path, "components")
     manager_util.cache_dir = os.path.join(manager_files_path, "cache")
+    manager_batch_history_path = os.path.join(manager_files_path, "batch_history")
 
     if not os.path.exists(manager_util.cache_dir):
         os.makedirs(manager_util.cache_dir)
+    
+    if not os.path.exists(manager_batch_history_path):
+        os.makedirs(manager_batch_history_path)
 
 try:
     import folder_paths
