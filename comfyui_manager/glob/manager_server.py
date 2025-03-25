@@ -651,7 +651,7 @@ async def task_worker():
             if len(task_batch_queue) > 0:
                 cur_batch = task_batch_queue[0]
             else:
-                logging.info(f"\n[ComfyUI-Manager] All tasks are completed.")
+                logging.info("\n[ComfyUI-Manager] All tasks are completed.")
                 logging.info("\nAfter restarting ComfyUI, please refresh the browser.")
 
                 res = {'status': 'all-done'}
@@ -1285,7 +1285,7 @@ async def reset_queue(request):
 
 
 @routes.get("/v2/manager/queue/abort_current")
-async def reset_queue(request):
+async def abort_queue(request):
     global task_batch_queue
     global temp_queue_batch
 
