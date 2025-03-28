@@ -1047,18 +1047,16 @@ def save_snapshot(
 ):
     cmd_ctx.set_user_directory(user_directory)
 
-    if output is None:
-        print("[bold red]ERROR: missing output path[/bold red]")
-        raise typer.Exit(code=1)
-        
-    if(not output.endswith('.json') and not output.endswith('.yaml')):
-        print("[bold red]ERROR: output path should be either '.json' or '.yaml' file.[/bold red]")
-        raise typer.Exit(code=1)
+    if output is not None:
+        if(not output.endswith('.json') and not output.endswith('.yaml')):
+            print("[bold red]ERROR: output path should be either '.json' or '.yaml' file.[/bold red]")
+            raise typer.Exit(code=1)
     
-    dir_path = os.path.dirname(output)
-    if(dir_path != '' and not os.path.exists(dir_path)):
-        print(f"[bold red]ERROR: {output} path not exists.[/bold red]")
-        raise typer.Exit(code=1)
+        dir_path = os.path.dirname(output)
+        
+        if(dir_path != '' and not os.path.exists(dir_path)):
+            print(f"[bold red]ERROR: {output} path not exists.[/bold red]")
+            raise typer.Exit(code=1)
         
     path = asyncio.run(core.save_snapshot_with_postfix('snapshot', output, not full_snapshot))
     print(f"Current snapshot is saved as `{path}`")
